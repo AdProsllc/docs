@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adpros Brand Intelligence Analyzer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAF8;
+    --ap-orange: #E8593C;
+    --ap-orange-light: #F2845C;
+    --ap-orange-dim: rgba(232,89,60,0.12);
+    --ap-orange-glow: rgba(232,89,60,0.06);
+    --gray-1: #F5F4F0;
+    --gray-2: #E8E6E0;
+    --gray-3: #B0ADA5;
+    --gray-dark: #1C1B19;
+    --text-muted: #6B6860;
+    --border: rgba(0,0,0,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    color: var(--black);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ap-orange); display: inline-block; }
+
+  .nav-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ap-orange);
+    background: var(--ap-orange-dim);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(232,89,60,0.2);
+    letter-spacing: 0.3px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 48px 64px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ap-orange);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--black);
+    max-width: 800px;
+    margin-bottom: 24px;
+  }
+
+  h1 span {
+    color: var(--ap-orange);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  /* ── PIPELINE SECTION ── */
+  .pipeline-section {
+    background: var(--gray-dark);
+    color: var(--white);
+    padding: 72px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pipeline-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--ap-orange-dim);
+    filter: blur(60px);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ap-orange);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    color: var(--white);
+    margin-bottom: 48px;
+    max-width: 440px;
+    line-height: 1.2;
+  }
+
+  /* Pipeline flow */
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    position: relative;
+    max-width: 1000px;
+  }
+
+  .pipe-step {
+    flex: 1;
+    position: relative;
+  }
+
+  .pipe-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    flex-shrink: 0;
+    padding-top: 28px;
+  }
+
+  .pipe-connector svg { opacity: 0.4; }
+
+  .pipe-card {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 24px 20px;
+    height: 100%;
+    background: rgba(255,255,255,0.04);
+    transition: background 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+
+  .pipe-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(232,89,60,0.4);
+  }
+
+  .pipe-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ap-orange);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .pipe-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .pipe-desc {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.55;
+  }
+
+  .pipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 12px;
+  }
+
+  .tag {
+    font-size: 10.5px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.08);
+    white-space: nowrap;
+  }
+
+  .tag.hot {
+    background: var(--ap-orange-dim);
+    color: var(--ap-orange-light);
+    border-color: rgba(232,89,60,0.25);
+  }
+
+  /* ── OUTPUTS SECTION ── */
+  .outputs-section {
+    padding: 72px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .outputs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .output-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    background: var(--gray-1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .output-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(232,89,60,0.3);
+  }
+
+  .output-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--ap-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .output-card:hover::after { transform: scaleX(1); }
+
+  .output-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--ap-orange-dim);
+    border: 1px solid rgba(232,89,60,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .output-icon svg { width: 20px; height: 20px; }
+
+  .output-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--black);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+
+  .output-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    background: var(--ap-orange);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--white);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+
+  .stats-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* ── DATA SOURCES ── */
+  .sources-section {
+    background: var(--black);
+    padding: 64px 48px;
+    text-align: center;
+  }
+
+  .sources-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ap-orange);
+    margin-bottom: 12px;
+  }
+
+  .sources-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  .sources-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .source-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .source-chip:hover {
+    border-color: rgba(232,89,60,0.5);
+    background: var(--ap-orange-dim);
+    color: var(--white);
+  }
+
+  .source-chip .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--ap-orange);
+    opacity: 0.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--black);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--gray-3);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav, .hero, .pipeline-section, .outputs-section, .sources-section, footer { padding-left: 24px; padding-right: 24px; }
+    .pipeline { flex-direction: column; }
+    .pipe-connector { transform: rotate(90deg); width: 100%; height: 32px; justify-content: center; padding-top: 0; }
+    .outputs-grid { grid-template-columns: 1fr 1fr; }
+    .stats-strip { gap: 32px; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 600px) {
+    .outputs-grid { grid-template-columns: 1fr; }
+    .stats-strip { flex-direction: column; gap: 24px; }
+    .stats-divider { width: 40px; height: 1px; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up { animation: fadeUp 0.5s ease both; }
+  .fade-up:nth-child(2) { animation-delay: 0.07s; }
+  .fade-up:nth-child(3) { animation-delay: 0.14s; }
+  .fade-up:nth-child(4) { animation-delay: 0.21s; }
+  .fade-up:nth-child(5) { animation-delay: 0.28s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <span class="logo-dot"></span>Ad Pros
+  </a>
+  <span class="nav-badge">Brand Intelligence Analyzer</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Powered by AI</p>
+  <h1>From raw data to <span>winning creative</span> — automatically.</h1>
+  <p class="hero-sub">The Brand Intelligence Analyzer ingests your ad performance, store data, and competitive landscape to surface insights and generate ready-to-test creative briefs.</p>
+</section>
+
+<!-- PIPELINE -->
+<section class="pipeline-section">
+  <p class="section-label">How it works</p>
+  <h2 class="section-title">One unified pipeline from intake to launch-ready brief</h2>
+
+  <div class="pipeline">
+
+    <!-- Step 1 -->
+    <div class="pipe-step fade-up">
+      <div class="pipe-card">
+        <p class="pipe-num">01 &mdash; INPUT</p>
+        <p class="pipe-title">Brand & store data intake</p>
+        <p class="pipe-desc">Connect your channels, store, and brand assets. Everything feeds in once.</p>
+        <div class="pipe-tags">
+          <span class="tag">Shopify</span>
+          <span class="tag">Facebook Ads</span>
+          <span class="tag">Google Ads</span>
+          <span class="tag hot">+ more</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pipe-connector">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 10h12M12 5l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="pipe-step fade-up">
+      <div class="pipe-card">
+        <p class="pipe-num">02 &mdash; ANALYSIS</p>
+        <p class="pipe-title">Performance & competitive analysis</p>
+        <p class="pipe-desc">Deep-dive performance review across all channels with industry benchmarking layered on top.</p>
+        <div class="pipe-tags">
+          <span class="tag">ROAS trends</span>
+          <span class="tag">CPA benchmarks</span>
+          <span class="tag">Creative audit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pipe-connector">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 10h12M12 5l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="pipe-step fade-up">
+      <div class="pipe-card">
+        <p class="pipe-num">03 &mdash; INTELLIGENCE</p>
+        <p class="pipe-title">Competitive & market research</p>
+        <p class="pipe-desc">Surface what competitors are running, where gaps exist, and which angles are overexposed.</p>
+        <div class="pipe-tags">
+          <span class="tag hot">Competitor creatives</span>
+          <span class="tag">Market gaps</span>
+          <span class="tag">Trend signals</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pipe-connector">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 10h12M12 5l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="pipe-step fade-up">
+      <div class="pipe-card">
+        <p class="pipe-num">04 &mdash; OUTPUT</p>
+        <p class="pipe-title">Creative briefs & test hypotheses</p>
+        <p class="pipe-desc">AI-generated briefs, angles, and concepts ready to hand directly to your creative team.</p>
+        <div class="pipe-tags">
+          <span class="tag hot">Brief ready</span>
+          <span class="tag">A/B hypotheses</span>
+          <span class="tag">Hook variants</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- OUTPUTS -->
+<section class="outputs-section">
+  <p class="section-label">What you get</p>
+  <h2 style="font-family:'Syne',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.5px;color:var(--black);max-width:440px;line-height:1.2;">Three deliverables that move the needle</h2>
+  <div class="outputs-grid">
+
+    <div class="output-card fade-up">
+      <div class="output-icon">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 10l4 4 10-10" stroke="#E8593C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="output-title">Performance scorecard</p>
+      <p class="output-desc">A clear snapshot of where you stand across channels — ROAS, CPA, CTR — measured against category benchmarks.</p>
+    </div>
+
+    <div class="output-card fade-up">
+      <div class="output-icon">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="7" stroke="#E8593C" stroke-width="1.8"/>
+          <path d="M10 6v4l2.5 2.5" stroke="#E8593C" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="output-title">Competitive intelligence report</p>
+      <p class="output-desc">A live read on competitor angles, ad creative strategies, and white-space opportunities you can move into now.</p>
+    </div>
+
+    <div class="output-card fade-up">
+      <div class="output-icon">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="6" height="6" rx="1.5" stroke="#E8593C" stroke-width="1.8"/>
+          <rect x="11" y="3" width="6" height="6" rx="1.5" stroke="#E8593C" stroke-width="1.8"/>
+          <rect x="3" y="11" width="6" height="6" rx="1.5" stroke="#E8593C" stroke-width="1.8"/>
+          <rect x="11" y="11" width="6" height="6" rx="1.5" stroke="#E8593C" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <p class="output-title">Creative briefs + test matrix</p>
+      <p class="output-desc">Production-ready briefs with hooks, angles, and formats prioritized by likelihood to beat your current control.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <p class="stat-num">11+</p>
+    <p class="stat-label">Ad channels analyzed</p>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <p class="stat-num">$250M+</p>
+    <p class="stat-label">Revenue powered by Adpros</p>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <p class="stat-num">90%</p>
+    <p class="stat-label">Client retention rate</p>
+  </div>
+  <div class="stats-divider"></div>
+  <div class="stat-item">
+    <p class="stat-num">85%</p>
+    <p class="stat-label">Avg. ROI growth</p>
+  </div>
+</div>
+
+<!-- DATA SOURCES -->
+<section class="sources-section">
+  <p class="sources-eyebrow">Data ingested</p>
+  <h2 class="sources-title">Pulls from everywhere your customers are</h2>
+  <div class="sources-row">
+    <div class="source-chip"><span class="dot"></span>Facebook Ads</div>
+    <div class="source-chip"><span class="dot"></span>Google Ads</div>
+    <div class="source-chip"><span class="dot"></span>Shopify</div>
+    <div class="source-chip"><span class="dot"></span>TikTok Ads</div>
+    <div class="source-chip"><span class="dot"></span>Instagram</div>
+    <div class="source-chip"><span class="dot"></span>Pinterest</div>
+    <div class="source-chip"><span class="dot"></span>Taboola</div>
+    <div class="source-chip"><span class="dot"></span>Snap</div>
+    <div class="source-chip"><span class="dot"></span>Microsoft Ads</div>
+    <div class="source-chip"><span class="dot"></span>YouTube</div>
+    <div class="source-chip"><span class="dot"></span>AppLovin</div>
+    <div class="source-chip"><span class="dot"></span>CTV / OTT</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="https://adpros.com" class="footer-logo">
+    <span class="logo-dot"></span>Ad Pros
+  </a>
+  <p class="footer-copy">Brand Intelligence Analyzer &copy; 2025 Ad Pros. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
