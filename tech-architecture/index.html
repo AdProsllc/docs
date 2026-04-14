@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Technical Architecture Guide — Ad Pros Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0B0E11; }
+  #root { min-height: 100vh; }
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const sections = [
+  {
+    id: "overview",
+    title: "System Overview",
+    content: null, // rendered custom
+  },
+  {
+    id: "structure",
+    title: "Project Structure",
+  },
+  {
+    id: "patterns",
+    title: "Code Patterns",
+  },
+  {
+    id: "buildorder",
+    title: "Build-in-Order Guide",
+  },
+  {
+    id: "dangers",
+    title: "Danger Zones",
+  },
+];
+
+// ─── Architecture layers for the diagram ───
+const archLayers = [
+  {
+    name: "TRIGGERS",
+    color: "#F59E0B",
+    items: [
+      { name: "Cron (6am EST daily)", desc: "Scorecards, digests" },
+      { name: "Webhook (real-time)", desc: "Spend anomalies, CPA spikes" },
+      { name: "Manual (Slack cmd)", desc: "On-demand reports" },
+      { name: "Event (data ready)", desc: "After ETL completes" },
+    ],
+  },
+  {
+    name: "ORCHESTRATION",
+    color: "#10B981",
+    items: [
+      { name: "N8N", desc: "Visual flows, Slack routing, simple triggers" },
+      { name: "Inngest", desc: "Durable pipelines, retries, long-running agents" },
+      { name: "Job Queue (Redis)", desc: "Fan-out: 1 trigger → 100 brand runs" },
+    ],
+  },
+  {
+    name: "AGENT RUNTIME",
+    color: "#3B82F6",
+    items: [
+      { name: "Claude Agent SDK", desc: "Python agents w/ tool calling" },
+      { name: "Brand Config Loader", desc: "Reads brand JSON → sets agent context" },
+      { name: "Tool Registry", desc: "Connectors, classifiers, formatters" },
+      { name: "Approval Gate", desc: "High-risk → human queue, low-risk → auto" },
+    ],
+  },
+  {
+    name: "DATA LAYER",
+    color: "#8B5CF6",
+    items: [
+      { name: "Supabase (operational)", desc: "Agent state, alerts, real-time" },
+      { name: "BigQuery (analytical)", desc: "Metrics, history, dashboards" },
+      { name: "Redis (cache)", desc: "Rate limits, cooldowns, temp state" },
+      { name: "R2/S3 (files)", desc: "Ad creatives, reports, decks" },
+    ],
+  },
+  {
+    name: "CONNECTORS",
+    color: "#EF4444",
+    items: [
+      { name: "Meta Ads API", desc: "Client ad performance" },
+      { name: "Google Ads API", desc: "Client ad performance" },
+      { name: "Shopify API", desc: "Revenue, orders, customers" },
+      { name: "Apify Actors", desc: "Competitor scraping" },
+      { name: "Northbeam / TW", desc: "Attribution data" },
+      { name: "Motion export", desc: "Creative analytics" },
+    ],
+  },
+  {
+    name: "OUTPUT",
+    color: "#EC4899",
+    items: [
+      { name: "Slack Bot", desc: "Alerts, digests, scorecards" },
+      { name: "Looker Studio", desc: "Dashboards (via BigQuery)" },
+      { name: "Google Slides", desc: "QBR decks, workshops" },
+      { name: "ClickUp", desc: "Tasks, action items" },
+      { name: "JSON API", desc: "Future: web portal" },
+    ],
+  },
+];
+
+// ─── Folder structure ───
+const folderStructure = `adpros-agents/
+├── config/
+│   ├── brands/
+│   │   ├── brand_acme.json        # Per-brand config
+│   │   ├── brand_glossier.json
+│   │   └── _template.json         # New brand template
+│   ├── agents/
+│   │   ├── scorecard.json         # Agent-specific settings
+│   │   ├── alerts.json
+│   │   └── kpi_hierarchy.json
+│   ├── metrics/
+│   │   ├── definitions.json       # All metric formulas
+│   │   └── channel_overrides.json # Per-channel adjustments
+│   └── secrets.env                # → Doppler in production
+│
+├── connectors/                    # Data source connectors
+│   ├── base.py                    # BaseConnector class
+│   ├── meta_ads.py
+│   ├── google_ads.py
+│   ├── shopify.py
+│   ├── northbeam.py
+│   ├── triple_whale.py
+│   ├── motion.py
+│   ├── apify.py
+│   └── tests/
+│       ├── test_meta_ads.py
+│       └── ...
+│
+├── agents/                        # Agent definitions
+│   ├── base_agent.py              # BaseAgent class (ALL agents inherit)
+│   ├── scorecard/
+│   │   ├── agent.py               # ScorecardAgent class
+│   │   ├── classifier.py          # 6-stage classification engine
+│   │   ├── templates/
+│   │   │   └── scorecard.jinja2
+│   │   └── tests/
+│   ├── alerts/
+│   │   ├── agent.py               # AlertAgent class
+│   │   ├── rules_engine.py
+│   │   ├── slack_formatter.py
+│   │   └── tests/
+│   ├── kpi_hierarchy/
+│   │   ├── agent.py
+│   │   ├── metrics_engine.py
+│   │   ├── reconciliation.py
+│   │   └── tests/
+│   └── ...                        # Future agents follow same pattern
+│
+├── core/                          # Shared infrastructure
+│   ├── database.py                # Supabase + BigQuery clients
+│   ├── llm.py                     # Claude API wrapper (Sonnet/Opus routing)
+│   ├── brand_context.py           # Loads brand config → agent context
+│   ├── audit_logger.py            # Logs every agent run to BigQuery
+│   ├── approval_gate.py           # Human-in-the-loop for high-risk
+│   ├── output_renderer.py         # JSON → Slack/Slides/Looker
+│   └── errors.py                  # Custom exceptions
+│
+├── orchestration/
+│   ├── inngest_functions.py       # Inngest function definitions
+│   ├── n8n_webhooks.py            # Webhook receivers for N8N
+│   └── scheduler.py               # Cron definitions
+│
+├── delivery/                      # Output channels
+│   ├── slack.py                   # Slack Bot + Block Kit
+│   ├── looker.py                  # BigQuery view management
+│   ├── slides.py                  # Google Slides generation
+│   ├── clickup.py                 # Task creation
+│   └── email.py                   # Email reports
+│
+├── sql/                           # BigQuery SQL
+│   ├── schemas/
+│   │   ├── unified_ad_metrics.sql
+│   │   ├── agent_audit_log.sql
+│   │   └── alert_history.sql
+│   ├── transforms/
+│   │   ├── meta_to_unified.sql
+│   │   ├── google_to_unified.sql
+│   │   └── daily_scorecard.sql
+│   └── views/
+│       ├── executive_summary.sql
+│       └── strategist_detail.sql
+│
+├── tests/
+│   ├── conftest.py                # Shared fixtures
+│   ├── factories.py               # Test data factories
+│   └── integration/
+│       └── test_full_pipeline.py
+│
+├── scripts/
+│   ├── add_brand.py               # CLI: add new brand
+│   ├── backfill.py                # CLI: backfill historical data
+│   └── health_check.py            # CLI: check all connections
+│
+├── pyproject.toml
+├── CLAUDE.md                      # Claude Code project rules
+└── README.md`;
+
+// ─── Code patterns ───
+const codePatterns = [
+  {
+    name: "BaseAgent Pattern",
+    why: "Every agent inherits from this. It handles brand context loading, audit logging, error handling, and output formatting. A junior dev building a new agent only writes the execute() method — everything else is inherited.",
+    language: "python",
+    code: `# agents/base_agent.py
+from core.brand_context import load_brand
+from core.audit_logger import log_run
+from core.llm import call_claude
+from core.output_renderer import render
+import time, traceback
+
+class BaseAgent:
+    """Every agent inherits from this.
+    Junior dev only implements: execute()"""
+
+    name = "base"           # Override in subclass
+    version = "1.0.0"       # Bump on changes
+
+    def __init__(self, brand_id: str):
+        self.brand = load_brand(brand_id)
+        self.start_time = None
+        self.tokens_used = 0
+
+    async def run(self) -> dict:
+        """DON'T OVERRIDE THIS. It wraps execute()
+        with logging, timing, and error handling."""
+        self.start_time = time.time()
+        try:
+            result = await self.execute()
+            await log_run(
+                agent=self.name,
+                brand_id=self.brand["id"],
+                status="success",
+                duration=time.time() - self.start_time,
+                tokens=self.tokens_used,
+                output_summary=result.get("summary","")
+            )
+            return result
+        except Exception as e:
+            await log_run(
+                agent=self.name,
+                brand_id=self.brand["id"],
+                status="error",
+                error=traceback.format_exc()
+            )
+            raise
+
+    async def execute(self) -> dict:
+        """OVERRIDE THIS in your agent.
+        Must return a dict with structured data."""
+        raise NotImplementedError
+
+    async def think(self, prompt: str,
+                     model: str = "sonnet") -> str:
+        """Call Claude. Use this, not raw API."""
+        response = await call_claude(
+            prompt=prompt,
+            model=model,
+            brand_context=self.brand
+        )
+        self.tokens_used += response["tokens"]
+        return response["text"]
+
+    async def deliver(self, data: dict,
+                       channels: list = ["slack"]):
+        """Send output to delivery channels.
+        Data is ALWAYS structured JSON first."""
+        for channel in channels:
+            await render(channel, data, self.brand)`,
+  },
+  {
+    name: "Brand Config Pattern",
+    why: "Adding a new brand = creating a JSON file. No code changes. The agent reads this config to know which APIs to call, what thresholds to use, and where to deliver results. At 100+ brands, this is the only sane approach.",
+    language: "json",
+    code: `// config/brands/brand_acme.json
+{
+  "id": "acme",
+  "name": "ACME Skincare",
+  "tier": "accelerator",
+
+  "connections": {
+    "meta_ads": {
+      "account_id": "act_123456789",
+      "attribution_window": "7d_click"
+    },
+    "google_ads": {
+      "customer_id": "123-456-7890",
+      "mcc_id": "111-222-3333"
+    },
+    "shopify": {
+      "store": "acme-skincare.myshopify.com",
+      "api_version": "2024-10"
+    },
+    "northbeam": { "workspace_id": "nb_xxx" },
+    "motion": { "workspace_id": "m_xxx" }
+  },
+
+  "thresholds": {
+    "cpa_target": 45.00,
+    "roas_target": 3.5,
+    "spend_anomaly_pct": 1.3,
+    "cpa_spike_multiplier": 1.5,
+    "min_spend_for_classification": 50
+  },
+
+  "delivery": {
+    "slack_channel_internal": "#acme-growth",
+    "slack_channel_client": "#acme-shared",
+    "growth_strategist_slack_id": "U0123ABCD",
+    "creative_strategist_slack_id": "U0456EFGH",
+    "send_client_reports": true,
+    "report_day": "monday",
+    "report_time": "08:00"
+  },
+
+  "competitors": [
+    { "name": "Rival Brand A",
+      "meta_page_id": "111222333" },
+    { "name": "Rival Brand B",
+      "meta_page_id": "444555666" }
+  ]
+}`,
+  },
+  {
+    name: "Connector Pattern",
+    why: "Every data source follows the same interface. A junior dev building a new connector copies the pattern and fills in the API-specific logic. Health checks, rate limiting, and error handling are built into the base class.",
+    language: "python",
+    code: `# connectors/base.py
+from abc import ABC, abstractmethod
+import time
+
+class BaseConnector(ABC):
+    """All connectors inherit from this."""
+
+    name = "base"
+    rate_limit_per_minute = 60
+
+    def __init__(self, brand_config: dict):
+        self.config = brand_config
+        self._last_call = 0
+
+    async def _rate_limit(self):
+        """Auto rate limiting. Don't think about it."""
+        elapsed = time.time() - self._last_call
+        min_interval = 60 / self.rate_limit_per_minute
+        if elapsed < min_interval:
+            await asyncio.sleep(min_interval - elapsed)
+        self._last_call = time.time()
+
+    @abstractmethod
+    async def health_check(self) -> bool:
+        """Can we connect? Run BEFORE every pipeline."""
+        pass
+
+    @abstractmethod
+    async def fetch_data(self,
+        start_date: str, end_date: str
+    ) -> list[dict]:
+        """Pull data. Returns list of dicts.
+        ALWAYS same shape regardless of source."""
+        pass
+
+# connectors/meta_ads.py
+class MetaAdsConnector(BaseConnector):
+    name = "meta_ads"
+    rate_limit_per_minute = 200
+
+    async def health_check(self) -> bool:
+        # Try a simple API call
+        resp = await self._api.get_account(
+            self.config["connections"]["meta_ads"]["account_id"]
+        )
+        return resp.status == 200
+
+    async def fetch_data(self, start_date, end_date):
+        await self._rate_limit()
+        raw = await self._api.get_insights(...)
+        # Transform to unified schema
+        return [
+            {
+                "ad_id": row["ad_id"],
+                "platform": "meta",
+                "brand_id": self.config["id"],
+                "spend": float(row["spend"]),
+                "impressions": int(row["impressions"]),
+                # ... unified schema fields
+            }
+            for row in raw
+        ]`,
+  },
+  {
+    name: "Fan-Out Pattern (100+ Brands)",
+    why: "This is THE critical pattern. When a cron fires at 6am, you don't run 100 brands sequentially — that would take hours. You fan out: one trigger creates 100 independent jobs, each running a brand's scorecard in parallel. Inngest handles the queuing, retries, and concurrency limits.",
+    language: "python",
+    code: `# orchestration/inngest_functions.py
+import inngest
+
+client = inngest.Inngest(app_id="adpros-agents")
+
+# 1. TRIGGER: fires once at 6am EST
+@client.create_function(
+    fn_id="daily-scorecard-trigger",
+    trigger=inngest.TriggerCron(cron="0 6 * * *"),
+)
+async def trigger_all_scorecards(ctx):
+    """Fan-out: sends 1 event per active brand."""
+    brands = await get_active_brands()
+
+    for brand in brands:
+        await inngest.send(inngest.Event(
+            name="scorecard/run",
+            data={"brand_id": brand["id"]}
+        ))
+
+    return {"triggered": len(brands)}
+
+
+# 2. WORKER: runs once PER BRAND (100 copies in parallel)
+@client.create_function(
+    fn_id="run-brand-scorecard",
+    trigger=inngest.TriggerEvent(event="scorecard/run"),
+    # Concurrency: max 20 brands at once
+    # (respects API rate limits)
+    concurrency=[
+        inngest.Concurrency(limit=20)
+    ],
+    retries=3,  # Auto-retry on failure
+)
+async def run_scorecard(ctx):
+    brand_id = ctx.event.data["brand_id"]
+
+    # Step 1: Pull data (durable — retries on failure)
+    data = await ctx.step.run(
+        "fetch-data",
+        lambda: fetch_all_platform_data(brand_id)
+    )
+
+    # Step 2: Classify ads
+    classified = await ctx.step.run(
+        "classify-ads",
+        lambda: classify_all_ads(brand_id, data)
+    )
+
+    # Step 3: Generate scorecard
+    scorecard = await ctx.step.run(
+        "generate-scorecard",
+        lambda: generate_scorecard(brand_id, classified)
+    )
+
+    # Step 4: Deliver
+    await ctx.step.run(
+        "deliver",
+        lambda: deliver_scorecard(brand_id, scorecard)
+    )
+
+    return {"brand": brand_id, "ads_classified": len(classified)}`,
+  },
+  {
+    name: "Approval Gate Pattern (Hybrid Autonomy)",
+    why: "Low-risk actions auto-execute. High-risk actions (pausing ads, changing budgets) go to a human approval queue in Slack. If nobody approves within 4 hours, it escalates. This is the pattern that makes clients trust the system.",
+    language: "python",
+    code: `# core/approval_gate.py
+from enum import Enum
+from delivery.slack import send_approval_request
+
+class RiskLevel(Enum):
+    AUTO = "auto"           # Just do it
+    NOTIFY = "notify"       # Do it + tell someone
+    APPROVE = "approve"     # Ask first, wait for human
+
+# Which actions need what approval level
+ACTION_RISK = {
+    "send_slack_alert": RiskLevel.AUTO,
+    "generate_report": RiskLevel.AUTO,
+    "create_clickup_task": RiskLevel.AUTO,
+    "post_daily_digest": RiskLevel.NOTIFY,
+    "flag_ad_for_pause": RiskLevel.APPROVE,
+    "recommend_budget_change": RiskLevel.APPROVE,
+    "modify_campaign_status": RiskLevel.APPROVE,
+}
+
+async def gate(action: str, brand_id: str,
+               details: dict) -> bool:
+    """Check if action can proceed."""
+    risk = ACTION_RISK.get(action, RiskLevel.APPROVE)
+
+    if risk == RiskLevel.AUTO:
+        return True  # Just do it
+
+    if risk == RiskLevel.NOTIFY:
+        await send_notification(brand_id, action, details)
+        return True  # Do it, but tell people
+
+    if risk == RiskLevel.APPROVE:
+        # Send Slack approval request with buttons
+        approval = await send_approval_request(
+            brand_id=brand_id,
+            action=action,
+            details=details,
+            timeout_hours=4,
+            escalation_user=get_escalation_user(brand_id)
+        )
+        return approval.approved  # Wait for human`,
+  },
+  {
+    name: "Structured Output Pattern",
+    why: "EVERY agent outputs JSON first. Slack, Looker, PPTX, and the future web portal all render from the same JSON. This is the #1 rule for making the platform work. If a junior dev returns a formatted string instead of JSON, the architecture breaks.",
+    language: "python",
+    code: `# WRONG — never do this
+async def execute(self):
+    return "ACME Skincare scored 85/100 this week..."
+
+# RIGHT — always structured data first
+async def execute(self):
+    return {
+        "type": "scorecard",
+        "brand_id": "acme",
+        "period": "2026-04-01/2026-04-07",
+        "summary": {
+            "total_ads": 47,
+            "winners": 8,
+            "losers": 12,
+            "breakthroughs": 2,
+            "testing": 25,
+        },
+        "top_performers": [
+            {
+                "ad_id": "123",
+                "name": "UGC Hook V3",
+                "stage": "breakthrough",
+                "spend": 12400,
+                "roas": 4.2,
+                "cpa": 28.50,
+                "days_running": 14,
+            }
+        ],
+        "alerts": [
+            {
+                "type": "new_winner",
+                "ad_id": "456",
+                "message": "Static V2 crossed from Testing to Winner",
+            }
+        ],
+        "narrative": "Generated by Claude — 3 sentences",
+        "metadata": {
+            "agent": "scorecard",
+            "version": "1.0.0",
+            "run_id": "abc-123",
+            "tokens_used": 1847,
+            "generated_at": "2026-04-07T06:12:33Z",
+        }
+    }
+
+# Then the renderer handles delivery:
+# render("slack", data)  → Slack Block Kit message
+# render("slides", data) → Google Slides deck
+# render("json", data)   → Raw API response for web portal`,
+  },
+];
+
+// ─── Build order for junior dev ───
+const buildSteps = [
+  {
+    week: "Week 0",
+    title: "Foundation — Don't Write Agent Code Yet",
+    color: "#F59E0B",
+    tasks: [
+      { task: "Set up the repo with the folder structure above", time: "2 hrs", tip: "Copy the structure exactly. Don't reorganize it." },
+      { task: "Write BaseAgent, BaseConnector, brand_context.py, audit_logger.py", time: "1 day", tip: "These 4 files are the skeleton. Every agent and connector inherits from them. Get these right." },
+      { task: "Create the BigQuery schemas: unified_ad_metrics, agent_audit_log, alert_history", time: "3 hrs", tip: "Run the SQL in sql/schemas/. Add brand_id to EVERY table. No exceptions." },
+      { task: "Set up Supabase project with RLS policies (brand_id isolation)", time: "3 hrs", tip: "Test RLS by trying to query Brand A data with Brand B credentials. It should fail." },
+      { task: "Create 2 brand config files: one real client, one test brand", time: "1 hr", tip: "The test brand has fake data. Use it for all development. Never test on a real client." },
+      { task: "Deploy N8N (Docker). Create a 'hello world' workflow: cron → Slack message", time: "2 hrs", tip: "If you can get N8N to post 'Pipeline healthy' to Slack on a schedule, infra works." },
+      { task: "Set up Helicone proxy for Claude API calls", time: "30 min", tip: "Just change the base_url in your Claude client. Now every LLM call is logged." },
+      { task: "Write health_check.py that tests every API connection", time: "3 hrs", tip: "Run this every morning. If it fails, don't run any agents." },
+    ],
+  },
+  {
+    week: "Week 1",
+    title: "First Connector + First Agent (One Brand Only)",
+    color: "#3B82F6",
+    tasks: [
+      { task: "Build MetaAdsConnector with health_check() and fetch_data()", time: "1 day", tip: "Start with ONE client's Meta account. Pull 7 days of data. Print it. Verify against Meta Ads Manager manually." },
+      { task: "Build the unified_ad_metrics transform (Meta → unified schema)", time: "3 hrs", tip: "This is a SQL file. Test by comparing row counts: Meta raw vs. unified table." },
+      { task: "Build ScorecardAgent.execute() — the simplest possible version", time: "1 day", tip: "V1 is just: pull data → count ads by status → generate summary. No classification engine yet. Just counts." },
+      { task: "Build Slack delivery: agent output → Slack Block Kit message", time: "3 hrs", tip: "Use the structured output pattern. The Slack renderer reads the JSON and formats it." },
+      { task: "Run the full pipeline manually: python -m agents.scorecard.agent --brand=test", time: "1 hr", tip: "It should: pull data, generate scorecard JSON, post to Slack. If that works, the architecture is proven." },
+    ],
+  },
+  {
+    week: "Week 2",
+    title: "Classification Engine + Second Connector",
+    color: "#8B5CF6",
+    tasks: [
+      { task: "Build the 6-stage classification engine in classifier.py", time: "2 days", tip: "Get the exact formulas from Nehal. Write unit tests for each stage boundary. This is the core IP." },
+      { task: "Add Claude Sonnet for edge-case classification (borderline ads)", time: "3 hrs", tip: "Only send borderline ads to Claude. 90% should classify by formula alone. LLM is the tiebreaker, not the engine." },
+      { task: "Backtest: run classifier on 90 days of historical data", time: "1 day", tip: "Compare against human classifications. Target: 85%+ accuracy. If below 80%, the formulas need work." },
+      { task: "Build GoogleAdsConnector + Shopify connector", time: "1 day", tip: "Same pattern as MetaAdsConnector. Copy, adapt, test." },
+      { task: "Build the AlertAgent — start with spend anomaly alerts only", time: "1 day", tip: "One alert type first. Get the threshold right with the Growth team before adding more." },
+    ],
+  },
+  {
+    week: "Week 3",
+    title: "Fan-Out + Multi-Brand + Alert Taxonomy",
+    color: "#10B981",
+    tasks: [
+      { task: "Set up Inngest. Convert the manual scorecard run into an Inngest function", time: "3 hrs", tip: "Same code, just wrapped in @client.create_function. Now it retries on failure." },
+      { task: "Build the fan-out trigger: 1 cron → N brand events", time: "3 hrs", tip: "Start with 3 test brands. Watch the Inngest dashboard — all 3 should run in parallel." },
+      { task: "Add remaining alert types: CPA spike, new winner, breakthrough, budget pacing", time: "1 day", tip: "Each alert type is a rule in alerts/rules_engine.py. Config-driven thresholds from brand config." },
+      { task: "Build cooldown logic (Redis): don't re-alert same condition within 24hrs", time: "3 hrs", tip: "Redis key = brand_id:alert_type:ad_id. TTL = 24 hours. If key exists, skip." },
+      { task: "Run shadow mode for alerts: log what WOULD be sent but don't send", time: "2 days", tip: "Review with the Growth team. Too many alerts? Raise thresholds. Missing alerts? Lower them." },
+      { task: "Build the KPI hierarchy metrics engine — metric definitions as config", time: "2 days", tip: "Every metric is defined in config/metrics/definitions.json with formula, source, and layer." },
+    ],
+  },
+  {
+    week: "Week 4+",
+    title: "Production Hardening + Team Adoption",
+    color: "#EF4444",
+    tasks: [
+      { task: "Go live: scorecards for all active clients", time: "1 day", tip: "Watch the first full run like a hawk. Check every scorecard against manual versions." },
+      { task: "Go live: alerts (start with triggered, add digests in week 5)", time: "1 day", tip: "Tell the team alerts are live. Collect feedback for 2 weeks. Adjust." },
+      { task: "Add the add_brand.py CLI script", time: "3 hrs", tip: "This is how operations adds a new brand: python scripts/add_brand.py --name='New Brand'. Generates config from template." },
+      { task: "Write CLAUDE.md for the repo", time: "2 hrs", tip: "This is the project rules file for Claude Code. Include: naming conventions, testing requirements, the structured output rule." },
+      { task: "Document: README with setup, architecture diagram, and 'how to add a new agent' guide", time: "1 day", tip: "If a second developer can't set up and build a new agent from your docs alone, the docs aren't done." },
+    ],
+  },
+];
+
+// ─── Danger zones ───
+const dangerZones = [
+  {
+    title: "Building agents before the data pipeline works",
+    severity: "CRITICAL",
+    explanation: "The fanciest AI agent is useless if the data feeding it is wrong, late, or missing. Build and verify EVERY connector before touching agent logic. If Meta data is pulling wrong numbers, everything downstream is garbage.",
+    fix: "Week 0-1 is 100% data infrastructure. Resist the urge to build the cool AI stuff first.",
+  },
+  {
+    title: "Testing on real client data from Day 1",
+    severity: "CRITICAL",
+    explanation: "One bad Slack message to a client's shared channel and you lose trust permanently. All development happens against the test brand. Real clients only see agent output after manual verification.",
+    fix: "Create 'brand_test' with realistic fake data. All dev and testing uses this brand. Gate real brands behind a feature flag.",
+  },
+  {
+    title: "Returning formatted strings instead of structured JSON",
+    severity: "HIGH",
+    explanation: "If an agent returns a formatted Slack message directly, it can ONLY be delivered to Slack. When you need the same data in Looker, Slides, or the web portal, you have to rebuild the agent. This is how technical debt becomes unmanageable.",
+    fix: "Enforce the structured output pattern in code review. BaseAgent.deliver() should reject non-dict returns.",
+  },
+  {
+    title: "Hardcoding brand-specific logic into agents",
+    severity: "HIGH",
+    explanation: "if brand == 'acme': use_different_threshold() — this line of code means you now have N code paths for N brands. At 100 brands, that's unmaintainable. Every brand difference must live in the brand config JSON.",
+    fix: "If you catch yourself writing an if-statement with a brand name, stop. Move the difference to brand config.",
+  },
+  {
+    title: "Skipping the audit log",
+    severity: "HIGH",
+    explanation: "Without audit logging, you can't answer: 'Why did Brand X get this alert?' or 'How much are we spending on Claude for Brand Y?' or 'Which agent failed last night?' At 100+ brands, you'll spend more time debugging than building.",
+    fix: "BaseAgent.run() already logs automatically. Never bypass it with direct execute() calls.",
+  },
+  {
+    title: "Running all brands sequentially instead of fan-out",
+    severity: "MEDIUM",
+    explanation: "100 brands × 3 minutes each = 5 hours for a daily scorecard run. If it starts at 6am, it finishes at 11am — after the team's standup. Fan-out with concurrency limits is the only way to scale.",
+    fix: "Use the Inngest fan-out pattern from Week 3. Set concurrency limit to 20 (respects API rate limits) — 100 brands finish in ~15 minutes.",
+  },
+  {
+    title: "Not implementing cooldowns on alerts",
+    severity: "MEDIUM",
+    explanation: "Without cooldowns, a CPA spike on one ad generates the same alert every hour for days. The team starts ignoring ALL alerts. Alert fatigue kills the entire system.",
+    fix: "Redis cooldown keys with 24-hour TTL. If the same alert condition fired yesterday, skip it today unless the condition worsened.",
+  },
+];
+
+function TechArchitecture() {
+  const [activeSection, setActiveSection] = useState("overview");
+  const [expandedPattern, setExpandedPattern] = useState(null);
+  const [expandedStep, setExpandedStep] = useState(null);
+
+  return (
+    <div style={{
+      minHeight: "100vh", background: "#0B0E11", color: "#D4D4D8",
+      fontFamily: "'IBM Plex Sans', 'Helvetica Neue', sans-serif",
+      padding: "16px", maxWidth: "100%"
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+      {/* Header */}
+      <div style={{ marginBottom: 20, paddingBottom: 14, borderBottom: "1px solid #1E2330" }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#4B5563", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>
+          Ad Pros Engineering
+        </div>
+        <h1 style={{ fontSize: 20, fontWeight: 700, color: "#F9FAFB", margin: "0 0 4px", fontFamily: "'IBM Plex Sans', sans-serif" }}>
+          Technical Architecture Guide
+        </h1>
+        <p style={{ fontSize: 12, color: "#6B7280", margin: 0 }}>
+          For a junior developer building a 100+ brand AI agent platform
+        </p>
+      </div>
+
+      {/* Section Nav */}
+      <div style={{
+        display: "flex", gap: 4, marginBottom: 18, overflowX: "auto",
+        paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none"
+      }}>
+        {sections.map(s => (
+          <button key={s.id} onClick={() => setActiveSection(s.id)} style={{
+            padding: "7px 12px", border: "none", borderRadius: 6, cursor: "pointer",
+            fontSize: 11, fontWeight: 600, whiteSpace: "nowrap",
+            fontFamily: "'IBM Plex Sans', sans-serif",
+            background: activeSection === s.id ? "#1C2333" : "transparent",
+            color: activeSection === s.id ? "#E5E7EB" : "#4B5563",
+            border: `1px solid ${activeSection === s.id ? "#2D3748" : "transparent"}`,
+            transition: "all 0.15s", flexShrink: 0,
+          }}>{s.title}</button>
+        ))}
+      </div>
+
+      {/* ═══ OVERVIEW ═══ */}
+      {activeSection === "overview" && (
+        <div>
+          <div style={{ marginBottom: 16 }}>
+            <p style={{ fontSize: 13, color: "#9CA3AF", lineHeight: 1.6, margin: "0 0 12px" }}>
+              This is a layered architecture. Data flows top to bottom: triggers fire → orchestration routes → agents think → data stores persist → outputs deliver. Each layer only talks to the one below it. A junior dev works in ONE layer at a time.
+            </p>
+          </div>
+
+          {/* Architecture Layers */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {archLayers.map((layer, li) => (
+              <div key={li} style={{
+                background: "#111520", borderRadius: 10,
+                border: `1px solid ${layer.color}20`, overflow: "hidden"
+              }}>
+                <div style={{
+                  padding: "10px 14px",
+                  background: `linear-gradient(90deg, ${layer.color}12, transparent)`,
+                  borderBottom: `1px solid ${layer.color}15`
+                }}>
+                  <span style={{
+                    fontFamily: "'IBM Plex Mono', monospace", fontSize: 10,
+                    fontWeight: 700, color: layer.color, letterSpacing: 2
+                  }}>{layer.name}</span>
+                </div>
+                <div style={{ padding: "8px 14px 12px" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {layer.items.map((item, ii) => (
+                      <div key={ii} style={{
+                        background: "#0D1017", borderRadius: 6,
+                        padding: "6px 10px",
+                        border: "1px solid #1E2330", flex: "1 1 140px",
+                        minWidth: 140
+                      }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "#E5E7EB", marginBottom: 2 }}>{item.name}</div>
+                        <div style={{ fontSize: 10, color: "#6B7280" }}>{item.desc}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Flow arrows */}
+          <div style={{ textAlign: "center", padding: "16px 0 4px" }}>
+            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#374151" }}>
+              Data flows ↓ through each layer. Agents never skip layers.
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* ═══ PROJECT STRUCTURE ═══ */}
+      {activeSection === "structure" && (
+        <div>
+          <p style={{ fontSize: 12, color: "#9CA3AF", lineHeight: 1.6, margin: "0 0 14px" }}>
+            Copy this exactly. Every file has a purpose. The structure IS the architecture — it enforces separation of concerns. A junior dev looking for "where do I add a new connector?" immediately sees the connectors/ folder.
+          </p>
+          <div style={{
+            background: "#111520", borderRadius: 10, padding: 16,
+            border: "1px solid #1E2330", overflow: "auto"
+          }}>
+            <pre style={{
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontSize: 11, lineHeight: 1.6,
+              color: "#A5F3C4", margin: 0, whiteSpace: "pre",
+              overflowX: "auto"
+            }}>{folderStructure}</pre>
+          </div>
+
+          <div style={{
+            marginTop: 14, background: "#1C1917", borderRadius: 8,
+            padding: 12, border: "1px solid #78350F"
+          }}>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#F59E0B", letterSpacing: 1, marginBottom: 4 }}>RULE FOR JUNIOR DEVS</div>
+            <div style={{ fontSize: 12, color: "#D4D4D8", lineHeight: 1.6 }}>
+              Building a new agent? Copy agents/scorecard/ → agents/your_agent/. Override execute(). That's it. Building a new connector? Copy connectors/meta_ads.py → connectors/your_source.py. Override fetch_data(). Never create new folders outside this structure without approval.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ═══ CODE PATTERNS ═══ */}
+      {activeSection === "patterns" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <p style={{ fontSize: 12, color: "#9CA3AF", lineHeight: 1.6, margin: "0 0 6px" }}>
+            These 6 patterns are the entire codebase philosophy. A junior dev who understands these can build any agent. Tap to see the code.
+          </p>
+          {codePatterns.map((pattern, i) => {
+            const isExpanded = expandedPattern === i;
+            return (
+              <div key={i} onClick={() => setExpandedPattern(isExpanded ? null : i)} style={{
+                background: "#111520", borderRadius: 10,
+                border: `1px solid ${isExpanded ? "#2D3748" : "#1E2330"}`,
+                cursor: "pointer", transition: "all 0.15s", overflow: "hidden"
+              }}>
+                <div style={{ padding: "12px 14px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <div style={{ fontSize: 9, fontFamily: "'IBM Plex Mono', monospace", color: "#6B7280", letterSpacing: 1, marginBottom: 4 }}>PATTERN {i + 1}</div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: "#E5E7EB" }}>{pattern.name}</div>
+                    </div>
+                    <span style={{ fontSize: 16, color: "#374151", transform: isExpanded ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.15s" }}>▾</span>
+                  </div>
+                  <p style={{ fontSize: 11, color: "#9CA3AF", margin: "6px 0 0", lineHeight: 1.5 }}>{pattern.why}</p>
+                </div>
+
+                {isExpanded && (
+                  <div style={{
+                    borderTop: "1px solid #1E2330",
+                    background: "#0B0E11", padding: 14, overflow: "auto"
+                  }}>
+                    <pre style={{
+                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontSize: 10.5, lineHeight: 1.55,
+                      color: "#A5F3C4", margin: 0, whiteSpace: "pre",
+                      overflowX: "auto"
+                    }}>{pattern.code}</pre>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ═══ BUILD ORDER ═══ */}
+      {activeSection === "buildorder" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <p style={{ fontSize: 12, color: "#9CA3AF", lineHeight: 1.6, margin: "0 0 6px" }}>
+            Follow this order exactly. Each week depends on the previous one. Don't skip ahead — the most common failure mode is building agents before the data layer is solid.
+          </p>
+          {buildSteps.map((step, si) => {
+            const isExpanded = expandedStep === si;
+            return (
+              <div key={si} onClick={() => setExpandedStep(isExpanded ? null : si)} style={{
+                background: "#111520", borderRadius: 10,
+                border: `1px solid ${isExpanded ? step.color + "44" : "#1E2330"}`,
+                cursor: "pointer", transition: "all 0.15s", overflow: "hidden"
+              }}>
+                <div style={{
+                  padding: "12px 14px",
+                  background: `linear-gradient(90deg, ${step.color}08, transparent)`
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <span style={{
+                        fontFamily: "'IBM Plex Mono', monospace", fontSize: 10,
+                        fontWeight: 700, color: step.color, letterSpacing: 1
+                      }}>{step.week}</span>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: "#E5E7EB", marginTop: 2 }}>{step.title}</div>
+                    </div>
+                    <span style={{ fontSize: 16, color: "#374151", transform: isExpanded ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.15s" }}>▾</span>
+                  </div>
+                </div>
+
+                {isExpanded && (
+                  <div style={{ padding: "4px 14px 14px", borderTop: "1px solid #1E2330" }}>
+                    {step.tasks.map((t, ti) => (
+                      <div key={ti} style={{
+                        padding: "10px 0",
+                        borderBottom: ti < step.tasks.length - 1 ? "1px solid #1A1F2E" : "none"
+                      }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: "#D4D4D8", flex: 1 }}>
+                            <span style={{ color: step.color, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, marginRight: 8 }}>{ti + 1}.</span>
+                            {t.task}
+                          </div>
+                          <span style={{
+                            fontSize: 10, fontFamily: "'IBM Plex Mono', monospace",
+                            color: "#6B7280", background: "#0D1017",
+                            padding: "2px 6px", borderRadius: 4, flexShrink: 0, marginLeft: 8
+                          }}>{t.time}</span>
+                        </div>
+                        <div style={{
+                          fontSize: 11, color: "#F59E0B", lineHeight: 1.5, marginLeft: 20,
+                          background: "#1C1917", padding: "4px 8px", borderRadius: 4,
+                          border: "1px solid #78350F20"
+                        }}>
+                          💡 {t.tip}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ═══ DANGER ZONES ═══ */}
+      {activeSection === "dangers" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <p style={{ fontSize: 12, color: "#9CA3AF", lineHeight: 1.6, margin: "0 0 6px" }}>
+            These are the mistakes that kill agent platforms. Every one has been seen in production. Print this list and tape it next to your monitor.
+          </p>
+          {dangerZones.map((dz, i) => (
+            <div key={i} style={{
+              background: "#111520", borderRadius: 10,
+              border: `1px solid ${dz.severity === "CRITICAL" ? "#7F1D1D" : dz.severity === "HIGH" ? "#78350F" : "#1E2330"}`,
+              padding: 14, overflow: "hidden"
+            }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
+                <span style={{
+                  fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, fontWeight: 700,
+                  color: dz.severity === "CRITICAL" ? "#FCA5A5" : dz.severity === "HIGH" ? "#FCD34D" : "#9CA3AF",
+                  background: dz.severity === "CRITICAL" ? "#7F1D1D" : dz.severity === "HIGH" ? "#78350F" : "#1F2937",
+                  padding: "2px 6px", borderRadius: 4, letterSpacing: 1
+                }}>{dz.severity}</span>
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#F9FAFB", marginBottom: 6 }}>{dz.title}</div>
+              <div style={{ fontSize: 12, color: "#9CA3AF", lineHeight: 1.6, marginBottom: 10 }}>{dz.explanation}</div>
+              <div style={{
+                background: "#0D1017", borderRadius: 6, padding: 10,
+                border: "1px solid #1E2330"
+              }}>
+                <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, fontWeight: 700, color: "#10B981", letterSpacing: 1, marginBottom: 4 }}>FIX</div>
+                <div style={{ fontSize: 12, color: "#A5F3C4", lineHeight: 1.5 }}>{dz.fix}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Footer */}
+      <div style={{ marginTop: 24, paddingTop: 14, borderTop: "1px solid #1E2330", textAlign: "center" }}>
+        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: "#374151", letterSpacing: 2 }}>
+          AD PROS ENGINEERING — ARCHITECTURE GUIDE v1.0
+        </span>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<TechArchitecture />);
+</script>
+</body>
+</html>
