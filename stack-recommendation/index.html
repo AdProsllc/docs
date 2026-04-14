@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Ad Pros Agent Stack — Definitive Recommendation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0A0A0A; }
+  #root { min-height: 100vh; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const stackLayers = [
+  {
+    id: "brain",
+    layer: "01",
+    name: "Intelligence Layer",
+    subtitle: "What powers the thinking",
+    color: "#8B5CF6",
+    recommendation: "Claude Sonnet 4 + Opus 4 via Anthropic API",
+    reasoning: "No budget ceiling + speed priority = use the best models available. Sonnet for high-volume work (classification, alerts, brief drafts) at ~$3/MTok. Opus for complex synthesis (QBR narratives, competitor strategy, testing roadmaps). Batch API for all non-real-time work \u2014 cuts LLM costs 50% on nightly scorecard runs across 100+ accounts.",
+    monthlyEstimate: "$2,000\u20138,000",
+    monthlyNote: "Scales with account volume. 100 brands \u00D7 daily classification + weekly scorecards + alerts.",
+    alternatives: [
+      { name: "GPT-4o as fallback", status: "Add later", why: "Only if you hit Claude rate limits at scale or need structured JSON for specific tasks" },
+      { name: "Open-source models (Llama)", status: "Skip", why: "Not worth the infra complexity when budget isn\u2019t a constraint. Claude quality gap is too large for creative analysis." },
+    ],
+    stack: ["Anthropic Messages API", "Anthropic Batch API", "Whisper (transcription)"],
+    keyDecision: "Run Batch API for everything that doesn\u2019t need real-time response. At 100+ brands, this alone saves $2-4K/mo vs. synchronous calls.",
+  },
+  {
+    id: "framework",
+    layer: "02",
+    name: "Agent Framework",
+    subtitle: "How agents are structured and run",
+    color: "#3B82F6",
+    recommendation: "Claude Agent SDK (Python) + Mastra (TypeScript)",
+    reasoning: "Your dev is Python + TS. Don\u2019t pick one \u2014 use both for what they\u2019re best at. Python SDK for all backend data agents (scorecards, classification, KPIs, competitor intel). Mastra for client-facing agent interfaces when you productize. This isn\u2019t overhead \u2014 it\u2019s the right tool for each job. At 100+ brands, you\u2019ll need a web UI for clients to interact with agents, and Mastra is purpose-built for that.",
+    monthlyEstimate: "$0",
+    monthlyNote: "Both are open-source. Cost is only developer time.",
+    alternatives: [
+      { name: "LangGraph", status: "Add for complex workflows", why: "Use specifically for the QBR Deck Builder and Testing Roadmap agents \u2014 they need stateful, branching, human-in-the-loop logic that LangGraph handles natively." },
+      { name: "CrewAI", status: "Skip", why: "Role-based multi-agent adds complexity you don\u2019t need. Your agents are independent pipelines, not a team negotiating with each other." },
+      { name: "Raw API calls (no framework)", status: "Skip", why: "At 18 agents \u00D7 100 brands, you need tool management, state, retries, and observability. Frameworks give you this for free." },
+    ],
+    stack: ["claude-agent-sdk (Python)", "Mastra 1.0 (TypeScript)", "LangGraph (selective use)"],
+    keyDecision: "Start every agent in Claude Agent SDK (Python). Only graduate an agent to LangGraph when it needs human-in-the-loop approval flows or complex branching logic.",
+  },
+  {
+    id: "orchestration",
+    layer: "03",
+    name: "Orchestration & Durability",
+    subtitle: "How pipelines run, retry, and recover",
+    color: "#10B981",
+    recommendation: "Inngest + N8N",
+    reasoning: "You\u2019re at nothing today (manual/cron). For 100+ brands, cron jobs die fast \u2014 one failure cascades, no retry logic, no visibility. Inngest is the durable execution layer: if a scorecard pipeline crashes mid-run for Brand #47, it resumes exactly where it left off. N8N handles the visual, non-developer workflows (Slack routing, simple triggers, webhook receivers). Your non-dev team can build and modify N8N flows; Inngest is code-only for the AI dev.",
+    monthlyEstimate: "$100\u2013300",
+    monthlyNote: "N8N self-hosted: $0. Inngest Pro: ~$100-300/mo at scale.",
+    alternatives: [
+      { name: "Temporal", status: "Revisit at 200+ brands", why: "Enterprise-grade but massive setup overhead. Inngest gives you 90% of the durability with 10% of the complexity. Temporal becomes worth it when you have a dedicated infra team." },
+      { name: "N8N alone (no Inngest)", status: "Possible for Phase 1", why: "Start with N8N only if you want to move faster. Add Inngest when the first pipeline fails at 3am and nobody notices until Monday." },
+      { name: "Airflow", status: "Skip", why: "Built for batch data engineering, not AI agent orchestration. Overkill in config, weak on event-driven triggers." },
+    ],
+    stack: ["Inngest (durable execution)", "N8N self-hosted (visual workflows)", "Redis (job queuing + cooldowns)"],
+    keyDecision: "Deploy N8N Day 1 for immediate workflow wins. Add Inngest in Week 2-3 when the scorecard pipeline needs production-grade reliability.",
+  },
+  {
+    id: "data",
+    layer: "04",
+    name: "Data Platform",
+    subtitle: "Where data lives and how it moves",
+    color: "#F59E0B",
+    recommendation: "BigQuery (warehouse) + Supabase (operational) + Supermetrics \u2192 Airbyte migration",
+    reasoning: "BigQuery is your analytical warehouse \u2014 keep it. Supabase is your real-time operational layer \u2014 agent state, alert triggers, intelligence pipeline. For data ingestion: START with Supermetrics (already connected, works today) but architect the Airbyte migration now. At 100+ brands, Supermetrics per-connector pricing becomes brutal (~$500+/mo just for connectors). Self-hosted Airbyte = $0 connector fees, same data quality, and you control the schedule.",
+    monthlyEstimate: "$200\u2013800",
+    monthlyNote: "BigQuery: ~$50-200 (query + storage). Supabase Pro: $25. Supermetrics: $200-500 (Phase 1). Airbyte: $0 self-hosted.",
+    alternatives: [
+      { name: "Snowflake instead of BigQuery", status: "Skip", why: "You\u2019re already on BigQuery + Looker Studio. Migration cost > benefit. Snowflake is better for some things but not worth switching." },
+      { name: "Fivetran instead of Airbyte", status: "Skip", why: "Managed ELT but expensive and you can self-host. With DevOps capacity, Airbyte at $0 beats Fivetran at $1+/credit." },
+    ],
+    stack: ["BigQuery (warehouse + transforms)", "Supabase (operational DB + real-time + vectors)", "Supermetrics (Phase 1 connectors)", "Airbyte self-hosted (Phase 2+ connectors)", "dbt Core (metric transformation layer)"],
+    keyDecision: "Add dbt in Phase 2. It turns your KPI Hierarchy Agent\u2019s metric definitions into version-controlled, tested SQL models. At 100+ brands with custom metrics per client, dbt prevents metric chaos.",
+  },
+  {
+    id: "ingestion",
+    layer: "05",
+    name: "Data Sources & APIs",
+    subtitle: "What feeds the agents",
+    color: "#EF4444",
+    recommendation: "Direct API connections + Apify + Clay",
+    reasoning: "For 100+ brands, you need both official APIs (reliable, rate-limited) and scraping (richer data, no rate limits). Meta Ads API + Google Ads API for your own clients\u2019 performance data. Apify for competitor intelligence (Meta Ad Library, TikTok Creative Center, landing pages). Clay for prospect enrichment on the SDR side. Motion and Northbeam/Triple Whale via their APIs for creative analytics and attribution.",
+    monthlyEstimate: "$500\u20132,000",
+    monthlyNote: "Apify: $200-500 (scales with scraping volume). Clay: $149-500. Motion: $199/workspace. Northbeam: per-client cost.",
+    alternatives: [
+      { name: "Building custom scrapers instead of Apify", status: "Skip", why: "Apify\u2019s actor marketplace has battle-tested Meta Ad Library scrapers. Building your own = maintaining it every time Facebook changes their UI. Not worth it." },
+    ],
+    stack: ["Meta Ads API (client performance)", "Google Ads API (client performance)", "Shopify Admin API (revenue/orders)", "Meta Ad Library API + Apify actors (competitor intel)", "Apify (TikTok, landing pages, social)", "Clay (prospect enrichment)", "Motion API/export (creative analytics)", "Northbeam/Triple Whale API (attribution)"],
+    keyDecision: "Build a universal connector interface so adding a new data source is config, not code. At 100+ brands, you\u2019ll encounter every platform combination.",
+  },
+  {
+    id: "delivery",
+    layer: "06",
+    name: "Output & Delivery",
+    subtitle: "How agents deliver value to humans",
+    color: "#EC4899",
+    recommendation: "Slack + Looker Studio + Google Slides + ClickUp",
+    reasoning: "Keep what\u2019s working. Slack for real-time alerts and digests. Looker Studio for dashboards (free, BigQuery-native). Google Slides API for programmatic QBR decks. ClickUp for task creation from agent outputs. When you productize for 100+ brands, add a custom web dashboard built in Mastra/Next.js \u2014 clients won\u2019t want to live in your Slack.",
+    monthlyEstimate: "$0\u2013100",
+    monthlyNote: "All APIs are free. Only cost is existing tool subscriptions.",
+    alternatives: [
+      { name: "Custom web dashboard (Mastra + Next.js)", status: "Phase 3+", why: "Essential for the SaaS vision. Clients need a branded portal, not your Slack. But don\u2019t build it until the agents are proven internally." },
+      { name: "Email reports (SendGrid)", status: "Add in Phase 2", why: "Some clients prefer email digests. Cheap to add: SendGrid free tier = 100 emails/day." },
+    ],
+    stack: ["Slack API + Block Kit (alerts, digests)", "Looker Studio (dashboards)", "Google Slides API (decks)", "ClickUp API (task creation)", "Gmail API (email delivery)", "Future: Mastra web portal (client-facing SaaS)"],
+    keyDecision: "For the SaaS vision: plan the Mastra web portal architecture now, even if you don\u2019t build it until Phase 3. Every agent output should be structured data that can render in both Slack AND a web UI.",
+  },
+  {
+    id: "observability",
+    layer: "07",
+    name: "Monitoring & Observability",
+    subtitle: "How you know agents are working correctly",
+    color: "#06B6D4",
+    recommendation: "Helicone + Sentry + custom Slack alerts",
+    reasoning: "At 100+ brands, you MUST know: which agents are running, what they cost per brand, when they fail, and how accurate they are. Helicone is the fastest path \u2014 it\u2019s a proxy layer that logs every LLM call with zero code changes. Just change the API base URL. Sentry catches Python/TS exceptions. Custom Slack alerts for pipeline health (already part of the Slack Alerting Agent).",
+    monthlyEstimate: "$50\u2013150",
+    monthlyNote: "Helicone Pro: $20-50. Sentry Team: $26. Custom alerts: $0.",
+    alternatives: [
+      { name: "LangSmith", status: "Add when debugging gets hard", why: "More powerful tracing than Helicone but more complex setup. Add when you need to debug WHY an agent classified an ad incorrectly \u2014 LangSmith shows the full prompt chain." },
+      { name: "Datadog / New Relic", status: "Phase 4+ (SaaS scale)", why: "Full APM for when you have a dedicated infra team. Overkill until you\u2019re running the platform at serious scale." },
+    ],
+    stack: ["Helicone (LLM cost + latency tracking)", "Sentry (error tracking)", "Custom Slack channel (#agent-ops)", "BigQuery logs (agent run history for auditing)"],
+    keyDecision: "Log every agent run to a BigQuery audit table from Day 1: agent_name, client_id, run_time, tokens_used, status, errors. At 100+ brands, this table is how you bill clients and debug issues.",
+  },
+  {
+    id: "auth",
+    layer: "08",
+    name: "Security & Multi-tenancy",
+    subtitle: "How you isolate 100+ brands safely",
+    color: "#78716C",
+    recommendation: "Supabase RLS + API key management + secrets vault",
+    reasoning: "This is the one most teams skip and regret. At 100+ brands: each brand\u2019s ad data must be isolated (Brand A can never see Brand B\u2019s data). API tokens for 100+ Meta accounts, Google accounts, and Shopify stores need secure storage and rotation. Supabase Row-Level Security (RLS) handles data isolation natively in Postgres. Use a secrets vault (Doppler or Infisical) for API key management.",
+    monthlyEstimate: "$0\u2013100",
+    monthlyNote: "Supabase RLS: included. Doppler: free tier. Infisical: self-hosted $0.",
+    alternatives: [
+      { name: "AWS Secrets Manager", status: "Also fine", why: "If you\u2019re already on AWS. More expensive than Doppler/Infisical but deeply integrated with AWS services." },
+    ],
+    stack: ["Supabase RLS (data isolation per brand)", "Doppler or Infisical (secrets management)", "Per-brand API token storage with auto-rotation alerts", "Audit logging (who accessed what, when)"],
+    keyDecision: "Architect multi-tenancy from Day 1. Every database table gets a brand_id column. Every query filters by brand_id. Every agent run is scoped to a single brand. Retrofitting multi-tenancy into a flat architecture is the #1 reason SaaS platforms fail to scale.",
+  },
+];
+
+const totalMonthlyCost = "$3,000\u201312,000";
+
+function StackRecommendation() {
+  const [expandedLayer, setExpandedLayer] = useState(null);
+
+  return (
+    <div style={{
+      minHeight: "100vh", background: "#0A0A0A", color: "#E5E5E5",
+      fontFamily: "'DM Sans', 'Helvetica Neue', sans-serif",
+      padding: "20px", maxWidth: "100%", overflow: "hidden"
+    }}>
+      {/* Header */}
+      <div style={{ marginBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+          <div style={{
+            width: 32, height: 32, borderRadius: 8,
+            background: "linear-gradient(135deg, #EF4444, #F97316)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: 14, fontWeight: 700, color: "#fff"
+          }}>AP</div>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: "#666", letterSpacing: 2, textTransform: "uppercase" }}>Definitive Recommendation</span>
+        </div>
+        <h1 style={{ fontSize: 20, fontWeight: 700, color: "#fff", margin: "8px 0 4px", lineHeight: 1.2 }}>
+          The Ad Pros Agent Stack
+        </h1>
+        <p style={{ fontSize: 12, color: "#888", margin: 0 }}>
+          Architected for 100+ brands, hybrid autonomy, Python + TS, self-hosted
+        </p>
+      </div>
+
+      {/* Decision Context */}
+      <div style={{
+        background: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(59,130,246,0.08))",
+        border: "1px solid rgba(139,92,246,0.15)",
+        borderRadius: 12, padding: 14, marginBottom: 20
+      }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: "#8B5CF6", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, fontFamily: "'Space Mono', monospace" }}>
+          Built for your constraints
+        </div>
+        <div style={{ fontSize: 12, color: "#bbb", lineHeight: 1.7 }}>
+          <div>{"\u2192"} <span style={{ color: "#fff", fontWeight: 600 }}>Python + TypeScript</span> dev team</div>
+          <div>{"\u2192"} <span style={{ color: "#fff", fontWeight: 600 }}>Self-hosted</span> infrastructure capacity</div>
+          <div>{"\u2192"} <span style={{ color: "#fff", fontWeight: 600 }}>No budget ceiling</span> {"\u2014"} optimizing for speed</div>
+          <div>{"\u2192"} <span style={{ color: "#fff", fontWeight: 600 }}>100+ brands</span> SaaS vision in 6 months</div>
+          <div>{"\u2192"} <span style={{ color: "#fff", fontWeight: 600 }}>Hybrid autonomy</span> {"\u2014"} auto-execute low-risk, human approval for high-risk</div>
+        </div>
+      </div>
+
+      {/* Total Cost */}
+      <div style={{
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
+        borderRadius: 10, padding: "12px 16px", marginBottom: 20
+      }}>
+        <div>
+          <div style={{ fontSize: 10, color: "#666", textTransform: "uppercase", letterSpacing: 1, fontFamily: "'Space Mono', monospace" }}>Est. Monthly (100 brands)</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", fontFamily: "'Space Mono', monospace" }}>{totalMonthlyCost}</div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: 10, color: "#666", textTransform: "uppercase", letterSpacing: 1, fontFamily: "'Space Mono', monospace" }}>Per Brand</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "#10B981", fontFamily: "'Space Mono', monospace" }}>$30–120</div>
+        </div>
+      </div>
+
+      {/* Stack Layers */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {stackLayers.map((layer) => {
+          const isExpanded = expandedLayer === layer.id;
+          return (
+            <div key={layer.id} onClick={() => setExpandedLayer(isExpanded ? null : layer.id)} style={{
+              background: "rgba(255,255,255,0.02)",
+              border: `1px solid ${isExpanded ? layer.color + "44" : "rgba(255,255,255,0.06)"}`,
+              borderRadius: 12, overflow: "hidden", cursor: "pointer", transition: "all 0.2s"
+            }}>
+              {/* Layer Header */}
+              <div style={{ padding: "14px 16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 6 }}>
+                      <span style={{
+                        fontSize: 10, fontWeight: 700, fontFamily: "'Space Mono', monospace",
+                        color: layer.color, opacity: 0.6
+                      }}>{layer.layer}</span>
+                      <span style={{ fontSize: 10, color: "#555", fontFamily: "'Space Mono', monospace" }}>{layer.subtitle}</span>
+                    </div>
+                    <h3 style={{ fontSize: 15, fontWeight: 700, color: "#fff", margin: "0 0 6px" }}>{layer.name}</h3>
+                    <div style={{
+                      fontSize: 12, color: layer.color, fontWeight: 600,
+                      background: layer.color + "15", padding: "4px 10px",
+                      borderRadius: 6, display: "inline-block",
+                      border: `1px solid ${layer.color}25`
+                    }}>{layer.recommendation}</div>
+                  </div>
+                  <div style={{ textAlign: "right", flexShrink: 0, marginLeft: 12 }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: "'Space Mono', monospace" }}>{layer.monthlyEstimate}</div>
+                    <div style={{ fontSize: 9, color: "#555" }}>/month</div>
+                    <div style={{
+                      fontSize: 16, color: "#444", marginTop: 4,
+                      transform: isExpanded ? "rotate(180deg)" : "rotate(0)",
+                      transition: "transform 0.2s"
+                    }}>{"\u25BE"}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Expanded Content */}
+              {isExpanded && (
+                <div style={{
+                  padding: "0 16px 16px",
+                  borderTop: "1px solid rgba(255,255,255,0.04)"
+                }}>
+                  {/* Reasoning */}
+                  <div style={{ padding: "14px 0 12px" }}>
+                    <div style={{ fontSize: 12, color: "#aaa", lineHeight: 1.6 }}>{layer.reasoning}</div>
+                  </div>
+
+                  {/* Cost Note */}
+                  <div style={{
+                    background: "rgba(245,158,11,0.05)", borderRadius: 8,
+                    padding: 10, marginBottom: 12, border: "1px solid rgba(245,158,11,0.1)"
+                  }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "#F59E0B", textTransform: "uppercase", letterSpacing: 1, marginBottom: 3, fontFamily: "'Space Mono', monospace" }}>
+                      Cost Breakdown
+                    </div>
+                    <div style={{ fontSize: 11, color: "#ccc" }}>{layer.monthlyNote}</div>
+                  </div>
+
+                  {/* Stack Components */}
+                  <div style={{ marginBottom: 12 }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6, fontFamily: "'Space Mono', monospace" }}>
+                      Components
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                      {layer.stack.map((s, i) => (
+                        <span key={i} style={{
+                          fontSize: 11, color: layer.color,
+                          background: layer.color + "10",
+                          padding: "4px 8px", borderRadius: 6,
+                          border: `1px solid ${layer.color}20`
+                        }}>{s}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Key Decision */}
+                  <div style={{
+                    background: "rgba(16,185,129,0.05)", borderRadius: 8,
+                    padding: 10, marginBottom: 12, border: "1px solid rgba(16,185,129,0.1)"
+                  }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "#10B981", textTransform: "uppercase", letterSpacing: 1, marginBottom: 3, fontFamily: "'Space Mono', monospace" }}>
+                      Key Architecture Decision
+                    </div>
+                    <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.5 }}>{layer.keyDecision}</div>
+                  </div>
+
+                  {/* Alternatives */}
+                  <div>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "#666", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, fontFamily: "'Space Mono', monospace" }}>
+                      Alternatives Evaluated
+                    </div>
+                    {layer.alternatives.map((alt, i) => (
+                      <div key={i} style={{
+                        display: "flex", gap: 8, alignItems: "flex-start",
+                        padding: "8px 0",
+                        borderBottom: i < layer.alternatives.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none"
+                      }}>
+                        <span style={{
+                          fontSize: 9, fontWeight: 700, fontFamily: "'Space Mono', monospace",
+                          color: alt.status === "Skip" ? "#EF4444" : alt.status.includes("later") || alt.status.includes("Phase") || alt.status.includes("Revisit") || alt.status.includes("Add") ? "#F59E0B" : alt.status === "Also fine" ? "#10B981" : "#6B7280",
+                          background: alt.status === "Skip" ? "rgba(239,68,68,0.1)" : alt.status.includes("later") || alt.status.includes("Phase") || alt.status.includes("Revisit") || alt.status.includes("Add") ? "rgba(245,158,11,0.1)" : "rgba(107,114,128,0.1)",
+                          padding: "2px 6px", borderRadius: 4, flexShrink: 0,
+                          whiteSpace: "nowrap", marginTop: 2
+                        }}>{alt.status}</span>
+                        <div>
+                          <div style={{ fontSize: 12, color: "#ccc", fontWeight: 600 }}>{alt.name}</div>
+                          <div style={{ fontSize: 11, color: "#777", marginTop: 2 }}>{alt.why}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bottom: Non-Negotiable Architecture Rules */}
+      <div style={{
+        marginTop: 20,
+        background: "linear-gradient(135deg, rgba(239,68,68,0.08), rgba(245,158,11,0.06))",
+        border: "1px solid rgba(239,68,68,0.15)",
+        borderRadius: 12, padding: 16
+      }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#EF4444", marginBottom: 10, fontFamily: "'Space Mono', monospace", letterSpacing: 1 }}>
+          5 NON-NEGOTIABLE ARCHITECTURE RULES
+        </div>
+        <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.8 }}>
+          <div style={{ marginBottom: 6 }}><span style={{ color: "#EF4444", fontWeight: 700 }}>1.</span> <span style={{ color: "#fff", fontWeight: 600 }}>Multi-tenant from Day 1.</span> Every table has brand_id. Every query filters by it. Every agent run is scoped. No exceptions.</div>
+          <div style={{ marginBottom: 6 }}><span style={{ color: "#EF4444", fontWeight: 700 }}>2.</span> <span style={{ color: "#fff", fontWeight: 600 }}>Config-driven agents.</span> Adding a new brand = adding a JSON config, not writing new code. Agent logic is universal; brand context is config.</div>
+          <div style={{ marginBottom: 6 }}><span style={{ color: "#EF4444", fontWeight: 700 }}>3.</span> <span style={{ color: "#fff", fontWeight: 600 }}>Audit everything.</span> Every agent run logs to BigQuery: agent, brand, timestamp, tokens, cost, status, outputs. This is how you bill and debug.</div>
+          <div style={{ marginBottom: 6 }}><span style={{ color: "#EF4444", fontWeight: 700 }}>4.</span> <span style={{ color: "#fff", fontWeight: 600 }}>Hybrid autonomy with escalation.</span> Low-risk actions auto-execute (Slack alerts, report generation, task creation). High-risk actions (budget changes, ad pausing) queue for human approval with a 4-hour auto-escalation.</div>
+          <div><span style={{ color: "#EF4444", fontWeight: 700 }}>5.</span> <span style={{ color: "#fff", fontWeight: 600 }}>Every output is structured data first, rendered second.</span> Agents output JSON. Slack, Looker, PPTX, and the future web portal all render from the same JSON. Never build agent outputs that only work in one delivery channel.</div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div style={{
+        marginTop: 20, paddingTop: 14,
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        textAlign: "center"
+      }}>
+        <span style={{ fontSize: 10, color: "#444", fontFamily: "'Space Mono', monospace" }}>
+          AD PROS DEFINITIVE STACK v1.0 — TAP ANY LAYER TO EXPAND
+        </span>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<StackRecommendation />);
+</script>
+</body>
+</html>
