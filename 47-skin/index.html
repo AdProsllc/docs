@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>47 Skin — Brand Intelligence Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface-2: #1e1e1e;
+    --border: #2a2a2a;
+    --text: #f0f0f0;
+    --text-muted: #888;
+    --accent: #A2BFB9;
+    --accent-dim: rgba(162, 191, 185, 0.15);
+    --orange: #DE924B;
+    --orange-dim: rgba(222, 146, 75, 0.15);
+    --green: #4ade80;
+    --green-dim: rgba(74, 222, 128, 0.12);
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --blue: #60a5fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  .header {
+    padding: 48px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .header-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .brand-name { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+  .brand-name span { color: var(--accent); }
+  .header-meta { display: flex; gap: 24px; margin-top: 12px; flex-wrap: wrap; }
+  .header-meta a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .header-meta a:hover { text-decoration: underline; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-active { background: var(--green-dim); color: var(--green); }
+  .badge-progress { background: var(--orange-dim); color: var(--orange); }
+  .positioning { margin-top: 16px; font-size: 15px; color: var(--text-muted); max-width: 800px; }
+
+  /* Pipeline */
+  .pipeline { display: flex; gap: 4px; margin: 32px 0; flex-wrap: wrap; }
+  .pipeline-step {
+    flex: 1; min-width: 100px; padding: 12px 16px; border-radius: 8px;
+    text-align: center; font-size: 12px; font-weight: 600;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .pipeline-step.done { background: var(--green-dim); border-color: rgba(74,222,128,0.3); color: var(--green); }
+  .pipeline-step.active { background: var(--orange-dim); border-color: rgba(222,146,75,0.4); color: var(--orange); }
+  .pipeline-step .step-num { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px; }
+  .pipeline-step.done .step-num { color: rgba(74,222,128,0.6); }
+  .pipeline-step.active .step-num { color: rgba(222,146,75,0.6); }
+
+  /* Section */
+  .section { margin-bottom: 48px; }
+  .section-title {
+    font-size: 20px; font-weight: 700; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-icon { font-size: 18px; }
+
+  /* KPI Grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .kpi-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; text-align: center;
+  }
+  .kpi-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .kpi-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .kpi-value.orange { color: var(--orange); }
+  .kpi-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  /* Cards */
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 16px;
+  }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .card-title { font-size: 16px; font-weight: 600; }
+  .card-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+  /* Persona */
+  .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px; }
+  .persona-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+  .persona-card.primary { border-color: var(--accent); border-width: 2px; }
+  .persona-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .persona-role { font-size: 13px; color: var(--accent); margin-bottom: 16px; }
+  .persona-field { margin-bottom: 14px; }
+  .persona-field-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .persona-field-value { font-size: 14px; line-height: 1.5; }
+  .pain-points { list-style: none; padding: 0; }
+  .pain-points li { font-size: 13px; padding: 8px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+  .pain-points li:last-child { border-bottom: none; }
+  .emotion-journey { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  .emotion-arrow { color: var(--accent); font-weight: 700; }
+
+  /* Competitor Table */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--surface-2); padding: 12px 16px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); white-space: nowrap; }
+  td { padding: 12px 16px; border-top: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .comp-type { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; background: var(--surface-2); color: var(--text-muted); }
+
+  /* Creative Angles */
+  .angle-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; margin-bottom: 12px;
+    display: grid; grid-template-columns: 60px 1fr auto; gap: 16px; align-items: start;
+  }
+  .angle-score {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+  }
+  .angle-score.tier1 { background: var(--green-dim); color: var(--green); }
+  .angle-score.tier2 { background: var(--orange-dim); color: var(--orange); }
+  .angle-headline { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .angle-message { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .angle-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .angle-tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--surface-2); color: var(--text-muted); }
+  .angle-tier { font-size: 12px; font-weight: 600; white-space: nowrap; padding-top: 4px; }
+  .angle-tier.t1 { color: var(--green); }
+  .angle-tier.t2 { color: var(--orange); }
+
+  /* TikTok Performance */
+  .perf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+  .perf-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .perf-card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .perf-card-creator { font-size: 12px; color: var(--accent); margin-bottom: 8px; }
+  .perf-stats { display: flex; gap: 16px; margin-bottom: 10px; }
+  .perf-stat { text-align: center; }
+  .perf-stat-val { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .perf-stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+  .perf-insight { font-size: 12px; color: var(--text-muted); line-height: 1.5; padding-top: 8px; border-top: 1px solid var(--border); }
+
+  /* Products */
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+  .product-card.hero { border-color: var(--accent); border-width: 2px; }
+  .product-price { font-size: 28px; font-weight: 700; color: var(--accent); margin: 8px 0; }
+  .product-name { font-size: 14px; font-weight: 600; }
+  .product-role { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  /* Signal list */
+  .signal-list { list-style: none; padding: 0; }
+  .signal-list li { font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--border); line-height: 1.5; display: flex; gap: 8px; }
+  .signal-list li:last-child { border-bottom: none; }
+  .signal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+
+  /* Brand Voice */
+  .voice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .voice-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .voice-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+  .voice-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-style: italic; margin-bottom: 12px; }
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .do-list, .dont-list { list-style: none; padding: 0; }
+  .do-list li, .dont-list li { font-size: 12px; padding: 4px 0; }
+  .do-list li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+  .dont-list li::before { content: "✗ "; color: var(--red); font-weight: 700; }
+
+  /* Vocabulary */
+  .vocab-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .vocab-use { padding: 4px 12px; border-radius: 20px; font-size: 12px; background: var(--green-dim); color: var(--green); }
+  .vocab-avoid { padding: 4px 12px; border-radius: 20px; font-size: 12px; background: rgba(248,113,113,0.12); color: var(--red); text-decoration: line-through; }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border); padding: 32px 0; margin-top: 48px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted);
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pipeline { flex-direction: column; }
+    .angle-card { grid-template-columns: 48px 1fr; }
+    .angle-tier { display: none; }
+    .persona-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="brand-name"><span>47</span> Skin</div>
+        <div class="header-meta">
+          <a href="https://us.47skin.com/" target="_blank">us.47skin.com</a>
+          <span style="color:var(--text-muted)">|</span>
+          <span style="color:var(--text-muted)">Brand ID: 6c1d7301</span>
+        </div>
+      </div>
+      <span class="badge badge-progress">Step 7 In Progress</span>
+    </div>
+    <p class="positioning">The only skincare brand built around Silver Chitoderm&reg; &mdash; a clinically proven ingredient that kills 99.9% of blemish-causing bacteria, repairs scars, and restores confidence. Real people. Real results. No filters.</p>
+
+    <!-- Pipeline -->
+    <div class="pipeline">
+      <div class="pipeline-step done"><span class="step-num">Step 1</span>Brand Intake</div>
+      <div class="pipeline-step done"><span class="step-num">Step 2</span>Market Research</div>
+      <div class="pipeline-step done"><span class="step-num">Step 3</span>Competitor Intel</div>
+      <div class="pipeline-step done"><span class="step-num">Step 4</span>Assessment</div>
+      <div class="pipeline-step done"><span class="step-num">Step 5</span>Decisions</div>
+      <div class="pipeline-step done"><span class="step-num">Step 6</span>Creative Strategy</div>
+      <div class="pipeline-step active"><span class="step-num">Step 7</span>Brief Builder</div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Key Metrics &amp; Targets</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Current US Spend</div>
+        <div class="kpi-value">$60-80K</div>
+        <div class="kpi-sub">per month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">90-Day Target</div>
+        <div class="kpi-value orange">$300K</div>
+        <div class="kpi-sub">per month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">12-Month Target</div>
+        <div class="kpi-value orange">$1.9M</div>
+        <div class="kpi-sub">per month (uncapped)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Primary KPI</div>
+        <div class="kpi-value" style="font-size:20px;">ncROAS</div>
+        <div class="kpi-sub">New Customer ROAS</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Budget Split</div>
+        <div class="kpi-value" style="font-size:22px;">90 / 10</div>
+        <div class="kpi-sub">Performance / Brand</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Testing Volume</div>
+        <div class="kpi-value" style="font-size:22px;">20-30</div>
+        <div class="kpi-sub">concepts per month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">AOV</div>
+        <div class="kpi-value">$76</div>
+        <div class="kpi-sub">average order value</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">LTV</div>
+        <div class="kpi-value">$150</div>
+        <div class="kpi-sub">customer lifetime value</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Product Ladder</div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-name">Trial Size Serum (15ml)</div>
+        <div class="product-price">$25</div>
+        <div class="product-role">Acquisition entry point</div>
+      </div>
+      <div class="product-card hero">
+        <div class="product-name">Anti-Blemish &amp; Scar Repair Serum (30ml)</div>
+        <div class="product-price">$45</div>
+        <div class="product-role">Core hero product &bull; Subscribe &amp; Save: $40.50</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">2-Step Cleanse &amp; Protect Set</div>
+        <div class="product-price">$81</div>
+        <div class="product-role">Mid-tier upsell bundle</div>
+      </div>
+      <div class="product-card">
+        <div class="product-name">3-Step Moisture Set</div>
+        <div class="product-price">$119</div>
+        <div class="product-role">High-AOV upsell bundle</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title" style="font-size:14px; margin-bottom:12px;">Incentive Ladder</div>
+      <div style="display:flex; gap:24px; flex-wrap:wrap; font-size:13px;">
+        <span><strong style="color:var(--accent);">$15+</strong> Free gift</span>
+        <span><strong style="color:var(--accent);">$65+</strong> Free shipping</span>
+        <span><strong style="color:var(--accent);">$130+</strong> Free BHA</span>
+        <span><strong style="color:var(--accent);">$200+</strong> Free moisturiser</span>
+      </div>
+      <div style="font-size:12px; color:var(--text-muted); margin-top:8px;">47-day money-back guarantee &bull; 14% subscription discount &bull; UGC creator budget: $300/script</div>
+    </div>
+  </div>
+
+  <!-- Personas -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Target Personas</div>
+    <div class="persona-grid">
+
+      <div class="persona-card primary">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <div class="persona-name">Protective Parent Petra</div>
+            <div class="persona-role">Mom of Teen with Acne &bull; PRIMARY</div>
+          </div>
+          <span class="badge badge-active">Primary</span>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Age &amp; Gender</div>
+          <div class="persona-field-value">Female, 32-52 (core: 38-48)</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Emotional Journey</div>
+          <div class="emotion-journey">Guilt &amp; Anxiety <span class="emotion-arrow">&rarr;</span> Relief &amp; Joy</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Primary Motivation</div>
+          <div class="persona-field-value">Protect her child from the confidence damage of persistent acne</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Desired Outcome</div>
+          <div class="persona-field-value">Clear skin + restored confidence for her teen in 4-6 weeks</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Biggest Fear</div>
+          <div class="persona-field-value" style="color:var(--red);">Teen's acne leaves permanent physical scars AND lasting emotional trauma &mdash; and it is her fault for not finding the answer sooner</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Key Phrase</div>
+          <div class="persona-field-value" style="font-style:italic;">"When all else had failed / confidence back / tried everything / I watched my teen pull away and I had to fix it"</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Top Objection</div>
+          <div class="persona-field-value">"My teen has already tried XYZ and nothing works."</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Top Pain Points</div>
+          <ul class="pain-points">
+            <li>Long-term trial fatigue &mdash; tried many products, nothing works</li>
+            <li>Desperate for the one thing that works</li>
+            <li>Needs speed + emotional double-payoff</li>
+            <li>Watches her teen withdraw from social life &mdash; refuses photos, skips events, loses confidence</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <div class="persona-name">Struggling Sophie</div>
+            <div class="persona-role">Adult Woman with Persistent / Hormonal Acne</div>
+          </div>
+          <span class="badge" style="background:var(--surface-2); color:var(--text-muted);">Secondary</span>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Age &amp; Gender</div>
+          <div class="persona-field-value">Female, 28-50 (core: 30-42; emerging: 43-50)</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Emotional Journey</div>
+          <div class="emotion-journey">Frustration &amp; Embarrassment <span class="emotion-arrow">&rarr;</span> Empowerment &amp; Relief</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Primary Motivation</div>
+          <div class="persona-field-value">Clear her adult acne without harsh medications that dry out and damage her overall skin quality</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Desired Outcome</div>
+          <div class="persona-field-value">Consistently clear skin she can stop thinking about, with scarring visibly reduced</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Biggest Fear</div>
+          <div class="persona-field-value" style="color:var(--red);">She will never fully be free of it &mdash; the breakouts will always come back, the scars will stay</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Key Phrase</div>
+          <div class="persona-field-value" style="font-style:italic;">"Adult acne is different / I shouldn't still be dealing with this at my age / I've had this since I was 11"</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Top Objection</div>
+          <div class="persona-field-value">"My skin is too sensitive and dry to use most acne products &mdash; they make it worse."</div>
+        </div>
+        <div class="persona-field">
+          <div class="persona-field-label">Top Pain Points</div>
+          <ul class="pain-points">
+            <li>Products for oily teen skin dry out adult skin &mdash; most treatments compromise her skin barrier</li>
+            <li>Hormonal fluctuations mean skin clears then cycles back; she has stopped believing in permanent solutions</li>
+            <li>Adult acne carries social stigma &mdash; people assume poor hygiene or diet, not biology</li>
+            <li>Scar legacy &mdash; years of breakouts left pigmentation that blemish-only treatments can't address</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Brand Voice -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Brand Voice &amp; Compliance</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-title">Brand Voice</div>
+        <div class="voice-desc">"The good doctor &mdash; expert, empathetic, clear, not preachy. Plain English only, no science jargon."</div>
+        <div class="do-dont">
+          <div>
+            <div style="font-size:11px; color:var(--green); font-weight:600; margin-bottom:8px;">DO</div>
+            <ul class="do-list">
+              <li>Show empathy</li>
+              <li>Be expert</li>
+              <li>Offer solutions</li>
+              <li>Be (a bit) provocative</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:11px; color:var(--red); font-weight:600; margin-bottom:8px;">DON'T</div>
+            <ul class="dont-list">
+              <li>Never preach</li>
+              <li>Never be gross</li>
+              <li>Never be boring</li>
+              <li>Never use verbose language</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-title">Customer Voice</div>
+        <div class="voice-desc">"Emotional, authentic, raw. Customers can use their own words and medical terms in quotes."</div>
+        <div style="font-size:13px; line-height:1.8;">
+          <div><strong>Headlines:</strong> Ivar Display, sentence case, punchy, always end with full stop.</div>
+          <div><strong>Body:</strong> Montserrat. Short paragraphs, open line spacing, one point per paragraph.</div>
+          <div><strong>Silver Chitoderm&reg;:</strong> Always &reg; symbol. Never attribute to silver OR chitoderm alone &mdash; always the combination.</div>
+        </div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-title">Vocabulary</div>
+        <div style="font-size:12px; color:var(--green); font-weight:600; margin-bottom:4px;">USE</div>
+        <div class="vocab-grid">
+          <span class="vocab-use">Blemish</span>
+          <span class="vocab-use">Silver Chitoderm&reg;</span>
+          <span class="vocab-use">Repair</span>
+          <span class="vocab-use">Confidence</span>
+          <span class="vocab-use">Clinically proven</span>
+          <span class="vocab-use">Real results</span>
+          <span class="vocab-use">Breakout</span>
+          <span class="vocab-use">Scar repair</span>
+          <span class="vocab-use">Transformation</span>
+        </div>
+        <div style="font-size:12px; color:var(--red); font-weight:600; margin-top:16px; margin-bottom:4px;">AVOID</div>
+        <div class="vocab-grid">
+          <span class="vocab-avoid">Cure acne</span>
+          <span class="vocab-avoid">Eliminates acne</span>
+          <span class="vocab-avoid">Clinical acne treatment</span>
+          <span class="vocab-avoid">Pharmaceutical claims</span>
+          <span class="vocab-avoid">100% guaranteed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Creative Angles -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Top Creative Angles <span style="font-size:13px; color:var(--text-muted); font-weight:400; margin-left:8px;">(ranked by composite score)</span></div>
+
+    <div class="angle-card">
+      <div class="angle-score tier1">8.9</div>
+      <div>
+        <div class="angle-headline">I tried everything for my daughter's skin &mdash; this is the only thing that worked</div>
+        <div class="angle-message">Mom direct-to-camera or quote card sharing exact VOC language: long product trial history, discovery of 47 Skin, fast visible results.</div>
+        <div class="angle-tags"><span class="angle-tag">UGC</span><span class="angle-tag">First-Person Testimonial</span><span class="angle-tag">TOF</span></div>
+      </div>
+      <div class="angle-tier t1">Tier 1</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier1">8.9</div>
+      <div>
+        <div class="angle-headline">The Mom Who Finally Found It &mdash; After Trying Everything</div>
+        <div class="angle-message">A mom shares her journey through product after product that let her teen down &mdash; until 47 Skin changed everything. Full parent-to-parent transformation arc.</div>
+        <div class="angle-tags"><span class="angle-tag">Inspirational</span><span class="angle-tag">Transformation Story</span><span class="angle-tag">TOF</span></div>
+      </div>
+      <div class="angle-tier t1">Tier 1</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier1">8.7</div>
+      <div>
+        <div class="angle-headline">My son's confidence is back. I haven't seen him smile like that in years.</div>
+        <div class="angle-message">Pure payoff moment &mdash; the after-state. Parent quote paired with teen transformation or wide smile. The resolution every Petra is buying.</div>
+        <div class="angle-tags"><span class="angle-tag">Inspirational</span><span class="angle-tag">Emotional Payoff</span><span class="angle-tag">TOF</span></div>
+      </div>
+      <div class="angle-tier t1">Tier 1</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier1">8.7</div>
+      <div>
+        <div class="angle-headline">Watching my teen withdraw from social life because of her skin broke my heart.</div>
+        <div class="angle-message">Full emotional journey from a parent's POV: teen pulling back, refusing photos, skipping events &mdash; then the 2-week transformation, the smile returning.</div>
+        <div class="angle-tags"><span class="angle-tag">Inspirational</span><span class="angle-tag">Customer Transformation</span><span class="angle-tag">TOF</span></div>
+      </div>
+      <div class="angle-tier t1">Tier 1</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier1">8.6</div>
+      <div>
+        <div class="angle-headline">The ingredient no other skincare brand on earth can copy &mdash; here's why it works.</div>
+        <div class="angle-message">Visual breakdown of Silver Chitoderm&reg;: patented bond, how it targets bacteria without disrupting skin barrier. Converts research-mode moms AND ingredient-curious adults.</div>
+        <div class="angle-tags"><span class="angle-tag">Educational</span><span class="angle-tag">Ingredient Science</span><span class="angle-tag">MOF</span></div>
+      </div>
+      <div class="angle-tier t1">Tier 1</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier1">8.6</div>
+      <div>
+        <div class="angle-headline">When nothing else worked for my daughter's acne, this was the only thing that cleared it.</div>
+        <div class="angle-message">Problem empathy hook leads. Mom's voice: tried prescriptions, fancy serums, drugstore stuff. Then a friend mentioned 47 Skin. Straight UGC, specific, results timeframe.</div>
+        <div class="angle-tags"><span class="angle-tag">Storytelling</span><span class="angle-tag">Problem-Fix-Outcome</span><span class="angle-tag">TOF</span></div>
+      </div>
+      <div class="angle-tier t1">Tier 1</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier2">8.5</div>
+      <div>
+        <div class="angle-headline">Real skin. Real results. No filters. Real parents sharing what finally worked.</div>
+        <div class="angle-message">Before-after grid from real parent-shared photos. 3-4 mini transformations in one image. Leverages 47 Skin brand DNA.</div>
+        <div class="angle-tags"><span class="angle-tag">UGC</span><span class="angle-tag">Transformation Photo</span><span class="angle-tag">TOF/MOF</span></div>
+      </div>
+      <div class="angle-tier t2">Tier 2</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier2">8.3</div>
+      <div>
+        <div class="angle-headline">20,000+ 5-star reviews. Trusted by parents in 30+ countries. Stocked at Harrods.</div>
+        <div class="angle-message">Authority trifecta &mdash; review volume + international scale + premium retail. For Petra in research mode.</div>
+        <div class="angle-tags"><span class="angle-tag">Authority</span><span class="angle-tag">Social Proof</span><span class="angle-tag">MOF/BOF</span></div>
+      </div>
+      <div class="angle-tier t2">Tier 2</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier2">8.3</div>
+      <div>
+        <div class="angle-headline">Try 47 Skin risk-free for $25 &mdash; if it doesn't work in 47 days, we'll refund every cent.</div>
+        <div class="angle-message">Trial $25 entry point + 47-day guarantee in single headline. Eliminates #1 objection for a mom burned by products before.</div>
+        <div class="angle-tags"><span class="angle-tag">Promotional</span><span class="angle-tag">Trial / Risk-Free</span><span class="angle-tag">TOF/BOF</span></div>
+      </div>
+      <div class="angle-tier t2">Tier 2</div>
+    </div>
+
+    <div class="angle-card">
+      <div class="angle-score tier2">8.2</div>
+      <div>
+        <div class="angle-headline">You're not a teenager &mdash; but your skin thinks you are.</div>
+        <div class="angle-message">Adult hormonal acne hook for Sophie. Empathy-led, not shame-led. TikTok validated: highest CTR in US dataset (4.45%).</div>
+        <div class="angle-tags"><span class="angle-tag">Problem-Solution</span><span class="angle-tag">Sophie</span><span class="angle-tag">TOF</span></div>
+      </div>
+      <div class="angle-tier t2">Tier 2</div>
+    </div>
+
+  </div>
+
+  <!-- Competitor Landscape -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Competitive Landscape</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Competitor</th>
+            <th>Type</th>
+            <th>Est. Spend</th>
+            <th>Positioning</th>
+            <th>47 Skin's Edge</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Proactiv</strong></td>
+            <td><span class="comp-type">Direct</span></td>
+            <td>$20-50M</td>
+            <td>Progress not perfection, clinical 3-step system, celebrity validation</td>
+            <td>No natural ingredient angle, mass market generic, no real-people ethos</td>
+          </tr>
+          <tr>
+            <td><strong>Hero Cosmetics</strong></td>
+            <td><span class="comp-type">Direct</span></td>
+            <td>$5-10M</td>
+            <td>Shame-free acne acceptance, Gen Z empowerment, humor-led</td>
+            <td>No silver ingredient, not a treatment system, no mom-to-mom angle</td>
+          </tr>
+          <tr>
+            <td><strong>CeraVe</strong></td>
+            <td><span class="comp-type">Adjacent</span></td>
+            <td>$20-40M</td>
+            <td>Developed with dermatologists, ceramides, skin barrier science</td>
+            <td>Not a complete acne system, no natural angle, not mom-focused</td>
+          </tr>
+          <tr>
+            <td><strong>La Roche-Posay</strong></td>
+            <td><span class="comp-type">Adjacent</span></td>
+            <td>$15-25M</td>
+            <td>Dermatologist recommended worldwide, sensitive skin specialist</td>
+            <td>No clean/natural angle, no real-people ethos, premium but cold tone</td>
+          </tr>
+          <tr>
+            <td><strong>Curology</strong></td>
+            <td><span class="comp-type">Indirect</span></td>
+            <td>$5-15M</td>
+            <td>Personalized prescription skincare from real dermatologists</td>
+            <td>Prescription friction, no natural ingredient, no family angle</td>
+          </tr>
+          <tr>
+            <td><strong>Clearstem</strong></td>
+            <td><span class="comp-type">Indirect</span></td>
+            <td>$500K-2M</td>
+            <td>100% free of acne-causing ingredients, anti-aging meets anti-acne</td>
+            <td>No silver ingredient, no UK/international, not targeting moms</td>
+          </tr>
+          <tr>
+            <td><strong>Medicube</strong></td>
+            <td><span class="comp-type">Korean DTC</span></td>
+            <td>&mdash;</td>
+            <td>Premium Korean clinical skincare with intentionally low-fi creative</td>
+            <td>No Silver Chitoderm&reg; equivalent, no scar repair dual-benefit, less emotional narrative</td>
+          </tr>
+          <tr>
+            <td><strong>Norris Organics</strong></td>
+            <td><span class="comp-type">Direct</span></td>
+            <td>$50-200K</td>
+            <td>Clean organic acne care, UK heritage natural formulations</td>
+            <td>Minimal US presence, low budget, no silver ingredient story</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TikTok Performance -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> TikTok Performance Intelligence</div>
+
+    <div style="font-size:14px; font-weight:600; margin-bottom:12px; color:var(--accent);">US Top Performers</div>
+    <div class="perf-grid" style="margin-bottom:24px;">
+      <div class="perf-card">
+        <div class="perf-card-title">Anti blemish acne scar serum is a game changer</div>
+        <div class="perf-card-creator">@edmayer</div>
+        <div class="perf-stats">
+          <div class="perf-stat"><div class="perf-stat-val">2.91%</div><div class="perf-stat-label">CTR</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">$1,837</div><div class="perf-stat-label">GMV</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">115K</div><div class="perf-stat-label">Impressions</div></div>
+        </div>
+        <div class="perf-insight">Game changer framing + explicit benefit language converts best in US.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-card-title">Based off the excellent reviews, I have high hopes</div>
+        <div class="perf-card-creator">@jjrose138</div>
+        <div class="perf-stats">
+          <div class="perf-stat"><div class="perf-stat-val">3.66%</div><div class="perf-stat-label">CTR</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">$1,166</div><div class="perf-stat-label">GMV</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">133K</div><div class="perf-stat-label">Impressions</div></div>
+        </div>
+        <div class="perf-insight">Review-anchored curiosity hook performs strongly &mdash; validates authority angle.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-card-title">Pretty brown skin girlies with adult hormonal acne &mdash; THIS IS THE ONE</div>
+        <div class="perf-card-creator">@allthatjas0</div>
+        <div class="perf-stats">
+          <div class="perf-stat"><div class="perf-stat-val">4.45%</div><div class="perf-stat-label">CTR</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">$655</div><div class="perf-stat-label">GMV</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">79K</div><div class="perf-stat-label">Impressions</div></div>
+        </div>
+        <div class="perf-insight">Highest CTR in US &mdash; adult hormonal acne + diversity representation is underserved and high-engagement.</div>
+      </div>
+    </div>
+
+    <div style="font-size:14px; font-weight:600; margin-bottom:12px; color:var(--accent);">UK Top Performers</div>
+    <div class="perf-grid" style="margin-bottom:24px;">
+      <div class="perf-card">
+        <div class="perf-card-title">The REAL reason Korean women have GLOWING skin at 60</div>
+        <div class="perf-card-creator">@r..nikas</div>
+        <div class="perf-stats">
+          <div class="perf-stat"><div class="perf-stat-val">5.54%</div><div class="perf-stat-label">CTR</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">&pound;4,556</div><div class="perf-stat-label">GMV</div></div>
+          <div class="perf-stat"><div class="perf-stat-val">247K</div><div class="perf-stat-label">Impressions</div></div>
+        </div>
+        <div class="perf-insight">Cross-cultural ingredient education (Korean skincare + Silver) is the dominant UK TikTok formula.</div>
+      </div>
+    </div>
+
+    <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Strategic Signals</div>
+    <ul class="signal-list">
+      <li><span class="signal-dot"></span>Korean beauty education + aging skin angle dominates UK TikTok (5.54% CTR)</li>
+      <li><span class="signal-dot"></span>Adult hormonal acne has highest CTR in US (4.45%) &mdash; underserved by current creative mix</li>
+      <li><span class="signal-dot"></span>Silver ingredient education is high-converting in US when framed clinically (nurse/expert voice)</li>
+      <li><span class="signal-dot"></span>Social proof / review-anchored hooks convert at higher CTR than hard product claims</li>
+      <li><span class="signal-dot"></span>Diversity representation (brown skin + adult acne) opening up new audience segment in US</li>
+      <li><span class="signal-dot"></span>Scar repair language banned on TikTok &mdash; must use "mark repair" on platform-specific content</li>
+    </ul>
+  </div>
+
+  <!-- Strategic Decisions -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Strategic Decisions</div>
+    <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      <div class="card">
+        <div class="card-title">Primary Angle</div>
+        <div class="card-subtitle" style="font-size:15px; color:var(--text); margin-top:8px;">Real people, real skin, silver science</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Lead Format</div>
+        <div class="card-subtitle" style="font-size:15px; color:var(--text); margin-top:8px;">UGC video 9:16 (45%)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Evergreen / Promo Split</div>
+        <div class="card-subtitle" style="font-size:15px; color:var(--text); margin-top:8px;">60% evergreen / 40% promotional</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Hero Offer (Cold)</div>
+        <div class="card-subtitle" style="font-size:15px; color:var(--text); margin-top:8px;">Trial $25 exclusively</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Creator Strategy</div>
+        <div class="card-subtitle" style="font-size:14px; color:var(--text-muted); margin-top:8px; line-height:1.6;">1. US-native creators who speak to the avatar<br>2. Nurse/dermatologist authority voices<br>3. Older creators (40s-60s) for TikTok Shop</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Content Polish</div>
+        <div class="card-subtitle" style="font-size:14px; color:var(--text-muted); margin-top:8px; line-height:1.6;">Open to platform-native low-fi content in US given early stage. Performance &gt; polish.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Funnel Gaps -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Funnel &amp; Attribution</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-title">Current Funnel</div>
+        <div style="font-size:13px; line-height:2;">
+          <div><strong style="color:var(--accent);">TOF:</strong> Paid social (Meta/TikTok) &mdash; mass market messaging, image ads outperform video</div>
+          <div><strong style="color:var(--accent);">MOF:</strong> PDP only &mdash; no listicle/quiz/advertorial tested in US</div>
+          <div><strong style="color:var(--accent);">BOF:</strong> Checkout with under-communicated offer incentives</div>
+          <div><strong style="color:var(--accent);">Post:</strong> 47 Club subscription (Skio)</div>
+        </div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-title">Priority Gaps</div>
+        <ul class="signal-list">
+          <li><span class="signal-dot" style="background:var(--red);"></span>No US avatar-specific landing pages</li>
+          <li><span class="signal-dot" style="background:var(--red);"></span>UK pages redirecting to US traffic</li>
+          <li><span class="signal-dot" style="background:var(--red);"></span>Offer incentives not prominent in ads or LP</li>
+          <li><span class="signal-dot" style="background:var(--red);"></span>No listicle/quiz/advertorial tested in US</li>
+          <li><span class="signal-dot" style="background:var(--red);"></span>TikTok Shop revenue not in Triple Whale</li>
+        </ul>
+      </div>
+      <div class="voice-card">
+        <div class="voice-title">Attribution Stack</div>
+        <div style="font-size:13px; line-height:2;">
+          <div><strong>Primary:</strong> Triple Whale (NC-focused)</div>
+          <div><strong>LTV/Cohort:</strong> PowerBI + Lifetimely</div>
+          <div><strong>Subscription:</strong> Skio</div>
+          <div><strong>Platforms:</strong> Meta, TikTok GMV Max, Google Paid Search, DemandGen/YouTube</div>
+          <div style="color:var(--yellow); margin-top:8px;"><strong>Known gap:</strong> 10x multiplier vs Meta-reported ROAS on some campaigns</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Founder & Social Proof -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">&#9632;</span> Brand Signals &amp; Social Proof</div>
+    <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+      <div class="kpi-card">
+        <div class="kpi-label">Customers</div>
+        <div class="kpi-value" style="font-size:22px;">500,000+</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">5-Star Reviews</div>
+        <div class="kpi-value" style="font-size:22px;">20,000+</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Trustpilot</div>
+        <div class="kpi-value" style="font-size:22px;">4.0 &#9733;</div>
+        <div class="kpi-sub">4,231 reviews</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Instagram</div>
+        <div class="kpi-value" style="font-size:22px;">86K</div>
+        <div class="kpi-sub">followers</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">UK Retail</div>
+        <div class="kpi-value" style="font-size:18px;">Harrods &bull; Boots</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">US Retail Prospect</div>
+        <div class="kpi-value" style="font-size:18px;">Sephora</div>
+        <div class="kpi-sub">in talks</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">PR Win</div>
+        <div class="kpi-value" style="font-size:14px;">Apple Martin &bull; Vogue</div>
+        <div class="kpi-sub">March 2026</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Founder Viral</div>
+        <div class="kpi-value" style="font-size:18px;">15.1M</div>
+        <div class="kpi-sub">views (UK TikTok)</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title" style="font-size:14px;">Founder Story</div>
+      <div style="font-size:13px; color:var(--text-muted); margin-top:8px; line-height:1.6;">Nic Taylor &mdash; spots so bad he could not leave the house. His grandmother's cream changed everything in 4 days. That story has proven viral in UK (15.1M views). US adaptation TBD &mdash; may need US-native equivalent face.</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>47 Skin Brand Intelligence &bull; Generated by <a href="https://adpros.com" target="_blank">AdPros</a> &bull; Last updated April 2026</div>
+    <div>Pipeline steps 1-6 complete &bull; Step 7 (Brief Builder) in progress</div>
+  </div>
+
+</div>
+
+</body>
+</html>
