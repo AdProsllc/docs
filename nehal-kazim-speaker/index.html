@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nehal Kazim — Keynote Speaker | Ad Pros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Ad Pros official palette */
+      --navy:      #040735;
+      --navy-80:   #10111F;
+      --navy-60:   #1E2035;
+      --navy-40:   #33354A;
+      --navy-20:   #54556A;
+      --yellow:    #F9D900;
+      --yellow-lt: #FFF7C2;
+      --blue:      #1A6FD4;
+      --blue-lt:   #E7F4FE;
+      --white:     #FFFFFF;
+      --grey-50:   #F5F5F6;
+      --grey-100:  #E6E6E7;
+      --grey-300:  #8A8B93;
+      --grey-500:  #33354A;
+      --text-body: #1E2035;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Power Grotesk", Inter, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-body);
+      background: var(--white);
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      padding: 96px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 55% 70% at 72% 50%, rgba(249,217,0,.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(249,217,0,.1); border: 1px solid rgba(249,217,0,.22);
+      color: var(--yellow); font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 100px; margin-bottom: 32px;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow);
+    }
+
+    .hero h1 {
+      font-size: 56px; font-weight: 800; line-height: 1.08;
+      letter-spacing: -1px; color: var(--white); margin-bottom: 24px;
+    }
+    .hero h1 em { color: var(--yellow); font-style: normal; }
+
+    .hero-sub {
+      font-size: 18px; line-height: 1.65; color: rgba(255,255,255,.58);
+      max-width: 500px; margin-bottom: 40px;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--yellow); color: var(--navy);
+      font-size: 14px; font-weight: 800;
+      padding: 14px 32px; border-radius: 6px;
+      text-decoration: none; letter-spacing: .01em;
+      transition: filter .2s, transform .15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { filter: brightness(1.07); transform: translateY(-1px); }
+
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,.22); color: var(--white);
+      font-size: 14px; font-weight: 600;
+      padding: 14px 32px; border-radius: 6px;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    /* photo card */
+    .hero-photo {
+      border-radius: 16px; overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--navy-60);
+      border: 1px solid rgba(249,217,0,.15);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-photo-ph {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      color: rgba(255,255,255,.18); font-size: 12px; font-weight: 500;
+    }
+
+    /* ── STATS ─────────────────────────────────────── */
+    .stats {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,.10);
+      padding: 40px 40px;
+    }
+    .stats-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat {
+      text-align: center; padding: 0 24px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-size: 40px; font-weight: 900; color: var(--yellow);
+      letter-spacing: -1px; line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 11px; color: rgba(255,255,255,.4); margin-top: 8px;
+      font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+    }
+
+    /* ── SHARED SECTION ────────────────────────────── */
+    section { padding: 96px 40px; }
+    .section-inner { max-width: 1160px; margin: 0 auto; }
+
+    .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+    }
+    .eyebrow-light { color: var(--yellow); }
+
+    h2 {
+      font-size: 40px; font-weight: 800; line-height: 1.12;
+      letter-spacing: -.5px; color: var(--navy); margin-bottom: 20px;
+    }
+    h2.light { color: var(--white); }
+
+    .section-sub { font-size: 17px; color: var(--grey-300); line-height: 1.7; max-width: 540px; }
+    .section-sub.light { color: rgba(255,255,255,.5); }
+
+    /* ── ABOUT ─────────────────────────────────────── */
+    .about { background: var(--grey-50); }
+    .about-grid { display: grid; grid-template-columns: 460px 1fr; gap: 80px; align-items: center; }
+
+    .about-photo {
+      border-radius: 16px; overflow: hidden;
+      aspect-ratio: 4/5; background: var(--grey-100);
+      border: 1px solid var(--grey-100);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--grey-300); font-size: 12px;
+    }
+    .about-photo-ph {
+      display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--grey-100);
+    }
+
+    .about-body p {
+      font-size: 16px; line-height: 1.75; color: #374151; margin-bottom: 18px;
+    }
+    .about-body p strong { color: var(--navy); font-weight: 700; }
+
+    .bullet-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+    .bullet-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      font-size: 15px; color: #374151; line-height: 1.65;
+    }
+    .bdot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--yellow);
+      flex-shrink: 0; margin-top: 7px;
+      border: 2px solid var(--navy);
+    }
+
+    /* ── WHY BOOK ──────────────────────────────────── */
+    .why { background: var(--navy); }
+    .why-header { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 56px; }
+    .why-header h2 { color: var(--white); }
+    .why-header .eyebrow { color: var(--yellow); }
+    .why-header .section-sub { color: rgba(255,255,255,.5); }
+
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .why-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 12px;
+      padding: 32px 28px; transition: border-color .2s, background .2s;
+    }
+    .why-card:hover { border-color: rgba(249,217,0,.4); background: rgba(249,217,0,.04); }
+
+    .why-icon {
+      margin-bottom: 20px; font-size: 28px; line-height: 1;
+    }
+    .why-card h3 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .why-card p { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.7; }
+
+    /* data tag */
+    .data-tag {
+      display: inline-block; background: var(--yellow);
+      color: var(--navy); font-size: 12px; font-weight: 800;
+      padding: 5px 12px; border-radius: 4px; margin-top: 12px;
+      letter-spacing: .02em;
+    }
+
+    /* ── TALKS ─────────────────────────────────────── */
+    .talks { background: var(--white); }
+    .talks-header { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 56px; }
+    .talks-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    .talk-card {
+      border: 1.5px solid var(--grey-100); border-radius: 12px;
+      padding: 36px 32px; background: var(--white);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .talk-card:hover { border-color: var(--yellow); box-shadow: 0 8px 32px rgba(4,7,53,.07); }
+
+    .talk-num {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 18px;
+    }
+    .talk-card h3 { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 14px; line-height: 1.3; }
+    .talk-card p { font-size: 14px; color: var(--grey-300); line-height: 1.75; }
+
+    /* ── EVENTS ────────────────────────────────────── */
+    .events { background: var(--navy); }
+    .events-header { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 48px; }
+    .events-header h2 { color: var(--white); }
+    .events-header .eyebrow { color: var(--yellow); }
+    .events-header .section-sub { color: rgba(255,255,255,.5); }
+
+    /* reach strip */
+    .reach-strip {
+      display: flex; gap: 0; margin-bottom: 48px;
+      border: 1px solid rgba(255,255,255,.08); border-radius: 10px; overflow: hidden;
+    }
+    .reach-item {
+      flex: 1; text-align: center; padding: 20px 16px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .reach-item:last-child { border-right: none; }
+    .reach-num { font-size: 28px; font-weight: 900; color: var(--yellow); letter-spacing: -1px; line-height: 1; }
+    .reach-lbl { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 6px; text-transform: uppercase; letter-spacing: .07em; font-weight: 500; }
+
+    /* country cards grid */
+    .country-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    .country-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      transition: border-color .2s, background .2s;
+    }
+    .country-card:hover { border-color: rgba(249,217,0,.35); background: rgba(249,217,0,.04); }
+    .country-header {
+      background: rgba(249,217,0,.08); border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: 18px 20px;
+    }
+    .country-flag { font-size: 24px; margin-bottom: 8px; display: block; }
+    .country-name { font-size: 13px; font-weight: 800; color: var(--white); letter-spacing: .04em; text-transform: uppercase; }
+    .country-city { font-size: 11px; color: var(--yellow); margin-top: 3px; font-weight: 600; }
+    .country-events { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .country-event { display: flex; gap: 10px; align-items: flex-start; }
+    .event-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); flex-shrink: 0; margin-top: 5px; }
+    .event-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.8); line-height: 1.4; }
+
+    /* ── FORMATS ───────────────────────────────────── */
+    .formats { background: var(--grey-50); }
+    .formats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
+
+    .format-card {
+      background: var(--white); border: 1px solid var(--grey-100); border-radius: 12px;
+      padding: 32px 24px; text-align: center;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .format-card:hover { box-shadow: 0 8px 32px rgba(4,7,53,.07); border-color: var(--yellow); }
+
+    .format-icon { font-size: 30px; margin-bottom: 16px; }
+    .format-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .format-card p { font-size: 13px; color: var(--grey-300); line-height: 1.65; }
+    .format-dur {
+      display: inline-block; margin-top: 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--blue);
+    }
+
+    /* ── CTA ───────────────────────────────────────── */
+    .cta { background: var(--navy); padding: 96px 40px; text-align: center; position: relative; overflow: hidden; }
+    .cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 70% at 50% 100%, rgba(249,217,0,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta h2 { color: var(--white); max-width: 580px; margin: 0 auto 20px; }
+    .cta p { color: rgba(255,255,255,.5); font-size: 17px; max-width: 440px; margin: 0 auto 20px; line-height: 1.65; }
+    .cta-note { margin: 20px auto 0 !important; font-size: 13px; color: rgba(255,255,255,.3); }
+    .cta-note a { color: var(--yellow); text-decoration: none; }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo { display: none; }
+      .hero h1 { font-size: 40px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo { display: none; }
+      .why-header, .talks-header, .events-header { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .talks-grid { grid-template-columns: 1fr; }
+      .formats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .events-grid { grid-template-columns: 1fr; }
+      h2 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Keynote Speaker &amp; Ecommerce Growth Expert</div>
+      <h1>Real Systems.<br/>Real Scale.<br/><em>On Your Stage.</em></h1>
+      <p class="hero-sub">
+        Nehal Kazim is the founder of Ad Pros. He's managed $400M+ in ad spend, scaled brands to 8, 9, and 10 figures, and built the systems behind $250M+ in client revenue. He speaks from the front lines — not the whiteboard.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:booking@adpros.com" class="btn-primary">Book Nehal to Speak</a>
+        <a href="#talks" class="btn-outline">View Signature Talks</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="c646de49-b60d-40ef-81a5-cec53ac6d06f.png" alt="Nehal Kazim speaking on stage" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ─────────────────────────────────────────── -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">$250M+</div>
+      <div class="stat-lbl">Revenue Generated for Clients</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$400M+</div>
+      <div class="stat-lbl">Ad Spend Managed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1M+</div>
+      <div class="stat-lbl">Audience Reach</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-lbl">Conferences &amp; Events Spoken At</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ABOUT ─────────────────────────────────────────── -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="Nehal.jpg" alt="Nehal Kazim" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+      </div>
+      <div class="about-body">
+        <div class="eyebrow">About Nehal</div>
+        <h2>The Work Came First.<br/>The Stage Came After.</h2>
+        <p>Nehal Kazim is the founder &amp; CEO of <strong>Ad Pros</strong> — a performance marketing and growth systems agency trusted by leading ecommerce brands. For over a decade, he's worked directly with founders, CMOs, and marketing teams to scale brands profitably in one of the most competitive advertising environments in the world.</p>
+        <p>He doesn't teach theory. He teaches <strong>what he's actually running right now</strong> — across 8, 9, and 10-figure brands managing millions in monthly ad spend.</p>
+        <ul class="bullet-list">
+          <li><span class="bdot"></span>Generated $250M+ in client revenue through scalable advertising systems</li>
+          <li><span class="bdot"></span>Managed $4M/month for a single brand — profitably, while breaking performance records</li>
+          <li><span class="bdot"></span>Built Ad Pros to 26 team members across 7 countries</li>
+          <li><span class="bdot"></span>Trained thousands of marketers through courses, coaching, and live events</li>
+          <li><span class="bdot"></span>Reaching 1M+ marketers through content and thought leadership</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY BOOK ───────────────────────────────────────── -->
+<section class="why" id="why">
+  <div class="section-inner">
+    <div class="why-header">
+      <div>
+        <div class="eyebrow">Why Book Nehal</div>
+        <h2>What Your Audience<br/>Will Walk Away With</h2>
+      </div>
+      <p class="section-sub">Every talk is built for execution. Nehal's sessions are structured, data-backed, and designed so attendees can act on what they learned the same week.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">📈</div>
+        <h3>Not Theory. Results.</h3>
+        <p>$250M+ in client revenue generated personally. Every framework Nehal shares on stage has been stress-tested at 8, 9, and 10-figure scale — not built for a slide deck.</p>
+        <span class="data-tag">$250M+ in revenue generated</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎯</div>
+        <h3>$4M/Month. One Brand. Profitable.</h3>
+        <p>Nehal managed $4M/month in ad spend for a single brand while breaking performance records. He runs campaigns most agencies only talk about.</p>
+        <span class="data-tag">$4M/mo managed for one brand</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤖</div>
+        <h3>AI He's Actually Deploying</h3>
+        <p>Nehal isn't experimenting with AI — he's running it inside his media buying and creative workflows right now. He speaks to what's shipping, not what's coming.</p>
+        <span class="data-tag">Active in production today</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔧</div>
+        <h3>Frameworks, Not Inspiration</h3>
+        <p>Every talk ends with a numbered framework your audience can open their laptop and start using that week. Instructions, not motivation.</p>
+        <span class="data-tag">Immediately actionable</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💡</div>
+        <h3>He Challenges What the Room Believes</h3>
+        <p>Nehal doesn't validate conventional thinking — he replaces it. With data, with real examples, and with a framework that gives the audience something better to work with.</p>
+        <span class="data-tag">Data-driven, high-energy</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📣</div>
+        <h3>He Brings His Audience With Him</h3>
+        <p>1M+ marketers follow Nehal's content. When he speaks at your event, the reach doesn't stop in the room — it extends online after the talk ends.</p>
+        <span class="data-tag">1M+ audience reach</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TALKS ───────────────────────────────────────────── -->
+<section class="talks" id="talks">
+  <div class="section-inner">
+    <div class="talks-header">
+      <div>
+        <div class="eyebrow">Signature Talks</div>
+        <h2>Frameworks That<br/>Drive Real Growth.</h2>
+      </div>
+      <p class="section-sub">Every talk is fully customizable to your audience, format, and goals. Available as keynotes, workshops, or fireside chats — 30 to 60 minutes.</p>
+    </div>
+    <div class="talks-grid">
+      <div class="talk-card">
+        <div class="talk-num">Talk 01</div>
+        <h3>10 Levers To Add A Million A Month</h3>
+        <p>Pull one of these 10 strategic levers to find your next growth opportunity. Choose the levers in sequence and impact to scale your brand — predictably and profitably.</p>
+      </div>
+      <div class="talk-card">
+        <div class="talk-num">Talk 02</div>
+        <h3>The Breakthrough Ad System To Produce Million-Dollar Creatives</h3>
+        <p>3 creative systems that guarantee more output, better quality, and ads that transform brand performance. Built from real campaigns — not agency templates.</p>
+      </div>
+      <div class="talk-card">
+        <div class="talk-num">Talk 03</div>
+        <h3>5 Growth Models To Add $1M/Month</h3>
+        <p>Ecommerce growth is more science than art. Fill in these 5 models and predict your brand's trajectory based on math — not luck, not intuition.</p>
+      </div>
+      <div class="talk-card">
+        <div class="talk-num">Talk 04</div>
+        <h3>7 Decisions To Double Your Ecom Brand</h3>
+        <p>Answer these 7 make-or-break choices and double the size of your business — with clarity, confidence, and a plan you can execute this quarter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EVENTS ─────────────────────────────────────────── -->
+<section class="events" id="events">
+  <div class="section-inner">
+    <div class="events-header">
+      <div>
+        <div class="eyebrow">Speaking Footprint</div>
+        <h2>4 Countries.<br/>10 Conferences.</h2>
+      </div>
+      <p class="section-sub">From DTC masterminds to global marketing conferences — Nehal has spoken across the US, Canada, Colombia, and Morocco to audiences of founders, CMOs, and marketing teams.</p>
+    </div>
+
+    <!-- REACH STRIP -->
+    <div class="reach-strip">
+      <div class="reach-item"><div class="reach-num">4</div><div class="reach-lbl">Countries</div></div>
+      <div class="reach-item"><div class="reach-num">7</div><div class="reach-lbl">Cities</div></div>
+      <div class="reach-item"><div class="reach-num">10</div><div class="reach-lbl">Conferences &amp; Events</div></div>
+      <div class="reach-item"><div class="reach-num">3</div><div class="reach-lbl">Continents</div></div>
+    </div>
+
+    <!-- COUNTRY CARDS -->
+    <div class="country-grid">
+
+      <!-- USA -->
+      <div class="country-card">
+        <div class="country-header">
+          <span class="country-flag">🇺🇸</span>
+          <div class="country-name">United States</div>
+          <div class="country-city">San Diego · Denver · Seattle · Chicago · Orlando</div>
+        </div>
+        <div class="country-events">
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Traffic &amp; Conversion Summit</div></div>
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Smart Marketer Live</div></div>
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Blue Ribbon Mastermind (Ezra Firestone)</div></div>
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Supplement Mastermind (Ed O'Keefe)</div></div>
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Train My Traffic Person (Molly Pittman)</div></div>
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Amazon Private Label Conference</div></div>
+        </div>
+      </div>
+
+      <!-- Canada -->
+      <div class="country-card">
+        <div class="country-header">
+          <span class="country-flag">🇨🇦</span>
+          <div class="country-name">Canada</div>
+          <div class="country-city">Toronto</div>
+        </div>
+        <div class="country-events">
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">PodCampTO</div></div>
+        </div>
+      </div>
+
+      <!-- Colombia -->
+      <div class="country-card">
+        <div class="country-header">
+          <span class="country-flag">🇨🇴</span>
+          <div class="country-name">Colombia</div>
+          <div class="country-city">Medellín</div>
+        </div>
+        <div class="country-events">
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Revenue Haven Mastermind</div></div>
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">The AI Edge</div></div>
+        </div>
+      </div>
+
+      <!-- Morocco -->
+      <div class="country-card">
+        <div class="country-header">
+          <span class="country-flag">🇲🇦</span>
+          <div class="country-name">Morocco</div>
+          <div class="country-city">Marrakech</div>
+        </div>
+        <div class="country-events">
+          <div class="country-event"><div class="event-dot"></div><div class="event-name">Evolve</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FORMATS ────────────────────────────────────────── -->
+<section class="formats" id="formats">
+  <div class="section-inner">
+    <div class="eyebrow">Formats &amp; Availability</div>
+    <h2>Built to Fit Your Event</h2>
+    <p class="section-sub">All formats are customizable to your audience, stage, and goals. Nehal adapts — the frameworks don't change, the delivery does.</p>
+    <div class="formats-grid">
+      <div class="format-card">
+        <div class="format-icon">🎤</div>
+        <h3>Keynote</h3>
+        <p>High-energy, narrative-driven presentations for main stage and opening or closing slots.</p>
+        <span class="format-dur">30 – 60 min</span>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">🛠</div>
+        <h3>Workshop</h3>
+        <p>Hands-on, framework-driven sessions where attendees leave with a documented action plan.</p>
+        <span class="format-dur">45 – 90 min</span>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">🔥</div>
+        <h3>Fireside Chat</h3>
+        <p>Conversational deep-dives on growth, advertising, and building brands at scale. Highly engaging for mid-session programming.</p>
+        <span class="format-dur">30 – 45 min</span>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">💻</div>
+        <h3>Virtual</h3>
+        <p>Fully optimized for virtual and hybrid events. Same energy, same frameworks, any screen.</p>
+        <span class="format-dur">30 – 60 min</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────── -->
+<section class="cta" id="book">
+  <h2>Ready to Book Nehal<br/>for Your Event?</h2>
+  <p>Whether it's a keynote, workshop, or fireside chat — let's find the right format for your audience and get it on the calendar.</p>
+  <a href="mailto:booking@adpros.com" class="btn-primary" style="font-size:15px; padding:16px 40px;">Book Nehal to Speak</a>
+  <p class="cta-note">Questions? Email us directly at <a href="mailto:booking@adpros.com">booking@adpros.com</a></p>
+</section>
+
+</body>
+</html>
