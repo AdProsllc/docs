@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Complete Agentic Taxonomy — Ad Pros</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#08080A;min-height:100vh}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const e = React.createElement;
+const { useState } = React;
+
+const tiers = [
+  {
+    id: "T1",
+    name: "Deterministic",
+    color: "#6B7280",
+    gradient: "linear-gradient(135deg, #374151, #4B5563)",
+    desc: "No AI reasoning. Human-designed logic executed exactly as written.",
+    traits: [
+      { name: "Sequential Execution", icon: "\u27A1\uFE0F", desc: "Steps run in fixed order. A\u2192B\u2192C. Same path every time.", adpros: "Meta API \u2192 Transform \u2192 BigQuery. Your nightly ETL.", buildWith: "N8N, Inngest, cron" },
+      { name: "Conditional Branching", icon: "\uD83D\uDD00", desc: "If/else routing. All branches pre-designed by a human.", adpros: "If client has Northbeam \u2192 pull MTA. Else \u2192 skip.", buildWith: "N8N, Inngest, Python" },
+      { name: "Scheduled Triggers", icon: "\u23F0", desc: "Time-based execution. Runs at 6am regardless of what\u2019s happening.", adpros: "Daily scorecard run. Weekly digest. Monthly QBR.", buildWith: "cron, N8N, Inngest" },
+      { name: "Event-Driven Triggers", icon: "\u26A1", desc: "Reacts to external events (webhook, data change, threshold crossed). Still deterministic \u2014 the response is pre-programmed.", adpros: "Spend crosses 130% \u2192 alert fires. No AI needed.", buildWith: "N8N webhooks, Supabase triggers" },
+    ]
+  },
+  {
+    id: "T2",
+    name: "LLM-Enhanced",
+    color: "#F59E0B",
+    gradient: "linear-gradient(135deg, #92400E, #D97706)",
+    desc: "Pipeline is deterministic, but one or more steps use an LLM for formatting, summarizing, or simple classification. The LLM decorates \u2014 it doesn\u2019t decide.",
+    traits: [
+      { name: "Natural Language Generation", icon: "\u270D\uFE0F", desc: "LLM turns structured data into readable text. The pipeline decides WHAT to say; the LLM decides HOW to say it.", adpros: "Scorecard data \u2192 Claude writes \u20183 new winners emerged this week, led by UGC Hook V3...\u2019", buildWith: "Any pipeline + Claude API call" },
+      { name: "Classification & Tagging", icon: "\uD83C\uDFF7\uFE0F", desc: "LLM categorizes inputs into predefined buckets. Categories are human-defined; the LLM just assigns.", adpros: "Claude tags each ad as Testing/Winner/Loser/etc. using the 6-stage framework. Rules-first, LLM for edge cases only.", buildWith: "Claude API with structured output" },
+      { name: "Extraction & Structuring", icon: "\uD83D\uDCCB", desc: "LLM pulls structured data from unstructured sources (PDFs, emails, transcripts, ad copy).", adpros: "Extract hook text, CTA type, and offer from raw ad creative images via Claude vision.", buildWith: "Claude API with vision" },
+    ]
+  },
+  {
+    id: "T3",
+    name: "Reasoning",
+    color: "#3B82F6",
+    gradient: "linear-gradient(135deg, #1E3A5F, #3B82F6)",
+    desc: "The LLM reasons about data \u2014 drawing inferences, explaining causation, and forming opinions. Still within a structured pipeline, but the thinking is real.",
+    traits: [
+      { name: "Causal Reasoning", icon: "\uD83E\uDDE0", desc: "Draws inferences about WHY something happened. Goes beyond correlation to explain cause-and-effect chains. Can explain its reasoning.", adpros: "\u2018CPA spiked because frequency hit 4.2 while CPMs rose 12%. This is platform auction pressure, not creative fatigue \u2014 hook rate is still 38%.\u2019", buildWith: "Claude with rich context prompting" },
+      { name: "Judgment Under Ambiguity", icon: "\u2696\uFE0F", desc: "Makes qualitative calls where data is incomplete or contradictory. Weighs tradeoffs. Two reasonable people could disagree \u2014 the agent picks a position and defends it.", adpros: "Borderline ad: $200 spend, 1.8 ROAS (target is 2.0), but top-10% hook rate and competitor data shows the angle is trending. Judgment: \u2018Classify as Winner \u2014 the engagement signal is strong enough to justify more spend.\u2019", buildWith: "Claude Agent SDK, LangGraph" },
+      { name: "Uncertainty & Confidence Calibration", icon: "\uD83C\uDF2B\uFE0F", desc: "Knows what it doesn\u2019t know. Assigns confidence levels. Adjusts behavior based on certainty \u2014 defers to humans when unsure, acts autonomously when confident.", adpros: "Ad with $30 spend: \u2018Insufficient data. Confidence: 15%. Deferring classification until $100+ spend threshold. Will revisit in 3 days.\u2019", buildWith: "Claude with confidence prompting" },
+      { name: "Reflection & Self-Correction", icon: "\uD83E\uDE9E", desc: "Reviews its own output before delivering. Catches hallucinations, logical gaps, and missed context. Treats first pass as a draft. Highest-ROI agentic pattern \u2014 dramatically reduces errors.", adpros: "Brief Generator writes a brief \u2192 second pass: \u2018This hook mirrors Ad #234 which got 1.1 ROAS. Rewriting with differentiated angle.\u2019 Catches its own mistake before delivery.", buildWith: "Two-pass Claude prompting, LangGraph reflection loop" },
+    ]
+  },
+  {
+    id: "T4",
+    name: "Autonomous",
+    color: "#8B5CF6",
+    gradient: "linear-gradient(135deg, #4C1D95, #7C3AED)",
+    desc: "The agent controls its own workflow. Given a goal, it decides WHAT to do, not just HOW to do a predetermined task. The path is different every time.",
+    traits: [
+      { name: "Goal Decomposition & Planning", icon: "\uD83C\uDFAF", desc: "Breaks a high-level objective into sub-goals, sequences them, and executes. Can re-plan when steps fail or new info changes the situation. The agent writes its own playbook.", adpros: "Goal: \u2018What should we test next?\u2019 \u2192 Agent plans: check scorecard \u2192 identify weak spots \u2192 pull competitor ads in those categories \u2192 cross-ref with avatar data \u2192 generate 5 test concepts \u2192 rank by potential.", buildWith: "Claude Agent SDK, LangGraph plan-and-execute" },
+      { name: "Dynamic Tool Selection", icon: "\uD83E\uDDF0", desc: "Chooses which tools/APIs/data sources to use based on the situation. Same goal might require different tools depending on what\u2019s available and what initial findings reveal.", adpros: "Northbeam data is 3 days stale \u2192 agent pivots to in-platform metrics + Shopify correlation as a proxy. Makes the best call with available resources.", buildWith: "Claude Agent SDK (native tool calling)" },
+      { name: "Agentic RAG", icon: "\uD83D\uDCDA", desc: "Instead of fixed retrieve-then-generate, the agent decides what to search for, evaluates whether the results are sufficient, searches again with refined queries if not, and iterates until it has enough context. Turns passive lookup into active research.", adpros: "Researching a competitor\u2019s strategy: first search finds their ads. Agent realizes it needs landing page data too. Searches for that. Finds pricing changed recently. Pulls historical pricing. Now has full picture to analyze.", buildWith: "Claude Agent SDK + vector search + Apify" },
+      { name: "Persistent Memory & Learning Context", icon: "\uD83D\uDCBE", desc: "Retains knowledge across runs. Knows what happened last week, last month, last quarter. Uses historical patterns to contextualize current data rather than analyzing every run in isolation.", adpros: "Knows ACME always has a CPA spike in the first 5 days of a new campaign. Sees a CPA spike \u2192 checks for recent launches \u2192 suppresses the alert: \u2018Within normal launch pattern.\u2019", buildWith: "Supabase memory tables, LangGraph checkpoints" },
+      { name: "Tool Creation", icon: "\uD83D\uDD28", desc: "When no existing tool can accomplish a sub-task, the agent writes code to create a new tool. Generates custom Python functions, API calls, or data transforms on the fly. Rare in production but powerful.", adpros: "Agent needs a metric that doesn\u2019t exist in any dashboard: \u2018creative diversity index\u2019 (how different are the top 10 ads from each other). Writes a Python function to calculate it from existing creative embeddings.", buildWith: "Claude Agent SDK with code execution, Claude Code" },
+      { name: "Human-in-the-Loop Escalation", icon: "\uD83E\uDD1D", desc: "Autonomously handles low-risk decisions but recognizes when a decision exceeds its authority. Packages context, routes to the right human, and waits for approval before proceeding. The agent manages the escalation \u2014 humans don\u2019t need to monitor constantly.", adpros: "Agent recommends pausing a $5K/day campaign \u2192 recognizes this as high-risk \u2192 sends Slack approval request with full analysis to Growth Strategist \u2192 waits up to 4 hours \u2192 escalates to Head of Growth if no response.", buildWith: "Approval gate pattern (custom), LangGraph HITL nodes" },
+    ]
+  },
+  {
+    id: "T5",
+    name: "Multi-Agent Collaborative",
+    color: "#EC4899",
+    gradient: "linear-gradient(135deg, #831843, #DB2777)",
+    desc: "Multiple agents work together \u2014 delegating, debating, challenging, and synthesizing. Intelligence emerges from the interaction between agents, not from any single one.",
+    traits: [
+      { name: "Orchestrator-Worker Delegation", icon: "\uD83D\uDC54", desc: "A supervisor agent breaks work into pieces and assigns to specialized worker agents. Each worker has its own tools and expertise. Orchestrator decides who does what, collects results, and synthesizes.", adpros: "Workshop Prep Agent delegates: \u2018Scorecard Agent \u2014 90-day summary. Competitor Agent \u2014 top 5 moves. Avatar Agent \u2014 audience shifts.\u2019 Synthesizes all three into materials.", buildWith: "Claude Agent SDK subagents, LangGraph supervisor" },
+      { name: "Council / Multi-Model Consensus", icon: "\uD83C\uDFDB\uFE0F", desc: "Multiple LLMs (or same LLM with different personas) independently answer the same question. Each reviews the others\u2019 answers. A chairman synthesizes the best elements. Research: 3-7 models \u00D7 2 rounds = optimal accuracy/cost. Perplexity\u2019s Model Council (Feb 2026) brought this mainstream.", adpros: "Budget reallocation: Conservative strategist says cut TikTok. Aggressive strategist says double it. Data purist says run an incrementality test first. Chairman synthesizes: \u2018Hold flat, run geo-holdout test, then reallocate.\u2019", buildWith: "Swarms CouncilMeeting, Karpathy\u2019s LLM Council pattern, custom multi-call" },
+      { name: "Adversarial Debate / Red Teaming", icon: "\u2694\uFE0F", desc: "Pro agent generates a recommendation. Con agent actively finds flaws, risks, and counterarguments. Judge evaluates both sides. Catches errors that reflection misses because the critic has an explicit incentive to disagree. Structured argumentation, not just \u2018check your work.\u2019", adpros: "Brief recommends problem-agitation-solution angle. Red Team: \u2018Tested 3 months ago, 1.1 ROAS. 47 competitors running similar. Hook mirrors Brand X \u2014 legal risk.\u2019 Judge: keep format, change hook, add differentiator.", buildWith: "Swarms DebateFramework, AutoGen debate loops, custom Pro/Con/Judge" },
+      { name: "Mixture of Agents (MoA)", icon: "\uD83D\uDD2C", desc: "Parallel expert agents each analyze from their domain expertise. Unlike Council (which debates the same question), MoA combines COMPLEMENTARY perspectives \u2014 each agent sees through a different lens. Aggregator synthesizes into a unified analysis.", adpros: "Why did Q1 drop? Performance Agent: CPM inflation. Creative Agent: format fatigue. Market Agent: competitor surge. Audience Agent: cohort churn. Aggregator: \u2018Creative fatigue (60%) + CPM inflation (25%) + seasonal (15%).\u2019", buildWith: "Swarms MixtureOfAgents, custom parallel Claude calls + aggregator" },
+      { name: "Handoff Chain / Relay", icon: "\uD83D\uDD17", desc: "Agents explicitly transfer control to the next specialist based on the current state. Like a relay race \u2014 each agent runs its leg and passes the baton with full context. Different from orchestrator-worker: there\u2019s no supervisor, agents self-route.", adpros: "Triage Agent reads a client message \u2192 routes to Growth Agent (performance question) or Creative Agent (asset question) or Billing Agent (invoice question). Each handles its domain and can re-route.", buildWith: "OpenAI Agents SDK handoffs, Claude Agent SDK, LangGraph conditional edges" },
+    ]
+  },
+  {
+    id: "T6",
+    name: "Self-Evolving",
+    color: "#EF4444",
+    gradient: "linear-gradient(135deg, #7F1D1D, #DC2626)",
+    desc: "The system improves itself over time. Learns from outcomes, adjusts strategies, creates its own tools, and proactively identifies opportunities without being asked. Very few production systems are truly here today.",
+    traits: [
+      { name: "Outcome-Based Self-Improvement", icon: "\uD83D\uDCC8", desc: "Tracks what it recommended, observes what actually happened (weeks/months later), and adjusts its approach. The feedback loop between agent output and real-world results is the defining feature. Hardest pattern to implement reliably.", adpros: "Recommended 10 creative tests. 3 months later: 3 Winners, 2 Breakthroughs, 5 Losers. Analyzes pattern: Winners all used first-person hooks with specific claims. Updates future brief generation to bias toward that pattern for this brand.", buildWith: "Custom outcome tracking + periodic retraining prompt. No framework does this well yet." },
+      { name: "Proactive Initiative", icon: "\uD83D\uDD2D", desc: "Acts WITHOUT being triggered. Monitors signals continuously and surfaces opportunities or risks before anyone asks. Moves from reactive (waiting for a query) to proactive (generating insights autonomously).", adpros: "Notices UGC-style hooks declining across ALL clients for 3 weeks straight. Nobody asked it to check. Proactively researches emerging formats, finds split-screen comparison trending, drafts a memo to Creative Director with data.", buildWith: "Scheduled background analysis + anomaly detection + proactive notification system" },
+      { name: "Strategy Adaptation", icon: "\uD83E\uDDEC", desc: "Doesn\u2019t just adjust individual decisions \u2014 adjusts its entire STRATEGY based on macro patterns. Equivalent of a human saying \u2018our whole approach to TikTok needs to change\u2019 rather than \u2018this one ad needs a new hook.\u2019", adpros: "After 6 months of data: \u2018For supplement brands in our portfolio, static ads consistently outperform video on Meta by 22% at scale. Reversing my default recommendation from video-first to static-first for this vertical.\u2019", buildWith: "Long-term analysis pipelines + strategy versioning + A/B testing of agent strategies themselves" },
+    ]
+  },
+];
+
+const totalTraits = tiers.reduce((s, t) => s + t.traits.length, 0);
+
+function AgenticTaxonomyV3() {
+  const [expandedTier, setExpandedTier] = useState(null);
+  const [expandedTrait, setExpandedTrait] = useState(null);
+
+  return e("div", {style:{minHeight:"100vh",background:"#08080A",color:"#D4D4D8",fontFamily:"'DM Sans', 'Helvetica Neue', sans-serif",padding:"16px",maxWidth:"100%"}},
+
+    // Header
+    e("div", {style:{marginBottom:20,paddingBottom:14,borderBottom:"1px solid #18181B"}},
+      e("div", {style:{fontFamily:"'JetBrains Mono', monospace",fontSize:10,color:"#3F3F46",letterSpacing:3,textTransform:"uppercase",marginBottom:8}}, "Internal Reference Document"),
+      e("h1", {style:{fontSize:22,fontWeight:700,color:"#FAFAFA",margin:"0 0 6px"}}, "The Complete Agentic Taxonomy"),
+      e("p", {style:{fontSize:12,color:"#71717A",margin:"0 0 12px",lineHeight:1.5}}, totalTraits + " distinct capabilities across 6 tiers \u2014 from basic automation to self-evolving systems. Use this to explore what types of agents Ad Pros can build."),
+
+      // Visual tier scale
+      e("div", {style:{display:"flex",gap:2,borderRadius:6,overflow:"hidden"}},
+        tiers.map(function(t){return e("div",{key:t.id,style:{flex:t.traits.length,height:6,background:t.color,opacity:0.7}})})
+      ),
+      e("div", {style:{display:"flex",justifyContent:"space-between",marginTop:4}},
+        e("span",{style:{fontSize:9,color:"#3F3F46",fontFamily:"'JetBrains Mono', monospace"}},"SIMPLE"),
+        e("span",{style:{fontSize:9,color:"#3F3F46",fontFamily:"'JetBrains Mono', monospace"}},"COMPLEX")
+      )
+    ),
+
+    // Tiers
+    e("div", {style:{display:"flex",flexDirection:"column",gap:12}},
+      tiers.map(function(tier, ti){
+        var isTierExpanded = expandedTier === ti || expandedTier === null;
+        return e("div", {key:ti},
+          // Tier Header
+          e("div", {onClick:function(){setExpandedTier(expandedTier===ti?null:ti)},style:{padding:"14px 16px",marginBottom:isTierExpanded?8:0,background:tier.gradient,borderRadius:12,cursor:"pointer",transition:"all 0.2s",border:"1px solid "+tier.color+"40"}},
+            e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center"}},
+              e("div",{},
+                e("div",{style:{display:"flex",gap:8,alignItems:"center",marginBottom:4}},
+                  e("span",{style:{fontFamily:"'JetBrains Mono', monospace",fontSize:11,fontWeight:700,color:"#fff",opacity:0.5}},tier.id),
+                  e("span",{style:{fontSize:17,fontWeight:700,color:"#fff"}},tier.name),
+                  e("span",{style:{fontSize:10,fontFamily:"'JetBrains Mono', monospace",color:"#fff",opacity:0.5,background:"rgba(255,255,255,0.1)",padding:"2px 6px",borderRadius:4}},tier.traits.length+" traits")
+                ),
+                e("div",{style:{fontSize:11,color:"rgba(255,255,255,0.65)",lineHeight:1.5}},tier.desc)
+              ),
+              e("span",{style:{fontSize:18,color:"rgba(255,255,255,0.3)",transform:isTierExpanded?"rotate(180deg)":"rotate(0)",transition:"transform 0.2s",flexShrink:0,marginLeft:8}},"\u25BE")
+            )
+          ),
+
+          // Traits
+          isTierExpanded && e("div",{style:{display:"flex",flexDirection:"column",gap:6,paddingLeft:4}},
+            tier.traits.map(function(trait, tri){
+              var key = ti+"-"+tri;
+              var isTraitExpanded = expandedTrait === key;
+              return e("div",{key:key,onClick:function(ev){ev.stopPropagation();setExpandedTrait(isTraitExpanded?null:key)},style:{background:"#111114",borderRadius:10,border:"1px solid "+(isTraitExpanded?tier.color+"40":"#1C1C22"),cursor:"pointer",transition:"all 0.15s",overflow:"hidden"}},
+                e("div",{style:{padding:"11px 14px"}},
+                  e("div",{style:{display:"flex",gap:10,alignItems:"flex-start"}},
+                    e("span",{style:{fontSize:18,flexShrink:0,marginTop:1}},trait.icon),
+                    e("div",{style:{flex:1}},
+                      e("div",{style:{fontSize:14,fontWeight:600,color:"#FAFAFA",marginBottom:3}},trait.name),
+                      e("div",{style:{fontSize:11,color:"#A1A1AA",lineHeight:1.5}},trait.desc)
+                    ),
+                    e("span",{style:{fontSize:14,color:"#27272A",transform:isTraitExpanded?"rotate(180deg)":"rotate(0)",transition:"transform 0.15s",flexShrink:0}},"\u25BE")
+                  )
+                ),
+                isTraitExpanded && e("div",{style:{padding:"0 14px 12px",borderTop:"1px solid #1C1C22"}},
+                  e("div",{style:{background:"#08080A",borderRadius:8,padding:11,marginTop:10,marginBottom:8,border:"1px solid "+tier.color+"20"}},
+                    e("div",{style:{fontFamily:"'JetBrains Mono', monospace",fontSize:9,color:tier.color,letterSpacing:1,marginBottom:4}},"AD PROS APPLICATION"),
+                    e("div",{style:{fontSize:12,color:"#D4D4D8",lineHeight:1.6}},trait.adpros)
+                  ),
+                  e("div",{style:{display:"flex",gap:4,flexWrap:"wrap"}},
+                    e("span",{style:{fontFamily:"'JetBrains Mono', monospace",fontSize:9,color:"#3F3F46",marginRight:4,lineHeight:"22px"}},"BUILD:"),
+                    trait.buildWith.split(", ").map(function(fw,fi){
+                      return e("span",{key:fi,style:{fontSize:10,color:tier.color,background:tier.color+"12",padding:"3px 7px",borderRadius:4,border:"1px solid "+tier.color+"20",fontFamily:"'JetBrains Mono', monospace"}},fw)
+                    })
+                  )
+                )
+              );
+            })
+          )
+        );
+      })
+    ),
+
+    // How to use
+    e("div",{style:{marginTop:20,background:"#111114",borderRadius:12,padding:16,border:"1px solid #1C1C22"}},
+      e("div",{style:{fontFamily:"'JetBrains Mono', monospace",fontSize:10,color:"#52525B",letterSpacing:2,marginBottom:10}},"HOW TO USE THIS DOCUMENT"),
+      e("div",{style:{fontSize:12,color:"#A1A1AA",lineHeight:1.8}},
+        e("div",{style:{marginBottom:6}},e("span",{style:{color:"#FAFAFA",fontWeight:600}},"Start at the bottom of the tier you need.")," Every capability at a higher tier assumes you\u2019ve built the ones below it. You can\u2019t do Adversarial Debate (T5) without Reasoning (T3)."),
+        e("div",{style:{marginBottom:6}},e("span",{style:{color:"#FAFAFA",fontWeight:600}},"Most Ad Pros agents live in T2-T3.")," That\u2019s not a limitation \u2014 it\u2019s the right level. Only the 3 true agents (Testing Roadmap, Brief Generator, Workshop Prep) need T4+. The council/debate patterns (T5) are for high-stakes decisions only."),
+        e("div",{style:{marginBottom:6}},e("span",{style:{color:"#FAFAFA",fontWeight:600}},"T6 is aspirational.")," Self-improvement requires months of outcome data. Plan the feedback loop architecture now, but don\u2019t expect T6 capabilities until Q3-Q4 when you have enough historical agent decisions + outcomes to learn from."),
+        e("div",{},e("span",{style:{color:"#FAFAFA",fontWeight:600}},"Every trait has a cost.")," Higher tiers = more tokens, more latency, more complexity, more failure modes. Build at the minimum tier that solves the problem. Over-engineering T1 problems with T5 solutions is the most common agentic mistake.")
+      )
+    ),
+
+    // Footer
+    e("div",{style:{marginTop:20,paddingTop:14,borderTop:"1px solid #18181B",textAlign:"center"}},
+      e("span",{style:{fontFamily:"'JetBrains Mono', monospace",fontSize:9,color:"#27272A",letterSpacing:2}},"AD PROS \u2014 AGENTIC TAXONOMY v3.0 \u2014 "+totalTraits+" TRAITS \u00D7 6 TIERS")
+    )
+  );
+}
+
+ReactDOM.render(e(AgenticTaxonomyV3), document.getElementById("root"));
+</script>
+</body>
+</html>
