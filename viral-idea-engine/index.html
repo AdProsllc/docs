@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viral Idea Content Generator — Ad Pros × Nehal Kazim</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #08080f; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #08080f; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+
+
+const SECTIONS = [
+  "Overview",
+  "Architecture",
+  "Sources",
+  "Scoring",
+  "n8n Flows",
+  "Slack Format",
+  "Sheet Structure",
+  "Content Drafts",
+  "Self-Learning",
+  "Roadmap",
+];
+
+const PHASE_COLORS = {
+  tier1: "#00C853",
+  tier2: "#FF6D00",
+  free: "#40C4FF",
+};
+
+function ViralIdeaEngine() {
+  const [activeSection, setActiveSection] = useState(0);
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const toggleCard = (id) =>
+    setExpandedCards((p) => ({ ...p, [id]: !p[id] }));
+
+  const sections = [
+    // 0 — OVERVIEW
+    () => (
+      <div>
+        <div
+          style={{
+            background: "linear-gradient(135deg, #0A0A0A 0%, #1a1a2e 100%)",
+            borderRadius: 16,
+            padding: "40px 32px",
+            marginBottom: 32,
+            border: "1px solid #00C85333",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: -60,
+              right: -60,
+              width: 200,
+              height: 200,
+              background: "radial-gradient(circle, #00C85315 0%, transparent 70%)",
+              borderRadius: "50%",
+            }}
+          />
+          <p
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 11,
+              color: "#00C853",
+              letterSpacing: 3,
+              textTransform: "uppercase",
+              marginBottom: 12,
+            }}
+          >
+            System Blueprint v1.0
+          </p>
+          <h2
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 28,
+              color: "#fff",
+              margin: 0,
+              lineHeight: 1.2,
+            }}
+          >
+            Viral Idea Content Generator
+          </h2>
+          <p style={{ color: "#999", fontSize: 14, marginTop: 12, lineHeight: 1.7 }}>
+            An AI-powered trend detection and content drafting engine for Nehal Kazim × Ad Pros.
+            Scans 200+ signals across social, news, and industry sources 4× daily. Scores for
+            virality. Drafts short-form video scripts, IG Stories, and X threads in Nehal's voice.
+          </p>
+          <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+            {[
+              { label: "4× Daily Scans", sub: "6am / 11am / 3pm / 8pm COT" },
+              { label: "3 Output Formats", sub: "Video / IG Story / X Thread" },
+              { label: "Self-Learning", sub: "Weekly optimization cycle" },
+              { label: "~$150/mo", sub: "Tier 1 budget" },
+            ].map((t, i) => (
+              <div
+                key={i}
+                style={{
+                  background: "#ffffff08",
+                  border: "1px solid #ffffff12",
+                  borderRadius: 10,
+                  padding: "12px 16px",
+                  minWidth: 140,
+                  flex: 1,
+                }}
+              >
+                <div style={{ color: "#00C853", fontWeight: 700, fontSize: 14 }}>{t.label}</div>
+                <div style={{ color: "#666", fontSize: 11, marginTop: 4 }}>{t.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <h3 style={styles.h3}>Mission</h3>
+        <p style={styles.body}>
+          Identify trending news, platform updates, AI releases, viral ads, industry drama,
+          and macro trends <strong>before</strong> the content wave peaks — then generate
+          ready-to-post content briefs with a virality score so Nehal can film 1–3 pieces/day
+          and ride the wave.
+        </p>
+
+        <h3 style={styles.h3}>Core Principles</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {[
+            {
+              icon: "⚡",
+              title: "Speed Over Perfection",
+              desc: "First-mover advantage is the #1 virality multiplier. The system prioritizes recency above all.",
+            },
+            {
+              icon: "🔥",
+              title: "Controversy Is Currency",
+              desc: "Hot takes, contrarian angles, and polarizing opinions drive engagement. The scoring algorithm weights this heavily.",
+            },
+            {
+              icon: "📸",
+              title: "Shareability Is Distribution",
+              desc: "Content must be screenshot-worthy, quotable, and meme-able. If people won't share it, it doesn't score.",
+            },
+            {
+              icon: "🧠",
+              title: "Self-Learning Loop",
+              desc: "The system gets smarter weekly. Manual ratings + performance data refine scoring weights and content style.",
+            },
+          ].map((p, i) => (
+            <div key={i} style={styles.principleCard}>
+              <span style={{ fontSize: 22 }}>{p.icon}</span>
+              <div>
+                <div style={{ color: "#fff", fontWeight: 600, fontSize: 14 }}>{p.title}</div>
+                <div style={{ color: "#888", fontSize: 13, marginTop: 4, lineHeight: 1.5 }}>
+                  {p.desc}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h3 style={styles.h3}>Key Personas</h3>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[
+            { role: "Nehal Kazim", action: "Reviews briefs, films content, rates performance" },
+            { role: "Developer", action: "Maintains Python core + n8n flows" },
+            { role: "PM / Account Mgr", action: "Monitors n8n, manages Sheet, weekly optimization" },
+          ].map((p, i) => (
+            <div key={i} style={{ ...styles.metricCard, flex: 1, minWidth: 180 }}>
+              <div style={{ color: "#00C853", fontWeight: 700, fontSize: 13 }}>{p.role}</div>
+              <div style={{ color: "#888", fontSize: 12, marginTop: 6, lineHeight: 1.5 }}>
+                {p.action}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+
+    // 1 — ARCHITECTURE
+    () => (
+      <div>
+        <h3 style={styles.h3}>System Architecture</h3>
+        <p style={styles.body}>
+          Three-layer architecture: n8n orchestrates triggers and delivery, Python handles the intelligence
+          (fetching, scoring, drafting via Claude API), BigQuery stores the firehose.
+        </p>
+
+        <div style={styles.archDiagram}>
+          <div style={styles.archLayer}>
+            <div style={styles.archLabel}>LAYER 1 — ORCHESTRATION (n8n)</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {["Cron Triggers (4×/day)", "Slack Delivery", "Google Sheets Write", "Webhook Listeners"].map(
+                (n, i) => (
+                  <div key={i} style={styles.archNode}>{n}</div>
+                )
+              )}
+            </div>
+          </div>
+          <div style={{ textAlign: "center", color: "#00C853", fontSize: 20, padding: "8px 0" }}>↕</div>
+          <div style={styles.archLayer}>
+            <div style={styles.archLabel}>LAYER 2 — INTELLIGENCE (Python + Claude API)</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {[
+                "Source Fetcher",
+                "Deduplication Engine",
+                "Virality Scorer (0–100)",
+                "Claude Sonnet Drafter",
+                "Voice Model (Nehal)",
+                "Self-Learning Module",
+              ].map((n, i) => (
+                <div key={i} style={{ ...styles.archNode, borderColor: "#FF6D0044", color: "#FF6D00" }}>
+                  {n}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ textAlign: "center", color: "#00C853", fontSize: 20, padding: "8px 0" }}>↕</div>
+          <div style={styles.archLayer}>
+            <div style={styles.archLabel}>LAYER 3 — DATA STORE</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {["BigQuery (raw firehose)", "Google Sheets (curated queue)", "Cloud Storage (voice corpus)"].map(
+                (n, i) => (
+                  <div key={i} style={{ ...styles.archNode, borderColor: "#40C4FF44", color: "#40C4FF" }}>
+                    {n}
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+
+        <h3 style={styles.h3}>Data Flow — Single Scan Cycle</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          {[
+            { step: "1", text: "n8n cron fires at scheduled time (6/11/3/8 COT)" },
+            { step: "2", text: "n8n calls Python API endpoint → triggers source fetcher" },
+            { step: "3", text: "Python pulls signals from all Tier 1 sources (Xpoz, RSS, News APIs, Reddit, Google Trends)" },
+            { step: "4", text: "Deduplication engine filters against BigQuery (last 72 hours)" },
+            { step: "5", text: "Virality scorer assigns 0–100 score to each unique signal" },
+            { step: "6", text: "ALL signals → BigQuery raw table (firehose)" },
+            { step: "7", text: "Signals scoring 40+ → Google Sheet 'Wide Filter' tab" },
+            { step: "8", text: "Signals scoring 75+ → Google Sheet 'Bangers' tab" },
+            { step: "9", text: "Signals scoring 75+ → Claude Sonnet drafts full content (video script + IG story + X thread)" },
+            { step: "10", text: "n8n posts curated brief to #trending-now Slack channel" },
+            { step: "11", text: "n8n posts drafted content to #content-queue Slack channel" },
+            { step: "12", text: "Signals scoring 90+ → immediate Slack DM to Nehal (red alert)" },
+          ].map((s) => (
+            <div key={s.step} style={styles.flowStep}>
+              <div style={styles.flowNum}>{s.step}</div>
+              <div style={{ color: "#ccc", fontSize: 13 }}>{s.text}</div>
+            </div>
+          ))}
+        </div>
+
+        <h3 style={styles.h3}>Infrastructure</h3>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[
+            { name: "n8n", detail: "Self-hosted on Railway or VPS ($5/mo)", tier: "free" },
+            { name: "Python API", detail: "FastAPI on same VPS, exposed via webhook", tier: "free" },
+            { name: "BigQuery", detail: "Free tier (1TB query/mo, 10GB storage)", tier: "free" },
+            { name: "Claude API", detail: "Sonnet 4 — ~$30–50/mo at 4× daily", tier: "tier1" },
+            { name: "Xpoz Pro", detail: "$20/mo — X, IG, TikTok, Reddit", tier: "tier1" },
+            { name: "News APIs", detail: "Free tiers — NewsData.io + GNews", tier: "free" },
+          ].map((inf, i) => (
+            <div
+              key={i}
+              style={{
+                ...styles.metricCard,
+                flex: 1,
+                minWidth: 160,
+                borderColor: PHASE_COLORS[inf.tier] + "33",
+              }}
+            >
+              <div style={{ color: PHASE_COLORS[inf.tier], fontWeight: 700, fontSize: 13 }}>
+                {inf.name}
+              </div>
+              <div style={{ color: "#888", fontSize: 12, marginTop: 6, lineHeight: 1.4 }}>
+                {inf.detail}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+
+    // 2 — SOURCES
+    () => (
+      <div>
+        <h3 style={styles.h3}>Source Map — Tier 1 ($150/mo)</h3>
+        <p style={styles.body}>
+          Six source categories monitored every scan cycle. Each source feeds into the Python
+          fetcher, which normalizes data into a standard signal object before scoring.
+        </p>
+
+        {[
+          {
+            id: "social",
+            cat: "Social Listening",
+            tool: "Xpoz Pro — $20/mo",
+            color: "#00C853",
+            sources: [
+              "X/Twitter — DTC accounts, ad industry hashtags (#ppcchat, #facebookads, #dtc, #ecommerce)",
+              "Instagram — Trending Reels in marketing/business niche",
+              "TikTok — Viral business/marketing content, TikTok Shop updates",
+              "Reddit — r/PPC, r/FacebookAds, r/ecommerce, r/artificial, r/marketing, r/Entrepreneur",
+            ],
+            keywords:
+              "Meta ads, Google ads, TikTok ads, AppLovin, DTC, ecommerce, ROAS, creative strategy, AI marketing, ad spend, media buying, performance marketing, agency, UGC, creator economy",
+          },
+          {
+            id: "news",
+            cat: "News & Industry",
+            tool: "NewsData.io + GNews (free tiers)",
+            color: "#FF6D00",
+            sources: [
+              "AI releases — OpenAI, Anthropic, Google DeepMind, Meta AI, Midjourney, HeyGen, ElevenLabs",
+              "Ad platform updates — Meta Business, Google Ads, TikTok for Business, AppLovin newsrooms",
+              "Industry publications — Digiday, Ad Age, Marketing Brew, Social Media Today, The Information",
+              "Business news — TechCrunch, Bloomberg, WSJ (ad/marketing coverage)",
+            ],
+            keywords:
+              "AI launch, new model, ad platform update, algorithm change, policy change, privacy, brand fail, CMO, agency acquisition",
+          },
+          {
+            id: "rss",
+            cat: "RSS Feeds (Free)",
+            tool: "Python feedparser — $0",
+            color: "#40C4FF",
+            sources: [
+              "Meta for Business Blog — business.facebook.com/blog",
+              "Google Ads Blog — blog.google/products/ads-commerce",
+              "TikTok Newsroom — newsroom.tiktok.com",
+              "Product Hunt — producthunt.com/feed",
+              "Hacker News — news.ycombinator.com/rss",
+              "AppLovin Blog — applovin.com/blog",
+              "Shopify Blog — shopify.com/blog",
+              "AdExchanger — adexchanger.com/feed",
+              "Search Engine Land — searchengineland.com/feed",
+              "Jon Loomer — jonloomer.com/feed",
+            ],
+            keywords: "N/A — Full feed ingestion, filtered by relevance scorer",
+          },
+          {
+            id: "trends",
+            cat: "Google Trends",
+            tool: "Pytrends library — $0",
+            color: "#E040FB",
+            sources: [
+              "Real-time trending searches (US)",
+              "Rising queries in 'Business', 'Technology', 'Shopping' categories",
+              "Breakout terms (5000%+ growth) flagged as high-velocity signals",
+            ],
+            keywords: "Automated — captures all breakout and rising terms, filtered by niche relevance",
+          },
+          {
+            id: "reddit",
+            cat: "Reddit Direct",
+            tool: "Reddit API (free tier) — $0",
+            color: "#FF5722",
+            sources: [
+              "r/PPC — top/rising posts (last 6 hours)",
+              "r/FacebookAds — top/rising",
+              "r/ecommerce — top/rising",
+              "r/artificial — top/rising (AI news often hits here first)",
+              "r/marketing — top/rising",
+              "r/smallbusiness — top/rising (DTC brand signals)",
+            ],
+            keywords: "Automated — pulls top/rising, scores by upvote velocity and comment count",
+          },
+          {
+            id: "meta",
+            cat: "Meta Ad Library",
+            tool: "Meta Ad Library API — $0",
+            color: "#448AFF",
+            sources: [
+              "Trending ads by impression volume (DTC/ecom vertical)",
+              "New ads from tracked competitor brands",
+              "Political/social ads with high engagement (controversy signals)",
+            ],
+            keywords: "Leverages existing Ad Pros competitive intelligence pipeline",
+          },
+        ].map((src) => (
+          <div
+            key={src.id}
+            onClick={() => toggleCard(src.id)}
+            style={{
+              ...styles.sourceCard,
+              borderColor: src.color + "33",
+              cursor: "pointer",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <div style={{ color: src.color, fontWeight: 700, fontSize: 14 }}>{src.cat}</div>
+                <div style={{ color: "#666", fontSize: 11, marginTop: 4 }}>{src.tool}</div>
+              </div>
+              <div style={{ color: "#666", fontSize: 18 }}>{expandedCards[src.id] ? "−" : "+"}</div>
+            </div>
+            {expandedCards[src.id] && (
+              <div style={{ marginTop: 16 }}>
+                <div style={{ color: "#aaa", fontSize: 11, fontWeight: 700, letterSpacing: 1, marginBottom: 8 }}>
+                  MONITORED SOURCES
+                </div>
+                {src.sources.map((s, i) => (
+                  <div key={i} style={{ color: "#ccc", fontSize: 12, padding: "4px 0", lineHeight: 1.5 }}>
+                    → {s}
+                  </div>
+                ))}
+                <div
+                  style={{
+                    color: "#aaa",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: 1,
+                    marginBottom: 8,
+                    marginTop: 16,
+                  }}
+                >
+                  TRACKED KEYWORDS
+                </div>
+                <div style={{ color: "#888", fontSize: 12, lineHeight: 1.6, fontStyle: "italic" }}>
+                  {src.keywords}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+
+        <h3 style={styles.h3}>Tier 2 Additions (Day 30+)</h3>
+        <div style={{ ...styles.sourceCard, borderColor: "#FF6D0033" }}>
+          <div style={{ color: "#FF6D00", fontWeight: 700, fontSize: 14, marginBottom: 12 }}>
+            +$150/mo upgrades
+          </div>
+          {[
+            "Xpoz Max ($50/mo) — 100 tracked keywords, 50 tracked user accounts",
+            "Awario Starter ($49/mo) — Boolean search for complex multi-term monitoring",
+            "NewsData.io Paid ($49/mo) — 3,000 credits/day, historical access, AI sentiment",
+            "Crunchbase Basic ($29/mo) — DTC funding rounds, acquisitions, new entrants",
+            "Competitor account tracking — 10-20 specific creators/agencies tracked by handle",
+          ].map((item, i) => (
+            <div key={i} style={{ color: "#ccc", fontSize: 12, padding: "4px 0", lineHeight: 1.5 }}>
+              → {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+
+    // 3 — SCORING
+    () => (
+      <div>
+        <h3 style={styles.h3}>Virality Scoring Algorithm</h3>
+        <p style={styles.body}>
+          Every signal gets a composite score from 0–100. The algorithm weights four primary
+          dimensions in Nehal's priority order, plus three secondary modifiers.
+        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {[
+            {
+              dim: "RECENCY",
+              weight: "35%",
+              color: "#00C853",
+              formula: "Score = 100 × e^(-0.15 × hours_old)",
+              logic: [
+                "< 1 hour old → 95–100",
+                "1–3 hours → 75–95",
+                "3–6 hours → 50–75",
+                "6–12 hours → 25–50",
+                "12–24 hours → 10–25",
+                "> 24 hours → 0–10",
+              ],
+              note: "Exponential decay. Being first matters more than anything. A 6-hour-old signal loses half its score.",
+            },
+            {
+              dim: "VELOCITY",
+              weight: "30%",
+              color: "#FF6D00",
+              formula: "Score = min(100, (engagement_rate / baseline) × 50)",
+              logic: [
+                "Google Trends breakout (5000%+) → 100",
+                "Reddit post: 50+ upvotes in < 2 hours → 80–100",
+                "X post: 500+ engagements in < 1 hour → 90–100",
+                "News article: picked up by 3+ outlets → 70–90",
+                "RSS: Platform official blog post → 60 (auto-high, always relevant)",
+                "Baseline = avg engagement for that source over past 7 days",
+              ],
+              note: "Measures acceleration, not absolute size. A subreddit post going from 2 to 50 upvotes in 1 hour scores higher than a tweet sitting at 10K likes for 3 days.",
+            },
+            {
+              dim: "CONTROVERSY",
+              weight: "20%",
+              color: "#FF1744",
+              formula: "Score = (negative_sentiment_ratio × 40) + (reply_ratio × 30) + (keyword_match × 30)",
+              logic: [
+                "Mixed sentiment (40-60% negative) → highest score",
+                "High reply-to-like ratio → indicates debate",
+                "Keyword triggers: 'fired', 'banned', 'lawsuit', 'broken', 'scam', 'dead', 'controversial', 'unpopular opinion'",
+                "Quote tweets > retweets → signals disagreement",
+                "Brand/person name + negative verb pattern → auto-flag",
+              ],
+              note: "The sweet spot is 'productively controversial' — topics where smart people disagree. Pure outrage without substance scores lower.",
+            },
+            {
+              dim: "SHAREABILITY",
+              weight: "15%",
+              color: "#E040FB",
+              formula: "Score = (screenshot_potential × 40) + (quote_factor × 30) + (format_fit × 30)",
+              logic: [
+                "Contains a specific data point or stat → +30 (screenshot-worthy)",
+                "Has a quotable one-liner or hot take → +25",
+                "Visual element (chart, before/after, comparison) → +20",
+                "Fits a proven content format (list, prediction, 'nobody talks about') → +25",
+                "Meme potential (absurd, ironic, relatable) → +20",
+              ],
+              note: "Measures the 'would someone screenshot this and send it to a friend' factor.",
+            },
+          ].map((d) => (
+            <div
+              key={d.dim}
+              onClick={() => toggleCard(d.dim)}
+              style={{
+                background: "#0d0d14",
+                border: `1px solid ${d.color}33`,
+                borderRadius: 12,
+                padding: 20,
+                cursor: "pointer",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div
+                    style={{
+                      background: d.color + "22",
+                      color: d.color,
+                      fontWeight: 800,
+                      fontSize: 12,
+                      padding: "6px 12px",
+                      borderRadius: 8,
+                      fontFamily: "'JetBrains Mono', monospace",
+                    }}
+                  >
+                    {d.weight}
+                  </div>
+                  <div style={{ color: "#fff", fontWeight: 700, fontSize: 15 }}>{d.dim}</div>
+                </div>
+                <div style={{ color: "#666" }}>{expandedCards[d.dim] ? "−" : "+"}</div>
+              </div>
+              {expandedCards[d.dim] && (
+                <div style={{ marginTop: 16 }}>
+                  <div
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: 12,
+                      color: d.color,
+                      background: "#00000066",
+                      padding: "10px 14px",
+                      borderRadius: 8,
+                      marginBottom: 14,
+                    }}
+                  >
+                    {d.formula}
+                  </div>
+                  {d.logic.map((l, i) => (
+                    <div key={i} style={{ color: "#bbb", fontSize: 12, padding: "3px 0", lineHeight: 1.5 }}>
+                      • {l}
+                    </div>
+                  ))}
+                  <div
+                    style={{
+                      color: "#666",
+                      fontSize: 12,
+                      fontStyle: "italic",
+                      marginTop: 12,
+                      lineHeight: 1.5,
+                      borderTop: "1px solid #ffffff0a",
+                      paddingTop: 12,
+                    }}
+                  >
+                    {d.note}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <h3 style={styles.h3}>Secondary Modifiers (Nice-to-Have)</h3>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[
+            { mod: "Niche Relevance", bonus: "+5 to +15", desc: "DTC/ads/AI/ecom keyword density" },
+            { mod: "First Mover Gap", bonus: "+5 to +10", desc: "Few creators covering it yet" },
+            { mod: "Authority Match", bonus: "+5 to +10", desc: "Nehal has direct experience/proof" },
+          ].map((m, i) => (
+            <div key={i} style={{ ...styles.metricCard, flex: 1, minWidth: 160 }}>
+              <div style={{ color: "#fff", fontWeight: 600, fontSize: 13 }}>{m.mod}</div>
+              <div style={{ color: "#00C853", fontFamily: "'JetBrains Mono', monospace", fontSize: 12, marginTop: 6 }}>
+                {m.bonus}
+              </div>
+              <div style={{ color: "#666", fontSize: 11, marginTop: 6, lineHeight: 1.4 }}>{m.desc}</div>
+            </div>
+          ))}
+        </div>
+
+        <h3 style={styles.h3}>Threshold Tiers</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { range: "90–100", label: "🚨 RED ALERT", action: "Immediate Slack DM + full content draft + Bangers tab", color: "#FF1744" },
+            { range: "75–89", label: "🔥 BANGER", action: "Bangers tab + full content draft + #content-queue Slack", color: "#FF6D00" },
+            { range: "40–74", label: "📋 WIDE FILTER", action: "Wide Filter tab + brief summary + #trending-now Slack", color: "#FFD600" },
+            { range: "0–39", label: "📦 RAW", action: "BigQuery only (firehose archive)", color: "#666" },
+          ].map((t) => (
+            <div
+              key={t.range}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                background: "#0d0d14",
+                border: `1px solid ${t.color}33`,
+                borderRadius: 10,
+                padding: "14px 18px",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: t.color,
+                  minWidth: 60,
+                }}
+              >
+                {t.range}
+              </div>
+              <div>
+                <div style={{ color: "#fff", fontWeight: 600, fontSize: 13 }}>{t.label}</div>
+                <div style={{ color: "#888", fontSize: 12, marginTop: 2 }}>{t.action}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+
+    // 4 — N8N FLOWS
+    () => (
+      <div>
+        <h3 style={styles.h3}>n8n Workflow Definitions</h3>
+        <p style={styles.body}>
+          Five core workflows running in n8n. Each is triggered independently and can be
+          monitored/restarted by the PM through the n8n dashboard.
+        </p>
+
+        {[
+          {
+            id: "wf1",
+            name: "WF-1: Scheduled Scanner",
+            trigger: "Cron — 6:00, 11:00, 15:00, 20:00 COT",
+            nodes: [
+              "Cron Trigger → HTTP Request (call Python /scan endpoint)",
+              "Python returns: { signals_found, scored_count, bangers_count }",
+              "IF bangers_count > 0 → trigger WF-3 (Content Drafter)",
+              "IF any signal > 90 → trigger WF-5 (Red Alert)",
+              "Log scan stats to Google Sheet 'Scan Log' tab",
+            ],
+          },
+          {
+            id: "wf2",
+            name: "WF-2: Signal Distributor",
+            trigger: "Webhook — called by Python after scoring",
+            nodes: [
+              "Receive scored signals array from Python",
+              "Filter: score >= 40 → Google Sheets API (Wide Filter tab)",
+              "Filter: score >= 75 → Google Sheets API (Bangers tab)",
+              "All signals → format as Slack blocks → Post to #trending-now",
+              "Bangers only → format with drafts → Post to #content-queue",
+            ],
+          },
+          {
+            id: "wf3",
+            name: "WF-3: Content Drafter",
+            trigger: "Webhook — called by WF-1 when bangers exist",
+            nodes: [
+              "Receive banger signals from Python",
+              "For each signal → HTTP Request (call Python /draft endpoint)",
+              "Python calls Claude Sonnet with voice model + signal context",
+              "Returns: { video_script, ig_story, x_thread, angle, hook }",
+              "Append drafts to Google Sheet 'Bangers' tab (columns F–J)",
+              "Format drafts as Slack blocks → Post to #content-queue",
+            ],
+          },
+          {
+            id: "wf4",
+            name: "WF-4: Weekly Optimizer",
+            trigger: "Cron — Mondays 9:00 AM COT",
+            nodes: [
+              "Pull last 7 days from Google Sheet (ratings + performance)",
+              "HTTP Request → Python /optimize endpoint",
+              "Python analyzes: which scores correlated with hits vs misses",
+              "Adjusts scoring weights (within ±5% bounds per cycle)",
+              "Regenerates voice model from recent high-performing content",
+              "Posts optimization report to #content-queue Slack",
+              "Logs weight changes to 'Optimization Log' sheet tab",
+            ],
+          },
+          {
+            id: "wf5",
+            name: "WF-5: Red Alert",
+            trigger: "Webhook — called when signal scores 90+",
+            nodes: [
+              "Receive signal + draft from Python",
+              "Slack DM to Nehal: '🚨 VIRAL ALERT — [Topic] scored [X]'",
+              "Include full drafted content in DM thread",
+              "Add to Bangers tab with 🚨 prefix",
+              "If no response in 30 min → re-ping with 'Still hot — window closing'",
+            ],
+          },
+        ].map((wf) => (
+          <div
+            key={wf.id}
+            onClick={() => toggleCard(wf.id)}
+            style={{ ...styles.sourceCard, borderColor: "#00C85333", cursor: "pointer" }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ color: "#00C853", fontWeight: 700, fontSize: 14 }}>{wf.name}</div>
+              <div style={{ color: "#666" }}>{expandedCards[wf.id] ? "−" : "+"}</div>
+            </div>
+            <div style={{ color: "#888", fontSize: 12, marginTop: 4 }}>Trigger: {wf.trigger}</div>
+            {expandedCards[wf.id] && (
+              <div style={{ marginTop: 14 }}>
+                {wf.nodes.map((n, i) => (
+                  <div key={i} style={{ color: "#ccc", fontSize: 12, padding: "4px 0", lineHeight: 1.6 }}>
+                    <span style={{ color: "#00C853", marginRight: 8 }}>→</span>
+                    {n}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    ),
+
+    // 5 — SLACK FORMAT
+    () => (
+      <div>
+        <h3 style={styles.h3}>Slack Channel Structure</h3>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {[
+            {
+              channel: "#trending-now",
+              purpose: "Raw signal feed — everything scoring 40+",
+              format: `Every scan cycle posts a digest:
+
+━━━━━━━━━━━━━━━━━━━━━━
+📡 11:00 AM SCAN — 47 signals found
+━━━━━━━━━━━━━━━━━━━━━━
+
+🔥 BANGERS (3)
+━━━━━━━━━━━
+1. [92] Meta just killed broad targeting for small accounts
+   ⏱ 45 min old | 🚀 Velocity: 2,400% | 💥 Controversy: HIGH
+   → Full draft in #content-queue
+
+2. [81] OpenAI launches ad creation tool
+   ⏱ 2h old | 🚀 Velocity: 800% | 💥 Controversy: MED
+   → Full draft in #content-queue
+
+3. [76] Shopify acquires TikTok Shop competitor
+   ⏱ 1h old | 🚀 Velocity: 1,200% | 💥 Controversy: LOW
+   → Full draft in #content-queue
+
+📋 WIDE FILTER (12)
+━━━━━━━━━━━━━━━━
+4. [68] AppLovin Q1 revenue beats estimates...
+5. [61] New Claude model drops with vision...
+[...continued]`,
+            },
+            {
+              channel: "#content-queue",
+              purpose: "Drafted content ready to film/post — bangers only",
+              format: `Each banger gets its own threaded message:
+
+━━━━━━━━━━━━━━━━━━━━━━
+🔥 CONTENT BRIEF #1 | Score: 92
+━━━━━━━━━━━━━━━━━━━━━━
+Topic: Meta killed broad targeting for small accounts
+Angle: "Meta is quietly making it impossible for small brands to compete — here's what nobody's telling you"
+
+📹 VIDEO SCRIPT (38 sec)
+━━━━━━━━━━━━━━━━
+HOOK (0-3s): "Meta just killed your ads and you don't even know it yet."
+BODY (3-30s): [Script body with talking points]
+CTA (30-38s): "Follow for more — I'll show you the workaround tomorrow."
+
+📱 IG STORY (3 slides)
+━━━━━━━━━━━━━━━━
+Slide 1: "Meta just made a HUGE change 👀"
+Slide 2: [Key detail + hot take]
+Slide 3: "DM me 'META' for the full breakdown"
+
+🐦 X THREAD (4 tweets)
+━━━━━━━━━━━━━━━━
+1/ [Opening hook tweet]
+2/ [Context + data]
+3/ [Hot take / contrarian angle]
+4/ [CTA + engagement question]`,
+            },
+            {
+              channel: "DM to Nehal",
+              purpose: "Red alerts only — score 90+",
+              format: `🚨 VIRAL ALERT — Score: 95
+
+"Meta just killed broad targeting for small accounts"
+
+⏱ 22 minutes old — WINDOW IS OPEN
+🚀 Velocity: 3,100% and climbing
+💥 Controversy: HIGH — Twitter is on fire
+
+Full draft waiting in #content-queue
+→ Tap to jump there
+
+[If no response in 30 min]:
+⏰ Still trending — 47 min old now. Window closing.`,
+            },
+          ].map((ch, i) => (
+            <div key={i} style={{ ...styles.sourceCard, borderColor: "#ffffff15" }}>
+              <div style={{ color: "#00C853", fontWeight: 700, fontSize: 15 }}>{ch.channel}</div>
+              <div style={{ color: "#888", fontSize: 12, marginTop: 4, marginBottom: 16 }}>{ch.purpose}</div>
+              <pre
+                style={{
+                  background: "#000",
+                  border: "1px solid #ffffff0a",
+                  borderRadius: 10,
+                  padding: 16,
+                  color: "#ccc",
+                  fontSize: 11,
+                  lineHeight: 1.6,
+                  overflowX: "auto",
+                  whiteSpace: "pre-wrap",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  margin: 0,
+                }}
+              >
+                {ch.format}
+              </pre>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+
+    // 6 — SHEET STRUCTURE
+    () => (
+      <div>
+        <h3 style={styles.h3}>Google Sheet Structure</h3>
+        <p style={styles.body}>
+          Five tabs — three for content pipeline, two for system optimization.
+          Eventually the raw firehose moves fully to BigQuery; the Sheet stays as the human
+          interaction layer.
+        </p>
+
+        {[
+          {
+            tab: "Tab 1: Bangers",
+            color: "#FF6D00",
+            desc: "Score 75+ with full content drafts. This is the daily content menu.",
+            columns: [
+              { col: "A", name: "Timestamp", ex: "2026-04-13 11:02" },
+              { col: "B", name: "Score", ex: "92" },
+              { col: "C", name: "Topic", ex: "Meta killed broad targeting" },
+              { col: "D", name: "Source", ex: "X / @andycrestin" },
+              { col: "E", name: "Angle", ex: "Meta making it impossible for small brands..." },
+              { col: "F", name: "Video Script", ex: "[Full 30-60s script]" },
+              { col: "G", name: "IG Story", ex: "[3-slide breakdown]" },
+              { col: "H", name: "X Thread", ex: "[4-tweet thread]" },
+              { col: "I", name: "Status", ex: "🟡 Pending / ✅ Posted / ❌ Skipped" },
+              { col: "J", name: "Rating", ex: "1-5 (manual)" },
+              { col: "K", name: "Performance", ex: "Hit / Miss (weekly input)" },
+              { col: "L", name: "Notes", ex: "Free text" },
+            ],
+          },
+          {
+            tab: "Tab 2: Wide Filter",
+            color: "#FFD600",
+            desc: "Score 40-74. Broader signal feed — good for inspiration even if not post-worthy.",
+            columns: [
+              { col: "A", name: "Timestamp", ex: "2026-04-13 11:02" },
+              { col: "B", name: "Score", ex: "58" },
+              { col: "C", name: "Topic", ex: "AppLovin Q1 revenue beat" },
+              { col: "D", name: "Source", ex: "TechCrunch RSS" },
+              { col: "E", name: "One-Liner", ex: "AppLovin just proved the model works..." },
+              { col: "F", name: "Link", ex: "https://..." },
+              { col: "G", name: "Used?", ex: "Y/N" },
+            ],
+          },
+          {
+            tab: "Tab 3: Raw Ideas",
+            color: "#666",
+            desc: "All signals 0-100. Overflow tab — auto-populated, auto-purged after 7 days. BigQuery is the real archive.",
+            columns: [
+              { col: "A-F", name: "Same as Wide Filter", ex: "Plus: recency score, velocity score, controversy score, shareability score (individual dimension breakdown)" },
+            ],
+          },
+          {
+            tab: "Tab 4: Scan Log",
+            color: "#40C4FF",
+            desc: "System health — every scan cycle logged.",
+            columns: [
+              { col: "A", name: "Scan Time", ex: "2026-04-13 11:00" },
+              { col: "B", name: "Signals Found", ex: "47" },
+              { col: "C", name: "New (Deduped)", ex: "31" },
+              { col: "D", name: "Bangers", ex: "3" },
+              { col: "E", name: "Wide Filter", ex: "12" },
+              { col: "F", name: "Sources Active", ex: "6/6" },
+              { col: "G", name: "Errors", ex: "None" },
+            ],
+          },
+          {
+            tab: "Tab 5: Optimization Log",
+            color: "#E040FB",
+            desc: "Weekly — tracks how the algorithm evolves over time.",
+            columns: [
+              { col: "A", name: "Week", ex: "W16 2026" },
+              { col: "B", name: "Recency Weight", ex: "35% → 33%" },
+              { col: "C", name: "Velocity Weight", ex: "30% → 32%" },
+              { col: "D", name: "Controversy Weight", ex: "20% → 20%" },
+              { col: "E", name: "Shareability Weight", ex: "15% → 15%" },
+              { col: "F", name: "Hit Rate", ex: "68% → 74%" },
+              { col: "G", name: "Top Performing Topics", ex: "AI releases, platform drama" },
+              { col: "H", name: "Notes", ex: "Velocity matters more than recency for this audience" },
+            ],
+          },
+        ].map((tab, i) => (
+          <div
+            key={i}
+            onClick={() => toggleCard(tab.tab)}
+            style={{
+              background: "#0d0d14",
+              border: `1px solid ${tab.color}33`,
+              borderRadius: 12,
+              padding: 18,
+              marginBottom: 10,
+              cursor: "pointer",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <div style={{ color: tab.color, fontWeight: 700, fontSize: 14 }}>{tab.tab}</div>
+                <div style={{ color: "#888", fontSize: 12, marginTop: 4 }}>{tab.desc}</div>
+              </div>
+              <div style={{ color: "#666" }}>{expandedCards[tab.tab] ? "−" : "+"}</div>
+            </div>
+            {expandedCards[tab.tab] && (
+              <div style={{ marginTop: 14 }}>
+                {tab.columns.map((c, j) => (
+                  <div
+                    key={j}
+                    style={{
+                      display: "flex",
+                      gap: 12,
+                      padding: "6px 0",
+                      borderBottom: "1px solid #ffffff06",
+                      fontSize: 12,
+                    }}
+                  >
+                    <span style={{ color: tab.color, fontFamily: "'JetBrains Mono', monospace", minWidth: 30 }}>
+                      {c.col}
+                    </span>
+                    <span style={{ color: "#ddd", minWidth: 120 }}>{c.name}</span>
+                    <span style={{ color: "#666", fontStyle: "italic" }}>{c.ex}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    ),
+
+    // 7 — CONTENT DRAFTS
+    () => (
+      <div>
+        <h3 style={styles.h3}>Content Draft Templates</h3>
+        <p style={styles.body}>
+          Claude Sonnet generates three formats per banger signal, using Nehal's voice model
+          trained on existing content from X, IG, LinkedIn, and ClickUp recordings.
+        </p>
+
+        <h3 style={styles.h3}>Voice Model Inputs</h3>
+        <div style={styles.sourceCard}>
+          {[
+            "X posts (last 6 months) — tone, language patterns, hot take style",
+            "IG Reels transcripts — hook patterns, cadence, CTA style",
+            "LinkedIn posts — thought leadership angle, storytelling format",
+            "ClickUp recordings — natural speaking patterns, filler words, energy",
+            "Top-performing content tagged as 'Hit' in feedback loop",
+          ].map((v, i) => (
+            <div key={i} style={{ color: "#ccc", fontSize: 12, padding: "4px 0", lineHeight: 1.5 }}>
+              → {v}
+            </div>
+          ))}
+        </div>
+
+        <h3 style={styles.h3}>Format 1: Short-Form Video Script</h3>
+        <div style={styles.codeBlock}>
+{`TOPIC: [Signal topic]
+ANGLE: [Contrarian/first-mover angle]
+LENGTH: 30-60 sec | STYLE: Talking head
+
+━━━ HOOK (0-3 sec) ━━━
+[Pattern interrupt — bold claim, question, or shock statement]
+Goal: Stop the scroll in < 2 seconds
+
+━━━ BODY (3-50 sec) ━━━
+POINT 1: [Context — what happened]
+POINT 2: [Why it matters — connect to audience's pain]
+POINT 3: [Hot take — the thing nobody's saying]
+POINT 4: [Proof / example — tie to real result if possible]
+
+━━━ CTA (50-60 sec) ━━━
+[Follow for more / Comment your take / DM me X for Y]
+
+━━━ ON-SCREEN TEXT ━━━
+Hook text: [2-4 words for text overlay]
+Caption: [Full caption with hashtags]`}
+        </div>
+
+        <h3 style={styles.h3}>Format 2: IG Story (3-5 Slides)</h3>
+        <div style={styles.codeBlock}>
+{`SLIDE 1 — HOOK
+Text: [Bold statement + emoji]
+Style: Large text, dark background
+Goal: Tap forward
+
+SLIDE 2 — CONTEXT
+Text: [What happened + why it matters]
+Style: Bullet points or screenshot
+Goal: Educate
+
+SLIDE 3 — HOT TAKE
+Text: [Nehal's angle — the spicy part]
+Style: Quote-style formatting
+Goal: Screenshot + share
+
+SLIDE 4 — CTA (optional)
+Text: [Poll / Question / DM trigger]
+Style: Interactive sticker
+Goal: Engagement`}
+        </div>
+
+        <h3 style={styles.h3}>Format 3: X Thread</h3>
+        <div style={styles.codeBlock}>
+{`TWEET 1 — HOOK
+[Bold opening claim. Pattern interrupt. End with curiosity gap.]
+[🧵]
+
+TWEET 2 — CONTEXT
+[What happened. Keep it tight. Use line breaks.]
+
+TWEET 3 — HOT TAKE
+[The contrarian angle. This is the tweet people screenshot.]
+
+TWEET 4 — PROOF (if applicable)
+[Data, example, or case study. Numbers > opinions.]
+
+TWEET 5+ — DEPTH (if needed)
+[Additional points. Only if topic warrants it.]
+
+FINAL TWEET — CTA
+[Repost if you agree / Follow for more / Drop your take below]
+[Tag relevant accounts if natural]`}
+        </div>
+
+        <h3 style={styles.h3}>Claude System Prompt (Drafting)</h3>
+        <div style={{ ...styles.codeBlock, borderColor: "#00C85333" }}>
+{`You are a content ghostwriter for Nehal Kazim, founder of Ad Pros — 
+a performance marketing agency. Your job is to draft viral content 
+about trending topics in the ad/DTC/ecommerce/AI space.
+
+VOICE RULES:
+- Confident, direct, no hedging
+- Contrarian by default — find the angle nobody's saying
+- Use data and specifics over vague claims
+- Short sentences. Punchy. No fluff.
+- Speak like a founder who spends $X/day on ads, not a content creator
+- Reference real platform experience (Meta, Google, TikTok, AppLovin)
+- Occasional profanity is fine when it fits
+- Never use: "game-changer", "deep dive", "unpack", "let's talk about"
+
+CONTENT RULES:
+- Hook must work in < 2 seconds (video) or < 5 words (text)
+- Every piece needs ONE clear hot take
+- End with engagement driver, not generic CTA
+- If you can't make it controversial, make it specific with numbers
+- Match the energy to the platform (X = sharp, IG = visual, Video = personal)
+
+REFERENCE CONTENT:
+[Injected: top 20 performing posts from voice corpus]
+[Injected: recent posts for style continuity]`}
+        </div>
+      </div>
+    ),
+
+    // 8 — SELF-LEARNING
+    () => (
+      <div>
+        <h3 style={styles.h3}>Self-Learning System</h3>
+        <p style={styles.body}>
+          The engine improves weekly through two feedback mechanisms: daily manual ratings
+          and weekly performance data ingestion. Over time, it learns which topics, angles,
+          and formats perform best for Nehal's audience.
+        </p>
+
+        <h3 style={styles.h3}>Daily Feedback Loop (2-3 min/day)</h3>
+        <div style={styles.sourceCard}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {[
+              { step: "1", text: "Nehal reviews Bangers tab each morning", detail: "Mark column I: ✅ Posted / ❌ Skipped" },
+              { step: "2", text: "Rate each posted idea in column J (1-5)", detail: "1 = forced, 5 = felt natural and strong" },
+              { step: "3", text: "Optional: add notes in column L", detail: "'Changed the angle to X', 'Worked better as a rant', etc." },
+            ].map((s) => (
+              <div key={s.step} style={{ display: "flex", gap: 12 }}>
+                <div
+                  style={{
+                    background: "#00C85322",
+                    color: "#00C853",
+                    width: 28,
+                    height: 28,
+                    borderRadius: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 700,
+                    fontSize: 13,
+                    flexShrink: 0,
+                  }}
+                >
+                  {s.step}
+                </div>
+                <div>
+                  <div style={{ color: "#ddd", fontSize: 13 }}>{s.text}</div>
+                  <div style={{ color: "#888", fontSize: 11, marginTop: 2 }}>{s.detail}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <h3 style={styles.h3}>Weekly Optimization Cycle (Mondays)</h3>
+        <div style={styles.sourceCard}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {[
+              {
+                step: "1",
+                text: "Performance data ingested",
+                detail: "Views, likes, shares, saves, comments logged for each posted piece (manual for now, API later)",
+              },
+              {
+                step: "2",
+                text: "Correlation analysis",
+                detail:
+                  "Python analyzes: which virality score dimensions predicted actual performance? E.g., 'High controversy score correlated with 3× more shares'",
+              },
+              {
+                step: "3",
+                text: "Weight adjustment",
+                detail:
+                  "Algorithm adjusts weights within ±5% per cycle. E.g., if velocity was a better predictor than recency, shift 2% from Recency → Velocity",
+              },
+              {
+                step: "4",
+                text: "Voice model refresh",
+                detail:
+                  "Top-performing content from the week gets added to the voice corpus. Underperforming patterns get deprioritized.",
+              },
+              {
+                step: "5",
+                text: "Topic pattern analysis",
+                detail:
+                  "Identify which categories (AI, platform updates, drama, hacks) drove highest engagement. Adjust source monitoring weights.",
+              },
+              {
+                step: "6",
+                text: "Optimization report posted",
+                detail:
+                  "Slack summary: 'This week: 74% hit rate (up from 68%). Velocity weight increased to 32%. AI releases outperformed platform updates 2:1.'",
+              },
+            ].map((s) => (
+              <div key={s.step} style={{ display: "flex", gap: 12 }}>
+                <div
+                  style={{
+                    background: "#E040FB22",
+                    color: "#E040FB",
+                    width: 28,
+                    height: 28,
+                    borderRadius: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 700,
+                    fontSize: 13,
+                    flexShrink: 0,
+                  }}
+                >
+                  {s.step}
+                </div>
+                <div>
+                  <div style={{ color: "#ddd", fontSize: 13 }}>{s.text}</div>
+                  <div style={{ color: "#888", fontSize: 11, marginTop: 2, lineHeight: 1.5 }}>{s.detail}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <h3 style={styles.h3}>Learning Boundaries</h3>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[
+            { rule: "±5% max weight shift per week", why: "Prevents over-correction from small sample sizes" },
+            { rule: "Minimum 10 posted pieces before first optimization", why: "Need enough data for meaningful patterns" },
+            { rule: "Weight floor: no dimension below 10%", why: "All four dimensions matter; prevents tunnel vision" },
+            { rule: "Monthly full recalibration option", why: "Nehal can manually override if gut disagrees with data" },
+          ].map((r, i) => (
+            <div key={i} style={{ ...styles.metricCard, flex: 1, minWidth: 200 }}>
+              <div style={{ color: "#FFD600", fontWeight: 600, fontSize: 12 }}>{r.rule}</div>
+              <div style={{ color: "#666", fontSize: 11, marginTop: 6, lineHeight: 1.4 }}>{r.why}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+
+    // 9 — ROADMAP
+    () => (
+      <div>
+        <h3 style={styles.h3}>Implementation Roadmap</h3>
+
+        {[
+          {
+            phase: "WEEK 1",
+            title: "Foundation",
+            color: "#00C853",
+            tasks: [
+              "Set up VPS (Railway or DigitalOcean $5/mo droplet)",
+              "Install n8n self-hosted + configure Slack integration",
+              "Create Google Sheet with all 5 tabs + column headers",
+              "Set up BigQuery dataset: viral_engine.raw_signals, viral_engine.scored_signals",
+              "Register Xpoz Pro account ($20/mo) — configure tracked keywords",
+              "Set up RSS fetcher (feedparser) for all 10+ feeds",
+              "Register NewsData.io + GNews free API keys",
+              "Set up Reddit API credentials (OAuth app)",
+              "Install pytrends for Google Trends monitoring",
+              "Build Python FastAPI skeleton with /scan, /draft, /optimize endpoints",
+            ],
+          },
+          {
+            phase: "WEEK 2",
+            title: "Intelligence Layer",
+            color: "#FF6D00",
+            tasks: [
+              "Build source fetcher module — unified signal object from all 6 source types",
+              "Build deduplication engine — title similarity + URL matching against BigQuery",
+              "Implement virality scoring algorithm (all 4 dimensions + 3 modifiers)",
+              "Build BigQuery write pipeline — raw signals table",
+              "Build Google Sheets write pipeline — filtered signals to correct tabs",
+              "Create Claude drafting prompt with voice model framework",
+              "Ingest Nehal's existing content: X posts, IG Reels, LinkedIn, ClickUp recordings",
+              "Build voice corpus — top 50 posts analyzed for patterns",
+              "Test end-to-end: manual trigger → fetch → score → draft → Sheet",
+            ],
+          },
+          {
+            phase: "WEEK 3",
+            title: "Orchestration + Delivery",
+            color: "#E040FB",
+            tasks: [
+              "Build all 5 n8n workflows (WF-1 through WF-5)",
+              "Configure Slack channels: #trending-now, #content-queue",
+              "Build Slack message formatters (Block Kit templates)",
+              "Set up Red Alert DM flow with 30-min re-ping",
+              "Connect n8n → Python API endpoints via HTTP nodes",
+              "Set up cron schedules: 6/11/3/8 COT + Monday 9 AM optimizer",
+              "Build scan logging to Sheet Tab 4",
+              "End-to-end testing: full 4× daily cycle running for 3 days",
+              "Bug fixes and edge case handling",
+            ],
+          },
+          {
+            phase: "WEEK 4",
+            title: "Self-Learning + Go Live",
+            color: "#40C4FF",
+            tasks: [
+              "Build weekly optimizer module in Python",
+              "Implement weight adjustment logic with ±5% bounds",
+              "Build optimization report generator + Slack formatter",
+              "Set up Optimization Log sheet tab auto-population",
+              "Train initial voice model on full content corpus",
+              "Nehal uses system for full week — daily ratings in Sheet",
+              "First Monday optimization cycle runs",
+              "Document SOPs for PM: monitoring n8n, managing Sheet, escalation",
+              "Go live — system runs autonomously with 4× daily scans",
+            ],
+          },
+          {
+            phase: "DAY 30",
+            title: "Tier 2 Upgrade",
+            color: "#FF1744",
+            tasks: [
+              "Upgrade Xpoz Pro → Max ($50/mo) — add tracked user accounts",
+              "Add Awario Starter ($49/mo) — Boolean search queries",
+              "Upgrade NewsData.io to paid ($49/mo) — 3,000 credits/day",
+              "Add Crunchbase Basic ($29/mo) — funding signal source",
+              "Configure competitor account tracking (10-20 handles)",
+              "Add new sources to Python fetcher module",
+              "Recalibrate scoring algorithm with 30 days of data",
+              "Full voice model retrain with 30 days of posted content",
+            ],
+          },
+          {
+            phase: "MONTH 2-3",
+            title: "Automation + Scale",
+            color: "#FFD600",
+            tasks: [
+              "Connect X Analytics API for automated performance ingestion",
+              "Connect Meta/IG Insights API for Reels + Story metrics",
+              "Automate weekly performance data → eliminate manual logging",
+              "Build content calendar view in Sheet or dashboard",
+              "Explore auto-posting for X threads (with Nehal approval gate)",
+              "Build trending topic prediction (leading indicators from Google Trends + Reddit velocity)",
+              "Scale to 3 posts/day with batch drafting",
+            ],
+          },
+        ].map((phase, i) => (
+          <div
+            key={i}
+            onClick={() => toggleCard(phase.phase)}
+            style={{
+              background: "#0d0d14",
+              border: `1px solid ${phase.color}33`,
+              borderLeft: `3px solid ${phase.color}`,
+              borderRadius: "0 12px 12px 0",
+              padding: 18,
+              marginBottom: 10,
+              cursor: "pointer",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <span
+                  style={{
+                    color: phase.color,
+                    fontWeight: 800,
+                    fontSize: 11,
+                    fontFamily: "'JetBrains Mono', monospace",
+                    letterSpacing: 1,
+                  }}
+                >
+                  {phase.phase}
+                </span>
+                <span style={{ color: "#fff", fontWeight: 600, fontSize: 14, marginLeft: 12 }}>
+                  {phase.title}
+                </span>
+              </div>
+              <div style={{ color: "#666" }}>{expandedCards[phase.phase] ? "−" : "+"}</div>
+            </div>
+            {expandedCards[phase.phase] && (
+              <div style={{ marginTop: 14 }}>
+                {phase.tasks.map((t, j) => (
+                  <div
+                    key={j}
+                    style={{
+                      display: "flex",
+                      gap: 10,
+                      padding: "5px 0",
+                      fontSize: 12,
+                      color: "#ccc",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <span style={{ color: phase.color, flexShrink: 0 }}>☐</span>
+                    {t}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        <h3 style={styles.h3}>Monthly Budget Summary</h3>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ ...styles.metricCard, flex: 1 }}>
+            <div style={{ color: "#00C853", fontWeight: 800, fontSize: 18 }}>$150/mo</div>
+            <div style={{ color: "#666", fontSize: 11, marginTop: 4 }}>Tier 1 (Weeks 1-4)</div>
+            <div style={{ color: "#888", fontSize: 11, marginTop: 8, lineHeight: 1.5 }}>
+              Xpoz $20 • Claude API ~$40 • VPS $5 • News APIs free • RSS free • Reddit free • Google Trends free
+            </div>
+          </div>
+          <div style={{ ...styles.metricCard, flex: 1 }}>
+            <div style={{ color: "#FF6D00", fontWeight: 800, fontSize: 18 }}>$300/mo</div>
+            <div style={{ color: "#666", fontSize: 11, marginTop: 4 }}>Tier 2 (Day 30+)</div>
+            <div style={{ color: "#888", fontSize: 11, marginTop: 8, lineHeight: 1.5 }}>
+              Tier 1 + Xpoz Max upgrade $30 • Awario $49 • NewsData.io $49 • Crunchbase $29
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  ];
+
+  return (
+    <div
+      style={{
+        background: "#08080f",
+        minHeight: "100vh",
+        fontFamily: "'Space Grotesk', -apple-system, sans-serif",
+        color: "#fff",
+      }}
+    >
+      <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet"
+      />
+      {/* NAV */}
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 100,
+          background: "#08080fEE",
+          backdropFilter: "blur(12px)",
+          borderBottom: "1px solid #ffffff0a",
+          padding: "10px 16px",
+          overflowX: "auto",
+          display: "flex",
+          gap: 6,
+        }}
+      >
+        {SECTIONS.map((s, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveSection(i)}
+            style={{
+              background: activeSection === i ? "#00C85322" : "#ffffff08",
+              color: activeSection === i ? "#00C853" : "#888",
+              border: `1px solid ${activeSection === i ? "#00C85344" : "#ffffff0a"}`,
+              borderRadius: 8,
+              padding: "7px 14px",
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+              fontFamily: "inherit",
+              transition: "all 0.2s",
+            }}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      {/* CONTENT */}
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "24px 16px 80px" }}>{sections[activeSection]()}</div>
+    </div>
+  );
+}
+
+const styles = {
+  h3: {
+    color: "#fff",
+    fontSize: 17,
+    fontWeight: 700,
+    marginTop: 32,
+    marginBottom: 14,
+    paddingBottom: 8,
+    borderBottom: "1px solid #ffffff0a",
+  },
+  body: {
+    color: "#999",
+    fontSize: 14,
+    lineHeight: 1.7,
+    marginBottom: 20,
+  },
+  principleCard: {
+    display: "flex",
+    gap: 14,
+    alignItems: "flex-start",
+    background: "#0d0d14",
+    border: "1px solid #ffffff0a",
+    borderRadius: 10,
+    padding: "14px 16px",
+  },
+  metricCard: {
+    background: "#0d0d14",
+    border: "1px solid #ffffff0a",
+    borderRadius: 10,
+    padding: "14px 16px",
+  },
+  sourceCard: {
+    background: "#0d0d14",
+    border: "1px solid #ffffff15",
+    borderRadius: 12,
+    padding: 18,
+    marginBottom: 10,
+  },
+  archDiagram: {
+    background: "#0a0a12",
+    border: "1px solid #ffffff0a",
+    borderRadius: 14,
+    padding: 20,
+    marginBottom: 20,
+  },
+  archLayer: {
+    padding: 14,
+    borderRadius: 10,
+    background: "#ffffff04",
+    border: "1px solid #ffffff08",
+  },
+  archLabel: {
+    fontFamily: "'JetBrains Mono', monospace",
+    fontSize: 10,
+    color: "#00C853",
+    letterSpacing: 2,
+    marginBottom: 10,
+    fontWeight: 700,
+  },
+  archNode: {
+    background: "#00C85308",
+    border: "1px solid #00C85322",
+    color: "#00C853",
+    borderRadius: 8,
+    padding: "6px 12px",
+    fontSize: 11,
+    fontWeight: 500,
+  },
+  flowStep: {
+    display: "flex",
+    gap: 12,
+    alignItems: "center",
+    padding: "8px 12px",
+    background: "#0d0d14",
+    border: "1px solid #ffffff06",
+    borderRadius: 8,
+  },
+  flowNum: {
+    background: "#00C85322",
+    color: "#00C853",
+    width: 24,
+    height: 24,
+    borderRadius: 6,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: 700,
+    fontSize: 11,
+    fontFamily: "'JetBrains Mono', monospace",
+    flexShrink: 0,
+  },
+  codeBlock: {
+    background: "#000",
+    border: "1px solid #ffffff0a",
+    borderRadius: 10,
+    padding: 18,
+    fontFamily: "'JetBrains Mono', monospace",
+    fontSize: 11,
+    lineHeight: 1.7,
+    color: "#ccc",
+    whiteSpace: "pre-wrap",
+    overflowX: "auto",
+    marginBottom: 16,
+  },
+};
+
+
+ReactDOM.createRoot(document.getElementById("root")).render(<ViralIdeaEngine />);
+</script>
+</body>
+</html>
