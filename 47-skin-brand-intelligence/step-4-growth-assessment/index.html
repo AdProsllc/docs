@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 4 – 47 Skin – Growth Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000212; color: #b0b1b6; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.6; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+  /* Header */
+  .header { display: flex; align-items: center; gap: 16px; padding: 32px 40px; border-bottom: 1px solid #282932; background: #0b0d17; }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: #f3f4ff; }
+  .header-text p { font-size: 13px; color: #545560; margin-top: 2px; }
+  .brand-badge { display: inline-block; background: #F8D908; color: #000212; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 6px; }
+
+  /* Step nav */
+  .step-nav { display: flex; gap: 6px; padding: 16px 40px; background: #0b0d17; border-bottom: 1px solid #282932; flex-wrap: wrap; }
+  .step-pill { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.3px; }
+  .step-done { background: #10b981; color: #000; }
+  .step-active { background: #F8D908; color: #000212; }
+  .step-pending { background: #1a1c2e; color: #545560; border: 1px solid #282932; }
+
+  h2 { font-size: 18px; font-weight: 700; color: #f3f4ff; border-left: 3px solid #F8D908; padding-left: 14px; margin-bottom: 20px; margin-top: 40px; }
+  h3 { font-size: 14px; font-weight: 600; color: #f3f4ff; margin-bottom: 10px; }
+
+  /* Overall score */
+  .score-hero { background: #0b0d17; border: 1px solid #282932; border-radius: 12px; padding: 32px 40px; margin: 32px 0; display: flex; align-items: center; gap: 40px; }
+  .score-circle { width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(#f59e0b 0% 43%, #1a1c2e 43% 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
+  .score-circle-inner { width: 78px; height: 78px; border-radius: 50%; background: #0b0d17; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .score-num { font-size: 26px; font-weight: 800; color: #F8D908; line-height: 1; }
+  .score-den { font-size: 11px; color: #545560; }
+  .score-title { font-size: 20px; font-weight: 700; color: #f59e0b; }
+  .score-sub { font-size: 13px; color: #b0b1b6; margin-top: 4px; }
+  .score-counts { display: flex; gap: 20px; margin-top: 12px; }
+  .score-count { font-size: 13px; }
+
+  /* Summary scorecard table */
+  .scorecard-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 13px; }
+  .scorecard-table th { background: #0c0c16; color: #545560; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; padding: 10px 14px; text-align: left; border-bottom: 1px solid #282932; }
+  .scorecard-table td { padding: 12px 14px; border-bottom: 1px solid #1a1c2e; vertical-align: middle; }
+  .scorecard-table tr:hover td { background: #0b0d17; }
+
+  /* Rating badges */
+  .rating-failing { display: inline-flex; align-items: center; gap: 6px; background: rgba(239,68,68,0.12); color: #ef4444; border: 1px solid rgba(239,68,68,0.25); border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+  .rating-warning { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+  .rating-passing { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.25); border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+  .rating-tbd { display: inline-flex; align-items: center; gap: 6px; background: #1a1c2e; color: #545560; border: 1px solid #282932; border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* Category detail cards */
+  .cat-card { background: #0b0d17; border: 1px solid #282932; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+  .cat-card.failing { border-top: 3px solid #ef4444; }
+  .cat-card.warning { border-top: 3px solid #f59e0b; }
+  .cat-card.passing { border-top: 3px solid #10b981; }
+  .cat-card.tbd { border-top: 3px solid #545560; }
+  .cat-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #282932; }
+  .cat-name { font-size: 16px; font-weight: 700; color: #f3f4ff; }
+  .cat-num { font-size: 12px; color: #545560; margin-top: 2px; }
+  .cat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .cat-findings { padding: 20px 22px; border-right: 1px solid #282932; }
+  .cat-recs { padding: 20px 22px; background: #0c0c16; }
+  .finding-item { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .finding-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .finding-dot.red { background: #ef4444; }
+  .finding-dot.amber { background: #f59e0b; }
+  .finding-dot.green { background: #10b981; }
+  .finding-text { font-size: 12px; color: #b0b1b6; line-height: 1.5; }
+  .finding-text strong { color: #f3f4ff; }
+  .rec-item { display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-start; }
+  .rec-num { font-size: 10px; font-weight: 700; color: #F8D908; background: rgba(248,217,8,0.1); border-radius: 3px; padding: 2px 6px; flex-shrink: 0; margin-top: 2px; }
+  .rec-text { font-size: 12px; color: #b0b1b6; line-height: 1.5; }
+  .rec-text strong { color: #f3f4ff; }
+
+  /* Priority stack */
+  .priority-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .priority-tier { background: #0b0d17; border: 1px solid #282932; border-radius: 10px; padding: 18px; }
+  .tier-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .tier-1 .tier-label { color: #ef4444; }
+  .tier-2 .tier-label { color: #f59e0b; }
+  .tier-3 .tier-label { color: #4d65ff; }
+  .tier-4 .tier-label { color: #10b981; }
+  .tier-item { font-size: 13px; color: #f3f4ff; font-weight: 600; margin-bottom: 6px; }
+  .tier-reason { font-size: 12px; color: #b0b1b6; margin-bottom: 12px; }
+
+  /* Media buying */
+  .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .media-card { background: #0b0d17; border: 1px solid #282932; border-radius: 10px; padding: 16px; }
+  .media-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #545560; margin-bottom: 4px; }
+  .media-value { font-size: 20px; font-weight: 800; color: #F8D908; }
+  .media-sub { font-size: 11px; color: #b0b1b6; margin-top: 2px; }
+
+  /* Data gaps */
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 32px; }
+  .gap-table th { background: #0c0c16; color: #545560; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 1px solid #282932; }
+  .gap-table td { padding: 10px 12px; border-bottom: 1px solid #1a1c2e; vertical-align: top; color: #b0b1b6; }
+  .gap-table tr:hover td { background: #0b0d17; }
+
+  /* Callouts */
+  .callout-yellow { background: rgba(248,217,8,0.06); border: 1px solid rgba(248,217,8,0.2); border-left: 4px solid #F8D908; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #f3f4ff; }
+  .callout-red { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #b0b1b6; }
+  .callout { background: #0b0d17; border: 1px solid #282932; border-left: 4px solid #F8D908; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #b0b1b6; }
+
+  /* Badge */
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .badge-red { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .badge-yellow { background: rgba(248,217,8,0.12); color: #F8D908; }
+  .badge-green { background: rgba(16,185,129,0.15); color: #10b981; }
+  .badge-amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
+
+  .highlight { color: #f3f4ff; font-weight: 600; }
+
+  .footer { text-align: center; padding: 32px; color: #545560; font-size: 12px; border-top: 1px solid #282932; margin-top: 40px; }
+  .footer strong { color: #F8D908; }
+
+  @media (max-width: 768px) {
+    .cat-body { grid-template-columns: 1fr; }
+    .cat-findings { border-right: none; border-bottom: 1px solid #282932; }
+    .priority-grid, .media-grid { grid-template-columns: 1fr; }
+    .score-hero { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div style="color:#F9D900;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Step 4 — Growth Assessment</div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+    <a href="/47-skin-brand-intelligence/" style="display:inline-block;margin-top:20px;color:#8A8B93;font-size:12px;text-decoration:none;">← Back to brand intelligence hub</a>
+  </div>
+</div>
+<div id="ap-topbar" style="display:none;position:sticky;top:0;z-index:100;background:#040735;border-bottom:1px solid #0e1358;padding:10px 20px;font-family:Inter,'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;font-size:12px;">
+    <a href="/47-skin-brand-intelligence/" style="color:#F9D900;text-decoration:none;font-weight:600;">← Brand Intelligence Hub</a>
+    <span style="color:#8A8B93;">·</span>
+    <span style="color:#B0B1B6;">Step 4 — Growth Assessment</span>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-step-4-growth-assessment";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var t=document.getElementById('ap-topbar');if(t)t.style.display='block';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+
+
+<!-- HEADER -->
+<div class="header">
+  <svg width="40" height="40" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0)">
+      <path d="M45.32 0.58C45.83 0.94 45.77 1.47 45.77 1.98C45.77 10.63 45.67 19.29 45.82 27.94C45.87 31.33 45.7 34.75 46.3 38.12C46.49 39.21 46 39.7 44.85 39.73C43.81 39.75 42.77 39.74 41.74 39.73C40.25 39.73 40.1 39.63 39.66 38.3C39.61 38.16 39.57 38.02 39.54 37.9C39.21 37.85 39.1 38.07 38.96 38.21C37.47 39.68 35.62 40.24 33.53 40.3C31.34 40.37 29.3 40.04 27.51 38.7C25.39 37.12 24.47 34.88 24.04 32.37C23.39 28.57 23.55 24.79 24.83 21.12C26.18 17.26 29.02 15.27 33.02 15.14C35.1 15.07 36.93 15.59 38.46 17.04C38.64 17.21 38.77 17.56 39.15 17.39C39.15 12.3 39.15 7.2 39.15 2.1C39.15 1.56 39.09 0.99 39.55 0.58C41.47 0.58 43.4 0.58 45.32 0.58Z" fill="white"/>
+      <path d="M17.95 15.36C18.82 15.36 19.68 15.39 20.55 15.36C21.84 15.3 22.31 15.77 22.26 17.04C22.17 19.24 22.24 21.44 22.23 23.64C22.23 24.14 22.38 24.74 21.73 25.11C19.56 25.11 17.39 25.11 15.22 25.11C14.78 24.68 14.84 24.14 14.84 23.63C14.84 21.43 14.93 19.22 14.8 17.02C14.73 15.75 15.24 15.29 16.49 15.36C16.98 15.39 17.46 15.36 17.95 15.36Z" fill="white"/>
+      <path d="M0.59 28.2C1.12 27.68 1.8 27.79 2.44 27.79C5.66 27.79 8.88 27.79 12.1 27.79C14.1 27.79 14.84 28.53 14.84 30.54C14.84 33.73 14.84 36.92 14.84 40.11C14.84 40.54 14.92 41.01 14.41 41.32C9.76 41.32 5.11 41.32 0.47 41.32C0.59 36.95 0.59 32.57 0.59 28.2Z" fill="white"/>
+      <path d="M14.84 30.54C14.84 28.53 14.1 27.79 12.1 27.79C8.88 27.79 5.66 27.79 2.44 27.79C1.8 27.79 1.12 27.68 0.59 28.2C0.59 23.83 0.59 19.46 0.59 15.09C0.59 15.09 0.75 15.06 0.83 15.09C4.26 15.55 7.71 15.27 11.14 15.36C13.67 15.43 14.84 16.73 14.84 19.28C14.84 23.03 14.84 26.79 14.84 30.54Z" fill="#F8D908"/>
+    </g>
+    <defs><clipPath id="clip0"><rect width="80.17" height="80.17" fill="white" transform="translate(0.47 0.58)"/></clipPath></defs>
+  </svg>
+  <div class="header-text">
+    <div class="brand-badge">Step 4 of 8 — Growth Assessment</div>
+    <h1>47 Skin — AdPros Growth Scorecard</h1>
+    <p>AdPros Brand Intelligence Pipeline &nbsp;·&nbsp; Pre-Flight Assessment &nbsp;·&nbsp; March 2026</p>
+  </div>
+</div>
+
+<!-- STEP NAV -->
+<div class="step-nav">
+  <span class="step-pill step-done">✓ 1. Brand Intake</span>
+  <span class="step-pill step-done">✓ 2. Market Research</span>
+  <span class="step-pill step-done">✓ 3. Competitor Intel</span>
+  <span class="step-pill step-active">● 4. Assessment</span>
+  <span class="step-pill step-pending">5. Strategic Decisions</span>
+  <span class="step-pill step-pending">6. Creative Strategy</span>
+  <span class="step-pill step-pending">7. Brief Builder</span>
+  <span class="step-pill step-pending">8. Creative Gen</span>
+</div>
+
+<div class="container">
+
+  <!-- OVERALL SCORE -->
+  <div class="score-hero">
+    <div class="score-circle">
+      <div class="score-circle-inner">
+        <div class="score-num">3/7</div>
+        <div class="score-den">passing</div>
+      </div>
+    </div>
+    <div>
+      <div class="score-title">Warning — Significant Work Ahead</div>
+      <div class="score-sub">3 categories passing · 2 failing · 2 warning. The brand has strong product DNA and a real market. The infrastructure to scale hasn't been built yet. This assessment defines the build order.</div>
+      <div class="score-counts">
+        <span style="color:#ef4444;font-size:13px;font-weight:600;">● 2 Failing</span>
+        <span style="color:#f59e0b;font-size:13px;font-weight:600;">● 2 Warning</span>
+        <span style="color:#10b981;font-size:13px;font-weight:600;">● 2 Passing</span>
+        <span style="color:#545560;font-size:13px;font-weight:600;">● 1 TBD</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout-yellow">
+    <strong>The Core Diagnosis:</strong> 47 Skin has what most brands spend years trying to build — a genuine ingredient differentiator, 500K+ customers, a real founder story, and a product that works. What's missing is the <em>paid media infrastructure</em> to go from $70K/month to $300K/month: a real funnel (not just a PDP), creative at volume (not just images), and an attribution stack that tells the truth about what's actually driving new customers. Fix these three things and the growth path to $1.9M/month is viable.
+  </div>
+
+  <!-- SECTION 1: SCORECARD SUMMARY -->
+  <h2>1. Scorecard Summary</h2>
+  <table class="scorecard-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Category</th>
+        <th>Rating</th>
+        <th>Key Issue</th>
+        <th>Impact on Growth</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:#545560;font-weight:700;">3</td>
+        <td><span class="highlight">Funnel</span></td>
+        <td><span class="rating-failing">● Failing</span></td>
+        <td>PDP only — no landing pages, no quiz, UK pages serving US traffic</td>
+        <td>Capping conversion rate, blocking spend scale</td>
+      </tr>
+      <tr>
+        <td style="color:#545560;font-weight:700;">5</td>
+        <td><span class="highlight">Ad Creative</span></td>
+        <td><span class="rating-failing">● Failing</span></td>
+        <td>Image-only, no UGC, no video, low testing velocity, no differentiation in ads</td>
+        <td>Creative fatigue limits scalability; CPM rising without refresh</td>
+      </tr>
+      <tr>
+        <td style="color:#545560;font-weight:700;">1</td>
+        <td><span class="highlight">Offer</span></td>
+        <td><span class="rating-warning">● Warning</span></td>
+        <td>LTV:CAC at 2:1 vs. 3–4:1 benchmark; subscription path underdeveloped</td>
+        <td>Unit economics gap makes scaling unprofitable without LTV improvement</td>
+      </tr>
+      <tr>
+        <td style="color:#545560;font-weight:700;">6</td>
+        <td><span class="highlight">Ad Optimization</span></td>
+        <td><span class="rating-warning">● Warning</span></td>
+        <td>No documented scaling/kill criteria; retargeting not isolated; attribution discrepancy</td>
+        <td>Budget waste on underperforming campaigns; scaling decisions made blindly</td>
+      </tr>
+      <tr>
+        <td style="color:#545560;font-weight:700;">4</td>
+        <td><span class="highlight">Nurturing</span></td>
+        <td><span class="rating-tbd">● TBD</span></td>
+        <td>Email platform unknown; 47 Club subscription concept exists but unconfirmed sequences</td>
+        <td>Unknown — likely leaving significant repeat revenue on table</td>
+      </tr>
+      <tr>
+        <td style="color:#545560;font-weight:700;">2</td>
+        <td><span class="highlight">Market Research</span></td>
+        <td><span class="rating-passing">● Passing</span></td>
+        <td>Strong market intelligence base from Step 2</td>
+        <td>Foundation solid; feeds creative strategy</td>
+      </tr>
+      <tr>
+        <td style="color:#545560;font-weight:700;">7</td>
+        <td><span class="highlight">Tracking</span></td>
+        <td><span class="rating-warning">● Warning</span></td>
+        <td>Triple Whale onboarding not complete; 10x ROAS discrepancy vs. Meta-reported</td>
+        <td>Decisions being made on wrong data; risk of scaling unprofitable campaigns</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 2: CATEGORY DETAIL CARDS -->
+  <h2>2. Category Detail</h2>
+
+  <!-- CATEGORY 3: FUNNEL — FAILING -->
+  <div class="cat-card failing">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Category 3: Funnel</div>
+        <div class="cat-num">Acquisition architecture — TOF/MOF/BOF definition, landing pages, entry points</div>
+      </div>
+      <span class="rating-failing">● Failing</span>
+    </div>
+    <div class="cat-body">
+      <div class="cat-findings">
+        <h3>Key Findings</h3>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>PDP is the only landing destination.</strong> No listicle, no quiz, no advertorial, no avatar-specific landing pages tested in the US market. Every dollar of ad spend drives to a product detail page — the hardest possible conversion surface.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>UK quiz funnel not replicated for US.</strong> "Find Out What Your Skin Is Telling You" exists in the UK market but has never been built for the US. This is a known gap and the highest-leverage funnel infrastructure investment available.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>UK pages serving US traffic.</strong> Redirect issues mean US visitors land on UK-optimized pages — wrong pricing, wrong messaging, wrong cultural framing. This is leaking conversion rate silently.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>No MOF retargeting infrastructure.</strong> Page visitors, add-to-carts, and video viewers are not being served dedicated MOF creative. Warm audiences are being abandoned.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>Incentive ladder exists but isn't communicated.</strong> $15/$65/$130/$200 thresholds are set but not prominent in ads or landing pages — potential AOV lever being wasted.</div>
+        </div>
+      </div>
+      <div class="cat-recs">
+        <h3>Recommendations</h3>
+        <div class="rec-item">
+          <span class="rec-num">R1</span>
+          <div class="rec-text"><strong>Quiz Funnel Build (US).</strong> Replicate and localize the UK "What's Your Skin Telling You" quiz for the US market. Route to Trial ($25), 2-Step ($81), or 3-Step ($119) based on skin type and severity. Target: live within 30 days.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R2</span>
+          <div class="rec-text"><strong>US-Specific Landing Pages.</strong> Build avatar-specific pages: Mom TOF page (teen + adult dual story), Adult Breakout page (frustrated with OTC, tried everything angle), and a Silver Science education page. No UK redirects.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R3</span>
+          <div class="rec-text"><strong>MOF Retargeting Isolation.</strong> Separate retargeting audiences (site visitors, video viewers, add-to-carts) into dedicated ad sets with MOF-specific creative. Do not mix cold and warm in the same campaign.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R4</span>
+          <div class="rec-text"><strong>Surface Incentive Ladder in Ads + LP.</strong> Feature the free gift at $15, free shipping at $65, and free BHA at $130 prominently in both ad copy and landing page headers. Quick AOV lift.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 5: AD CREATIVE — FAILING -->
+  <div class="cat-card failing">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Category 5: Ad Creative</div>
+        <div class="cat-num">Creative diversity, testing velocity, UGC mix, format coverage, storytelling presence</div>
+      </div>
+      <span class="rating-failing">● Failing</span>
+    </div>
+    <div class="cat-body">
+      <div class="cat-findings">
+        <h3>Key Findings</h3>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>Image-only at scale; zero video creative running.</strong> All competitors are using video as primary or secondary format. 47 Skin's TikTok GMV Max result with silver ingredient proves video converts — but it's not being scaled.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>No UGC programme.</strong> Hero Cosmetics runs 60% UGC. Curology runs 30%. 47 Skin runs 0%. The brand ethos is "real people, real results, no filters" — but the ads don't reflect that.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>Low testing velocity vs. competitors.</strong> No documented creative testing cadence. Competitors test 10–30+ concepts per month. Without a systematic testing engine, performance plateaus are inevitable as audiences saturate.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>Founder story completely absent from paid ads.</strong> Nic Taylor's grandmother's cream origin story is one of the strongest brand narratives in the category. It's not running anywhere in paid media.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>47-day MBG not featured.</strong> No competitor offers a 47-day guarantee. This risk reversal could meaningfully lift Trial conversion rate but is currently buried in terms and conditions.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>Silver Chitoderm on TikTok GMV Max converted.</strong> Proof that the ingredient narrative works. This is a validated angle to scale — not an experiment to run.</div>
+        </div>
+      </div>
+      <div class="cat-recs">
+        <h3>Recommendations</h3>
+        <div class="rec-item">
+          <span class="rec-num">R1</span>
+          <div class="rec-text"><strong>UGC Programme Launch.</strong> Brief 10 existing customers (mom demographic priority) with a simple prompt: "Before and after — what was your skin like, and what is it like now?" No script. Raw 30–60 second videos. Run as cold TOF. Expected to outperform current images within 2 weeks.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R2</span>
+          <div class="rec-text"><strong>47-Day MBG as Headline Hook.</strong> Test a single ad variant where the headline is the guarantee: "47 days to clearer skin — or your money back. No questions." Pair with a before/after image. Zero production cost, immediate test.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R3</span>
+          <div class="rec-text"><strong>Silver Science Education Video.</strong> 30-second MOF video: "Why does silver clear blemishes when salicylic acid hasn't?" Reference the clinical studies. Antimicrobial without stripping. No resistance buildup. This is a differentiation moat no competitor can copy.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R4</span>
+          <div class="rec-text"><strong>Creative Testing Cadence.</strong> Establish a weekly testing rhythm: 4–6 new concepts per week across 3 hook types (problem agitation, ingredient science, social proof). Kill non-performers at 72 hours. Scale winners at day 5.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R5</span>
+          <div class="rec-text"><strong>Founder Story Series (MOF).</strong> 3-part retargeting series: (1) Origin story — grandmother's cream, (2) The science — why silver works, (3) Real results — 3 before/after customer stories. Run to warm audiences only.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 1: OFFER — WARNING -->
+  <div class="cat-card warning">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Category 1: Offer</div>
+        <div class="cat-num">Hero offer clarity, offer matrix, unit economics, subscription path, AOV ladder</div>
+      </div>
+      <span class="rating-warning">● Warning</span>
+    </div>
+    <div class="cat-body">
+      <div class="cat-findings">
+        <h3>Key Findings</h3>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>LTV:CAC at ~2:1 vs. 3–4:1 category benchmark.</strong> AOV $76, LTV $150 implies roughly 2 purchases per customer lifetime. To reach $300K/month target profitably, LTV must grow — primarily through subscription conversion and bundle upsell.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>Subscription discount is only 14%.</strong> Industry benchmark for subscription incentive is 15–25%. A 14% recurring discount may not provide sufficient motivation to switch from one-time purchase, especially for a premium-priced product.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>4 advertised offers with no clear spend hierarchy.</strong> Trial $25, Serum $45, 2-Step $81, 3-Step $119 are all being advertised simultaneously. Without a clear hero offer dominating 70–80% of acquisition spend, testing signals are fragmented.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>Trial $25 entry point is strong.</strong> Low-friction acquisition offer with a clear upsell path. The Trial → Serum → System ladder is architecturally sound — it just needs the email sequences and creative to execute it.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>47-day MBG is a unique risk reversal.</strong> No competitor offers this. When featured prominently, this should materially improve Trial conversion rate and reduce purchase anxiety for new customers.</div>
+        </div>
+      </div>
+      <div class="cat-recs">
+        <h3>Recommendations</h3>
+        <div class="rec-item">
+          <span class="rec-num">R1</span>
+          <div class="rec-text"><strong>Hero Offer Consolidation.</strong> Designate Trial $25 as the sole acquisition hero offer for cold TOF. Run 80% of cold spend to this offer. All other products shift to retargeting/warm audiences only. This focuses testing signal and reduces audience fragmentation.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R2</span>
+          <div class="rec-text"><strong>Subscription Incentive Review.</strong> Test increasing autoship discount to 20% or adding a value-add (free gift on first subscription order). The goal: raise subscription conversion rate from unknown baseline to 20%+ of Trial buyers.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R3</span>
+          <div class="rec-text"><strong>Upsell Sequence Build.</strong> Build a 7-email post-Trial-purchase sequence with a hard upsell to the 3-Step System at day 10 (when Trial is running low). Price anchor: $119 system vs. $25/month individually. Day 7 urgency offer.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 6: OPTIMIZATION — WARNING -->
+  <div class="cat-card warning">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Category 6: Ad Optimization</div>
+        <div class="cat-num">Scaling rules, kill criteria, retargeting isolation, metric hierarchy, account structure</div>
+      </div>
+      <span class="rating-warning">● Warning</span>
+    </div>
+    <div class="cat-body">
+      <div class="cat-findings">
+        <h3>Key Findings</h3>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>No documented scaling or kill criteria.</strong> Decisions on what to scale and what to cut are likely instinct-driven rather than rule-based. Without clear thresholds (e.g., kill at 2x CAC at 72h, scale at 0.8x CAC at 96h), performance degrades as budget increases.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>Retargeting likely not isolated from prospecting.</strong> If warm audiences are mixed into cold prospecting campaigns, it artificially inflates reported ROAS and masks true cold acquisition performance.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>TikTok GMV Max running.</strong> Auto-optimized GMV Max is a reasonable initial approach but lacks manual control for creative testing. As spend scales, a hybrid approach (GMV Max + manual creative testing campaigns) will be needed.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>NC ROAS as primary KPI is correct.</strong> New Customer ROAS focus prevents over-crediting retargeting and subscription revenue. This is the right metric hierarchy for a scaling DTC brand.</div>
+        </div>
+      </div>
+      <div class="cat-recs">
+        <h3>Recommendations</h3>
+        <div class="rec-item">
+          <span class="rec-num">R1</span>
+          <div class="rec-text"><strong>Scaling Engine Documentation.</strong> Define explicit rules: kill threshold (CAC x2 at 72h), scale threshold (CAC 0.8x at day 5), budget increment (20% per 48h when scaling), and pause trigger (3-day declining CVR). Document and make non-negotiable.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R2</span>
+          <div class="rec-text"><strong>Retargeting Isolation.</strong> Separate prospecting (cold) and retargeting (warm) into distinct campaigns with dedicated budgets. Cold: 70–75% of budget. Retargeting: 25–30%. Measure separately. Never mix.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R3</span>
+          <div class="rec-text"><strong>Account Structure Audit.</strong> Review current Meta account structure to identify audience overlap, redundant ad sets, and budget fragmentation. Clean structure = cleaner signals = better algorithmic optimization.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 4: NURTURING — TBD -->
+  <div class="cat-card tbd">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Category 4: Nurturing</div>
+        <div class="cat-num">Email sequences, segmentation, SMS, retention strategy, list health</div>
+      </div>
+      <span class="rating-tbd">● TBD — Data Gap</span>
+    </div>
+    <div class="cat-body">
+      <div class="cat-findings">
+        <h3>What We Know</h3>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>Email platform is unknown.</strong> The platform was not confirmed in onboarding data or calls. This is one of the most important unknowns in the assessment.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>"47 Club" subscription concept exists.</strong> Post-purchase retention strategy references a 47 Club membership but no sequence inventory was confirmed.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>500K+ customers on file.</strong> If 47 Skin has 500K+ historical customers, the email list alone is a major retention and re-engagement asset. Its utilisation is completely unknown.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>No SMS confirmed.</strong> SMS typically adds 10–20% incremental revenue for DTC skincare brands. Whether this is deployed is unknown.</div>
+        </div>
+      </div>
+      <div class="cat-recs">
+        <h3>Recommendations — Pending Data</h3>
+        <div class="rec-item">
+          <span class="rec-num">R1</span>
+          <div class="rec-text"><strong>Email Sequence Audit.</strong> Once platform confirmed, inventory all active sequences: welcome, post-purchase, trial upsell, winback, abandoned cart, subscription renewal. Map to funnel stages. Identify gaps.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R2</span>
+          <div class="rec-text"><strong>Trial → System Upsell Sequence (Priority 1).</strong> Even before a full audit, build the 7-email Trial upsell sequence immediately. This is the single highest-value email workflow for closing the LTV:CAC gap.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R3</span>
+          <div class="rec-text"><strong>SMS Evaluation.</strong> Assess Klaviyo SMS or Postscript for 47 Skin. Trial buyers especially benefit from SMS nudges at day 10 (when Trial is near-empty) to drive 3-Step System conversion.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">DATA</span>
+          <div class="rec-text"><strong>Required data:</strong> Email platform name, active sequence count, welcome email open rate, post-purchase sequence length, list size (US vs. UK split), monthly email revenue attribution.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 2: MARKET RESEARCH — PASSING -->
+  <div class="cat-card passing">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Category 2: Market Research</div>
+        <div class="cat-num">Market landscape, VOC data, segment hypotheses, trends, competitive mapping</div>
+      </div>
+      <span class="rating-passing">● Passing</span>
+    </div>
+    <div class="cat-body">
+      <div class="cat-findings">
+        <h3>Key Findings</h3>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>Full TAM/SAM/SOM completed.</strong> US blemish skincare market $1.04B (2024), 8.6% CAGR, $1.71B by 2030. Adult-breakout segment is fastest-growing at 14.1% CAGR. 47 Skin's SOM at 0.2% is conservative and achievable.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>JTBD analysis complete.</strong> Three jobs mapped: Dignity Restoration (primary), Proactive Skin Protection (secondary), Confidence Insurance (tertiary). Customer is not buying "blemish treatment" — they're buying the right to feel comfortable in photos of their own family.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>Three customer segments identified.</strong> The Frustrated Mom (30–50), The Skeptical Professional (25–40), The Health-Aware Millennial. Each with distinct purchase triggers and creative requirements.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>White space confirmed by market data.</strong> Mom-to-mom testimonial format, silver ingredient education, and family skin system story are all unoccupied by any competitor in the category.</div>
+        </div>
+      </div>
+      <div class="cat-recs">
+        <h3>Recommendations</h3>
+        <div class="rec-item">
+          <span class="rec-num">R1</span>
+          <div class="rec-text"><strong>Segment Validation in Step 5.</strong> Lock the primary segment (Frustrated Mom) as the creative focus for the first 90 days. The other segments are validated hypotheses for testing in months 3–6.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R2</span>
+          <div class="rec-text"><strong>VOC Language Mining into Copy.</strong> The customer verbatims gathered in Step 2 ("finally," "I stopped hiding," "tried everything") must feed directly into ad headline testing. Real customer language outperforms brand-written copy in every category.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 7: TRACKING — WARNING -->
+  <div class="cat-card warning">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Category 7: Tracking for Decision Making</div>
+        <div class="cat-num">Attribution stack, tool configuration, benchmarking, reporting cadence, data gaps</div>
+      </div>
+      <span class="rating-warning">● Warning</span>
+    </div>
+    <div class="cat-body">
+      <div class="cat-findings">
+        <h3>Key Findings</h3>
+        <div class="finding-item">
+          <div class="finding-dot red"></div>
+          <div class="finding-text"><strong>Triple Whale shows 10x multiplier vs. Meta-reported ROAS on some campaigns.</strong> This is the most critical data signal in the assessment. Someone is lying — and it's likely Meta's self-reported ROAS over-crediting results. Budget decisions cannot be trusted until this is resolved.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>Triple Whale in onboarding — not yet configured.</strong> Access being shared. Until Triple Whale is live and validated, all performance data must be treated as directional, not definitive.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot green"></div>
+          <div class="finding-text"><strong>NC ROAS as primary KPI is the right model.</strong> New Customer ROAS focus prevents over-crediting retention and repeat purchases. Core KPIs defined: NC ROAS, CAC, NC Orders, NC AOV, CPM/CPC.</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-dot amber"></div>
+          <div class="finding-text"><strong>Email platform unknown — email revenue unattributed.</strong> If email is driving meaningful post-purchase revenue, it's currently invisible in the attribution model. This inflates paid media's apparent contribution.</div>
+        </div>
+      </div>
+      <div class="cat-recs">
+        <h3>Recommendations</h3>
+        <div class="rec-item">
+          <span class="rec-num">R1</span>
+          <div class="rec-text"><strong>Triple Whale Configuration — Priority 0.</strong> Complete Triple Whale onboarding before any significant budget scaling decisions. The 10x ROAS discrepancy must be resolved. Until it is, there is a real risk of scaling unprofitable campaigns.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R2</span>
+          <div class="rec-text"><strong>Attribution Reconciliation.</strong> Run a 14-day audit comparing Meta-reported ROAS vs. Triple Whale NC ROAS vs. Shopify revenue by channel. Identify the source of the 10x discrepancy. Set the "truth" metric that governs all future budget decisions.</div>
+        </div>
+        <div class="rec-item">
+          <span class="rec-num">R3</span>
+          <div class="rec-text"><strong>Weekly Reporting Cadence.</strong> Establish a weekly metrics review: NC ROAS by campaign, CAC trend, NC orders week-over-week, CPM trend. Monthly: full P&amp;L attribution including email. Quarterly: benchmarking against category standards.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: MEDIA BUYING NOTES -->
+  <h2>3. Media Buying Notes</h2>
+  <div class="media-grid">
+    <div class="media-card">
+      <div class="media-label">Current Monthly Spend</div>
+      <div class="media-value">$60–80K</div>
+      <div class="media-sub">Meta primary + Google Search + DemandGen + TikTok GMV Max</div>
+    </div>
+    <div class="media-card">
+      <div class="media-label">90-Day Spend Target</div>
+      <div class="media-value">$300K</div>
+      <div class="media-sub">4x current spend — requires funnel + creative infra first</div>
+    </div>
+    <div class="media-card">
+      <div class="media-label">12-Month Revenue Target</div>
+      <div class="media-value">$1.9M</div>
+      <div class="media-sub">Uncapped if performance targets achieved</div>
+    </div>
+    <div class="media-card">
+      <div class="media-label">Primary KPI</div>
+      <div class="media-value">NC ROAS</div>
+      <div class="media-sub">New Customer ROAS — correct model for scale</div>
+    </div>
+    <div class="media-card">
+      <div class="media-label">Current AOV</div>
+      <div class="media-value">$76</div>
+      <div class="media-sub">Target: $90+ with bundle/upsell creative</div>
+    </div>
+    <div class="media-card">
+      <div class="media-label">LTV:CAC Ratio</div>
+      <div class="media-value">~2:1</div>
+      <div class="media-sub">Category target: 3–4:1. Gap = subscription lever</div>
+    </div>
+  </div>
+
+  <div class="callout-red">
+    <strong>Spend Scale Risk:</strong> Going from $70K to $300K/month on paid media without fixing the funnel first (PDP-only destination) and creative (image-only, low velocity) will result in rapidly declining ROAS as audiences saturate. The recommendation is <strong>not</strong> to scale spend until at least: (1) quiz/landing page alternative to PDP is live, (2) 5+ UGC video variants are in market, and (3) Triple Whale is confirmed and reconciled.
+  </div>
+
+  <table class="scorecard-table" style="margin-top:0;">
+    <thead>
+      <tr>
+        <th>Platform</th>
+        <th>Role</th>
+        <th>Estimated Split</th>
+        <th>Stage Focus</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="highlight">Meta (Facebook/Instagram)</span></td>
+        <td>Primary acquisition</td>
+        <td>~60%</td>
+        <td>TOF/MOF</td>
+        <td><span class="badge badge-green">Active</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Google Search</span></td>
+        <td>Intent capture</td>
+        <td>~20%</td>
+        <td>MOF/BOF</td>
+        <td><span class="badge badge-green">Active</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">TikTok GMV Max</span></td>
+        <td>Auto-optimized social commerce</td>
+        <td>~10%</td>
+        <td>TOF</td>
+        <td><span class="badge badge-green">Active — Silver proved</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Google DemandGen / YouTube</span></td>
+        <td>Brand awareness + video</td>
+        <td>~10%</td>
+        <td>TOF</td>
+        <td><span class="badge badge-amber">Active — needs video assets</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Reddit / X / Snapchat / Axon</span></td>
+        <td>Aspirational channels</td>
+        <td>0%</td>
+        <td>—</td>
+        <td><span class="badge badge-red">Not yet</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4: PRIORITY STACK -->
+  <h2>4. Priority Stack Rank</h2>
+  <div class="priority-grid">
+    <div class="priority-tier tier-1">
+      <div class="tier-label">Tier 1 — Fix Immediately (Blockers)</div>
+      <div class="tier-item">1. Complete Triple Whale Setup</div>
+      <div class="tier-reason">Every other decision depends on knowing what's actually working. The 10x ROAS discrepancy is a P0 issue.</div>
+      <div class="tier-item">2. Build US Quiz / Landing Page Alternative to PDP</div>
+      <div class="tier-reason">Can't scale spend 4x into a PDP-only destination. The UK quiz exists. Replicate and localize it. This is the single highest-leverage infrastructure investment available.</div>
+    </div>
+    <div class="priority-tier tier-2">
+      <div class="tier-label">Tier 2 — Build in Month 1</div>
+      <div class="tier-item">3. Launch UGC Mom Testimonial Programme</div>
+      <div class="tier-reason">Creative without UGC will saturate. This is zero-cost to start and highest probability of beating current creative within 2 weeks.</div>
+      <div class="tier-item">4. Feature 47-Day MBG as Headline Hook</div>
+      <div class="tier-reason">Zero production cost. A/B test one ad with guarantee as headline. This should lift Trial CVR materially if it doesn't already.</div>
+    </div>
+    <div class="priority-tier tier-3">
+      <div class="tier-label">Tier 3 — Build in Months 1–2</div>
+      <div class="tier-item">5. Hero Offer Consolidation (Trial $25 as cold hero)</div>
+      <div class="tier-reason">Clear the fragmented offer testing. All cold spend to Trial. All systems go to warm audiences. Clean signal.</div>
+      <div class="tier-item">6. Silver Science Education Video</div>
+      <div class="tier-reason">Ingredient differentiation is 47 Skin's moat. It needs a dedicated creative format — not just a headline.</div>
+      <div class="tier-item">7. Email Platform Confirmation + Trial Upsell Sequence</div>
+      <div class="tier-reason">The fastest path to closing the LTV:CAC gap is email. The Trial → System upsell sequence is a day-10 conversion that requires no new ad spend.</div>
+    </div>
+    <div class="priority-tier tier-4">
+      <div class="tier-label">Tier 4 — Scale in Months 2–3</div>
+      <div class="tier-item">8. Scaling Engine Documentation</div>
+      <div class="tier-reason">Scaling rules prevent budget waste. Build the kill/scale thresholds before increasing budget, not after.</div>
+      <div class="tier-item">9. Founder Story Series (MOF)</div>
+      <div class="tier-reason">Retargeting content that builds brand depth and converts warm audiences who aren't yet ready to buy on first touch.</div>
+      <div class="tier-item">10. Subscription Bundle Creative (BOF)</div>
+      <div class="tier-reason">The LTV lever. Once funnel and email are in place, subscription creative is the multiplier that makes scaling profitable.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: DATA GAPS -->
+  <h2>5. Data Gaps Report</h2>
+  <table class="gap-table">
+    <thead>
+      <tr>
+        <th>Data Gap</th>
+        <th>Category Affected</th>
+        <th>Impact on Decision-Making</th>
+        <th>Next Step</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:#f3f4ff;">Email platform and sequence inventory</strong></td>
+        <td>Nurturing (4)</td>
+        <td>Cannot score Category 4; cannot quantify email revenue contribution; upsell sequence cannot be built without knowing platform</td>
+        <td>Confirm platform with Laura's team. Request: platform name, active sequence count, US list size, monthly email revenue</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f3f4ff;">Triple Whale ROAS reconciliation</strong></td>
+        <td>Tracking (7), Optimization (6)</td>
+        <td>All budget scaling decisions are based on potentially wrong data. The 10x discrepancy must be explained before committing to $300K/mo spend</td>
+        <td>Complete Triple Whale onboarding. Run 14-day side-by-side comparison: Meta-reported vs. TW NC ROAS vs. Shopify revenue</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f3f4ff;">Current US conversion rate (CVR) by page</strong></td>
+        <td>Funnel (3)</td>
+        <td>Cannot benchmark funnel performance improvement after landing page launch without baseline</td>
+        <td>Pull Shopify analytics: US PDP CVR by product. Set as baseline before any funnel changes</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f3f4ff;">Subscription conversion rate (Trial → autoship)</strong></td>
+        <td>Offer (1), Nurturing (4)</td>
+        <td>Cannot project LTV improvement from subscription programme without knowing current rate</td>
+        <td>Pull from Shopify/Recharge: % of Trial buyers who convert to subscription within 30/60/90 days</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f3f4ff;">Meta account structure details</strong></td>
+        <td>Optimization (6)</td>
+        <td>Cannot confirm retargeting isolation or audience overlap without account access</td>
+        <td>Ad Pros team account access — confirm prospecting vs. retargeting campaign separation</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f3f4ff;">Sephora US timeline and requirements</strong></td>
+        <td>Offer (1), Market (2)</td>
+        <td>If Sephora launch is within 12 months, it changes the acquisition and brand messaging strategy significantly</td>
+        <td>Update from Nic/Laura on Sephora US timeline. If within 12 months, factor into Step 5 strategic decisions</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f3f4ff;">Creative testing history and performance data</strong></td>
+        <td>Creative (5)</td>
+        <td>Cannot identify what creative angles have been tested vs. what's truly new territory</td>
+        <td>Request last 90 days of Meta creative performance data from Laura/team via Triple Whale or Meta Business Manager</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-yellow">
+    <strong>Assessment Conclusion:</strong> The 47 Skin growth story is real and achievable. A $1.04B market growing at 8.6%, a differentiated silver-based ingredient with clinical backing, 500K+ existing customers, and a primary avatar (the frustrated mom) that no competitor is targeting at scale. The path from $70K to $300K to $1.9M/month is not a product problem or a market problem — it's a <em>paid media infrastructure</em> problem. Fix the funnel. Build the creative engine. Complete the attribution stack. Then scale.
+  </div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  <strong>Ad Pros</strong> &nbsp;·&nbsp; Step 4: Growth Assessment &nbsp;·&nbsp; 47 Skin &nbsp;·&nbsp; March 2026<br>
+  <span style="font-size:11px;">2 Failing · 2 Warning · 2 Passing · 1 TBD &nbsp;·&nbsp; 10 priority actions ranked &nbsp;·&nbsp; 7 data gaps identified</span>
+</div>
+
+
+</div>
+</body>
+</html>

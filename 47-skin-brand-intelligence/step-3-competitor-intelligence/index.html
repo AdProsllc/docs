@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 3 – 47 Skin – Competitor Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000212; color: #b0b1b6; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.6; }
+  a { color: #4d65ff; text-decoration: none; }
+
+  /* Layout */
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+  /* Header */
+  .header { display: flex; align-items: center; gap: 16px; padding: 32px 40px; border-bottom: 1px solid #282932; background: #0b0d17; }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: #f3f4ff; }
+  .header-text p { font-size: 13px; color: #545560; margin-top: 2px; }
+  .brand-badge { display: inline-block; background: #F8D908; color: #000212; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 6px; }
+
+  /* Step nav */
+  .step-nav { display: flex; gap: 6px; padding: 16px 40px; background: #0b0d17; border-bottom: 1px solid #282932; flex-wrap: wrap; }
+  .step-pill { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.3px; }
+  .step-done { background: #10b981; color: #000; }
+  .step-active { background: #F8D908; color: #000212; }
+  .step-pending { background: #1a1c2e; color: #545560; border: 1px solid #282932; }
+
+  /* Sections */
+  h2 { font-size: 18px; font-weight: 700; color: #f3f4ff; border-left: 3px solid #F8D908; padding-left: 14px; margin-bottom: 20px; margin-top: 40px; }
+  h3 { font-size: 14px; font-weight: 600; color: #f3f4ff; margin-bottom: 10px; }
+
+  /* Summary bar */
+  .summary-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+  .summary-card { background: #0b0d17; border: 1px solid #282932; border-radius: 10px; padding: 20px; }
+  .summary-card .label { font-size: 11px; color: #545560; text-transform: uppercase; letter-spacing: 0.5px; }
+  .summary-card .value { font-size: 26px; font-weight: 800; color: #F8D908; margin: 4px 0; }
+  .summary-card .sub { font-size: 12px; color: #b0b1b6; }
+
+  /* Competitor cards */
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+  .comp-card { background: #0b0d17; border: 1px solid #282932; border-radius: 10px; padding: 22px; }
+  .comp-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+  .comp-name { font-size: 16px; font-weight: 700; color: #f3f4ff; }
+  .comp-url { font-size: 11px; color: #545560; margin-top: 2px; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .badge-red { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .badge-yellow { background: rgba(248,217,8,0.12); color: #F8D908; }
+  .badge-blue { background: rgba(77,101,255,0.15); color: #4d65ff; }
+  .badge-green { background: rgba(16,185,129,0.15); color: #10b981; }
+  .badge-amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .badge-gray { background: #1a1c2e; color: #545560; border: 1px solid #282932; }
+
+  .comp-section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #545560; margin-bottom: 5px; margin-top: 12px; }
+  .comp-themes { display: flex; flex-wrap: wrap; gap: 5px; }
+  .theme-pill { background: #1a1c2e; border: 1px solid #282932; border-radius: 4px; font-size: 11px; color: #b0b1b6; padding: 3px 8px; }
+  .gap-list { display: flex; flex-direction: column; gap: 4px; }
+  .gap-item { font-size: 12px; color: #b0b1b6; padding-left: 12px; position: relative; }
+  .gap-item::before { content: '—'; position: absolute; left: 0; color: #ef4444; }
+  .comp-spend { font-size: 13px; font-weight: 700; color: #F8D908; }
+
+  /* Content bar chart */
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-label { font-size: 12px; color: #b0b1b6; width: 140px; flex-shrink: 0; }
+  .bar-track { flex: 1; background: #1a1c2e; border-radius: 4px; height: 8px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-val { font-size: 12px; color: #545560; width: 36px; text-align: right; flex-shrink: 0; }
+
+  /* Comparison table */
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 32px; }
+  .comp-table th { background: #0c0c16; color: #545560; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 1px solid #282932; }
+  .comp-table td { padding: 10px 12px; border-bottom: 1px solid #1a1c2e; vertical-align: top; color: #b0b1b6; }
+  .comp-table tr:hover td { background: #0b0d17; }
+  .comp-table .brand-row td { background: rgba(248,217,8,0.04); border-left: 3px solid #F8D908; }
+  .comp-table .brand-row td:first-child { padding-left: 9px; }
+  .highlight { color: #f3f4ff; font-weight: 600; }
+
+  /* White space */
+  .ws-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .ws-card { background: rgba(248,217,8,0.05); border: 1px solid rgba(248,217,8,0.2); border-radius: 10px; padding: 20px; }
+  .ws-rank { font-size: 11px; color: #F8D908; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .ws-title { font-size: 14px; font-weight: 700; color: #f3f4ff; margin-bottom: 8px; }
+  .ws-desc { font-size: 12px; color: #b0b1b6; line-height: 1.5; }
+  .ws-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+
+  /* Brand audit */
+  .audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .audit-card { background: #0b0d17; border: 1px solid #282932; border-radius: 10px; padding: 18px; }
+  .audit-card.warn { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.04); }
+  .audit-card.danger { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.04); }
+  .audit-card.ok { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.04); }
+
+  /* Gaps table */
+  .gaps-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 32px; }
+  .gaps-table th { background: #0c0c16; color: #545560; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 1px solid #282932; }
+  .gaps-table td { padding: 12px; border-bottom: 1px solid #1a1c2e; vertical-align: top; color: #b0b1b6; }
+  .gaps-table tr:hover td { background: #0b0d17; }
+
+  /* Callout */
+  .callout { background: #0b0d17; border: 1px solid #282932; border-left: 4px solid #F8D908; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #b0b1b6; }
+  .callout-yellow { background: rgba(248,217,8,0.06); border: 1px solid rgba(248,217,8,0.2); border-left: 4px solid #F8D908; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #f3f4ff; }
+  .callout-red { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #b0b1b6; }
+
+  /* Score pill */
+  .score-pill { display: inline-flex; align-items: center; gap: 6px; background: #1a1c2e; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .score-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* Funnel coverage */
+  .funnel-row { display: flex; gap: 6px; }
+  .funnel-stage { flex: 1; text-align: center; padding: 6px 4px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .funnel-strong { background: #10b981; color: #000; }
+  .funnel-weak { background: #1a1c2e; color: #545560; border: 1px solid #282932; }
+  .funnel-med { background: rgba(245,158,11,0.2); color: #f59e0b; }
+
+  /* Quick wins */
+  .qw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .qw-card { background: #0b0d17; border: 1px solid #282932; border-radius: 10px; padding: 18px; }
+  .qw-card.priority { border-color: rgba(248,217,8,0.3); background: rgba(248,217,8,0.04); }
+  .qw-num { font-size: 24px; font-weight: 800; color: rgba(248,217,8,0.2); line-height: 1; margin-bottom: 6px; }
+  .qw-title { font-size: 14px; font-weight: 600; color: #f3f4ff; margin-bottom: 6px; }
+  .qw-desc { font-size: 12px; color: #b0b1b6; line-height: 1.5; }
+  .qw-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 32px; color: #545560; font-size: 12px; border-top: 1px solid #282932; margin-top: 40px; }
+  .footer strong { color: #F8D908; }
+
+  @media (max-width: 768px) {
+    .comp-grid, .ws-grid, .audit-grid, .qw-grid, .summary-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div style="color:#F9D900;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Step 3 — Competitor Intelligence</div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+    <a href="/47-skin-brand-intelligence/" style="display:inline-block;margin-top:20px;color:#8A8B93;font-size:12px;text-decoration:none;">← Back to brand intelligence hub</a>
+  </div>
+</div>
+<div id="ap-topbar" style="display:none;position:sticky;top:0;z-index:100;background:#040735;border-bottom:1px solid #0e1358;padding:10px 20px;font-family:Inter,'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;font-size:12px;">
+    <a href="/47-skin-brand-intelligence/" style="color:#F9D900;text-decoration:none;font-weight:600;">← Brand Intelligence Hub</a>
+    <span style="color:#8A8B93;">·</span>
+    <span style="color:#B0B1B6;">Step 3 — Competitor Intelligence</span>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-step-3-competitor-intelligence";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var t=document.getElementById('ap-topbar');if(t)t.style.display='block';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+
+
+<!-- HEADER -->
+<div class="header">
+  <svg width="40" height="40" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0)">
+      <path d="M45.32 0.58C45.83 0.94 45.77 1.47 45.77 1.98C45.77 10.63 45.67 19.29 45.82 27.94C45.87 31.33 45.7 34.75 46.3 38.12C46.49 39.21 46 39.7 44.85 39.73C43.81 39.75 42.77 39.74 41.74 39.73C40.25 39.73 40.1 39.63 39.66 38.3C39.61 38.16 39.57 38.02 39.54 37.9C39.21 37.85 39.1 38.07 38.96 38.21C37.47 39.68 35.62 40.24 33.53 40.3C31.34 40.37 29.3 40.04 27.51 38.7C25.39 37.12 24.47 34.88 24.04 32.37C23.39 28.57 23.55 24.79 24.83 21.12C26.18 17.26 29.02 15.27 33.02 15.14C35.1 15.07 36.93 15.59 38.46 17.04C38.64 17.21 38.77 17.56 39.15 17.39C39.15 12.3 39.15 7.2 39.15 2.1C39.15 1.56 39.09 0.99 39.55 0.58C41.47 0.58 43.4 0.58 45.32 0.58Z" fill="white"/>
+      <path d="M17.95 15.36C18.82 15.36 19.68 15.39 20.55 15.36C21.84 15.3 22.31 15.77 22.26 17.04C22.17 19.24 22.24 21.44 22.23 23.64C22.23 24.14 22.38 24.74 21.73 25.11C19.56 25.11 17.39 25.11 15.22 25.11C14.78 24.68 14.84 24.14 14.84 23.63C14.84 21.43 14.93 19.22 14.8 17.02C14.73 15.75 15.24 15.29 16.49 15.36C16.98 15.39 17.46 15.36 17.95 15.36Z" fill="white"/>
+      <path d="M0.59 28.2C1.12 27.68 1.8 27.79 2.44 27.79C5.66 27.79 8.88 27.79 12.1 27.79C14.1 27.79 14.84 28.53 14.84 30.54C14.84 33.73 14.84 36.92 14.84 40.11C14.84 40.54 14.92 41.01 14.41 41.32C9.76 41.32 5.11 41.32 0.47 41.32C0.59 36.95 0.59 32.57 0.59 28.2Z" fill="white"/>
+      <path d="M14.84 30.54C14.84 28.53 14.1 27.79 12.1 27.79C8.88 27.79 5.66 27.79 2.44 27.79C1.8 27.79 1.12 27.68 0.59 28.2C0.59 23.83 0.59 19.46 0.59 15.09C0.59 15.09 0.75 15.06 0.83 15.09C4.26 15.55 7.71 15.27 11.14 15.36C13.67 15.43 14.84 16.73 14.84 19.28C14.84 23.03 14.84 26.79 14.84 30.54Z" fill="#F8D908"/>
+    </g>
+    <defs><clipPath id="clip0"><rect width="80.17" height="80.17" fill="white" transform="translate(0.47 0.58)"/></clipPath></defs>
+  </svg>
+  <div class="header-text">
+    <div class="brand-badge">Step 3 of 8 — Competitor Intelligence</div>
+    <h1>47 Skin — Competitive Landscape & Creative Audit</h1>
+    <p>AdPros Brand Intelligence Pipeline &nbsp;·&nbsp; Generated March 2026</p>
+  </div>
+</div>
+
+<!-- STEP NAV -->
+<div class="step-nav">
+  <span class="step-pill step-done">✓ 1. Brand Intake</span>
+  <span class="step-pill step-done">✓ 2. Market Research</span>
+  <span class="step-pill step-active">● 3. Competitor Intel</span>
+  <span class="step-pill step-pending">4. Assessment</span>
+  <span class="step-pill step-pending">5. Strategic Decisions</span>
+  <span class="step-pill step-pending">6. Creative Strategy</span>
+  <span class="step-pill step-pending">7. Brief Builder</span>
+  <span class="step-pill step-pending">8. Creative Gen</span>
+</div>
+
+<div class="container">
+
+  <!-- EXEC SUMMARY STATS -->
+  <div class="summary-bar">
+    <div class="summary-card">
+      <div class="label">Competitors Mapped</div>
+      <div class="value">7</div>
+      <div class="sub">2 direct · 2 indirect · 2 adjacent · 1 micro</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">White Space Plays</div>
+      <div class="value">3</div>
+      <div class="sub">Zero competitors own these angles</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Creative Gaps Found</div>
+      <div class="value">7</div>
+      <div class="sub">In 47 Skin's current ad strategy</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Ad Creative Score</div>
+      <div class="value">4/10</div>
+      <div class="sub">Significant opportunity vs. competitors</div>
+    </div>
+  </div>
+
+  <div class="callout-yellow">
+    <strong>Executive Summary:</strong> No competitor owns the intersection of <em>silver-based science + mom-to-mom testimonials + real-skin no-filters</em>. Hero Cosmetics owns Gen Z acceptance. Proactiv owns clinical systems. Curology owns prescription personalization. CeraVe/LRP own dermatologist authority. <strong>47 Skin's white space: the underserved adult woman (28–50) who has tried everything and wants both her skin and her teenager's skin cleared — without harsh chemicals.</strong> The creative urgency: 47 Skin is not running ads that match this story yet.
+  </div>
+
+  <!-- SECTION 1: COMPETITOR PROFILES -->
+  <h2>1. Competitor Profiles</h2>
+
+  <div class="comp-grid">
+
+    <!-- HERO COSMETICS -->
+    <div class="comp-card">
+      <div class="comp-card-header">
+        <div>
+          <div class="comp-name">Hero Cosmetics</div>
+          <div class="comp-url">herocosmetics.us &nbsp;·&nbsp; Mighty Patch</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-red">Direct</span><br>
+          <div class="comp-spend" style="margin-top:6px;">$5–10M</div>
+        </div>
+      </div>
+
+      <div class="comp-section-label">Positioning</div>
+      <div style="font-size:13px; color:#f3f4ff; margin-bottom:10px;">"Shame-free acne empowerment through humor and community — pimples are the villain, not you."</div>
+
+      <div class="comp-section-label">Top Messaging Themes</div>
+      <div class="comp-themes">
+        <span class="theme-pill">Pimple personification humor</span>
+        <span class="theme-pill">Patch peel magic moment</span>
+        <span class="theme-pill">Acne acceptance empowerment</span>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Content Mix</div>
+      <div class="bar-row"><span class="bar-label">UGC / Community</span><div class="bar-track"><div class="bar-fill" style="width:60%;background:#4d65ff;"></div></div><span class="bar-val">60%</span></div>
+      <div class="bar-row"><span class="bar-label">Product demo</span><div class="bar-track"><div class="bar-fill" style="width:20%;background:#4d65ff;"></div></div><span class="bar-val">20%</span></div>
+      <div class="bar-row"><span class="bar-label">Lifestyle / campaign</span><div class="bar-track"><div class="bar-fill" style="width:20%;background:#4d65ff;"></div></div><span class="bar-val">20%</span></div>
+
+      <div class="comp-section-label">Funnel Coverage</div>
+      <div class="funnel-row">
+        <div class="funnel-stage funnel-strong">TOF</div>
+        <div class="funnel-stage funnel-med">MOF</div>
+        <div class="funnel-stage funnel-weak">BOF</div>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Notable Gaps</div>
+      <div class="gap-list">
+        <div class="gap-item">Not a complete treatment system — patches only</div>
+        <div class="gap-item">No adult women / mom audience targeting</div>
+        <div class="gap-item">No natural or silver-based ingredient story</div>
+        <div class="gap-item">Gen Z-coded — alienates 30–50 demo</div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge badge-green">TikTok Heavy</span>
+        <span class="badge badge-blue">UGC First</span>
+        <span class="badge badge-amber">Gen Z Focus</span>
+      </div>
+    </div>
+
+    <!-- PROACTIV -->
+    <div class="comp-card">
+      <div class="comp-card-header">
+        <div>
+          <div class="comp-name">Proactiv</div>
+          <div class="comp-url">proactiv.com &nbsp;·&nbsp; 3-Step System</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-red">Direct</span><br>
+          <div class="comp-spend" style="margin-top:6px;">$20–50M</div>
+        </div>
+      </div>
+
+      <div class="comp-section-label">Positioning</div>
+      <div style="font-size:13px; color:#f3f4ff; margin-bottom:10px;">"Progress, not perfection — the clinical system that celebrities trust, now for your journey."</div>
+
+      <div class="comp-section-label">Top Messaging Themes</div>
+      <div class="comp-themes">
+        <span class="theme-pill">Progress not perfection journey</span>
+        <span class="theme-pill">Celebrity testimonial proof</span>
+        <span class="theme-pill">Clinical 3-step system</span>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Content Mix</div>
+      <div class="bar-row"><span class="bar-label">Celebrity / talent</span><div class="bar-track"><div class="bar-fill" style="width:50%;background:#ef4444;"></div></div><span class="bar-val">50%</span></div>
+      <div class="bar-row"><span class="bar-label">Product system</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:#ef4444;"></div></div><span class="bar-val">30%</span></div>
+      <div class="bar-row"><span class="bar-label">Lifestyle</span><div class="bar-track"><div class="bar-fill" style="width:20%;background:#ef4444;"></div></div><span class="bar-val">20%</span></div>
+
+      <div class="comp-section-label">Funnel Coverage</div>
+      <div class="funnel-row">
+        <div class="funnel-stage funnel-strong">TOF</div>
+        <div class="funnel-stage funnel-strong">MOF</div>
+        <div class="funnel-stage funnel-strong">BOF</div>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Notable Gaps</div>
+      <div class="gap-list">
+        <div class="gap-item">No natural or clean ingredient angle</div>
+        <div class="gap-item">Generic mass-market feel — no brand soul</div>
+        <div class="gap-item">Celebrity trust, not "real person like me" trust</div>
+        <div class="gap-item">No mom-to-teen family narrative</div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge badge-amber">Mass Market</span>
+        <span class="badge badge-blue">Celebrity Led</span>
+        <span class="badge badge-green">Full Funnel</span>
+      </div>
+    </div>
+
+    <!-- CUROLOGY -->
+    <div class="comp-card">
+      <div class="comp-card-header">
+        <div>
+          <div class="comp-name">Curology</div>
+          <div class="comp-url">curology.com &nbsp;·&nbsp; Prescription Custom</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-yellow">Indirect</span><br>
+          <div class="comp-spend" style="margin-top:6px;">$5–15M</div>
+        </div>
+      </div>
+
+      <div class="comp-section-label">Positioning</div>
+      <div style="font-size:13px; color:#f3f4ff; margin-bottom:10px;">"Your skin is unique — get a custom prescription formula from a real dermatologist, delivered to your door."</div>
+
+      <div class="comp-section-label">Top Messaging Themes</div>
+      <div class="comp-themes">
+        <span class="theme-pill">Custom prescription formula</span>
+        <span class="theme-pill">Before-and-after real results</span>
+        <span class="theme-pill">30-day free trial offer</span>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Content Mix</div>
+      <div class="bar-row"><span class="bar-label">Before / after</span><div class="bar-track"><div class="bar-fill" style="width:50%;background:#F8D908;"></div></div><span class="bar-val">50%</span></div>
+      <div class="bar-row"><span class="bar-label">UGC testimonials</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:#F8D908;"></div></div><span class="bar-val">30%</span></div>
+      <div class="bar-row"><span class="bar-label">Influencer seeding</span><div class="bar-track"><div class="bar-fill" style="width:20%;background:#F8D908;"></div></div><span class="bar-val">20%</span></div>
+
+      <div class="comp-section-label">Funnel Coverage</div>
+      <div class="funnel-row">
+        <div class="funnel-stage funnel-strong">TOF</div>
+        <div class="funnel-stage funnel-strong">MOF</div>
+        <div class="funnel-stage funnel-med">BOF</div>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Notable Gaps</div>
+      <div class="gap-list">
+        <div class="gap-item">Prescription model adds friction vs. OTC</div>
+        <div class="gap-item">No natural / clean / silver ingredient angle</div>
+        <div class="gap-item">No family or mom-to-teen narrative</div>
+        <div class="gap-item">Requires medical onboarding — longer funnel</div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge badge-green">Before/After Heavy</span>
+        <span class="badge badge-blue">Subscription Model</span>
+        <span class="badge badge-amber">Free Trial Hook</span>
+      </div>
+    </div>
+
+    <!-- CLEARSTEM -->
+    <div class="comp-card">
+      <div class="comp-card-header">
+        <div>
+          <div class="comp-name">Clearstem</div>
+          <div class="comp-url">clearstem.com &nbsp;·&nbsp; Adult Acne + Anti-Aging</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-yellow">Indirect</span><br>
+          <div class="comp-spend" style="margin-top:6px;">$500K–2M</div>
+        </div>
+      </div>
+
+      <div class="comp-section-label">Positioning</div>
+      <div style="font-size:13px; color:#f3f4ff; margin-bottom:10px;">"The only brand 100% free of both acne-causing AND pore-clogging ingredients — clean meets clinical for adult skin."</div>
+
+      <div class="comp-section-label">Top Messaging Themes</div>
+      <div class="comp-themes">
+        <span class="theme-pill">Hormone-free clean formulas</span>
+        <span class="theme-pill">Founder personal acne journey</span>
+        <span class="theme-pill">Anti-aging meets anti-acne</span>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Content Mix</div>
+      <div class="bar-row"><span class="bar-label">Founder-led</span><div class="bar-track"><div class="bar-fill" style="width:50%;background:#10b981;"></div></div><span class="bar-val">50%</span></div>
+      <div class="bar-row"><span class="bar-label">Educational</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:#10b981;"></div></div><span class="bar-val">30%</span></div>
+      <div class="bar-row"><span class="bar-label">Before / after</span><div class="bar-track"><div class="bar-fill" style="width:20%;background:#10b981;"></div></div><span class="bar-val">20%</span></div>
+
+      <div class="comp-section-label">Funnel Coverage</div>
+      <div class="funnel-row">
+        <div class="funnel-stage funnel-weak">TOF</div>
+        <div class="funnel-stage funnel-strong">MOF</div>
+        <div class="funnel-stage funnel-strong">BOF</div>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Notable Gaps</div>
+      <div class="gap-list">
+        <div class="gap-item">No silver or UK-heritage ingredient story</div>
+        <div class="gap-item">Limited mass TOF reach — community-driven</div>
+        <div class="gap-item">Not targeting moms with teens</div>
+        <div class="gap-item">Premium price point with limited proof volume</div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge badge-green">Founder Story</span>
+        <span class="badge badge-blue">Adult Acne Focus</span>
+        <span class="badge badge-amber">Clean Beauty</span>
+      </div>
+    </div>
+
+    <!-- CERAVE -->
+    <div class="comp-card">
+      <div class="comp-card-header">
+        <div>
+          <div class="comp-name">CeraVe</div>
+          <div class="comp-url">cerave.com &nbsp;·&nbsp; Acne Range</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-blue">Adjacent</span><br>
+          <div class="comp-spend" style="margin-top:6px;">$20–40M</div>
+        </div>
+      </div>
+
+      <div class="comp-section-label">Positioning</div>
+      <div style="font-size:13px; color:#f3f4ff; margin-bottom:10px;">"Developed with dermatologists — the science of skin barrier and ceramides, accessible for everyone."</div>
+
+      <div class="comp-section-label">Top Messaging Themes</div>
+      <div class="comp-themes">
+        <span class="theme-pill">Dermatologist developed</span>
+        <span class="theme-pill">Skin barrier science</span>
+        <span class="theme-pill">Affordable clinical efficacy</span>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Content Mix</div>
+      <div class="bar-row"><span class="bar-label">Educational</span><div class="bar-track"><div class="bar-fill" style="width:60%;background:#3b82f6;"></div></div><span class="bar-val">60%</span></div>
+      <div class="bar-row"><span class="bar-label">Product demo</span><div class="bar-track"><div class="bar-fill" style="width:25%;background:#3b82f6;"></div></div><span class="bar-val">25%</span></div>
+      <div class="bar-row"><span class="bar-label">Lifestyle</span><div class="bar-track"><div class="bar-fill" style="width:15%;background:#3b82f6;"></div></div><span class="bar-val">15%</span></div>
+
+      <div class="comp-section-label">Funnel Coverage</div>
+      <div class="funnel-row">
+        <div class="funnel-stage funnel-strong">TOF</div>
+        <div class="funnel-stage funnel-med">MOF</div>
+        <div class="funnel-stage funnel-weak">BOF</div>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Notable Gaps</div>
+      <div class="gap-list">
+        <div class="gap-item">Not a complete acne system (individual products)</div>
+        <div class="gap-item">No natural or silver ingredient story</div>
+        <div class="gap-item">Cold, clinical tone — lacks warmth and story</div>
+        <div class="gap-item">Retail-first, not DTC optimized</div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge badge-blue">Derm Authority</span>
+        <span class="badge badge-green">Educational</span>
+        <span class="badge badge-amber">Retail Channel</span>
+      </div>
+    </div>
+
+    <!-- LA ROCHE-POSAY -->
+    <div class="comp-card">
+      <div class="comp-card-header">
+        <div>
+          <div class="comp-name">La Roche-Posay</div>
+          <div class="comp-url">laroche-posay.us &nbsp;·&nbsp; Effaclar Range</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-blue">Adjacent</span><br>
+          <div class="comp-spend" style="margin-top:6px;">$15–25M</div>
+        </div>
+      </div>
+
+      <div class="comp-section-label">Positioning</div>
+      <div style="font-size:13px; color:#f3f4ff; margin-bottom:10px;">"Recommended by 90,000+ dermatologists worldwide — European clinical skincare for sensitive, acne-prone skin."</div>
+
+      <div class="comp-section-label">Top Messaging Themes</div>
+      <div class="comp-themes">
+        <span class="theme-pill">Dermatologist worldwide recommendation</span>
+        <span class="theme-pill">Sensitive skin clinical formulas</span>
+        <span class="theme-pill">European heritage and SPF</span>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Content Mix</div>
+      <div class="bar-row"><span class="bar-label">Derm endorsement</span><div class="bar-track"><div class="bar-fill" style="width:50%;background:#3b82f6;"></div></div><span class="bar-val">50%</span></div>
+      <div class="bar-row"><span class="bar-label">Educational</span><div class="bar-track"><div class="bar-fill" style="width:35%;background:#3b82f6;"></div></div><span class="bar-val">35%</span></div>
+      <div class="bar-row"><span class="bar-label">Lifestyle</span><div class="bar-track"><div class="bar-fill" style="width:15%;background:#3b82f6;"></div></div><span class="bar-val">15%</span></div>
+
+      <div class="comp-section-label">Funnel Coverage</div>
+      <div class="funnel-row">
+        <div class="funnel-stage funnel-strong">TOF</div>
+        <div class="funnel-stage funnel-med">MOF</div>
+        <div class="funnel-stage funnel-weak">BOF</div>
+      </div>
+
+      <div class="comp-section-label" style="margin-top:12px;">Notable Gaps</div>
+      <div class="gap-list">
+        <div class="gap-item">No clean or natural formulation angle</div>
+        <div class="gap-item">Premium price without warmth or storytelling</div>
+        <div class="gap-item">No real-people narrative — sterile tone</div>
+        <div class="gap-item">Retail-dependent, weak DTC infrastructure</div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge badge-blue">90K Derm Endorsements</span>
+        <span class="badge badge-amber">Pharmacy Channel</span>
+        <span class="badge badge-gray">Cold Tone</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NORRIS ORGANICS NOTE -->
+  <div class="callout">
+    <strong>Norris Organics (Direct / Micro):</strong> UK-based clean acne brand mentioned by 47 Skin in sales calls as a known competitor. Estimated budget $50–200K. Primarily organic social, minimal paid media, no US market presence. Their positioning — clean, organic, UK-heritage — overlaps with 47 Skin's brand DNA but without the Silver Chitoderm science or clinical study backing. Not a significant paid media threat in the US, but worth watching as 47 Skin scales UK-to-US.
+  </div>
+
+  <!-- SECTION 2: COMPARISON MATRIX -->
+  <h2>2. Competitor Comparison Matrix</h2>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Type</th>
+        <th>Primary Positioning</th>
+        <th>Key Hook Style</th>
+        <th>Primary Persona</th>
+        <th>Funnel</th>
+        <th>Est. Budget</th>
+        <th>Silver / Natural</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="brand-row">
+        <td><span class="highlight">47 Skin</span> <span class="badge badge-yellow" style="margin-left:6px;">OUR BRAND</span></td>
+        <td>—</td>
+        <td>Silver science + real results, no filters</td>
+        <td>Image-led, before/after, ingredient stories</td>
+        <td>Mom primary, adult-breakout secondary</td>
+        <td><span class="badge badge-amber">TOF/MOF only</span></td>
+        <td>$60–80K/mo</td>
+        <td><span class="badge badge-green">YES — unique</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Hero Cosmetics</span></td>
+        <td><span class="badge badge-red">Direct</span></td>
+        <td>Shame-free, humor, Gen Z empowerment</td>
+        <td>Character/humor, pimple personification, UGC</td>
+        <td>Gen Z / Teen</td>
+        <td><span class="badge badge-green">TOF/MOF</span></td>
+        <td>$5–10M</td>
+        <td><span class="badge badge-red">NO</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Proactiv</span></td>
+        <td><span class="badge badge-red">Direct</span></td>
+        <td>Progress not perfection, celebrity system</td>
+        <td>Celebrity testimonial, progress narrative</td>
+        <td>Broad / Teen-Adult</td>
+        <td><span class="badge badge-green">Full Funnel</span></td>
+        <td>$20–50M</td>
+        <td><span class="badge badge-red">NO</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Curology</span></td>
+        <td><span class="badge badge-yellow">Indirect</span></td>
+        <td>Custom prescription, derm access for all</td>
+        <td>Before/after, free trial, personalization hook</td>
+        <td>Adult 18–40, frustrated with OTC</td>
+        <td><span class="badge badge-green">TOF–MOF</span></td>
+        <td>$5–15M</td>
+        <td><span class="badge badge-red">NO</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Clearstem</span></td>
+        <td><span class="badge badge-yellow">Indirect</span></td>
+        <td>First brand 100% pore-clogger free, anti-aging</td>
+        <td>Founder story, hormonal acne, ingredient education</td>
+        <td>Adult women 25–45, hormonal acne</td>
+        <td><span class="badge badge-amber">MOF/BOF</span></td>
+        <td>$500K–2M</td>
+        <td><span class="badge badge-amber">Partial (clean)</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">CeraVe</span></td>
+        <td><span class="badge badge-blue">Adjacent</span></td>
+        <td>Developed with dermatologists, skin barrier</td>
+        <td>Educational, derm endorsement, ceramide science</td>
+        <td>All ages, acne-prone + sensitive</td>
+        <td><span class="badge badge-green">TOF/MOF</span></td>
+        <td>$20–40M</td>
+        <td><span class="badge badge-red">NO</span></td>
+      </tr>
+      <tr>
+        <td><span class="highlight">La Roche-Posay</span></td>
+        <td><span class="badge badge-blue">Adjacent</span></td>
+        <td>90K dermatologists worldwide, European clinical</td>
+        <td>Derm endorsement, education, clinical tone</td>
+        <td>Adult, sensitive/acne-prone</td>
+        <td><span class="badge badge-amber">TOF/MOF</span></td>
+        <td>$15–25M</td>
+        <td><span class="badge badge-red">NO</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 3: WHITE SPACE MAP -->
+  <h2>3. White Space Map — 3 Plays Zero Competitors Own</h2>
+
+  <div class="ws-grid">
+    <div class="ws-card">
+      <div class="ws-rank">White Space #1 — Highest Confidence</div>
+      <div class="ws-title">The Mom-to-Mom Testimonial Format</div>
+      <div class="ws-desc">No competitor is running mom-to-mom raw testimonial content at scale. Hero is Gen Z-coded. Proactiv is celebrity. Curology is individual clinical. CeraVe/LRP are cold and institutional. The format: a real mom, no filter, talking directly to camera: <em>"I've been dealing with breakouts since I was 17. So has my daughter. This is what worked for us both."</em> This ad writes itself — and no one is running it.</div>
+      <div class="ws-meta">
+        <span class="badge badge-green">Persona: Mom 30–50</span>
+        <span class="badge badge-yellow">Format: Raw UGC video</span>
+        <span class="badge badge-blue">Funnel: TOF/MOF</span>
+      </div>
+    </div>
+
+    <div class="ws-card">
+      <div class="ws-rank">White Space #2 — High Confidence</div>
+      <div class="ws-title">Silver Chitoderm Science Education</div>
+      <div class="ws-desc">47 Skin has the only silver-based cosmetic blemish system in its category. Zero competitors are running silver ingredient education content. Clinical study references, before/after visualizations of how silver works differently from salicylic acid or benzoyl peroxide. Own the "silver" search intent. This is a differentiation moat that would take years for a competitor to replicate authentically.</div>
+      <div class="ws-meta">
+        <span class="badge badge-green">Format: Edu video / carousel</span>
+        <span class="badge badge-yellow">Funnel: MOF/BOF</span>
+        <span class="badge badge-blue">Angle: Ingredient hero</span>
+      </div>
+    </div>
+
+    <div class="ws-card">
+      <div class="ws-rank">White Space #3 — Medium-High Confidence</div>
+      <div class="ws-title">The Family Skin System Story</div>
+      <div class="ws-desc">No competitor is telling a two-avatar story in a single ad unit: mom clearing her hormonal breakouts, teenager clearing theirs, same system. This maps directly to 47 Skin's real customer behavior (moms buying for themselves and their teens). The emotional hook is powerful — <em>"my daughter and I cleared our skin together"</em> — and it doubles the conversion surface area in each ad.</div>
+      <div class="ws-meta">
+        <span class="badge badge-green">Persona: Mom + Teen</span>
+        <span class="badge badge-yellow">Format: Split testimonial</span>
+        <span class="badge badge-blue">Funnel: TOF/MOF</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- White space table for other dimensions -->
+  <h3 style="margin-top:8px; margin-bottom:12px;">Additional White Space Dimensions</h3>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>What Competitors Are Doing</th>
+        <th>What Nobody Is Doing</th>
+        <th>47 Skin Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Emotional angle</td>
+        <td>Humor (Hero), Clinical confidence (CeraVe/LRP), Progress (Proactiv)</td>
+        <td>Dignity — "I stopped hiding my skin in photos of my own family"</td>
+        <td><span class="badge badge-green">High</span></td>
+      </tr>
+      <tr>
+        <td>Persona</td>
+        <td>Gen Z (Hero), Broad adult (Proactiv/Curology), Clinical patient (LRP/CeraVe)</td>
+        <td>Mom 30–50 buying for herself AND her teenager</td>
+        <td><span class="badge badge-green">High — already primary avatar</span></td>
+      </tr>
+      <tr>
+        <td>Content format</td>
+        <td>Campaign video (Proactiv), patches reveal UGC (Hero), before/after (Curology)</td>
+        <td>47-day transformation diary / documentary-style ad</td>
+        <td><span class="badge badge-green">High — mirrors 47-day MBG</span></td>
+      </tr>
+      <tr>
+        <td>Ingredient science</td>
+        <td>Ceramides (CeraVe), Tretinoin (Curology), Salicylic/BP (Proactiv)</td>
+        <td>Silver Chitoderm — the natural antimicrobial alternative</td>
+        <td><span class="badge badge-green">High — unique moat</span></td>
+      </tr>
+      <tr>
+        <td>UK heritage / story</td>
+        <td>None are using UK heritage as a trust signal in US market</td>
+        <td>"Developed in the UK, powered by clinical silver science"</td>
+        <td><span class="badge badge-amber">Medium — test required</span></td>
+      </tr>
+      <tr>
+        <td>Subscription creative</td>
+        <td>Curology uses trial-to-subscription hooks; others do not</td>
+        <td>Autoship bundle creative with day-by-day progress hook</td>
+        <td><span class="badge badge-amber">Medium — needs funnel infra</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4: BRAND CREATIVE AUDIT -->
+  <h2>4. Brand Creative Audit — 47 Skin's Current Ads</h2>
+
+  <div class="callout-red">
+    <strong>Current creative score: 4/10 (Weak).</strong> Based on data from sales calls: image ads outperform video, Silver ingredient worked on TikTok GMV Max, no landing page or quiz testing, low testing velocity, no UGC programme, no subscription-driving creative. The brand has strong ingredients for great ads — it's not making them yet.
+  </div>
+
+  <div class="audit-grid">
+    <div class="audit-card ok">
+      <h3>✓ What's Working</h3>
+      <div class="gap-list" style="margin-top:8px;">
+        <div class="gap-item" style="color:#10b981;">Image ads outperform video — lean into this while building video</div>
+        <div class="gap-item" style="color:#10b981;">Silver Chitoderm TikTok GMV Max — ingredient story converts</div>
+        <div class="gap-item" style="color:#10b981;">Trial $25 entry offer — low-friction first purchase</div>
+        <div class="gap-item" style="color:#10b981;">"Real people real results no filters" ethos — brand has a soul</div>
+        <div class="gap-item" style="color:#10b981;">47-day MBG — strong risk reversal that isn't being featured prominently</div>
+      </div>
+    </div>
+
+    <div class="audit-card danger">
+      <h3>✗ Creative Fatigue Signals</h3>
+      <div class="gap-list" style="margin-top:8px;">
+        <div class="gap-item">No UGC programme — 100% brand-produced creative</div>
+        <div class="gap-item">No landing page or quiz funnel testing — PDP only</div>
+        <div class="gap-item">Low creative testing velocity vs. all competitors</div>
+        <div class="gap-item">No video creative at scale (missing 9:16 placements)</div>
+        <div class="gap-item">No subscription-driving ad creative</div>
+        <div class="gap-item">Founder story not visible in paid ads</div>
+        <div class="gap-item">No mom-to-mom testimonial format despite primary avatar</div>
+      </div>
+    </div>
+
+    <div class="audit-card warn">
+      <h3>⚠ Missing Funnel Stages</h3>
+      <div class="gap-list" style="margin-top:8px;">
+        <div class="gap-item">No retargeting (MOF) creative — page visitors not being recaptured</div>
+        <div class="gap-item">No post-purchase upsell creative for Trial → System upgrade</div>
+        <div class="gap-item">No win-back or lapsed customer creative</div>
+        <div class="gap-item">No quiz or personalization entry point (vs. Curology)</div>
+      </div>
+    </div>
+
+    <div class="audit-card warn">
+      <h3>⚠ Brand vs. Competitor Benchmarks</h3>
+      <table style="width:100%; font-size:12px; border-collapse:collapse; margin-top:8px;">
+        <tr style="border-bottom:1px solid #282932;">
+          <td style="padding:5px 0; color:#545560;">Testing velocity</td>
+          <td style="color:#ef4444; text-align:right;">Low vs. all competitors</td>
+        </tr>
+        <tr style="border-bottom:1px solid #282932;">
+          <td style="padding:5px 0; color:#545560;">UGC usage</td>
+          <td style="color:#ef4444; text-align:right;">0% vs. 30–60% competitors</td>
+        </tr>
+        <tr style="border-bottom:1px solid #282932;">
+          <td style="padding:5px 0; color:#545560;">Funnel coverage</td>
+          <td style="color:#f59e0b; text-align:right;">TOF/MOF only vs. full</td>
+        </tr>
+        <tr style="border-bottom:1px solid #282932;">
+          <td style="padding:5px 0; color:#545560;">Format diversity</td>
+          <td style="color:#ef4444; text-align:right;">Image only vs. mixed</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 0; color:#545560;">Ingredient story</td>
+          <td style="color:#10b981; text-align:right;">Unique — no competitor has silver</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 5: CREATIVE GAPS & RECOMMENDATIONS -->
+  <h2>5. Creative Gaps & Actionable Recommendations</h2>
+
+  <h3 style="color:#F8D908; margin-bottom:16px;">Quick Wins — Low Effort, High Impact</h3>
+  <div class="qw-grid">
+    <div class="qw-card priority">
+      <div class="qw-num">01</div>
+      <div class="qw-title">Launch a Mom Testimonial UGC Series</div>
+      <div class="qw-desc">Brief 5–10 real customers (mom demographic) to film 30–60 second raw, no-filter videos talking about their skin transformation. No script, just prompt: "Tell me what your skin was like before, and what it's like now." Run these as cold TOF ads on Meta and TikTok. Expected to beat current image performance within 2 weeks of testing.</div>
+      <div class="qw-meta">
+        <span class="badge badge-green">Effort: Low</span>
+        <span class="badge badge-yellow">Impact: High</span>
+        <span class="badge badge-blue">Platform: Meta + TikTok</span>
+      </div>
+    </div>
+
+    <div class="qw-card priority">
+      <div class="qw-num">02</div>
+      <div class="qw-title">Feature the 47-Day Money-Back Guarantee Prominently</div>
+      <div class="qw-desc">No competitor offers a 47-day MBG. This risk reversal is currently buried. Test ad variants with the MBG as the headline hook: <em>"47 days to clearer skin — or your money back. No questions."</em> Pair with a before/after testimonial. This alone should lift conversion rate on the Trial $25 entry offer.</div>
+      <div class="qw-meta">
+        <span class="badge badge-green">Effort: Very Low</span>
+        <span class="badge badge-yellow">Impact: High</span>
+        <span class="badge badge-blue">Offer: Trial $25</span>
+      </div>
+    </div>
+
+    <div class="qw-card">
+      <div class="qw-num">03</div>
+      <div class="qw-title">Silver Ingredient Education Ad</div>
+      <div class="qw-desc">Create a 30–45 second educational ad explaining why silver works differently: antimicrobial without stripping skin, clinical study reference, no resistance buildup. Use a clean, confident hook: <em>"Why does silver work when nothing else has?"</em> Position this as MOF retargeting or cold TOF for the skeptical adult audience who has tried and failed with standard blemish products.</div>
+      <div class="qw-meta">
+        <span class="badge badge-green">Effort: Low</span>
+        <span class="badge badge-yellow">Impact: High</span>
+        <span class="badge badge-blue">Funnel: MOF</span>
+      </div>
+    </div>
+
+    <div class="qw-card">
+      <div class="qw-num">04</div>
+      <div class="qw-title">Build a Quiz / Skin Assessment Funnel</div>
+      <div class="qw-desc">Curology dominates with personalization. 47 Skin can offer a lighter version: a 4-question skin quiz (breakout type, severity, duration, previous products tried) routing users to the right product or bundle. This lifts AOV and provides richer retargeting data. A quiz landing page vs. direct PDP is the highest-leverage infrastructure test available right now.</div>
+      <div class="qw-meta">
+        <span class="badge badge-amber">Effort: Medium</span>
+        <span class="badge badge-yellow">Impact: Very High</span>
+        <span class="badge badge-blue">Funnel: TOF → MOF</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="color:#f3f4ff; margin-bottom:16px; margin-top:8px;">Medium-Term Plays — Higher Effort, High Strategic Value</h3>
+  <div class="qw-grid">
+    <div class="qw-card">
+      <div class="qw-num">05</div>
+      <div class="qw-title">Mom + Teen Dual Transformation Ad</div>
+      <div class="qw-desc">Film a short documentary-style piece with a real mom and her teenager. Before/after transformation arc. Emotional hook: <em>"I bought this for my daughter's skin. Then I tried it myself. We both cleared up."</em> This format has zero direct competition in the market and maps exactly to the primary avatar's real purchasing pattern. High production effort but extremely high differentiation.</div>
+      <div class="qw-meta">
+        <span class="badge badge-red">Effort: High</span>
+        <span class="badge badge-yellow">Impact: Very High</span>
+        <span class="badge badge-blue">Format: Mini-doc 90s</span>
+      </div>
+    </div>
+
+    <div class="qw-card">
+      <div class="qw-num">06</div>
+      <div class="qw-title">Founder Story Ad Series</div>
+      <div class="qw-desc">Nic Taylor's grandmother's cream origin story is completely unused in paid media. The UK heritage, the family origins, the accidental discovery — this is brand mythology that builds deep trust. A 3-part series: (1) Where silver skincare came from, (2) Why 47 Skin exists, (3) What the clinical studies showed. Run as retargeting for warm audiences who've already seen a product ad.</div>
+      <div class="qw-meta">
+        <span class="badge badge-amber">Effort: Medium</span>
+        <span class="badge badge-yellow">Impact: High</span>
+        <span class="badge badge-blue">Funnel: MOF/BOF</span>
+      </div>
+    </div>
+
+    <div class="qw-card">
+      <div class="qw-num">07</div>
+      <div class="qw-title">Subscription Bundle Creative</div>
+      <div class="qw-desc">To close the LTV:CAC gap (current 2:1 vs. 3–4:1 benchmark), 47 Skin must increase subscription conversion. Build dedicated ad creative for the 3-Step System autoship: price-per-day calculation, day-by-day skin progress timeline, and a strong anchor-pricing frame ($119 vs. individual retail). This ad should only show to warm audiences and Trial buyers 14+ days post-purchase.</div>
+      <div class="qw-meta">
+        <span class="badge badge-amber">Effort: Medium</span>
+        <span class="badge badge-yellow">Impact: Very High (LTV lever)</span>
+        <span class="badge badge-blue">Funnel: BOF</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: GAPS TABLE -->
+  <h2>6. Creative Gap Summary</h2>
+  <table class="gaps-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Gap</th>
+        <th>Competitors Doing It</th>
+        <th>Recommended Approach</th>
+        <th>Impact</th>
+        <th>Effort</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:#F8D908;font-weight:700;">1</td>
+        <td>No UGC / testimonial creative</td>
+        <td>Hero (60% UGC), Curology (30% UGC)</td>
+        <td>Mom testimonial brief — 10 customers, raw 30–60s video</td>
+        <td><span class="badge badge-green">High</span></td>
+        <td><span class="badge badge-green">Low</span></td>
+      </tr>
+      <tr>
+        <td style="color:#F8D908;font-weight:700;">2</td>
+        <td>MBG not featured in ads</td>
+        <td>None — this is unique to 47 Skin</td>
+        <td>47-day guarantee as headline hook in Trial offer ads</td>
+        <td><span class="badge badge-green">High</span></td>
+        <td><span class="badge badge-green">Very Low</span></td>
+      </tr>
+      <tr>
+        <td style="color:#F8D908;font-weight:700;">3</td>
+        <td>No silver ingredient education</td>
+        <td>None — silver is unique to 47 Skin</td>
+        <td>Educational MOF ad: "Why silver works differently"</td>
+        <td><span class="badge badge-green">High</span></td>
+        <td><span class="badge badge-green">Low</span></td>
+      </tr>
+      <tr>
+        <td style="color:#F8D908;font-weight:700;">4</td>
+        <td>No quiz / personalization funnel</td>
+        <td>Curology (core of their model)</td>
+        <td>4-question skin quiz routing to Trial or 2-Step/3-Step</td>
+        <td><span class="badge badge-green">Very High</span></td>
+        <td><span class="badge badge-amber">Medium</span></td>
+      </tr>
+      <tr>
+        <td style="color:#F8D908;font-weight:700;">5</td>
+        <td>No video creative at scale</td>
+        <td>All competitors use video as primary format</td>
+        <td>UGC testimonials + ingredient education as first video tests</td>
+        <td><span class="badge badge-green">High</span></td>
+        <td><span class="badge badge-amber">Medium</span></td>
+      </tr>
+      <tr>
+        <td style="color:#F8D908;font-weight:700;">6</td>
+        <td>No subscription-driving creative</td>
+        <td>Curology (free trial to subscription)</td>
+        <td>BOF ad: 3-Step System autoship with day-progress frame</td>
+        <td><span class="badge badge-green">Very High (LTV)</span></td>
+        <td><span class="badge badge-amber">Medium</span></td>
+      </tr>
+      <tr>
+        <td style="color:#F8D908;font-weight:700;">7</td>
+        <td>Founder story absent from paid</td>
+        <td>Clearstem (founder-led 50% of content)</td>
+        <td>Nic Taylor origin story — 3-part MOF series</td>
+        <td><span class="badge badge-amber">Medium</span></td>
+        <td><span class="badge badge-amber">Medium</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CLOSING CALLOUT -->
+  <div class="callout-yellow">
+    <strong>The Strategic Bet:</strong> 47 Skin doesn't need to out-spend Hero ($5–10M) or Proactiv ($20–50M). It needs to out-story them. The silver ingredient is a genuine moat. The mom-to-mom angle is a genuine gap. The 47-day MBG is a genuine risk reversal no one else offers. The next 90 days are about proving 2–3 of these angles work at small scale before scaling spend to the $300K/mo target.
+  </div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  <strong>Ad Pros</strong> &nbsp;·&nbsp; Step 3: Competitor Intelligence &nbsp;·&nbsp; 47 Skin &nbsp;·&nbsp; March 2026<br>
+  <span style="font-size:11px;">7 competitors mapped · 3 white space plays identified · 7 creative gaps catalogued</span>
+</div>
+
+
+</div>
+</body>
+</html>

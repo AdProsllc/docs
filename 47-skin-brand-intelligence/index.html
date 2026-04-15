@@ -109,19 +109,27 @@
 
     /* Deliverables */
     .deliverables { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .deliv { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+    .deliv { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease; }
+    a.deliv:hover { border-color: var(--yellow); background: var(--navy-2); transform: translateY(-1px); }
+    a.deliv:hover .deliv-name { color: var(--yellow); }
     .deliv-icon { width: 40px; height: 40px; background: rgba(249, 217, 0, 0.1); color: var(--yellow); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; letter-spacing: 0.5px; flex-shrink: 0; }
     .deliv-body { flex: 1; min-width: 0; }
-    .deliv-name { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .deliv-name { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 2px; transition: color 0.15s ease; }
     .deliv-meta { color: var(--grey-300); font-size: 12px; }
+    .deliv-arrow { color: var(--grey-400); font-size: 16px; font-weight: 700; opacity: 0.6; transition: color 0.15s ease, opacity 0.15s ease; }
+    a.deliv:hover .deliv-arrow { color: var(--yellow); opacity: 1; }
+    .deliv-muted { opacity: 0.55; }
+    .deliv-muted .deliv-arrow { display: none; }
 
     /* Pipeline */
     .pipeline { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin: 28px 0 0; }
-    .pipe-step { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; text-align: center; position: relative; }
+    .pipe-step { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; text-align: center; position: relative; text-decoration: none; color: inherit; display: block; transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease; }
+    .pipe-step:hover { border-color: var(--yellow); background: var(--navy-2); transform: translateY(-2px); }
     .pipe-step::after { content: ''; position: absolute; right: -6px; top: 50%; width: 10px; height: 10px; transform: translateY(-50%) rotate(45deg); border-top: 1px solid var(--card-border); border-right: 1px solid var(--card-border); background: var(--navy); z-index: 2; }
     .pipe-step:last-child::after { display: none; }
     .pipe-num { font-size: 10px; font-weight: 700; color: var(--yellow); letter-spacing: 1px; margin-bottom: 6px; }
     .pipe-name { font-size: 12px; color: #fff; font-weight: 600; line-height: 1.3; }
+    .pipe-step:hover .pipe-name { color: var(--yellow); }
 
     /* Footer */
     .ap-footer { margin: 48px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1200px; margin-left: auto; margin-right: auto; }
@@ -213,13 +221,13 @@
     <h2 class="section-h">The 7-step Ad Pros brand intelligence process</h2>
     <p class="section-sub">PREP → GATHER → EVALUATE → ALIGN → EXECUTE. Every output on this page is sourced from a completed step.</p>
     <div class="pipeline">
-      <div class="pipe-step"><div class="pipe-num">01</div><div class="pipe-name">Brand Intake</div></div>
-      <div class="pipe-step"><div class="pipe-num">02</div><div class="pipe-name">Market Research</div></div>
-      <div class="pipe-step"><div class="pipe-num">03</div><div class="pipe-name">Competitor Intel</div></div>
-      <div class="pipe-step"><div class="pipe-num">04</div><div class="pipe-name">Growth Assessment</div></div>
-      <div class="pipe-step"><div class="pipe-num">05</div><div class="pipe-name">Strategic Decisions</div></div>
-      <div class="pipe-step"><div class="pipe-num">06</div><div class="pipe-name">Creative Strategy</div></div>
-      <div class="pipe-step"><div class="pipe-num">07</div><div class="pipe-name">Creative Briefs</div></div>
+      <a class="pipe-step" href="step-1-brand-profile/"><div class="pipe-num">01</div><div class="pipe-name">Brand Intake</div></a>
+      <a class="pipe-step" href="step-2-market-intelligence/"><div class="pipe-num">02</div><div class="pipe-name">Market Research</div></a>
+      <a class="pipe-step" href="step-3-competitor-intelligence/"><div class="pipe-num">03</div><div class="pipe-name">Competitor Intel</div></a>
+      <a class="pipe-step" href="step-4-growth-assessment/"><div class="pipe-num">04</div><div class="pipe-name">Growth Assessment</div></a>
+      <a class="pipe-step" href="step-5-strategic-decisions/"><div class="pipe-num">05</div><div class="pipe-name">Strategic Decisions</div></a>
+      <a class="pipe-step" href="step-6-creative-strategy/"><div class="pipe-num">06</div><div class="pipe-name">Creative Strategy</div></a>
+      <a class="pipe-step" href="step-7-creative-briefs/"><div class="pipe-num">07</div><div class="pipe-name">Creative Briefs</div></a>
     </div>
   </section>
 
@@ -379,18 +387,18 @@
     <h2 class="section-h">What the brand intelligence engagement produced</h2>
     <p class="section-sub">All files live in the Ad Pros workspace. This hub is the executive summary — each deliverable below goes deeper.</p>
     <div class="deliverables">
-      <div class="deliv"><div class="deliv-icon">STEP<br>1</div><div class="deliv-body"><div class="deliv-name">Brand Profile</div><div class="deliv-meta">Founder story · positioning · DNA · compliance vocabulary</div></div></div>
-      <div class="deliv"><div class="deliv-icon">STEP<br>2</div><div class="deliv-body"><div class="deliv-name">Market Intelligence</div><div class="deliv-meta">$1.04B TAM · 8.6% CAGR · VoC mining · trend map</div></div></div>
-      <div class="deliv"><div class="deliv-icon">STEP<br>3</div><div class="deliv-body"><div class="deliv-name">Competitor Intelligence</div><div class="deliv-meta">Hero · Clearstem · CeraVe · La Roche · Curology — positioning gaps</div></div></div>
-      <div class="deliv"><div class="deliv-icon">STEP<br>4</div><div class="deliv-body"><div class="deliv-name">Growth Assessment</div><div class="deliv-meta">Readiness score · data completeness · JTBD</div></div></div>
-      <div class="deliv"><div class="deliv-icon">STEP<br>5</div><div class="deliv-body"><div class="deliv-name">Strategic Decisions</div><div class="deliv-meta">Locked avatars · funnel · content pillars · compliance</div></div></div>
-      <div class="deliv"><div class="deliv-icon">STEP<br>6</div><div class="deliv-body"><div class="deliv-name">Creative Strategy</div><div class="deliv-meta">31 scored angles · Ad Pros Creative Matrix · white space</div></div></div>
-      <div class="deliv"><div class="deliv-icon">STEP<br>7</div><div class="deliv-body"><div class="deliv-name">Creative Briefs</div><div class="deliv-meta">Production-ready briefs · 9-component image prompts</div></div></div>
-      <div class="deliv"><div class="deliv-icon">XLSX</div><div class="deliv-body"><div class="deliv-name">Headline Testing Matrix</div><div class="deliv-meta">372 headlines · 31 angles · scored · tier-assigned</div></div></div>
-      <div class="deliv"><div class="deliv-icon">HTML</div><div class="deliv-body"><div class="deliv-name">Data Enrichment Summary</div><div class="deliv-meta">VoC mining · TikTok dataset · customer language analysis</div></div></div>
-      <div class="deliv"><div class="deliv-icon">DOCX</div><div class="deliv-body"><div class="deliv-name">UGC Creator Scripts — Petra Tier 1</div><div class="deliv-meta">S001–S005 · compliance-checked · creator-ready</div></div></div>
-      <div class="deliv"><div class="deliv-icon">DOCX</div><div class="deliv-body"><div class="deliv-name">US Flash Sale — Static Ad Briefs</div><div class="deliv-meta">Image prompt briefs · US launch flash offer</div></div></div>
-      <div class="deliv"><div class="deliv-icon">MD</div><div class="deliv-body"><div class="deliv-name">Copy Guidelines (client-locked)</div><div class="deliv-meta">Breakouts · unique · Sephora · Ulta</div></div></div>
+      <a class="deliv" href="step-1-brand-profile/"><div class="deliv-icon">STEP<br>1</div><div class="deliv-body"><div class="deliv-name">Brand Profile</div><div class="deliv-meta">Founder story · positioning · DNA · compliance vocabulary</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="step-2-market-intelligence/"><div class="deliv-icon">STEP<br>2</div><div class="deliv-body"><div class="deliv-name">Market Intelligence</div><div class="deliv-meta">$1.04B TAM · 8.6% CAGR · VoC mining · trend map</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="step-3-competitor-intelligence/"><div class="deliv-icon">STEP<br>3</div><div class="deliv-body"><div class="deliv-name">Competitor Intelligence</div><div class="deliv-meta">Hero · Clearstem · CeraVe · La Roche · Curology — positioning gaps</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="step-4-growth-assessment/"><div class="deliv-icon">STEP<br>4</div><div class="deliv-body"><div class="deliv-name">Growth Assessment</div><div class="deliv-meta">Readiness score · data completeness · JTBD</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="step-5-strategic-decisions/"><div class="deliv-icon">STEP<br>5</div><div class="deliv-body"><div class="deliv-name">Strategic Decisions</div><div class="deliv-meta">Locked avatars · funnel · content pillars · compliance</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="step-6-creative-strategy/"><div class="deliv-icon">STEP<br>6</div><div class="deliv-body"><div class="deliv-name">Creative Strategy</div><div class="deliv-meta">31 scored angles · Ad Pros Creative Matrix · white space</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="step-7-creative-briefs/"><div class="deliv-icon">STEP<br>7</div><div class="deliv-body"><div class="deliv-name">Creative Briefs</div><div class="deliv-meta">Production-ready briefs · 9-component image prompts</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="data-enrichment/"><div class="deliv-icon">HTML</div><div class="deliv-body"><div class="deliv-name">Data Enrichment Summary</div><div class="deliv-meta">VoC mining · TikTok dataset · customer language analysis</div></div><div class="deliv-arrow">→</div></a>
+      <a class="deliv" href="ugc-scripts-petra-tier-1/"><div class="deliv-icon">DOCX</div><div class="deliv-body"><div class="deliv-name">UGC Creator Scripts — Petra Tier 1</div><div class="deliv-meta">S001–S005 · compliance-checked · creator-ready</div></div><div class="deliv-arrow">→</div></a>
+      <div class="deliv deliv-muted"><div class="deliv-icon">XLSX</div><div class="deliv-body"><div class="deliv-name">Headline Testing Matrix</div><div class="deliv-meta">372 headlines · 31 angles · scored · tier-assigned · workspace file</div></div></div>
+      <div class="deliv deliv-muted"><div class="deliv-icon">DOCX</div><div class="deliv-body"><div class="deliv-name">US Flash Sale — Static Ad Briefs</div><div class="deliv-meta">Image prompt briefs · US launch flash offer · workspace file</div></div></div>
+      <div class="deliv deliv-muted"><div class="deliv-icon">MD</div><div class="deliv-body"><div class="deliv-name">Copy Guidelines (client-locked)</div><div class="deliv-meta">Breakouts · unique · Sephora · Ulta · workspace file</div></div></div>
     </div>
   </section>
 

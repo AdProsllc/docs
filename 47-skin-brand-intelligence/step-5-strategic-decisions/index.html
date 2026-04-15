@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 5 – 47 Skin – Strategic Decisions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000212; color: #b0b1b6; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.6; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+  .header { display: flex; align-items: center; gap: 16px; padding: 32px 40px; border-bottom: 1px solid #282932; background: #0b0d17; }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: #f3f4ff; }
+  .header-text p { font-size: 13px; color: #545560; margin-top: 2px; }
+  .brand-badge { display: inline-block; background: #F8D908; color: #000212; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 6px; }
+
+  .step-nav { display: flex; gap: 6px; padding: 16px 40px; background: #0b0d17; border-bottom: 1px solid #282932; flex-wrap: wrap; }
+  .step-pill { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+  .step-done { background: #10b981; color: #000; }
+  .step-active { background: #F8D908; color: #000212; }
+  .step-pending { background: #1a1c2e; color: #545560; border: 1px solid #282932; }
+
+  h2 { font-size: 18px; font-weight: 700; color: #f3f4ff; border-left: 3px solid #F8D908; padding-left: 14px; margin-bottom: 20px; margin-top: 40px; }
+  h3 { font-size: 14px; font-weight: 600; color: #f3f4ff; margin-bottom: 10px; }
+
+  /* Contract banner */
+  .contract-banner { background: rgba(248,217,8,0.06); border: 2px solid rgba(248,217,8,0.3); border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
+  .contract-banner h2 { border: none; padding-left: 0; margin-top: 0; font-size: 20px; }
+  .contract-banner p { font-size: 13px; color: #b0b1b6; margin-top: 6px; }
+  .contract-meta { display: flex; gap: 20px; margin-top: 14px; flex-wrap: wrap; }
+  .contract-meta-item { font-size: 12px; color: #545560; }
+  .contract-meta-item strong { color: #F8D908; }
+
+  /* Decision blocks */
+  .decision-block { background: #0b0d17; border: 1px solid #282932; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+  .decision-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid #282932; background: #0c0c16; }
+  .decision-num { font-size: 11px; font-weight: 700; color: #545560; text-transform: uppercase; letter-spacing: 0.5px; }
+  .decision-title { font-size: 15px; font-weight: 700; color: #f3f4ff; margin-top: 2px; }
+  .decision-body { padding: 22px; }
+  .locked-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.25); border-radius: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .primary-decision { background: rgba(248,217,8,0.06); border: 1px solid rgba(248,217,8,0.15); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; }
+  .primary-decision .label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #F8D908; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .primary-decision .value { font-size: 14px; color: #f3f4ff; font-weight: 600; }
+  .primary-decision .rationale { font-size: 12px; color: #b0b1b6; margin-top: 4px; line-height: 1.5; }
+
+  .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .decision-item { background: #0c0c16; border: 1px solid #282932; border-radius: 8px; padding: 14px; }
+  .decision-item .label { font-size: 10px; font-weight: 700; color: #545560; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .decision-item .value { font-size: 13px; color: #f3f4ff; font-weight: 500; }
+  .decision-item .sub { font-size: 11px; color: #b0b1b6; margin-top: 3px; }
+
+  /* Badge */
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .badge-green { background: rgba(16,185,129,0.15); color: #10b981; }
+  .badge-yellow { background: rgba(248,217,8,0.12); color: #F8D908; }
+  .badge-blue { background: rgba(77,101,255,0.15); color: #4d65ff; }
+  .badge-red { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .badge-amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .badge-gray { background: #1a1c2e; color: #545560; border: 1px solid #282932; }
+
+  /* Offer table */
+  .offer-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .offer-table th { background: #0c0c16; color: #545560; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 14px; text-align: left; border-bottom: 1px solid #282932; }
+  .offer-table td { padding: 12px 14px; border-bottom: 1px solid #1a1c2e; vertical-align: middle; color: #b0b1b6; }
+  .offer-table tr:hover td { background: #0b0d17; }
+  .hero-row td { border-left: 3px solid #F8D908; background: rgba(248,217,8,0.03); }
+  .hero-row td:first-child { padding-left: 11px; }
+
+  /* Avatar cards */
+  .avatar-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; }
+  .avatar-card { background: #0c0c16; border: 1px solid #282932; border-radius: 10px; padding: 18px; }
+  .avatar-card.primary { border-color: rgba(248,217,8,0.3); background: rgba(248,217,8,0.04); }
+  .avatar-card.parked { opacity: 0.6; }
+  .avatar-role { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .avatar-card.primary .avatar-role { color: #F8D908; }
+  .avatar-card:not(.primary) .avatar-role { color: #545560; }
+  .avatar-name { font-size: 14px; font-weight: 700; color: #f3f4ff; margin-bottom: 5px; }
+  .avatar-desc { font-size: 12px; color: #b0b1b6; line-height: 1.5; }
+  .avatar-alloc { font-size: 24px; font-weight: 800; color: #F8D908; margin-top: 10px; }
+  .avatar-alloc-label { font-size: 11px; color: #545560; }
+
+  /* Content pillars */
+  .pillar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .pillar-card { background: #0c0c16; border: 1px solid #282932; border-radius: 8px; padding: 14px; }
+  .pillar-rank { font-size: 10px; font-weight: 700; color: #F8D908; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .pillar-name { font-size: 13px; font-weight: 700; color: #f3f4ff; margin-bottom: 4px; }
+  .pillar-desc { font-size: 11px; color: #b0b1b6; }
+  .pillar-alloc { font-size: 18px; font-weight: 800; color: #F8D908; margin-top: 8px; }
+
+  /* Format bars */
+  .format-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .format-label { font-size: 12px; color: #b0b1b6; width: 160px; flex-shrink: 0; }
+  .format-track { flex: 1; background: #1a1c2e; border-radius: 4px; height: 8px; overflow: hidden; }
+  .format-fill { height: 100%; border-radius: 4px; background: #F8D908; }
+  .format-val { font-size: 12px; color: #545560; width: 36px; text-align: right; }
+
+  /* Testing matrix */
+  .matrix-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .matrix-table th { background: #0c0c16; color: #545560; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 1px solid #282932; }
+  .matrix-table td { padding: 10px 12px; border-bottom: 1px solid #1a1c2e; vertical-align: top; color: #b0b1b6; }
+
+  /* Priority timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 1px; background: #282932; }
+  .timeline-item { position: relative; margin-bottom: 20px; }
+  .timeline-dot { position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; }
+  .timeline-dot.now { background: #F8D908; }
+  .timeline-dot.m1 { background: #f59e0b; }
+  .timeline-dot.m2 { background: #4d65ff; }
+  .timeline-dot.m3 { background: #10b981; }
+  .timeline-when { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #545560; margin-bottom: 3px; }
+  .timeline-action { font-size: 13px; font-weight: 600; color: #f3f4ff; }
+  .timeline-detail { font-size: 12px; color: #b0b1b6; margin-top: 2px; }
+
+  /* Callouts */
+  .callout-yellow { background: rgba(248,217,8,0.06); border: 1px solid rgba(248,217,8,0.2); border-left: 4px solid #F8D908; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #f3f4ff; }
+  .callout { background: #0b0d17; border: 1px solid #282932; border-left: 4px solid #F8D908; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #b0b1b6; }
+  .callout-red { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px 18px; margin: 20px 0; font-size: 13px; color: #b0b1b6; }
+
+  /* Sign-off box */
+  .signoff { background: #0b0d17; border: 2px solid rgba(16,185,129,0.3); border-radius: 12px; padding: 24px 28px; margin-top: 32px; }
+  .signoff h3 { color: #10b981; margin-bottom: 12px; }
+  .signoff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .signoff-item .label { font-size: 10px; text-transform: uppercase; color: #545560; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .signoff-item .value { font-size: 13px; color: #f3f4ff; font-weight: 600; }
+
+  .footer { text-align: center; padding: 32px; color: #545560; font-size: 12px; border-top: 1px solid #282932; margin-top: 40px; }
+  .footer strong { color: #F8D908; }
+
+  @media (max-width: 768px) {
+    .decision-grid, .avatar-grid, .pillar-grid { grid-template-columns: 1fr; }
+    .signoff-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div style="color:#F9D900;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Step 5 — Strategic Decisions</div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+    <a href="/47-skin-brand-intelligence/" style="display:inline-block;margin-top:20px;color:#8A8B93;font-size:12px;text-decoration:none;">← Back to brand intelligence hub</a>
+  </div>
+</div>
+<div id="ap-topbar" style="display:none;position:sticky;top:0;z-index:100;background:#040735;border-bottom:1px solid #0e1358;padding:10px 20px;font-family:Inter,'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;font-size:12px;">
+    <a href="/47-skin-brand-intelligence/" style="color:#F9D900;text-decoration:none;font-weight:600;">← Brand Intelligence Hub</a>
+    <span style="color:#8A8B93;">·</span>
+    <span style="color:#B0B1B6;">Step 5 — Strategic Decisions</span>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-step-5-strategic-decisions";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var t=document.getElementById('ap-topbar');if(t)t.style.display='block';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+
+
+<!-- HEADER -->
+<div class="header">
+  <svg width="40" height="40" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0)">
+      <path d="M45.32 0.58C45.83 0.94 45.77 1.47 45.77 1.98C45.77 10.63 45.67 19.29 45.82 27.94C45.87 31.33 45.7 34.75 46.3 38.12C46.49 39.21 46 39.7 44.85 39.73C43.81 39.75 42.77 39.74 41.74 39.73C40.25 39.73 40.1 39.63 39.66 38.3C39.61 38.16 39.57 38.02 39.54 37.9C39.21 37.85 39.1 38.07 38.96 38.21C37.47 39.68 35.62 40.24 33.53 40.3C31.34 40.37 29.3 40.04 27.51 38.7C25.39 37.12 24.47 34.88 24.04 32.37C23.39 28.57 23.55 24.79 24.83 21.12C26.18 17.26 29.02 15.27 33.02 15.14C35.1 15.07 36.93 15.59 38.46 17.04C38.64 17.21 38.77 17.56 39.15 17.39C39.15 12.3 39.15 7.2 39.15 2.1C39.15 1.56 39.09 0.99 39.55 0.58C41.47 0.58 43.4 0.58 45.32 0.58Z" fill="white"/>
+      <path d="M17.95 15.36C18.82 15.36 19.68 15.39 20.55 15.36C21.84 15.3 22.31 15.77 22.26 17.04C22.17 19.24 22.24 21.44 22.23 23.64C22.23 24.14 22.38 24.74 21.73 25.11C19.56 25.11 17.39 25.11 15.22 25.11C14.78 24.68 14.84 24.14 14.84 23.63C14.84 21.43 14.93 19.22 14.8 17.02C14.73 15.75 15.24 15.29 16.49 15.36C16.98 15.39 17.46 15.36 17.95 15.36Z" fill="white"/>
+      <path d="M0.59 28.2C1.12 27.68 1.8 27.79 2.44 27.79C5.66 27.79 8.88 27.79 12.1 27.79C14.1 27.79 14.84 28.53 14.84 30.54C14.84 33.73 14.84 36.92 14.84 40.11C14.84 40.54 14.92 41.01 14.41 41.32C9.76 41.32 5.11 41.32 0.47 41.32C0.59 36.95 0.59 32.57 0.59 28.2Z" fill="white"/>
+      <path d="M14.84 30.54C14.84 28.53 14.1 27.79 12.1 27.79C8.88 27.79 5.66 27.79 2.44 27.79C1.8 27.79 1.12 27.68 0.59 28.2C0.59 23.83 0.59 19.46 0.59 15.09C0.59 15.09 0.75 15.06 0.83 15.09C4.26 15.55 7.71 15.27 11.14 15.36C13.67 15.43 14.84 16.73 14.84 19.28C14.84 23.03 14.84 26.79 14.84 30.54Z" fill="#F8D908"/>
+    </g>
+    <defs><clipPath id="clip0"><rect width="80.17" height="80.17" fill="white" transform="translate(0.47 0.58)"/></clipPath></defs>
+  </svg>
+  <div class="header-text">
+    <div class="brand-badge">Step 5 of 8 — Strategic Decisions</div>
+    <h1>47 Skin — Creative Strategy Contract</h1>
+    <p>AdPros Brand Intelligence Pipeline &nbsp;·&nbsp; Locked March 2026 &nbsp;·&nbsp; Governs Steps 6–8</p>
+  </div>
+</div>
+
+<!-- STEP NAV -->
+<div class="step-nav">
+  <span class="step-pill step-done">✓ 1. Brand Intake</span>
+  <span class="step-pill step-done">✓ 2. Market Research</span>
+  <span class="step-pill step-done">✓ 3. Competitor Intel</span>
+  <span class="step-pill step-done">✓ 4. Assessment</span>
+  <span class="step-pill step-active">● 5. Strategic Decisions</span>
+  <span class="step-pill step-pending">6. Creative Strategy</span>
+  <span class="step-pill step-pending">7. Brief Builder</span>
+  <span class="step-pill step-pending">8. Creative Gen</span>
+</div>
+
+<div class="container">
+
+  <!-- CONTRACT BANNER -->
+  <div class="contract-banner">
+    <h2 style="color:#F8D908;">The Creative Contract — Locked</h2>
+    <p>This document governs all creative production for the 47 Skin US paid media programme. Every brief in Steps 6–7 and every asset in Step 8 follows from decisions made here. To change direction, update this document first.</p>
+    <div class="contract-meta">
+      <div class="contract-meta-item"><strong>Approved by:</strong> Adrienne (Ad Pros)</div>
+      <div class="contract-meta-item"><strong>Date:</strong> March 2026</div>
+      <div class="contract-meta-item"><strong>Cycle:</strong> 90 Days (Q1–Q2 2026)</div>
+      <div class="contract-meta-item"><strong>Spend target:</strong> $60–80K → $300K/month</div>
+      <div class="contract-meta-item"><strong>Revenue target:</strong> $1.9M / 12 months</div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="callout-yellow">
+    <strong>Strategy in One Paragraph:</strong> 47 Skin will win the US market by owning the segment zero competitor is targeting: the frustrated mom (30–50) who has been dealing with blemishes for years and has a teenager facing the same struggle. The creative playbook is silver science + real skin + no filters. The acquisition path is Trial $25 (lowest friction, high-value entry point) → email upsell to 3-Step System. The first 30 days are infrastructure — Triple Whale, quiz funnel, and the first 10 UGC testimonials. The following 60 days are scale — 20–30 new concepts per month, retargeting isolation, and subscription creative to close the LTV gap.
+  </div>
+
+  <!-- DECISION 1: PRODUCT FOCUS -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 1</div>
+        <div class="decision-title">Product Focus & Offer Strategy</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <table class="offer-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Funnel Role</th>
+            <th>Audience</th>
+            <th>Spend Allocation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hero-row">
+            <td><span class="badge badge-yellow">HERO</span></td>
+            <td><strong style="color:#f3f4ff;">Trial Size Serum 15ml</strong></td>
+            <td><strong style="color:#F8D908;">$25</strong></td>
+            <td>Cold acquisition — sole entry point</td>
+            <td>All cold prospecting</td>
+            <td><strong style="color:#F8D908;">80% of cold spend</strong></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">2</span></td>
+            <td>3-Step Moisture System</td>
+            <td>$119</td>
+            <td>Warm upsell / retargeting</td>
+            <td>Trial buyers + engaged visitors</td>
+            <td>Retargeting only</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-gray">3</span></td>
+            <td>Anti-Blemish Serum 30ml</td>
+            <td>$45</td>
+            <td>Mid-funnel direct consideration</td>
+            <td>Warm MOF audience</td>
+            <td>Secondary retargeting</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="decision-grid" style="margin-top:16px;">
+        <div class="decision-item">
+          <div class="label">Pricing Strategy</div>
+          <div class="value">Full price — no cold discounting</div>
+          <div class="sub">47-day MBG is the risk reversal, not a discount. Price integrity protected.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Risk Reversal Featured</div>
+          <div class="value">47-Day Money-Back Guarantee</div>
+          <div class="sub">Prominently featured in Trial ads, landing pages, and email sequences. Headline hook tested first.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Incentive Ladder</div>
+          <div class="value">$15 / $65 / $130 / $200 thresholds</div>
+          <div class="sub">Surfaced in LP header and ad copy to drive AOV above $76 current baseline.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Subscription Goal</div>
+          <div class="value">Drive Trial → 3-Step autoship</div>
+          <div class="sub">14% recurring discount + day-10 email upsell sequence. Target: 20%+ of Trial buyers to System.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 2: AVATARS -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 2</div>
+        <div class="decision-title">Target Avatar Prioritization</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <div class="avatar-grid">
+        <div class="avatar-card primary">
+          <div class="avatar-role">Primary Avatar — 70% Creative Focus</div>
+          <div class="avatar-name">The Frustrated Mom</div>
+          <div class="avatar-desc">Age 30–50. Has been dealing with blemishes since her teens. Watches her teenager go through the same struggle. Has tried OTC salicylic acid, CeraVe, Proactiv. Nothing has fully worked. Wants something clean that actually works — for both of them. Doesn't trust filters. Values real results over beautiful packaging.</div>
+          <div class="avatar-alloc">70%</div>
+          <div class="avatar-alloc-label">of creative production this cycle</div>
+        </div>
+        <div class="avatar-card">
+          <div class="avatar-role">Secondary Avatar — 25% Focus</div>
+          <div class="avatar-name">The Skeptical Professional</div>
+          <div class="avatar-desc">Age 25–40. Adult breakouts affecting professional confidence. Frustrated with OTC solutions. Responds to clinical evidence and ingredient science. More rational decision-making. Will research before buying.</div>
+          <div class="avatar-alloc" style="color:#b0b1b6;font-size:18px;">25%</div>
+          <div class="avatar-alloc-label">secondary creative focus</div>
+        </div>
+        <div class="avatar-card parked">
+          <div class="avatar-role">Parked — Revisit Month 3</div>
+          <div class="avatar-name">Health-Aware Millennial</div>
+          <div class="avatar-desc">Age 22–35. Clean beauty focus. Sustainability-driven. Responds to ingredient transparency. Strong potential long-term — parked this cycle to maintain focus.</div>
+          <div class="avatar-alloc" style="color:#545560;font-size:16px;">Parked</div>
+          <div class="avatar-alloc-label">revisit at 90-day review</div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:16px;">
+        <strong>White Space Rationale:</strong> The Frustrated Mom is the only avatar in the blemish skincare category that zero direct competitors are targeting with dedicated creative. Hero Cosmetics targets Gen Z. Proactiv targets broad adults with celebrities. Curology targets individual clinical sufferers. The Mom-to-Mom angle — especially the dual narrative of mom + teen clearing together — is both unoccupied and directly mapped to 47 Skin's real customer buying pattern.
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 3: FUNNEL -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 3</div>
+        <div class="decision-title">Funnel Stage Focus</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="label">TOF — Top of Funnel</div>
+          <div class="value">Primary build priority</div>
+          <div class="sub">Mom testimonial UGC, silver science hooks, 47-day MBG headline. Destination: US quiz funnel (not PDP). Entry: Trial $25.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">MOF — Middle of Funnel</div>
+          <div class="value">Founder story + ingredient education</div>
+          <div class="sub">Retargeting to site visitors, video viewers, add-to-carts. Isolated from prospecting. 3-step system upsell creative.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">BOF — Bottom of Funnel</div>
+          <div class="value">Subscription creative (build Month 2)</div>
+          <div class="sub">Trial buyers at day 10: 3-Step System autoship offer. Price-per-day anchor. Day-7 urgency email.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Evergreen / Promo Split</div>
+          <div class="value">60% Evergreen / 40% Promotional</div>
+          <div class="sub">Evergreen: transformation testimonials, silver science, founder story. Promo: Mother's Day (May), Summer teen prep (Jun-Aug).</div>
+        </div>
+      </div>
+      <div style="margin-top:16px; padding:14px 16px; background:#0c0c16; border:1px solid rgba(239,68,68,0.2); border-radius:8px;">
+        <div style="font-size:11px; font-weight:700; color:#ef4444; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">Infrastructure Fix — Before Any Spend Scaling</div>
+        <div style="font-size:13px; color:#f3f4ff; font-weight:600;">US Quiz Funnel Must Go Live Before $300K/Month Spend Target</div>
+        <div style="font-size:12px; color:#b0b1b6; margin-top:4px;">UK "Find Out What Your Skin Is Telling You" quiz to be localized for US market. Routes to Trial / 2-Step / 3-Step based on skin type and severity. No scaling of cold spend into PDP-only destination.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 4: CREATIVE DIRECTION -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 4</div>
+        <div class="decision-title">Creative Direction — Angles, Pillars, Formats, Platforms</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+
+      <div class="primary-decision">
+        <div class="label">Primary Creative Angle</div>
+        <div class="value">"Real people. Real skin. Silver science that works — when nothing else has."</div>
+        <div class="rationale">Combines the emotional trigger (authenticity, dignity) with the rational differentiator (silver science). No competitor is running this combination. Speaks directly to the Frustrated Mom who has tried and failed with standard products.</div>
+      </div>
+
+      <h3 style="margin-top:18px; margin-bottom:12px;">Content Pillars</h3>
+      <div class="pillar-grid">
+        <div class="pillar-card">
+          <div class="pillar-rank">Pillar 1 — Primary (40%)</div>
+          <div class="pillar-name">Real Transformations</div>
+          <div class="pillar-desc">Before/after testimonials from real customers. No filters. No scripts. Mom-to-mom raw video. The "finally" moment. Skin confidence stories.</div>
+          <div class="pillar-alloc">40%</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-rank">Pillar 2 — Primary (30%)</div>
+          <div class="pillar-name">Silver Science</div>
+          <div class="pillar-desc">Silver Chitoderm ingredient education. Why it works differently from salicylic acid and benzoyl peroxide. Clinical study references. Antimicrobial mechanism. No resistance buildup.</div>
+          <div class="pillar-alloc">30%</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-rank">Pillar 3 — Secondary (20%)</div>
+          <div class="pillar-name">Brand Story</div>
+          <div class="pillar-desc">Nic Taylor's grandmother's cream. UK heritage. Founder's own skin transformation. The origin of 47-day MBG. Real company, real people behind it.</div>
+          <div class="pillar-alloc">20%</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-rank">Pillar 4 — Testing (10%)</div>
+          <div class="pillar-name">Risk Reversal</div>
+          <div class="pillar-desc">47-day money-back guarantee as primary hook. Direct response: "Try it risk-free for 47 days." Used for cold acquisition and retargeting of hesitant visitors.</div>
+          <div class="pillar-alloc">10%</div>
+        </div>
+        <div class="pillar-card" style="border-color: rgba(248,217,8,0.1);">
+          <div class="pillar-rank" style="color:#545560;">Parked Pillar</div>
+          <div class="pillar-name" style="color:#545560;">Mom + Teen Dual Story</div>
+          <div class="pillar-desc" style="color:#545560;">High-confidence white space play. Requires real mom + teen together on camera. Planned for Month 2 when UGC programme is established.</div>
+          <div class="pillar-alloc" style="color:#545560;font-size:14px;">Month 2</div>
+        </div>
+        <div class="pillar-card" style="border-color: rgba(248,217,8,0.1);">
+          <div class="pillar-rank" style="color:#545560;">Parked Pillar</div>
+          <div class="pillar-name" style="color:#545560;">Subscription System</div>
+          <div class="pillar-desc" style="color:#545560;">BOF-specific creative for autoship conversion. Price-per-day calculation. Day-by-day progress timeline. Build once email sequence is confirmed.</div>
+          <div class="pillar-alloc" style="color:#545560;font-size:14px;">Month 2</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:22px; margin-bottom:12px;">Format Priorities — Month 1</h3>
+      <div class="format-row"><span class="format-label">UGC Video (30–60s, 9:16)</span><div class="format-track"><div class="format-fill" style="width:45%;"></div></div><span class="format-val">45%</span></div>
+      <div class="format-row"><span class="format-label">Static Image (1:1)</span><div class="format-track"><div class="format-fill" style="width:35%;"></div></div><span class="format-val">35%</span></div>
+      <div class="format-row"><span class="format-label">Educational Carousel</span><div class="format-track"><div class="format-fill" style="width:12%;"></div></div><span class="format-val">12%</span></div>
+      <div class="format-row"><span class="format-label">Branded Video (founder)</span><div class="format-track"><div class="format-fill" style="width:8%;"></div></div><span class="format-val">8%</span></div>
+
+      <h3 style="margin-top:22px; margin-bottom:12px;">Platform Priorities</h3>
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="label">Lead Platform — Meta</div>
+          <div class="value">Facebook &amp; Instagram (60% of budget)</div>
+          <div class="sub">Primary acquisition engine. UGC video as lead format. Image ads as secondary. Retargeting isolated. NC ROAS as primary optimization signal.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Secondary — TikTok GMV Max</div>
+          <div class="value">TikTok (10% of budget)</div>
+          <div class="sub">Silver ingredient story proved on TikTok. Scale the winning angle. GMV Max auto-optimization maintained. Add UGC video once programme launches.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Secondary — Google</div>
+          <div class="value">Search + DemandGen/YouTube (30%)</div>
+          <div class="sub">Search: intent capture for "blemish serum," "silver skincare." DemandGen: video scale channel once UGC assets are ready.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Aspirational Platforms</div>
+          <div class="value">Reddit / X / Snapchat / Axon</div>
+          <div class="sub">Parked until Month 3. Evaluate based on 90-day Meta + TikTok performance data before expanding platform mix.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 5: GOALS & KPIs -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 5</div>
+        <div class="decision-title">Goals, KPIs &amp; Testing Volume</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="label">North Star Metric</div>
+          <div class="value">NC ROAS (New Customer ROAS)</div>
+          <div class="sub">Measured via Triple Whale (once configured). Not Meta self-reported. All budget decisions reference this number.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Secondary KPIs</div>
+          <div class="value">CAC · NC Orders · NC AOV · CPM/CPC</div>
+          <div class="sub">Reviewed weekly. CAC target to be set after Triple Whale reconciliation. NC AOV target: $90+ (up from $76 baseline).</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">90-Day Revenue Target</div>
+          <div class="value">$300K/month US revenue</div>
+          <div class="sub">From current $60–80K/month. Requires funnel + creative infrastructure to be live. Do not scale spend without both.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">12-Month Revenue Target</div>
+          <div class="value">$1.9M/month US revenue</div>
+          <div class="sub">Uncapped if performance is achieved. Sephora US launch (if within 12 months) factors into this target and changes the strategy.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Testing Volume</div>
+          <div class="value">20–30 new concepts per month</div>
+          <div class="sub">Standard cadence. 4–6 new concepts per week. Kill non-performers at 72h. Scale winners at day 5. 10 iteration ads per month on proven performers.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Reporting Cadence</div>
+          <div class="value">Weekly + Monthly</div>
+          <div class="sub">Weekly: NC ROAS, CAC, NC orders, CPM trend. Monthly: Full P&amp;L attribution, creative performance ranking, email contribution. Quarterly: Full re-assessment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 6: SCORECARD ACTIONS -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 6</div>
+        <div class="decision-title">Scorecard Actions — This Cycle vs. Parked</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <h3 style="margin-bottom:12px;">90-Day Priority Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot now"></div>
+          <div class="timeline-when">Week 1 — Day 1 Priority</div>
+          <div class="timeline-action">Complete Triple Whale Attribution Setup</div>
+          <div class="timeline-detail">Resolve the 10x ROAS discrepancy. Set NC ROAS baseline. All budget decisions held until this is confirmed accurate.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot now"></div>
+          <div class="timeline-when">Week 1–2</div>
+          <div class="timeline-action">Brief 10 Mom Customers for UGC Testimonials</div>
+          <div class="timeline-detail">Raw 30–60s videos. Prompt: "Before and after — what was your skin like, and what is it like now?" No script. Ship to editing within 7 days.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot m1"></div>
+          <div class="timeline-when">Month 1 — Funnel Fix</div>
+          <div class="timeline-action">Build US Quiz Funnel (Replicate UK Version)</div>
+          <div class="timeline-detail">Localize "Find Out What Your Skin Is Telling You" for US. Route: Trial / 2-Step / 3-Step by skin type. No UK redirects for US traffic.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot m1"></div>
+          <div class="timeline-when">Month 1 — Creative Quick Wins</div>
+          <div class="timeline-action">Test 47-Day MBG as Headline Hook + Silver Science Video</div>
+          <div class="timeline-detail">Two zero-cost tests. MBG headline on current best image. Silver science 30s video for MOF retargeting. Both can be live in week 2.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot m2"></div>
+          <div class="timeline-when">Month 2</div>
+          <div class="timeline-action">Email Sequence Build + Subscription Creative</div>
+          <div class="timeline-detail">Confirm email platform. Build 7-email Trial upsell sequence (day 10 hard upsell to System). Build BOF subscription creative. Target: 20% Trial → System conversion.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot m2"></div>
+          <div class="timeline-when">Month 2</div>
+          <div class="timeline-action">Retargeting Isolation + Account Structure Audit</div>
+          <div class="timeline-detail">Separate cold and warm audiences. Define scaling/kill rules. Clean account structure before increasing budget above $150K/month.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot m3"></div>
+          <div class="timeline-when">Month 3</div>
+          <div class="timeline-action">Mom + Teen Dual Transformation Film + Scale</div>
+          <div class="timeline-detail">Film real mom + teen transformation documentary. Scale winning creative from months 1–2 to $300K/month spend. Evaluate aspirational platforms (Reddit, Snapchat).</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <h3 style="margin-bottom:10px;">Explicitly Parked This Cycle</h3>
+        <div class="decision-grid">
+          <div class="decision-item">
+            <div class="label">Parked — Revisit Month 3</div>
+            <div class="value">Reddit / X / Snapchat / Axon</div>
+            <div class="sub">Aspirational platforms. Not enough creative volume or attribution data to test these responsibly before Month 3.</div>
+          </div>
+          <div class="decision-item">
+            <div class="label">Parked — Revisit Month 3</div>
+            <div class="value">Health-Aware Millennial Avatar</div>
+            <div class="sub">Valid segment but third priority. Creative production capacity reserved for Mom (70%) and Professional (25%) this cycle.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 7: MARKETING CALENDAR -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 7</div>
+        <div class="decision-title">Marketing Calendar — Seasonal &amp; Promotional Alignment</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="label">Now — April 2026</div>
+          <div class="value">Evergreen Foundation Build</div>
+          <div class="sub">No promotional offers. Focus: UGC programme, quiz funnel launch, Triple Whale setup. All ad spend to Trial $25 full price.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">May 2026 — Mother's Day</div>
+          <div class="value">Mom-to-Mom Campaign Launch</div>
+          <div class="sub">First major promotional moment. "Give yourself clear skin this Mother's Day." Bundle offer or free gift at Trial. Creative deadline: April 20.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">June–August 2026</div>
+          <div class="value">Teen Back-to-School Skin Prep</div>
+          <div class="sub">Dual avatar campaign: Mom + Teen. "Start school with clear skin." Heavy TikTok push for teen angle. Mom testimonial angle on Meta.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Q4 2026</div>
+          <div class="value">Holiday Bundle Campaign</div>
+          <div class="sub">3-Step System as gifting offer. "Give the gift of clear skin." Sephora US launch timing to be factored in if confirmed within window.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 8: COMPLIANCE -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 8</div>
+        <div class="decision-title">Compliance &amp; Legal Guardrails</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="label">Risk Tolerance</div>
+          <div class="value">Moderate</div>
+          <div class="sub">Push the testimonial and transformation angle hard. Stay within cosmetic (not drug) framing at all times.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">FDA Classification</div>
+          <div class="value">Cosmetic — not drug</div>
+          <div class="sub">All claims must be cosmetic: "blemish" not "acne treatment." "Supports clearer-looking skin" not "clears acne." No drug efficacy claims.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Vocabulary — Use</div>
+          <div class="value">Blemish · Breakout · Clearer-looking skin · Repair · Silver Chitoderm · Clinically tested · Transformation</div>
+          <div class="sub">All approved vocabulary from brand DNA. Use these terms in all ad copy and landing pages.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Vocabulary — Avoid</div>
+          <div class="value">Cure acne · Eliminates acne · Acne treatment · 100% guaranteed · Pharmaceutical claims</div>
+          <div class="sub">These terms trigger drug claim classification. Never use in ads, LPs, or testimonials without disclaimer.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Testimonial Disclaimers</div>
+          <div class="value">Required on all before/after content</div>
+          <div class="sub">"Results may vary. Individual results not guaranteed." FTC-compliant testimonial disclosures on all UGC and before/after ad formats.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">MBG Terms</div>
+          <div class="value">47-day money-back — terms required</div>
+          <div class="sub">Link to MBG terms on all guarantee-featuring ads and landing pages. Ensure Shopify returns flow is documented and operational.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION 9: TESTING MATRIX -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 9</div>
+        <div class="decision-title">Testing Matrix &amp; Creative Iteration Strategy</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="label">New Concepts / Month</div>
+          <div class="value">20–30 (standard cadence)</div>
+          <div class="sub">4–6 new concepts per week. Systematic — not random. Each concept tests one variable at a time.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Iteration Ads / Month</div>
+          <div class="value">10 iterations on winners</div>
+          <div class="sub">Top 3 performers get 3–4 variations each: hook change, CTA change, avatar-specific copy. Fast iteration beats starting over.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Kill Rule</div>
+          <div class="value">72h — CAC at 2x target</div>
+          <div class="sub">Any ad exceeding 2x target CAC at 72 hours is paused. No emotional attachment to creative decisions.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Scale Rule</div>
+          <div class="value">Day 5 — CAC at 0.8x target</div>
+          <div class="sub">Any ad achieving 0.8x target CAC at day 5 gets 20% budget increase per 48h until CAC degrades. Document the ceiling.</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:18px; margin-bottom:12px;">Month 1 Testing Matrix — 20 Concepts</h3>
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Batch</th>
+            <th>Concept Count</th>
+            <th>Avatar</th>
+            <th>Format</th>
+            <th>Angle / Pillar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-yellow">Batch 1</span></td>
+            <td>8 concepts</td>
+            <td>Mom (primary)</td>
+            <td>UGC video 30–60s</td>
+            <td>Real transformation testimonial — "before &amp; after, no script"</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-yellow">Batch 2</span></td>
+            <td>5 concepts</td>
+            <td>Mom + Professional</td>
+            <td>Static image 1:1</td>
+            <td>47-day MBG as headline hook — test 3 headline variants</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">Batch 3</span></td>
+            <td>4 concepts</td>
+            <td>Professional (secondary)</td>
+            <td>Educational video 30s</td>
+            <td>Silver science education — "why it works differently"</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">Batch 4</span></td>
+            <td>3 concepts</td>
+            <td>Mom (warm retargeting)</td>
+            <td>Branded video 45–60s</td>
+            <td>Founder story — origin of silver skincare (MOF only)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DECISION 10: CONSTRAINTS -->
+  <div class="decision-block">
+    <div class="decision-header">
+      <div>
+        <div class="decision-num">Decision Area 10</div>
+        <div class="decision-title">Constraints &amp; Enablers</div>
+      </div>
+      <span class="locked-badge">✓ Locked</span>
+    </div>
+    <div class="decision-body">
+      <div class="decision-grid">
+        <div class="decision-item">
+          <div class="label">Media Budget</div>
+          <div class="value">$60–80K/month current</div>
+          <div class="sub">Scaling to $300K/month contingent on: Triple Whale confirmed, quiz funnel live, 5+ UGC video variants in market. Do not scale before all three.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Creative Production</div>
+          <div class="value">UGC-first (near-zero cost)</div>
+          <div class="sub">Month 1: UGC from existing customers. Month 2: Small production budget for founder story and Mom+Teen film. No agency production budget assumed.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Team</div>
+          <div class="value">Ad Pros (strategy + media) + Laura's team (creative + brand assets)</div>
+          <div class="sub">Brand guidelines and creative assets to be shared by Laura's team via Google Drive. UGC outreach coordinated by 47 Skin's team.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Tools Available</div>
+          <div class="value">Meta, TikTok GMV Max, Google, Triple Whale (onboarding), Shopify</div>
+          <div class="sub">Email platform TBD — highest priority outstanding data gap. All creative tested in Meta before repurposing to Google DemandGen/YouTube.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Key Risk #1</div>
+          <div class="value">Scaling spend before infrastructure is live</div>
+          <div class="sub">Mitigation: Triple Whale and quiz funnel as hard prerequisites for any spend above $150K/month. Adrienne holds sign-off on spend increase approvals.</div>
+        </div>
+        <div class="decision-item">
+          <div class="label">Key Risk #2</div>
+          <div class="value">Sephora US timeline changes strategy</div>
+          <div class="sub">Mitigation: Confirm Sephora timeline from Nic/Laura within 30 days. If launch within 12 months, brand positioning and landing page strategy must be revised for retail-ready messaging.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGN-OFF -->
+  <div class="signoff">
+    <h3>Contract Approval &amp; Sign-Off</h3>
+    <div class="signoff-grid">
+      <div class="signoff-item"><div class="label">Approved By</div><div class="value">Adrienne — Ad Pros</div></div>
+      <div class="signoff-item"><div class="label">Date Locked</div><div class="value">March 2026</div></div>
+      <div class="signoff-item"><div class="label">Cycle Duration</div><div class="value">90 days (Q1–Q2 2026)</div></div>
+      <div class="signoff-item"><div class="label">Re-Assessment Date</div><div class="value">June 2026</div></div>
+      <div class="signoff-item"><div class="label">Primary Avatar</div><div class="value">Frustrated Mom (30–50) — 70% creative focus</div></div>
+      <div class="signoff-item"><div class="label">Hero Offer (Cold)</div><div class="value">Trial $25 exclusively — 80% of cold spend</div></div>
+      <div class="signoff-item"><div class="label">Lead Creative Format</div><div class="value">UGC Video (9:16) — 45% of production</div></div>
+      <div class="signoff-item"><div class="label">Testing Volume</div><div class="value">20–30 new concepts/month (standard cadence)</div></div>
+      <div class="signoff-item"><div class="label">Day 1 Action</div><div class="value">Complete Triple Whale setup — resolve ROAS discrepancy</div></div>
+      <div class="signoff-item"><div class="label">Month 1 Build</div><div class="value">Quiz funnel + UGC programme + MBG headline test</div></div>
+    </div>
+  </div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  <strong>Ad Pros</strong> &nbsp;·&nbsp; Step 5: Strategic Decisions &nbsp;·&nbsp; 47 Skin &nbsp;·&nbsp; March 2026<br>
+  <span style="font-size:11px;">10 decision areas locked &nbsp;·&nbsp; Creative contract governing Steps 6–8</span>
+</div>
+
+
+</div>
+</body>
+</html>

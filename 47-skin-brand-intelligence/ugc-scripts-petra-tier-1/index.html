@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>47 Skin — UGC Creator Scripts | Protective Parent Petra | Tier 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #000212;
+      color: #b0b1b6;
+      line-height: 1.6;
+      padding: 40px;
+    }
+    .container { max-width: 1060px; margin: 0 auto; }
+
+    /* HEADER */
+    .header { display: flex; align-items: flex-start; gap: 20px; padding-bottom: 28px; margin-bottom: 36px; border-bottom: 1px solid #282932; }
+    .header h1 { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .header .meta { font-size: 13px; color: #545560; margin-bottom: 10px; }
+    .badge { display: inline-block; padding: 3px 11px; border-radius: 50px; font-size: 11px; font-weight: 700; margin-right: 6px; }
+    .badge-yellow { background: #F8D908; color: #000212; }
+    .badge-outline { border: 1px solid #282932; color: #b0b1b6; }
+
+    /* CREATOR GUIDANCE BOX */
+    .guidance-box {
+      background: #0a1628; border: 1px solid #1a3d5c; border-left: 4px solid #4A9EFF;
+      border-radius: 10px; padding: 18px 22px; margin-bottom: 36px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;
+    }
+    .guidance-col h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #4A9EFF; margin-bottom: 8px; }
+    .guidance-col ul { list-style: none; }
+    .guidance-col ul li { font-size: 12px; color: #b0b1b6; padding: 3px 0; padding-left: 14px; position: relative; }
+    .guidance-col ul li::before { content: '·'; position: absolute; left: 0; color: #4A9EFF; }
+
+    /* SCRIPT BLOCK */
+    .script-block { margin-bottom: 48px; }
+    .script-header {
+      background: #090b18; border: 1px solid #282932; border-radius: 12px 12px 0 0;
+      padding: 16px 22px; border-bottom: 1px solid #1e1f2e;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    }
+    .script-header-left {}
+    .angle-ref { font-size: 11px; font-weight: 700; color: #545560; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .script-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .script-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .meta-pill {
+      font-size: 11px; padding: 2px 10px; border-radius: 50px;
+      border: 1px solid #282932; color: #b0b1b6;
+    }
+    .score-badge { font-size: 13px; font-weight: 800; color: #F8D908; background: #1a1600; border: 1px solid #F8D908; padding: 4px 12px; border-radius: 50px; white-space: nowrap; }
+
+    /* SCRIPT BODY */
+    .script-body { background: #090b18; border: 1px solid #282932; border-top: none; border-radius: 0 0 12px 12px; padding: 0; overflow: hidden; }
+
+    /* HOOK SECTION */
+    .hook-section {
+      background: #0f101e; border-bottom: 1px solid #282932; padding: 16px 22px;
+    }
+    .section-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .tag-hook { color: #f59e0b; }
+    .tag-script { color: #60a5fa; }
+    .tag-direction { color: #a78bfa; }
+    .tag-cta { color: #4ade80; }
+    .tag-compliance { color: #f87171; }
+    .tag-variation { color: #fb923c; }
+    .hook-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; font-weight: 500; color: #fff;
+      background: #000212; border-left: 3px solid #f59e0b;
+      padding: 12px 16px; border-radius: 0 6px 6px 0;
+      line-height: 1.6;
+    }
+    .timing { font-size: 10px; color: #545560; margin-top: 6px; }
+
+    /* SCRIPT TEXT */
+    .script-section { padding: 16px 22px; border-bottom: 1px solid #1e1f2e; }
+    .script-section:last-child { border-bottom: none; }
+    .script-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; color: #d1d5db;
+      background: #070919; border: 1px solid #1e1f2e; border-radius: 6px;
+      padding: 14px 16px; line-height: 1.8; white-space: pre-wrap;
+    }
+    .stage-direction { color: #a78bfa; font-style: italic; }
+
+    /* DIRECTION NOTES */
+    .direction-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .direction-card { background: #0a0b1a; border: 1px solid #1e1f2e; border-radius: 8px; padding: 12px 14px; }
+    .direction-card h5 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #a78bfa; margin-bottom: 6px; }
+    .direction-card p, .direction-card ul { font-size: 12px; color: #b0b1b6; }
+    .direction-card ul { list-style: none; }
+    .direction-card ul li { padding: 2px 0 2px 14px; position: relative; }
+    .direction-card ul li::before { content: '→'; position: absolute; left: 0; color: #545560; font-size: 11px; }
+
+    /* COMPLIANCE */
+    .compliance-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .compliance-chip { font-size: 11px; padding: 3px 10px; border-radius: 50px; }
+    .chip-ok { background: #0a2e1a; color: #4ade80; border: 1px solid #4ade80; }
+    .chip-warn { background: #2e1a0a; color: #fb923c; border: 1px solid #fb923c; }
+    .chip-block { background: #2e0a0a; color: #f87171; border: 1px solid #f87171; }
+
+    /* HOOK VARIATION */
+    .variation-box { background: #0f0e1a; border: 1px solid #2e2040; border-radius: 8px; padding: 12px 14px; margin-top: 10px; }
+    .variation-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #fb923c; margin-bottom: 6px; }
+    .variation-text { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #d1d5db; line-height: 1.6; }
+
+    /* DIVIDER */
+    hr { border: none; border-top: 1px solid #14151f; margin: 8px 0; }
+
+    /* SCRIPT NAV */
+    .script-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 40px; }
+    .nav-card { background: #090b18; border: 1px solid #282932; border-radius: 8px; padding: 12px 14px; text-decoration: none; transition: border-color 0.15s; }
+    .nav-card:hover { border-color: #F8D908; }
+    .nav-card .nav-ref { font-size: 10px; color: #545560; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+    .nav-card .nav-hook { font-size: 12px; color: #b0b1b6; line-height: 1.4; }
+    .nav-card .nav-score { font-size: 13px; font-weight: 800; color: #F8D908; margin-top: 6px; }
+
+    /* FOOTER */
+    .footer { text-align: center; padding: 28px 0 12px; color: #545560; font-size: 11px; border-top: 1px solid #14151f; margin-top: 40px; }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div style="color:#F9D900;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">UGC Creator Scripts — Petra Tier 1</div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+    <a href="/47-skin-brand-intelligence/" style="display:inline-block;margin-top:20px;color:#8A8B93;font-size:12px;text-decoration:none;">← Back to brand intelligence hub</a>
+  </div>
+</div>
+<div id="ap-topbar" style="display:none;position:sticky;top:0;z-index:100;background:#040735;border-bottom:1px solid #0e1358;padding:10px 20px;font-family:Inter,'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;font-size:12px;">
+    <a href="/47-skin-brand-intelligence/" style="color:#F9D900;text-decoration:none;font-weight:600;">← Brand Intelligence Hub</a>
+    <span style="color:#8A8B93;">·</span>
+    <span style="color:#B0B1B6;">UGC Creator Scripts — Petra Tier 1</span>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-ugc-scripts-petra-tier-1";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var t=document.getElementById('ap-topbar');if(t)t.style.display='block';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <svg width="44" height="44" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#c0)">
+          <path d="M45.32 0.58C45.83 0.94 45.77 1.47 45.77 1.98C45.77 10.63 45.67 19.29 45.82 27.94C45.87 31.33 45.7 34.75 46.3 38.12C46.49 39.21 46 39.7 44.85 39.73C43.81 39.75 42.77 39.74 41.74 39.73C40.25 39.73 40.1 39.63 39.66 38.3C39.61 38.16 39.57 38.02 39.54 37.9C39.21 37.85 39.1 38.07 38.96 38.21C37.47 39.68 35.62 40.24 33.53 40.3C31.34 40.37 29.3 40.04 27.51 38.7C25.39 37.12 24.47 34.88 24.04 32.37C23.39 28.57 23.55 24.79 24.83 21.12C26.18 17.26 29.02 15.27 33.02 15.14C35.1 15.07 36.93 15.59 38.46 17.04C38.64 17.21 38.77 17.56 39.15 17.39C39.15 12.3 39.15 7.2 39.15 2.1C39.15 1.56 39.09 0.99 39.55 0.58C41.47 0.58 43.4 0.58 45.32 0.58Z" fill="white"/>
+          <path d="M17.95 15.36C18.82 15.36 19.68 15.39 20.55 15.36C21.84 15.3 22.31 15.77 22.26 17.04C22.17 19.24 22.24 21.44 22.23 23.64C22.23 24.14 22.38 24.74 21.73 25.11C19.56 25.11 17.39 25.11 15.22 25.11C14.78 24.68 14.84 24.14 14.84 23.63C14.84 21.43 14.93 19.22 14.8 17.02C14.73 15.75 15.24 15.29 16.49 15.36C16.98 15.39 17.46 15.36 17.95 15.36Z" fill="white"/>
+          <path d="M0.59 28.2C1.12 27.68 1.8 27.79 2.44 27.79C5.66 27.79 8.88 27.79 12.1 27.79C14.1 27.79 14.84 28.53 14.84 30.54C14.84 33.73 14.84 36.92 14.84 40.11C14.84 40.54 14.92 41.01 14.41 41.32C9.76 41.32 5.11 41.32 0.47 41.32C0.59 36.95 0.59 32.57 0.59 28.2Z" fill="white"/>
+          <path d="M14.84 30.54C14.84 28.53 14.1 27.79 12.1 27.79C8.88 27.79 5.66 27.79 2.44 27.79C1.8 27.79 1.12 27.68 0.59 28.2C0.59 23.83 0.59 19.46 0.59 15.09C0.59 15.09 0.75 15.06 0.83 15.09C4.26 15.55 7.71 15.27 11.14 15.36C13.67 15.43 14.84 16.73 14.84 19.28C14.84 23.03 14.84 26.79 14.84 30.54Z" fill="#F8D908"/>
+        </g>
+        <defs><clipPath id="c0"><rect width="80.17" height="80.17" fill="white" transform="translate(0.47 0.58)"/></clipPath></defs>
+      </svg>
+    </div>
+    <div>
+      <h1>47 Skin — UGC Creator Scripts</h1>
+      <div class="meta">Protective Parent Petra · Tier 1 Angles · US Meta + TikTok · March 2026</div>
+      <span class="badge badge-yellow">Ad Pros Brand Intelligence</span>
+      <span class="badge badge-outline">5 Scripts · Step 6 Tier 1</span>
+      <span class="badge badge-outline">30–45 sec</span>
+    </div>
+  </div>
+
+  <!-- CREATOR GUIDANCE -->
+  <div class="guidance-box">
+    <div class="guidance-col">
+      <h4>📋 How to use these scripts</h4>
+      <ul>
+        <li>Scripts are guides, not teleprompters</li>
+        <li>Speak naturally in your own voice</li>
+        <li>Improvise around the structure — ad-libs welcome</li>
+        <li>Slight stumbles = authenticity signal, keep them</li>
+        <li>Film multiple takes, deliver lines differently each time</li>
+      </ul>
+    </div>
+    <div class="guidance-col">
+      <h4>🎬 Production notes</h4>
+      <ul>
+        <li>Film at home — kitchen, bathroom or living room</li>
+        <li>Natural light preferred. No ring light required</li>
+        <li>Phone-held or propped is fine — no studio setup</li>
+        <li>Minimal make-up, casual clothes, real environment</li>
+        <li>Hold the 47 Skin serum bottle on camera at the close</li>
+        <li>Vertical 9:16 format (1080×1920px)</li>
+      </ul>
+    </div>
+    <div class="guidance-col">
+      <h4>⚠️ Compliance — must follow</h4>
+      <ul>
+        <li>Say "Silver Chitoderm®" — never just Silver or Chitoderm</li>
+        <li>Say "clinically proven to kill 100% of bacteria" — not just "kills bacteria"</li>
+        <li>Use: blemishes, spots, breakouts, bad skin — NOT "acne" as a brand claim</li>
+        <li>Meta: "scar repair" language is fine</li>
+        <li>TikTok: say "blemish marks" instead of "scar repair" — platform restriction</li>
+        <li>Do NOT say you were paid. Do NOT claim to cure a medical condition.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SCRIPT NAV -->
+  <div class="script-nav">
+    <a href="#s01" class="nav-card">
+      <div class="nav-ref">47SK-S6-01</div>
+      <div class="nav-hook">The Mom Who Finally Found It</div>
+      <div class="nav-score">8.85</div>
+    </a>
+    <a href="#s02" class="nav-card">
+      <div class="nav-ref">47SK-S6-02</div>
+      <div class="nav-hook">I Tried Everything</div>
+      <div class="nav-score">8.85</div>
+    </a>
+    <a href="#s03" class="nav-card">
+      <div class="nav-ref">47SK-S6-03</div>
+      <div class="nav-hook">Watching My Teen Withdraw</div>
+      <div class="nav-score">8.67</div>
+    </a>
+    <a href="#s04" class="nav-card">
+      <div class="nav-ref">47SK-S6-04</div>
+      <div class="nav-hook">My Son's Confidence Is Back</div>
+      <div class="nav-score">8.67</div>
+    </a>
+    <a href="#s05" class="nav-card">
+      <div class="nav-ref">47SK-S6-05</div>
+      <div class="nav-hook">When Nothing Else Worked</div>
+      <div class="nav-score">8.60</div>
+    </a>
+  </div>
+
+
+  <!-- ============================
+       SCRIPT 01
+  ============================= -->
+  <div class="script-block" id="s01">
+    <div class="script-header">
+      <div class="script-header-left">
+        <div class="angle-ref">Angle 47SK-S6-01 · Inspirational · Transformation Story</div>
+        <div class="script-title">The Mom Who Finally Found It — After Trying Everything</div>
+        <div class="script-meta">
+          <span class="meta-pill">🎯 Petra — Mom of teen 13–18</span>
+          <span class="meta-pill">⏱ 30–40 sec</span>
+          <span class="meta-pill">📍 Talking head at home</span>
+          <span class="meta-pill">🎬 TOF Cold Traffic</span>
+          <span class="meta-pill">📱 Meta + TikTok</span>
+        </div>
+      </div>
+      <span class="score-badge">8.85 / 10</span>
+    </div>
+
+    <div class="script-body">
+      <!-- HOOK -->
+      <div class="hook-section">
+        <div class="section-tag tag-hook">🎣 Hook — First 3 seconds (scroll stopper)</div>
+        <div class="hook-text">"If your teen's skin has stopped responding to everything you've tried — you need to watch this."</div>
+        <div class="timing">Deliver directly to camera. Slight lean forward. No smile yet — this is empathy first.</div>
+      </div>
+
+      <!-- FULL SCRIPT -->
+      <div class="script-section">
+        <div class="section-tag tag-script">📝 Full Script</div>
+        <div class="script-text"><span class="stage-direction">[Seated casually — couch or kitchen counter. Earnest, warm. Direct eye contact with camera throughout.]</span>
+
+"I spent over a year trying products for my daughter's skin. The gentle stuff. The clinical stuff. The things that were all over TikTok.
+
+None of it worked.
+
+She started pulling out of photos. Started saying she didn't want to go places. I just felt helpless.
+
+Then someone in a mom group mentioned 47 Skin. I was skeptical — we'd been let down so many times before.
+
+But it has this unique ingredient called Silver Chitoderm® — clinically proven to kill 100% of the bacteria that actually cause breakouts. Not treat the surface. Kill what's causing it.
+
+Week one — visible difference. Week three — she asked to go to a birthday party.
+
+<span class="stage-direction">[Pause. Smile. Hold product up naturally.]</span>
+
+I wish I had found this first."
+
+<span class="stage-direction">[Look back at camera, warm and direct.]</span>
+"Link in bio — they have a trial size so you can try it without the risk."</div>
+      </div>
+
+      <!-- DIRECTOR NOTES -->
+      <div class="script-section">
+        <div class="section-tag tag-direction">🎬 Creator Direction</div>
+        <div class="direction-grid">
+          <div class="direction-card">
+            <h5>Performance notes</h5>
+            <ul>
+              <li>Start with genuine empathy — no smile until the resolution moment</li>
+              <li>The "pulled out of photos" line should land quietly, not dramatically</li>
+              <li>Let the "week one, week three" beat have a natural pause between them</li>
+              <li>The smile + product reveal at the end should feel like relief, not triumph</li>
+              <li>"I wish I had found this first" is the emotional close — don't rush it</li>
+            </ul>
+          </div>
+          <div class="direction-card">
+            <h5>Casting &amp; setting notes</h5>
+            <ul>
+              <li>Mom aged 35–50, natural, no heavy styling</li>
+              <li>Optional: teen visible briefly in background (does not need to speak)</li>
+              <li>Warm home setting — lived-in, not staged</li>
+              <li>Natural morning or window light preferred</li>
+              <li>Product: 47 Skin Anti-Blemish &amp; Scar Repair Serum — hold at chest height</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLIANCE -->
+      <div class="script-section">
+        <div class="section-tag tag-compliance">✅ Compliance Check</div>
+        <div class="compliance-row">
+          <span class="compliance-chip chip-ok">✓ Silver Chitoderm® — correct</span>
+          <span class="compliance-chip chip-ok">✓ "Clinically proven to kill 100% of bacteria" — correct</span>
+          <span class="compliance-chip chip-ok">✓ No medical condition claims</span>
+          <span class="compliance-chip chip-ok">✓ "Breakouts" not "acne" — correct</span>
+          <span class="compliance-chip chip-ok">✓ Meta safe — no TikTok-restricted language</span>
+          <span class="compliance-chip chip-ok">✓ Trial size CTA — low commitment ask</span>
+        </div>
+      </div>
+
+      <!-- HOOK VARIATION -->
+      <div class="script-section">
+        <div class="section-tag tag-variation">🔀 Hook Variation (test against primary)</div>
+        <div class="variation-box">
+          <div class="variation-label">Variation B — Problem-first hook</div>
+          <div class="variation-text">"We tried nine products for my daughter's skin. Gentle ones. Clinical ones. Expensive ones. Nothing worked — until this."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================
+       SCRIPT 02
+  ============================= -->
+  <div class="script-block" id="s02">
+    <div class="script-header">
+      <div class="script-header-left">
+        <div class="angle-ref">Angle 47SK-S6-02 · UGC · Raw Testimonial</div>
+        <div class="script-title">I Tried Everything for My Daughter's Skin — This Is the Only Thing That Worked</div>
+        <div class="script-meta">
+          <span class="meta-pill">🎯 Petra — Mom of teen 13–18</span>
+          <span class="meta-pill">⏱ 25–35 sec</span>
+          <span class="meta-pill">📍 Phone-held, self-filmed</span>
+          <span class="meta-pill">🎬 TOF Cold Traffic</span>
+          <span class="meta-pill">📱 Meta + TikTok</span>
+        </div>
+      </div>
+      <span class="score-badge">8.85 / 10</span>
+    </div>
+
+    <div class="script-body">
+      <!-- HOOK -->
+      <div class="hook-section">
+        <div class="section-tag tag-hook">🎣 Hook — First 3 seconds</div>
+        <div class="hook-text"><span class="stage-direction">[Hold up fingers, start counting off]</span> "Nine products. Two dermatologist appointments. Zero results."</div>
+        <div class="timing">Deadpan delivery. Count the fingers visually. No context given yet — let the viewer fill in the blank and hook themselves.</div>
+      </div>
+
+      <!-- FULL SCRIPT -->
+      <div class="script-section">
+        <div class="section-tag tag-script">📝 Full Script</div>
+        <div class="script-text"><span class="stage-direction">[Phone held at eye level or slightly below. Casual — kitchen, bathroom, wherever feels natural. Self-film energy. Slight camera shake is fine.]</span>
+
+"Nine products. Two dermatologist appointments. Zero results.
+
+My daughter and I have been through everything for her skin. Prescription stuff. Expensive serums. The things every skincare page keeps posting about. Every time we thought — maybe this one — it wasn't.
+
+Until 47 Skin.
+
+They have this serum with Silver Chitoderm® — I'd never heard of it before either. It's a unique formula that's clinically proven to kill 100% of the bacteria that cause breakouts. At the source. Not the surface.
+
+First week — her skin calmed down. Second week — breakouts clearing. Third week —
+
+<span class="stage-direction">[Small pause. Lower voice slightly, genuine.]</span>
+
+— she looks in the mirror and smiles now.
+
+If you're stuck in the same cycle I was in —
+
+<span class="stage-direction">[Hold up product. Direct look at camera.]</span>
+
+They have a trial size. Start there. I'm not saying it didn't work."</div>
+      </div>
+
+      <!-- DIRECTOR NOTES -->
+      <div class="script-section">
+        <div class="section-tag tag-direction">🎬 Creator Direction</div>
+        <div class="direction-grid">
+          <div class="direction-card">
+            <h5>Performance notes</h5>
+            <ul>
+              <li>The hook should be slightly flat/exhausted — not angry, just tired of trying</li>
+              <li>"I'd never heard of it before either" — this is important, say it naturally. It gives permission to not know the brand.</li>
+              <li>The week-by-week beat should build like you're re-living it</li>
+              <li>"She looks in the mirror and smiles now" — pause here. Let it land.</li>
+              <li>"I'm not saying it didn't work" = understated confidence. Don't over-deliver it.</li>
+            </ul>
+          </div>
+          <div class="direction-card">
+            <h5>Format notes</h5>
+            <ul>
+              <li>This is the most platform-native format — feels like a voice note to a friend</li>
+              <li>No ring light. Natural or bathroom light is ideal</li>
+              <li>Phone slightly wobbling is fine — too steady looks produced</li>
+              <li>Product at the end: hold it naturally, not like a brand reveal</li>
+              <li>This script works well as a Reel cover with text overlay of the hook line</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLIANCE -->
+      <div class="script-section">
+        <div class="section-tag tag-compliance">✅ Compliance Check</div>
+        <div class="compliance-row">
+          <span class="compliance-chip chip-ok">✓ Silver Chitoderm® — correct</span>
+          <span class="compliance-chip chip-ok">✓ "Clinically proven" qualifier present</span>
+          <span class="compliance-chip chip-ok">✓ "Breakouts" not "acne" — correct</span>
+          <span class="compliance-chip chip-ok">✓ No paid endorsement language</span>
+          <span class="compliance-chip chip-ok">✓ Meta + TikTok safe</span>
+        </div>
+      </div>
+
+      <!-- HOOK VARIATION -->
+      <div class="script-section">
+        <div class="section-tag tag-variation">🔀 Hook Variation (test against primary)</div>
+        <div class="variation-box">
+          <div class="variation-label">Variation B — Rhetorical hook</div>
+          <div class="variation-text">"Why does nothing work for teen skin? I asked that question for eighteen months. Then I found out it was because we were treating the wrong thing."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================
+       SCRIPT 03
+  ============================= -->
+  <div class="script-block" id="s03">
+    <div class="script-header">
+      <div class="script-header-left">
+        <div class="angle-ref">Angle 47SK-S6-03 · Inspirational · Emotional Withdrawal Arc</div>
+        <div class="script-title">Watching My Teen Withdraw Because of Their Skin Broke My Heart. Then This Happened.</div>
+        <div class="script-meta">
+          <span class="meta-pill">🎯 Petra — Mom of teen 13–18</span>
+          <span class="meta-pill">⏱ 35–45 sec</span>
+          <span class="meta-pill">📍 Seated at home, vulnerable tone</span>
+          <span class="meta-pill">🎬 TOF Cold Traffic</span>
+          <span class="meta-pill">📱 Meta primary</span>
+        </div>
+      </div>
+      <span class="score-badge">8.67 / 10</span>
+    </div>
+
+    <div class="script-body">
+      <!-- HOOK -->
+      <div class="hook-section">
+        <div class="section-tag tag-hook">🎣 Hook — First 3 seconds</div>
+        <div class="hook-text">"The moment my daughter refused to be in the family photo — that was when I knew I had to do something different."</div>
+        <div class="timing">Quiet, direct. No build-up. Drop straight into the emotional scene. This hook works on recognition — any parent who has experienced this will stop immediately.</div>
+      </div>
+
+      <!-- FULL SCRIPT -->
+      <div class="script-section">
+        <div class="section-tag tag-script">📝 Full Script</div>
+        <div class="script-text"><span class="stage-direction">[Seated. Could be at a kitchen table with a coffee cup visible. Slightly more intimate framing. Direct eye contact — like you're talking to a friend who gets it.]</span>
+
+"The moment my daughter refused to be in the family photo — that was when I knew I had to do something different.
+
+She'd been dealing with her skin for almost two years. And I watched her go from this confident, outgoing kid — to someone who wouldn't leave the house without full coverage. Who sat out of photos. Who started saying she just didn't feel like going to things anymore.
+
+I tried everything I could find. Nothing stuck.
+
+A friend told me about 47 Skin. Their serum has Silver Chitoderm® — it's a unique formula, clinically proven to kill 100% of the bacteria that cause breakouts. Not treat what you can see. Target what's actually causing it.
+
+Within three weeks her skin was clearing.
+
+<span class="stage-direction">[Softer. Slight smile creeping in.]</span>
+
+But the moment I knew it was really working? She came downstairs one morning without any makeup on.
+
+<span class="stage-direction">[Pause. Hold product up quietly.]</span>
+
+Link in bio. If you've been where I was — it's worth trying."</div>
+      </div>
+
+      <!-- DIRECTOR NOTES -->
+      <div class="script-section">
+        <div class="section-tag tag-direction">🎬 Creator Direction</div>
+        <div class="direction-grid">
+          <div class="direction-card">
+            <h5>Performance notes</h5>
+            <ul>
+              <li>This is the most emotional of the five scripts — commit to it fully</li>
+              <li>"Confident, outgoing kid" should sound like you're remembering who she was before</li>
+              <li>"Sat out of photos / didn't feel like going to things" — say this like it's still a little painful to remember</li>
+              <li>The "came downstairs without makeup" reveal is the payoff — slow down here</li>
+              <li>The CTA at the end should feel like a quiet recommendation, not a sell</li>
+            </ul>
+          </div>
+          <div class="direction-card">
+            <h5>Optional enhancements</h5>
+            <ul>
+              <li>If you have a teen who's willing: brief appearance in background at the end (not required)</li>
+              <li>A single photo of the product placed naturally in frame adds visual interest</li>
+              <li>This script works well as a slightly longer format (up to 45 sec) — don't rush the emotional beats to fit 30</li>
+              <li>Meta Reels and Facebook Feed are the primary placements for this emotional depth</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLIANCE -->
+      <div class="script-section">
+        <div class="section-tag tag-compliance">✅ Compliance Check</div>
+        <div class="compliance-row">
+          <span class="compliance-chip chip-ok">✓ Silver Chitoderm® — correct</span>
+          <span class="compliance-chip chip-ok">✓ "Clinically proven" qualifier present</span>
+          <span class="compliance-chip chip-ok">✓ "Breakouts" not "acne"</span>
+          <span class="compliance-chip chip-ok">✓ Emotional claim is parent experience, not a product guarantee</span>
+          <span class="compliance-chip chip-ok">✓ Meta + TikTok safe</span>
+        </div>
+      </div>
+
+      <!-- HOOK VARIATION -->
+      <div class="script-section">
+        <div class="section-tag tag-variation">🔀 Hook Variation (test against primary)</div>
+        <div class="variation-box">
+          <div class="variation-label">Variation B — Outcome-first reframe</div>
+          <div class="variation-text">"My daughter came downstairs without makeup on for the first time in two years this morning. I need to tell you what changed."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================
+       SCRIPT 04
+  ============================= -->
+  <div class="script-block" id="s04">
+    <div class="script-header">
+      <div class="script-header-left">
+        <div class="angle-ref">Angle 47SK-S6-04 · Inspirational · Resolution-Led (Payoff First)</div>
+        <div class="script-title">My Son's Confidence Is Back. I Haven't Seen Him Smile Like That in Years.</div>
+        <div class="script-meta">
+          <span class="meta-pill">🎯 Petra — Mom of teen son</span>
+          <span class="meta-pill">⏱ 30–40 sec</span>
+          <span class="meta-pill">📍 Warm home setting</span>
+          <span class="meta-pill">🎬 TOF Cold Traffic</span>
+          <span class="meta-pill">📱 Meta + TikTok</span>
+        </div>
+      </div>
+      <span class="score-badge">8.67 / 10</span>
+    </div>
+
+    <div class="script-body">
+      <!-- HOOK -->
+      <div class="hook-section">
+        <div class="section-tag tag-hook">🎣 Hook — First 3 seconds</div>
+        <div class="hook-text"><span class="stage-direction">[Big, genuine smile — real, not performed]</span> "My son just asked to be in the family photo for the first time in two years. I need to tell you why."</div>
+        <div class="timing">Lead with the joy. Resolution-first structure. The viewer has to know what happened — this is the pattern-interrupt. Works especially well for parents of teen boys, an underserved creative segment.</div>
+      </div>
+
+      <!-- FULL SCRIPT -->
+      <div class="script-section">
+        <div class="section-tag tag-script">📝 Full Script</div>
+        <div class="script-text"><span class="stage-direction">[Warm. Genuine. The energy of someone who just had something great happen. Natural home setting — kitchen counter, living room. Could hold a cup of coffee.]</span>
+
+"My son just asked to be in the family photo for the first time in two years. I need to tell you why.
+
+He'd been really self-conscious about his skin since about ninth grade. I tried everything — we did the prescription route, the gentle route, the expensive route. I was almost out of ideas.
+
+Someone recommended 47 Skin. I looked it up and honestly wasn't sure — but their serum has this unique ingredient called Silver Chitoderm® that's clinically proven to kill 100% of the bacteria that cause breakouts. At the source, not just the surface.
+
+<span class="stage-direction">[Tone shifts — quieter, more personal]</span>
+
+Three weeks in — I could see a difference. Two months in — his skin was clear.
+
+And his whole energy changed. He's back out with his friends. He laughs differently.
+
+<span class="stage-direction">[Hold up product. Warm, direct.]</span>
+
+That's not just a skincare result. That's my kid back.
+
+Trial size is in the link. It's worth every penny."</div>
+      </div>
+
+      <!-- DIRECTOR NOTES -->
+      <div class="script-section">
+        <div class="section-tag tag-direction">🎬 Creator Direction</div>
+        <div class="direction-grid">
+          <div class="direction-card">
+            <h5>Performance notes</h5>
+            <ul>
+              <li>Open with genuine joy — this script leads with the win, not the struggle</li>
+              <li>"I was almost out of ideas" — say this with a touch of exhaustion, not drama</li>
+              <li>"He laughs differently" — this is the standout line. Slow down. Let it sit.</li>
+              <li>"That's not just a skincare result. That's my kid back." — do not rush this close</li>
+              <li>Warm and grateful energy throughout — not triumphant, just relieved and happy</li>
+            </ul>
+          </div>
+          <div class="direction-card">
+            <h5>Why this script matters</h5>
+            <ul>
+              <li>Son/boy-focused content is underused in the current 47 Skin creative mix</li>
+              <li>Moms searching for teen boy solutions see almost no content that speaks to them specifically</li>
+              <li>Resolution-first format is a proven high-CTR structure — viewer must keep watching to get the explanation</li>
+              <li>Can be produced as static with a single strong pull quote alongside product</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLIANCE -->
+      <div class="script-section">
+        <div class="section-tag tag-compliance">✅ Compliance Check</div>
+        <div class="compliance-row">
+          <span class="compliance-chip chip-ok">✓ Silver Chitoderm® — correct</span>
+          <span class="compliance-chip chip-ok">✓ "Clinically proven" qualifier present</span>
+          <span class="compliance-chip chip-ok">✓ "Breakouts" not "acne"</span>
+          <span class="compliance-chip chip-ok">✓ Confidence/emotional claims attributed to personal experience</span>
+          <span class="compliance-chip chip-ok">✓ Meta + TikTok safe</span>
+        </div>
+      </div>
+
+      <!-- HOOK VARIATION -->
+      <div class="script-section">
+        <div class="section-tag tag-variation">🔀 Hook Variation (test against primary)</div>
+        <div class="variation-box">
+          <div class="variation-label">Variation B — Empathy-first reframe (for moms of boys)</div>
+          <div class="variation-text">"Nobody talks about teen boys and their skin. My son was struggling in silence for over a year. This is what finally helped."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================
+       SCRIPT 05
+  ============================= -->
+  <div class="script-block" id="s05">
+    <div class="script-header">
+      <div class="script-header-left">
+        <div class="angle-ref">Angle 47SK-S6-05 · Storytelling · Problem → Fix → Outcome</div>
+        <div class="script-title">When Nothing Else Worked for My Daughter's Skin, This Was the Only Thing That Actually Cleared It</div>
+        <div class="script-meta">
+          <span class="meta-pill">🎯 Petra — Research-mode mom</span>
+          <span class="meta-pill">⏱ 30–40 sec</span>
+          <span class="meta-pill">📍 Seated at home</span>
+          <span class="meta-pill">🎬 TOF–MOF</span>
+          <span class="meta-pill">📱 Meta + TikTok</span>
+        </div>
+      </div>
+      <span class="score-badge">8.60 / 10</span>
+    </div>
+
+    <div class="script-body">
+      <!-- HOOK -->
+      <div class="hook-section">
+        <div class="section-tag tag-hook">🎣 Hook — First 3 seconds</div>
+        <div class="hook-text">"The reason nothing you've tried for your teen's skin has worked yet — and what actually does."</div>
+        <div class="timing">Slightly more educational tone than the other scripts. Speaks directly to Petra's frustration and promises a resolution in the same sentence. Strong for research-mode viewers who are actively looking for answers.</div>
+      </div>
+
+      <!-- FULL SCRIPT -->
+      <div class="script-section">
+        <div class="section-tag tag-script">📝 Full Script</div>
+        <div class="script-text"><span class="stage-direction">[Seated, calm, slightly more explanatory. Like a knowledgeable friend who found something out and wants to share it. Not a lecture — a conversation.]</span>
+
+"The reason nothing you've tried for your teen's skin has worked yet — and what actually does.
+
+Most skincare treats what you can see — the redness, the blemish. It doesn't go after what's actually causing it, which is bacteria.
+
+I found this out the hard way. Two years of trying things for my daughter's skin — the gentle stuff, the prescription stuff, the things that went viral. All of it treating symptoms. None of it touching the root cause.
+
+47 Skin is different. Their serum has Silver Chitoderm® — a unique formula, clinically proven to kill 100% of the bacteria that cause breakouts. It goes to the source.
+
+And while it's working, it keeps skin hydrated — so it doesn't just strip everything and leave you worse off than before.
+
+<span class="stage-direction">[Week-by-week beat — deliberate, measured]</span>
+
+She saw a difference in week one. Clear skin by week three.
+
+<span class="stage-direction">[Hold up product confidently.]</span>
+
+If you're still in the loop of things that don't last — this is the one that broke the cycle for us.
+
+Trial kit is in the link."</div>
+      </div>
+
+      <!-- DIRECTOR NOTES -->
+      <div class="script-section">
+        <div class="section-tag tag-direction">🎬 Creator Direction</div>
+        <div class="direction-grid">
+          <div class="direction-card">
+            <h5>Performance notes</h5>
+            <ul>
+              <li>This is the most information-led of the five scripts — lean into the "knowledgeable friend" energy</li>
+              <li>"Bacteria" is the pivot word — say it with a bit of emphasis, like it's the answer</li>
+              <li>"None of it touching the root cause" — slight frustration okay here</li>
+              <li>"It doesn't just strip everything and leave you worse off" — this speaks directly to Petra's fear. Say it like you've experienced that disappointment.</li>
+              <li>Week-by-week beat: measured and factual — let the specificity do the work</li>
+            </ul>
+          </div>
+          <div class="direction-card">
+            <h5>Why this structure works</h5>
+            <ul>
+              <li>Problem → Fix → Outcome is the foundational direct-response structure</li>
+              <li>The "Fix" section does double duty: explains why other things didn't work AND why 47 Skin is different — this is the intellectual permission Petra needs to believe again</li>
+              <li>Suits a slightly warmer audience (retargeting or MOF) but strong enough for cold too</li>
+              <li>Works exceptionally well as a text-heavy static or carousel companion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLIANCE -->
+      <div class="script-section">
+        <div class="section-tag tag-compliance">✅ Compliance Check</div>
+        <div class="compliance-row">
+          <span class="compliance-chip chip-ok">✓ Silver Chitoderm® — correct</span>
+          <span class="compliance-chip chip-ok">✓ "Clinically proven to kill 100% of bacteria" — correct</span>
+          <span class="compliance-chip chip-ok">✓ "Breakouts" not "acne"</span>
+          <span class="compliance-chip chip-ok">✓ No scar repair language — clean for TikTok and Meta</span>
+          <span class="compliance-chip chip-ok">✓ Hydration claim is a factual product benefit — no compliance issue</span>
+          <span class="compliance-chip chip-ok">✓ "Broke the cycle for us" — personal experience, not brand guarantee</span>
+        </div>
+      </div>
+
+      <!-- HOOK VARIATION -->
+      <div class="script-section">
+        <div class="section-tag tag-variation">🔀 Hook Variation (test against primary)</div>
+        <div class="variation-box">
+          <div class="variation-label">Variation B — Prescription frustration hook (strong for MOF)</div>
+          <div class="variation-text">"My daughter was on a twelve-week dermatologist waitlist. I tried five things in the meantime. None of them worked. Then I found out we'd been treating the wrong thing the whole time."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Ad Pros Brand Intelligence · 47 Skin (Brand ID: 6c1d7301) · UGC Creator Scripts · Protective Parent Petra · Tier 1 Angles · March 2026<br>
+    5 scripts · Compliant for Meta + TikTok · 30–45 sec format · Approved vocabulary applied throughout
+  </div>
+
+</div>
+
+</div>
+</body>
+</html>

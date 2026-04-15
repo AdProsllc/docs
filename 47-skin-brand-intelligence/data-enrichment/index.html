@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>47 Skin — Data Enrichment Summary | Ad Pros</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #b0b1b6;
+      background: #000212;
+      line-height: 1.5;
+      padding: 40px;
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* HEADER */
+    .header {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding-bottom: 32px; margin-bottom: 40px;
+      border-bottom: 1px solid #282932;
+    }
+    .header h1 { font-size: 28px; font-weight: 700; color: #ffffff; line-height: 1.2; margin-bottom: 8px; }
+    .header .meta { font-size: 13px; color: #545560; margin-bottom: 12px; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; margin-right: 6px; }
+    .badge-yellow { background: #F8D908; color: #000212; }
+    .badge-green { background: #1a4d2e; color: #4ade80; border: 1px solid #4ade80; }
+    .badge-blue { background: #0a1628; color: #4A9EFF; border: 1px solid #4A9EFF; }
+
+    /* SOURCES GRID */
+    .sources-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      margin-bottom: 40px;
+    }
+    .source-card {
+      background: #090b18; border: 1px solid #282932; border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .source-card .source-type { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #545560; margin-bottom: 4px; }
+    .source-card .source-name { font-size: 13px; color: #ffffff; font-weight: 600; margin-bottom: 4px; }
+    .source-card .source-detail { font-size: 11px; color: #545560; }
+
+    /* SECTION HEADERS */
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px; margin-top: 40px;
+    }
+    .step-pill {
+      background: #F8D908; color: #000212;
+      font-size: 11px; font-weight: 800; padding: 4px 12px;
+      border-radius: 50px; white-space: nowrap;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 700; color: #ffffff; }
+    .section-header .divider { flex: 1; height: 1px; background: #282932; }
+
+    /* CHANGE CARDS */
+    .change-block { margin-bottom: 16px; }
+    .change-card {
+      background: #090b18; border: 1px solid #282932; border-radius: 10px;
+      overflow: hidden;
+    }
+    .change-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border-bottom: 1px solid #282932;
+    }
+    .change-type {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; padding: 3px 10px; border-radius: 50px;
+    }
+    .type-correction { background: #3d1a1a; color: #f87171; border: 1px solid #f87171; }
+    .type-addition { background: #0a2e1a; color: #4ade80; border: 1px solid #4ade80; }
+    .type-update { background: #0a1628; color: #60a5fa; border: 1px solid #60a5fa; }
+    .type-insight { background: #1e1028; color: #c084fc; border: 1px solid #c084fc; }
+    .change-title { font-size: 13px; font-weight: 600; color: #ffffff; }
+    .change-body { padding: 14px 16px; }
+    .change-row { display: flex; gap: 12px; margin-bottom: 10px; }
+    .change-row:last-child { margin-bottom: 0; }
+    .change-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #545560; min-width: 80px; padding-top: 2px; }
+    .change-value { font-size: 13px; color: #b0b1b6; flex: 1; }
+    .change-value.old { color: #f87171; text-decoration: line-through; }
+    .change-value.new { color: #4ade80; }
+    .change-value strong { color: #ffffff; }
+    .source-cite { font-size: 11px; color: #4A9EFF; font-style: italic; }
+
+    /* SCORE CHANGE */
+    .score-change { display: inline-flex; align-items: center; gap: 6px; }
+    .score-old { font-size: 13px; color: #f87171; text-decoration: line-through; }
+    .score-new { font-size: 14px; font-weight: 700; color: #4ade80; }
+    .score-arrow { color: #545560; font-size: 12px; }
+
+    /* VOC GRID */
+    .voc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .voc-card {
+      background: #0e1020; border: 1px solid #282932; border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .voc-quote { font-size: 13px; color: #ffffff; font-style: italic; line-height: 1.6; margin-bottom: 8px; }
+    .voc-meta { font-size: 11px; color: #545560; }
+
+    /* TIKTOK PERFORMANCE TABLE */
+    .perf-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .perf-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #545560; text-align: left; padding: 8px 12px; border-bottom: 1px solid #282932; }
+    .perf-table td { font-size: 12px; color: #b0b1b6; padding: 10px 12px; border-bottom: 1px solid #181926; vertical-align: top; }
+    .perf-table tr:last-child td { border-bottom: none; }
+    .perf-table tr:hover td { background: #0e1020; }
+    .td-highlight { color: #F8D908 !important; font-weight: 700; }
+    .td-green { color: #4ade80 !important; }
+    .td-blue { color: #60a5fa !important; }
+
+    /* SUMMARY GRID */
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+    .summary-card {
+      background: #090b18; border: 1px solid #282932; border-radius: 10px;
+      padding: 16px; text-align: center;
+    }
+    .summary-value { font-size: 28px; font-weight: 800; color: #F8D908; line-height: 1; margin-bottom: 6px; }
+    .summary-label { font-size: 11px; color: #545560; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    hr.divider { border: none; border-top: 1px solid #282932; margin: 32px 0; }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div style="color:#F9D900;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Data Enrichment Summary</div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+    <a href="/47-skin-brand-intelligence/" style="display:inline-block;margin-top:20px;color:#8A8B93;font-size:12px;text-decoration:none;">← Back to brand intelligence hub</a>
+  </div>
+</div>
+<div id="ap-topbar" style="display:none;position:sticky;top:0;z-index:100;background:#040735;border-bottom:1px solid #0e1358;padding:10px 20px;font-family:Inter,'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;font-size:12px;">
+    <a href="/47-skin-brand-intelligence/" style="color:#F9D900;text-decoration:none;font-weight:600;">← Brand Intelligence Hub</a>
+    <span style="color:#8A8B93;">·</span>
+    <span style="color:#B0B1B6;">Data Enrichment Summary</span>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-data-enrichment";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var t=document.getElementById('ap-topbar');if(t)t.style.display='block';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <svg width="48" height="48" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0)">
+          <path d="M45.32 0.58C45.83 0.94 45.77 1.47 45.77 1.98C45.77 10.63 45.67 19.29 45.82 27.94C45.87 31.33 45.7 34.75 46.3 38.12C46.49 39.21 46 39.7 44.85 39.73C43.81 39.75 42.77 39.74 41.74 39.73C40.25 39.73 40.1 39.63 39.66 38.3C39.61 38.16 39.57 38.02 39.54 37.9C39.21 37.85 39.1 38.07 38.96 38.21C37.47 39.68 35.62 40.24 33.53 40.3C31.34 40.37 29.3 40.04 27.51 38.7C25.39 37.12 24.47 34.88 24.04 32.37C23.39 28.57 23.55 24.79 24.83 21.12C26.18 17.26 29.02 15.27 33.02 15.14C35.1 15.07 36.93 15.59 38.46 17.04C38.64 17.21 38.77 17.56 39.15 17.39C39.15 12.3 39.15 7.2 39.15 2.1C39.15 1.56 39.09 0.99 39.55 0.58C41.47 0.58 43.4 0.58 45.32 0.58Z" fill="white"/>
+          <path d="M17.95 15.36C18.82 15.36 19.68 15.39 20.55 15.36C21.84 15.3 22.31 15.77 22.26 17.04C22.17 19.24 22.24 21.44 22.23 23.64C22.23 24.14 22.38 24.74 21.73 25.11C19.56 25.11 17.39 25.11 15.22 25.11C14.78 24.68 14.84 24.14 14.84 23.63C14.84 21.43 14.93 19.22 14.8 17.02C14.73 15.75 15.24 15.29 16.49 15.36C16.98 15.39 17.46 15.36 17.95 15.36Z" fill="white"/>
+          <path d="M0.59 28.2C1.12 27.68 1.8 27.79 2.44 27.79C5.66 27.79 8.88 27.79 12.1 27.79C14.1 27.79 14.84 28.53 14.84 30.54C14.84 33.73 14.84 36.92 14.84 40.11C14.84 40.54 14.92 41.01 14.41 41.32C9.76 41.32 5.11 41.32 0.47 41.32C0.59 36.95 0.59 32.57 0.59 28.2Z" fill="white"/>
+          <path d="M14.84 30.54C14.84 28.53 14.1 27.79 12.1 27.79C8.88 27.79 5.66 27.79 2.44 27.79C1.8 27.79 1.12 27.68 0.59 28.2C0.59 23.83 0.59 19.46 0.59 15.09C0.59 15.09 0.75 15.06 0.83 15.09C4.26 15.55 7.71 15.27 11.14 15.36C13.67 15.43 14.84 16.73 14.84 19.28C14.84 23.03 14.84 26.79 14.84 30.54Z" fill="#F8D908"/>
+        </g>
+        <defs><clipPath id="clip0"><rect width="80.17" height="80.17" fill="white" transform="translate(0.47 0.58)"/></clipPath></defs>
+      </svg>
+    </div>
+    <div>
+      <h1>47 Skin — Data Enrichment Summary</h1>
+      <div class="meta">Brand Intelligence Pipeline · All Steps Updated · 20 March 2026</div>
+      <span class="badge badge-yellow">Ad Pros Brand Intelligence</span>
+      <span class="badge badge-green">✓ Enrichment Complete</span>
+      <span class="badge badge-blue">9 Sources Ingested</span>
+    </div>
+  </div>
+
+  <!-- SUMMARY STATS -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-value">9</div>
+      <div class="summary-label">Sources Ingested</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-value">7</div>
+      <div class="summary-label">Pipeline Steps Updated</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-value">4,281</div>
+      <div class="summary-label">Service Reviews Processed</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-value">35+</div>
+      <div class="summary-label">US Competitors Mapped</div>
+    </div>
+  </div>
+
+  <!-- SOURCES INGESTED -->
+  <div class="section-header">
+    <h2>Sources Ingested</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="sources-grid">
+    <div class="source-card">
+      <div class="source-type">PDF</div>
+      <div class="source-name">47 Skin Brand Guidelines</div>
+      <div class="source-detail">45 pages · Body copy rules, Silver Chitoderm® guide, visual identity, brand colours, TikTok compliance</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">Call Transcript</div>
+      <div class="source-name">Onboarding Call — 17 Mar 2026</div>
+      <div class="source-detail">83.4KB · Attendees: JP, Libby Bond, Nic Taylor, Ally Collins, Adrienne Dyer · US account setup, KPIs, attribution strategy</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">Call Transcript</div>
+      <div class="source-name">Creative Discovery Call — 20 Mar 2026</div>
+      <div class="source-detail">74 min · Avatar insights, TikTok strategy, UK/US performance learnings, creator strategy, competitive inspiration</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">XLSX — Performance</div>
+      <div class="source-name">90D UK TikTok TPS Videos</div>
+      <div class="source-detail">18 videos · Top: "Korean women glowing skin at 60" — £4,555 GMV, 5.54% CTR, 246K impressions</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">XLSX — Performance</div>
+      <div class="source-name">90D USA TikTok TPS Videos</div>
+      <div class="source-detail">15 videos · Top: "Anti blemish acne scar serum is a game changer" — $1,837 GMV, 2.91% CTR, 115K impressions</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">XLSX — Reviews</div>
+      <div class="source-name">Product Review Pull 20.03.26</div>
+      <div class="source-detail">Stamped + TrustPilot · 20,000+ five-star reviews across platforms · Key VOC themes extracted</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">CSV — Service Reviews</div>
+      <div class="source-name">Service Review Pull 20.03.26</div>
+      <div class="source-detail">4,281 reviews · 3,256 five-star (76%) · Columns: Review Id, Stars, Content, Source, Username</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">XLSX — Competitive Intel</div>
+      <div class="source-name">47 Skin USA Competitors</div>
+      <div class="source-detail">35+ brands mapped · Legacy CPG, Derm-Backed Clinical, Gen Z/Teen-Native DTC · J&amp;J/Kenvue holds ~43% market share</div>
+    </div>
+    <div class="source-card">
+      <div class="source-type">Inline Q&amp;A</div>
+      <div class="source-name">Strategic Context (Attribution, KPIs, Skio)</div>
+      <div class="source-detail">ncROAS primary KPI · NCaC:NCAOV ~100% = scale signal · Triple Whale · PowerBI + Lifetimely · Skio for subscriptions</div>
+    </div>
+  </div>
+
+  <!-- STEP 1 — BRAND INTAKE -->
+  <div class="section-header">
+    <div class="step-pill">Step 1</div>
+    <h2>Brand Intake</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-correction">Correction</span>
+        <span class="change-title">Customer Count — Factual Error Corrected</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Was</span><span class="change-value old">500,000+ customers</span></div>
+        <div class="change-row"><span class="change-label">Now</span><span class="change-value new">200,000+ customers</span></div>
+        <div class="change-row"><span class="change-label">Source</span><span class="change-value source-cite">Brand Guidelines PDF — confirmed throughout document</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-correction">Correction</span>
+        <span class="change-title">Press Mentions — Incomplete</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Was</span><span class="change-value old">Vogue only</span></div>
+        <div class="change-row"><span class="change-label">Now</span><span class="change-value new">Vogue, Tatler &amp; GQ</span></div>
+        <div class="change-row"><span class="change-label">Bonus</span><span class="change-value">🇺🇸 Apple Martin (Gwyneth Paltrow's daughter) mentioned 47 Skin in a Vogue video interview, March 2026 — US-native social proof</span></div>
+        <div class="change-row"><span class="change-label">Source</span><span class="change-value source-cite">Brand Guidelines PDF p.1 · Creative Discovery Call — Laura Meredith</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-addition">Addition</span>
+        <span class="change-title">Brand Voice Guidelines — Full Framework Added</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Two-Voice Model:</strong> Brand = Good Doctor (expert, empathetic, plain English, no jargon) · Customer = Emotional, authentic, raw (customers can use medical terms in their own quotes)</span></div>
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Headline Rules:</strong> Ivar Display font · Short, punchy, bold · Always end with a full stop · Sentence case</span></div>
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Body Copy Rules:</strong> Write like the good doctor · Plain English · One main point per paragraph · Empathetic to bad skin experience · Be specific about what skincare does</span></div>
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Benefit Language:</strong> USE: spots, breakouts, blemishes, redness, inflammation, bad skin, angry skin, prickly skin · AVOID as brand claims: acne, rosacea, eczema, KP</span></div>
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>TikTok Compliance:</strong> Cannot say "scar repair" on TikTok — label changed to "mark repair" for the platform</span></div>
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Silver Chitoderm® Rules:</strong> Always use registered trademark · Never credit Silver OR Chitoderm alone — always the combination and the bond · Always say clinically proven to kill 100% of bacteria</span></div>
+        <div class="change-row"><span class="change-label">Source</span><span class="change-value source-cite">Brand Guidelines PDF pp. 26–38</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-addition">Addition</span>
+        <span class="change-title">Brand Identity — Visual System Added</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Primary typeface:</strong> Ivar Display (all headlines) · <strong>Secondary:</strong> Montserrat Regular/Medium/Semibold (body copy, annotations, subheaders)</span></div>
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Brand colours:</strong> Jet Black #000000 · Clear White #FFFFFF · 47 Skin Green #A2BFB9 (accent/keylines) · Sale Orange #DE924B · Range colours: Daily SPF #F4EA7B · Intensive #4168C0 · Hand #009A9A · Body #C360CC</span></div>
+        <div class="change-row"><span class="change-label">Added</span><span class="change-value"><strong>Rule:</strong> Never solid coloured backgrounds — only white. Keylines in 47 Skin Green (#A2BFB9) only. Never put keylines over the product.</span></div>
+        <div class="change-row"><span class="change-label">Source</span><span class="change-value source-cite">Brand Guidelines PDF pp. 35–45</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 — MARKET RESEARCH -->
+  <div class="section-header">
+    <div class="step-pill">Step 2</div>
+    <h2>Market Research &amp; VOC</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-correction">Correction</span>
+        <span class="change-title">Review Count — Updated</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Was</span><span class="change-value old">~4,231 TrustPilot reviews</span></div>
+        <div class="change-row"><span class="change-label">Now</span><span class="change-value new">20,000+ five-star reviews across all platforms (TrustPilot + Stamped combined)</span></div>
+        <div class="change-row"><span class="change-label">Source</span><span class="change-value source-cite">Creative Discovery Call — Nic Taylor confirmed: "We recently surpassed 20,000 five-star reviews across platforms"</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-addition">Addition</span>
+        <span class="change-title">7 New VOC Entries Added to persona_voc Table</span>
+      </div>
+      <div class="change-body">
+        <div class="voc-grid">
+          <div class="voc-card">
+            <div class="voc-quote">"Anti blemish acne scar serum is a game changer."</div>
+            <div class="voc-meta">TikTok (US) · #1 US performer · GMV $1,837 · Avatar: Petra</div>
+          </div>
+          <div class="voc-card">
+            <div class="voc-quote">"Pretty brown skin girlies who have adult hormonal acne/acne scars — THIS SERUM IS THE ONE."</div>
+            <div class="voc-meta">TikTok (US) · Highest CTR 4.45% · GMV $655 · Avatar: Sophie</div>
+          </div>
+          <div class="voc-card">
+            <div class="voc-quote">"I am 45, I have had acne since I was 11. 47 Skin is the only brand that has not only stopped my acne, but has cleared up the scarring too."</div>
+            <div class="voc-meta">Product Reviews (Stamped) · 5 stars · Avatar: Sophie</div>
+          </div>
+          <div class="voc-card">
+            <div class="voc-quote">"The cleanser and serum have been a life changer for me. My close family and friends compliment my skin — no visible difference with or without make-up."</div>
+            <div class="voc-meta">Service Reviews (TrustPilot) · Adult PCOS/hormonal blemishes · 5 stars · Avatar: Sophie</div>
+          </div>
+          <div class="voc-card">
+            <div class="voc-quote">"So thankful I found this serum with silver. It calmed down my teen's acne infection without any pain or dryness."</div>
+            <div class="voc-meta">TikTok (US) · Mom to teen voice · GMV $307 · Avatar: Petra</div>
+          </div>
+          <div class="voc-card">
+            <div class="voc-quote">"After using it for the first time last night, there was a massive improvement in my face texture and my original break outs had reduced in size significantly."</div>
+            <div class="voc-meta">Service Reviews (Shopify verified) · Fast results VOC · Avatar: Petra</div>
+          </div>
+          <div class="voc-card">
+            <div class="voc-quote">"I no longer suffer with periodic breakouts either. I have subscribed as this product really suits my skin — not thick or heavy, no greasy coverage."</div>
+            <div class="voc-meta">Service Reviews (TrustPilot) · Subscription customer · Avatar: Sophie</div>
+          </div>
+          <div class="voc-card">
+            <div class="voc-quote">"We recently surpassed 20,000 five-star reviews across platforms — which we're pleased about. We're using that now in the messaging."</div>
+            <div class="voc-meta">Creative Discovery Call · Nic Taylor, CEO · Founder quote</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-insight">Insight</span>
+        <span class="change-title">US Market Scale — Contextual Note</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Finding</span><span class="change-value">US skincare market is estimated 10–20× the size of the UK. Even replicating UK performance (£10M+ reached on one avatar) would represent <strong>hundreds of millions of dollars</strong> of comparable opportunity in the US.</span></div>
+        <div class="change-row"><span class="change-label">Implication</span><span class="change-value">Do not limit the US creative strategy to the UK playbook. The US market size justifies broader avatar testing, Spanish language markets, and diversity representation angles not currently in the mix.</span></div>
+        <div class="change-row"><span class="change-label">Source</span><span class="change-value source-cite">Creative Discovery Call — Nic Taylor</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 — COMPETITOR INTEL -->
+  <div class="section-header">
+    <div class="step-pill">Step 3</div>
+    <h2>Competitor Intelligence</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-addition">Addition</span>
+        <span class="change-title">2 New Competitors Added to Database</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row">
+          <span class="change-label">Medicube</span>
+          <span class="change-value"><strong>medicube.com</strong> — Premium Korean-origin DTC. Key insight: deliberately uses low-fi performance creative despite premium brand positioning. Big bundle discounts + price anchoring are their core US strategy. 47 Skin team actively benchmarking their approach. Also runs Spanish language creatives linking to Amazon. <span class="source-cite">Source: Creative Discovery Call — Laura Meredith</span></span>
+        </div>
+        <div class="change-row">
+          <span class="change-label">Jones Road</span>
+          <span class="change-value"><strong>jonesroadbeauty.com</strong> — Founder-led prestige beauty (Bobbi Brown). Cited as inspiration for quiz funnels, educational landing pages, and long-form storytelling. Referenced by both Nic Taylor and Libby Bond. <span class="source-cite">Source: Creative Discovery Call — Nic Taylor, Libby Bond</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-insight">Insight</span>
+        <span class="change-title">US Competitive Positioning Gap — Adrienne's Framework</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Landscape</span><span class="change-value">Hero Cosmetics owns Gen Z acceptance · Proactiv owns clinical systems · Curology owns prescription/personalisation · CeraVe owns dermatologist authority</span></div>
+        <div class="change-row"><span class="change-label">47 Skin Gap</span><span class="change-value new"><strong>Underserved adult woman who has tried everything</strong> — wants both her skin AND her teenager's skin cleared. Dual-persona angle no competitor owns.</span></div>
+        <div class="change-row"><span class="change-label">Source</span><span class="change-value source-cite">Creative Discovery Call — Adrienne Dyer's competitive analysis presentation</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4/5 — ASSESSMENT & DECISIONS -->
+  <div class="section-header">
+    <div class="step-pill">Steps 4–5</div>
+    <h2>Assessment &amp; Strategic Decisions</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-update">Update</span>
+        <span class="change-title">KPI Framework — Confirmed &amp; Enriched</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Primary KPI</span><span class="change-value new"><strong>ncROAS (New Customer ROAS)</strong> — confirmed primary metric across both the Onboarding Call and Creative Discovery Call</span></div>
+        <div class="change-row"><span class="change-label">Scale Signal</span><span class="change-value new"><strong>NCaC:NCAOV ratio ~100%</strong> = strong position to scale. This is the north star signal for budget expansion.</span></div>
+        <div class="change-row"><span class="change-label">Attribution</span><span class="change-value">Current: Triple Attribution (TA) via Triple Whale · Goal: more sophisticated model (Ally Collins priority). TikTok Shop not yet in Triple Whale — showing zero, needs resolution with Triple Whale rep.</span></div>
+        <div class="change-row"><span class="change-label">LTV / Cohort</span><span class="change-value">PowerBI + Lifetimely for LTV and cohort analysis · Skio for subscription management</span></div>
+        <div class="change-row"><span class="change-label">Budget Model</span><span class="change-value"><strong>90% performance / 10% brand awareness</strong> — Nic Taylor confirmed. UK and US budgets are independent — scale in one market does not affect the other.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-update">Update</span>
+        <span class="change-title">US Market Status — Critical Context</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Account</span><span class="change-value">New dedicated US ad account being created. Current US campaigns still running inside UK account — do NOT touch until migration is complete.</span></div>
+        <div class="change-row"><span class="change-label">Maturity</span><span class="change-value">Very early stage. Minimal UGC, whitelisting, and quiz redirect testing. No US retail footprint. No advertorial/quiz/listicle tested yet.</span></div>
+        <div class="change-row"><span class="change-label">Sephora</span><span class="change-value">Interested in stocking 47 Skin but waiting for brand awareness to reach threshold. Brand equity must be established before retail push. Sephora serves as the US authority stamp equivalent.</span></div>
+        <div class="change-row"><span class="change-label">LP Gap</span><span class="change-value">Current PDP outperforms all tested landing pages in the UK. No listicle/quiz/advertorial has been tested in the US — identified as a priority gap by Nic Taylor in both calls.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 — CREATIVE STRATEGY -->
+  <div class="section-header">
+    <div class="step-pill">Step 6</div>
+    <h2>Creative Strategy — Angle Scores Updated</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-update">Score Update</span>
+        <span class="change-title">4 Angles Updated Based on TikTok Performance Data</span>
+      </div>
+      <div class="change-body">
+        <table class="perf-table">
+          <thead>
+            <tr>
+              <th>Angle</th>
+              <th>Name</th>
+              <th>Historical Score</th>
+              <th>New Score</th>
+              <th>New Composite</th>
+              <th>Evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-highlight">47SK-S6-08</td>
+              <td>Silver Chitoderm® Education</td>
+              <td><span class="score-old">7.0</span></td>
+              <td><span class="score-new">9.0 ↑</span></td>
+              <td class="td-green">8.73 → Tier 1</td>
+              <td>"Korean women glowing at 60" = #1 UK TikTok (£4,555 GMV, 5.54% CTR). US silver clinical angle from nurses = top converting.</td>
+            </tr>
+            <tr>
+              <td class="td-highlight">47SK-S6-15</td>
+              <td>Adult Hormonal Breakouts (Sophie)</td>
+              <td><span class="score-old">6.0</span></td>
+              <td><span class="score-new">8.0 ↑</span></td>
+              <td class="td-green">8.21 ↑</td>
+              <td>"Pretty brown skin girlies with adult hormonal acne" = highest CTR in US dataset (4.45%). Diversity representation = underserved high-engagement angle.</td>
+            </tr>
+            <tr>
+              <td class="td-highlight">47SK-S6-18</td>
+              <td>Authority — Press &amp; Customers</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>Headline corrected: "500,000 customers" → "200,000+ customers". Press updated: Vogue only → Vogue, Tatler &amp; GQ.</td>
+            </tr>
+            <tr>
+              <td class="td-highlight">47SK-S6-07</td>
+              <td>Authority — Reviews &amp; Retail</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>Headline corrected: "10,000+" → "20,000+ five-star reviews". Validated by TikTok: social-proof hook = #2 US performer ($1,166 GMV).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-addition">Addition</span>
+        <span class="change-title">TikTok Performance Intelligence Added to Pipeline</span>
+      </div>
+      <div class="change-body">
+        <table class="perf-table">
+          <thead>
+            <tr>
+              <th>Market</th>
+              <th>Rank</th>
+              <th>Video / Angle Type</th>
+              <th>GMV</th>
+              <th>CTR</th>
+              <th>Strategic Signal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🇬🇧 UK</td>
+              <td class="td-highlight">#1</td>
+              <td>Korean women glowing skin at 60 · <em>Ingredient education + aging</em></td>
+              <td class="td-green">£4,556</td>
+              <td class="td-green">5.54%</td>
+              <td>Cross-cultural ingredient education dominates UK TikTok</td>
+            </tr>
+            <tr>
+              <td>🇺🇸 US</td>
+              <td class="td-highlight">#1</td>
+              <td>Anti blemish acne scar serum is a game changer · <em>Direct product claim</em></td>
+              <td class="td-green">$1,837</td>
+              <td>2.91%</td>
+              <td>"Game changer" framing with explicit problem language converts best</td>
+            </tr>
+            <tr>
+              <td>🇺🇸 US</td>
+              <td class="td-highlight">#2</td>
+              <td>Fingers crossed this works, based off the reviews · <em>Social proof anchor</em></td>
+              <td>$1,166</td>
+              <td class="td-green">3.66%</td>
+              <td>Review-anchored curiosity hook validates authority angle creative</td>
+            </tr>
+            <tr>
+              <td>🇺🇸 US</td>
+              <td class="td-highlight">#3</td>
+              <td>Pretty brown skin girlies · adult hormonal acne/scars · <em>Diversity + adult acne</em></td>
+              <td>$655</td>
+              <td class="td-highlight">4.45% ★</td>
+              <td>Highest CTR in US dataset. Diversity + adult hormonal acne = underserved white space</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px; padding:12px 14px; background:#0e1020; border-radius:8px; border:1px solid #282932;">
+          <span style="font-size:11px; font-weight:700; color:#f87171; text-transform:uppercase; letter-spacing:0.08em;">⚠️ TikTok Compliance Alert</span>
+          <span style="font-size:12px; color:#b0b1b6; margin-left:8px;">Cannot say "scar repair" on TikTok. Platform uses "mark repair" on labels for TikTok-published content. TikTok Shop revenue is currently NOT integrated into Triple Whale (showing zero). Action: resolve with Triple Whale rep.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 — BRIEF BUILDER -->
+  <div class="section-header">
+    <div class="step-pill">Step 7</div>
+    <h2>Creative Briefs — Corrections Applied</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-correction">Correction</span>
+        <span class="change-title">5 Corrections Applied to Briefs B01, B02 &amp; B05</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row">
+          <span class="change-label">1. Trademark</span>
+          <span class="change-value"><span class="old">Silver Chitoderm</span> → <span class="new">Silver Chitoderm® (registered trademark)</span> — applied 16× across all three briefs. Required per brand guidelines.</span>
+        </div>
+        <div class="change-row">
+          <span class="change-label">2. Reviews</span>
+          <span class="change-value"><span class="old">10,000+ parent reviews</span> → <span class="new">20,000+ five-star reviews</span> — applied to CTA and body copy references.</span>
+        </div>
+        <div class="change-row">
+          <span class="change-label">3. Press</span>
+          <span class="change-value">Brand Promise section enriched with: <span class="new">As featured in Vogue, Tatler &amp; GQ. Trusted by 200,000+ customers.</span></span>
+        </div>
+        <div class="change-row">
+          <span class="change-label">4. US Social Proof</span>
+          <span class="change-value new">Apple Martin (Gwyneth Paltrow's daughter) mentioned 47 Skin in a Vogue video interview, March 2026 — added as US-native authority signal.</span>
+        </div>
+        <div class="change-row">
+          <span class="change-label">5. TikTok</span>
+          <span class="change-value">TikTok platform specs rows in all 3 briefs now include: <span class="new">⚠️ Do NOT say "scar repair" — use "blemish repair" or "mark repair" per TikTok label restriction.</span></span>
+        </div>
+        <div class="change-row">
+          <span class="change-label">6. Banner</span>
+          <span class="change-value">Enrichment banner added to document header listing all 9 sources and all corrections applied, with date stamp.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATOR STRATEGY INTEL -->
+  <div class="section-header">
+    <h2>Creator Strategy Intelligence — From Calls</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-card">
+      <div class="change-header">
+        <span class="change-type type-insight">Insight</span>
+        <span class="change-title">Creator Type Priorities for US Market (New Intelligence)</span>
+      </div>
+      <div class="change-body">
+        <div class="change-row"><span class="change-label">Priority 1</span><span class="change-value new"><strong>Nurse / Dermatologist / Expert voices</strong> — Matt Glass confirmed a nurse-creator explaining Silver's benefits took off in US TikTok. Authority framing disarms skepticism and validates a novel ingredient.</span></div>
+        <div class="change-row"><span class="change-label">Priority 2</span><span class="change-value new"><strong>US-native moms aged 35–50</strong> — The mom-to-teen avatar is confirmed but needs US-native faces (UK accent = potential disconnect). Nic open to US-equivalent voice for his founder story.</span></div>
+        <div class="change-row"><span class="change-label">Priority 3</span><span class="change-value new"><strong>Older TikTok Shop creators (40s–60s)</strong> — Adrienne noted older creators are increasingly monetising TikTok Shop and are very comfortable on camera. High value for the "Korean women glowing at 60" crossover angle.</span></div>
+        <div class="change-row"><span class="change-label">Priority 4</span><span class="change-value"><strong>Younger creator + older family member</strong> — Adrienne's proven formula from hearing aid client. Brief younger creators with "film with an older family member" ask. Unexpected performers for this type of brief.</span></div>
+        <div class="change-row"><span class="change-label">Gap</span><span class="change-value"><strong>Whitelisting</strong> — Nic Taylor's own UK videos have 15.1M views (organic). US equivalent not yet tested. Whitelisting from Nic's account or a US-native partner is a priority to test.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div style="text-align:center; padding:20px 0; color:#545560; font-size:12px;">
+    Ad Pros Brand Intelligence · 47 Skin (Brand ID: 6c1d7301-4556-4e2e-ac83-8e91db350504) · Enrichment Completed 20 March 2026<br>
+    9 sources ingested · Steps 1–7 updated in Supabase · Briefs HTML corrected · Pipeline ready to continue to Step 8
+  </div>
+
+</div>
+
+</div>
+</body>
+</html>
