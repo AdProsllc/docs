@@ -5,21 +5,456 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
-  <title>AdPros Docs</title>
+  <title>Published Pages — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 0 24px;
-      color: #1a1a1a;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
     }
-    h1 { font-size: 2rem; margin-bottom: 8px; }
-    p { color: #555; }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 960px; margin: 0 auto; }
+
+    .search-wrap { position: relative; margin-bottom: 28px; }
+    .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--grey-300); pointer-events: none; }
+    .search-input {
+      width: 100%; padding: 16px 20px 16px 50px;
+      background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px;
+      color: #fff; font-size: 16px; font-family: inherit; outline: none; transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--yellow); }
+    .search-input::placeholder { color: var(--grey-300); }
+
+    .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .stats-count { font-size: 14px; color: var(--grey-300); }
+    .stats-count strong { color: var(--yellow); font-weight: 600; }
+    .refresh-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: none; border: 1px solid var(--card-border); border-radius: 8px;
+      color: var(--grey-300); font-size: 13px; font-family: inherit;
+      padding: 8px 14px; cursor: pointer; transition: all 0.2s;
+    }
+    .refresh-btn:hover { border-color: var(--grey-300); color: #fff; }
+    .refresh-btn svg { width: 14px; height: 14px; }
+    .refresh-btn.spinning svg { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .page-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 24px; background: var(--navy-card);
+      border: 1px solid var(--card-border); border-radius: 10px;
+      margin-bottom: 10px; cursor: pointer; transition: all 0.2s;
+      text-decoration: none; color: inherit;
+    }
+    .page-card:hover {
+      border-color: var(--yellow);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(249, 217, 0, 0.06);
+    }
+    .page-card-info { flex: 1; min-width: 0; }
+    .page-card-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .page-card-url { font-size: 13px; color: var(--grey-300); font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .page-card-meta { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+    .page-card-date { font-size: 13px; color: var(--grey-300); white-space: nowrap; }
+    .page-card-arrow { color: var(--grey-300); font-size: 18px; transition: color 0.2s; line-height: 1; }
+    .page-card:hover .page-card-arrow { color: var(--yellow); }
+
+    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+    .skeleton { height: 72px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 10px; animation: pulse 1.5s ease-in-out infinite; }
+
+    .state-msg { text-align: center; padding: 48px 24px; color: var(--grey-300); font-size: 15px; }
+    .retry-btn {
+      margin-top: 16px; display: inline-block;
+      padding: 10px 20px; background: var(--yellow); color: var(--navy);
+      border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+      font-family: inherit; cursor: pointer;
+    }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 640px) {
+      .ap-header, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; }
+      .ap-content { padding-top: 28px; }
+      .page-card { flex-wrap: wrap; padding: 16px; gap: 8px; }
+      .page-card-meta { width: 100%; justify-content: space-between; }
+      .page-card-title { white-space: normal; }
+    }
   </style>
 </head>
 <body>
-  <h1>AdPros Docs</h1>
-  <p>Pages and resources published here are live and shareable.</p>
+
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-index";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c){c.style.display='';window.dispatchEvent(new Event('ap-unlocked'));}
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+
+<div id="ap-content" style="display:none;">
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Published Pages</h1>
+      <p>Internal page directory</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input type="text" id="search-input" class="search-input" placeholder="Search pages..." autocomplete="off">
+    </div>
+
+    <div class="stats-bar">
+      <span id="stats-count" class="stats-count"></span>
+      <button id="refresh-btn" class="refresh-btn" title="Refresh page list">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.5 2v6h-6"></path>
+          <path d="M2.5 22v-6h6"></path>
+          <path d="M2.5 11.5a10 10 0 0 1 18.36-4.73L21.5 8"></path>
+          <path d="M21.5 12.5a10 10 0 0 1-18.36 4.73L2.5 16"></path>
+        </svg>
+        Refresh
+      </button>
+    </div>
+
+    <div id="page-list"></div>
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+</div>
+
+<noscript>
+  <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,sans-serif;color:#B0B1B6;text-align:center;padding:40px;">
+    JavaScript is required to view this page.
+  </div>
+</noscript>
+
+<script>
+(function(){
+  var API = 'https://api.github.com/repos/AdProsllc/docs';
+  var CACHE_KEY = 'ap-pages-v1';
+  var CACHE_TTL = 5 * 60 * 1000;
+
+  var allPages = [];
+  var searchTerm = '';
+
+  var pageListEl = document.getElementById('page-list');
+  var searchEl = document.getElementById('search-input');
+  var statsEl = document.getElementById('stats-count');
+  var refreshEl = document.getElementById('refresh-btn');
+
+  /* Slug to readable title */
+  var UPPER = {'ai':1,'sop':1,'tts':1,'ag1':1,'epc':1,'bie':1,'api':1,'hq':1,'v3':1,'v2':1,'v1':1,'url':1,'ui':1,'ux':1,'qa':1,'ceo':1,'cto':1,'coo':1,'cmo':1,'roi':1};
+  function titleize(slug) {
+    return slug.split('-').map(function(w) {
+      if (UPPER[w]) return w.toUpperCase();
+      if (/^\d+$/.test(w)) return w;
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    }).join(' ');
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  /* DOM helpers - safe element creation, no innerHTML with dynamic data */
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    if (attrs) {
+      Object.keys(attrs).forEach(function(k) {
+        if (k === 'className') node.className = attrs[k];
+        else if (k === 'textContent') node.textContent = attrs[k];
+        else if (k === 'style' && typeof attrs[k] === 'object') {
+          Object.keys(attrs[k]).forEach(function(s) { node.style[s] = attrs[k][s]; });
+        }
+        else node.setAttribute(k, attrs[k]);
+      });
+    }
+    if (children) {
+      children.forEach(function(c) {
+        if (typeof c === 'string') node.appendChild(document.createTextNode(c));
+        else if (c) node.appendChild(c);
+      });
+    }
+    return node;
+  }
+
+  function clearEl(node) {
+    while (node.firstChild) node.removeChild(node.firstChild);
+  }
+
+  /* Cache */
+  function getCache() {
+    try {
+      var raw = sessionStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (Date.now() - obj.ts > CACHE_TTL) return null;
+      return obj.pages;
+    } catch(e) { return null; }
+  }
+  function setCache(pages) {
+    try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ pages: pages, ts: Date.now() })); } catch(e) {}
+  }
+  function clearCache() {
+    try { sessionStorage.removeItem(CACHE_KEY); } catch(e) {}
+  }
+
+  /* Loading skeletons */
+  function showLoading() {
+    statsEl.textContent = 'Loading\u2026';
+    clearEl(pageListEl);
+    for (var i = 0; i < 5; i++) {
+      var sk = el('div', { className: 'skeleton' });
+      sk.style.animationDelay = (i * 0.1) + 's';
+      pageListEl.appendChild(sk);
+    }
+  }
+
+  /* Error state */
+  function showError(msg) {
+    statsEl.textContent = '';
+    clearEl(pageListEl);
+    var hint = (msg && msg.indexOf('403') !== -1)
+      ? 'GitHub API rate limit reached. Try again in a minute.'
+      : (msg || 'Failed to load pages.');
+    var wrap = el('div', { className: 'state-msg' }, [
+      el('p', { textContent: hint }),
+      el('button', { className: 'retry-btn', textContent: 'Try Again' })
+    ]);
+    wrap.querySelector('.retry-btn').addEventListener('click', function() {
+      clearCache();
+      loadPages(false);
+    });
+    pageListEl.appendChild(wrap);
+  }
+
+  /* Build a single page card element */
+  function buildCard(page) {
+    var info = el('div', { className: 'page-card-info' }, [
+      el('div', { className: 'page-card-title', textContent: page.title }),
+      el('div', { className: 'page-card-url', textContent: 'docs.adpros.com' + page.url })
+    ]);
+    var metaChildren = [];
+    if (page.date) {
+      metaChildren.push(el('span', { className: 'page-card-date', textContent: fmtDate(page.date) }));
+    }
+    metaChildren.push(el('span', { className: 'page-card-arrow', textContent: '\u2192' }));
+    var meta = el('div', { className: 'page-card-meta' }, metaChildren);
+
+    var card = el('a', {
+      className: 'page-card',
+      href: page.url,
+      target: '_blank',
+      rel: 'noopener'
+    }, [info, meta]);
+    return card;
+  }
+
+  /* Load pages from GitHub API */
+  async function loadPages(useCache) {
+    if (useCache) {
+      var cached = getCache();
+      if (cached) {
+        allPages = cached;
+        render();
+        return;
+      }
+    }
+
+    showLoading();
+    refreshEl.classList.add('spinning');
+
+    try {
+      var res = await fetch(API + '/contents/');
+      if (!res.ok) throw new Error('API ' + res.status);
+      var items = await res.json();
+
+      var dirs = items.filter(function(it) {
+        return it.type === 'dir' && it.name.charAt(0) !== '.';
+      });
+
+      if (dirs.length === 0) {
+        allPages = [];
+        render();
+        refreshEl.classList.remove('spinning');
+        return;
+      }
+
+      /* Fetch most recent commit date per page in parallel */
+      var pages = await Promise.all(dirs.map(function(dir) {
+        return fetch(API + '/commits?path=' + encodeURIComponent(dir.name) + '/index.html&per_page=1')
+          .then(function(r) { return r.ok ? r.json() : []; })
+          .then(function(commits) {
+            var date = commits.length ? commits[0].commit.author.date : null;
+            return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: date };
+          })
+          .catch(function() {
+            return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: null };
+          });
+      }));
+
+      /* Sort newest first, undated at bottom alphabetically */
+      pages.sort(function(a, b) {
+        if (!a.date && !b.date) return a.title.localeCompare(b.title);
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return new Date(b.date) - new Date(a.date);
+      });
+
+      allPages = pages;
+      setCache(pages);
+      render();
+
+    } catch(e) {
+      showError(e.message);
+    }
+
+    refreshEl.classList.remove('spinning');
+  }
+
+  /* Render page list */
+  function render() {
+    var filtered = allPages;
+    if (searchTerm) {
+      var q = searchTerm.toLowerCase();
+      filtered = allPages.filter(function(p) {
+        return p.title.toLowerCase().indexOf(q) !== -1 || p.slug.indexOf(q) !== -1;
+      });
+    }
+
+    /* Stats */
+    clearEl(statsEl);
+    var countEl = el('strong', { textContent: String(filtered.length) });
+    if (searchTerm && filtered.length !== allPages.length) {
+      statsEl.appendChild(countEl);
+      statsEl.appendChild(document.createTextNode(' of ' + allPages.length + ' pages'));
+    } else {
+      statsEl.appendChild(countEl);
+      statsEl.appendChild(document.createTextNode(' page' + (allPages.length !== 1 ? 's' : '') + ' published'));
+    }
+
+    /* Cards */
+    clearEl(pageListEl);
+
+    if (allPages.length === 0) {
+      pageListEl.appendChild(el('div', { className: 'state-msg' }, [
+        el('p', { textContent: 'No pages published yet.' })
+      ]));
+      return;
+    }
+
+    if (filtered.length === 0) {
+      pageListEl.appendChild(el('div', { className: 'state-msg' }, [
+        el('p', { textContent: 'No pages match your search.' })
+      ]));
+      return;
+    }
+
+    filtered.forEach(function(page) {
+      pageListEl.appendChild(buildCard(page));
+    });
+  }
+
+  /* Events */
+  searchEl.addEventListener('input', function() {
+    searchTerm = this.value.trim();
+    render();
+  });
+  searchEl.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { this.value = ''; searchTerm = ''; render(); }
+    if (e.key === 'Enter') {
+      var first = pageListEl.querySelector('.page-card');
+      if (first) window.open(first.getAttribute('href'), '_blank');
+    }
+  });
+
+  refreshEl.addEventListener('click', function() {
+    clearCache();
+    loadPages(false);
+  });
+
+  /* Init after gate unlocks */
+  function init() {
+    var gate = document.getElementById('ap-gate');
+    if (!gate || gate.style.display === 'none') {
+      loadPages(true);
+      searchEl.focus();
+    } else {
+      window.addEventListener('ap-unlocked', function() {
+        loadPages(true);
+        setTimeout(function() { searchEl.focus(); }, 100);
+      });
+    }
+  }
+  init();
+})();
+</script>
 </body>
 </html>
