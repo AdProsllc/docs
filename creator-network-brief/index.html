@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Creator Performance Network — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --yellow: #F9D900;
+    }
+    body { background: #0c0c10; margin: 0; }
+    #ap-brand-bar {
+      background: var(--navy);
+      border-bottom: 4px solid var(--yellow);
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    #ap-brand-bar .divider { width: 1px; height: 36px; background: rgba(255,255,255,0.15); }
+    #ap-brand-bar h1 { font-family: "Inter",sans-serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.3px; margin: 0; }
+    #ap-brand-bar p { font-family: "Inter",sans-serif; font-size: 12px; color: #8A8B93; margin: 3px 0 0; }
+    #app { min-height: 100vh; }
+    @media (max-width: 640px) { #ap-brand-bar { padding: 16px 20px; } }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+  <div id="ap-brand-bar">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:42px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="divider"></div>
+    <div>
+      <h1>Creator Performance Network</h1>
+      <p>Internal Brief &mdash; April 2026</p>
+    </div>
+  </div>
+  <div id="app"></div>
+  <script type="text/babel">
+const { useState } = React;
+
+const S = {
+  bg: "#0c0c10",
+  card: "#131318",
+  cardBorder: "#1e1e26",
+  white: "#ffffff",
+  offWhite: "#b8b5ad",
+  muted: "#6b6860",
+  accent: "#4ae68a",    // Ad Pros green from site CTAs
+  accentDim: "#2a8a52",
+  gold: "#c4a046",
+  red: "#e5534b",
+  mono: "'JetBrains Mono', 'SF Mono', monospace",
+  sans: "'Manrope', 'Helvetica Neue', sans-serif",
+  display: "'Sora', 'Helvetica Neue', sans-serif",
+};
+
+function Tag({ children, color }) {
+  return (
+    <span style={{
+      display: "inline-block", padding: "4px 10px", borderRadius: 6,
+      fontSize: 10, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase",
+      background: `${color || S.accent}18`, color: color || S.accent,
+      fontFamily: S.mono,
+    }}>{children}</span>
+  );
+}
+
+function Stat({ value, label, sub, color, small }) {
+  return (
+    <div style={{ textAlign: "center", flex: 1, minWidth: small ? 80 : 100 }}>
+      <div style={{
+        fontFamily: S.display, fontSize: small ? 22 : 28, fontWeight: 800,
+        color: color || S.white, letterSpacing: "-0.03em", lineHeight: 1,
+      }}>{value}</div>
+      <div style={{
+        fontSize: 10, fontFamily: S.mono, letterSpacing: "0.1em", textTransform: "uppercase",
+        color: S.muted, marginTop: 6,
+      }}>{label}</div>
+      {sub && <div style={{ fontSize: 10, color: S.muted, marginTop: 2 }}>{sub}</div>}
+    </div>
+  );
+}
+
+function Card({ children, style, border }) {
+  return (
+    <div style={{
+      background: S.card, border: `1px solid ${border || S.cardBorder}`,
+      borderRadius: 16, padding: "20px 18px", ...style,
+    }}>{children}</div>
+  );
+}
+
+function SectionHead({ num, title }) {
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <div style={{
+        fontSize: 10, fontWeight: 700, fontFamily: S.mono, letterSpacing: "0.2em",
+        color: S.accent, marginBottom: 6,
+      }}>{num}</div>
+      <h2 style={{
+        fontFamily: S.display, fontSize: 22, fontWeight: 800, margin: 0,
+        color: S.white, letterSpacing: "-0.02em", lineHeight: 1.2,
+      }}>{title}</h2>
+    </div>
+  );
+}
+
+function FlowStep({ num, title, body, note, last }) {
+  return (
+    <div style={{
+      display: "flex", gap: 14, paddingBottom: last ? 0 : 18,
+      marginBottom: last ? 0 : 18,
+      borderBottom: last ? "none" : `1px solid ${S.cardBorder}`,
+    }}>
+      <div style={{
+        width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+        background: `${S.accent}15`, border: `1px solid ${S.accent}30`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        fontFamily: S.mono, fontSize: 13, fontWeight: 700, color: S.accent,
+      }}>{num}</div>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: S.white, marginBottom: 3 }}>{title}</div>
+        <div style={{ fontSize: 13, lineHeight: 1.55, color: S.offWhite }}>{body}</div>
+        {note && <div style={{ fontSize: 11, color: S.muted, marginTop: 4, fontStyle: "italic" }}>{note}</div>}
+      </div>
+    </div>
+  );
+}
+
+function Brief() {
+  const [expandedRisks, setExpandedRisks] = useState(false);
+
+  return (
+    <div style={{
+      minHeight: "100vh", background: S.bg, fontFamily: S.sans, color: S.white,
+      WebkitFontSmoothing: "antialiased",
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+      <style>{`
+        @keyframes fadeIn { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+        .fadein { animation: fadeIn 0.6s ease both; }
+        * { box-sizing: border-box; }
+      `}</style>
+
+      <div style={{ maxWidth: 540, margin: "0 auto", padding: "0 16px" }}>
+
+        {/* ===== HEADER ===== */}
+        <div className="fadein" style={{ paddingTop: 40, paddingBottom: 32 }}>
+          {/* Logo area */}
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            marginBottom: 28,
+          }}>
+            <div style={{
+              fontFamily: S.display, fontSize: 18, fontWeight: 800, letterSpacing: "-0.02em",
+              color: S.white,
+            }}>
+              Ad Pros
+            </div>
+            <Tag color={S.muted}>Internal Brief</Tag>
+          </div>
+
+          <h1 style={{
+            fontFamily: S.display, fontSize: 30, fontWeight: 800, lineHeight: 1.1,
+            margin: 0, letterSpacing: "-0.03em",
+          }}>
+            Creator Performance<br />
+            <span style={{ color: S.accent }}>Network</span>
+          </h1>
+
+          <p style={{
+            fontSize: 14, lineHeight: 1.65, color: S.offWhite, marginTop: 14,
+            maxWidth: 440,
+          }}>
+            A performance-based creator model. Brands pay a flat base for organic content.
+            Ad Pros earns a percentage of ad spend when content gets boosted.
+            Profitable from dollar one.
+          </p>
+
+          {/* Quick stats bar */}
+          <div style={{
+            display: "flex", gap: 2, marginTop: 24,
+            background: S.card, borderRadius: 14, padding: "18px 8px",
+            border: `1px solid ${S.cardBorder}`,
+          }}>
+            <Stat value="$5K" label="Base/Brand" sub="break-even" small />
+            <div style={{ width: 1, background: S.cardBorder, flexShrink: 0 }} />
+            <Stat value="10%" label="Of Spend" sub="AP revenue" color={S.accent} small />
+            <div style={{ width: 1, background: S.cardBorder, flexShrink: 0 }} />
+            <Stat value="7%" label="Kept" sub="gross margin" small />
+            <div style={{ width: 1, background: S.cardBorder, flexShrink: 0 }} />
+            <Stat value="3%" label="To Creators" sub="bonus" small />
+          </div>
+        </div>
+
+        {/* ===== THE MODEL ===== */}
+        <div className="fadein" style={{ animationDelay: "0.1s", marginBottom: 20 }}>
+          <Card>
+            <SectionHead num="01" title="The Model" />
+            <div style={{
+              background: `${S.accent}08`, borderRadius: 10, padding: "16px 16px",
+              borderLeft: `3px solid ${S.accent}`,
+            }}>
+              <p style={{ fontSize: 14, lineHeight: 1.65, margin: 0, color: S.offWhite }}>
+                Brands pay a <strong style={{ color: S.white }}>$5,000/mo base fee</strong> that
+                funds a pool of creators posting organic UGC content. When brands put ad spend behind
+                that content, Ad Pros earns <strong style={{ color: S.accent }}>10% of spend</strong> —
+                keeping <strong style={{ color: S.accent }}>7%</strong> as gross margin and
+                passing <strong style={{ color: S.white }}>3%</strong> to creators as a performance bonus.
+              </p>
+            </div>
+          </Card>
+        </div>
+
+        {/* ===== HOW IT WORKS ===== */}
+        <div className="fadein" style={{ animationDelay: "0.15s", marginBottom: 20 }}>
+          <Card>
+            <SectionHead num="02" title="How It Works" />
+            <FlowStep num="1" title="Base Fee"
+              body="Brand pays $5,000/mo → funds 33 creators × 30 posts = 990 organic posts/month."
+              note="Break-even for Ad Pros. Covers content production." />
+            <FlowStep num="2" title="Organic Posting"
+              body="Creators post UGC video content on Instagram, YouTube, and TikTok from their own accounts."
+              note="100K impression minimum/month or creator gets removed." />
+            <FlowStep num="3" title="Performance Gate"
+              body="Brand identifies winning content and puts ad spend behind it — boosting posts as paid ads."
+              note="Brand controls spend. Ad Pros advises on allocation." />
+            <FlowStep num="4" title="Revenue Split"
+              body="Ad Pros earns 10% of all ad spend on creator content. 3% goes to creators. 7% is gross margin."
+              note="Profitable from the first dollar of ad spend." last />
+          </Card>
+        </div>
+
+        {/* ===== ECONOMICS ===== */}
+        <div className="fadein" style={{ animationDelay: "0.2s", marginBottom: 20 }}>
+          <Card>
+            <SectionHead num="03" title="Economics" />
+
+            {/* Revenue equation */}
+            <div style={{
+              display: "flex", alignItems: "center", gap: 8,
+              flexWrap: "wrap", justifyContent: "center",
+              marginBottom: 20,
+            }}>
+              <div style={{
+                background: `${S.muted}15`, borderRadius: 10, padding: "12px 14px",
+                textAlign: "center", flex: "1 1 100px",
+              }}>
+                <div style={{ fontSize: 9, fontFamily: S.mono, letterSpacing: "0.1em", textTransform: "uppercase", color: S.muted, marginBottom: 3 }}>Base</div>
+                <div style={{ fontFamily: S.display, fontSize: 20, fontWeight: 800, color: S.offWhite }}>$5K</div>
+              </div>
+              <span style={{ color: S.muted, fontSize: 18, fontWeight: 700, flexShrink: 0 }}>+</span>
+              <div style={{
+                background: `${S.accent}10`, border: `1px solid ${S.accent}25`,
+                borderRadius: 10, padding: "12px 14px", textAlign: "center", flex: "1 1 100px",
+              }}>
+                <div style={{ fontSize: 9, fontFamily: S.mono, letterSpacing: "0.1em", textTransform: "uppercase", color: S.accent, marginBottom: 3 }}>10% of Spend</div>
+                <div style={{ fontFamily: S.display, fontSize: 20, fontWeight: 800, color: S.accent }}>$10K</div>
+              </div>
+              <span style={{ color: S.muted, fontSize: 18, fontWeight: 700, flexShrink: 0 }}>=</span>
+              <div style={{
+                background: `${S.accent}08`, borderRadius: 10, padding: "12px 14px",
+                textAlign: "center", flex: "1 1 100px",
+              }}>
+                <div style={{ fontSize: 9, fontFamily: S.mono, letterSpacing: "0.1em", textTransform: "uppercase", color: S.muted, marginBottom: 3 }}>Revenue</div>
+                <div style={{ fontFamily: S.display, fontSize: 20, fontWeight: 800, color: S.white }}>$15K</div>
+              </div>
+            </div>
+            <div style={{ fontSize: 10, textAlign: "center", color: S.muted, marginBottom: 20 }}>per brand at $100K ad spend</div>
+
+            {/* Split bar */}
+            <div style={{ marginBottom: 6 }}>
+              <div style={{ display: "flex", height: 8, borderRadius: 4, overflow: "hidden" }}>
+                <div style={{ width: "70%", background: S.accent }} />
+                <div style={{ width: "30%", background: `${S.white}20` }} />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 11 }}>
+                <span style={{ color: S.accent }}>Ad Pros keeps 7% → <strong>$7K</strong></span>
+                <span style={{ color: S.offWhite }}>Creator 3% → <strong>$3K</strong></span>
+              </div>
+            </div>
+
+            {/* Why it works */}
+            <div style={{
+              marginTop: 18, background: S.bg, borderRadius: 10, padding: "14px 16px",
+              fontSize: 13, lineHeight: 1.6, color: S.offWhite,
+            }}>
+              <strong style={{ color: S.white }}>Why this works:</strong> Base fee covers content at zero margin.
+              Every dollar of ad spend = pure 7% margin with no incremental cost. No margin compression at scale.
+            </div>
+          </Card>
+        </div>
+
+        {/* ===== CREATOR VALUE PROP ===== */}
+        <div className="fadein" style={{ animationDelay: "0.25s", marginBottom: 20 }}>
+          <Card>
+            <SectionHead num="04" title="Creator Value Prop" />
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
+              {[
+                { label: "Base Pay", value: "$150", sub: "/mo (30×$5)", color: S.offWhite },
+                { label: "Min Target", value: "$300", sub: "/mo", color: S.gold },
+                { label: "Ideal Target", value: "$5K", sub: "/mo", color: S.accent },
+                { label: "Perf. Gate", value: "100K", sub: "impr/mo min", color: S.offWhite },
+              ].map((m, i) => (
+                <div key={i} style={{
+                  background: S.bg, borderRadius: 10, padding: "14px 12px",
+                  border: `1px solid ${S.cardBorder}`,
+                }}>
+                  <div style={{
+                    fontSize: 9, fontFamily: S.mono, letterSpacing: "0.1em",
+                    textTransform: "uppercase", color: S.muted, marginBottom: 4,
+                  }}>{m.label}</div>
+                  <div style={{
+                    fontFamily: S.display, fontSize: 24, fontWeight: 800,
+                    color: m.color, letterSpacing: "-0.02em",
+                  }}>{m.value}</div>
+                  <div style={{ fontSize: 10, color: S.muted, marginTop: 2 }}>{m.sub}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{
+              background: `${S.accent}08`, borderRadius: 10, padding: "14px 16px",
+              borderLeft: `3px solid ${S.accent}40`, fontSize: 13, lineHeight: 1.6, color: S.offWhite,
+            }}>
+              <strong style={{ color: S.white }}>The pitch:</strong> $5/post guaranteed. Hit view minimums,
+              stay in the program. When your content gets boosted, earn 3% of that spend — no cap.
+              Better content = more brand spend = more you make. Underperformers get replaced.
+            </div>
+          </Card>
+        </div>
+
+        {/* ===== AT SCALE ===== */}
+        <div className="fadein" style={{ animationDelay: "0.3s", marginBottom: 20 }}>
+          <Card>
+            <SectionHead num="05" title="At Scale" />
+
+            <div style={{ overflowX: "auto", margin: "0 -6px" }}>
+              <table style={{
+                width: "100%", borderCollapse: "collapse", fontSize: 12,
+                fontFamily: S.mono, minWidth: 420,
+              }}>
+                <thead>
+                  <tr>
+                    {["", "Brands", "Spend/Mo", "Rev/Mo", "Margin/Mo"].map(h => (
+                      <th key={h} style={{
+                        padding: "8px 6px", textAlign: "right", fontSize: 9,
+                        letterSpacing: "0.1em", textTransform: "uppercase",
+                        color: S.muted, fontWeight: 600,
+                        borderBottom: `1px solid ${S.cardBorder}`,
+                      }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { n: "Launch", b: 5, s: 50000 },
+                    { n: "Growth", b: 15, s: 100000 },
+                    { n: "Scale", b: 30, s: 250000 },
+                    { n: "Mature", b: 50, s: 500000 },
+                  ].map((r, i) => {
+                    const ts = r.b * r.s;
+                    const rev = (r.b * 5000) + (ts * 0.10);
+                    const margin = ts * 0.07;
+                    const f = n => n >= 1e6 ? "$" + (n/1e6).toFixed(1) + "M" : "$" + (n/1e3).toFixed(0) + "K";
+                    return (
+                      <tr key={i} style={{ borderBottom: `1px solid ${S.cardBorder}` }}>
+                        <td style={{ padding: "10px 6px", textAlign: "right", fontWeight: 700, color: S.white, fontSize: 11 }}>{r.n}</td>
+                        <td style={{ padding: "10px 6px", textAlign: "right", color: S.muted }}>{r.b}</td>
+                        <td style={{ padding: "10px 6px", textAlign: "right", color: S.offWhite }}>{f(ts)}</td>
+                        <td style={{ padding: "10px 6px", textAlign: "right", color: S.accent, fontWeight: 700 }}>{f(rev)}</td>
+                        <td style={{ padding: "10px 6px", textAlign: "right", color: S.white, fontWeight: 700 }}>{f(margin)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+
+        {/* ===== RISKS ===== */}
+        <div className="fadein" style={{ animationDelay: "0.35s", marginBottom: 40 }}>
+          <Card style={{ background: S.bg, border: `1px solid ${S.cardBorder}` }}>
+            <button
+              onClick={() => setExpandedRisks(!expandedRisks)}
+              style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                width: "100%", background: "none", border: "none", padding: 0,
+                cursor: "pointer", color: S.white,
+              }}
+            >
+              <span style={{
+                fontSize: 13, fontWeight: 700, fontFamily: S.sans,
+              }}>Assumptions & Risks</span>
+              <span style={{
+                fontSize: 18, color: S.muted, transition: "transform 0.2s",
+                transform: expandedRisks ? "rotate(180deg)" : "rotate(0deg)",
+              }}>▾</span>
+            </button>
+
+            {expandedRisks && (
+              <div style={{ marginTop: 14, fontSize: 13, lineHeight: 1.8 }}>
+                {[
+                  { icon: "→", text: "1,000-creator pool; 33 active per brand at $5K base", color: S.accent },
+                  { icon: "→", text: "3% bonus split evenly — top performers may want weighted distribution", color: S.accent },
+                  { icon: "⚠", text: "Brands control spend — revenue depends on them boosting content", color: S.gold },
+                  { icon: "⚠", text: "Creator retention risk if avg earnings stay below $300/mo", color: S.gold },
+                  { icon: "✓", text: "No margin compression — 7% is 7% at any scale", color: S.accent },
+                ].map((item, i) => (
+                  <div key={i} style={{ display: "flex", gap: 10, marginBottom: 4 }}>
+                    <span style={{ color: item.color, flexShrink: 0 }}>{item.icon}</span>
+                    <span style={{ color: S.offWhite }}>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Card>
+        </div>
+
+        {/* ===== FOOTER ===== */}
+        <div className="fadein" style={{ animationDelay: "0.4s" }}>
+          <div style={{
+            borderTop: `1px solid ${S.cardBorder}`, padding: "20px 0 40px",
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+          }}>
+            <div>
+              <div style={{ fontFamily: S.display, fontSize: 15, fontWeight: 800 }}>Ad Pros</div>
+              <div style={{ fontSize: 10, color: S.muted, marginTop: 2 }}>adpros.com</div>
+            </div>
+            <div style={{
+              fontSize: 9, fontFamily: S.mono, fontWeight: 600,
+              letterSpacing: "0.15em", textTransform: "uppercase", color: S.muted,
+            }}>Confidential</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(React.createElement(Brief));
+
+  </script>
+</body>
+</html>
