@@ -27,9 +27,10 @@
     .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
     .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
 
-    .ap-content { padding: 40px 48px; max-width: 960px; margin: 0 auto; }
+    .ap-content { padding: 40px 48px; max-width: 1060px; margin: 0 auto; }
 
-    .search-wrap { position: relative; margin-bottom: 28px; }
+    /* Search */
+    .search-wrap { position: relative; margin-bottom: 16px; }
     .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--grey-300); pointer-events: none; }
     .search-input {
       width: 100%; padding: 16px 20px 16px 50px;
@@ -39,7 +40,41 @@
     .search-input:focus { border-color: var(--yellow); }
     .search-input::placeholder { color: var(--grey-300); }
 
-    .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    /* Filter bar */
+    .filter-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 24px; padding: 16px 20px;
+      background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px;
+    }
+    .filter-group { display: flex; align-items: center; gap: 8px; }
+    .filter-label { font-size: 13px; color: var(--grey-300); font-weight: 500; white-space: nowrap; }
+    .filter-date {
+      padding: 8px 12px; background: var(--navy); border: 1px solid var(--card-border); border-radius: 8px;
+      color: #fff; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s;
+      color-scheme: dark;
+    }
+    .filter-date:focus { border-color: var(--yellow); }
+    .filter-sep { width: 1px; height: 28px; background: var(--card-border); flex-shrink: 0; }
+    .sort-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px; background: none; border: 1px solid var(--card-border); border-radius: 8px;
+      color: var(--grey-200); font-size: 13px; font-family: inherit; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .sort-btn:hover { border-color: var(--yellow); color: #fff; }
+    .sort-btn.active { border-color: var(--yellow); color: var(--yellow); }
+    .sort-btn svg { width: 14px; height: 14px; transition: transform 0.2s; }
+    .sort-btn.asc svg { transform: rotate(180deg); }
+    .clear-btn {
+      padding: 8px 14px; background: none; border: 1px solid var(--card-border); border-radius: 8px;
+      color: var(--grey-300); font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .clear-btn:hover { border-color: var(--grey-300); color: #fff; }
+    .filter-spacer { flex: 1; }
+
+    /* Stats bar */
+    .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .stats-count { font-size: 14px; color: var(--grey-300); }
     .stats-count strong { color: var(--yellow); font-weight: 600; }
     .refresh-btn {
@@ -53,11 +88,22 @@
     .refresh-btn.spinning svg { animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* Table header */
+    .table-head {
+      display: flex; align-items: center; gap: 16px;
+      padding: 0 24px 12px; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.8px; color: var(--grey-300);
+    }
+    .table-head-title { flex: 1; min-width: 0; }
+    .table-head-date { width: 140px; text-align: right; flex-shrink: 0; }
+    .table-head-action { width: 32px; flex-shrink: 0; }
+
+    /* Page cards */
     .page-card {
       display: flex; align-items: center; gap: 16px;
-      padding: 20px 24px; background: var(--navy-card);
+      padding: 18px 24px; background: var(--navy-card);
       border: 1px solid var(--card-border); border-radius: 10px;
-      margin-bottom: 10px; cursor: pointer; transition: all 0.2s;
+      margin-bottom: 8px; cursor: pointer; transition: all 0.2s;
       text-decoration: none; color: inherit;
     }
     .page-card:hover {
@@ -66,15 +112,15 @@
       box-shadow: 0 4px 16px rgba(249, 217, 0, 0.06);
     }
     .page-card-info { flex: 1; min-width: 0; }
-    .page-card-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .page-card-url { font-size: 13px; color: var(--grey-300); font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .page-card-meta { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
-    .page-card-date { font-size: 13px; color: var(--grey-300); white-space: nowrap; }
-    .page-card-arrow { color: var(--grey-300); font-size: 18px; transition: color 0.2s; line-height: 1; }
+    .page-card-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .page-card-url { font-size: 12px; color: var(--grey-300); font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .page-card-date { width: 140px; text-align: right; flex-shrink: 0; font-size: 14px; font-weight: 500; color: var(--grey-200); white-space: nowrap; }
+    .page-card-date-none { color: var(--grey-300); font-style: italic; font-weight: 400; font-size: 13px; }
+    .page-card-arrow { width: 32px; text-align: center; flex-shrink: 0; color: var(--grey-300); font-size: 18px; transition: color 0.2s; line-height: 1; }
     .page-card:hover .page-card-arrow { color: var(--yellow); }
 
     @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
-    .skeleton { height: 72px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 10px; animation: pulse 1.5s ease-in-out infinite; }
+    .skeleton { height: 68px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 8px; animation: pulse 1.5s ease-in-out infinite; }
 
     .state-msg { text-align: center; padding: 48px 24px; color: var(--grey-300); font-size: 15px; }
     .retry-btn {
@@ -87,12 +133,20 @@
     .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .ap-header, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; }
       .ap-content { padding-top: 28px; }
-      .page-card { flex-wrap: wrap; padding: 16px; gap: 8px; }
-      .page-card-meta { width: 100%; justify-content: space-between; }
+      .filter-bar { gap: 10px; padding: 14px 16px; }
+      .filter-sep { display: none; }
+      .filter-group { width: 100%; }
+      .filter-group .filter-date { flex: 1; }
+      .filter-spacer { display: none; }
+      .page-card { flex-wrap: wrap; padding: 16px; gap: 10px; }
+      .page-card-info { width: 100%; }
+      .page-card-date { width: auto; text-align: left; }
+      .page-card-arrow { width: auto; margin-left: auto; }
       .page-card-title { white-space: normal; }
+      .table-head { display: none; }
     }
   </style>
 </head>
@@ -153,6 +207,7 @@
   </header>
 
   <div class="ap-content">
+    <!-- Search -->
     <div class="search-wrap">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>
@@ -161,6 +216,29 @@
       <input type="text" id="search-input" class="search-input" placeholder="Search pages..." autocomplete="off">
     </div>
 
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <span class="filter-label">From</span>
+        <input type="date" id="filter-from" class="filter-date">
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">To</span>
+        <input type="date" id="filter-to" class="filter-date">
+      </div>
+      <div class="filter-sep"></div>
+      <button id="sort-btn" class="sort-btn" title="Toggle sort order">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14"></path>
+          <path d="m19 12-7 7-7-7"></path>
+        </svg>
+        <span id="sort-label">Newest First</span>
+      </button>
+      <div class="filter-spacer"></div>
+      <button id="clear-btn" class="clear-btn">Clear Filters</button>
+    </div>
+
+    <!-- Stats -->
     <div class="stats-bar">
       <span id="stats-count" class="stats-count"></span>
       <button id="refresh-btn" class="refresh-btn" title="Refresh page list">
@@ -172,6 +250,13 @@
         </svg>
         Refresh
       </button>
+    </div>
+
+    <!-- Table header -->
+    <div class="table-head">
+      <span class="table-head-title">Page</span>
+      <span class="table-head-date">Date Published</span>
+      <span class="table-head-action"></span>
     </div>
 
     <div id="page-list"></div>
@@ -196,16 +281,24 @@
 <script>
 (function(){
   var API = 'https://api.github.com/repos/AdProsllc/docs';
-  var CACHE_KEY = 'ap-pages-v1';
+  var CACHE_KEY = 'ap-pages-v2';
   var CACHE_TTL = 5 * 60 * 1000;
 
   var allPages = [];
   var searchTerm = '';
+  var sortDesc = true;
+  var dateFrom = '';
+  var dateTo = '';
 
   var pageListEl = document.getElementById('page-list');
   var searchEl = document.getElementById('search-input');
   var statsEl = document.getElementById('stats-count');
   var refreshEl = document.getElementById('refresh-btn');
+  var sortBtnEl = document.getElementById('sort-btn');
+  var sortLabelEl = document.getElementById('sort-label');
+  var filterFromEl = document.getElementById('filter-from');
+  var filterToEl = document.getElementById('filter-to');
+  var clearBtnEl = document.getElementById('clear-btn');
 
   /* Slug to readable title */
   var UPPER = {'ai':1,'sop':1,'tts':1,'ag1':1,'epc':1,'bie':1,'api':1,'hq':1,'v3':1,'v2':1,'v1':1,'url':1,'ui':1,'ux':1,'qa':1,'ceo':1,'cto':1,'coo':1,'cmo':1,'roi':1};
@@ -223,7 +316,13 @@
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  /* DOM helpers - safe element creation, no innerHTML with dynamic data */
+  /* Return YYYY-MM-DD from an ISO date string */
+  function toDateStr(iso) {
+    if (!iso) return '';
+    return iso.slice(0, 10);
+  }
+
+  /* DOM helpers */
   function el(tag, attrs, children) {
     var node = document.createElement(tag);
     if (attrs) {
@@ -295,25 +394,30 @@
     pageListEl.appendChild(wrap);
   }
 
-  /* Build a single page card element */
+  /* Build a single page card */
   function buildCard(page) {
     var info = el('div', { className: 'page-card-info' }, [
       el('div', { className: 'page-card-title', textContent: page.title }),
       el('div', { className: 'page-card-url', textContent: 'docs.adpros.com' + page.url })
     ]);
-    var metaChildren = [];
+
+    var dateEl;
     if (page.date) {
-      metaChildren.push(el('span', { className: 'page-card-date', textContent: fmtDate(page.date) }));
+      dateEl = el('div', { className: 'page-card-date', textContent: fmtDate(page.date) });
+    } else {
+      dateEl = el('div', { className: 'page-card-date' }, [
+        el('span', { className: 'page-card-date-none', textContent: 'No date' })
+      ]);
     }
-    metaChildren.push(el('span', { className: 'page-card-arrow', textContent: '\u2192' }));
-    var meta = el('div', { className: 'page-card-meta' }, metaChildren);
+
+    var arrow = el('div', { className: 'page-card-arrow', textContent: '\u2192' });
 
     var card = el('a', {
       className: 'page-card',
       href: page.url,
       target: '_blank',
       rel: 'noopener'
-    }, [info, meta]);
+    }, [info, dateEl, arrow]);
     return card;
   }
 
@@ -347,7 +451,6 @@
         return;
       }
 
-      /* Fetch most recent commit date per page in parallel */
       var pages = await Promise.all(dirs.map(function(dir) {
         return fetch(API + '/commits?path=' + encodeURIComponent(dir.name) + '/index.html&per_page=1')
           .then(function(r) { return r.ok ? r.json() : []; })
@@ -360,14 +463,6 @@
           });
       }));
 
-      /* Sort newest first, undated at bottom alphabetically */
-      pages.sort(function(a, b) {
-        if (!a.date && !b.date) return a.title.localeCompare(b.title);
-        if (!a.date) return 1;
-        if (!b.date) return -1;
-        return new Date(b.date) - new Date(a.date);
-      });
-
       allPages = pages;
       setCache(pages);
       render();
@@ -379,25 +474,59 @@
     refreshEl.classList.remove('spinning');
   }
 
-  /* Render page list */
+  /* Sort and filter, then render */
   function render() {
-    var filtered = allPages;
+    var filtered = allPages.slice();
+
+    /* Text search */
     if (searchTerm) {
       var q = searchTerm.toLowerCase();
-      filtered = allPages.filter(function(p) {
+      filtered = filtered.filter(function(p) {
         return p.title.toLowerCase().indexOf(q) !== -1 || p.slug.indexOf(q) !== -1;
       });
     }
 
+    /* Date range filter */
+    if (dateFrom) {
+      filtered = filtered.filter(function(p) {
+        return p.date && toDateStr(p.date) >= dateFrom;
+      });
+    }
+    if (dateTo) {
+      filtered = filtered.filter(function(p) {
+        return p.date && toDateStr(p.date) <= dateTo;
+      });
+    }
+
+    /* Sort */
+    filtered.sort(function(a, b) {
+      if (!a.date && !b.date) return a.title.localeCompare(b.title);
+      if (!a.date) return 1;
+      if (!b.date) return -1;
+      var cmp = new Date(a.date) - new Date(b.date);
+      return sortDesc ? -cmp : cmp;
+    });
+
+    /* Update sort button state */
+    sortLabelEl.textContent = sortDesc ? 'Newest First' : 'Oldest First';
+    if (sortDesc) {
+      sortBtnEl.classList.remove('asc');
+    } else {
+      sortBtnEl.classList.add('asc');
+    }
+
     /* Stats */
     clearEl(statsEl);
-    var countEl = el('strong', { textContent: String(filtered.length) });
-    if (searchTerm && filtered.length !== allPages.length) {
+    var total = allPages.length;
+    var shown = filtered.length;
+    var hasFilters = searchTerm || dateFrom || dateTo;
+    var countEl = el('strong', { textContent: String(shown) });
+    if (hasFilters && shown !== total) {
       statsEl.appendChild(countEl);
-      statsEl.appendChild(document.createTextNode(' of ' + allPages.length + ' pages'));
+      statsEl.appendChild(document.createTextNode(' of ' + total + ' pages'));
     } else {
       statsEl.appendChild(countEl);
-      statsEl.appendChild(document.createTextNode(' page' + (allPages.length !== 1 ? 's' : '') + ' published'));
+      statsEl.appendChild(document.createTextNode(' page' + (total !== 1 ? 's' : '') + ' published'));
     }
 
     /* Cards */
@@ -412,7 +541,7 @@
 
     if (filtered.length === 0) {
       pageListEl.appendChild(el('div', { className: 'state-msg' }, [
-        el('p', { textContent: 'No pages match your search.' })
+        el('p', { textContent: 'No pages match your filters.' })
       ]));
       return;
     }
@@ -433,6 +562,31 @@
       var first = pageListEl.querySelector('.page-card');
       if (first) window.open(first.getAttribute('href'), '_blank');
     }
+  });
+
+  filterFromEl.addEventListener('change', function() {
+    dateFrom = this.value;
+    render();
+  });
+  filterToEl.addEventListener('change', function() {
+    dateTo = this.value;
+    render();
+  });
+
+  sortBtnEl.addEventListener('click', function() {
+    sortDesc = !sortDesc;
+    render();
+  });
+
+  clearBtnEl.addEventListener('click', function() {
+    searchEl.value = '';
+    searchTerm = '';
+    filterFromEl.value = '';
+    filterToEl.value = '';
+    dateFrom = '';
+    dateTo = '';
+    sortDesc = true;
+    render();
   });
 
   refreshEl.addEventListener('click', function() {
