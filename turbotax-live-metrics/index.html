@@ -10,272 +10,229 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#040735;--navy-card:#070b3d;--yellow:#F9D900;--blue:#1A6FD4;
-  --white:#FFFFFF;--grey-300:#8A8B93;--grey-200:#B0B1B6;--card-border:#0e1358;
-  --green:#10b981;--amber:#f59e0b;--red:#ef4444;--purple:#a78bfa;--cyan:#22d3ee;--pink:#f472b6;--orange:#fb923c;
-}
-body{background:var(--navy);color:var(--grey-200);font-family:"Inter","Helvetica Neue",Arial,sans-serif;min-height:100vh;line-height:1.7}
-
-/* Header */
-.ap-header{background:var(--navy);border-bottom:4px solid var(--yellow);padding:28px 48px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.ap-header-divider{width:1px;height:40px;background:rgba(255,255,255,0.15)}
-.ap-header-text h1{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.3px}
-.ap-header-text p{font-size:13px;color:var(--grey-300);margin-top:3px}
-
-/* Content */
-.ap-content{padding:40px 48px;max-width:1100px;margin:0 auto}
-
-/* Tag row */
-.tag-row{display:flex;gap:8px;margin:20px 0 32px;flex-wrap:wrap}
-.tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.7px;padding:5px 10px;border-radius:6px;background:var(--navy-card);color:var(--grey-300);border:1px solid var(--card-border)}
-.tag.blue{color:var(--blue);border-color:rgba(26,111,212,.3);background:rgba(26,111,212,.08)}
-.tag.green{color:var(--green);border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08)}
-.tag.yellow{color:var(--yellow);border-color:rgba(249,217,0,.25);background:rgba(249,217,0,.06)}
-
-/* Category blocks */
-.category{margin-bottom:36px}
-.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.cat-num{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--navy);width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center}
-.cat-num.c1{background:var(--yellow)}.cat-num.c2{background:var(--green)}.cat-num.c3{background:var(--amber)}.cat-num.c4{background:var(--purple);color:#fff}.cat-num.c5{background:var(--cyan)}.cat-num.c6{background:var(--red);color:#fff}.cat-num.c7{background:var(--pink);color:var(--navy)}.cat-num.c8{background:var(--orange)}
-.cat-title{font-size:16px;font-weight:700;color:var(--white);letter-spacing:-0.2px}
-
-/* Tables */
-.tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--card-border);background:var(--navy-card)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{background:#0e1358;color:var(--grey-300);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;padding:11px 14px;text-align:left;border-bottom:1px solid var(--card-border);white-space:nowrap}
-thead th:last-child{text-align:right}
-tbody td{padding:10px 14px;border-bottom:1px solid rgba(14,19,88,.8);vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover{background:rgba(26,111,212,.04)}
-td.metric{color:var(--white);font-weight:500;min-width:200px}
-td.value{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--yellow);white-space:nowrap}
-td.note{color:var(--grey-300);font-size:12px;max-width:340px;line-height:1.5}
-.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;margin-left:4px;vertical-align:middle}
-.badge.up{background:rgba(16,185,129,.15);color:var(--green)}
-.badge.dn{background:rgba(239,68,68,.15);color:var(--red)}
-.badge.est-b{background:rgba(148,163,184,.1);color:var(--grey-300)}
-
-/* Footer */
-.methodology{margin-top:40px;padding:20px 24px;background:var(--navy-card);border:1px solid var(--card-border);border-radius:10px;font-size:12px;color:var(--grey-300);line-height:1.65}
-.methodology strong{color:var(--grey-200)}
-.ap-footer{margin:48px 48px 32px;padding-top:24px;border-top:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.ap-footer p{font-size:12px;color:var(--grey-300)}
-
-@media(max-width:700px){
-  .ap-header,.ap-content{padding-left:20px;padding-right:20px}
-  .ap-footer{margin-left:20px;margin-right:20px}
-  table{font-size:12px}
-  thead th,tbody td{padding:8px 10px}
-  td.metric{min-width:140px}
-  td.note{display:none}
-}
+:root{--navy:#040735;--navy-card:#070b3d;--surface:#0a0f42;--yellow:#F9D900;--blue:#1A6FD4;--white:#FFFFFF;--g3:#8A8B93;--g2:#B0B1B6;--border:#0e1358;--green:#10b981;--amber:#f59e0b;--red:#ef4444;--purple:#a78bfa;--cyan:#22d3ee;--pink:#f472b6;--orange:#fb923c}
+body{background:var(--navy);color:var(--g2);font-family:"Inter","Helvetica Neue",Arial,sans-serif;min-height:100vh;line-height:1.6;-webkit-text-size-adjust:100%}
+.ap-header{background:var(--navy);border-bottom:4px solid var(--yellow);padding:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ap-header-divider{width:1px;height:32px;background:rgba(255,255,255,0.15)}
+.ap-header-text h1{font-size:17px;font-weight:700;color:#fff;letter-spacing:-0.3px}
+.ap-header-text p{font-size:11px;color:var(--g3);margin-top:2px}
+.c{padding:16px;max-width:800px;margin:0 auto}
+.tags{display:flex;gap:6px;margin:12px 0 20px;flex-wrap:wrap}
+.tag{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;padding:4px 7px;border-radius:4px;background:var(--navy-card);color:var(--g3);border:1px solid var(--border)}
+.tag.b{color:var(--blue);border-color:rgba(26,111,212,.25);background:rgba(26,111,212,.07)}
+.tag.g{color:var(--green);border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.07)}
+.tag.y{color:var(--yellow);border-color:rgba(249,217,0,.2);background:rgba(249,217,0,.05)}
+.cat{margin-bottom:24px}
+.ch{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--navy);width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cn1{background:var(--yellow)}.cn2{background:var(--green)}.cn3{background:var(--amber)}.cn4{background:var(--purple);color:#fff}.cn5{background:var(--cyan)}.cn6{background:var(--red);color:#fff}.cn7{background:var(--pink);color:var(--navy)}.cn8{background:var(--orange)}.cn9{background:var(--white);color:var(--navy)}.cn10{background:var(--blue);color:#fff}
+.ct{font-size:14px;font-weight:700;color:var(--white);letter-spacing:-0.2px}
+.dg{border-radius:8px;overflow:hidden;margin-bottom:8px;border:1px solid var(--border);background:var(--navy-card)}
+.r{display:flex;justify-content:space-between;align-items:baseline;padding:9px 12px;border-bottom:1px solid rgba(14,19,88,.6);gap:6px}
+.r:last-child{border-bottom:none}
+.rl{color:var(--white);font-weight:500;font-size:12.5px;flex:1;min-width:0}
+.rl .s{color:var(--g3);font-size:10px;display:block;margin-top:1px;line-height:1.3}
+.rv{display:flex;gap:10px;align-items:baseline;flex-shrink:0}
+.v{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500;text-align:right;white-space:nowrap}
+.vp{color:var(--g3)}.vc{color:var(--yellow)}.vg{color:var(--green);font-size:10.5px;font-weight:600}.vr{color:var(--red);font-size:10.5px;font-weight:600}.ve{color:var(--g2);font-style:italic;opacity:.75;font-size:12px}
+.hd{display:flex;justify-content:space-between;padding:7px 12px;background:var(--surface);border-bottom:1px solid var(--border)}
+.hd span{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--g3)}
+.hd .hr{display:flex;gap:10px}
+.sl{padding:6px 12px;background:var(--surface);font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--g3);border-bottom:1px solid var(--border)}
+.co{background:var(--navy-card);border-left:3px solid var(--yellow);border-radius:0 6px 6px 0;padding:10px 12px;margin:8px 0;font-size:11px;line-height:1.5;color:var(--g2)}
+.co strong{color:var(--yellow)}
+.meth{margin-top:28px;padding:14px;background:var(--navy-card);border:1px solid var(--border);border-radius:8px;font-size:10px;color:var(--g3);line-height:1.6}
+.meth strong{color:var(--g2)}
+.ap-f{margin:32px 16px 20px;padding-top:16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ap-f p{font-size:10px;color:var(--g3)}
+@media(min-width:700px){.ap-header{padding:24px 40px}.c{padding:32px 40px}.ap-f{margin:40px 40px 28px}.ap-header-text h1{font-size:20px}.ct{font-size:15px}.rl{font-size:13.5px}.v{font-size:13.5px}.r{padding:10px 16px}}
 </style>
 </head>
 <body>
-
 <header class="ap-header">
-  <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
-    <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-    <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
-    <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
-  </svg>
-  <div class="ap-header-divider"></div>
-  <div class="ap-header-text">
-    <h1>TurboTax Live — $2B Metrics Breakdown</h1>
-    <p>Advanced unit economics, acquisition &amp; operating metrics &bull; April 2026</p>
-  </div>
+<svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:36px;width:auto;display:block"><text x="0" y="30" font-family="Inter,Helvetica Neue,Arial,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text><text x="0" y="58" font-family="Inter,Helvetica Neue,Arial,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text><rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/></svg>
+<div class="ap-header-divider"></div>
+<div class="ap-header-text"><h1>TurboTax Live — $2B Metrics</h1><p>Financials, unit economics & operating metrics • Apr 2026 • v3</p></div>
 </header>
+<div class="c">
+<div class="tags"><span class="tag b">FY2025 ending Jul 31 '25</span><span class="tag g">10-K + Fact Sheet</span><span class="tag y">Estimates labeled</span></div>
 
-<div class="ap-content">
+<div class="cat"><div class="ch"><span class="cn cn1">1</span><span class="ct">Intuit Total Company P&L</span></div>
+<div class="dg">
+<div class="hd"><span>Metric</span><div class="hr"><span>FY24</span><span>FY25</span><span>Δ</span></div></div>
+<div class="r"><span class="rl">Total revenue</span><div class="rv"><span class="v vp">$16.3B</span><span class="v vc">$18.8B</span><span class="v vg">+16%</span></div></div>
+<div class="r"><span class="rl">GAAP operating income</span><div class="rv"><span class="v vp">$3.63B</span><span class="v vc">$4.92B</span><span class="v vg">+36%</span></div></div>
+<div class="r"><span class="rl">Non-GAAP operating income</span><div class="rv"><span class="v vp">$6.40B</span><span class="v vc">$7.57B</span><span class="v vg">+18%</span></div></div>
+<div class="r"><span class="rl">Net income</span><div class="rv"><span class="v vp">$2.96B</span><span class="v vc">$3.87B</span><span class="v vg">+31%</span></div></div>
+<div class="r"><span class="rl">EBITDA</span><div class="rv"><span class="v vp">$4.3B</span><span class="v vc">$5.6B</span><span class="v vg">+31%</span></div></div>
+<div class="r"><span class="rl">Free cash flow</span><div class="rv"><span class="v vp">$4.7B</span><span class="v vc">$6.1B</span><span class="v vg">+31%</span></div></div>
+<div class="r"><span class="rl">GAAP diluted EPS</span><div class="rv"><span class="v vp">$10.43</span><span class="v vc">$13.67</span><span class="v vg">+31%</span></div></div>
+<div class="r"><span class="rl">Non-GAAP diluted EPS</span><div class="rv"><span class="v vp">$16.94</span><span class="v vc">$20.15</span><span class="v vg">+19%</span></div></div>
+</div>
+<div class="dg">
+<div class="sl">Margins</div>
+<div class="r"><span class="rl">GAAP operating margin</span><div class="rv"><span class="v vp">22.3%</span><span class="v vc">26.1%</span></div></div>
+<div class="r"><span class="rl">Non-GAAP operating margin</span><div class="rv"><span class="v vp">39.3%</span><span class="v vc">40.2%</span></div></div>
+<div class="r"><span class="rl">Net profit margin</span><div class="rv"><span class="v vp">18.2%</span><span class="v vc">20.6%</span></div></div>
+<div class="r"><span class="rl">FCF margin</span><div class="rv"><span class="v vp">28.8%</span><span class="v vc">32.4%</span></div></div>
+<div class="r"><span class="rl">Stock-based comp</span><div class="rv"><span class="v vp">$1.94B</span><span class="v vc">$1.97B</span></div></div>
+<div class="r"><span class="rl">Diluted shares</span><div class="rv"><span class="v vp">~284M</span><span class="v vc">~283M</span></div></div>
+</div></div>
 
-<div class="tag-row">
-  <span class="tag blue">FY2025 (Aug '24 – Jul '25)</span>
-  <span class="tag green">Sources: Intuit 10-K, Earnings Calls, Glassdoor</span>
-  <span class="tag yellow">Estimates marked *</span>
+<div class="cat"><div class="ch"><span class="cn cn2">2</span><span class="ct">Cost Structure & SGA</span></div>
+<div class="dg">
+<div class="r"><span class="rl">Selling, marketing, G&A<span class="s">Largest line item — exceeds R&D</span></span><div class="rv"><span class="v vc">$6.36B</span></div></div>
+<div class="r"><span class="rl">SGA as % of revenue</span><div class="rv"><span class="v vc">33.8%</span></div></div>
+<div class="r"><span class="rl">R&D expense</span><div class="rv"><span class="v vc">$2.75B</span></div></div>
+<div class="r"><span class="rl">R&D as % of revenue</span><div class="rv"><span class="v vc">14.6%</span></div></div>
+<div class="r"><span class="rl">SGA-to-R&D ratio<span class="s">$2.30 per $1 of R&D</span></span><div class="rv"><span class="v vc">2.3x</span></div></div>
+<div class="r"><span class="rl">Capex<span class="s">0.7% of revenue — very capital-light</span></span><div class="rv"><span class="v vc">$124M</span></div></div>
+</div></div>
+
+<div class="cat"><div class="ch"><span class="cn cn3">3</span><span class="ct">Balance Sheet</span></div>
+<div class="dg">
+<div class="r"><span class="rl">Cash & investments</span><div class="rv"><span class="v vc">$4.6B</span></div></div>
+<div class="r"><span class="rl">Total debt</span><div class="rv"><span class="v vc">$6.0B</span></div></div>
+<div class="r"><span class="rl">Debt-to-equity</span><div class="rv"><span class="v vc">0.28</span></div></div>
+<div class="r"><span class="rl">Buybacks (FY25)</span><div class="rv"><span class="v vc">$2.8B</span></div></div>
+<div class="r"><span class="rl">Auth. remaining</span><div class="rv"><span class="v vc">$5.3B</span></div></div>
+<div class="r"><span class="rl">Quarterly dividend<span class="s">+15% YoY</span></span><div class="rv"><span class="v vc">$1.20/sh</span></div></div>
+</div></div>
+
+<div class="cat"><div class="ch"><span class="cn cn4">4</span><span class="ct">Segment Revenue</span></div>
+<div class="dg">
+<div class="hd"><span>Segment</span><div class="hr"><span>FY24</span><span>FY25</span><span>Δ</span></div></div>
+<div class="r"><span class="rl">Global Business Solutions<span class="s">QuickBooks + Mailchimp</span></span><div class="rv"><span class="v vp">$9.5B</span><span class="v vc">$11.1B</span><span class="v vg">+16%</span></div></div>
+<div class="r"><span class="rl"> ↳ Online Ecosystem</span><div class="rv"><span class="v vp">$6.9B</span><span class="v vc">$8.3B</span><span class="v vg">+20%</span></div></div>
+<div class="r"><span class="rl"> ↳ Desktop Ecosystem</span><div class="rv"><span class="v vp">$2.6B</span><span class="v vc">$2.8B</span><span class="v vg">+5%</span></div></div>
+<div class="r"><span class="rl">Consumer Group<span class="s">TurboTax (legacy def.)</span></span><div class="rv"><span class="v vp">$4.4B</span><span class="v vc">$4.9B</span><span class="v vg">+10%</span></div></div>
+<div class="r"><span class="rl">Credit Karma</span><div class="rv"><span class="v vp">$1.7B</span><span class="v vc">$2.3B</span><span class="v vg">+32%</span></div></div>
+<div class="r"><span class="rl">ProTax</span><div class="rv"><span class="v vp">$599M</span><span class="v vc">$621M</span><span class="v vg">+4%</span></div></div>
+</div>
+<div class="co"><strong>FY26:</strong> Consumer + CK + ProTax merged into single segment = $7.75B on FY25 basis</div>
 </div>
 
-<!-- 1 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c1">1</span><span class="cat-title">Topline Revenue &amp; Segment Context</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">TurboTax Live revenue</td><td class="note">Confirmed by Intuit FY25 earnings</td><td class="value">$2.00B</td></tr>
-      <tr><td class="metric">Consumer Group revenue</td><td class="note">TurboTax + related consumer products</td><td class="value">$4.87B</td></tr>
-      <tr><td class="metric">TT Live as % of Consumer Group</td><td class="note">Up from ~30% in FY24</td><td class="value">41%</td></tr>
-      <tr><td class="metric">Intuit total company revenue</td><td class="note">All segments combined</td><td class="value">$18.8B</td></tr>
-      <tr><td class="metric">TT Live as % of total Intuit</td><td class="note">Single product line = 10.6% of company</td><td class="value">10.6%</td></tr>
-      <tr><td class="metric">Consumer Group segment operating margin</td><td class="note">After $606M reclassified to corporate</td><td class="value">~74–78%</td></tr>
-      <tr><td class="metric">Credit Karma revenue</td><td class="note">Now merged into Consumer segment for FY26</td><td class="value">$2.3B</td></tr>
-    </tbody>
-  </table></div>
+<div class="cat"><div class="ch"><span class="cn cn5">5</span><span class="ct">Segment Margins</span></div>
+<div class="dg">
+<div class="r"><span class="rl">GBS segment OI</span><div class="rv"><span class="v vc">$8.47B</span></div></div>
+<div class="r"><span class="rl">GBS margin</span><div class="rv"><span class="v vc">76.4%</span></div></div>
+<div class="r"><span class="rl">Consumer reported margin<span class="s">After $606M moved to corporate</span></span><div class="rv"><span class="v vc">78%</span></div></div>
+<div class="r"><span class="rl">Consumer fully loaded<span class="s">Adding $606M back in</span></span><div class="rv"><span class="v ve">~65–66%</span></div></div>
+<div class="r"><span class="rl">Q3 concentration<span class="s">$4.05B of $4.87B annual rev</span></span><div class="rv"><span class="v vc">83%</span></div></div>
+</div>
+<div class="co"><strong>Context:</strong> 78% headline is inflated. Intuit moved $606M expenses from Consumer to corporate in FY25 ($573M in FY24, $475M in FY23). Real margin ~65–66%, down from ~68% in FY23 due to +$132M marketing & TT Live labor scaling.</div>
 </div>
 
-<!-- 2 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c2">2</span><span class="cat-title">Growth Trajectory</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">TT Live revenue growth (FY25 YoY)</td><td class="note">Accelerated from 17% in FY23 and FY24</td><td class="value">47% <span class="badge up">↑</span></td></tr>
-      <tr><td class="metric">TT Live customer growth (FY25 YoY)</td><td class="note">Accelerated from 11% in FY24</td><td class="value">24% <span class="badge up">↑</span></td></tr>
-      <tr><td class="metric">ARPR growth (FY25 YoY)</td><td class="note">Mix shift + pricing</td><td class="value">~13% <span class="badge up">↑</span></td></tr>
-      <tr><td class="metric">Q1 FY26 TT Live revenue growth</td><td class="note">Oct '25 quarter — momentum continuing</td><td class="value">51% <span class="badge up">↑</span></td></tr>
-      <tr><td class="metric">TT Live revenue — FY23</td><td class="note">Estimated from 17% growth rate</td><td class="value">~$1.17B <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">TT Live revenue — FY24</td><td class="note">Estimated from 17% growth rate</td><td class="value">~$1.33B <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">TT Live revenue — FY22</td><td class="note">Crossed $1B threshold</td><td class="value">~$1.0B <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Full Service customer growth (FY22)</td><td class="note">Year Full Service hit inflection</td><td class="value">&gt;3x <span class="badge up">↑</span></td></tr>
-      <tr><td class="metric">FY26 projected TT Live revenue</td><td class="note">Based on 51% Q1 pace + seasonal weighting</td><td class="value">$2.5–3.0B <span class="badge est-b">est</span></td></tr>
-    </tbody>
-  </table></div>
+<div class="cat"><div class="ch"><span class="cn cn6">6</span><span class="ct">TurboTax Live — Revenue</span></div>
+<div class="dg">
+<div class="sl">Confirmed</div>
+<div class="r"><span class="rl">TT Live revenue (FY25)</span><div class="rv"><span class="v vc">$2.00B</span></div></div>
+<div class="r"><span class="rl">Revenue growth</span><div class="rv"><span class="v vg">+47%</span></div></div>
+<div class="r"><span class="rl">Customer growth</span><div class="rv"><span class="v vg">+24%</span></div></div>
+<div class="r"><span class="rl">ARPR growth</span><div class="rv"><span class="v vg">~+13%</span></div></div>
+<div class="r"><span class="rl">% of Consumer Group</span><div class="rv"><span class="v vc">41%</span></div></div>
+<div class="r"><span class="rl">% of total Intuit</span><div class="rv"><span class="v vc">10.6%</span></div></div>
+<div class="r"><span class="rl">Q1 FY26 growth</span><div class="rv"><span class="v vg">+51%</span></div></div>
+</div>
+<div class="dg">
+<div class="sl">Estimated (back-calculated)</div>
+<div class="r"><span class="rl">FY24</span><div class="rv"><span class="v ve">~$1.36B</span></div></div>
+<div class="r"><span class="rl">FY23</span><div class="rv"><span class="v ve">~$1.16B</span></div></div>
+<div class="r"><span class="rl">FY22</span><div class="rv"><span class="v ve">~$1.0B</span></div></div>
+<div class="r"><span class="rl">FY26 projected</span><div class="rv"><span class="v ve">$2.5–3.0B</span></div></div>
+</div></div>
+
+<div class="cat"><div class="ch"><span class="cn cn7">7</span><span class="ct">Volume & Pricing</span></div>
+<div class="dg">
+<div class="sl">Returns (FY25)</div>
+<div class="r"><span class="rl">Total returns</span><div class="rv"><span class="v vc">39.2M</span><span class="v vr">-2%</span></div></div>
+<div class="r"><span class="rl">Online / Desktop</span><div class="rv"><span class="v vc">34.9M / 4.3M</span></div></div>
+<div class="r"><span class="rl">Paying units Δ</span><div class="rv"><span class="v vg">+6%</span></div></div>
+<div class="r"><span class="rl">Pay-nothing<span class="s">Down from 10M+ in FY23</span></span><div class="rv"><span class="v ve">~8M</span></div></div>
+<div class="r"><span class="rl">Est. Live customers</span><div class="rv"><span class="v ve">8–10M</span></div></div>
+</div>
+<div class="dg">
+<div class="sl">ARPR (estimated)</div>
+<div class="r"><span class="rl">TT Live blended</span><div class="rv"><span class="v ve">$200–250</span></div></div>
+<div class="r"><span class="rl">DIY blended</span><div class="rv"><span class="v ve">$50–90</span></div></div>
+<div class="r"><span class="rl">Live vs DIY lift</span><div class="rv"><span class="v vc">3–4x</span></div></div>
+<div class="r"><span class="rl">% of avg refund ($3,453)</span><div class="rv"><span class="v ve">~5–7%</span></div></div>
+</div>
+<div class="dg">
+<div class="sl">Pricing (2026 season)</div>
+<div class="hd"><span>Tier</span><div class="hr"><span>Assist</span><span>Full Svc</span></div></div>
+<div class="r"><span class="rl">Basic</span><div class="rv"><span class="v vc">$79</span><span class="v vc">$129+</span></div></div>
+<div class="r"><span class="rl">Deluxe</span><div class="rv"><span class="v vc">$139</span><span class="v vc">forms</span></div></div>
+<div class="r"><span class="rl">Premium</span><div class="rv"><span class="v vc">$209</span><span class="v vc">$409+</span></div></div>
+<div class="r"><span class="rl">State filing</span><div class="rv"><span class="v vc">$59–69</span><span class="v vc">$69</span></div></div>
+<div class="r"><span class="rl">Refund fee</span><div class="rv"><span class="v vc">$40</span></div></div>
+<div class="r"><span class="rl">Beat Your Price</span><div class="rv"><span class="v vc">≥10% off</span></div></div>
+</div>
+<div class="dg">
+<div class="sl">TAM</div>
+<div class="r"><span class="rl">Assisted tax market</span><div class="rv"><span class="v vc">$35B / ~85M returns</span></div></div>
+<div class="r"><span class="rl">TT Live penetration</span><div class="rv"><span class="v vc">~6%</span></div></div>
+</div></div>
+
+<div class="cat"><div class="ch"><span class="cn cn8">8</span><span class="ct">TT Live Unit Economics</span></div>
+<div class="dg">
+<div class="sl">Expert Workforce</div>
+<div class="r"><span class="rl">Experts (W-2)</span><div class="rv"><span class="v vc">~15,000</span></div></div>
+<div class="r"><span class="rl">Avg pay</span><div class="rv"><span class="v vc">~$40/hr</span></div></div>
+<div class="r"><span class="rl">CPA Full Svc</span><div class="rv"><span class="v vc">~$54/hr</span></div></div>
+<div class="r"><span class="rl">Entry-level</span><div class="rv"><span class="v vc">$27–31/hr</span></div></div>
+<div class="r"><span class="rl">Loaded cost/hr<span class="s">+FICA, benefits, 401k, E&O</span></span><div class="rv"><span class="v ve">$52–70</span></div></div>
+<div class="r"><span class="rl">Academy trained</span><div class="rv"><span class="v vc">129K+</span></div></div>
+</div>
+<div class="dg">
+<div class="sl">Cost to Serve (est.)</div>
+<div class="hd"><span>Tier</span><div class="hr"><span>Time</span><span>Cost</span><span>Margin</span></div></div>
+<div class="r"><span class="rl">Expert Assist</span><div class="rv"><span class="v ve">15–30m</span><span class="v ve">$20–50</span><span class="v ve">60–75%</span></div></div>
+<div class="r"><span class="rl">Full Service</span><div class="rv"><span class="v ve">1.5–2h</span><span class="v ve">$80–140</span><span class="v ve">40–55%</span></div></div>
+<div class="r"><span class="rl">Blended Live</span><div class="rv"><span class="v ve"></span><span class="v ve"></span><span class="v ve">50–65%</span></div></div>
+<div class="r"><span class="rl">DIY (comp.)</span><div class="rv"><span class="v ve">0</span><span class="v ve">~$0</span><span class="v ve">90–95%</span></div></div>
+<div class="r"><span class="rl">Returns/expert</span><div class="rv"><span class="v ve">530–670</span></div></div>
+</div></div>
+
+<div class="cat"><div class="ch"><span class="cn cn9">9</span><span class="ct">Acquisition & Marketing</span></div>
+<div class="dg">
+<div class="r"><span class="rl">Total SGA<span class="s">33.8% of revenue</span></span><div class="rv"><span class="v vc">$6.36B</span></div></div>
+<div class="r"><span class="rl">Super Bowl (2026)<span class="s">45-sec Adrien Brody ad</span></span><div class="rv"><span class="v vc">$8–10M</span></div></div>
+<div class="r"><span class="rl">NFL exclusive<span class="s">Blocks competitors since 2019</span></span><div class="rv"><span class="v vc">Thru '26</span></div></div>
+<div class="r"><span class="rl">Olympics</span><div class="rv"><span class="v vc">LA 2028</span></div></div>
+<div class="r"><span class="rl">CK members<span class="s">Zero-CAC funnel</span></span><div class="rv"><span class="v vc">110M+</span></div></div>
+<div class="r"><span class="rl">CK → TT lift</span><div class="rv"><span class="v vc">3x starts</span></div></div>
+<div class="r"><span class="rl">CK zero-click login<span class="s">Up from 5%</span></span><div class="rv"><span class="v vc">70%</span></div></div>
+<div class="r"><span class="rl">CK acq. cost (2020)</span><div class="rv"><span class="v vc">$7.1B</span></div></div>
+<div class="r"><span class="rl">Offices / Stores</span><div class="rv"><span class="v vc">600 / 20</span></div></div>
+</div></div>
+
+<div class="cat"><div class="ch"><span class="cn cn10">10</span><span class="ct">AI & FY26 Guidance</span></div>
+<div class="dg">
+<div class="sl">AI Efficiency</div>
+<div class="r"><span class="rl">Expert time reduction</span><div class="rv"><span class="v vc">~20%</span></div></div>
+<div class="r"><span class="rl">Forms auto-processed</span><div class="rv"><span class="v vc">90%</span></div></div>
+<div class="r"><span class="rl">Simple returns pre-filled</span><div class="rv"><span class="v vc">80%</span></div></div>
+<div class="r"><span class="rl">Filing time reduction</span><div class="rv"><span class="v vc">12%</span></div></div>
+<div class="r"><span class="rl">AI savings (H1 ann.)</span><div class="rv"><span class="v vc">$90M</span></div></div>
+<div class="r"><span class="rl">Platform</span><div class="rv"><span class="v vc">Claude+GPT</span></div></div>
+</div>
+<div class="dg">
+<div class="sl">FY2026 Guidance</div>
+<div class="r"><span class="rl">Revenue</span><div class="rv"><span class="v vc">$21.0–21.2B</span><span class="v vg">+12–13%</span></div></div>
+<div class="r"><span class="rl">GAAP OI</span><div class="rv"><span class="v vc">$5.8–5.9B</span><span class="v vg">+17–19%</span></div></div>
+<div class="r"><span class="rl">GAAP EPS</span><div class="rv"><span class="v vc">$15.49–15.69</span><span class="v vg">+13–15%</span></div></div>
+<div class="r"><span class="rl">Non-GAAP EPS</span><div class="rv"><span class="v vc">$22.98–23.18</span></div></div>
+<div class="r"><span class="rl">Consumer / TT / CK</span><div class="rv"><span class="v vc">8–9% / 8% / 10–13%</span></div></div>
+<div class="r"><span class="rl">Expert rating</span><div class="rv"><span class="v vc">4.9★ (86K)</span></div></div>
+</div></div>
+
+<div class="meth"><strong>Sources:</strong> Intuit Q4 FY25 Fact Sheet (Aug 21, 2025), FY2025 10-K, Q1 FY26 earnings (Nov 20, 2025), MacroTrends (net income/EBITDA), Glassdoor (comp), TurboTax.com (pricing). Confirmed vs estimated clearly separated. Segment margins include $606M corporate reclassification caveat. All USD.</div>
 </div>
 
-<!-- 3 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c3">3</span><span class="cat-title">Volume &amp; Customer Mix</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">Total TurboTax returns filed (FY25)</td><td class="note">Desktop + online; declined 2% YoY</td><td class="value">39.2M <span class="badge dn">-2%</span></td></tr>
-      <tr><td class="metric">Online returns</td><td class="note"></td><td class="value">34.9M</td></tr>
-      <tr><td class="metric">Desktop returns</td><td class="note"></td><td class="value">4.3M</td></tr>
-      <tr><td class="metric">Online paying units growth</td><td class="note">Paying customers grew even as total declined</td><td class="value">+6%</td></tr>
-      <tr><td class="metric">Pay-nothing customers (FY25)</td><td class="note">Down from 10M+ in FY23 — deliberate shed</td><td class="value">~8M <span class="badge dn">↓</span></td></tr>
-      <tr><td class="metric">Estimated TT Live customer base</td><td class="note">Derived from $2B ÷ ~$200–250 ARPR</td><td class="value">8–10M <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">TAM: professionally prepared returns</td><td class="note">H&amp;R Block, Jackson Hewitt, CPAs, EAs</td><td class="value">~85M returns</td></tr>
-      <tr><td class="metric">TAM: assisted tax market value</td><td class="note">Intuit's stated addressable market</td><td class="value">$35B</td></tr>
-      <tr><td class="metric">TT Live TAM penetration</td><td class="note">Per Intuit investor presentations</td><td class="value">~6%</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 4 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c4">4</span><span class="cat-title">Revenue Per Return &amp; Pricing Architecture</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">Blended ARPR — TT Live</td><td class="note">$2B ÷ est. 8–10M customers</td><td class="value">$200–250 <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Blended ARPR — DIY TurboTax</td><td class="note">$0 (Free) to $200+ (Premium + state)</td><td class="value">$50–90 <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">ARPR lift: Live vs. DIY</td><td class="note">Core economics of the business model</td><td class="value">3–4x</td></tr>
-      <tr><td class="metric">Expert Assist — Basic (federal)</td><td class="note">Simplest returns</td><td class="value">$79</td></tr>
-      <tr><td class="metric">Expert Assist — Deluxe (federal)</td><td class="note">Itemized deductions, HSA, etc.</td><td class="value">$139</td></tr>
-      <tr><td class="metric">Expert Assist — Premium (federal)</td><td class="note">Investments, rental, crypto</td><td class="value">$209</td></tr>
-      <tr><td class="metric">Expert Full Service — Basic (federal)</td><td class="note">Simple W-2 returns</td><td class="value">Starting $129</td></tr>
-      <tr><td class="metric">Expert Full Service — Complex (federal)</td><td class="note">Forms-based, scales with complexity</td><td class="value">Up to $409+</td></tr>
-      <tr><td class="metric">State filing — Expert Assist</td><td class="note">Per state</td><td class="value">$59–69</td></tr>
-      <tr><td class="metric">State filing — Full Service</td><td class="note">Per state</td><td class="value">$69</td></tr>
-      <tr><td class="metric">Refund processing fee</td><td class="note">"Pay from refund" convenience fee</td><td class="value">$40</td></tr>
-      <tr><td class="metric">Expert Assist premium over DIY</td><td class="note">At equivalent complexity tiers</td><td class="value">$60–79</td></tr>
-      <tr><td class="metric">Beat Your Price guarantee</td><td class="note">Min. discount vs. prior tax preparer</td><td class="value">≥10% off</td></tr>
-      <tr><td class="metric">Avg. IRS refund (2025 season)</td><td class="note">Emotional anchor for willingness to pay</td><td class="value">$3,453</td></tr>
-      <tr><td class="metric">TT Live price as % of avg. refund</td><td class="note">~$200 ARPR / $3,453 refund</td><td class="value">~5–7% <span class="badge est-b">est</span></td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 5 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c5">5</span><span class="cat-title">Unit Economics &amp; Cost to Serve</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">Total tax experts (W-2 employees)</td><td class="note">Not 1099 — quality control + legal protection</td><td class="value">~15,000</td></tr>
-      <tr><td class="metric">Avg. expert hourly pay (blended)</td><td class="note">Glassdoor 2026 data</td><td class="value">~$40/hr</td></tr>
-      <tr><td class="metric">CPA Full Service expert hourly pay</td><td class="note">Higher credential tier</td><td class="value">~$54/hr</td></tr>
-      <tr><td class="metric">Entry-level Tax Specialist pay</td><td class="note">Intuit Academy graduates</td><td class="value">$27–31/hr</td></tr>
-      <tr><td class="metric">Fully loaded cost per expert hour</td><td class="note">+FICA, benefits, 401k, E&amp;O, equipment (30–40% burden)</td><td class="value">$52–70 <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Expert Assist — avg. interaction time</td><td class="note">Per customer across filing season</td><td class="value">15–30 min <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Expert Assist — labor cost/customer</td><td class="note">Including multiple touchpoints</td><td class="value">$20–50 <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Full Service — expert time/return</td><td class="note">Post-AI (was 2–2.5 hrs pre-AI)</td><td class="value">1.5–2 hrs <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Full Service — labor cost/return</td><td class="note">Varies by complexity</td><td class="value">$80–140 <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Tech infrastructure cost/customer</td><td class="note">Servers, AI inference, platform allocation</td><td class="value">$5–15 <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Expert Assist — est. gross margin</td><td class="note"></td><td class="value">60–75% <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Full Service — est. gross margin</td><td class="note"></td><td class="value">40–55% <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Blended TT Live gross margin</td><td class="note"></td><td class="value">50–65% <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">DIY TurboTax gross margin (comp.)</td><td class="note">Near-zero marginal cost software</td><td class="value">90–95% <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Returns per expert (season avg.)</td><td class="note">15K experts ÷ 8–10M Live customers</td><td class="value">530–670 <span class="badge est-b">est</span></td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 6 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c6">6</span><span class="cat-title">Customer Acquisition &amp; Marketing</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">Intuit total selling, marketing &amp; G&A</td><td class="note">FY25 — larger than R&amp;D ($2.75B)</td><td class="value">$6.36B</td></tr>
-      <tr><td class="metric">Intuit R&amp;D spend (FY25)</td><td class="note">For comparison</td><td class="value">$2.75B</td></tr>
-      <tr><td class="metric">Super Bowl 30-sec spot cost (2026)</td><td class="note">Intuit ran 45-sec Adrien Brody ad</td><td class="value">$8–10M</td></tr>
-      <tr><td class="metric">NFL exclusivity</td><td class="note">Official financial software sponsor since 2019; blocks competitors</td><td class="value">Renewed thru 2026</td></tr>
-      <tr><td class="metric">Olympics sponsorship</td><td class="note">LA 2028 + Team USA</td><td class="value">Active</td></tr>
-      <tr><td class="metric">Credit Karma member base</td><td class="note">Zero-CAC acquisition funnel for TurboTax</td><td class="value">110M+</td></tr>
-      <tr><td class="metric">Credit Karma → TT start rate lift</td><td class="note">vs. non-CK acquisition</td><td class="value">3x higher starts</td></tr>
-      <tr><td class="metric">CK zero-click login rate</td><td class="note">Improved from 5% → 70%</td><td class="value">70%</td></tr>
-      <tr><td class="metric">Credit Karma acquisition cost</td><td class="note">Dec 2020 — now primary TT funnel</td><td class="value">$7.1B</td></tr>
-      <tr><td class="metric">TurboTax Expert Offices</td><td class="note">Appointment-based, nationwide</td><td class="value">600</td></tr>
-      <tr><td class="metric">TurboTax branded storefronts</td><td class="note">Walk-in + appointment, major cities</td><td class="value">20</td></tr>
-      <tr><td class="metric">Marketing Studio</td><td class="note">AI agents replacing 5–6 groups over 3–4 weeks</td><td class="value">Agentic, end-to-end</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 7 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c7">7</span><span class="cat-title">AI Impact &amp; Operational Efficiency</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">Expert time reduction per return (AI)</td><td class="note">Full Service prep time compressed</td><td class="value">~20%</td></tr>
-      <tr><td class="metric">Labor savings per return from AI</td><td class="note">Direct cost compression</td><td class="value">$20–28 <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Tax forms auto-processed by AI</td><td class="note">Data extraction / pre-population</td><td class="value">90%</td></tr>
-      <tr><td class="metric">Simple filer return pre-population</td><td class="note">Before customer or expert begins</td><td class="value">80%</td></tr>
-      <tr><td class="metric">Customer filing time reduction</td><td class="note">Avg. across all TurboTax products</td><td class="value">12%</td></tr>
-      <tr><td class="metric">Annualized AI efficiencies (H1 FY25)</td><td class="note">Cost savings from AI investments</td><td class="value">$90M</td></tr>
-      <tr><td class="metric">AI platform</td><td class="note">Intuit Assist on proprietary GenOS</td><td class="value">Claude + GPT hybrid</td></tr>
-      <tr><td class="metric">Intuit Academy learners trained</td><td class="note">Recruiting funnel + upskilling pipeline</td><td class="value">129,000+</td></tr>
-      <tr><td class="metric">Tax season operating window</td><td class="note">Peak staffing period</td><td class="value">Jan–Apr, 5AM–9PM PT</td></tr>
-      <tr><td class="metric">Minimum expert shift length</td><td class="note">Seasonal scheduling requirement</td><td class="value">4+ hours</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 8 -->
-<div class="category">
-  <div class="cat-header"><span class="cat-num c8">8</span><span class="cat-title">Competitive &amp; Conversion Mechanics</span></div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Metric</th><th>Notes</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr><td class="metric">Beat Your Price — guaranteed savings</td><td class="note">vs. prior CPA / tax preparer fees</td><td class="value">≥10%</td></tr>
-      <tr><td class="metric">Beat Your Price — lock-in deadline</td><td class="note">FY25 tax season window</td><td class="value">By 3/18, file by 3/25</td></tr>
-      <tr><td class="metric">DIY → Live upsell trigger</td><td class="note">Complexity: investments, crypto, rental, SE</td><td class="value">Auto tier upgrade</td></tr>
-      <tr><td class="metric">Default landing recommendation</td><td class="note">Quiz routes most users to Expert Assist</td><td class="value">Expert Assist (not DIY)</td></tr>
-      <tr><td class="metric">Sunk-cost friction window</td><td class="note">Data entry time before price reveal</td><td class="value">30–90 min <span class="badge est-b">est</span></td></tr>
-      <tr><td class="metric">Avg. customer refund (IRS, 2025)</td><td class="note">Emotional anchor for willingness to pay</td><td class="value">$3,453</td></tr>
-      <tr><td class="metric">Expert review star rating</td><td class="note">2026 season</td><td class="value">4.9/5 (85,964 reviews)</td></tr>
-      <tr><td class="metric">100% accuracy guarantee</td><td class="note">Intuit pays IRS penalties if calc error</td><td class="value">Active</td></tr>
-      <tr><td class="metric">Year-round expert access</td><td class="note">Post-filing advisory, Full Service</td><td class="value">Included, no extra cost</td></tr>
-      <tr><td class="metric">Same expert retention</td><td class="note">Request same expert year after year</td><td class="value">Available</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<div class="methodology">
-  <strong>Methodology:</strong> Confirmed metrics sourced from Intuit FY2025 10-K, quarterly earnings releases, investor presentations, and official TurboTax pricing pages. Estimates (marked <em>est</em>) derived from confirmed data points using standard financial modeling. Compensation data from Glassdoor and Intuit career pages. TAM figures per Intuit investor day materials. All figures in USD.
-</div>
-
-</div>
-
-<footer class="ap-footer">
-  <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
-    <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-    <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
-    <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
-  </svg>
-  <p>Ad Pros &mdash; Internal Use</p>
+<footer class="ap-f">
+<svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:24px;width:auto;opacity:0.4"><text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text><text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text><rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/></svg>
+<p>Ad Pros — Internal Use</p>
 </footer>
-
 </body>
 </html>
