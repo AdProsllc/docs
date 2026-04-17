@@ -21,7 +21,6 @@
       --border-strong: rgba(255,255,255,0.12);
       --yellow: #F9D900;
       --yellow-hover: #FFE837;
-      --yellow-glow: rgba(249,217,0,0.25);
       --white: #FFFFFF;
       --grey-400: #5c5d67;
       --grey-300: #8A8B93;
@@ -33,6 +32,7 @@
       --amber: #ffb74d;
       --green: #8bc34a;
       --purple: #b39ddb;
+      --blue: #64b5f6;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -54,167 +54,308 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       min-height: 100vh;
-      font-feature-settings: "ss01", "cv02", "cv11";
     }
 
-    /* ===== NAV ===== */
-    .ap-nav {
+    /* ===== TAB NAV ===== */
+    .tab-nav-wrap {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(2,3,14,0.88);
+      background: rgba(2,3,14,0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-    .ap-nav-inner {
+    .tab-nav {
       max-width: 1320px; margin: 0 auto;
-      padding: 20px 36px;
-      display: flex; align-items: center; gap: 36px;
+      padding: 14px 28px;
+      display: flex; align-items: center; gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-strong) transparent;
     }
-    .ap-logo { display: flex; align-items: center; }
-    .ap-logo svg { display: block; height: 44px; width: auto; }
-    .ap-nav-links { display: flex; gap: 32px; margin-left: 16px; }
-    .ap-nav-link {
-      color: var(--grey-100); text-decoration: none;
-      font-size: 14px; font-weight: 500;
-      transition: color 0.15s ease;
+    .tab-nav::-webkit-scrollbar { height: 4px; }
+    .tab-nav::-webkit-scrollbar-track { background: transparent; }
+    .tab-nav::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+    .ap-brand-mark {
+      flex-shrink: 0; display: flex; align-items: center;
+      padding-right: 18px; margin-right: 8px;
+      border-right: 1px solid var(--border);
+    }
+    .ap-brand-mark svg { height: 32px; width: auto; }
+
+    .tab-group-label {
+      flex-shrink: 0;
+      font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--grey-400);
+      padding: 0 10px 0 12px;
+      white-space: nowrap;
+    }
+
+    .tab-btn {
+      flex-shrink: 0;
+      background: transparent; border: none;
+      color: var(--grey-100);
+      font-size: 13px; font-weight: 500;
+      padding: 9px 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      font-family: inherit;
       letter-spacing: -0.005em;
     }
-    .ap-nav-link:hover { color: var(--yellow); }
-    .ap-nav-spacer { flex: 1; }
-    .ap-nav-cta {
-      background: var(--yellow); color: var(--bg);
-      font-size: 13px; font-weight: 800;
-      padding: 13px 28px; border-radius: 100px;
-      text-decoration: none;
-      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      box-shadow: 0 0 24px rgba(249,217,0,0.18);
-    }
-    .ap-nav-cta:hover { background: var(--yellow-hover); transform: translateY(-1px); box-shadow: 0 0 32px rgba(249,217,0,0.3); }
-
-    /* ===== HERO ===== */
-    .ap-hero {
-      padding: 72px 36px 48px;
-      max-width: 1320px; margin: 0 auto;
-      position: relative;
-    }
-    .ap-hero-tag {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.14em;
-      color: var(--yellow);
-      padding: 8px 16px;
-      background: rgba(249,217,0,0.08);
-      border: 1px solid rgba(249,217,0,0.3);
-      border-radius: 100px;
-      margin-bottom: 28px;
-    }
-    .ap-hero-tag::before {
-      content: ""; width: 6px; height: 6px;
-      border-radius: 50%; background: var(--yellow);
-      box-shadow: 0 0 10px var(--yellow);
-    }
-    .ap-hero h1 {
-      font-size: clamp(38px, 5.5vw, 64px);
-      line-height: 1.02;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.035em;
-      margin-bottom: 20px;
-      max-width: 980px;
-    }
-    .ap-hero h1 .accent {
-      position: relative;
-      display: inline-block;
-    }
-    .ap-hero h1 .accent::after {
-      content: ""; position: absolute;
-      left: 0; right: 0; bottom: 0.08em;
-      height: 0.22em;
+    .tab-btn:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .tab-btn.active {
       background: var(--yellow);
-      z-index: -1;
-      border-radius: 2px;
-    }
-    .ap-hero p {
-      font-size: 18px; line-height: 1.55;
-      color: var(--grey-200);
-      max-width: 760px;
-      font-weight: 400;
+      color: var(--bg);
+      font-weight: 700;
+      box-shadow: 0 0 16px rgba(249,217,0,0.25);
     }
 
     /* ===== CONTENT ===== */
-    .ap-content { padding: 0 36px 40px; max-width: 1320px; margin: 0 auto; }
+    .content { max-width: 1320px; margin: 0 auto; padding: 36px 36px 64px; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-    .section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--grey-300);
-      font-weight: 700;
-      margin: 20px 0 14px;
+    /* Typography */
+    h2.tab-title {
+      font-size: 32px; font-weight: 800; color: #fff;
+      letter-spacing: -0.03em; margin-bottom: 6px;
+    }
+    .tab-subtitle {
+      font-size: 15px; color: var(--grey-200);
+      margin-bottom: 32px; max-width: 800px; line-height: 1.5;
+    }
+    h3.section-head {
+      font-size: 18px; font-weight: 700; color: #fff;
+      letter-spacing: -0.02em; margin: 36px 0 12px;
       display: flex; align-items: center; gap: 12px;
     }
+    h3.section-head::before {
+      content: ""; width: 24px; height: 2px; background: var(--yellow); border-radius: 2px;
+    }
+    h3.section-head:first-child { margin-top: 0; }
+
+    .section-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--grey-300); font-weight: 700;
+      margin: 20px 0 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
     .section-label::before {
-      content: ""; width: 28px; height: 2px;
-      background: var(--yellow); border-radius: 2px;
+      content: ""; width: 22px; height: 2px; background: var(--yellow); border-radius: 2px;
     }
 
-    /* ===== STATS BANNER ===== */
+    /* Stats / KPI */
     .stats-banner {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-      background: var(--border);
-      border-radius: 20px; overflow: hidden;
-      margin-bottom: 36px;
-      border: 1px solid var(--border);
+      background: var(--border); border-radius: 20px; overflow: hidden;
+      margin-bottom: 28px; border: 1px solid var(--border);
     }
-    .stats-banner-item {
-      background: var(--surface);
-      padding: 28px 30px;
-      position: relative;
+    .stat {
+      background: var(--surface); padding: 24px 26px;
     }
-    .stats-banner-value {
-      font-size: 36px; font-weight: 800; color: var(--yellow);
-      letter-spacing: -0.03em; line-height: 1;
-      margin-bottom: 8px;
+    .stat-value {
+      font-size: 32px; font-weight: 800; color: var(--yellow);
+      letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px;
     }
-    .stats-banner-label {
-      font-size: 13px; color: var(--grey-100);
-      font-weight: 500;
-      letter-spacing: -0.005em;
-    }
+    .stat-label { font-size: 12px; color: var(--grey-100); font-weight: 500; }
 
-    /* ===== INPUTS ===== */
-    .assumptions-panel {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-      gap: 0;
-      margin-bottom: 36px;
-      background: var(--surface);
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      overflow: hidden;
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px; margin-bottom: 28px;
     }
-    .assumption-item {
-      padding: 24px 26px;
-      border-right: 1px solid var(--border);
+    .kpi-grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .kpi-grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .kpi-card {
+      background: var(--surface); border-radius: 14px;
+      padding: 18px 20px; border: 1px solid var(--border);
+      transition: transform 0.15s ease, border-color 0.15s ease;
     }
-    .assumption-item:last-child { border-right: none; }
-    .assumption-item.primary {
-      background: linear-gradient(165deg, rgba(249,217,0,0.04), transparent);
-    }
-    .assumption-item .a-label {
+    .kpi-card:hover { border-color: rgba(249,217,0,0.3); transform: translateY(-2px); }
+    .kpi-label {
       font-size: 11px; color: var(--grey-300);
       text-transform: uppercase; letter-spacing: 0.12em;
       margin-bottom: 8px; font-weight: 700;
     }
-    .assumption-item .a-val {
-      font-size: 30px; font-weight: 800; color: #fff;
+    .kpi-value {
+      font-size: 26px; font-weight: 800; color: #fff;
       letter-spacing: -0.03em; line-height: 1;
     }
-    .assumption-item .a-sub {
-      font-size: 11px; color: var(--grey-300); margin-top: 8px;
+    .kpi-sub { font-size: 11px; color: var(--grey-300); margin-top: 5px; }
+
+    .badge {
+      display: inline-block; font-size: 10px;
+      padding: 3px 10px; border-radius: 100px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      margin-top: 6px;
     }
+    .badge-green { background: rgba(139,195,74,0.15); color: var(--green); }
+    .badge-red { background: rgba(255,112,67,0.15); color: var(--coral); }
+    .badge-amber { background: rgba(255,183,77,0.15); color: var(--amber); }
+    .badge-teal { background: rgba(77,182,172,0.15); color: var(--teal); }
+    .badge-yellow { background: rgba(249,217,0,0.15); color: var(--yellow); }
+    .badge-purple { background: rgba(179,157,219,0.15); color: var(--purple); }
+
+    /* Panels */
+    .panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 24px 26px;
+    }
+    .panel-title {
+      font-size: 16px; font-weight: 700; color: #fff;
+      margin-bottom: 4px; letter-spacing: -0.02em;
+    }
+    .panel-sub { font-size: 12px; color: var(--grey-300); margin-bottom: 18px; line-height: 1.5; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    /* Data tables */
+    .data-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .data-table th {
+      text-align: left; padding: 12px 14px;
+      font-size: 11px; font-weight: 700; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .data-table th.num, .data-table td.num { text-align: right; }
+    .data-table th.cen, .data-table td.cen { text-align: center; }
+    .data-table td {
+      padding: 12px 14px; color: var(--grey-100);
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table td.strong { color: #fff; font-weight: 700; }
+    .data-table td.yellow { color: var(--yellow); font-weight: 700; }
+    .data-table td.green { color: var(--green); font-weight: 700; }
+    .data-table td.red { color: var(--coral); font-weight: 700; }
+    .data-table tr.total td {
+      border-top: 1px solid var(--border-strong);
+      border-bottom: none; padding-top: 14px;
+      background: rgba(249,217,0,0.04);
+      font-weight: 700; color: #fff;
+    }
+    .data-table-wrap {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+    }
+
+    /* Chart */
+    .chart-wrap { position: relative; width: 100%; }
+
+    /* Callouts */
+    .callout {
+      background: linear-gradient(165deg, rgba(249,217,0,0.08), rgba(249,217,0,0.01));
+      border: 1px solid rgba(249,217,0,0.22);
+      border-radius: 14px; padding: 20px 24px;
+      margin: 14px 0;
+    }
+    .callout-title {
+      font-size: 12px; color: var(--yellow);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      font-weight: 700; margin-bottom: 8px;
+    }
+    .callout p { color: var(--grey-100); font-size: 14px; line-height: 1.55; }
+    .callout strong { color: #fff; font-weight: 700; }
+
+    .callout-red { background: linear-gradient(165deg, rgba(255,112,67,0.08), rgba(255,112,67,0.01)); border-color: rgba(255,112,67,0.22); }
+    .callout-red .callout-title { color: var(--coral); }
+    .callout-teal { background: linear-gradient(165deg, rgba(77,182,172,0.08), rgba(77,182,172,0.01)); border-color: rgba(77,182,172,0.22); }
+    .callout-teal .callout-title { color: var(--teal); }
+    .callout-purple { background: linear-gradient(165deg, rgba(179,157,219,0.08), rgba(179,157,219,0.01)); border-color: rgba(179,157,219,0.22); }
+    .callout-purple .callout-title { color: var(--purple); }
+
+    /* Takeaways list */
+    .takeaways { list-style: none; padding: 0; }
+    .takeaways li {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--grey-100); line-height: 1.5;
+    }
+    .takeaways li:last-child { border-bottom: none; }
+    .takeaways .num {
+      flex-shrink: 0; width: 28px; height: 28px;
+      border-radius: 50%; background: rgba(249,217,0,0.12);
+      color: var(--yellow); font-weight: 700; font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .takeaways strong { color: #fff; font-weight: 700; }
+
+    /* Assumption groups */
+    .assumption-group {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px 26px; margin-bottom: 16px;
+    }
+    .assumption-group h4 {
+      font-size: 15px; font-weight: 700; color: #fff;
+      letter-spacing: -0.01em; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .assumption-group h4 .pill {
+      font-size: 10px; font-weight: 700; padding: 3px 10px;
+      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .assumption-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      gap: 20px;
+    }
+    .assumption-row:last-child { border-bottom: none; }
+    .assumption-row .a-desc { flex: 1; font-size: 13px; color: var(--grey-100); line-height: 1.5; }
+    .assumption-row .a-desc .sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .assumption-row .a-val {
+      font-size: 15px; font-weight: 700; color: #fff;
+      letter-spacing: -0.01em; white-space: nowrap;
+    }
+
+    /* Risk list */
+    .risk-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 24px; margin-bottom: 12px;
+      border-left: 3px solid var(--border);
+    }
+    .risk-item.sev-high { border-left-color: var(--coral); }
+    .risk-item.sev-med { border-left-color: var(--amber); }
+    .risk-item.sev-low { border-left-color: var(--blue); }
+    .risk-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 8px; }
+    .risk-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+    .risk-body { font-size: 13px; color: var(--grey-100); line-height: 1.55; }
+    .risk-body .mitigation { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 12px; color: var(--grey-200); }
+    .risk-body .mitigation strong { color: var(--teal); font-weight: 700; }
+    .risk-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .risk-tag {
+      font-size: 10px; font-weight: 700; padding: 3px 10px;
+      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* Interactive model (exec summary) */
+    .assumptions-panel-mini {
+      display: grid; grid-template-columns: 2fr 1fr; gap: 0;
+      margin-bottom: 20px; background: var(--surface);
+      border-radius: 16px; border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .assumption-item {
+      padding: 20px 22px; border-right: 1px solid var(--border);
+    }
+    .assumption-item:last-child { border-right: none; }
+    .assumption-item.primary { background: linear-gradient(165deg, rgba(249,217,0,0.04), transparent); }
+    .assumption-item .a-label {
+      font-size: 11px; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 6px; font-weight: 700;
+    }
+    .assumption-item .a-val {
+      font-size: 26px; font-weight: 800; color: #fff;
+      letter-spacing: -0.03em; line-height: 1;
+    }
+    .assumption-item .a-sub { font-size: 11px; color: var(--grey-300); margin-top: 6px; }
     .assumption-item input[type=range] {
       width: 100%; margin-top: 10px;
       -webkit-appearance: none; appearance: none;
@@ -228,638 +369,916 @@
       background: var(--yellow); cursor: pointer;
       border: 3px solid var(--bg);
       box-shadow: 0 0 0 1px var(--yellow), 0 0 12px rgba(249,217,0,0.5);
-      transition: transform 0.15s ease;
-    }
-    .assumption-item input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
-    .assumption-item input[type=range]::-moz-range-thumb {
-      width: 16px; height: 16px; border-radius: 50%;
-      background: var(--yellow); cursor: pointer;
-      border: 2px solid var(--bg);
     }
 
-    /* ===== KPI ===== */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0,1fr));
-      gap: 14px; margin-bottom: 36px;
+    /* Info tile */
+    .info-tile {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
     }
-    .kpi-card {
-      background: var(--surface);
-      border-radius: 16px;
-      padding: 22px 24px;
-      border: 1px solid var(--border);
-      transition: border-color 0.15s ease, transform 0.15s ease;
-    }
-    .kpi-card:hover { border-color: rgba(249,217,0,0.3); transform: translateY(-2px); }
-    .kpi-card .kpi-label {
-      font-size: 11px; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.12em;
-      margin-bottom: 10px; font-weight: 700;
-    }
-    .kpi-card .kpi-value {
-      font-size: 30px; font-weight: 800; color: #fff;
-      letter-spacing: -0.03em; line-height: 1;
-    }
-    .kpi-card .kpi-badge { margin-top: 10px; min-height: 22px; }
-    .badge {
-      display: inline-block; font-size: 10px;
-      padding: 4px 12px; border-radius: 100px;
-      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .badge-green { background: rgba(139,195,74,0.15); color: var(--green); }
-    .badge-red { background: rgba(255,112,67,0.15); color: var(--coral); }
-    .badge-amber { background: rgba(255,183,77,0.15); color: var(--amber); }
-    .badge-teal { background: rgba(77,182,172,0.15); color: var(--teal); }
-    .badge-yellow { background: rgba(249,217,0,0.15); color: var(--yellow); }
-
-    /* ===== TIER CARD ===== */
-    .tier-card {
-      background: linear-gradient(165deg, rgba(249,217,0,0.08), rgba(249,217,0,0.01));
-      border: 1px solid rgba(249,217,0,0.2);
-      border-radius: 20px;
-      padding: 28px 32px;
-      margin-bottom: 36px;
-      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
-      gap: 24px;
-      align-items: center;
-    }
-    .tier-card .t-main { border-right: 1px solid var(--border); padding-right: 24px; }
-    .tier-card .t-label {
-      font-size: 11px; color: var(--yellow);
-      text-transform: uppercase; letter-spacing: 0.12em;
-      margin-bottom: 6px; font-weight: 700;
-    }
-    .tier-card .t-tier-name {
-      font-size: 26px; font-weight: 800; color: #fff;
-      letter-spacing: -0.02em; margin-bottom: 4px;
-    }
-    .tier-card .t-sub { font-size: 13px; color: var(--grey-200); }
-    .tier-card .t-item .t-item-label {
-      font-size: 11px; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.1em;
-      margin-bottom: 6px; font-weight: 700;
-    }
-    .tier-card .t-item .t-item-val {
-      font-size: 20px; font-weight: 700; color: #fff;
-      letter-spacing: -0.02em;
-    }
-    .tier-card .t-item .t-item-sub {
-      font-size: 11px; color: var(--grey-300); margin-top: 2px;
-    }
-
-    /* ===== PANELS ===== */
-    .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-    .panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 26px 28px;
-    }
-    .panel-title {
-      font-size: 17px; font-weight: 700; color: #fff;
-      margin-bottom: 4px; letter-spacing: -0.02em;
-    }
-    .panel-sub { font-size: 12px; color: var(--grey-300); margin-bottom: 20px; line-height: 1.5; }
-
-    /* ===== SCENARIO TABLE ===== */
-    .scenario-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-    .scenario-table th {
-      font-size: 10px; font-weight: 700; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.1em;
-      text-align: center; padding: 8px 6px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .scenario-table th.row-h { text-align: left; padding-left: 0; }
-    .scenario-table td { padding: 4px; border: none; }
-    .scenario-table td.row-label {
-      padding: 6px 10px 6px 0; font-size: 11px;
-      color: var(--grey-100); white-space: nowrap;
-      border-bottom: 1px solid var(--border);
-      font-weight: 500;
-    }
-    .scenario-table .row-gmv { font-weight: 700; color: #fff; }
-    .scenario-table .row-ret { font-size: 10px; color: var(--grey-300); margin-left: 6px; }
-    .scenario-cell {
-      border-radius: 8px; padding: 9px 11px;
-    }
-    .cell-green { background: rgba(139,195,74,0.14); }
-    .cell-green .cv { color: var(--green); }
-    .cell-green .cm { color: rgba(139,195,74,0.7); }
-    .cell-teal { background: rgba(77,182,172,0.14); }
-    .cell-teal .cv { color: var(--teal); }
-    .cell-teal .cm { color: rgba(77,182,172,0.7); }
-    .cell-amber { background: rgba(255,183,77,0.14); }
-    .cell-amber .cv { color: var(--amber); }
-    .cell-amber .cm { color: rgba(255,183,77,0.7); }
-    .cell-red { background: rgba(255,112,67,0.12); }
-    .cell-red .cv { color: var(--coral); }
-    .cell-red .cm { color: rgba(255,112,67,0.7); }
-    .cell-current {
-      outline: 2px solid var(--yellow);
-      outline-offset: -1px;
-      box-shadow: 0 0 0 4px rgba(249,217,0,0.18);
-    }
-    .cv { font-size: 13px; font-weight: 700; letter-spacing: -0.02em; }
-    .cm { font-size: 10px; margin-top: 2px; font-weight: 500; }
-
-    /* ===== P&L ===== */
-    .pl-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 13px 0; border-bottom: 1px solid var(--border);
-      font-size: 13px;
-    }
-    .pl-row:last-child { border-bottom: none; }
-    .pl-label { color: var(--grey-200); }
-    .pl-sub { font-size: 11px; color: var(--grey-300); margin-top: 2px; }
-    .pl-value { font-weight: 700; color: #fff; letter-spacing: -0.02em; }
-    .pl-value.neg { color: var(--coral); }
-    .pl-value.pos { color: var(--green); }
-    .pl-highlight {
-      background: rgba(249,217,0,0.06);
-      border-radius: 12px; margin: 4px -12px;
-      padding: 16px 16px; border-bottom: none !important;
-      border: 1px solid rgba(249,217,0,0.18);
-    }
-    .pl-highlight .pl-label { color: #fff; font-weight: 700; font-size: 14px; }
-    .cost-detail {
-      padding-left: 14px; margin-top: 6px;
-      font-size: 11px; color: var(--grey-300);
-      display: flex; justify-content: space-between;
-    }
-
-    /* ===== CHART ===== */
-    .chart-wrap { position: relative; width: 100%; }
-
-    /* ===== PODS ===== */
-    .pod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
-    .pod-card {
-      border-radius: 14px; padding: 20px 22px;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-    .pod-card:hover { transform: translateY(-2px); }
-    .pod-card.active {
-      border-color: rgba(77,182,172,0.4);
-      background: linear-gradient(165deg, rgba(77,182,172,0.08), rgba(77,182,172,0.02));
-    }
-    .pod-card.partial {
-      border-color: rgba(255,183,77,0.4);
-      background: linear-gradient(165deg, rgba(255,183,77,0.08), rgba(255,183,77,0.02));
-    }
-    .pod-card.inactive { opacity: 0.4; }
-    .pod-title {
-      font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.12em;
-      margin-bottom: 12px;
-    }
-    .pod-card.active .pod-title { color: var(--teal); }
-    .pod-card.partial .pod-title { color: var(--amber); }
-    .pod-card.inactive .pod-title { color: var(--grey-300); }
-    .pod-dots { display: flex; gap: 6px; margin-bottom: 14px; }
-    .pod-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .pod-stat { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
-    .pod-rev { font-size: 22px; font-weight: 800; color: #fff; margin-top: 6px; letter-spacing: -0.03em; }
-
-    /* ===== DELIVERY MATRIX ===== */
-    .delivery-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
-      margin-bottom: 20px;
-    }
-    .delivery-card {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 20px;
-    }
-    .delivery-card .d-label {
+    .info-tile .tile-label {
       font-size: 10px; color: var(--grey-300);
       text-transform: uppercase; letter-spacing: 0.1em;
-      font-weight: 700; margin-bottom: 8px;
-    }
-    .delivery-card .d-val { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
-    .delivery-card .d-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
-    .delivery-card.highlighted {
-      background: linear-gradient(165deg, rgba(249,217,0,0.1), rgba(249,217,0,0.02));
-      border-color: rgba(249,217,0,0.3);
-    }
-
-    /* ===== LEGEND ===== */
-    .legend-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; font-size: 11px; color: var(--grey-300); }
-    .legend-item { display: flex; align-items: center; gap: 6px; }
-    .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
-
-    /* ===== FOOTER ===== */
-    .ap-footer {
-      margin-top: 96px; padding: 56px 36px 32px;
-      border-top: 1px solid var(--border);
-      background: var(--bg-deeper);
-    }
-    .ap-footer-inner {
-      max-width: 1320px; margin: 0 auto;
-      display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 36px;
-    }
-    .ap-footer-brand { display: flex; flex-direction: column; gap: 18px; max-width: 340px; }
-    .ap-footer-brand svg { height: 44px; width: auto; }
-    .ap-footer-brand p { font-size: 13px; color: var(--grey-400); line-height: 1.55; }
-    .ap-footer-col { display: flex; flex-direction: column; gap: 10px; }
-    .ap-footer-col .col-title {
-      font-size: 11px; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.12em;
       font-weight: 700; margin-bottom: 6px;
     }
-    .ap-footer-col a {
-      color: var(--grey-200); text-decoration: none;
-      font-size: 13px; transition: color 0.15s ease;
-    }
-    .ap-footer-col a:hover { color: var(--yellow); }
-    .ap-footer-bottom {
-      max-width: 1320px; margin: 44px auto 0;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-    }
-    .ap-footer-bottom p { font-size: 11px; color: var(--grey-400); }
+    .info-tile .tile-val { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .info-tile .tile-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
 
     @media (max-width: 1024px) {
-      .ap-nav-inner, .ap-hero, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; }
-      .kpi-grid { grid-template-columns: repeat(3, 1fr); }
-      .assumptions-panel { grid-template-columns: 1fr 1fr 1fr; }
+      .content { padding-left: 20px; padding-right: 20px; }
+      .tab-nav { padding-left: 16px; padding-right: 16px; }
+      .kpi-grid, .kpi-grid.four, .kpi-grid.three { grid-template-columns: 1fr 1fr; }
       .stats-banner { grid-template-columns: 1fr 1fr; }
-      .tier-card { grid-template-columns: 1fr 1fr 1fr; }
-      .tier-card .t-main { grid-column: 1/-1; border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 20px; margin-bottom: 4px; }
-      .delivery-grid { grid-template-columns: 1fr 1fr 1fr; }
-    }
-    @media (max-width: 760px) {
-      .ap-nav-links { display: none; }
-      .main-grid { grid-template-columns: 1fr; }
-      .kpi-grid { grid-template-columns: 1fr 1fr; }
-      .assumptions-panel { grid-template-columns: 1fr 1fr; }
-      .pod-grid { grid-template-columns: 1fr 1fr; }
-      .delivery-grid { grid-template-columns: 1fr 1fr; }
-      .ap-hero h1 { font-size: 34px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .assumptions-panel-mini { grid-template-columns: 1fr; }
+      .assumption-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .assumption-item:last-child { border-bottom: none; }
     }
   </style>
 </head>
 <body>
 
-<nav class="ap-nav">
-  <div class="ap-nav-inner">
-    <a href="https://www.adpros.com" class="ap-logo" aria-label="Ad Pros">
-      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="30" font-family="Figtree, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-        <text x="0" y="58" font-family="Figtree, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
-        <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
-      </svg>
-    </a>
-    <div class="ap-nav-links">
-      <a href="https://www.adpros.com/service" class="ap-nav-link">Services</a>
-      <a href="https://www.adpros.com/platforms" class="ap-nav-link">Platforms</a>
-      <a href="https://www.adpros.com/blog" class="ap-nav-link">Blog</a>
-      <a href="https://www.adpros.com/contact-us" class="ap-nav-link">Contact</a>
-    </div>
-    <div class="ap-nav-spacer"></div>
-    <a href="https://www.adpros.com/waitlist" class="ap-nav-cta">Join waitlist</a>
-  </div>
-</nav>
-
-<section class="ap-hero">
-  <div class="ap-hero-tag">Internal · Financial Model</div>
-  <h1>Unlock Unreasonable Growth Through <span class="accent">TikTok Shop</span> At Scale</h1>
-  <p>Tiered retainer modeling across 10 GMV tiers — from $0 (base $6,500) to $3M+ (up to $30,000). Interactive scenario planning for 4-pod capacity, 20-client maximum, and $400k/month revenue target.</p>
-</section>
-
-<div class="ap-content">
-
-  <div class="stats-banner">
-    <div class="stats-banner-item">
-      <div class="stats-banner-value">$400K</div>
-      <div class="stats-banner-label">Monthly revenue target</div>
-    </div>
-    <div class="stats-banner-item">
-      <div class="stats-banner-value">75-80%</div>
-      <div class="stats-banner-label">Gross margin floor</div>
-    </div>
-    <div class="stats-banner-item">
-      <div class="stats-banner-value">$1,600</div>
-      <div class="stats-banner-label">Delivery cost / brand</div>
-    </div>
-    <div class="stats-banner-item">
-      <div class="stats-banner-value">20</div>
-      <div class="stats-banner-label">Client capacity · 4 pods</div>
-    </div>
-  </div>
-
-  <div class="section-label">Model inputs</div>
-  <div class="assumptions-panel">
-    <div class="assumption-item primary">
-      <div class="a-label">Monthly GMV / client</div>
-      <div id="v-gmv" class="a-val">$1M</div>
-      <input type="range" min="0" max="9" value="5" step="1" id="s-gmv">
-      <div id="v-gmv-sub" class="a-sub">Tier 6 of 10</div>
-    </div>
-    <div class="assumption-item">
-      <div class="a-label">Active clients</div>
-      <div id="v-clients" class="a-val">20</div>
-      <input type="range" min="1" max="20" value="20" step="1" id="s-clients">
-      <div class="a-sub">max 20 · 4 pods</div>
-    </div>
-    <div class="assumption-item">
-      <div class="a-label">Base retainer</div>
-      <div class="a-val">$6,500</div>
-      <div class="a-sub" style="margin-top:22px;">fixed · all tiers</div>
-    </div>
-    <div class="assumption-item">
-      <div class="a-label">Variable cap</div>
-      <div class="a-val">$23.5k</div>
-      <div class="a-sub" style="margin-top:22px;">at $2M+ GMV</div>
-    </div>
-    <div class="assumption-item">
-      <div class="a-label">CoD / brand</div>
-      <div class="a-val">$1,600</div>
-      <div class="a-sub" style="margin-top:22px;">3 named roles</div>
-    </div>
-  </div>
-
-  <div class="section-label">Current tier</div>
-  <div class="tier-card">
-    <div class="t-main">
-      <div class="t-label">Active tier · retainer structure</div>
-      <div class="t-tier-name" id="t-name">$1M GMV Tier</div>
-      <div class="t-sub" id="t-breakdown">$6,500 fixed + $13,500 variable = <strong style="color:#fff;">$20,000 retainer</strong></div>
-    </div>
-    <div class="t-item">
-      <div class="t-item-label">Effective take rate</div>
-      <div class="t-item-val" id="t-take">2.00%</div>
-      <div class="t-item-sub">of GMV</div>
-    </div>
-    <div class="t-item">
-      <div class="t-item-label">Product seeding</div>
-      <div class="t-item-val" id="t-seeding">2,000</div>
-      <div class="t-item-sub">samples / month</div>
-    </div>
-    <div class="t-item">
-      <div class="t-item-label">Active creators</div>
-      <div class="t-item-val" id="t-creators">700</div>
-      <div class="t-item-sub">managed</div>
-    </div>
-    <div class="t-item">
-      <div class="t-item-label">Products</div>
-      <div class="t-item-val" id="t-products">4</div>
-      <div class="t-item-sub">SKUs covered</div>
-    </div>
-  </div>
-
-  <div class="section-label">Live metrics</div>
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">Monthly revenue</div>
-      <div id="k-rev" class="kpi-value">$400k</div>
-      <div class="kpi-badge"><span id="k-rev-b"></span></div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Gross profit</div>
-      <div id="k-gp" class="kpi-value">$368k</div>
-      <div class="kpi-badge"><span id="k-gp-b" style="font-size:11px;color:var(--grey-300);"></span></div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Gross margin</div>
-      <div id="k-gm" class="kpi-value">92.0%</div>
-      <div class="kpi-badge"><span id="k-gm-b"></span></div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Retainer / client</div>
-      <div id="k-rpc" class="kpi-value">$20k</div>
-      <div class="kpi-badge"><span id="k-take" style="font-size:11px;color:var(--grey-300);"></span></div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Active pods</div>
-      <div id="k-pods" class="kpi-value">4</div>
-      <div class="kpi-badge"><span id="k-pods-b" style="font-size:11px;color:var(--grey-300);"></span></div>
-    </div>
-  </div>
-
-  <div class="section-label">Scenario planning</div>
-  <div class="main-grid">
-    <div class="panel">
-      <div class="panel-title">Scenario matrix</div>
-      <div class="panel-sub">Total revenue · gross margin · <span style="color:var(--yellow);font-weight:700;">■ current selection</span></div>
-      <table class="scenario-table">
-        <thead>
-          <tr>
-            <th class="row-h">GMV tier · retainer ↓ · clients →</th>
-            <th>5</th><th>10</th><th>15</th><th>20</th>
-          </tr>
-        </thead>
-        <tbody id="matrix"></tbody>
-      </table>
-      <div class="legend-row">
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(139,195,74,.3);border:1px solid var(--green);"></span>≥ $400k target</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(77,182,172,.3);border:1px solid var(--teal);"></span>$200k–$399k</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(255,183,77,.3);border:1px solid var(--amber);"></span>$100k–$199k</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(255,112,67,.25);border:1px solid var(--coral);"></span>&lt; $100k</div>
-      </div>
-    </div>
-
-    <div style="display:flex;flex-direction:column;gap:20px;">
-      <div class="panel">
-        <div class="panel-title">P&amp;L summary</div>
-        <div class="panel-sub">For current slider configuration</div>
-        <div id="pl"></div>
-      </div>
-      <div class="panel">
-        <div class="panel-title">Retainer scaling by GMV tier</div>
-        <div class="panel-sub">$6,500 base + variable layer up to $23.5k cap</div>
-        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-size:11px;color:var(--grey-300);">
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#F9D900;"></span>Fixed retainer</span>
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#4db6ac;"></span>Variable retainer</span>
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:0;border-top:2px dashed #ff7043;"></span>Effective take rate %</span>
-        </div>
-        <div class="chart-wrap" style="height:220px;">
-          <canvas id="rev-chart" role="img" aria-label="Stacked bar chart showing retainer structure across 10 GMV tiers, with effective take rate overlay.">Retainer total grows from $6,500 at base to $30,000 at the $2M+ tier. Effective take rate peaks at 4% at $250k then declines to 1% at $3M.</canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-label">Service delivery at current tier</div>
-  <div class="delivery-grid" id="delivery-grid"></div>
-
-  <div class="section-label">Pod operations</div>
-  <div class="panel" style="margin-bottom:20px;">
-    <div class="panel-title">Pod utilization</div>
-    <div class="panel-sub">4 pods max · 5 clients each · 3 delivery roles per brand ($1,600 total) · 75%+ margin target at base tier</div>
-    <div class="pod-grid" id="pods"></div>
-  </div>
-
-  <div class="section-label">Take rate analysis</div>
-  <div class="panel">
-    <div class="panel-title">Effective take rate curve</div>
-    <div class="panel-sub">Take rate peaks at 4.0% at the $250k GMV tier, then declines as retainer caps at $30k — competitive pressure intensifies above $1M GMV</div>
-    <div class="chart-wrap" style="height:200px;">
-      <canvas id="rate-chart" role="img" aria-label="Line chart showing effective take rate declining from 4% at $250k GMV to 1% at $3M GMV.">Effective take rate starts above 10% at sub-$100k GMV (base retainer only), peaks at 4% at $250k, then declines steadily to 1% at $3M.</canvas>
-    </div>
-  </div>
-
-</div>
-
-<footer class="ap-footer">
-  <div class="ap-footer-inner">
-    <div class="ap-footer-brand">
-      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<div class="tab-nav-wrap">
+  <div class="tab-nav" id="tab-nav">
+    <div class="ap-brand-mark">
+      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros">
         <text x="0" y="30" font-family="Figtree,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
         <text x="0" y="58" font-family="Figtree,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
         <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
       </svg>
-      <p>High-performance ad agency helping ambitious ecommerce brands grow to $100+ million.</p>
     </div>
-    <div class="ap-footer-col">
-      <div class="col-title">Pages</div>
-      <a href="https://www.adpros.com/">Home</a>
-      <a href="https://www.adpros.com/service">Services</a>
-      <a href="https://www.adpros.com/platforms">Platforms</a>
-      <a href="https://www.adpros.com/blog">Blog</a>
+    <button class="tab-btn active" data-tab="exec">Exec Summary</button>
+    <button class="tab-btn" data-tab="assumptions">Assumptions</button>
+    <div class="tab-group-label">Scenarios</div>
+    <button class="tab-btn" data-tab="mix">Client mix</button>
+    <button class="tab-btn" data-tab="ramp">12-mo ramp</button>
+    <button class="tab-btn" data-tab="churn">Churn</button>
+    <button class="tab-btn" data-tab="pricing">Pricing sensitivity</button>
+    <div class="tab-group-label">Analyses</div>
+    <button class="tab-btn" data-tab="hiring">Hiring plan</button>
+    <button class="tab-btn" data-tab="ue">Unit economics</button>
+    <button class="tab-btn" data-tab="pl">P&amp;L projection</button>
+    <button class="tab-btn" data-tab="be">Break-even</button>
+    <button class="tab-btn" data-tab="benchmark">Take-rate benchmark</button>
+    <div class="tab-group-label">Risk</div>
+    <button class="tab-btn" data-tab="risks">Issues &amp; concerns</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ================ TAB 1: EXEC SUMMARY ================ -->
+  <div class="tab-pane active" id="pane-exec">
+    <h2 class="tab-title">Executive summary</h2>
+    <p class="tab-subtitle">TikTok Shop agency P&amp;L model — 10-tier retainer schedule from $6,500 (base) to $30,000 (capped), 4-pod capacity, 20 clients max, targeting $400k/month steady-state revenue at 75-80% floor margin.</p>
+
+    <div class="stats-banner">
+      <div class="stat">
+        <div class="stat-value">$400K</div>
+        <div class="stat-label">Monthly revenue target</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">75-80%</div>
+        <div class="stat-label">Gross margin floor</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">20</div>
+        <div class="stat-label">Client capacity · 4 pods</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">$1.6K</div>
+        <div class="stat-label">Delivery cost / brand</div>
+      </div>
     </div>
-    <div class="ap-footer-col">
-      <div class="col-title">Company</div>
-      <a href="https://www.adpros.com/contact-us">Contact Us</a>
-      <a href="https://www.adpros.com/waitlist">Join Waitlist</a>
+
+    <h3 class="section-head">Key takeaways</h3>
+    <ol class="takeaways">
+      <li><span class="num">1</span><div><strong>Target is achievable with 20 clients at ~$20k average retainer</strong> — implies average client GMV around $1M/month. Full capacity at current pricing delivers $400k/mo exactly.</div></li>
+      <li><span class="num">2</span><div><strong>$250k GMV tier is the economic sweet spot.</strong> Effective take rate peaks at 4.0% here — higher than any tier above. For every ten $250k clients added, we generate $100k at a best-in-class margin of 84%.</div></li>
+      <li><span class="num">3</span><div><strong>Margin structurally improves with scale.</strong> At base retainer ($6,500) margin is 75%; at cap ($30k) it's 94.7%. Every upgrade in tier expands gross profit by more than the retainer delta suggests.</div></li>
+      <li><span class="num">4</span><div><strong>Take rate compresses above $1M GMV.</strong> We drop from 4% at $250k to 1% at $3M — at this tier we're competing with in-house teams and margin-rich Pattern-style commission deals. <strong>Pricing cap at $30k leaves material upside on the table above $2M GMV.</strong></div></li>
+      <li><span class="num">5</span><div><strong>Cost structure is lean but incomplete.</strong> $1,600/brand covers only three named roles (Strategist, Affiliate Manager, Shop Coordinator). Real delivery cost likely 2-3x higher once tools, platform fees, pod leads, and back-office allocation are included.</div></li>
+    </ol>
+
+    <h3 class="section-head">Interactive model</h3>
+    <p class="panel-sub" style="margin-bottom:18px;">Pull the sliders to see how retainer, revenue, and margin change by tier and client count.</p>
+
+    <div class="assumptions-panel-mini">
+      <div class="assumption-item primary">
+        <div class="a-label">Monthly GMV / client</div>
+        <div id="ex-v-gmv" class="a-val">$1M</div>
+        <input type="range" min="0" max="9" value="5" step="1" id="ex-s-gmv">
+        <div id="ex-v-gmv-sub" class="a-sub">Tier 6 of 10</div>
+      </div>
+      <div class="assumption-item">
+        <div class="a-label">Active clients</div>
+        <div id="ex-v-clients" class="a-val">20</div>
+        <input type="range" min="1" max="20" value="20" step="1" id="ex-s-clients">
+        <div class="a-sub">max 20</div>
+      </div>
     </div>
-    <div class="ap-footer-col">
-      <div class="col-title">Follow</div>
-      <a href="https://www.linkedin.com/company/adprosofficial/">LinkedIn</a>
-      <a href="https://www.instagram.com/nehalkazim/">Instagram</a>
-      <a href="https://www.youtube.com/@nehal-kazim">YouTube</a>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Retainer / client</div>
+        <div id="ex-k-ret" class="kpi-value">$20k</div>
+        <div id="ex-k-take" class="kpi-sub">2.0% of GMV</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Monthly revenue</div>
+        <div id="ex-k-rev" class="kpi-value">$400k</div>
+        <div class="kpi-sub"><span id="ex-k-rev-b"></span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Gross profit</div>
+        <div id="ex-k-gp" class="kpi-value">$368k</div>
+        <div id="ex-k-gp-sub" class="kpi-sub">after $1.6k × clients CoD</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Gross margin</div>
+        <div id="ex-k-gm" class="kpi-value">92.0%</div>
+        <div class="kpi-sub"><span id="ex-k-gm-b"></span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Active pods</div>
+        <div id="ex-k-pods" class="kpi-value">4</div>
+        <div id="ex-k-pods-sub" class="kpi-sub">of 4 max</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Retainer scaling by GMV tier</div>
+      <div class="panel-sub">$6,500 fixed base + variable layer up to $23.5k cap · take rate peaks at $250k tier then declines</div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-size:11px;color:var(--grey-300);">
+        <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#F9D900;"></span>Fixed retainer</span>
+        <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#4db6ac;"></span>Variable retainer</span>
+        <span style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:0;border-top:2px dashed #ff7043;"></span>Effective take rate %</span>
+      </div>
+      <div class="chart-wrap" style="height:220px;">
+        <canvas id="ex-chart" role="img" aria-label="Retainer scaling by tier.">Retainer total scales from $6,500 to $30,000 across tiers.</canvas>
+      </div>
     </div>
   </div>
-  <div class="ap-footer-bottom">
-    <p>&copy; 2026 Ad Pros. Internal use only.</p>
-    <p>docs.adpros.com</p>
+
+  <!-- ================ TAB 2: ASSUMPTIONS ================ -->
+  <div class="tab-pane" id="pane-assumptions">
+    <h2 class="tab-title">Model assumptions</h2>
+    <p class="tab-subtitle">Complete list of inputs and structural choices driving the financial model. Sourced from the Ad Pros TikTok Shop pricing spreadsheet (Nov 2025).</p>
+
+    <div class="assumption-group">
+      <h4>Pricing structure <span class="pill badge-yellow">Tier-based</span></h4>
+      <div class="assumption-row">
+        <div class="a-desc">Fixed base retainer<div class="sub">Charged on every account regardless of tier</div></div>
+        <div class="a-val">$6,500 / mo</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Variable retainer range<div class="sub">Zero below $250k GMV, scales to $23.5k cap at $2M+</div></div>
+        <div class="a-val">$0 → $23,500</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Total retainer cap<div class="sub">Applies at $2M+ monthly GMV</div></div>
+        <div class="a-val">$30,000 / mo</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Effective take rate range<div class="sub">From 4.0% peak at $250k tier to 1.0% at $3M</div></div>
+        <div class="a-val">1.0% – 4.0%</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Tier count<div class="sub">Discrete pricing tiers in the schedule</div></div>
+        <div class="a-val">10 tiers</div>
+      </div>
+    </div>
+
+    <div class="assumption-group">
+      <h4>Cost of delivery <span class="pill badge-teal">Direct labor only</span></h4>
+      <div class="assumption-row">
+        <div class="a-desc">Lead Strategist<div class="sub">Per brand allocation · fractional rate</div></div>
+        <div class="a-val">$800 / mo</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Affiliate Manager<div class="sub">Per brand allocation</div></div>
+        <div class="a-val">$400 / mo</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Shop Coordinator<div class="sub">Per brand allocation</div></div>
+        <div class="a-val">$400 / mo</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Total cost per brand<div class="sub">Fixed across all tiers · no scaling with GMV</div></div>
+        <div class="a-val">$1,600 / mo</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Pod cost aggregated<div class="sub">5 clients × $1,600 per fully-utilized pod</div></div>
+        <div class="a-val">$8,000 / mo</div>
+      </div>
+    </div>
+
+    <div class="assumption-group">
+      <h4>Operational structure <span class="pill badge-purple">Pod model</span></h4>
+      <div class="assumption-row">
+        <div class="a-desc">Clients per pod<div class="sub">Maximum full-service accounts per pod</div></div>
+        <div class="a-val">5</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Total pods<div class="sub">Planned organizational capacity</div></div>
+        <div class="a-val">4</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Max client capacity<div class="sub">Hard ceiling at current org structure</div></div>
+        <div class="a-val">20 clients</div>
+      </div>
+    </div>
+
+    <div class="assumption-group">
+      <h4>Service levels by tier <span class="pill badge-teal">Scales with GMV</span></h4>
+      <div class="assumption-row">
+        <div class="a-desc">Product seeding volume<div class="sub">Samples sent to creators per month · base tier to top tier</div></div>
+        <div class="a-val">400 → 6,000</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Active creators managed<div class="sub">Creator network size per brand</div></div>
+        <div class="a-val">50 → 2,500</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">SKUs covered per brand<div class="sub">Product catalog managed</div></div>
+        <div class="a-val">1 → 5</div>
+      </div>
+    </div>
+
+    <div class="assumption-group">
+      <h4>Revenue &amp; margin targets</h4>
+      <div class="assumption-row">
+        <div class="a-desc">Monthly revenue target<div class="sub">Steady-state run rate</div></div>
+        <div class="a-val">$400,000</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Gross margin floor<div class="sub">At base retainer · 75.4% actual with $1,600 CoD</div></div>
+        <div class="a-val">75-80%</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Gross margin at scale<div class="sub">At $30k retainer cap</div></div>
+        <div class="a-val">94.7%</div>
+      </div>
+      <div class="assumption-row">
+        <div class="a-desc">Average retainer implied by target<div class="sub">$400k ÷ 20 clients — requires ~$1M GMV average</div></div>
+        <div class="a-val">$20,000</div>
+      </div>
+    </div>
+
+    <div class="assumption-group">
+      <h4>Explicit exclusions from current model <span class="pill badge-red">Not modeled</span></h4>
+      <div class="assumption-row"><div class="a-desc">Back-office overhead<div class="sub">Sales, finance, ops leadership, exec team</div></div><div class="a-val">—</div></div>
+      <div class="assumption-row"><div class="a-desc">Platform &amp; tooling costs<div class="sub">TikTok Shop fees, affiliate platforms, creator management software</div></div><div class="a-val">—</div></div>
+      <div class="assumption-row"><div class="a-desc">Customer acquisition cost<div class="sub">Inbound marketing, outbound sales, BDR/AE compensation</div></div><div class="a-val">—</div></div>
+      <div class="assumption-row"><div class="a-desc">Churn &amp; retention dynamics<div class="sub">Assumes static book of business</div></div><div class="a-val">—</div></div>
+      <div class="assumption-row"><div class="a-desc">Tier upgrade cadence<div class="sub">How clients graduate from $250k to $1M tier over time</div></div><div class="a-val">—</div></div>
+      <div class="assumption-row"><div class="a-desc">Seasonality &amp; Q4 spikes<div class="sub">TikTok Shop volume is highly holiday-weighted</div></div><div class="a-val">—</div></div>
+    </div>
   </div>
-</footer>
+
+  <!-- ================ TAB 3: CLIENT MIX ================ -->
+  <div class="tab-pane" id="pane-mix">
+    <h2 class="tab-title">Client mix scenarios</h2>
+    <p class="tab-subtitle">How revenue differs based on the tier distribution of our 20-client book. All scenarios assume full pod capacity (20 active clients). The question is which <em>kinds</em> of brands we acquire.</p>
+
+    <div class="grid-3" style="margin-bottom: 28px;">
+      <div class="panel" style="border-left: 3px solid var(--coral);">
+        <div class="panel-title" style="color: var(--coral);">Conservative</div>
+        <div class="panel-sub">Early-stage book · mostly testing brands &amp; smaller TikTok Shop accounts</div>
+        <div style="font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 4px;" id="mix-cons-rev">$212k</div>
+        <div class="kpi-sub">monthly revenue · 53% of $400k target</div>
+        <div style="margin-top: 16px; font-size: 12px; color: var(--grey-200);" id="mix-cons-mix"></div>
+      </div>
+      <div class="panel" style="border-left: 3px solid var(--yellow);">
+        <div class="panel-title" style="color: var(--yellow);">Base</div>
+        <div class="panel-sub">Realistic mature book · blend of mid and larger brands · supports $400k target</div>
+        <div style="font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 4px;" id="mix-base-rev">$420k</div>
+        <div class="kpi-sub">monthly revenue · 105% of $400k target</div>
+        <div style="margin-top: 16px; font-size: 12px; color: var(--grey-200);" id="mix-base-mix"></div>
+      </div>
+      <div class="panel" style="border-left: 3px solid var(--green);">
+        <div class="panel-title" style="color: var(--green);">Aggressive</div>
+        <div class="panel-sub">Enterprise-heavy · brands at $1.5M+ GMV · margin-rich tier mix</div>
+        <div style="font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 4px;" id="mix-agg-rev">$550k</div>
+        <div class="kpi-sub">monthly revenue · 138% of $400k target</div>
+        <div style="margin-top: 16px; font-size: 12px; color: var(--grey-200);" id="mix-agg-mix"></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom: 20px;">
+      <div class="panel-title">Scenario comparison</div>
+      <div class="panel-sub">Revenue, margin, and profit dollars across three client mixes</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="mix-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th class="num">Clients</th>
+              <th class="num">Avg retainer</th>
+              <th class="num">Monthly revenue</th>
+              <th class="num">CoD</th>
+              <th class="num">Gross profit</th>
+              <th class="num">GM%</th>
+              <th class="num">vs $400k</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title">Revenue by scenario</div>
+        <div class="panel-sub">Showing gap to $400k target</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="mix-chart" role="img" aria-label="Bar chart comparing revenue across conservative, base, and aggressive client mixes."></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Tier distribution</div>
+        <div class="panel-sub">Number of clients at each GMV tier per scenario</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="mix-dist-chart" role="img" aria-label="Stacked bar chart showing tier distribution across three scenarios."></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Insight</div>
+      <p>Hitting the $400k target requires pushing average retainer above $20k — which demands a meaningful share of clients at the <strong>$1M+ GMV tier</strong>. The conservative mix gets us 20 active clients but only ~$212k in revenue. <strong>Quality of client matters more than quantity.</strong></p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 4: 12-MONTH RAMP ================ -->
+  <div class="tab-pane" id="pane-ramp">
+    <h2 class="tab-title">12-month ramp scenario</h2>
+    <p class="tab-subtitle">Month-by-month client acquisition from zero to capacity. Assumes 1-3 new clients per month, initial clients at smaller tiers ($10-15k retainer), and gradual mix-shift as existing accounts mature into higher tiers.</p>
+
+    <div class="kpi-grid four">
+      <div class="kpi-card">
+        <div class="kpi-label">Target hit in</div>
+        <div class="kpi-value">Month 11</div>
+        <div class="kpi-sub">$400k run rate achieved</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Cumulative revenue Y1</div>
+        <div class="kpi-value">$2.6M</div>
+        <div class="kpi-sub">Across all 12 months</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Y1 gross profit</div>
+        <div class="kpi-value">$2.1M</div>
+        <div class="kpi-sub">82% cumulative margin</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">End-state clients</div>
+        <div class="kpi-value">20</div>
+        <div class="kpi-sub">Full capacity by month 10</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">Monthly revenue buildup</div>
+      <div class="panel-sub">Revenue, CoD, and gross profit by month — $400k target line in yellow</div>
+      <div class="chart-wrap" style="height: 280px;">
+        <canvas id="ramp-chart" role="img" aria-label="Line chart showing revenue, cost of delivery, and gross profit across 12 months."></canvas>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Monthly detail</div>
+      <div class="panel-sub">Full 12-month ramp schedule with client count, mix shifts, and cumulative totals</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="ramp-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th class="num">Clients</th>
+              <th class="num">Avg retainer</th>
+              <th class="num">Revenue</th>
+              <th class="num">CoD</th>
+              <th class="num">Gross profit</th>
+              <th class="num">GM%</th>
+              <th class="num">Cumulative GP</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 16px;">
+      <div class="callout-title">Sales velocity required</div>
+      <p>To reach full capacity in 10 months, we need <strong>~2 new clients per month on average</strong>. This is ambitious for a service at this ACV ($120k-$360k annual value per client). <strong>Sales team of 1 AE + founder outbound should be sufficient</strong>, but acquisition cost ($10-20k per client estimated) is not modeled here — see Unit Economics tab.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 5: CHURN ================ -->
+  <div class="tab-pane" id="pane-churn">
+    <h2 class="tab-title">Churn &amp; retention sensitivity</h2>
+    <p class="tab-subtitle">What happens to steady-state revenue at different monthly churn rates, assuming we keep adding 2 new clients per month. Churn is the most important variable we're not yet measuring.</p>
+
+    <div class="kpi-grid four">
+      <div class="kpi-card">
+        <div class="kpi-label">0% churn</div>
+        <div class="kpi-value" style="color: var(--green);">20 clients</div>
+        <div class="kpi-sub">$400k rev · ideal state</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">2% / mo churn</div>
+        <div class="kpi-value" style="color: var(--green);">20 clients</div>
+        <div class="kpi-sub">Net +1.6/mo growth</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">5% / mo churn</div>
+        <div class="kpi-value" style="color: var(--amber);">20 clients</div>
+        <div class="kpi-sub">Net +1/mo · treading</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">10% / mo churn</div>
+        <div class="kpi-value" style="color: var(--coral);">20 → 10</div>
+        <div class="kpi-sub">Net attrition · revenue halves</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title">Steady-state clients by churn rate</div>
+        <div class="panel-sub">Given 2 new clients/month acquisition pace</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="churn-chart" role="img" aria-label="Line chart showing client count under different churn rates over 24 months."></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Revenue impact</div>
+        <div class="panel-sub">Monthly revenue at different churn assumptions (base client mix)</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="churn-rev-chart" role="img" aria-label="Bar chart showing revenue impact by churn rate."></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top: 18px;">
+      <div class="panel-title">Monthly LTV impact by tier &amp; churn</div>
+      <div class="panel-sub">How long clients stick drives lifetime value more than any other input</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="churn-ltv-table">
+          <thead>
+            <tr>
+              <th>Monthly churn</th>
+              <th class="num">Implied lifetime</th>
+              <th class="num">$6.5k retainer LTV</th>
+              <th class="num">$15k retainer LTV</th>
+              <th class="num">$20k retainer LTV</th>
+              <th class="num">$30k retainer LTV</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout callout-red" style="margin-top: 16px;">
+      <div class="callout-title">Warning · churn is the hidden killer</div>
+      <p>At <strong>10% monthly churn</strong> (which is not unusual for early-stage B2B agencies without strong retention mechanics), replacing lost clients eats all new sales capacity. Revenue plateaus well below target. <strong>Investment in account health, QBRs, and upgrade pathways is arguably the single highest-leverage initiative</strong> outside of sales. Benchmark target: &lt;3% monthly logo churn.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 6: PRICING SENSITIVITY ================ -->
+  <div class="tab-pane" id="pane-pricing">
+    <h2 class="tab-title">Pricing sensitivity</h2>
+    <p class="tab-subtitle">What if the tier schedule shifts? Revenue, margin, and competitive positioning under five alternative pricing models, all evaluated against the base client mix (20 clients, avg $1M GMV tier).</p>
+
+    <div class="panel" style="margin-bottom: 20px;">
+      <div class="panel-title">Alternative pricing scenarios</div>
+      <div class="panel-sub">Each compared to the current schedule at base client mix</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="pricing-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th class="num">Base retainer</th>
+              <th class="num">Top cap</th>
+              <th class="num">Monthly revenue</th>
+              <th class="num">GM%</th>
+              <th class="num">Δ vs current</th>
+              <th>Strategic read</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title">Revenue by pricing scenario</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="pricing-chart" role="img" aria-label="Bar chart comparing revenue across five pricing scenarios."></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Retainer curves</div>
+        <div class="panel-sub">How each scenario scales retainer across GMV tiers</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="pricing-curve-chart" role="img" aria-label="Line chart showing retainer curves for each pricing scenario."></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-teal" style="margin-top: 16px;">
+      <div class="callout-title">Strategic recommendation</div>
+      <p>The current schedule is well-calibrated for the mid-market ($250k–$1M GMV) but <strong>leaves significant revenue on the table at the enterprise end</strong>. Raising the cap from $30k to $40k (or tying a thin variable back in above $2M) captures 10-15% more revenue from larger clients without touching the mid-market pricing that's already competitive.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 7: HIRING PLAN ================ -->
+  <div class="tab-pane" id="pane-hiring">
+    <h2 class="tab-title">Hiring &amp; headcount plan</h2>
+    <p class="tab-subtitle">When to add roles as we scale from 0 to 20 clients. Maps the three named delivery roles to full-time equivalents and timing triggers, plus the leadership/ops roles not yet in the spreadsheet.</p>
+
+    <div class="callout callout-purple" style="margin-bottom: 24px;">
+      <div class="callout-title">Interpretation of $1,600/brand cost</div>
+      <p>The spreadsheet's $800 / $400 / $400 per-brand allocation represents <strong>fractional labor</strong>, not full FTEs. One Lead Strategist ($5-8k/mo fully loaded) should cover ~5-6 brands at their fee rate. One Affiliate Manager / Shop Coordinator ($3-5k/mo each) should cover 8-10 brands. Below shows a headcount plan consistent with these ratios.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">Headcount by phase</div>
+      <div class="panel-sub">Client count triggers for each hire · assumes blended delivery across pods</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="hiring-table">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th class="cen">1-5 clients</th>
+              <th class="cen">6-10</th>
+              <th class="cen">11-15</th>
+              <th class="cen">16-20</th>
+              <th class="num">At capacity</th>
+              <th class="num">Fully-loaded cost</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title">Headcount vs client count</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="hiring-chart" role="img" aria-label="Line chart showing headcount scaling with client count."></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Labor cost vs $1,600/brand allocation</div>
+        <div class="panel-sub">Does actual FTE cost line up with the spreadsheet's per-brand allocation?</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="hiring-cost-chart" role="img" aria-label="Bar chart comparing implied vs actual labor cost."></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-red" style="margin-top: 16px;">
+      <div class="callout-title">Gap to flag</div>
+      <p>The spreadsheet excludes <strong>Pod Lead / Director-level headcount</strong>, <strong>QA/Ops</strong>, <strong>Sales (AE)</strong>, and <strong>Exec overhead</strong>. Fully loaded, these roles likely add <strong>$40-60k/month in G&amp;A</strong> at 20-client capacity — reducing true operating margin from 92% gross to roughly 75-78% operating margin. This is the gap to watch when comparing reported gross margin to actual cash burn.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 8: UNIT ECONOMICS ================ -->
+  <div class="tab-pane" id="pane-ue">
+    <h2 class="tab-title">Unit economics</h2>
+    <p class="tab-subtitle">LTV, CAC, payback period, and LTV/CAC ratio by tier. Assumes 24-month average client lifetime (implying ~4% monthly logo churn) and $15k average CAC.</p>
+
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">Unit economics by tier</div>
+      <div class="panel-sub">All LTV calcs use $1,600/brand CoD and 24-month average lifetime assumption</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="ue-table">
+          <thead>
+            <tr>
+              <th>GMV tier</th>
+              <th class="num">Retainer</th>
+              <th class="num">Monthly GP</th>
+              <th class="num">LTV (24 mo)</th>
+              <th class="num">CAC (est.)</th>
+              <th class="num">Payback</th>
+              <th class="num">LTV / CAC</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title">LTV by tier &amp; lifetime</div>
+        <div class="panel-sub">How lifetime assumption changes LTV at each retainer level</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="ue-ltv-chart" role="img" aria-label="Chart showing LTV by tier at different lifetime assumptions."></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">LTV/CAC by tier</div>
+        <div class="panel-sub">All tiers pass the 3:1 benchmark; top tiers clear 20:1</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="ue-ratio-chart" role="img" aria-label="Bar chart showing LTV/CAC ratio by tier."></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 18px;">
+      <div class="info-tile">
+        <div class="tile-label">LTV / CAC rule of thumb</div>
+        <div class="tile-val">3x · 5x · 10x+</div>
+        <div class="tile-sub">Acceptable · good · exceptional</div>
+      </div>
+      <div class="info-tile">
+        <div class="tile-label">Payback benchmark</div>
+        <div class="tile-val">&lt; 12 mo</div>
+        <div class="tile-sub">SaaS/services target</div>
+      </div>
+      <div class="info-tile">
+        <div class="tile-label">All our tiers</div>
+        <div class="tile-val" style="color: var(--green);">Well above 3x</div>
+        <div class="tile-sub">Even conservative CAC estimate</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Model sensitivity</div>
+      <p>These unit economics are <strong>extremely sensitive to the lifetime assumption</strong>. If actual client lifetime is 12 months (8% monthly churn) instead of 24, LTV halves and some tiers cross into borderline territory. <strong>Measuring actual cohort retention is the single most important instrumentation investment</strong> for this business.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 9: P&L PROJECTION ================ -->
+  <div class="tab-pane" id="pane-pl">
+    <h2 class="tab-title">12-month P&amp;L projection</h2>
+    <p class="tab-subtitle">Integrated monthly P&amp;L combining the ramp scenario, tier-based retainer schedule, direct labor costs, and an estimated G&amp;A overhead layer to show true operating economics.</p>
+
+    <div class="kpi-grid four">
+      <div class="kpi-card">
+        <div class="kpi-label">Y1 revenue</div>
+        <div class="kpi-value">$2.6M</div>
+        <div class="kpi-sub">Cumulative across ramp</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Y1 gross profit</div>
+        <div class="kpi-value">$2.1M</div>
+        <div class="kpi-sub">82% cumulative GM</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Y1 operating profit</div>
+        <div class="kpi-value" id="pl-y1-op">$1.5M</div>
+        <div class="kpi-sub">After est. $50k/mo G&amp;A</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Break-even month</div>
+        <div class="kpi-value">Month 3</div>
+        <div class="kpi-sub">Where monthly GP covers G&amp;A</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">Monthly P&amp;L waterfall</div>
+      <div class="panel-sub">Revenue → direct CoD → Gross profit → G&amp;A → Operating profit, across the full 12-month ramp</div>
+      <div class="chart-wrap" style="height: 280px;">
+        <canvas id="pl-chart" role="img" aria-label="Stacked area chart showing P&L waterfall across 12 months."></canvas>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Detailed monthly P&amp;L</div>
+      <div class="panel-sub">Full line-item breakdown — estimated $50k/mo blended G&amp;A (scales with headcount in reality)</div>
+      <div style="overflow-x: auto;">
+        <div class="data-table-wrap" style="border: none; min-width: 900px;">
+          <table class="data-table" id="pl-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th class="num">Clients</th>
+                <th class="num">Revenue</th>
+                <th class="num">Direct CoD</th>
+                <th class="num">Gross profit</th>
+                <th class="num">GM%</th>
+                <th class="num">G&amp;A (est.)</th>
+                <th class="num">Operating profit</th>
+                <th class="num">Op margin</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 16px;">
+      <div class="callout-title">G&amp;A assumption</div>
+      <p>The $50k/mo G&amp;A baseline includes estimated costs for: <strong>1 founder/CEO</strong> (allocated), <strong>1 AE for sales</strong>, <strong>1 ops/finance lead</strong>, <strong>software/tooling</strong> (TikTok Shop platform fees, creator management tools, CRM), and <strong>office/infrastructure</strong>. Real number could be $30-70k/mo depending on founder comp and tool choices. <strong>This is the number to validate first</strong> before reporting operating margin externally.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 10: BREAK-EVEN ================ -->
+  <div class="tab-pane" id="pane-be">
+    <h2 class="tab-title">Break-even analysis</h2>
+    <p class="tab-subtitle">Minimum client base required to cover fixed costs at different G&amp;A assumptions. Shows how pricing tier affects how fast we cross break-even.</p>
+
+    <div class="kpi-grid three">
+      <div class="kpi-card">
+        <div class="kpi-label">Break-even (low G&amp;A)</div>
+        <div class="kpi-value" id="be-low">3 clients</div>
+        <div class="kpi-sub">$30k/mo fixed · base tier mix</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Break-even (mid G&amp;A)</div>
+        <div class="kpi-value" id="be-mid">5 clients</div>
+        <div class="kpi-sub">$50k/mo fixed · base tier mix</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Break-even (high G&amp;A)</div>
+        <div class="kpi-value" id="be-high">7 clients</div>
+        <div class="kpi-sub">$70k/mo fixed · base tier mix</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">Break-even by average retainer &amp; G&amp;A</div>
+      <div class="panel-sub">Each row is a G&amp;A assumption. Each column is an average retainer (dependent on client mix). The number is clients needed to break even.</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="be-table">
+          <thead>
+            <tr>
+              <th>G&amp;A / mo</th>
+              <th class="num">$6.5k avg</th>
+              <th class="num">$10k avg</th>
+              <th class="num">$15k avg</th>
+              <th class="num">$20k avg</th>
+              <th class="num">$25k avg</th>
+              <th class="num">$30k avg</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-title">Clients needed to break even</div>
+        <div class="panel-sub">At different G&amp;A burn rates</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="be-chart" role="img" aria-label="Line chart showing break-even client count by G&A level."></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Profit per additional client</div>
+        <div class="panel-sub">Once past break-even, every new client is nearly pure profit</div>
+        <div class="chart-wrap" style="height: 240px;">
+          <canvas id="be-profit-chart" role="img" aria-label="Bar chart showing marginal profit by tier."></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-teal" style="margin-top: 16px;">
+      <div class="callout-title">Positive read</div>
+      <p>Break-even is extremely achievable. <strong>Even at $70k/mo G&amp;A and all-base-tier mix, we cross break-even at 7-8 clients</strong> — which the ramp hits in month 5. After that, every incremental client past the first 8 contributes $8-28k/month in operating profit. The business has strong operating leverage once past the initial ramp.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 11: TAKE RATE BENCHMARK ================ -->
+  <div class="tab-pane" id="pane-benchmark">
+    <h2 class="tab-title">Take rate benchmark</h2>
+    <p class="tab-subtitle">How our effective take rate compares to TikTok Shop agency industry norms. Shows where we're competitive, where we're under-priced, and where we're over-priced for the segment.</p>
+
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">Competitive landscape</div>
+      <div class="panel-sub">Representative pricing models across the TikTok Shop / commerce agency space (based on public info &amp; market reporting)</div>
+      <div class="data-table-wrap" style="border: none;">
+        <table class="data-table" id="benchmark-table">
+          <thead>
+            <tr>
+              <th>Competitor type</th>
+              <th>Pricing model</th>
+              <th class="num">Effective take rate</th>
+              <th>Typical client size</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">Our take rate vs market band</div>
+      <div class="panel-sub">Yellow line = Ad Pros · shaded band = typical industry range at each client size</div>
+      <div class="chart-wrap" style="height: 280px;">
+        <canvas id="benchmark-chart" role="img" aria-label="Line chart showing Ad Pros take rate vs industry band."></canvas>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-bottom: 18px;">
+      <div class="callout callout-red">
+        <div class="callout-title">Below-market at $50k-$100k GMV</div>
+        <p>Base retainer floor means 6.5-13% take rate at this segment — <strong>above the 8-12% norm</strong>. Acceptable only if we're clearly premium positioned; otherwise we lose price-sensitive small brands.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-title">At-market at $250k-$1M GMV</div>
+        <p>Our 2-4% take rate here is <strong>right in the competitive fairway</strong> for full-stack TikTok Shop agencies. This is our strongest competitive positioning segment.</p>
+      </div>
+      <div class="callout callout-red">
+        <div class="callout-title">Below-market above $2M GMV</div>
+        <p>Dropping to 1-1.5% puts us <strong>well below Pattern-style commission models (15-20%)</strong>. Major upside if we can reprice enterprise with performance fees; significant displacement risk if we don't.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-teal">
+      <div class="callout-title">Strategic positioning</div>
+      <p>We're priced like a <strong>mid-market managed service</strong> — a sweet spot for the $500k-$2M GMV segment where Pattern is too expensive and Stack Influence is too thin. <strong>Lean into this positioning with mid-market brand case studies.</strong> Reconsider the $30k cap for enterprise brands to capture fair share of their economics.</p>
+    </div>
+  </div>
+
+  <!-- ================ TAB 12: ISSUES & CONCERNS ================ -->
+  <div class="tab-pane" id="pane-risks">
+    <h2 class="tab-title">Issues, threats &amp; concerns</h2>
+    <p class="tab-subtitle">Risks surfaced through building this model. Grouped by category and tagged by severity. Each includes a suggested mitigation where one exists.</p>
+
+    <h3 class="section-head">Pricing &amp; economics</h3>
+    <div id="risks-pricing"></div>
+
+    <h3 class="section-head">Cost structure</h3>
+    <div id="risks-cost"></div>
+
+    <h3 class="section-head">Operational risk</h3>
+    <div id="risks-ops"></div>
+
+    <h3 class="section-head">Financial risk</h3>
+    <div id="risks-fin"></div>
+
+    <h3 class="section-head">Market &amp; competitive</h3>
+    <div id="risks-market"></div>
+  </div>
+
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-/* GMV tier structure from spreadsheet */
+/* =========== CORE DATA =========== */
 const TIERS = [
-  { gmv: 0,       retainer: 6500,  fixed: 6500, variable: 0,     seeding: 400,  creators: 50,   products: 1, takeRate: null   },
-  { gmv: 50000,   retainer: 6500,  fixed: 6500, variable: 0,     seeding: 400,  creators: 100,  products: 1, takeRate: 0.13   },
-  { gmv: 100000,  retainer: 6500,  fixed: 6500, variable: 0,     seeding: 650,  creators: 200,  products: 1, takeRate: 0.065  },
-  { gmv: 250000,  retainer: 10000, fixed: 6500, variable: 3500,  seeding: 800,  creators: 300,  products: 2, takeRate: 0.040  },
-  { gmv: 500000,  retainer: 15000, fixed: 6500, variable: 8500,  seeding: 1000, creators: 500,  products: 3, takeRate: 0.030  },
-  { gmv: 1000000, retainer: 20000, fixed: 6500, variable: 13500, seeding: 2000, creators: 700,  products: 4, takeRate: 0.020  },
+  { gmv: 0, retainer: 6500, fixed: 6500, variable: 0, seeding: 400, creators: 50, products: 1, takeRate: null },
+  { gmv: 50000, retainer: 6500, fixed: 6500, variable: 0, seeding: 400, creators: 100, products: 1, takeRate: 0.13 },
+  { gmv: 100000, retainer: 6500, fixed: 6500, variable: 0, seeding: 650, creators: 200, products: 1, takeRate: 0.065 },
+  { gmv: 250000, retainer: 10000, fixed: 6500, variable: 3500, seeding: 800, creators: 300, products: 2, takeRate: 0.040 },
+  { gmv: 500000, retainer: 15000, fixed: 6500, variable: 8500, seeding: 1000, creators: 500, products: 3, takeRate: 0.030 },
+  { gmv: 1000000, retainer: 20000, fixed: 6500, variable: 13500, seeding: 2000, creators: 700, products: 4, takeRate: 0.020 },
   { gmv: 1500000, retainer: 25000, fixed: 6500, variable: 18500, seeding: 3000, creators: 1000, products: 4, takeRate: 0.0167 },
-  { gmv: 2000000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 4000, creators: 1500, products: 5, takeRate: 0.015  },
-  { gmv: 2500000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 5000, creators: 2000, products: 5, takeRate: 0.012  },
-  { gmv: 3000000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 6000, creators: 2500, products: 5, takeRate: 0.010  },
+  { gmv: 2000000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 4000, creators: 1500, products: 5, takeRate: 0.015 },
+  { gmv: 2500000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 5000, creators: 2000, products: 5, takeRate: 0.012 },
+  { gmv: 3000000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 6000, creators: 2500, products: 5, takeRate: 0.010 },
 ];
 
-const CPP = 5;         /* clients per pod */
+const COD = 1600;
+const CPP = 5;
 const MAX_PODS = 4;
 const REV_TARGET = 400000;
 
-/* Cost structure - 3 named roles */
-const ROLE_STRATEGIST = 800;
-const ROLE_AFFILIATE_MGR = 400;
-const ROLE_SHOP_COORD = 400;
-const COD = ROLE_STRATEGIST + ROLE_AFFILIATE_MGR + ROLE_SHOP_COORD; // $1,600
+/* =========== FORMATTERS =========== */
+function fmt(n) { if (Math.abs(n) >= 1e6) return '$' + (n/1e6).toFixed(2).replace(/\.?0+$/,'') + 'M'; if (Math.abs(n) >= 1000) return '$' + Math.round(n/1000) + 'k'; return '$' + Math.round(n).toLocaleString(); }
+function fmtFull(n) { return (n<0?'-$':'$') + Math.abs(Math.round(n)).toLocaleString(); }
+function pct(n, d=1) { return (n*100).toFixed(d) + '%'; }
+function fmtNum(n) { return n.toLocaleString(); }
+function gmvLabel(g) { if (g === 0) return '<$50k'; if (g >= 1e6) return '$' + (g/1e6).toFixed(g === 1.5e6 || g === 2.5e6 ? 1 : 0) + 'M'; return '$' + (g/1000) + 'k'; }
 
-const CLI_COLS = [5, 10, 15, 20];
+/* =========== CHART DEFAULTS =========== */
+Chart.defaults.color = '#8A8B93';
+Chart.defaults.font.family = 'Figtree, Helvetica Neue, Arial, sans-serif';
+Chart.defaults.font.size = 10;
+const TOOLTIP_STYLE = { backgroundColor: '#12142b', titleColor: '#fff', bodyColor: '#B0B1B6', borderColor: '#F9D900', borderWidth: 1, padding: 10, cornerRadius: 8 };
 
-function fmt(n){if(Math.abs(n)>=1e6)return'$'+(n/1e6).toFixed(2).replace(/\.?0+$/,'')+'M';if(Math.abs(n)>=1000)return'$'+Math.round(n/1000)+'k';return'$'+Math.round(n).toLocaleString();}
-function fmtFull(n){return(n<0?'-$':'$')+Math.abs(Math.round(n)).toLocaleString();}
-function pct(n,d=1){return(n*100).toFixed(d)+'%';}
-function fmtNum(n){return n.toLocaleString();}
+/* =========== TAB MANAGEMENT =========== */
+const initialized = {};
+const tabHandlers = {};
 
-function tierName(gmv) {
-  if (gmv >= 1000000) return '$' + (gmv/1000000).toFixed(gmv >= 1e6 && gmv < 1e7 && gmv % 1e6 !== 0 ? 1 : 0) + 'M GMV Tier';
-  if (gmv === 0) return 'Sub-$50k GMV Tier';
-  return '$' + (gmv/1000) + 'k GMV Tier';
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'pane-' + id));
+  if (!initialized[id] && tabHandlers[id]) {
+    tabHandlers[id]();
+    initialized[id] = true;
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
 
-function cellClass(rev){
-  if(rev>=REV_TARGET)return'cell-green';
-  if(rev>=200000)return'cell-teal';
-  if(rev>=100000)return'cell-amber';
-  return'cell-red';
-}
-
-function getTier(idx) { return TIERS[idx]; }
-
-function buildMatrix(idx, clients){
-  const nCli = CLI_COLS.reduce((p,c) => Math.abs(c-clients) < Math.abs(p-clients) ? c : p);
-  const tb = document.getElementById('matrix');
-  tb.innerHTML = '';
-  TIERS.forEach((tier, ri) => {
-    const tr = document.createElement('tr');
-    const td0 = document.createElement('td');
-    td0.className = 'row-label';
-    const gmvLabel = tier.gmv === 0 ? '< $50k' : tier.gmv >= 1e6 ? '$' + (tier.gmv/1e6).toFixed(tier.gmv === 1.5e6 || tier.gmv === 2.5e6 ? 1 : 0) + 'M' : '$' + (tier.gmv/1000) + 'k';
-    td0.innerHTML = `<span class="row-gmv">${gmvLabel}</span><span class="row-ret">${fmt(tier.retainer)}/mo</span>`;
-    tr.appendChild(td0);
-    CLI_COLS.forEach(nc => {
-      const totalRev = tier.retainer * nc;
-      const gp = (tier.retainer - COD) * nc;
-      const margin = gp / totalRev;
-      const isCur = (nc === nCli && ri === idx);
-      const cc = cellClass(totalRev);
-      const td = document.createElement('td');
-      td.style.padding = '4px';
-      td.innerHTML = `<div class="scenario-cell ${cc}${isCur?' cell-current':''}">
-        <div class="cv">${fmt(totalRev)}</div>
-        <div class="cm">${pct(margin, 0)} gm</div>
-      </div>`;
-      tr.appendChild(td);
-    });
-    tb.appendChild(tr);
-  });
-}
-
-function buildTierCard(tier) {
-  document.getElementById('t-name').textContent = tierName(tier.gmv);
-  document.getElementById('t-breakdown').innerHTML = tier.variable > 0
-    ? `$${fmtNum(tier.fixed)} fixed + $${fmtNum(tier.variable)} variable = <strong style="color:#fff;">$${fmtNum(tier.retainer)} retainer</strong>`
-    : `$${fmtNum(tier.fixed)} fixed retainer · <span style="color:var(--amber);">no variable at this tier</span>`;
-  document.getElementById('t-take').textContent = tier.takeRate ? pct(tier.takeRate, tier.takeRate >= 0.1 ? 0 : 2) : '—';
-  document.getElementById('t-seeding').textContent = fmtNum(tier.seeding);
-  document.getElementById('t-creators').textContent = fmtNum(tier.creators);
-  document.getElementById('t-products').textContent = tier.products;
-}
-
-function buildDeliveryGrid(tier, clients) {
-  const grid = document.getElementById('delivery-grid');
-  const totalCod = COD * clients;
-  grid.innerHTML = `
-    <div class="delivery-card">
-      <div class="d-label">Lead Strategist</div>
-      <div class="d-val">$${fmtNum(ROLE_STRATEGIST)}</div>
-      <div class="d-sub">per brand · ${clients}× = ${fmtFull(ROLE_STRATEGIST*clients)}</div>
-    </div>
-    <div class="delivery-card">
-      <div class="d-label">Affiliate Manager</div>
-      <div class="d-val">$${fmtNum(ROLE_AFFILIATE_MGR)}</div>
-      <div class="d-sub">per brand · ${clients}× = ${fmtFull(ROLE_AFFILIATE_MGR*clients)}</div>
-    </div>
-    <div class="delivery-card">
-      <div class="d-label">Shop Coordinator</div>
-      <div class="d-val">$${fmtNum(ROLE_SHOP_COORD)}</div>
-      <div class="d-sub">per brand · ${clients}× = ${fmtFull(ROLE_SHOP_COORD*clients)}</div>
-    </div>
-    <div class="delivery-card highlighted">
-      <div class="d-label">Total CoD / brand</div>
-      <div class="d-val">$${fmtNum(COD)}</div>
-      <div class="d-sub">× ${clients} clients = ${fmtFull(totalCod)}</div>
-    </div>
-    <div class="delivery-card">
-      <div class="d-label">Creators managed</div>
-      <div class="d-val">${fmtNum(tier.creators * clients)}</div>
-      <div class="d-sub">${fmtNum(tier.creators)}/brand × ${clients}</div>
-    </div>
-  `;
-}
-
-function buildKPIs(tier, clients) {
+/* =========== TAB 1: EXEC SUMMARY (INTERACTIVE) =========== */
+let exChart = null;
+function renderExec() {
+  const idx = parseInt(document.getElementById('ex-s-gmv').value);
+  const clients = parseInt(document.getElementById('ex-s-clients').value);
+  const tier = TIERS[idx];
   const totalRev = tier.retainer * clients;
   const totalCod = COD * clients;
   const gp = totalRev - totalCod;
@@ -867,221 +1286,798 @@ function buildKPIs(tier, clients) {
   const activePods = Math.ceil(clients / CPP);
   const tp = totalRev / REV_TARGET;
 
-  document.getElementById('k-rev').textContent = fmt(totalRev);
-  const rb = document.getElementById('k-rev-b');
-  if (tp >= 1) rb.innerHTML = `<span class="badge badge-green">+${Math.round((tp-1)*100)}% vs target</span>`;
-  else rb.innerHTML = `<span class="badge badge-red">${Math.round((tp-1)*100)}% vs target</span>`;
-
-  document.getElementById('k-gp').textContent = fmt(gp);
-  document.getElementById('k-gp-b').textContent = `${clients} × ${fmtFull(tier.retainer - COD)}`;
-
-  document.getElementById('k-gm').textContent = pct(gm, 1);
-  const gmb = document.getElementById('k-gm-b');
-  if (gm >= 0.80) gmb.innerHTML = `<span class="badge badge-green">Above 80% target</span>`;
-  else if (gm >= 0.75) gmb.innerHTML = `<span class="badge badge-amber">In 75-80% band</span>`;
-  else gmb.innerHTML = `<span class="badge badge-red">Below 75% floor</span>`;
-
-  document.getElementById('k-rpc').textContent = fmt(tier.retainer);
-  document.getElementById('k-take').textContent = tier.takeRate ? `${pct(tier.takeRate, tier.takeRate >= 0.1 ? 0 : 2)} of GMV` : 'base only';
-
-  document.getElementById('k-pods').textContent = activePods;
-  document.getElementById('k-pods-b').textContent = `of ${MAX_PODS} · ${fmtFull(activePods * CPP * COD)} cost`;
+  document.getElementById('ex-v-gmv').textContent = gmvLabel(tier.gmv);
+  document.getElementById('ex-v-gmv-sub').textContent = 'Tier ' + (idx+1) + ' of 10';
+  document.getElementById('ex-v-clients').textContent = clients;
+  document.getElementById('ex-k-ret').textContent = fmt(tier.retainer);
+  document.getElementById('ex-k-take').textContent = tier.takeRate ? pct(tier.takeRate, tier.takeRate >= 0.1 ? 0 : 2) + ' of GMV' : 'base only';
+  document.getElementById('ex-k-rev').textContent = fmt(totalRev);
+  document.getElementById('ex-k-rev-b').innerHTML = tp >= 1
+    ? '<span class="badge badge-green">+' + Math.round((tp-1)*100) + '% vs target</span>'
+    : '<span class="badge badge-red">' + Math.round((tp-1)*100) + '% vs target</span>';
+  document.getElementById('ex-k-gp').textContent = fmt(gp);
+  document.getElementById('ex-k-gp-sub').textContent = clients + ' × ' + fmtFull(tier.retainer - COD);
+  document.getElementById('ex-k-gm').textContent = pct(gm, 1);
+  document.getElementById('ex-k-gm-b').innerHTML = gm >= 0.80
+    ? '<span class="badge badge-green">Above 80%</span>'
+    : gm >= 0.75
+    ? '<span class="badge badge-amber">75-80%</span>'
+    : '<span class="badge badge-red">Below 75%</span>';
+  document.getElementById('ex-k-pods').textContent = activePods;
+  document.getElementById('ex-k-pods-sub').textContent = 'of ' + MAX_PODS + ' max';
 }
 
-function buildPL(tier, clients) {
-  const totalRev = tier.retainer * clients;
-  const strategistCost = ROLE_STRATEGIST * clients;
-  const affiliateCost = ROLE_AFFILIATE_MGR * clients;
-  const shopCost = ROLE_SHOP_COORD * clients;
-  const totalCod = strategistCost + affiliateCost + shopCost;
-  const gp = totalRev - totalCod;
-  const gm = gp / totalRev;
-
-  const tierVarLine = tier.variable > 0
-    ? `<div class="pl-row"><span class="pl-label">Variable retainer <span class="pl-sub">tier-based</span></span><span class="pl-value">${fmtFull(tier.variable * clients)}</span></div>`
-    : '';
-
-  document.getElementById('pl').innerHTML = `
-    <div class="pl-row"><span class="pl-label">Fixed retainer <span class="pl-sub">$6,500 × ${clients}</span></span><span class="pl-value">${fmtFull(tier.fixed * clients)}</span></div>
-    ${tierVarLine}
-    <div class="pl-row pl-highlight"><span class="pl-label">Total revenue</span><span class="pl-value">${fmtFull(totalRev)}</span></div>
-    <div class="pl-row"><span class="pl-label">Lead Strategist <span class="pl-sub">$800 × ${clients}</span></span><span class="pl-value neg">(${fmtFull(strategistCost)})</span></div>
-    <div class="pl-row"><span class="pl-label">Affiliate Manager <span class="pl-sub">$400 × ${clients}</span></span><span class="pl-value neg">(${fmtFull(affiliateCost)})</span></div>
-    <div class="pl-row"><span class="pl-label">Shop Coordinator <span class="pl-sub">$400 × ${clients}</span></span><span class="pl-value neg">(${fmtFull(shopCost)})</span></div>
-    <div class="pl-row pl-highlight"><span class="pl-label">Gross profit</span><span class="pl-value pos">${fmtFull(gp)} &nbsp;<span style="font-size:12px;font-weight:500;color:var(--grey-200);">${pct(gm, 1)}</span></span></div>
-  `;
-}
-
-function buildPods(tier, clients) {
-  const grid = document.getElementById('pods');
-  grid.innerHTML = '';
-  for (let p = 0; p < MAX_PODS; p++) {
-    const pc = Math.min(CPP, Math.max(0, clients - p * CPP));
-    const full = pc === CPP, partial = pc > 0 && pc < CPP, empty = pc === 0;
-    const cls = full ? 'active' : partial ? 'partial' : 'inactive';
-    const dotColor = full ? '#4db6ac' : partial ? '#ffb74d' : 'rgba(255,255,255,0.1)';
-    const dots = Array.from({length: CPP}, (_, i) =>
-      `<span class="pod-dot" style="background:${i < pc ? dotColor : 'rgba(255,255,255,0.08)'};"></span>`
-    ).join('');
-    const podRev = pc * tier.retainer;
-    const podCod = pc * COD;
-    const podGp = podRev - podCod;
-    const d = document.createElement('div');
-    d.className = `pod-card ${cls}`;
-    d.innerHTML = `
-      <div class="pod-title">Pod ${p+1}</div>
-      <div class="pod-dots">${dots}</div>
-      <div class="pod-stat">${pc}/${CPP} clients</div>
-      <div class="pod-rev">${fmt(podRev)}</div>
-      <div class="pod-stat">${fmtFull(podGp)} GP · ${fmtFull(podCod)} CoD</div>
-    `;
-    grid.appendChild(d);
-  }
-}
-
-let chartRev = null, chartRate = null;
-
-function buildCharts() {
-  const tierLabels = TIERS.map(t => t.gmv === 0 ? '<$50k' : t.gmv >= 1e6 ? '$' + (t.gmv/1e6).toFixed(t.gmv === 1.5e6 || t.gmv === 2.5e6 ? 1 : 0) + 'M' : '$' + (t.gmv/1000) + 'k');
-
-  if (chartRev) chartRev.destroy();
-  chartRev = new Chart(document.getElementById('rev-chart'), {
-    type: 'bar',
+function initExec() {
+  const tierLabels = TIERS.map(t => gmvLabel(t.gmv));
+  if (exChart) exChart.destroy();
+  exChart = new Chart(document.getElementById('ex-chart'), {
     data: {
       labels: tierLabels,
       datasets: [
-        {
-          label: 'Fixed',
-          data: TIERS.map(t => t.fixed),
-          backgroundColor: '#F9D900',
-          borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4 },
-          borderSkipped: false,
-          stack: 'retainer',
-        },
-        {
-          label: 'Variable',
-          data: TIERS.map(t => t.variable),
-          backgroundColor: '#4db6ac',
-          borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
-          borderSkipped: false,
-          stack: 'retainer',
-        },
-        {
-          label: 'Take rate',
-          data: TIERS.map(t => t.takeRate ? t.takeRate * 100 : null),
-          type: 'line',
-          borderColor: '#ff7043',
-          borderWidth: 2.5,
-          borderDash: [4,3],
-          pointRadius: 3,
-          pointBackgroundColor: '#ff7043',
-          fill: false,
-          tension: 0.2,
-          yAxisID: 'y1',
-          spanGaps: true,
-        }
+        { type: 'bar', label: 'Fixed', data: TIERS.map(t => t.fixed), backgroundColor: '#F9D900', stack: 'r', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4 } },
+        { type: 'bar', label: 'Variable', data: TIERS.map(t => t.variable), backgroundColor: '#4db6ac', stack: 'r', borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 } },
+        { type: 'line', label: 'Take rate', data: TIERS.map(t => t.takeRate ? t.takeRate*100 : null), borderColor: '#ff7043', borderWidth: 2.5, borderDash: [4,3], pointRadius: 3, pointBackgroundColor: '#ff7043', fill: false, tension: 0.2, yAxisID: 'y1', spanGaps: true }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#12142b', titleColor: '#fff', bodyColor: '#B0B1B6',
-          borderColor: '#F9D900', borderWidth: 1, padding: 10,
-          callbacks: {
-            label: ctx => ctx.dataset.label === 'Take rate'
-              ? ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%`
-              : ` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`
-          }
-        }
-      },
+      plugins: { legend: { display: false }, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ctx.dataset.label === 'Take rate' ? ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) + '%' : ' ' + ctx.dataset.label + ': ' + fmt(ctx.parsed.y) }}},
       scales: {
         x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10, weight: 500 }, color: '#B0B1B6' } },
-        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { font: { size: 10 }, color: '#8A8B93', callback: v => fmt(v) } },
-        y1: {
-          position: 'right', min: 0, max: 15,
-          grid: { display: false },
-          ticks: { font: { size: 10 }, color: '#ff7043', callback: v => v + '%' }
-        }
+        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) } },
+        y1: { position: 'right', min: 0, max: 15, grid: { display: false }, ticks: { color: '#ff7043', callback: v => v + '%' } }
       }
     }
   });
+  document.getElementById('ex-s-gmv').addEventListener('input', renderExec);
+  document.getElementById('ex-s-clients').addEventListener('input', renderExec);
+  renderExec();
+}
+tabHandlers['exec'] = initExec;
+initExec();
+initialized['exec'] = true;
 
-  const rateData = TIERS.filter(t => t.takeRate !== null).map(t => ({ x: t.gmv, y: t.takeRate * 100 }));
+/* =========== TAB 3: CLIENT MIX =========== */
+const MIX_SCENARIOS = {
+  conservative: { name: 'Conservative', clients: [ {tier: 0, count: 4}, {tier: 2, count: 4}, {tier: 3, count: 6}, {tier: 4, count: 4}, {tier: 5, count: 2} ] },
+  base:         { name: 'Base',         clients: [ {tier: 3, count: 2}, {tier: 4, count: 4}, {tier: 5, count: 6}, {tier: 6, count: 4}, {tier: 7, count: 4} ] },
+  aggressive:   { name: 'Aggressive',   clients: [ {tier: 5, count: 2}, {tier: 6, count: 6}, {tier: 7, count: 12} ] }
+};
 
-  if (chartRate) chartRate.destroy();
-  chartRate = new Chart(document.getElementById('rate-chart'), {
-    type: 'line',
+function scenarioResult(s) {
+  let clients = 0, revenue = 0;
+  s.clients.forEach(c => { clients += c.count; revenue += c.count * TIERS[c.tier].retainer; });
+  const cod = clients * COD;
+  const gp = revenue - cod;
+  return { clients, revenue, cod, gp, gm: gp/revenue, avgRetainer: revenue/clients, target: revenue/REV_TARGET };
+}
+
+function scenarioMixDesc(s) {
+  return s.clients.map(c => c.count + ' × ' + gmvLabel(TIERS[c.tier].gmv) + ' ($' + Math.round(TIERS[c.tier].retainer/1000) + 'k)').join(' · ');
+}
+
+function initMix() {
+  const cons = scenarioResult(MIX_SCENARIOS.conservative);
+  const base = scenarioResult(MIX_SCENARIOS.base);
+  const agg = scenarioResult(MIX_SCENARIOS.aggressive);
+
+  document.getElementById('mix-cons-rev').textContent = fmt(cons.revenue);
+  document.getElementById('mix-base-rev').textContent = fmt(base.revenue);
+  document.getElementById('mix-agg-rev').textContent = fmt(agg.revenue);
+  document.querySelector('#pane-mix .kpi-sub').textContent = 'monthly revenue · ' + Math.round(cons.target*100) + '% of $400k target';
+  document.querySelectorAll('#pane-mix .kpi-sub')[1].textContent = 'monthly revenue · ' + Math.round(base.target*100) + '% of $400k target';
+  document.querySelectorAll('#pane-mix .kpi-sub')[2].textContent = 'monthly revenue · ' + Math.round(agg.target*100) + '% of $400k target';
+
+  document.getElementById('mix-cons-mix').textContent = scenarioMixDesc(MIX_SCENARIOS.conservative);
+  document.getElementById('mix-base-mix').textContent = scenarioMixDesc(MIX_SCENARIOS.base);
+  document.getElementById('mix-agg-mix').textContent = scenarioMixDesc(MIX_SCENARIOS.aggressive);
+
+  const tbody = document.querySelector('#mix-table tbody');
+  tbody.innerHTML = '';
+  [['Conservative', cons, 'red'], ['Base', base, 'yellow'], ['Aggressive', agg, 'green']].forEach(([name, r, color]) => {
+    const deltaTxt = r.target >= 1 ? '+' + Math.round((r.target-1)*100) + '%' : Math.round((r.target-1)*100) + '%';
+    tbody.innerHTML += `<tr>
+      <td class="strong" style="color: var(--${color === 'yellow' ? 'yellow' : color === 'red' ? 'coral' : 'green'});">${name}</td>
+      <td class="num">${r.clients}</td>
+      <td class="num">${fmt(r.avgRetainer)}</td>
+      <td class="num strong">${fmt(r.revenue)}</td>
+      <td class="num">${fmt(r.cod)}</td>
+      <td class="num strong" style="color: var(--green);">${fmt(r.gp)}</td>
+      <td class="num">${pct(r.gm, 1)}</td>
+      <td class="num ${r.target >= 1 ? 'green' : 'red'}">${deltaTxt}</td>
+    </tr>`;
+  });
+
+  new Chart(document.getElementById('mix-chart'), {
+    type: 'bar',
     data: {
+      labels: ['Conservative', 'Base', 'Aggressive'],
       datasets: [{
-        label: 'Effective take rate',
-        data: rateData,
-        borderColor: '#F9D900',
-        backgroundColor: 'rgba(249,217,0,0.08)',
-        borderWidth: 3,
-        pointRadius: 4,
-        pointBackgroundColor: '#F9D900',
-        pointBorderColor: '#02030e',
-        pointBorderWidth: 2,
-        fill: true,
-        tension: 0.25,
+        label: 'Revenue',
+        data: [cons.revenue, base.revenue, agg.revenue],
+        backgroundColor: ['#ff7043', '#F9D900', '#8bc34a'],
+        borderRadius: 4, borderSkipped: false,
+      }, {
+        label: 'Target', type: 'line',
+        data: [REV_TARGET, REV_TARGET, REV_TARGET],
+        borderColor: '#F9D900', borderWidth: 2, borderDash: [5,3], pointRadius: 0, fill: false
       }]
     },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#12142b', titleColor: '#fff', bodyColor: '#B0B1B6',
-          borderColor: '#F9D900', borderWidth: 1, padding: 10,
-          callbacks: {
-            title: ctx => 'GMV: ' + fmt(ctx[0].parsed.x),
-            label: ctx => ' Take rate: ' + ctx.parsed.y.toFixed(2) + '%'
-          }
-        }
-      },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + fmt(ctx.parsed.y) }}},
       scales: {
-        x: {
-          type: 'logarithmic', min: 40000, max: 3500000,
-          grid: { display: false },
-          ticks: { font: { size: 10 }, color: '#8A8B93', callback: v => fmt(v), maxTicksLimit: 8 },
-          title: { display: true, text: 'monthly GMV / client (log scale)', font: { size: 10, weight: 600 }, color: '#8A8B93' }
-        },
-        y: {
-          min: 0, max: 15,
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          ticks: { font: { size: 10 }, color: '#8A8B93', callback: v => v + '%' },
-          title: { display: true, text: 'effective take rate', font: { size: 10, weight: 600 }, color: '#8A8B93' }
-        }
+        x: { grid: { display: false } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) } }
+      }
+    }
+  });
+
+  const distDatasets = [];
+  const tierColors = ['#5c5d67', '#71727c', '#87889a', '#ff7043', '#ffb74d', '#F9D900', '#4db6ac', '#8bc34a', '#64b5f6', '#b39ddb'];
+  TIERS.forEach((t, i) => {
+    const data = [
+      MIX_SCENARIOS.conservative.clients.find(c => c.tier === i)?.count || 0,
+      MIX_SCENARIOS.base.clients.find(c => c.tier === i)?.count || 0,
+      MIX_SCENARIOS.aggressive.clients.find(c => c.tier === i)?.count || 0,
+    ];
+    if (data.some(d => d > 0)) {
+      distDatasets.push({
+        label: gmvLabel(t.gmv) + ' ($' + Math.round(t.retainer/1000) + 'k)',
+        data, backgroundColor: tierColors[i], stack: 'mix', borderRadius: 2
+      });
+    }
+  });
+  new Chart(document.getElementById('mix-dist-chart'), {
+    type: 'bar',
+    data: { labels: ['Conservative', 'Base', 'Aggressive'], datasets: distDatasets },
+    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: TOOLTIP_STYLE },
+      scales: {
+        x: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' } },
+        y: { stacked: true, grid: { display: false } }
       }
     }
   });
 }
+tabHandlers['mix'] = initMix;
 
-function update() {
-  const idx = parseInt(document.getElementById('s-gmv').value);
-  const clients = parseInt(document.getElementById('s-clients').value);
-  const tier = getTier(idx);
-
-  const gmvDisplay = tier.gmv === 0 ? '<$50k' : tier.gmv >= 1e6 ? '$' + (tier.gmv/1e6).toFixed(tier.gmv === 1.5e6 || tier.gmv === 2.5e6 ? 1 : 0) + 'M' : '$' + (tier.gmv/1000) + 'k';
-  document.getElementById('v-gmv').textContent = gmvDisplay;
-  document.getElementById('v-gmv-sub').textContent = `Tier ${idx + 1} of ${TIERS.length}`;
-  document.getElementById('v-clients').textContent = clients;
-
-  buildTierCard(tier);
-  buildKPIs(tier, clients);
-  buildMatrix(idx, clients);
-  buildPL(tier, clients);
-  buildPods(tier, clients);
-  buildDeliveryGrid(tier, clients);
+/* =========== TAB 4: 12-MONTH RAMP =========== */
+function rampData() {
+  const ramp = [
+    { m: 1, clients: 2, avgRet: 8500 },
+    { m: 2, clients: 5, avgRet: 9000 },
+    { m: 3, clients: 8, avgRet: 10000 },
+    { m: 4, clients: 10, avgRet: 11500 },
+    { m: 5, clients: 12, avgRet: 13000 },
+    { m: 6, clients: 14, avgRet: 14500 },
+    { m: 7, clients: 16, avgRet: 16000 },
+    { m: 8, clients: 18, avgRet: 17500 },
+    { m: 9, clients: 19, avgRet: 18500 },
+    { m: 10, clients: 20, avgRet: 19000 },
+    { m: 11, clients: 20, avgRet: 20000 },
+    { m: 12, clients: 20, avgRet: 20500 }
+  ];
+  let cumGp = 0;
+  return ramp.map(r => {
+    const revenue = r.clients * r.avgRet;
+    const cod = r.clients * COD;
+    const gp = revenue - cod;
+    cumGp += gp;
+    return { ...r, revenue, cod, gp, gm: gp/revenue, cumGp };
+  });
 }
 
-document.getElementById('s-gmv').addEventListener('input', update);
-document.getElementById('s-clients').addEventListener('input', update);
+function initRamp() {
+  const data = rampData();
+  const tbody = document.querySelector('#ramp-table tbody');
+  tbody.innerHTML = '';
+  data.forEach(r => {
+    tbody.innerHTML += `<tr>
+      <td class="strong">Month ${r.m}</td>
+      <td class="num">${r.clients}</td>
+      <td class="num">${fmt(r.avgRet)}</td>
+      <td class="num strong">${fmt(r.revenue)}</td>
+      <td class="num">${fmt(r.cod)}</td>
+      <td class="num green">${fmt(r.gp)}</td>
+      <td class="num">${pct(r.gm, 1)}</td>
+      <td class="num">${fmt(r.cumGp)}</td>
+    </tr>`;
+  });
 
-buildCharts();
-update();
+  new Chart(document.getElementById('ramp-chart'), {
+    data: {
+      labels: data.map(r => 'M' + r.m),
+      datasets: [
+        { type: 'bar', label: 'Revenue', data: data.map(r => r.revenue), backgroundColor: 'rgba(249,217,0,0.85)', borderRadius: 3 },
+        { type: 'bar', label: 'CoD', data: data.map(r => r.cod), backgroundColor: 'rgba(255,112,67,0.65)', borderRadius: 3 },
+        { type: 'line', label: 'Gross profit', data: data.map(r => r.gp), borderColor: '#8bc34a', backgroundColor: 'rgba(139,195,74,0.1)', borderWidth: 3, pointRadius: 3, pointBackgroundColor: '#8bc34a', fill: true, tension: 0.25 },
+        { type: 'line', label: 'Target', data: data.map(_ => REV_TARGET), borderColor: '#F9D900', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.parsed.y) }}},
+      scales: {
+        x: { grid: { display: false }},
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}
+      }
+    }
+  });
+}
+tabHandlers['ramp'] = initRamp;
+
+/* =========== TAB 5: CHURN =========== */
+function churnData(monthlyChurn, months=24, addsPerMo=2) {
+  const data = [];
+  let c = 0;
+  for (let m = 1; m <= months; m++) {
+    c = c * (1 - monthlyChurn) + addsPerMo;
+    c = Math.min(c, 20);
+    data.push({ m, clients: Math.round(c * 10) / 10 });
+  }
+  return data;
+}
+
+function initChurn() {
+  const scenarios = [
+    { rate: 0, label: '0% (ideal)', color: '#8bc34a' },
+    { rate: 0.02, label: '2% / mo', color: '#4db6ac' },
+    { rate: 0.05, label: '5% / mo', color: '#ffb74d' },
+    { rate: 0.10, label: '10% / mo', color: '#ff7043' }
+  ];
+
+  new Chart(document.getElementById('churn-chart'), {
+    type: 'line',
+    data: {
+      labels: Array.from({length:24}, (_,i) => 'M'+(i+1)),
+      datasets: scenarios.map(s => ({
+        label: s.label, data: churnData(s.rate).map(d => d.clients),
+        borderColor: s.color, backgroundColor: s.color + '22',
+        borderWidth: 2.5, pointRadius: 0, tension: 0.2, fill: false
+      }))
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: TOOLTIP_STYLE },
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, min: 0, max: 22, title: { display: true, text: 'active clients', font: { size: 10 }}}}
+    }
+  });
+
+  const baseResult = scenarioResult(MIX_SCENARIOS.base);
+  const avgRet = baseResult.avgRetainer;
+  const revByRate = scenarios.map(s => {
+    const lastClients = churnData(s.rate)[23].clients;
+    return { label: s.label, rev: lastClients * avgRet, color: s.color };
+  });
+
+  new Chart(document.getElementById('churn-rev-chart'), {
+    type: 'bar',
+    data: {
+      labels: revByRate.map(r => r.label),
+      datasets: [{
+        label: 'Revenue at M24',
+        data: revByRate.map(r => r.rev),
+        backgroundColor: revByRate.map(r => r.color),
+        borderRadius: 4, borderSkipped: false
+      }, {
+        type: 'line', label: 'Target',
+        data: revByRate.map(_ => REV_TARGET),
+        borderColor: '#F9D900', borderWidth: 2, borderDash: [5,3], pointRadius: 0, fill: false
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + fmt(ctx.parsed.y) }}},
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}}
+    }
+  });
+
+  const ltvTbody = document.querySelector('#churn-ltv-table tbody');
+  const retainers = [6500, 15000, 20000, 30000];
+  [0.02, 0.03, 0.05, 0.08, 0.10].forEach(r => {
+    const lifetime = Math.round(1/r);
+    const cells = retainers.map(ret => fmt((ret - COD) * lifetime));
+    ltvTbody.innerHTML += `<tr>
+      <td class="strong">${pct(r, 0)} / mo</td>
+      <td class="num">${lifetime} mo</td>
+      <td class="num">${cells[0]}</td>
+      <td class="num">${cells[1]}</td>
+      <td class="num">${cells[2]}</td>
+      <td class="num yellow">${cells[3]}</td>
+    </tr>`;
+  });
+}
+tabHandlers['churn'] = initChurn;
+
+/* =========== TAB 6: PRICING SENSITIVITY =========== */
+function pricingScenarios() {
+  return [
+    { name: 'Current schedule', base: 6500, cap: 30000, multiplier: 1, note: 'Baseline tier schedule', highlight: 'yellow' },
+    { name: '+10% all tiers', base: 7150, cap: 33000, multiplier: 1.1, note: 'Conservative price increase — retains positioning', highlight: 'green' },
+    { name: '-10% all tiers', base: 5850, cap: 27000, multiplier: 0.9, note: 'Below-market play — wins on price, hurts margin', highlight: 'red' },
+    { name: 'Higher floor ($10k base)', base: 10000, cap: 30000, multiplier: 1, note: 'Prices out sub-$250k brands entirely', highlight: 'amber', customBase: true },
+    { name: 'Raised cap ($40k)', base: 6500, cap: 40000, multiplier: 1, note: 'Captures enterprise upside — small client impact', highlight: 'teal', customCap: true },
+  ];
+}
+
+function pricingRevenue(s) {
+  // Use base client mix, apply scenario
+  let revenue = 0, clients = 0;
+  MIX_SCENARIOS.base.clients.forEach(c => {
+    const tier = TIERS[c.tier];
+    let ret;
+    if (s.customBase && tier.retainer < s.base) ret = s.base;
+    else if (s.customCap && tier.gmv >= 2e6) ret = s.cap;
+    else ret = tier.retainer * s.multiplier;
+    revenue += c.count * ret;
+    clients += c.count;
+  });
+  const cod = clients * COD;
+  const gp = revenue - cod;
+  return { revenue, cod, gp, gm: gp/revenue, clients };
+}
+
+function initPricing() {
+  const scenarios = pricingScenarios();
+  const current = pricingRevenue(scenarios[0]);
+  const tbody = document.querySelector('#pricing-table tbody');
+  tbody.innerHTML = '';
+  scenarios.forEach(s => {
+    const r = pricingRevenue(s);
+    const delta = r.revenue - current.revenue;
+    const deltaPct = delta / current.revenue;
+    tbody.innerHTML += `<tr>
+      <td class="strong" style="color: var(--${s.highlight});">${s.name}</td>
+      <td class="num">${fmt(s.base)}</td>
+      <td class="num">${fmt(s.cap)}</td>
+      <td class="num strong">${fmt(r.revenue)}</td>
+      <td class="num">${pct(r.gm, 1)}</td>
+      <td class="num ${delta >= 0 ? 'green' : 'red'}">${delta === 0 ? '—' : (delta >= 0 ? '+' : '') + fmt(delta) + ' (' + pct(deltaPct, 0) + ')'}</td>
+      <td style="font-size: 12px; color: var(--grey-200);">${s.note}</td>
+    </tr>`;
+  });
+
+  new Chart(document.getElementById('pricing-chart'), {
+    type: 'bar',
+    data: {
+      labels: scenarios.map(s => s.name),
+      datasets: [{
+        data: scenarios.map(s => pricingRevenue(s).revenue),
+        backgroundColor: scenarios.map(s => {
+          const colors = { yellow: '#F9D900', green: '#8bc34a', red: '#ff7043', amber: '#ffb74d', teal: '#4db6ac' };
+          return colors[s.highlight];
+        }),
+        borderRadius: 4
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+      plugins: { legend: { display: false }, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + fmt(ctx.parsed.x) }}},
+      scales: { x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}, y: { grid: { display: false }}}
+    }
+  });
+
+  const tierGmvs = TIERS.map(t => t.gmv).slice(1);
+  new Chart(document.getElementById('pricing-curve-chart'), {
+    type: 'line',
+    data: {
+      labels: tierGmvs.map(g => gmvLabel(g)),
+      datasets: scenarios.map((s, i) => {
+        const colors = { yellow: '#F9D900', green: '#8bc34a', red: '#ff7043', amber: '#ffb74d', teal: '#4db6ac' };
+        return {
+          label: s.name,
+          data: TIERS.slice(1).map(t => {
+            if (s.customBase && t.retainer < s.base) return s.base;
+            if (s.customCap && t.gmv >= 2e6) return s.cap;
+            return t.retainer * s.multiplier;
+          }),
+          borderColor: colors[s.highlight], borderWidth: 2.5, pointRadius: 2, tension: 0.15, fill: false
+        };
+      })
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 9 }, padding: 6, boxWidth: 10, boxHeight: 10 }}, tooltip: TOOLTIP_STYLE },
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}}
+    }
+  });
+}
+tabHandlers['pricing'] = initPricing;
+
+/* =========== TAB 7: HIRING =========== */
+function initHiring() {
+  const roles = [
+    { role: 'Lead Strategist', ratio: '1 : 5 brands', phase1: 1, phase2: 2, phase3: 3, phase4: 4, atCap: 4, cost: 7500, note: 'Senior IC, owns retention' },
+    { role: 'Affiliate Manager', ratio: '1 : 4 brands', phase1: 1, phase2: 2, phase3: 3, phase4: 5, atCap: 5, cost: 4500, note: 'Creator sourcing & outreach' },
+    { role: 'Shop Coordinator', ratio: '1 : 4 brands', phase1: 1, phase2: 2, phase3: 3, phase4: 5, atCap: 5, cost: 4000, note: 'Catalog, ops, QA' },
+    { role: 'Pod Lead', ratio: '1 : 1 pod', phase1: 0, phase2: 1, phase3: 2, phase4: 4, atCap: 4, cost: 11000, note: 'Not in spreadsheet — should be' },
+    { role: 'Sales AE', ratio: '1 : portfolio', phase1: 1, phase2: 1, phase3: 1, phase4: 1, atCap: 1, cost: 10000, note: 'Founder-led to start, hire M6' },
+    { role: 'Ops / Finance', ratio: 'fractional', phase1: 0, phase2: 0.5, phase3: 1, phase4: 1, atCap: 1, cost: 7000, note: 'Fractional → full-time by M12' },
+  ];
+  const tbody = document.querySelector('#hiring-table tbody');
+  tbody.innerHTML = '';
+  roles.forEach(r => {
+    tbody.innerHTML += `<tr>
+      <td class="strong">${r.role}<div style="font-size: 11px; color: var(--grey-300); font-weight: 500; margin-top: 2px;">${r.ratio}</div></td>
+      <td class="cen">${r.phase1}</td>
+      <td class="cen">${r.phase2}</td>
+      <td class="cen">${r.phase3}</td>
+      <td class="cen">${r.phase4}</td>
+      <td class="num yellow">${r.atCap}</td>
+      <td class="num">${fmt(r.cost)}/mo</td>
+    </tr>`;
+  });
+  // Totals row
+  const totalAtCap = roles.reduce((s,r) => s + r.atCap, 0);
+  const totalCost = roles.reduce((s,r) => s + r.atCap * r.cost, 0);
+  tbody.innerHTML += `<tr class="total">
+    <td class="strong">Total monthly</td>
+    <td class="cen">${roles.reduce((s,r)=>s+r.phase1,0)}</td>
+    <td class="cen">${roles.reduce((s,r)=>s+r.phase2,0)}</td>
+    <td class="cen">${roles.reduce((s,r)=>s+r.phase3,0)}</td>
+    <td class="cen">${roles.reduce((s,r)=>s+r.phase4,0)}</td>
+    <td class="num yellow">${totalAtCap} heads</td>
+    <td class="num strong">${fmt(totalCost)}/mo</td>
+  </tr>`;
+
+  // Headcount chart
+  const phaseLabels = ['1-5', '6-10', '11-15', '16-20'];
+  const phaseData = [
+    roles.reduce((s,r)=>s+r.phase1,0),
+    roles.reduce((s,r)=>s+r.phase2,0),
+    roles.reduce((s,r)=>s+r.phase3,0),
+    roles.reduce((s,r)=>s+r.phase4,0)
+  ];
+  new Chart(document.getElementById('hiring-chart'), {
+    data: {
+      labels: phaseLabels,
+      datasets: [
+        { type: 'bar', label: 'Headcount', data: phaseData, backgroundColor: '#F9D900', borderRadius: 4, yAxisID: 'y' },
+        { type: 'line', label: 'Clients', data: [5, 10, 15, 20], borderColor: '#4db6ac', borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#4db6ac', fill: false, tension: 0, yAxisID: 'y1' }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: TOOLTIP_STYLE },
+      scales: {
+        x: { grid: { display: false }, title: { display: true, text: 'clients phase', font: { size: 10 }}},
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, title: { display: true, text: 'headcount', font: { size: 10 }}},
+        y1: { position: 'right', grid: { display: false }, title: { display: true, text: 'clients', font: { size: 10 }, color: '#4db6ac' }, ticks: { color: '#4db6ac' }}
+      }
+    }
+  });
+
+  // Cost comparison chart
+  const clientCounts = [5, 10, 15, 20];
+  const impliedCost = clientCounts.map(c => c * COD);
+  const actualCost = [
+    roles.reduce((s,r)=>s+r.phase1*r.cost,0),
+    roles.reduce((s,r)=>s+r.phase2*r.cost,0),
+    roles.reduce((s,r)=>s+r.phase3*r.cost,0),
+    roles.reduce((s,r)=>s+r.phase4*r.cost,0)
+  ];
+  new Chart(document.getElementById('hiring-cost-chart'), {
+    type: 'bar',
+    data: {
+      labels: clientCounts.map(c => c + ' clients'),
+      datasets: [
+        { label: 'Spreadsheet implied ($1,600/brand)', data: impliedCost, backgroundColor: '#F9D900', borderRadius: 4 },
+        { label: 'Actual FTE cost', data: actualCost, backgroundColor: '#ff7043', borderRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.parsed.y) }}},
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}}
+    }
+  });
+}
+tabHandlers['hiring'] = initHiring;
+
+/* =========== TAB 8: UNIT ECONOMICS =========== */
+function initUE() {
+  const AVG_LIFETIME = 24;
+  const CAC = 15000;
+  const tbody = document.querySelector('#ue-table tbody');
+  tbody.innerHTML = '';
+  TIERS.slice(1).forEach(t => {
+    const monthlyGp = t.retainer - COD;
+    const ltv = monthlyGp * AVG_LIFETIME;
+    const payback = CAC / monthlyGp;
+    const ratio = ltv / CAC;
+    tbody.innerHTML += `<tr>
+      <td class="strong">${gmvLabel(t.gmv)}</td>
+      <td class="num">${fmt(t.retainer)}</td>
+      <td class="num">${fmt(monthlyGp)}</td>
+      <td class="num strong">${fmt(ltv)}</td>
+      <td class="num">${fmt(CAC)}</td>
+      <td class="num">${payback.toFixed(1)} mo</td>
+      <td class="num ${ratio >= 10 ? 'green' : ratio >= 3 ? 'yellow' : 'red'}">${ratio.toFixed(1)}x</td>
+    </tr>`;
+  });
+
+  // LTV chart at multiple lifetimes
+  const lifetimes = [12, 18, 24, 36];
+  new Chart(document.getElementById('ue-ltv-chart'), {
+    type: 'line',
+    data: {
+      labels: TIERS.slice(1).map(t => gmvLabel(t.gmv)),
+      datasets: lifetimes.map((lt, i) => {
+        const colors = ['#ff7043', '#ffb74d', '#F9D900', '#8bc34a'];
+        return {
+          label: lt + ' mo lifetime',
+          data: TIERS.slice(1).map(t => (t.retainer - COD) * lt),
+          borderColor: colors[i], borderWidth: 2.5, pointRadius: 2, tension: 0.15, fill: false
+        };
+      })
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.parsed.y) }}},
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}}
+    }
+  });
+
+  new Chart(document.getElementById('ue-ratio-chart'), {
+    type: 'bar',
+    data: {
+      labels: TIERS.slice(1).map(t => gmvLabel(t.gmv)),
+      datasets: [{
+        data: TIERS.slice(1).map(t => ((t.retainer - COD) * AVG_LIFETIME) / CAC),
+        backgroundColor: TIERS.slice(1).map(t => {
+          const r = ((t.retainer - COD) * AVG_LIFETIME) / CAC;
+          return r >= 10 ? '#8bc34a' : r >= 3 ? '#F9D900' : '#ff7043';
+        }),
+        borderRadius: 4, borderSkipped: false
+      }, {
+        type: 'line', label: '3x benchmark',
+        data: TIERS.slice(1).map(_ => 3),
+        borderColor: '#ff7043', borderWidth: 2, borderDash: [4,3], pointRadius: 0, fill: false
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' LTV/CAC: ' + ctx.parsed.y.toFixed(1) + 'x' }}},
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => v + 'x' }}}
+    }
+  });
+}
+tabHandlers['ue'] = initUE;
+
+/* =========== TAB 9: P&L PROJECTION =========== */
+function initPL() {
+  const GA_MO = 50000;
+  const data = rampData();
+  let cumOp = 0;
+  const pl = data.map(r => {
+    const op = r.gp - GA_MO;
+    cumOp += op;
+    return { ...r, ga: GA_MO, op, opMargin: op/r.revenue, cumOp };
+  });
+  const y1Op = pl[11].cumOp;
+  document.getElementById('pl-y1-op').textContent = fmt(y1Op);
+
+  const tbody = document.querySelector('#pl-table tbody');
+  tbody.innerHTML = '';
+  pl.forEach(r => {
+    tbody.innerHTML += `<tr>
+      <td class="strong">M${r.m}</td>
+      <td class="num">${r.clients}</td>
+      <td class="num">${fmt(r.revenue)}</td>
+      <td class="num">${fmt(r.cod)}</td>
+      <td class="num green">${fmt(r.gp)}</td>
+      <td class="num">${pct(r.gm, 0)}</td>
+      <td class="num">${fmt(r.ga)}</td>
+      <td class="num strong ${r.op >= 0 ? 'green' : 'red'}">${fmtFull(r.op)}</td>
+      <td class="num">${pct(r.opMargin, 0)}</td>
+    </tr>`;
+  });
+
+  new Chart(document.getElementById('pl-chart'), {
+    data: {
+      labels: pl.map(r => 'M' + r.m),
+      datasets: [
+        { type: 'bar', label: 'Revenue', data: pl.map(r => r.revenue), backgroundColor: 'rgba(249,217,0,0.85)', borderRadius: 3, order: 2 },
+        { type: 'bar', label: 'Direct CoD', data: pl.map(r => -r.cod), backgroundColor: 'rgba(255,112,67,0.65)', borderRadius: 3, order: 2 },
+        { type: 'bar', label: 'G&A', data: pl.map(r => -r.ga), backgroundColor: 'rgba(179,157,219,0.5)', borderRadius: 3, order: 2 },
+        { type: 'line', label: 'Operating profit', data: pl.map(r => r.op), borderColor: '#8bc34a', borderWidth: 3, pointRadius: 3, pointBackgroundColor: '#8bc34a', fill: false, tension: 0.2, order: 1 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmtFull(ctx.parsed.y) }}},
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}}
+    }
+  });
+}
+tabHandlers['pl'] = initPL;
+
+/* =========== TAB 10: BREAK-EVEN =========== */
+function initBE() {
+  const gaLevels = [20000, 30000, 40000, 50000, 60000, 70000, 100000];
+  const avgRetainers = [6500, 10000, 15000, 20000, 25000, 30000];
+  const tbody = document.querySelector('#be-table tbody');
+  tbody.innerHTML = '';
+  gaLevels.forEach(ga => {
+    const cells = avgRetainers.map(r => {
+      const margin = r - COD;
+      const be = Math.ceil(ga / margin);
+      return { be, ga, r };
+    });
+    const row = `<tr>
+      <td class="strong">${fmt(ga)}</td>
+      ${cells.map(c => `<td class="num ${c.be <= 5 ? 'green' : c.be <= 10 ? 'yellow' : 'red'}">${c.be} clients</td>`).join('')}
+    </tr>`;
+    tbody.innerHTML += row;
+  });
+
+  // Chart: break-even vs G&A
+  const gaRange = [10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 100000];
+  new Chart(document.getElementById('be-chart'), {
+    type: 'line',
+    data: {
+      labels: gaRange.map(g => fmt(g)),
+      datasets: [
+        { label: '$6.5k avg retainer', data: gaRange.map(g => Math.ceil(g / (6500-COD))), borderColor: '#ff7043', borderWidth: 2.5, tension: 0.2, pointRadius: 2, fill: false },
+        { label: '$15k avg', data: gaRange.map(g => Math.ceil(g / (15000-COD))), borderColor: '#ffb74d', borderWidth: 2.5, tension: 0.2, pointRadius: 2, fill: false },
+        { label: '$20k avg', data: gaRange.map(g => Math.ceil(g / (20000-COD))), borderColor: '#F9D900', borderWidth: 2.5, tension: 0.2, pointRadius: 2, fill: false },
+        { label: '$30k avg', data: gaRange.map(g => Math.ceil(g / (30000-COD))), borderColor: '#8bc34a', borderWidth: 2.5, tension: 0.2, pointRadius: 2, fill: false },
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10 }}, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y + ' clients' }}},
+      scales: {
+        x: { grid: { display: false }, title: { display: true, text: 'monthly G&A', font: { size: 10 }}},
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, title: { display: true, text: 'clients needed', font: { size: 10 }}, min: 0, max: 25 }
+      }
+    }
+  });
+
+  // Profit per additional client
+  new Chart(document.getElementById('be-profit-chart'), {
+    type: 'bar',
+    data: {
+      labels: TIERS.slice(1).map(t => gmvLabel(t.gmv)),
+      datasets: [{
+        data: TIERS.slice(1).map(t => t.retainer - COD),
+        backgroundColor: TIERS.slice(1).map((t, i) => i < 3 ? '#ffb74d' : i < 6 ? '#F9D900' : '#8bc34a'),
+        borderRadius: 4, borderSkipped: false
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' Monthly GP per client: ' + fmt(ctx.parsed.y) }}},
+      scales: { x: { grid: { display: false }}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => fmt(v) }}}
+    }
+  });
+}
+tabHandlers['be'] = initBE;
+
+/* =========== TAB 11: BENCHMARK =========== */
+function initBenchmark() {
+  const competitors = [
+    { type: 'Pattern (full-service commerce)', model: 'Commission on GMV', rate: '15-20%', size: '$1M+ monthly GMV', note: 'Full-stack: merchandising, logistics, marketing' },
+    { type: 'Stack Influence', model: 'Retainer + performance', rate: '5-8% blended', size: '$100k-$1M', note: 'Creator-focused · tech-enabled' },
+    { type: 'Whalar (enterprise)', model: 'Project + 15-20% creator fees', rate: '8-15%', size: '$5M+', note: 'Talent & influencer network' },
+    { type: 'Boutique TikTok Shop agencies', model: 'Retainer + commission', rate: '8-12%', size: '$100k-$2M', note: 'Range widely · most $3-10k retainer + 2-5%' },
+    { type: 'In-house team', model: 'Fully loaded salaries', rate: '2-5% effective', size: '$2M+', note: 'Brands internalize at scale' },
+    { type: 'Ad Pros (current)', model: 'Tiered retainer', rate: '1-4%', size: '$50k-$3M+', note: 'Below-market at enterprise · at-market at mid' }
+  ];
+  const tbody = document.querySelector('#benchmark-table tbody');
+  tbody.innerHTML = '';
+  competitors.forEach((c, i) => {
+    const isUs = i === competitors.length - 1;
+    tbody.innerHTML += `<tr${isUs ? ' style="background: rgba(249,217,0,0.05);"' : ''}>
+      <td class="${isUs ? 'yellow' : 'strong'}">${c.type}</td>
+      <td>${c.model}</td>
+      <td class="num ${isUs ? 'yellow' : 'strong'}">${c.rate}</td>
+      <td>${c.size}</td>
+      <td style="font-size: 12px; color: var(--grey-200);">${c.note}</td>
+    </tr>`;
+  });
+
+  // Take rate vs market band
+  const gmvs = [100000, 250000, 500000, 1000000, 2000000, 3000000, 5000000];
+  const marketHigh = [15, 12, 10, 8, 6, 5, 4];
+  const marketLow = [8, 6, 5, 4, 3, 2.5, 2];
+  const ourRate = gmvs.map(g => {
+    const tier = TIERS.slice().reverse().find(t => g >= t.gmv) || TIERS[0];
+    return (tier.retainer / g) * 100;
+  });
+
+  new Chart(document.getElementById('benchmark-chart'), {
+    type: 'line',
+    data: {
+      labels: gmvs.map(g => fmt(g)),
+      datasets: [
+        { label: 'Market high', data: marketHigh, borderColor: 'rgba(179,157,219,0.35)', backgroundColor: 'rgba(179,157,219,0.15)', fill: '+1', pointRadius: 0, borderWidth: 1 },
+        { label: 'Market low', data: marketLow, borderColor: 'rgba(179,157,219,0.35)', backgroundColor: 'rgba(179,157,219,0.15)', fill: false, pointRadius: 0, borderWidth: 1 },
+        { label: 'Ad Pros', data: ourRate, borderColor: '#F9D900', backgroundColor: 'rgba(249,217,0,0.1)', borderWidth: 3, pointRadius: 4, pointBackgroundColor: '#F9D900', tension: 0.2, fill: false }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8, boxWidth: 10, boxHeight: 10, filter: item => item.text !== 'Market low' }}, tooltip: { ...TOOLTIP_STYLE, callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '%' }}},
+      scales: { x: { grid: { display: false }, title: { display: true, text: 'monthly GMV', font: { size: 10 }}}, y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => v + '%' }, title: { display: true, text: 'take rate', font: { size: 10 }}, min: 0 }}
+    }
+  });
+}
+tabHandlers['benchmark'] = initBenchmark;
+
+/* =========== TAB 12: RISKS =========== */
+function renderRisks() {
+  const risks = {
+    pricing: [
+      { sev: 'high', title: '$30k retainer cap leaves enterprise upside on the table', tags: ['Revenue', 'Pricing'],
+        body: 'Clients at $5M+ monthly GMV (which exist in TikTok Shop) still pay $30k — a 0.6% take rate. For these accounts, Pattern-style agencies would charge 15-20% on GMV, which at $5M GMV is $750k-$1M/month. We\'re leaving <strong>10-30x of revenue on the table</strong> per enterprise account.',
+        mitigation: 'Introduce a fourth pricing layer above $2M GMV — either a modest variable % (0.5-1% of GMV above $2M) or a tiered enterprise retainer ($40k, $50k, $60k) for specific GMV bands.' },
+      { sev: 'med', title: 'Take rate compression above $1M puts us below market', tags: ['Competitive', 'Pricing'],
+        body: 'At the $1M+ tier we\'re at 1-2% take rate, which is below the 3-5% market norm for full-stack agencies. While this is a positioning choice (undercut on retainer dollars, lean into volume), it leaves us vulnerable to Pattern-style entrants.',
+        mitigation: 'Clarify our value narrative — what do we do that justifies below-market rates? If it\'s creator network leverage, quantify it in case studies.' },
+      { sev: 'low', title: 'Base retainer floor may price out testing brands', tags: ['Pricing', 'Top of funnel'],
+        body: 'At $6,500/month on a sub-$100k GMV brand, take rate is 6.5-13%. That\'s expensive for brands still validating their TikTok Shop channel — we risk losing early-stage accounts to cheaper boutiques.',
+        mitigation: 'Consider a "starter" tier at $3,500-4,500 retainer for brands under $100k GMV, scaling into the main schedule at $100k.' },
+    ],
+    cost: [
+      { sev: 'high', title: 'CoD is structurally understated', tags: ['Costs', 'Margin'],
+        body: 'The $1,600/brand figure covers only three named roles at fractional rates. It excludes: <strong>(1)</strong> Pod Leads / Directors, <strong>(2)</strong> Platform &amp; tooling costs (TikTok Shop infrastructure, creator management software, analytics), <strong>(3)</strong> QA &amp; ops, <strong>(4)</strong> Management overhead. True fully-loaded CoD is likely $3,000-4,500 per brand.',
+        mitigation: 'Rebuild the margin model with fully-loaded cost per brand. Report both "contribution margin" (revenue - $1,600) and "true gross margin" for internal use.' },
+      { sev: 'high', title: '$400 Affiliate Manager budget cannot manage 2,500 creators', tags: ['Operations', 'Scaling'],
+        body: 'At the top tier we\'re committing to 2,500 active creators managed per brand. At $400/month ($4,800/year), that\'s $1.92 per creator annually — physically impossible with human labor. This either requires software leverage we don\'t have, or the cost structure breaks at the top tier.',
+        mitigation: 'Either invest in a creator management platform (internal build or Grin/CreatorIQ/Impact integration), or lower the top-tier creator commitment to a defensible number. <strong>This is an existential constraint.</strong>' },
+      { sev: 'med', title: 'No software/tooling moat in the cost model', tags: ['Moat', 'Tech'],
+        body: 'The model assumes people-based delivery at all tiers. As we scale, competitors with creator management platforms, AI-driven matching, and automated reporting will have structurally lower CoD. We need either licenses or proprietary tech.',
+        mitigation: 'Allocate 5-10% of gross profit to tooling investment. Evaluate build vs buy for creator management, brief/approval workflow, and performance reporting.' },
+    ],
+    ops: [
+      { sev: 'high', title: '20-client ceiling is a hard cap on growth', tags: ['Capacity'],
+        body: 'At $20k average retainer × 20 clients = $400k/month = $4.8M ARR. That\'s the top of the current org. To hit $10M+ ARR requires breaking the 20-client ceiling — either more pods (5-10 pods), larger pods, or a two-org model (flagship + lite).',
+        mitigation: 'Define a Phase 2 structure: additional pods, regional expansion, or a productized "lite" offering that doesn\'t require pod delivery. Model the unit economics of each.' },
+      { sev: 'high', title: 'Single-channel dependency on TikTok Shop', tags: ['Platform risk', 'Concentration'],
+        body: '100% exposure to TikTok Shop\'s platform: algorithm changes, commission changes, policy shifts (e.g., US ban threats, creator monetization rules), and even app-store availability. TikTok Shop is growing but volatile — a single policy change could zero a material portion of client GMV.',
+        mitigation: 'Build optionality into creator network — same creators can be activated on Instagram Shop, Amazon Influencer, YouTube Shopping. Productize "channel-agnostic creator activation" as a hedge.' },
+      { sev: 'med', title: 'Creator management scales non-linearly with tier', tags: ['Operations'],
+        body: 'Going from 50 creators (bottom tier) to 2,500 (top tier) is a 50x scaling. Not just more people — fundamentally different tooling, QA, and process requirements.',
+        mitigation: 'Document the scaling curve: at what creator count do we need platform X? Automation Y? Formal segmentation?' },
+    ],
+    fin: [
+      { sev: 'high', title: 'Churn is not modeled', tags: ['Retention', 'Unit econ'],
+        body: 'The steady-state model assumes 100% retention. Real B2B agencies see 3-10% monthly logo churn. At 5%/month we replace the entire book every 20 months — every new sale is replacement, not growth.',
+        mitigation: 'Instrument account health now: NPS, usage metrics, performance against brand KPIs. Monthly cohort retention review at exec level. Churn target should be &lt; 3% monthly logo, &lt; 5% revenue.' },
+      { sev: 'high', title: 'CAC is not modeled — all unit economics assume free acquisition', tags: ['Unit econ', 'Sales'],
+        body: 'No customer acquisition cost is included anywhere in the current model. Realistic CAC for a service at this ACV ($120k-$360k annual) is $10,000-$25,000 per client (AE time, founder outbound, content marketing allocation). Without this, LTV/CAC cannot be evaluated.',
+        mitigation: 'Assign CAC to each channel (founder network, outbound, content, referral). Track per-channel payback period. <strong>See Unit Economics tab</strong> for LTV/CAC ratios at $15k CAC estimate.' },
+      { sev: 'med', title: 'No back-office cost allocation', tags: ['G&A', 'True margin'],
+        body: 'Model reports 92% gross margin at top tier. Real operating margin after G&amp;A (founder, sales, ops, finance, tools) is likely 60-75%. Investors and acquirers will compute the lower number.',
+        mitigation: '<strong>See P&amp;L Projection tab</strong> — uses $50k/mo G&amp;A estimate. Validate this number before external reporting.' },
+      { sev: 'low', title: 'No seasonality modeled', tags: ['Revenue quality'],
+        body: 'TikTok Shop volume is heavily Q4-weighted (BFCM, holiday). Variable retainer linked to GMV will spike Nov-Dec and contract Jan-Feb. Annualized revenue may mislead on steady-state.',
+        mitigation: 'Build a seasonality-adjusted 12-month cash flow. Consider smoothing the variable component (trailing 3-month GMV) to reduce P&amp;L volatility.' },
+    ],
+    market: [
+      { sev: 'med', title: 'Tier upgrade path is undefined', tags: ['Retention', 'Expansion'],
+        body: 'The tier system implies clients graduate from $250k to $1M to $2M over time — but we have no defined playbook for how. Do we help them? Do we expect them to? If a $250k client plateaus there, our $10k retainer is stuck.',
+        mitigation: 'Define the "upgrade motion": quarterly strategic reviews, specific levers to drive GMV growth, incentive structures for account teams tied to upgrades.' },
+      { sev: 'med', title: 'Category fit is narrow', tags: ['Market'],
+        body: 'TikTok Shop works for certain categories — beauty, apparel, supplements, food, impulse consumer goods. It does NOT work well for: B2B, luxury, considered purchases, services. Our addressable market is narrower than "all DTC".',
+        mitigation: 'Define ICP by category. Be willing to turn away non-fit prospects. Category-specific case studies will outperform generic.' },
+      { sev: 'low', title: 'Differentiation vs competitors is unclear in model', tags: ['Positioning'],
+        body: 'Why would a $1M GMV brand choose us over Stack Influence (cheaper) or Pattern (more established)? The financial model doesn\'t enforce differentiation, but without it our revenue assumptions are optimistic.',
+        mitigation: 'Document the 2-3 hard proof points (creator network size, speed to first winner, specific tech). Price assumes buyers see these.' },
+    ],
+  };
+
+  function renderRiskList(key) {
+    const container = document.getElementById('risks-' + key);
+    container.innerHTML = '';
+    risks[key].forEach(r => {
+      container.innerHTML += `
+        <div class="risk-item sev-${r.sev}">
+          <div class="risk-head">
+            <div class="risk-title">${r.title}</div>
+            <div class="risk-tags">
+              <span class="risk-tag ${r.sev === 'high' ? 'badge-red' : r.sev === 'med' ? 'badge-amber' : 'badge-teal'}">${r.sev === 'high' ? 'High severity' : r.sev === 'med' ? 'Medium' : 'Lower'}</span>
+              ${r.tags.map(t => `<span class="risk-tag" style="background: rgba(255,255,255,0.04); color: var(--grey-200);">${t}</span>`).join('')}
+            </div>
+          </div>
+          <div class="risk-body">
+            ${r.body}
+            <div class="mitigation"><strong>Mitigation:</strong> ${r.mitigation}</div>
+          </div>
+        </div>`;
+    });
+  }
+  Object.keys(risks).forEach(renderRiskList);
+}
+tabHandlers['risks'] = renderRisks;
 </script>
 </body>
 </html>
