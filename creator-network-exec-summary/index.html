@@ -574,19 +574,22 @@ function FunnelCalc({ m, brandCount = 1 }) {
                           <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", color: C.muted }}>BLENDED PLAN TO CLOSE GAP</div>
                           <div style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, color: C.red }}>${Math.round(gap).toLocaleString()}</div>
                         </div>
-                        {plan.map((p, j) => (
+                        {plan.map((p, j) => {
+                          const labels = ["Videos", "Views", "TTS Sales", "Organic", "Ad Spend"];
+                          return (
                           <div key={j} style={{
                             display: "flex", alignItems: m ? "flex-start" : "center",
                             flexWrap: m ? "wrap" : "nowrap", gap: m ? 4 : 8,
                             padding: "7px 0", fontSize: m ? 11 : 12,
                             borderBottom: j < 4 ? `1px solid ${C.border}` : "none",
                           }}>
-                            <span style={{ fontSize: 12, width: 18, textAlign: "center", flexShrink: 0 }}>{p.icon}</span>
+                            <span style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, color: p.color, minWidth: m ? 58 : 68, whiteSpace: "nowrap" }}>{labels[j]}</span>
                             <span style={{ fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.accent, minWidth: m ? 48 : 58 }}>+${Math.round(p.amt).toLocaleString()}</span>
-                            <span style={{ color: p.color, fontWeight: 600 }}>{p.action}</span>
+                            <span style={{ color: C.white, fontWeight: 600 }}>{p.action}</span>
                             <span style={{ color: C.muted, fontSize: m ? 10 : 11 }}>→ {p.desc}</span>
                           </div>
-                        ))}
+                          );
+                        })}
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8, paddingTop: 8, borderTop: `1px solid ${C.border}` }}>
                           <span style={{ fontSize: 11, fontWeight: 700, color: C.white }}>Total</span>
                           <span style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 800, color: C.green }}>+${Math.round(gap).toLocaleString()}</span>
