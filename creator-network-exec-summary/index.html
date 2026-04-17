@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Creator Performance Network — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy: #040735; --yellow: #F9D900; }
+    body { background: #06080d; margin: 0; }
+    #ap-bar {
+      background: var(--navy);
+      border-bottom: 4px solid var(--yellow);
+      padding: 18px 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    #ap-bar .div { width: 1px; height: 32px; background: rgba(255,255,255,0.15); }
+    #ap-bar p { font-family: "Inter",sans-serif; font-size: 12px; color: #8A8B93; margin: 2px 0 0; }
+    #app { min-height: 100vh; }
+    input[type="range"] { -webkit-appearance: none; appearance: none; }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #F9D900; cursor: pointer; margin-top: -5px;
+    }
+    input[type="range"]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px; background: #1a2030; }
+    @media (max-width: 640px) { #ap-bar { padding: 14px 18px; } }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const C = {
+  bg: "#06080d", surface: "#0d1017", border: "#1a2030", white: "#f0ece4",
+  offWhite: "#b0ac9f", muted: "#5c5f6a", accent: "#F9D900",
+  accentDim: "rgba(249,217,0,0.12)", accentBorder: "rgba(249,217,0,0.25)",
+  green: "#34d399", greenDim: "rgba(52,211,153,0.1)", blue: "#60a5fa",
+  blueDim: "rgba(96,165,250,0.1)", purple: "#a78bfa",
+  purpleDim: "rgba(167,139,250,0.1)", red: "#f87171", orange: "#fb923c",
+  orangeDim: "rgba(251,146,60,0.1)",
+};
+const F = {
+  display: "'Instrument Serif', Georgia, serif",
+  body: "'DM Sans', 'Helvetica Neue', sans-serif",
+  mono: "'JetBrains Mono', 'SF Mono', monospace",
+};
+
+function useBp() {
+  const [w, setW] = useState(typeof window !== "undefined" ? window.innerWidth : 800);
+  useEffect(() => { const h = () => setW(window.innerWidth); window.addEventListener("resize", h); return () => window.removeEventListener("resize", h); }, []);
+  return { m: w < 640 };
+}
+
+function FadeIn({ children, delay = 0, style = {} }) {
+  const ref = useRef(null); const [v, setV] = useState(false);
+  useEffect(() => { const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setV(true); o.disconnect(); } }, { threshold: 0.08 }); if (ref.current) o.observe(ref.current); return () => o.disconnect(); }, []);
+  return <div ref={ref} style={{ opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(16px)", transition: `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`, ...style }}>{children}</div>;
+}
+
+const SL = ({ num, text, m }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: m ? 8 : 10, marginBottom: m ? 14 : 18 }}>
+    <span style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 700, color: C.accent, letterSpacing: "0.15em" }}>{num}</span>
+    <div style={{ height: 1, flex: 1, background: C.border }} />
+    <span style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted }}>{text}</span>
+  </div>
+);
+
+const Surf = ({ children, m, style = {} }) => <div style={{ background: C.surface, borderRadius: 14, border: `1px solid ${C.border}`, padding: m ? 16 : 22, ...style }}>{children}</div>;
+const ML = ({ children }) => <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 4 }}>{children}</div>;
+const Callout = ({ children, color = C.accent, bg = C.accentDim, m }) => <div style={{ padding: m ? "12px 14px" : "14px 18px", borderRadius: 12, background: bg, borderLeft: `3px solid ${color}`, fontSize: m ? 12 : 13, lineHeight: 1.7, color: C.offWhite }}>{children}</div>;
+
+const Slider = ({ label, value, onChange, min, max, step = 1, format, m, color = C.accent }) => (
+  <div style={{ marginBottom: m ? 10 : 12 }}>
+    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+      <span style={{ fontSize: 12, color: C.offWhite }}>{label}</span>
+      <span style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color }}>{format ? format(value) : value}</span>
+    </div>
+    <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(Number(e.target.value))}
+      style={{ width: "100%", height: 5, appearance: "none", background: C.border, borderRadius: 3, outline: "none", cursor: "pointer", accentColor: color }} />
+  </div>
+);
+
+// ============ TAB: OVERVIEW ============
+function OverviewTab({ m }) {
+  const fmt = n => n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : "$" + (n / 1e3).toFixed(0) + "K";
+  const data = [
+    { p: "Launch", b: 5, s: 50000, g: 100000 },
+    { p: "Growth", b: 15, s: 100000, g: 200000 },
+    { p: "Scale", b: 30, s: 250000, g: 500000 },
+    { p: "Mature", b: 50, s: 500000, g: 1000000 },
+  ];
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.7, color: C.offWhite, marginBottom: 20 }}>
+          Brands pay a <strong style={{ color: C.white }}>$5K/mo flat base</strong> funding organic creator content.
+          Ad Pros earns on <strong style={{ color: C.green }}>two axes</strong>: <strong style={{ color: C.accent }}>10% of creator network GMV</strong> (network management fee)
+          and <strong style={{ color: C.accent }}>10% of ad spend</strong> on creator content (7% kept, 3% to creators as bonus).
+        </p>
+
+        {/* KPI BAR */}
+        <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr 1fr", gap: m ? 8 : 2, padding: m ? 0 : "22px 10px", background: m ? "transparent" : C.surface, borderRadius: 14, border: m ? "none" : `1px solid ${C.border}`, marginBottom: 24 }}>
+          {[
+            { v: "$5K", l: "Base", s: "break-even", c: C.white },
+            { v: "10%", l: "Of GMV", s: "network fee", c: C.green },
+            { v: "10%", l: "Of Spend", s: "mgmt fee", c: C.accent },
+            { v: "7%", l: "AP Keeps", s: "of spend", c: C.white },
+            { v: "3%", l: "Creators", s: "bonus", c: C.offWhite },
+          ].map((k, i) => (
+            <div key={i} style={{ textAlign: "center", padding: m ? "14px 8px" : "6px 6px", background: m ? C.surface : "transparent", borderRadius: m ? 12 : 0, border: m ? `1px solid ${C.border}` : "none", borderRight: !m && i < 4 ? `1px solid ${C.border}` : "none" }}>
+              <div style={{ fontFamily: F.display, fontSize: m ? 24 : 30, fontStyle: "italic", color: k.c, lineHeight: 1 }}>{k.v}</div>
+              <div style={{ fontFamily: F.mono, fontSize: 8, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginTop: 6 }}>{k.l}</div>
+              <div style={{ fontSize: 10, color: C.offWhite, marginTop: 2 }}>{k.s}</div>
+            </div>
+          ))}
+        </div>
+      </FadeIn>
+
+      {/* HOW IT WORKS */}
+      <FadeIn delay={0.05} style={{ marginBottom: m ? 24 : 32 }}>
+        <SL num="01" text="How It Works" m={m} />
+        <Surf m={m}>
+          {[
+            { n: "1", t: "Base Fee → Content", d: "Brand pays $5,000/mo → funds ~33 creators × 30 posts = 990 organic UGC posts/month. Break-even for Ad Pros.", last: false },
+            { n: "2", t: "Creators Drive Sales", d: "Content drives purchases through TTS (in-app) and organic links (Shopify/Amazon). Creators earn 10-30% commission on sales directly from brand.", last: false },
+            { n: "3", t: "Ad Pros Earns 10% of GMV", d: "Network management fee. Ad Pros built the network, recruits/manages creators, handles QA, compliance, and optimization. 10% of total creator-driven GMV.", last: false },
+            { n: "4", t: "Brand Boosts Content → 10% of Spend", d: "When brand puts ad spend behind creator content (partnership ads/whitelisting), Ad Pros earns 10%. 7% kept as margin, 3% paid to creators as performance bonus.", last: true },
+          ].map((s, i) => (
+            <div key={i} style={{ display: "flex", gap: m ? 10 : 14, marginBottom: s.last ? 0 : m ? 16 : 20 }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div style={{ width: m ? 28 : 34, height: m ? 28 : 34, borderRadius: "50%", flexShrink: 0, background: C.accentDim, border: `1px solid ${C.accentBorder}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.accent }}>{s.n}</div>
+                {!s.last && <div style={{ width: 1, flex: 1, background: C.border, marginTop: 4 }} />}
+              </div>
+              <div style={{ paddingTop: m ? 2 : 5, minWidth: 0 }}>
+                <div style={{ fontSize: m ? 13 : 14, fontWeight: 700, color: C.white, marginBottom: 2 }}>{s.t}</div>
+                <div style={{ fontSize: m ? 12 : 13, lineHeight: 1.6, color: C.offWhite }}>{s.d}</div>
+              </div>
+            </div>
+          ))}
+        </Surf>
+      </FadeIn>
+
+      {/* UNIT ECONOMICS */}
+      <FadeIn delay={0.05} style={{ marginBottom: m ? 24 : 32 }}>
+        <SL num="02" text="Unit Economics (Per Brand)" m={m} />
+        <Surf m={m}>
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 12 }}>Example: brand with $100K/mo creator GMV + $100K/mo ad spend on creator content</div>
+          {[
+            { l: "Base Fee", v: "$5,000", c: C.offWhite, sub: "break-even" },
+            { l: "10% of $100K GMV", v: "$10,000", c: C.green, sub: "network fee → 100% margin" },
+            { l: "10% of $100K Spend", v: "$10,000", c: C.accent, sub: "7% AP ($7K) + 3% creator ($3K)" },
+          ].map((r, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: i < 2 ? `1px solid ${C.border}` : "none" }}>
+              <div>
+                <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>{r.l}</span>
+                <span style={{ fontSize: 10, color: C.muted, marginLeft: 8 }}>{r.sub}</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 700, color: r.c }}>{r.v}</span>
+            </div>
+          ))}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, paddingTop: 12, borderTop: `2px solid ${C.accent}` }}>
+            <div>
+              <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>Total Revenue</span>
+              <span style={{ fontSize: 11, color: C.muted, marginLeft: 8 }}>$17K margin</span>
+            </div>
+            <span style={{ fontFamily: F.display, fontSize: m ? 26 : 30, fontStyle: "italic", color: C.accent }}>$25,000</span>
+          </div>
+
+          {/* Margin split bar */}
+          <div style={{ marginTop: 14 }}>
+            <div style={{ display: "flex", height: 10, borderRadius: 5, overflow: "hidden" }}>
+              <div style={{ width: "20%", background: `${C.white}20` }} title="Base (break-even)" />
+              <div style={{ width: "40%", background: C.green }} title="GMV fee" />
+              <div style={{ width: "28%", background: C.accent }} title="AP spend margin" />
+              <div style={{ width: "12%", background: C.purple }} title="Creator bonus" />
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 10, flexWrap: "wrap", gap: 4 }}>
+              <span style={{ color: C.muted }}>Base $5K</span>
+              <span style={{ color: C.green }}>GMV $10K</span>
+              <span style={{ color: C.accent }}>AP $7K</span>
+              <span style={{ color: C.purple }}>Creator $3K</span>
+            </div>
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* SCALE PROJECTIONS */}
+      <FadeIn delay={0.05}>
+        <SL num="03" text="Monthly Scale Projections" m={m} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {data.map((r, i) => {
+            const totalSpend = r.b * r.s;
+            const totalGmv = r.b * r.g;
+            const baseFees = r.b * 5000;
+            const gmvRev = totalGmv * 0.10;
+            const spendRev = totalSpend * 0.10;
+            const rev = baseFees + gmvRev + spendRev;
+            const margin = gmvRev + (totalSpend * 0.07); // GMV fee is 100% margin, spend fee 7% is margin
+            const last = i === 3;
+            return (
+              <Surf key={i} m={m} style={{ background: last ? C.accentDim : C.surface, borderColor: last ? C.accentBorder : C.border, padding: m ? 14 : 18 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: last ? C.accent : C.white }}>{r.p}</span>
+                  <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>{r.b} brands</span>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr", gap: m ? 8 : 4, marginBottom: 10 }}>
+                  {[
+                    { l: "GMV", v: fmt(totalGmv), c: C.offWhite },
+                    { l: "Ad Spend", v: fmt(totalSpend), c: C.offWhite },
+                    { l: "Revenue", v: fmt(rev), c: C.green },
+                    { l: "Margin", v: fmt(margin), c: last ? C.accent : C.white },
+                  ].map((d, j) => (
+                    <div key={j}>
+                      <ML>{d.l}</ML>
+                      <div style={{ fontFamily: F.mono, fontSize: m ? 14 : 15, fontWeight: 700, color: d.c }}>{d.v}</div>
+                    </div>
+                  ))}
+                </div>
+                {/* Revenue composition mini-bar */}
+                <div style={{ display: "flex", height: 4, borderRadius: 2, overflow: "hidden" }}>
+                  <div style={{ width: `${(baseFees / rev) * 100}%`, background: `${C.white}20` }} />
+                  <div style={{ width: `${(gmvRev / rev) * 100}%`, background: C.green }} />
+                  <div style={{ width: `${(spendRev / rev) * 100}%`, background: C.accent }} />
+                </div>
+                <div style={{ display: "flex", gap: 12, marginTop: 6, fontSize: 10 }}>
+                  <span style={{ color: C.muted }}>Base {fmt(baseFees)}</span>
+                  <span style={{ color: C.green }}>GMV {fmt(gmvRev)}</span>
+                  <span style={{ color: C.accent }}>Spend {fmt(spendRev)}</span>
+                </div>
+              </Surf>
+            );
+          })}
+        </div>
+
+        <div style={{ marginTop: 12 }}>
+          <Callout m={m} color={C.green} bg={C.greenDim}>
+            <strong style={{ color: C.white }}>At 50 brands:</strong> $50M creator GMV + $25M ad spend = $7.75M/mo revenue, $6.75M/mo margin.
+            GMV fee is the dominant revenue driver — 100% margin with no creator split.
+          </Callout>
+        </div>
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ TAB: CREATOR PAYOUTS ============
+function CreatorTab({ m }) {
+  const streams = [
+    { n: "01", t: "TikTok Shop Commission", rate: "10–30%", c: C.accent, d: C.accentDim, desc: "Standard TTS affiliate commission. Creator earns from TikTok on GMV through affiliate links. In-app checkout — highest conversion channel.", mech: "Video → viewer taps product tag → buys in TikTok Shop → 30% commission", ex: "$150 AOV × 30% = $45/sale" },
+    { n: "02", t: "Organic Sales Commission", rate: "10–30%", c: C.green, d: C.greenDim, desc: "Commission on sales via creator's link to Shopify/Amazon. Same video, different purchase path. Lower conversion but higher AOV potential.", mech: "Video → profile visit → bio link → Shopify/Amazon purchase → 30% commission", ex: "$150 AOV × 30% = $45/sale" },
+    { n: "03", t: "Fixed Base Pay", rate: "$5/video", c: C.blue, d: C.blueDim, desc: "$150/mo floor for 30 videos. $300/mo for 60 videos. Guaranteed regardless of sales. We decide tier per creator.", mech: "Creator delivers videos → receives guaranteed base → paid by Ad Pros", ex: "30 videos × $5 = $150/mo | 150 videos × $5 = $750/mo" },
+    { n: "04", t: "Ad Spend Bonus", rate: "3% of spend", c: C.purple, d: C.purpleDim, desc: "When brand boosts content via partnership ads or whitelisting, creator earns 3% of spend. No cap. Whitelisting required.", mech: "Brand boosts video → $10K ad spend → creator earns $300", ex: "$50K spend × 3% = $1,500 bonus" },
+  ];
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.7, color: C.offWhite, marginBottom: 6 }}>
+          Every video unlocks <strong style={{ color: C.white }}>4 simultaneous revenue streams</strong>. Streams 1–2 reward sales. Streams 3–4 reward content production.
+        </p>
+        <Callout m={m}><strong style={{ color: C.white }}>All 4 stack on the same video.</strong> TTS commission from shop sales + organic commission from link sales + $5 base + 3% ad spend if boosted.</Callout>
+      </FadeIn>
+      {streams.map((s, i) => (
+        <FadeIn key={i} delay={0.03 * i} style={{ marginTop: m ? 14 : 18 }}>
+          <Surf m={m} style={{ borderLeft: `3px solid ${s.c}` }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexWrap: "wrap", gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, color: s.c }}>{s.n}</span>
+                <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>{s.t}</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontSize: 11, fontWeight: 700, color: s.c, padding: "3px 8px", background: s.d, borderRadius: 5 }}>{s.rate}</span>
+            </div>
+            <p style={{ fontSize: m ? 12 : 13, lineHeight: 1.6, color: C.offWhite, marginBottom: 10 }}>{s.desc}</p>
+            <div style={{ background: C.bg, borderRadius: 8, padding: "8px 12px", marginBottom: 6, fontSize: m ? 11 : 12, color: C.offWhite }}><span style={{ color: C.muted }}>Flow:</span> {s.mech}</div>
+            <div style={{ background: s.d, borderRadius: 8, padding: "8px 12px", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 600, color: s.c }}>{s.ex}</div>
+          </Surf>
+        </FadeIn>
+      ))}
+    </>
+  );
+}
+
+// ============ FUNNEL CALCULATOR (shared) ============
+function FunnelCalc({ m, brandCount = 1 }) {
+  const multi = brandCount > 1;
+  const [vidsPerMo, setVidsPerMo] = useState(multi ? 30 : 30);
+  const [viewsPerVid, setViewsPerVid] = useState(1000);
+  const [aov, setAov] = useState(150);
+  const [comm, setComm] = useState(30);
+  const [brands, setBrands] = useState(brandCount);
+  // TTS funnel (affiliate creator defaults — higher than general content)
+  const [ttsViewToClick, setTtsViewToClick] = useState(3);
+  const [ttsClickToPurch, setTtsClickToPurch] = useState(5);
+  // Organic funnel (affiliate creator defaults)
+  const [orgViewToProfile, setOrgViewToProfile] = useState(5);
+  const [orgProfileToClick, setOrgProfileToClick] = useState(20);
+  const [orgClickToPurch, setOrgClickToPurch] = useState(1.5);
+  // Ad spend
+  const [boostPct, setBoostPct] = useState(30);
+  const [spendPerBoosted, setSpendPerBoosted] = useState(500);
+  // Advanced toggle
+  const [showAdv, setShowAdv] = useState(false);
+
+  const b = multi ? brands : 1;
+  const totalVids = vidsPerMo * b;
+  const totalViews = totalVids * viewsPerVid;
+  const base = vidsPerMo * 5 * b;
+  const commPerSale = aov * (comm / 100);
+
+  // TTS funnel
+  const ttsClicks = totalViews * (ttsViewToClick / 100);
+  const ttsSales = Math.round(ttsClicks * (ttsClickToPurch / 100));
+  const ttsIncome = ttsSales * commPerSale;
+
+  // Organic funnel
+  const orgProfiles = totalViews * (orgViewToProfile / 100);
+  const orgClicks = orgProfiles * (orgProfileToClick / 100);
+  const orgSales = Math.round(orgClicks * (orgClickToPurch / 100));
+  const orgIncome = orgSales * commPerSale;
+
+  // Ad spend
+  const boostedVids = Math.round(totalVids * (boostPct / 100));
+  const totalAdSpend = boostedVids * spendPerBoosted;
+  const adBonus = totalAdSpend * 0.03;
+
+  const total = base + ttsIncome + orgIncome + adBonus;
+  const targets = [1000, 2500, 5000, 10000];
+
+  const streams = [
+    { label: "TTS Commission", val: Math.round(ttsIncome), sub: `${ttsSales} sales`, color: C.accent },
+    { label: "Organic Commission", val: Math.round(orgIncome), sub: `${orgSales} sales`, color: C.green },
+    { label: "Base Pay", val: Math.round(base), sub: `${totalVids} vids × $5`, color: C.blue },
+    { label: "Ad Spend Bonus", val: Math.round(adBonus), sub: `$${(totalAdSpend / 1000).toFixed(0)}K spend`, color: C.purple },
+  ];
+
+  const GroupLabel = ({ children, color = C.muted }) => (
+    <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color, marginBottom: 8, marginTop: 16 }}>{children}</div>
+  );
+
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          {multi
+            ? <>Full funnel model across <strong style={{ color: C.white }}>multiple brands</strong>. Same output per brand — base pay stacks, sales compound.</>
+            : <>Full funnel model for <strong style={{ color: C.white }}>a single brand</strong>. Views → clicks → sales for TTS and organic separately.</>
+          }
+        </p>
+      </FadeIn>
+
+      {/* ASSUMPTIONS */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <Surf m={m}>
+          <ML>Core Assumptions</ML>
+          {multi && <Slider m={m} label="Number of Brands" value={brands} onChange={setBrands} min={2} max={15} format={v => `${v} brands`} color={C.orange} />}
+          <Slider m={m} label="Videos / Month (per brand)" value={vidsPerMo} onChange={setVidsPerMo} min={10} max={150} step={5} format={v => `${v} (${(v / 30).toFixed(1)}/day)`} />
+          <Slider m={m} label="Avg Views / Video" value={viewsPerVid} onChange={setViewsPerVid} min={500} max={50000} step={500} format={v => v >= 1000 ? `${(v / 1000).toFixed(1)}K` : v} />
+          <Slider m={m} label="AOV" value={aov} onChange={setAov} min={20} max={500} step={10} format={v => `$${v}`} />
+          <Slider m={m} label="Commission Rate" value={comm} onChange={setComm} min={10} max={30} format={v => `${v}%`} />
+
+          {/* Advanced toggle */}
+          <button onClick={() => setShowAdv(!showAdv)} style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%",
+            background: "none", border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px",
+            cursor: "pointer", color: C.offWhite, fontFamily: F.body, fontSize: 12, marginTop: 8,
+          }}>
+            <span>Funnel Rates <span style={{ color: C.muted }}>(affiliate creator defaults)</span></span>
+            <span style={{ color: C.muted, transition: "transform 0.2s", transform: showAdv ? "rotate(180deg)" : "rotate(0)" }}>▾</span>
+          </button>
+
+          {showAdv && (
+            <div style={{ marginTop: 8 }}>
+              <GroupLabel color={C.accent}>TikTok Shop Funnel</GroupLabel>
+              <Slider m={m} label="View → Product Click" value={ttsViewToClick} onChange={setTtsViewToClick} min={0.5} max={8} step={0.1} format={v => `${v}%`} color={C.accent} />
+              <Slider m={m} label="Click → Purchase" value={ttsClickToPurch} onChange={setTtsClickToPurch} min={0.5} max={15} step={0.5} format={v => `${v}%`} color={C.accent} />
+              <div style={{ fontSize: 10, color: C.muted, marginBottom: 12 }}>Click→Purchase: {ttsClickToPurch}% · View→Purchase: {(ttsViewToClick * ttsClickToPurch / 100).toFixed(3)}% · Affiliate benchmark: 3-5% CTR, 4-8% CVR (sub-$80), 2-5% CVR ($80-200)</div>
+
+              <GroupLabel color={C.green}>Organic → External Funnel</GroupLabel>
+              <Slider m={m} label="View → Profile Visit" value={orgViewToProfile} onChange={setOrgViewToProfile} min={1} max={10} step={0.5} format={v => `${v}%`} color={C.green} />
+              <Slider m={m} label="Profile → Link Click" value={orgProfileToClick} onChange={setOrgProfileToClick} min={5} max={40} step={1} format={v => `${v}%`} color={C.green} />
+              <Slider m={m} label="Link Click → Purchase" value={orgClickToPurch} onChange={setOrgClickToPurch} min={0.1} max={5} step={0.1} format={v => `${v}%`} color={C.green} />
+              <div style={{ fontSize: 10, color: C.muted, marginBottom: 12 }}>Click→Purchase: {orgClickToPurch}% · View→Purchase: {(orgViewToProfile * orgProfileToClick * orgClickToPurch / 10000).toFixed(4)}% · Affiliate audiences convert 2-3x general TikTok traffic</div>
+
+              <GroupLabel color={C.purple}>Ad Spend</GroupLabel>
+              <Slider m={m} label="% Content Boosted" value={boostPct} onChange={setBoostPct} min={0} max={100} step={5} format={v => `${v}% (${Math.round(totalVids * v / 100)} videos)`} color={C.purple} />
+              <Slider m={m} label="Avg Spend / Boosted Video" value={spendPerBoosted} onChange={setSpendPerBoosted} min={100} max={5000} step={100} format={v => `$${v.toLocaleString()}`} color={C.purple} />
+            </div>
+          )}
+        </Surf>
+      </FadeIn>
+
+      {/* FUNNEL VISUALIZATION */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 10 : 12 }}>
+          {/* TTS Funnel */}
+          <Surf m={m} style={{ borderTop: `3px solid ${C.accent}` }}>
+            <ML>TikTok Shop Funnel</ML>
+            {[
+              { l: "Monthly Views", v: totalViews.toLocaleString() },
+              { l: `→ Product Clicks (${ttsViewToClick}%)`, v: Math.round(ttsClicks).toLocaleString() },
+              { l: `→ Purchases (${ttsClickToPurch}%)`, v: ttsSales.toLocaleString(), bold: true },
+              { l: `Commission (${comm}% × $${aov})`, v: `$${Math.round(ttsIncome).toLocaleString()}`, bold: true, color: C.accent },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: m ? 11 : 12, borderBottom: i < 3 ? `1px solid ${C.border}` : "none" }}>
+                <span style={{ color: C.offWhite }}>{r.l}</span>
+                <span style={{ fontFamily: F.mono, fontWeight: r.bold ? 700 : 400, color: r.color || (r.bold ? C.white : C.muted) }}>{r.v}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", gap: m ? 8 : 12, marginTop: 10 }}>
+              <div style={{ flex: 1, background: C.accentDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>CLICK→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.accent }}>{ttsClickToPurch}%</div>
+              </div>
+              <div style={{ flex: 1, background: C.accentDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>VIEW→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.accent }}>{(ttsViewToClick * ttsClickToPurch / 100).toFixed(2)}%</div>
+              </div>
+            </div>
+          </Surf>
+
+          {/* Organic Funnel */}
+          <Surf m={m} style={{ borderTop: `3px solid ${C.green}` }}>
+            <ML>Organic → Shopify/Amazon</ML>
+            {[
+              { l: "Monthly Views", v: totalViews.toLocaleString() },
+              { l: `→ Profile Visits (${orgViewToProfile}%)`, v: Math.round(orgProfiles).toLocaleString() },
+              { l: `→ Link Clicks (${orgProfileToClick}%)`, v: Math.round(orgClicks).toLocaleString() },
+              { l: `→ Purchases (${orgClickToPurch}%)`, v: orgSales.toLocaleString(), bold: true },
+              { l: `Commission (${comm}% × $${aov})`, v: `$${Math.round(orgIncome).toLocaleString()}`, bold: true, color: C.green },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: m ? 11 : 12, borderBottom: i < 4 ? `1px solid ${C.border}` : "none" }}>
+                <span style={{ color: C.offWhite }}>{r.l}</span>
+                <span style={{ fontFamily: F.mono, fontWeight: r.bold ? 700 : 400, color: r.color || (r.bold ? C.white : C.muted) }}>{r.v}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", gap: m ? 8 : 12, marginTop: 10 }}>
+              <div style={{ flex: 1, background: C.greenDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>CLICK→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.green }}>{orgClickToPurch}%</div>
+              </div>
+              <div style={{ flex: 1, background: C.greenDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>VIEW→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.green }}>{(orgViewToProfile * orgProfileToClick * orgClickToPurch / 10000).toFixed(3)}%</div>
+              </div>
+            </div>
+          </Surf>
+        </div>
+      </FadeIn>
+
+      {/* TOTAL BREAKDOWN */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <Surf m={m} style={{ borderTop: `3px solid ${C.white}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+            <ML>Monthly Earnings{multi ? ` (${b} brands)` : ""}</ML>
+            <div style={{ fontFamily: F.display, fontSize: m ? 30 : 36, fontStyle: "italic", color: C.accent }}>${Math.round(total).toLocaleString()}</div>
+          </div>
+
+          {/* Stacked bar */}
+          <div style={{ display: "flex", height: 10, borderRadius: 5, overflow: "hidden", marginBottom: 14 }}>
+            {streams.map((s, i) => <div key={i} style={{ width: `${(s.val / Math.max(total, 1)) * 100}%`, background: s.color, minWidth: s.val > 0 ? 2 : 0 }} />)}
+          </div>
+
+          {streams.map((s, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", fontSize: m ? 12 : 13, borderBottom: i < 3 ? `1px solid ${C.border}` : "none" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 7, height: 7, borderRadius: 2, background: s.color, flexShrink: 0 }} />
+                <span style={{ color: C.offWhite }}>{s.label}</span>
+                <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>({s.sub})</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: s.color }}>${s.val.toLocaleString()}</span>
+            </div>
+          ))}
+
+          {multi && (
+            <div style={{ fontSize: 11, color: C.muted, marginTop: 10 }}>
+              Per brand: ${Math.round(total / b).toLocaleString()}/mo · {Math.round((ttsSales + orgSales) / b)} sales/brand · {(((ttsSales + orgSales) / b) / vidsPerMo).toFixed(1)} sales/video
+            </div>
+          )}
+        </Surf>
+      </FadeIn>
+
+      {/* TARGET MILESTONES */}
+      <FadeIn delay={0.03}>
+        <SL num="—" text="Income Targets" m={m} />
+        {(() => {
+          const ttsRevPerView = (ttsViewToClick / 100) * (ttsClickToPurch / 100) * commPerSale;
+          const orgRevPerView = (orgViewToProfile / 100) * (orgProfileToClick / 100) * (orgClickToPurch / 100) * commPerSale;
+          const revenuePerView = ttsRevPerView + orgRevPerView;
+          const incomePerVid = 5 + viewsPerVid * revenuePerView + (boostPct / 100) * spendPerBoosted * 0.03;
+
+          return (
+            <div style={{ display: "flex", flexDirection: "column", gap: m ? 10 : 12 }}>
+              {targets.map((t, i) => {
+                const hit = total >= t;
+                const gap = t - total;
+                const pct = Math.min((total / t) * 100, 100);
+
+                // Blended plan: allocate gap across levers proportionally
+                const splits = [
+                  { pct: 0.25, icon: "🎬", label: "videos/mo", color: C.blue },
+                  { pct: 0.20, icon: "👁", label: "views/video", color: C.offWhite },
+                  { pct: 0.25, icon: "🛒", label: "TTS sales", color: C.accent },
+                  { pct: 0.10, icon: "🔗", label: "organic sales", color: C.green },
+                  { pct: 0.20, icon: "📈", label: "ad spend", color: C.purple },
+                ];
+                const plan = splits.map(s => {
+                  const amt = gap * s.pct;
+                  let units = 0, action = "", desc = "";
+                  if (s.label === "videos/mo") {
+                    units = Math.ceil(amt / Math.max(incomePerVid, 0.01));
+                    action = `+${units} videos/mo`;
+                    desc = `${vidsPerMo + units} total (${((vidsPerMo + units) / 30).toFixed(1)}/day)`;
+                  } else if (s.label === "views/video") {
+                    units = revenuePerView > 0 ? Math.ceil(amt / (totalVids * revenuePerView)) : 0;
+                    action = `+${units >= 1000 ? (units / 1000).toFixed(1) + "K" : units} views/video`;
+                    desc = `${((viewsPerVid + units) / 1000).toFixed(1)}K avg views`;
+                  } else if (s.label === "TTS sales") {
+                    units = Math.ceil(amt / commPerSale);
+                    action = `+${units} TTS sales`;
+                    desc = `${ttsSales + units} total (${((ttsSales + units) / totalVids).toFixed(1)}/video)`;
+                  } else if (s.label === "organic sales") {
+                    units = Math.ceil(amt / commPerSale);
+                    action = `+${units} organic sales`;
+                    desc = `${orgSales + units} total`;
+                  } else {
+                    units = Math.ceil(amt / 0.03);
+                    action = `+$${(units / 1000).toFixed(0)}K ad spend`;
+                    desc = `$${((totalAdSpend + units) / 1000).toFixed(0)}K total on creator content`;
+                  }
+                  return { ...s, amt, action, desc };
+                });
+                const colors = [C.accent, C.green, C.blue, C.purple];
+
+                return (
+                  <Surf key={t} m={m} style={{ borderLeft: hit ? `3px solid ${C.green}` : `3px solid ${colors[i]}`, padding: m ? 14 : 18 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: hit ? 0 : 12 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <div style={{ fontFamily: F.display, fontSize: m ? 24 : 28, fontStyle: "italic", color: hit ? C.green : colors[i] }}>${(t / 1000).toFixed(0)}K</div>
+                        <span style={{ fontSize: 12, color: C.muted }}>/mo</span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        {!hit && (
+                          <div style={{ textAlign: "right" }}>
+                            <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em" }}>GAP</div>
+                            <div style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 800, color: C.red }}>${Math.round(gap).toLocaleString()}</div>
+                          </div>
+                        )}
+                        <div style={{
+                          fontFamily: F.mono, fontSize: 10, fontWeight: 700, padding: "4px 10px", borderRadius: 6,
+                          background: hit ? C.greenDim : `${colors[i]}18`, color: hit ? C.green : colors[i],
+                        }}>{hit ? "✓ HIT" : `${Math.round(pct)}%`}</div>
+                      </div>
+                    </div>
+
+                    {/* Progress bar */}
+                    <div style={{ height: 4, background: C.border, borderRadius: 2, overflow: "hidden", marginBottom: hit ? 0 : 12 }}>
+                      <div style={{ height: "100%", width: `${pct}%`, background: hit ? C.green : colors[i], borderRadius: 2, transition: "width 0.3s" }} />
+                    </div>
+
+                    {/* Delta paths — only show for unlocked */}
+                    {!hit && (
+                      <div style={{ background: C.bg, borderRadius: 10, padding: m ? "10px 12px" : "12px 14px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                          <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", color: C.muted }}>BLENDED PLAN TO CLOSE GAP</div>
+                          <div style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, color: C.red }}>${Math.round(gap).toLocaleString()}</div>
+                        </div>
+                        {plan.map((p, j) => (
+                          <div key={j} style={{
+                            display: "flex", alignItems: m ? "flex-start" : "center",
+                            flexWrap: m ? "wrap" : "nowrap", gap: m ? 4 : 8,
+                            padding: "7px 0", fontSize: m ? 11 : 12,
+                            borderBottom: j < 4 ? `1px solid ${C.border}` : "none",
+                          }}>
+                            <span style={{ fontSize: 12, width: 18, textAlign: "center", flexShrink: 0 }}>{p.icon}</span>
+                            <span style={{ fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.accent, minWidth: m ? 48 : 58 }}>+${Math.round(p.amt).toLocaleString()}</span>
+                            <span style={{ color: p.color, fontWeight: 600 }}>{p.action}</span>
+                            <span style={{ color: C.muted, fontSize: m ? 10 : 11 }}>→ {p.desc}</span>
+                          </div>
+                        ))}
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8, paddingTop: 8, borderTop: `1px solid ${C.border}` }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: C.white }}>Total</span>
+                          <span style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 800, color: C.green }}>+${Math.round(gap).toLocaleString()}</span>
+                        </div>
+                        <div style={{ fontSize: 10, color: C.muted, marginTop: 6, fontStyle: "italic" }}>Balanced across all levers. Shift weight to whichever is most achievable.</div>
+                      </div>
+                    )}
+                  </Surf>
+                );
+              })}
+            </div>
+          );
+        })()}
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ MAIN ============
+function App() {
+  const { m } = useBp();
+  const [tab, setTab] = useState("overview");
+  const tabs = [
+    { id: "overview", label: "Overview" },
+    { id: "creator", label: "Creator Payouts" },
+    { id: "single", label: "1-Brand Calc" },
+    { id: "portfolio", label: "Portfolio Calc" },
+  ];
+
+  return (
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: F.body, color: C.white, WebkitFontSmoothing: "antialiased", overflowX: "hidden" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+      <div style={{ padding: m ? "24px 18px 0" : "32px 40px 0", maxWidth: 760, margin: "0 auto" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: m ? 16 : 24, flexWrap: "wrap", gap: 10 }}>
+          <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: m ? 28 : 34, width: "auto" }}>
+            <text x="0" y="30" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">ad</text>
+            <text x="0" y="58" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">pros</text>
+            <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900" />
+          </svg>
+          <span style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Confidential</span>
+        </div>
+        <h1 style={{ fontFamily: F.display, fontSize: m ? 30 : 44, fontWeight: 400, lineHeight: 1.08, margin: 0 }}>
+          Creator Performance{m ? <br /> : " "}<em style={{ color: C.accent }}>Network</em>
+        </h1>
+      </div>
+
+      <div style={{ position: "sticky", top: 0, zIndex: 50, background: C.bg, borderBottom: `1px solid ${C.border}`, marginTop: m ? 16 : 24 }}>
+        <div style={{ display: "flex", maxWidth: 760, margin: "0 auto", padding: m ? "0 18px" : "0 40px", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)} style={{
+              padding: m ? "11px 12px" : "13px 18px", fontSize: m ? 11 : 12.5, fontWeight: 600,
+              color: tab === t.id ? C.accent : C.muted, background: tab === t.id ? C.accentDim : "transparent",
+              border: "none", borderBottom: tab === t.id ? `2px solid ${C.accent}` : "2px solid transparent",
+              borderRadius: "8px 8px 0 0", cursor: "pointer", whiteSpace: "nowrap", fontFamily: F.body,
+            }}>{t.label}</button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: m ? "20px 18px 36px" : "28px 40px 44px" }}>
+        {tab === "overview" && <OverviewTab m={m} />}
+        {tab === "creator" && <CreatorTab m={m} />}
+        {tab === "single" && <FunnelCalc m={m} brandCount={1} />}
+        {tab === "portfolio" && <FunnelCalc m={m} brandCount={10} />}
+      </div>
+
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: m ? "0 18px 28px" : "0 40px 36px" }}>
+        <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 20, width: "auto", opacity: 0.3 }}>
+            <text x="0" y="30" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">ad</text>
+            <text x="0" y="58" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">pros</text>
+            <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900" />
+          </svg>
+          <span style={{ fontFamily: F.mono, fontSize: 9, color: C.muted }}>April 2026</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(React.createElement(App));
+
+  </script>
+</body>
+</html>
