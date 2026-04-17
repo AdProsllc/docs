@@ -8,305 +8,384 @@
   <title>TikTok Shop Agency Financial Model — Ad Pros</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #040735;
-      --navy-deeper: #02031f;
-      --navy-card: #0b1048;
-      --navy-card-2: #0e1358;
+      --bg: #02030e;
+      --bg-deeper: #000005;
+      --surface: #0a0b1e;
+      --surface-2: #12142b;
+      --surface-3: #1a1c38;
+      --border: rgba(255,255,255,0.06);
+      --border-strong: rgba(255,255,255,0.12);
       --yellow: #F9D900;
       --yellow-hover: #FFE837;
-      --blue: #1A6FD4;
+      --yellow-glow: rgba(249,217,0,0.25);
       --white: #FFFFFF;
-      --grey-400: #6A6B73;
+      --grey-400: #5c5d67;
       --grey-300: #8A8B93;
       --grey-200: #B0B1B6;
       --grey-100: #D4D5DA;
-      --card-border: rgba(255,255,255,0.08);
-      --card-border-hover: rgba(249,217,0,0.3);
-
-      --teal: #1D9E75;
-      --teal-bright: #4db6ac;
+      --teal: #4db6ac;
+      --teal-deep: #1D9E75;
       --coral: #ff7043;
-      --amber-bright: #ffb74d;
-      --green-bright: #8bc34a;
-      --purple-bright: #b39ddb;
+      --amber: #ffb74d;
+      --green: #8bc34a;
+      --purple: #b39ddb;
     }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--navy);
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(12, 14, 48, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(12, 14, 48, 0.4) 0%, transparent 50%),
+        radial-gradient(1.5px 1.5px at 23% 14%, rgba(255,255,255,0.5) 50%, transparent 50%),
+        radial-gradient(1px 1px at 67% 27%, rgba(255,255,255,0.4) 50%, transparent 50%),
+        radial-gradient(1.5px 1.5px at 12% 42%, rgba(255,255,255,0.35) 50%, transparent 50%),
+        radial-gradient(1px 1px at 88% 54%, rgba(255,255,255,0.45) 50%, transparent 50%),
+        radial-gradient(1px 1px at 45% 67%, rgba(255,255,255,0.3) 50%, transparent 50%),
+        radial-gradient(1.5px 1.5px at 78% 82%, rgba(255,255,255,0.4) 50%, transparent 50%),
+        radial-gradient(1px 1px at 34% 91%, rgba(255,255,255,0.35) 50%, transparent 50%);
+      background-size: 100% 100%, 100% 100%, 800px 800px, 800px 800px, 800px 800px, 800px 800px, 800px 800px, 800px 800px, 800px 800px;
+      background-attachment: fixed;
       color: var(--grey-200);
-      font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Figtree", "Helvetica Neue", Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       min-height: 100vh;
       font-feature-settings: "ss01", "cv02", "cv11";
     }
 
-    /* ===== NAV BAR ===== */
+    /* ===== NAV ===== */
     .ap-nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(4,7,53,0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(2,3,14,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
     .ap-nav-inner {
-      max-width: 1280px; margin: 0 auto;
-      padding: 18px 32px;
-      display: flex; align-items: center; gap: 32px;
+      max-width: 1320px; margin: 0 auto;
+      padding: 20px 36px;
+      display: flex; align-items: center; gap: 36px;
     }
     .ap-logo { display: flex; align-items: center; }
-    .ap-logo svg { display: block; height: 42px; width: auto; }
-    .ap-nav-links { display: flex; gap: 28px; margin-left: 18px; }
+    .ap-logo svg { display: block; height: 44px; width: auto; }
+    .ap-nav-links { display: flex; gap: 32px; margin-left: 16px; }
     .ap-nav-link {
       color: var(--grey-100); text-decoration: none;
       font-size: 14px; font-weight: 500;
       transition: color 0.15s ease;
+      letter-spacing: -0.005em;
     }
     .ap-nav-link:hover { color: var(--yellow); }
     .ap-nav-spacer { flex: 1; }
     .ap-nav-cta {
-      background: var(--yellow); color: var(--navy);
-      font-size: 14px; font-weight: 700;
-      padding: 11px 22px; border-radius: 8px;
+      background: var(--yellow); color: var(--bg);
+      font-size: 13px; font-weight: 800;
+      padding: 13px 28px; border-radius: 100px;
       text-decoration: none;
-      transition: background 0.15s ease, transform 0.15s ease;
-      letter-spacing: -0.01em;
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      box-shadow: 0 0 24px rgba(249,217,0,0.18);
     }
-    .ap-nav-cta:hover { background: var(--yellow-hover); transform: translateY(-1px); }
+    .ap-nav-cta:hover { background: var(--yellow-hover); transform: translateY(-1px); box-shadow: 0 0 32px rgba(249,217,0,0.3); }
 
     /* ===== HERO ===== */
     .ap-hero {
-      padding: 56px 32px 40px;
-      max-width: 1280px; margin: 0 auto;
+      padding: 72px 36px 48px;
+      max-width: 1320px; margin: 0 auto;
       position: relative;
     }
     .ap-hero-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.12em;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.14em;
       color: var(--yellow);
-      padding: 7px 14px;
+      padding: 8px 16px;
       background: rgba(249,217,0,0.08);
-      border: 1px solid rgba(249,217,0,0.25);
+      border: 1px solid rgba(249,217,0,0.3);
       border-radius: 100px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
     .ap-hero-tag::before {
       content: ""; width: 6px; height: 6px;
       border-radius: 50%; background: var(--yellow);
-      box-shadow: 0 0 12px var(--yellow);
+      box-shadow: 0 0 10px var(--yellow);
     }
     .ap-hero h1 {
-      font-size: clamp(36px, 5vw, 56px);
-      line-height: 1.05;
+      font-size: clamp(38px, 5.5vw, 64px);
+      line-height: 1.02;
       font-weight: 800;
       color: #fff;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-      max-width: 900px;
+      letter-spacing: -0.035em;
+      margin-bottom: 20px;
+      max-width: 980px;
     }
     .ap-hero h1 .accent {
-      background: linear-gradient(180deg, transparent 65%, rgba(249,217,0,0.55) 65%, rgba(249,217,0,0.55) 92%, transparent 92%);
-      padding: 0 4px;
+      position: relative;
+      display: inline-block;
+    }
+    .ap-hero h1 .accent::after {
+      content: ""; position: absolute;
+      left: 0; right: 0; bottom: 0.08em;
+      height: 0.22em;
+      background: var(--yellow);
+      z-index: -1;
+      border-radius: 2px;
     }
     .ap-hero p {
-      font-size: 17px; line-height: 1.5;
+      font-size: 18px; line-height: 1.55;
       color: var(--grey-200);
-      max-width: 720px;
+      max-width: 760px;
+      font-weight: 400;
     }
 
     /* ===== CONTENT ===== */
-    .ap-content { padding: 0 32px 40px; max-width: 1280px; margin: 0 auto; }
+    .ap-content { padding: 0 36px 40px; max-width: 1320px; margin: 0 auto; }
 
     .section-label {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       color: var(--grey-300);
-      font-weight: 600;
-      margin-bottom: 12px;
-      display: flex; align-items: center; gap: 10px;
+      font-weight: 700;
+      margin: 20px 0 14px;
+      display: flex; align-items: center; gap: 12px;
     }
     .section-label::before {
-      content: ""; width: 24px; height: 2px; background: var(--yellow);
+      content: ""; width: 28px; height: 2px;
+      background: var(--yellow); border-radius: 2px;
     }
 
-    /* ===== INPUTS PANEL ===== */
+    /* ===== STATS BANNER ===== */
+    .stats-banner {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: var(--border);
+      border-radius: 20px; overflow: hidden;
+      margin-bottom: 36px;
+      border: 1px solid var(--border);
+    }
+    .stats-banner-item {
+      background: var(--surface);
+      padding: 28px 30px;
+      position: relative;
+    }
+    .stats-banner-value {
+      font-size: 36px; font-weight: 800; color: var(--yellow);
+      letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stats-banner-label {
+      font-size: 13px; color: var(--grey-100);
+      font-weight: 500;
+      letter-spacing: -0.005em;
+    }
+
+    /* ===== INPUTS ===== */
     .assumptions-panel {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
       gap: 0;
-      margin-bottom: 32px;
-      background: var(--navy-card);
-      border-radius: 16px;
-      border: 1px solid var(--card-border);
+      margin-bottom: 36px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
       overflow: hidden;
     }
     .assumption-item {
-      padding: 20px 24px;
-      border-right: 1px solid var(--card-border);
+      padding: 24px 26px;
+      border-right: 1px solid var(--border);
     }
     .assumption-item:last-child { border-right: none; }
+    .assumption-item.primary {
+      background: linear-gradient(165deg, rgba(249,217,0,0.04), transparent);
+    }
     .assumption-item .a-label {
       font-size: 11px; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      margin-bottom: 6px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 8px; font-weight: 700;
     }
     .assumption-item .a-val {
-      font-size: 28px; font-weight: 800; color: #fff;
-      letter-spacing: -0.02em;
+      font-size: 30px; font-weight: 800; color: #fff;
+      letter-spacing: -0.03em; line-height: 1;
     }
     .assumption-item .a-sub {
-      font-size: 11px; color: var(--grey-300); margin-top: 6px;
+      font-size: 11px; color: var(--grey-300); margin-top: 8px;
     }
     .assumption-item input[type=range] {
-      width: 100%; margin-top: 8px;
+      width: 100%; margin-top: 10px;
       -webkit-appearance: none; appearance: none;
-      height: 4px; border-radius: 2px;
-      background: rgba(255,255,255,0.1);
+      height: 4px; border-radius: 100px;
+      background: rgba(255,255,255,0.08);
       outline: none; cursor: pointer;
     }
     .assumption-item input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none; appearance: none;
-      width: 16px; height: 16px; border-radius: 50%;
+      width: 18px; height: 18px; border-radius: 50%;
       background: var(--yellow); cursor: pointer;
-      border: 3px solid var(--navy);
-      box-shadow: 0 0 0 1px var(--yellow);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--yellow), 0 0 12px rgba(249,217,0,0.5);
       transition: transform 0.15s ease;
     }
     .assumption-item input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
     .assumption-item input[type=range]::-moz-range-thumb {
-      width: 14px; height: 14px; border-radius: 50%;
+      width: 16px; height: 16px; border-radius: 50%;
       background: var(--yellow); cursor: pointer;
-      border: 2px solid var(--navy);
+      border: 2px solid var(--bg);
     }
 
-    /* ===== KPI CARDS ===== */
+    /* ===== KPI ===== */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0,1fr));
-      gap: 12px; margin-bottom: 32px;
+      gap: 14px; margin-bottom: 36px;
     }
     .kpi-card {
-      background: var(--navy-card);
-      border-radius: 14px;
-      padding: 20px 22px;
-      border: 1px solid var(--card-border);
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
       transition: border-color 0.15s ease, transform 0.15s ease;
     }
-    .kpi-card:hover { border-color: var(--card-border-hover); transform: translateY(-2px); }
+    .kpi-card:hover { border-color: rgba(249,217,0,0.3); transform: translateY(-2px); }
     .kpi-card .kpi-label {
       font-size: 11px; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      margin-bottom: 8px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 10px; font-weight: 700;
     }
     .kpi-card .kpi-value {
-      font-size: 28px; font-weight: 800; color: #fff;
-      letter-spacing: -0.02em; line-height: 1.1;
+      font-size: 30px; font-weight: 800; color: #fff;
+      letter-spacing: -0.03em; line-height: 1;
     }
-    .kpi-card .kpi-badge { margin-top: 8px; min-height: 20px; }
+    .kpi-card .kpi-badge { margin-top: 10px; min-height: 22px; }
     .badge {
       display: inline-block; font-size: 10px;
-      padding: 3px 10px; border-radius: 100px;
-      font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 100px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
     }
-    .badge-green { background: rgba(139,195,74,0.15); color: var(--green-bright); }
+    .badge-green { background: rgba(139,195,74,0.15); color: var(--green); }
     .badge-red { background: rgba(255,112,67,0.15); color: var(--coral); }
-    .badge-amber { background: rgba(255,183,77,0.15); color: var(--amber-bright); }
-    .badge-teal { background: rgba(77,182,172,0.15); color: var(--teal-bright); }
+    .badge-amber { background: rgba(255,183,77,0.15); color: var(--amber); }
+    .badge-teal { background: rgba(77,182,172,0.15); color: var(--teal); }
     .badge-yellow { background: rgba(249,217,0,0.15); color: var(--yellow); }
+
+    /* ===== TIER CARD ===== */
+    .tier-card {
+      background: linear-gradient(165deg, rgba(249,217,0,0.08), rgba(249,217,0,0.01));
+      border: 1px solid rgba(249,217,0,0.2);
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .tier-card .t-main { border-right: 1px solid var(--border); padding-right: 24px; }
+    .tier-card .t-label {
+      font-size: 11px; color: var(--yellow);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 6px; font-weight: 700;
+    }
+    .tier-card .t-tier-name {
+      font-size: 26px; font-weight: 800; color: #fff;
+      letter-spacing: -0.02em; margin-bottom: 4px;
+    }
+    .tier-card .t-sub { font-size: 13px; color: var(--grey-200); }
+    .tier-card .t-item .t-item-label {
+      font-size: 11px; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 6px; font-weight: 700;
+    }
+    .tier-card .t-item .t-item-val {
+      font-size: 20px; font-weight: 700; color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .tier-card .t-item .t-item-sub {
+      font-size: 11px; color: var(--grey-300); margin-top: 2px;
+    }
 
     /* ===== PANELS ===== */
     .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
     .panel {
-      background: var(--navy-card);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 24px 26px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px 28px;
     }
     .panel-title {
-      font-size: 16px; font-weight: 700; color: #fff;
-      margin-bottom: 4px; letter-spacing: -0.01em;
+      font-size: 17px; font-weight: 700; color: #fff;
+      margin-bottom: 4px; letter-spacing: -0.02em;
     }
-    .panel-sub { font-size: 12px; color: var(--grey-300); margin-bottom: 18px; line-height: 1.5; }
+    .panel-sub { font-size: 12px; color: var(--grey-300); margin-bottom: 20px; line-height: 1.5; }
 
     /* ===== SCENARIO TABLE ===== */
     .scenario-table { width: 100%; border-collapse: collapse; font-size: 11px; }
     .scenario-table th {
       font-size: 10px; font-weight: 700; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      text-align: center; padding: 8px 6px 10px;
-      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      text-align: center; padding: 8px 6px 12px;
+      border-bottom: 1px solid var(--border);
     }
     .scenario-table th.row-h { text-align: left; padding-left: 0; }
     .scenario-table td { padding: 4px; border: none; }
     .scenario-table td.row-label {
       padding: 6px 10px 6px 0; font-size: 11px;
-      color: var(--grey-200); white-space: nowrap;
-      border-bottom: 1px solid var(--card-border);
+      color: var(--grey-100); white-space: nowrap;
+      border-bottom: 1px solid var(--border);
       font-weight: 500;
     }
+    .scenario-table .row-gmv { font-weight: 700; color: #fff; }
+    .scenario-table .row-ret { font-size: 10px; color: var(--grey-300); margin-left: 6px; }
     .scenario-cell {
-      border-radius: 6px; padding: 8px 10px;
-      transition: transform 0.1s ease;
+      border-radius: 8px; padding: 9px 11px;
     }
     .cell-green { background: rgba(139,195,74,0.14); }
-    .cell-green .cv { color: var(--green-bright); }
-    .cell-green .cm { color: rgba(139,195,74,0.65); }
+    .cell-green .cv { color: var(--green); }
+    .cell-green .cm { color: rgba(139,195,74,0.7); }
     .cell-teal { background: rgba(77,182,172,0.14); }
-    .cell-teal .cv { color: var(--teal-bright); }
-    .cell-teal .cm { color: rgba(77,182,172,0.65); }
+    .cell-teal .cv { color: var(--teal); }
+    .cell-teal .cm { color: rgba(77,182,172,0.7); }
     .cell-amber { background: rgba(255,183,77,0.14); }
-    .cell-amber .cv { color: var(--amber-bright); }
-    .cell-amber .cm { color: rgba(255,183,77,0.65); }
+    .cell-amber .cv { color: var(--amber); }
+    .cell-amber .cm { color: rgba(255,183,77,0.7); }
     .cell-red { background: rgba(255,112,67,0.12); }
     .cell-red .cv { color: var(--coral); }
-    .cell-red .cm { color: rgba(255,112,67,0.65); }
+    .cell-red .cm { color: rgba(255,112,67,0.7); }
     .cell-current {
       outline: 2px solid var(--yellow);
       outline-offset: -1px;
-      box-shadow: 0 0 0 4px rgba(249,217,0,0.15);
+      box-shadow: 0 0 0 4px rgba(249,217,0,0.18);
     }
-    .cv { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
+    .cv { font-size: 13px; font-weight: 700; letter-spacing: -0.02em; }
     .cm { font-size: 10px; margin-top: 2px; font-weight: 500; }
 
     /* ===== P&L ===== */
     .pl-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 0; border-bottom: 1px solid var(--card-border);
+      padding: 13px 0; border-bottom: 1px solid var(--border);
       font-size: 13px;
     }
     .pl-row:last-child { border-bottom: none; }
     .pl-label { color: var(--grey-200); }
-    .pl-value { font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+    .pl-sub { font-size: 11px; color: var(--grey-300); margin-top: 2px; }
+    .pl-value { font-weight: 700; color: #fff; letter-spacing: -0.02em; }
     .pl-value.neg { color: var(--coral); }
-    .pl-value.pos { color: var(--green-bright); }
+    .pl-value.pos { color: var(--green); }
     .pl-highlight {
       background: rgba(249,217,0,0.06);
-      border-radius: 10px; margin: 4px -10px;
-      padding: 14px 14px; border-bottom: none !important;
+      border-radius: 12px; margin: 4px -12px;
+      padding: 16px 16px; border-bottom: none !important;
       border: 1px solid rgba(249,217,0,0.18);
     }
     .pl-highlight .pl-label { color: #fff; font-weight: 700; font-size: 14px; }
-    .mode-callout {
-      margin-top: 14px; padding: 14px 16px;
-      background: rgba(255,255,255,0.03);
-      border-left: 3px solid var(--yellow);
-      border-radius: 8px;
-      font-size: 12px; color: var(--grey-100); line-height: 1.55;
+    .cost-detail {
+      padding-left: 14px; margin-top: 6px;
+      font-size: 11px; color: var(--grey-300);
+      display: flex; justify-content: space-between;
     }
-    .mode-pill {
-      font-size: 10px; padding: 3px 10px;
-      border-radius: 100px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.06em;
-      display: inline-block; margin-bottom: 6px;
-    }
-    .mode-gmv { background: rgba(77,182,172,0.18); color: var(--teal-bright); }
-    .mode-base { background: rgba(255,183,77,0.18); color: var(--amber-bright); }
 
     /* ===== CHART ===== */
     .chart-wrap { position: relative; width: 100%; }
@@ -314,9 +393,9 @@
     /* ===== PODS ===== */
     .pod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
     .pod-card {
-      border-radius: 12px; padding: 18px 20px;
-      border: 1px solid var(--card-border);
-      background: var(--navy-card-2);
+      border-radius: 14px; padding: 20px 22px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
       transition: transform 0.15s ease, border-color 0.15s ease;
     }
     .pod-card:hover { transform: translateY(-2px); }
@@ -331,62 +410,63 @@
     .pod-card.inactive { opacity: 0.4; }
     .pod-title {
       font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      margin-bottom: 10px;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 12px;
     }
-    .pod-card.active .pod-title { color: var(--teal-bright); }
-    .pod-card.partial .pod-title { color: var(--amber-bright); }
+    .pod-card.active .pod-title { color: var(--teal); }
+    .pod-card.partial .pod-title { color: var(--amber); }
     .pod-card.inactive .pod-title { color: var(--grey-300); }
-    .pod-dots { display: flex; gap: 5px; margin-bottom: 12px; }
-    .pod-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .pod-dots { display: flex; gap: 6px; margin-bottom: 14px; }
+    .pod-dot { width: 12px; height: 12px; border-radius: 50%; }
     .pod-stat { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
-    .pod-rev { font-size: 20px; font-weight: 800; color: #fff; margin-top: 6px; letter-spacing: -0.02em; }
+    .pod-rev { font-size: 22px; font-weight: 800; color: #fff; margin-top: 6px; letter-spacing: -0.03em; }
+
+    /* ===== DELIVERY MATRIX ===== */
+    .delivery-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+      margin-bottom: 20px;
+    }
+    .delivery-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .delivery-card .d-label {
+      font-size: 10px; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      font-weight: 700; margin-bottom: 8px;
+    }
+    .delivery-card .d-val { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .delivery-card .d-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .delivery-card.highlighted {
+      background: linear-gradient(165deg, rgba(249,217,0,0.1), rgba(249,217,0,0.02));
+      border-color: rgba(249,217,0,0.3);
+    }
 
     /* ===== LEGEND ===== */
-    .legend-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; font-size: 11px; color: var(--grey-300); }
+    .legend-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; font-size: 11px; color: var(--grey-300); }
     .legend-item { display: flex; align-items: center; gap: 6px; }
     .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
-    /* ===== STATS BANNER ===== */
-    .stats-banner {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-      background: var(--card-border);
-      border-radius: 16px; overflow: hidden;
-      margin-bottom: 32px;
-      border: 1px solid var(--card-border);
-    }
-    .stats-banner-item {
-      background: var(--navy-card);
-      padding: 24px 28px;
-    }
-    .stats-banner-value {
-      font-size: 32px; font-weight: 800; color: var(--yellow);
-      letter-spacing: -0.02em; line-height: 1;
-      margin-bottom: 6px;
-    }
-    .stats-banner-label {
-      font-size: 12px; color: var(--grey-200);
-      font-weight: 500;
-    }
-
     /* ===== FOOTER ===== */
     .ap-footer {
-      margin-top: 80px; padding: 48px 32px 32px;
-      border-top: 1px solid var(--card-border);
-      background: var(--navy-deeper);
+      margin-top: 96px; padding: 56px 36px 32px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-deeper);
     }
     .ap-footer-inner {
-      max-width: 1280px; margin: 0 auto;
+      max-width: 1320px; margin: 0 auto;
       display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 32px;
+      flex-wrap: wrap; gap: 36px;
     }
-    .ap-footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
-    .ap-footer-brand svg { height: 40px; width: auto; }
-    .ap-footer-brand p { font-size: 12px; color: var(--grey-400); line-height: 1.5; }
+    .ap-footer-brand { display: flex; flex-direction: column; gap: 18px; max-width: 340px; }
+    .ap-footer-brand svg { height: 44px; width: auto; }
+    .ap-footer-brand p { font-size: 13px; color: var(--grey-400); line-height: 1.55; }
     .ap-footer-col { display: flex; flex-direction: column; gap: 10px; }
     .ap-footer-col .col-title {
       font-size: 11px; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.1em;
+      text-transform: uppercase; letter-spacing: 0.12em;
       font-weight: 700; margin-bottom: 6px;
     }
     .ap-footer-col a {
@@ -395,9 +475,9 @@
     }
     .ap-footer-col a:hover { color: var(--yellow); }
     .ap-footer-bottom {
-      max-width: 1280px; margin: 40px auto 0;
+      max-width: 1320px; margin: 44px auto 0;
       padding-top: 24px;
-      border-top: 1px solid var(--card-border);
+      border-top: 1px solid var(--border);
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
     .ap-footer-bottom p { font-size: 11px; color: var(--grey-400); }
@@ -406,19 +486,19 @@
       .ap-nav-inner, .ap-hero, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; }
       .kpi-grid { grid-template-columns: repeat(3, 1fr); }
       .assumptions-panel { grid-template-columns: 1fr 1fr 1fr; }
-      .assumption-item:nth-child(-n+3) { border-bottom: 1px solid var(--card-border); }
+      .stats-banner { grid-template-columns: 1fr 1fr; }
+      .tier-card { grid-template-columns: 1fr 1fr 1fr; }
+      .tier-card .t-main { grid-column: 1/-1; border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 20px; margin-bottom: 4px; }
+      .delivery-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
     @media (max-width: 760px) {
       .ap-nav-links { display: none; }
       .main-grid { grid-template-columns: 1fr; }
       .kpi-grid { grid-template-columns: 1fr 1fr; }
       .assumptions-panel { grid-template-columns: 1fr 1fr; }
-      .assumption-item:nth-child(-n+2) { border-bottom: 1px solid var(--card-border); }
-      .assumption-item { border-right: 1px solid var(--card-border); }
-      .assumption-item:nth-child(2n) { border-right: none; }
       .pod-grid { grid-template-columns: 1fr 1fr; }
-      .stats-banner { grid-template-columns: 1fr; }
-      .ap-hero h1 { font-size: 32px; }
+      .delivery-grid { grid-template-columns: 1fr 1fr; }
+      .ap-hero h1 { font-size: 34px; }
     }
   </style>
 </head>
@@ -428,8 +508,8 @@
   <div class="ap-nav-inner">
     <a href="https://www.adpros.com" class="ap-logo" aria-label="Ad Pros">
       <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-        <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+        <text x="0" y="30" font-family="Figtree, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+        <text x="0" y="58" font-family="Figtree, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
         <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
       </svg>
     </a>
@@ -447,7 +527,7 @@
 <section class="ap-hero">
   <div class="ap-hero-tag">Internal · Financial Model</div>
   <h1>Unlock Unreasonable Growth Through <span class="accent">TikTok Shop</span> At Scale</h1>
-  <p>Interactive scenario planning for a dedicated TikTok Shop pod structure — $6,500/month base or 5% of GMV, 20 client capacity, $400k/month revenue target.</p>
+  <p>Tiered retainer modeling across 10 GMV tiers — from $0 (base $6,500) to $3M+ (up to $30,000). Interactive scenario planning for 4-pod capacity, 20-client maximum, and $400k/month revenue target.</p>
 </section>
 
 <div class="ap-content">
@@ -458,8 +538,12 @@
       <div class="stats-banner-label">Monthly revenue target</div>
     </div>
     <div class="stats-banner-item">
-      <div class="stats-banner-value">87.5%</div>
-      <div class="stats-banner-label">Gross margin target</div>
+      <div class="stats-banner-value">75-80%</div>
+      <div class="stats-banner-label">Gross margin floor</div>
+    </div>
+    <div class="stats-banner-item">
+      <div class="stats-banner-value">$1,600</div>
+      <div class="stats-banner-label">Delivery cost / brand</div>
     </div>
     <div class="stats-banner-item">
       <div class="stats-banner-value">20</div>
@@ -469,6 +553,12 @@
 
   <div class="section-label">Model inputs</div>
   <div class="assumptions-panel">
+    <div class="assumption-item primary">
+      <div class="a-label">Monthly GMV / client</div>
+      <div id="v-gmv" class="a-val">$1M</div>
+      <input type="range" min="0" max="9" value="5" step="1" id="s-gmv">
+      <div id="v-gmv-sub" class="a-sub">Tier 6 of 10</div>
+    </div>
     <div class="assumption-item">
       <div class="a-label">Active clients</div>
       <div id="v-clients" class="a-val">20</div>
@@ -476,25 +566,48 @@
       <div class="a-sub">max 20 · 4 pods</div>
     </div>
     <div class="assumption-item">
-      <div class="a-label">GMV / client / mo</div>
-      <div id="v-gmv" class="a-val">$400k</div>
-      <input type="range" min="50000" max="700000" value="400000" step="10000" id="s-gmv">
-      <div class="a-sub">switch at $130k GMV</div>
-    </div>
-    <div class="assumption-item">
-      <div class="a-label">Base rate / client</div>
+      <div class="a-label">Base retainer</div>
       <div class="a-val">$6,500</div>
-      <div class="a-sub" style="margin-top:20px;">per client / month</div>
+      <div class="a-sub" style="margin-top:22px;">fixed · all tiers</div>
     </div>
     <div class="assumption-item">
-      <div class="a-label">GMV fee</div>
-      <div class="a-val">5%</div>
-      <div class="a-sub" style="margin-top:20px;">whichever is greater</div>
+      <div class="a-label">Variable cap</div>
+      <div class="a-val">$23.5k</div>
+      <div class="a-sub" style="margin-top:22px;">at $2M+ GMV</div>
     </div>
     <div class="assumption-item">
-      <div class="a-label">CoD / client</div>
-      <div class="a-val">$2,500</div>
-      <div class="a-sub" style="margin-top:20px;">$12.5k per pod</div>
+      <div class="a-label">CoD / brand</div>
+      <div class="a-val">$1,600</div>
+      <div class="a-sub" style="margin-top:22px;">3 named roles</div>
+    </div>
+  </div>
+
+  <div class="section-label">Current tier</div>
+  <div class="tier-card">
+    <div class="t-main">
+      <div class="t-label">Active tier · retainer structure</div>
+      <div class="t-tier-name" id="t-name">$1M GMV Tier</div>
+      <div class="t-sub" id="t-breakdown">$6,500 fixed + $13,500 variable = <strong style="color:#fff;">$20,000 retainer</strong></div>
+    </div>
+    <div class="t-item">
+      <div class="t-item-label">Effective take rate</div>
+      <div class="t-item-val" id="t-take">2.00%</div>
+      <div class="t-item-sub">of GMV</div>
+    </div>
+    <div class="t-item">
+      <div class="t-item-label">Product seeding</div>
+      <div class="t-item-val" id="t-seeding">2,000</div>
+      <div class="t-item-sub">samples / month</div>
+    </div>
+    <div class="t-item">
+      <div class="t-item-label">Active creators</div>
+      <div class="t-item-val" id="t-creators">700</div>
+      <div class="t-item-sub">managed</div>
+    </div>
+    <div class="t-item">
+      <div class="t-item-label">Products</div>
+      <div class="t-item-val" id="t-products">4</div>
+      <div class="t-item-sub">SKUs covered</div>
     </div>
   </div>
 
@@ -507,18 +620,18 @@
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Gross profit</div>
-      <div id="k-gp" class="kpi-value">$350k</div>
+      <div id="k-gp" class="kpi-value">$368k</div>
       <div class="kpi-badge"><span id="k-gp-b" style="font-size:11px;color:var(--grey-300);"></span></div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Gross margin</div>
-      <div id="k-gm" class="kpi-value">87.5%</div>
+      <div id="k-gm" class="kpi-value">92.0%</div>
       <div class="kpi-badge"><span id="k-gm-b"></span></div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Rev / client</div>
+      <div class="kpi-label">Retainer / client</div>
       <div id="k-rpc" class="kpi-value">$20k</div>
-      <div class="kpi-badge"><span id="k-mode"></span></div>
+      <div class="kpi-badge"><span id="k-take" style="font-size:11px;color:var(--grey-300);"></span></div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Active pods</div>
@@ -531,20 +644,20 @@
   <div class="main-grid">
     <div class="panel">
       <div class="panel-title">Scenario matrix</div>
-      <div class="panel-sub">Total revenue · gross margin · <span style="color:var(--yellow);font-weight:600;">■ current selection</span></div>
+      <div class="panel-sub">Total revenue · gross margin · <span style="color:var(--yellow);font-weight:700;">■ current selection</span></div>
       <table class="scenario-table">
         <thead>
           <tr>
-            <th class="row-h">GMV ↓ · clients →</th>
+            <th class="row-h">GMV tier · retainer ↓ · clients →</th>
             <th>5</th><th>10</th><th>15</th><th>20</th>
           </tr>
         </thead>
         <tbody id="matrix"></tbody>
       </table>
       <div class="legend-row">
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(139,195,74,.3);border:1px solid var(--green-bright);"></span>≥ $400k target</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(77,182,172,.3);border:1px solid var(--teal-bright);"></span>$200k–$399k</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(255,183,77,.3);border:1px solid var(--amber-bright);"></span>$100k–$199k</div>
+        <div class="legend-item"><span class="legend-dot" style="background:rgba(139,195,74,.3);border:1px solid var(--green);"></span>≥ $400k target</div>
+        <div class="legend-item"><span class="legend-dot" style="background:rgba(77,182,172,.3);border:1px solid var(--teal);"></span>$200k–$399k</div>
+        <div class="legend-item"><span class="legend-dot" style="background:rgba(255,183,77,.3);border:1px solid var(--amber);"></span>$100k–$199k</div>
         <div class="legend-item"><span class="legend-dot" style="background:rgba(255,112,67,.25);border:1px solid var(--coral);"></span>&lt; $100k</div>
       </div>
     </div>
@@ -556,40 +669,36 @@
         <div id="pl"></div>
       </div>
       <div class="panel">
-        <div class="panel-title">Revenue vs $400k target</div>
-        <div class="panel-sub">GMV levels across client counts</div>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;font-size:11px;color:var(--grey-300);">
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#F9D900;"></span>$400k GMV</span>
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#4db6ac;"></span>$300k</span>
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75;"></span>$200k</span>
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#5a6a9e;"></span>$100k</span>
-          <span style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:0;border-top:2px dashed #F9D900;"></span>target</span>
+        <div class="panel-title">Retainer scaling by GMV tier</div>
+        <div class="panel-sub">$6,500 base + variable layer up to $23.5k cap</div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-size:11px;color:var(--grey-300);">
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#F9D900;"></span>Fixed retainer</span>
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#4db6ac;"></span>Variable retainer</span>
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:0;border-top:2px dashed #ff7043;"></span>Effective take rate %</span>
         </div>
-        <div class="chart-wrap" style="height:200px;">
-          <canvas id="rev-chart" role="img" aria-label="Grouped bar chart showing total revenue by client count at four GMV per client levels.">Revenue increases with more clients and higher GMV per client.</canvas>
+        <div class="chart-wrap" style="height:220px;">
+          <canvas id="rev-chart" role="img" aria-label="Stacked bar chart showing retainer structure across 10 GMV tiers, with effective take rate overlay.">Retainer total grows from $6,500 at base to $30,000 at the $2M+ tier. Effective take rate peaks at 4% at $250k then declines to 1% at $3M.</canvas>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="section-label">Service delivery at current tier</div>
+  <div class="delivery-grid" id="delivery-grid"></div>
+
   <div class="section-label">Pod operations</div>
   <div class="panel" style="margin-bottom:20px;">
     <div class="panel-title">Pod utilization</div>
-    <div class="panel-sub">4 pods max · 5 clients each · $12,500 cost &amp; $100k revenue target per pod</div>
+    <div class="panel-sub">4 pods max · 5 clients each · 3 delivery roles per brand ($1,600 total) · 75%+ margin target at base tier</div>
     <div class="pod-grid" id="pods"></div>
   </div>
 
-  <div class="section-label">Pricing mechanics</div>
+  <div class="section-label">Take rate analysis</div>
   <div class="panel">
-    <div class="panel-title">GMV breakeven analysis</div>
-    <div class="panel-sub">5% GMV fee activates above $130k monthly GMV · dashed line = $20k/client revenue target (exact pod economics)</div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;font-size:11px;color:var(--grey-300);">
-      <span style="display:flex;align-items:center;gap:6px;"><span style="width:18px;height:2px;background:#1D9E75;"></span>rev / client</span>
-      <span style="display:flex;align-items:center;gap:6px;"><span style="width:18px;height:0;border-top:2px dashed #F9D900;"></span>$130k switch</span>
-      <span style="display:flex;align-items:center;gap:6px;"><span style="width:18px;height:0;border-top:2px dashed #ff7043;"></span>$20k target</span>
-    </div>
-    <div class="chart-wrap" style="height:180px;">
-      <canvas id="mode-chart" role="img" aria-label="Line chart showing revenue per client versus monthly GMV, with the $130k switch point and $20k target marked.">Revenue per client is flat at $6,500 below $130k GMV, then rises linearly at 5% above that threshold.</canvas>
+    <div class="panel-title">Effective take rate curve</div>
+    <div class="panel-sub">Take rate peaks at 4.0% at the $250k GMV tier, then declines as retainer caps at $30k — competitive pressure intensifies above $1M GMV</div>
+    <div class="chart-wrap" style="height:200px;">
+      <canvas id="rate-chart" role="img" aria-label="Line chart showing effective take rate declining from 4% at $250k GMV to 1% at $3M GMV.">Effective take rate starts above 10% at sub-$100k GMV (base retainer only), peaks at 4% at $250k, then declines steadily to 1% at $3M.</canvas>
     </div>
   </div>
 
@@ -599,8 +708,8 @@
   <div class="ap-footer-inner">
     <div class="ap-footer-brand">
       <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-        <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+        <text x="0" y="30" font-family="Figtree,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+        <text x="0" y="58" font-family="Figtree,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
         <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
       </svg>
       <p>High-performance ad agency helping ambitious ecommerce brands grow to $100+ million.</p>
@@ -632,18 +741,42 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const BASE=6500,PCT=0.05,SWITCH=BASE/PCT;
-const COD=2500,CPP=5,POD_COST=12500;
-const REV_TARGET=400000,MAX_PODS=4;
-const GMV_ROWS=[100000,200000,300000,400000,500000,600000];
-const GMV_LABELS=['$100k','$200k','$300k','$400k','$500k','$600k'];
-const CLI_COLS=[5,10,15,20];
+/* GMV tier structure from spreadsheet */
+const TIERS = [
+  { gmv: 0,       retainer: 6500,  fixed: 6500, variable: 0,     seeding: 400,  creators: 50,   products: 1, takeRate: null   },
+  { gmv: 50000,   retainer: 6500,  fixed: 6500, variable: 0,     seeding: 400,  creators: 100,  products: 1, takeRate: 0.13   },
+  { gmv: 100000,  retainer: 6500,  fixed: 6500, variable: 0,     seeding: 650,  creators: 200,  products: 1, takeRate: 0.065  },
+  { gmv: 250000,  retainer: 10000, fixed: 6500, variable: 3500,  seeding: 800,  creators: 300,  products: 2, takeRate: 0.040  },
+  { gmv: 500000,  retainer: 15000, fixed: 6500, variable: 8500,  seeding: 1000, creators: 500,  products: 3, takeRate: 0.030  },
+  { gmv: 1000000, retainer: 20000, fixed: 6500, variable: 13500, seeding: 2000, creators: 700,  products: 4, takeRate: 0.020  },
+  { gmv: 1500000, retainer: 25000, fixed: 6500, variable: 18500, seeding: 3000, creators: 1000, products: 4, takeRate: 0.0167 },
+  { gmv: 2000000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 4000, creators: 1500, products: 5, takeRate: 0.015  },
+  { gmv: 2500000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 5000, creators: 2000, products: 5, takeRate: 0.012  },
+  { gmv: 3000000, retainer: 30000, fixed: 6500, variable: 23500, seeding: 6000, creators: 2500, products: 5, takeRate: 0.010  },
+];
 
-function rpc(gmv){return Math.max(BASE,PCT*gmv);}
+const CPP = 5;         /* clients per pod */
+const MAX_PODS = 4;
+const REV_TARGET = 400000;
+
+/* Cost structure - 3 named roles */
+const ROLE_STRATEGIST = 800;
+const ROLE_AFFILIATE_MGR = 400;
+const ROLE_SHOP_COORD = 400;
+const COD = ROLE_STRATEGIST + ROLE_AFFILIATE_MGR + ROLE_SHOP_COORD; // $1,600
+
+const CLI_COLS = [5, 10, 15, 20];
+
 function fmt(n){if(Math.abs(n)>=1e6)return'$'+(n/1e6).toFixed(2).replace(/\.?0+$/,'')+'M';if(Math.abs(n)>=1000)return'$'+Math.round(n/1000)+'k';return'$'+Math.round(n).toLocaleString();}
 function fmtFull(n){return(n<0?'-$':'$')+Math.abs(Math.round(n)).toLocaleString();}
-function pct(n){return(n*100).toFixed(1)+'%';}
-function nearest(v,arr){return arr.reduce((p,c)=>Math.abs(c-v)<Math.abs(p-v)?c:p);}
+function pct(n,d=1){return(n*100).toFixed(d)+'%';}
+function fmtNum(n){return n.toLocaleString();}
+
+function tierName(gmv) {
+  if (gmv >= 1000000) return '$' + (gmv/1000000).toFixed(gmv >= 1e6 && gmv < 1e7 && gmv % 1e6 !== 0 ? 1 : 0) + 'M GMV Tier';
+  if (gmv === 0) return 'Sub-$50k GMV Tier';
+  return '$' + (gmv/1000) + 'k GMV Tier';
+}
 
 function cellClass(rev){
   if(rev>=REV_TARGET)return'cell-green';
@@ -652,31 +785,30 @@ function cellClass(rev){
   return'cell-red';
 }
 
-function buildMatrix(clients,gmv){
-  const nGmv=nearest(gmv,GMV_ROWS);
-  const nCli=nearest(clients,CLI_COLS);
-  const tb=document.getElementById('matrix');
-  tb.innerHTML='';
-  GMV_ROWS.forEach((g,ri)=>{
-    const r=rpc(g);
-    const tr=document.createElement('tr');
-    const isGmv=g>=SWITCH;
-    const modeColor=isGmv?'var(--teal-bright)':'var(--amber-bright)';
-    const td0=document.createElement('td');
-    td0.className='row-label';
-    td0.innerHTML=`<span style="font-weight:700;color:#fff;">${GMV_LABELS[ri]}</span> <span style="color:${modeColor};font-size:9px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;">${isGmv?'5%':'base'}</span>`;
+function getTier(idx) { return TIERS[idx]; }
+
+function buildMatrix(idx, clients){
+  const nCli = CLI_COLS.reduce((p,c) => Math.abs(c-clients) < Math.abs(p-clients) ? c : p);
+  const tb = document.getElementById('matrix');
+  tb.innerHTML = '';
+  TIERS.forEach((tier, ri) => {
+    const tr = document.createElement('tr');
+    const td0 = document.createElement('td');
+    td0.className = 'row-label';
+    const gmvLabel = tier.gmv === 0 ? '< $50k' : tier.gmv >= 1e6 ? '$' + (tier.gmv/1e6).toFixed(tier.gmv === 1.5e6 || tier.gmv === 2.5e6 ? 1 : 0) + 'M' : '$' + (tier.gmv/1000) + 'k';
+    td0.innerHTML = `<span class="row-gmv">${gmvLabel}</span><span class="row-ret">${fmt(tier.retainer)}/mo</span>`;
     tr.appendChild(td0);
-    CLI_COLS.forEach(nc=>{
-      const totalRev=r*nc;
-      const gp=(r-COD)*nc;
-      const margin=gp/totalRev;
-      const isCur=(nc===nCli&&g===nGmv);
-      const cc=cellClass(totalRev);
-      const td=document.createElement('td');
-      td.style.padding='4px';
-      td.innerHTML=`<div class="scenario-cell ${cc}${isCur?' cell-current':''}">
+    CLI_COLS.forEach(nc => {
+      const totalRev = tier.retainer * nc;
+      const gp = (tier.retainer - COD) * nc;
+      const margin = gp / totalRev;
+      const isCur = (nc === nCli && ri === idx);
+      const cc = cellClass(totalRev);
+      const td = document.createElement('td');
+      td.style.padding = '4px';
+      td.innerHTML = `<div class="scenario-cell ${cc}${isCur?' cell-current':''}">
         <div class="cv">${fmt(totalRev)}</div>
-        <div class="cm">${pct(margin)} gm</div>
+        <div class="cm">${pct(margin, 0)} gm</div>
       </div>`;
       tr.appendChild(td);
     });
@@ -684,156 +816,269 @@ function buildMatrix(clients,gmv){
   });
 }
 
-function buildKPIs(clients,gmv){
-  const rev=rpc(gmv);
-  const totalRev=rev*clients;
-  const totalCod=COD*clients;
-  const gp=totalRev-totalCod;
-  const gm=gp/totalRev;
-  const activePods=Math.ceil(clients/CPP);
-  const tp=totalRev/REV_TARGET;
-  const isGmv=gmv>=SWITCH;
-
-  document.getElementById('k-rev').textContent=fmt(totalRev);
-  const rb=document.getElementById('k-rev-b');
-  if(tp>=1){rb.innerHTML=`<span class="badge badge-green">+${Math.round((tp-1)*100)}% vs target</span>`;}
-  else{rb.innerHTML=`<span class="badge badge-red">${Math.round((tp-1)*100)}% vs target</span>`;}
-
-  document.getElementById('k-gp').textContent=fmt(gp);
-  document.getElementById('k-gp-b').textContent=`${clients} × ${fmtFull(rev-COD)}`;
-
-  document.getElementById('k-gm').textContent=pct(gm);
-  const gmb=document.getElementById('k-gm-b');
-  if(gm>=0.875){gmb.innerHTML=`<span class="badge badge-green">Target met</span>`;}
-  else{gmb.innerHTML=`<span class="badge badge-amber">Below 87.5%</span>`;}
-
-  document.getElementById('k-rpc').textContent=fmt(rev);
-  document.getElementById('k-mode').innerHTML=isGmv
-    ?`<span class="badge badge-teal">GMV% active</span>`
-    :`<span class="badge badge-amber">Base rate</span>`;
-
-  document.getElementById('k-pods').textContent=activePods;
-  document.getElementById('k-pods-b').textContent=`of ${MAX_PODS} · ${fmtFull(activePods*POD_COST)} cost`;
+function buildTierCard(tier) {
+  document.getElementById('t-name').textContent = tierName(tier.gmv);
+  document.getElementById('t-breakdown').innerHTML = tier.variable > 0
+    ? `$${fmtNum(tier.fixed)} fixed + $${fmtNum(tier.variable)} variable = <strong style="color:#fff;">$${fmtNum(tier.retainer)} retainer</strong>`
+    : `$${fmtNum(tier.fixed)} fixed retainer · <span style="color:var(--amber);">no variable at this tier</span>`;
+  document.getElementById('t-take').textContent = tier.takeRate ? pct(tier.takeRate, tier.takeRate >= 0.1 ? 0 : 2) : '—';
+  document.getElementById('t-seeding').textContent = fmtNum(tier.seeding);
+  document.getElementById('t-creators').textContent = fmtNum(tier.creators);
+  document.getElementById('t-products').textContent = tier.products;
 }
 
-function buildPL(clients,gmv){
-  const rev=rpc(gmv);
-  const totalRev=rev*clients;
-  const totalCod=COD*clients;
-  const gp=totalRev-totalCod;
-  const gm=gp/totalRev;
-  const activePods=Math.ceil(clients/CPP);
-  const podCostTotal=activePods*POD_COST;
-  const isGmv=gmv>=SWITCH;
-  const gmvFee=PCT*gmv;
-
-  document.getElementById('pl').innerHTML=`
-    <div class="pl-row"><span class="pl-label">Revenue — ${clients} clients × ${fmt(rev)}</span><span class="pl-value">${fmtFull(totalRev)}</span></div>
-    <div class="pl-row"><span class="pl-label">Cost of delivery — $2,500 / client</span><span class="pl-value neg">(${fmtFull(totalCod)})</span></div>
-    <div class="pl-row pl-highlight"><span class="pl-label">Gross profit</span><span class="pl-value pos">${fmtFull(gp)} &nbsp;<span style="font-size:12px;font-weight:500;color:var(--grey-200);">${pct(gm)}</span></span></div>
-    <div class="pl-row"><span class="pl-label">Pod structure view — ${activePods} × $12,500</span><span style="font-size:11px;color:var(--grey-300);">equals CoD above</span></div>
-    <div class="mode-callout">
-      ${isGmv
-        ?`<span class="mode-pill mode-gmv">GMV% pricing active</span><div>5% × ${fmt(gmv)} = <strong style="color:#fff">${fmt(rev)}</strong> / client &nbsp;·&nbsp; base would be $6,500</div>`
-        :`<span class="mode-pill mode-base">Base rate active</span><div>$6,500 / client &nbsp;·&nbsp; GMV fee would be ${fmt(gmvFee)} &nbsp;·&nbsp; needs <strong style="color:#fff">${fmt(SWITCH)}</strong> GMV to trigger the switch</div>`
-      }
+function buildDeliveryGrid(tier, clients) {
+  const grid = document.getElementById('delivery-grid');
+  const totalCod = COD * clients;
+  grid.innerHTML = `
+    <div class="delivery-card">
+      <div class="d-label">Lead Strategist</div>
+      <div class="d-val">$${fmtNum(ROLE_STRATEGIST)}</div>
+      <div class="d-sub">per brand · ${clients}× = ${fmtFull(ROLE_STRATEGIST*clients)}</div>
+    </div>
+    <div class="delivery-card">
+      <div class="d-label">Affiliate Manager</div>
+      <div class="d-val">$${fmtNum(ROLE_AFFILIATE_MGR)}</div>
+      <div class="d-sub">per brand · ${clients}× = ${fmtFull(ROLE_AFFILIATE_MGR*clients)}</div>
+    </div>
+    <div class="delivery-card">
+      <div class="d-label">Shop Coordinator</div>
+      <div class="d-val">$${fmtNum(ROLE_SHOP_COORD)}</div>
+      <div class="d-sub">per brand · ${clients}× = ${fmtFull(ROLE_SHOP_COORD*clients)}</div>
+    </div>
+    <div class="delivery-card highlighted">
+      <div class="d-label">Total CoD / brand</div>
+      <div class="d-val">$${fmtNum(COD)}</div>
+      <div class="d-sub">× ${clients} clients = ${fmtFull(totalCod)}</div>
+    </div>
+    <div class="delivery-card">
+      <div class="d-label">Creators managed</div>
+      <div class="d-val">${fmtNum(tier.creators * clients)}</div>
+      <div class="d-sub">${fmtNum(tier.creators)}/brand × ${clients}</div>
     </div>
   `;
 }
 
-function buildPods(clients,gmv){
-  const rev=rpc(gmv);
-  const grid=document.getElementById('pods');
-  grid.innerHTML='';
-  for(let p=0;p<MAX_PODS;p++){
-    const pc=Math.min(CPP,Math.max(0,clients-p*CPP));
-    const full=pc===CPP,partial=pc>0&&pc<CPP,empty=pc===0;
-    const cls=full?'active':partial?'partial':'inactive';
-    const dotColor=full?'#4db6ac':partial?'#ffb74d':'rgba(255,255,255,0.1)';
-    const dots=Array.from({length:CPP},(_,i)=>`<span class="pod-dot" style="background:${i<pc?dotColor:'rgba(255,255,255,0.08)'};"></span>`).join('');
-    const podRev=pc*rev;
-    const podGp=pc*(rev-COD);
-    const d=document.createElement('div');
-    d.className=`pod-card ${cls}`;
-    d.innerHTML=`
+function buildKPIs(tier, clients) {
+  const totalRev = tier.retainer * clients;
+  const totalCod = COD * clients;
+  const gp = totalRev - totalCod;
+  const gm = gp / totalRev;
+  const activePods = Math.ceil(clients / CPP);
+  const tp = totalRev / REV_TARGET;
+
+  document.getElementById('k-rev').textContent = fmt(totalRev);
+  const rb = document.getElementById('k-rev-b');
+  if (tp >= 1) rb.innerHTML = `<span class="badge badge-green">+${Math.round((tp-1)*100)}% vs target</span>`;
+  else rb.innerHTML = `<span class="badge badge-red">${Math.round((tp-1)*100)}% vs target</span>`;
+
+  document.getElementById('k-gp').textContent = fmt(gp);
+  document.getElementById('k-gp-b').textContent = `${clients} × ${fmtFull(tier.retainer - COD)}`;
+
+  document.getElementById('k-gm').textContent = pct(gm, 1);
+  const gmb = document.getElementById('k-gm-b');
+  if (gm >= 0.80) gmb.innerHTML = `<span class="badge badge-green">Above 80% target</span>`;
+  else if (gm >= 0.75) gmb.innerHTML = `<span class="badge badge-amber">In 75-80% band</span>`;
+  else gmb.innerHTML = `<span class="badge badge-red">Below 75% floor</span>`;
+
+  document.getElementById('k-rpc').textContent = fmt(tier.retainer);
+  document.getElementById('k-take').textContent = tier.takeRate ? `${pct(tier.takeRate, tier.takeRate >= 0.1 ? 0 : 2)} of GMV` : 'base only';
+
+  document.getElementById('k-pods').textContent = activePods;
+  document.getElementById('k-pods-b').textContent = `of ${MAX_PODS} · ${fmtFull(activePods * CPP * COD)} cost`;
+}
+
+function buildPL(tier, clients) {
+  const totalRev = tier.retainer * clients;
+  const strategistCost = ROLE_STRATEGIST * clients;
+  const affiliateCost = ROLE_AFFILIATE_MGR * clients;
+  const shopCost = ROLE_SHOP_COORD * clients;
+  const totalCod = strategistCost + affiliateCost + shopCost;
+  const gp = totalRev - totalCod;
+  const gm = gp / totalRev;
+
+  const tierVarLine = tier.variable > 0
+    ? `<div class="pl-row"><span class="pl-label">Variable retainer <span class="pl-sub">tier-based</span></span><span class="pl-value">${fmtFull(tier.variable * clients)}</span></div>`
+    : '';
+
+  document.getElementById('pl').innerHTML = `
+    <div class="pl-row"><span class="pl-label">Fixed retainer <span class="pl-sub">$6,500 × ${clients}</span></span><span class="pl-value">${fmtFull(tier.fixed * clients)}</span></div>
+    ${tierVarLine}
+    <div class="pl-row pl-highlight"><span class="pl-label">Total revenue</span><span class="pl-value">${fmtFull(totalRev)}</span></div>
+    <div class="pl-row"><span class="pl-label">Lead Strategist <span class="pl-sub">$800 × ${clients}</span></span><span class="pl-value neg">(${fmtFull(strategistCost)})</span></div>
+    <div class="pl-row"><span class="pl-label">Affiliate Manager <span class="pl-sub">$400 × ${clients}</span></span><span class="pl-value neg">(${fmtFull(affiliateCost)})</span></div>
+    <div class="pl-row"><span class="pl-label">Shop Coordinator <span class="pl-sub">$400 × ${clients}</span></span><span class="pl-value neg">(${fmtFull(shopCost)})</span></div>
+    <div class="pl-row pl-highlight"><span class="pl-label">Gross profit</span><span class="pl-value pos">${fmtFull(gp)} &nbsp;<span style="font-size:12px;font-weight:500;color:var(--grey-200);">${pct(gm, 1)}</span></span></div>
+  `;
+}
+
+function buildPods(tier, clients) {
+  const grid = document.getElementById('pods');
+  grid.innerHTML = '';
+  for (let p = 0; p < MAX_PODS; p++) {
+    const pc = Math.min(CPP, Math.max(0, clients - p * CPP));
+    const full = pc === CPP, partial = pc > 0 && pc < CPP, empty = pc === 0;
+    const cls = full ? 'active' : partial ? 'partial' : 'inactive';
+    const dotColor = full ? '#4db6ac' : partial ? '#ffb74d' : 'rgba(255,255,255,0.1)';
+    const dots = Array.from({length: CPP}, (_, i) =>
+      `<span class="pod-dot" style="background:${i < pc ? dotColor : 'rgba(255,255,255,0.08)'};"></span>`
+    ).join('');
+    const podRev = pc * tier.retainer;
+    const podCod = pc * COD;
+    const podGp = podRev - podCod;
+    const d = document.createElement('div');
+    d.className = `pod-card ${cls}`;
+    d.innerHTML = `
       <div class="pod-title">Pod ${p+1}</div>
       <div class="pod-dots">${dots}</div>
       <div class="pod-stat">${pc}/${CPP} clients</div>
       <div class="pod-rev">${fmt(podRev)}</div>
-      <div class="pod-stat">${fmtFull(podGp)} GP · ${fmtFull(pc*COD)} CoD</div>
+      <div class="pod-stat">${fmtFull(podGp)} GP · ${fmtFull(podCod)} CoD</div>
     `;
     grid.appendChild(d);
   }
 }
 
-let chartRev=null,chartMode=null;
+let chartRev = null, chartRate = null;
 
-function buildCharts(){
-  const gmvLevels=[400000,300000,200000,100000];
-  const colors=['#F9D900','#4db6ac','#1D9E75','#5a6a9e'];
+function buildCharts() {
+  const tierLabels = TIERS.map(t => t.gmv === 0 ? '<$50k' : t.gmv >= 1e6 ? '$' + (t.gmv/1e6).toFixed(t.gmv === 1.5e6 || t.gmv === 2.5e6 ? 1 : 0) + 'M' : '$' + (t.gmv/1000) + 'k');
 
-  if(chartRev)chartRev.destroy();
-  chartRev=new Chart(document.getElementById('rev-chart'),{
-    type:'bar',
-    data:{
-      labels:CLI_COLS.map(c=>c+' clients'),
-      datasets:[
-        ...gmvLevels.map((g,i)=>({
-          label:fmt(g)+' GMV',
-          data:CLI_COLS.map(nc=>Math.round(rpc(g)*nc)),
-          backgroundColor:colors[i],
-          borderRadius:4,borderSkipped:false,
-        })),
-        {label:'Target',data:[REV_TARGET,REV_TARGET,REV_TARGET,REV_TARGET],type:'line',borderColor:'#F9D900',borderWidth:2,borderDash:[6,4],pointRadius:0,fill:false,tension:0}
+  if (chartRev) chartRev.destroy();
+  chartRev = new Chart(document.getElementById('rev-chart'), {
+    type: 'bar',
+    data: {
+      labels: tierLabels,
+      datasets: [
+        {
+          label: 'Fixed',
+          data: TIERS.map(t => t.fixed),
+          backgroundColor: '#F9D900',
+          borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4 },
+          borderSkipped: false,
+          stack: 'retainer',
+        },
+        {
+          label: 'Variable',
+          data: TIERS.map(t => t.variable),
+          backgroundColor: '#4db6ac',
+          borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
+          borderSkipped: false,
+          stack: 'retainer',
+        },
+        {
+          label: 'Take rate',
+          data: TIERS.map(t => t.takeRate ? t.takeRate * 100 : null),
+          type: 'line',
+          borderColor: '#ff7043',
+          borderWidth: 2.5,
+          borderDash: [4,3],
+          pointRadius: 3,
+          pointBackgroundColor: '#ff7043',
+          fill: false,
+          tension: 0.2,
+          yAxisID: 'y1',
+          spanGaps: true,
+        }
       ]
     },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{backgroundColor:'#0e1358',titleColor:'#fff',bodyColor:'#B0B1B6',borderColor:'#F9D900',borderWidth:1,padding:10,callbacks:{label:ctx=>` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`}}},
-      scales:{
-        x:{grid:{display:false},ticks:{font:{size:11,weight:500},color:'#B0B1B6'}},
-        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v)}}
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#12142b', titleColor: '#fff', bodyColor: '#B0B1B6',
+          borderColor: '#F9D900', borderWidth: 1, padding: 10,
+          callbacks: {
+            label: ctx => ctx.dataset.label === 'Take rate'
+              ? ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%`
+              : ` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10, weight: 500 }, color: '#B0B1B6' } },
+        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { font: { size: 10 }, color: '#8A8B93', callback: v => fmt(v) } },
+        y1: {
+          position: 'right', min: 0, max: 15,
+          grid: { display: false },
+          ticks: { font: { size: 10 }, color: '#ff7043', callback: v => v + '%' }
+        }
       }
     }
   });
 
-  const modePoints=[];
-  for(let g=0;g<=700000;g+=15000){modePoints.push({x:g,y:rpc(g)});}
+  const rateData = TIERS.filter(t => t.takeRate !== null).map(t => ({ x: t.gmv, y: t.takeRate * 100 }));
 
-  if(chartMode)chartMode.destroy();
-  chartMode=new Chart(document.getElementById('mode-chart'),{
-    type:'line',
-    data:{
-      datasets:[
-        {label:'Rev / client',data:modePoints,borderColor:'#1D9E75',borderWidth:3,pointRadius:0,fill:false,tension:0.05},
-        {label:'Switch $130k',data:[{x:SWITCH,y:0},{x:SWITCH,y:42000}],borderColor:'#F9D900',borderWidth:2,borderDash:[6,4],pointRadius:0,fill:false},
-        {label:'$20k target',data:[{x:0,y:20000},{x:700000,y:20000}],borderColor:'#ff7043',borderWidth:2,borderDash:[5,3],pointRadius:0,fill:false}
-      ]
+  if (chartRate) chartRate.destroy();
+  chartRate = new Chart(document.getElementById('rate-chart'), {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: 'Effective take rate',
+        data: rateData,
+        borderColor: '#F9D900',
+        backgroundColor: 'rgba(249,217,0,0.08)',
+        borderWidth: 3,
+        pointRadius: 4,
+        pointBackgroundColor: '#F9D900',
+        pointBorderColor: '#02030e',
+        pointBorderWidth: 2,
+        fill: true,
+        tension: 0.25,
+      }]
     },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{backgroundColor:'#0e1358',titleColor:'#fff',bodyColor:'#B0B1B6',borderColor:'#F9D900',borderWidth:1,padding:10,callbacks:{label:ctx=>` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`}}},
-      scales:{
-        x:{type:'linear',min:0,max:700000,grid:{display:false},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v),maxTicksLimit:6},title:{display:true,text:'monthly GMV / client',font:{size:10,weight:600},color:'#8A8B93'}},
-        y:{min:0,max:42000,grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v),maxTicksLimit:5},title:{display:true,text:'rev / client',font:{size:10,weight:600},color:'#8A8B93'}}
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#12142b', titleColor: '#fff', bodyColor: '#B0B1B6',
+          borderColor: '#F9D900', borderWidth: 1, padding: 10,
+          callbacks: {
+            title: ctx => 'GMV: ' + fmt(ctx[0].parsed.x),
+            label: ctx => ' Take rate: ' + ctx.parsed.y.toFixed(2) + '%'
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'logarithmic', min: 40000, max: 3500000,
+          grid: { display: false },
+          ticks: { font: { size: 10 }, color: '#8A8B93', callback: v => fmt(v), maxTicksLimit: 8 },
+          title: { display: true, text: 'monthly GMV / client (log scale)', font: { size: 10, weight: 600 }, color: '#8A8B93' }
+        },
+        y: {
+          min: 0, max: 15,
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { font: { size: 10 }, color: '#8A8B93', callback: v => v + '%' },
+          title: { display: true, text: 'effective take rate', font: { size: 10, weight: 600 }, color: '#8A8B93' }
+        }
       }
     }
   });
 }
 
-function update(){
-  const clients=parseInt(document.getElementById('s-clients').value);
-  const gmv=parseInt(document.getElementById('s-gmv').value);
-  document.getElementById('v-clients').textContent=clients;
-  document.getElementById('v-gmv').textContent=gmv>=1e6?'$'+(gmv/1e6).toFixed(1)+'M':'$'+Math.round(gmv/1000)+'k';
-  buildKPIs(clients,gmv);
-  buildMatrix(clients,gmv);
-  buildPL(clients,gmv);
-  buildPods(clients,gmv);
+function update() {
+  const idx = parseInt(document.getElementById('s-gmv').value);
+  const clients = parseInt(document.getElementById('s-clients').value);
+  const tier = getTier(idx);
+
+  const gmvDisplay = tier.gmv === 0 ? '<$50k' : tier.gmv >= 1e6 ? '$' + (tier.gmv/1e6).toFixed(tier.gmv === 1.5e6 || tier.gmv === 2.5e6 ? 1 : 0) + 'M' : '$' + (tier.gmv/1000) + 'k';
+  document.getElementById('v-gmv').textContent = gmvDisplay;
+  document.getElementById('v-gmv-sub').textContent = `Tier ${idx + 1} of ${TIERS.length}`;
+  document.getElementById('v-clients').textContent = clients;
+
+  buildTierCard(tier);
+  buildKPIs(tier, clients);
+  buildMatrix(idx, clients);
+  buildPL(tier, clients);
+  buildPods(tier, clients);
+  buildDeliveryGrid(tier, clients);
 }
 
-document.getElementById('s-clients').addEventListener('input',update);
-document.getElementById('s-gmv').addEventListener('input',update);
+document.getElementById('s-gmv').addEventListener('input', update);
+document.getElementById('s-clients').addEventListener('input', update);
 
 buildCharts();
 update();
