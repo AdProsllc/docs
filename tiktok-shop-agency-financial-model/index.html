@@ -7,168 +7,465 @@
   <meta name="googlebot" content="noindex, nofollow">
   <title>TikTok Shop Agency Financial Model — Ad Pros</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --navy: #040735;
-      --navy-card: #070b3d;
-      --navy-card2: #0a0f4a;
+      --navy-deeper: #02031f;
+      --navy-card: #0b1048;
+      --navy-card-2: #0e1358;
       --yellow: #F9D900;
+      --yellow-hover: #FFE837;
       --blue: #1A6FD4;
       --white: #FFFFFF;
+      --grey-400: #6A6B73;
       --grey-300: #8A8B93;
       --grey-200: #B0B1B6;
-      --card-border: #0e1358;
+      --grey-100: #D4D5DA;
+      --card-border: rgba(255,255,255,0.08);
+      --card-border-hover: rgba(249,217,0,0.3);
+
       --teal: #1D9E75;
-      --teal-light: rgba(29,158,117,0.12);
-      --coral: #D85A30;
-      --coral-light: rgba(216,90,48,0.12);
-      --amber: #BA7517;
-      --amber-light: rgba(186,117,23,0.12);
-      --purple: #7c73e6;
-      --green: #639922;
-      --green-light: rgba(99,153,34,0.15);
+      --teal-bright: #4db6ac;
+      --coral: #ff7043;
+      --amber-bright: #ffb74d;
+      --green-bright: #8bc34a;
+      --purple-bright: #b39ddb;
     }
-    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; }
-    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
-    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
-    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
-    .ap-content { padding: 40px 48px; max-width: 1280px; margin: 0 auto; }
-    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy);
+      color: var(--grey-200);
+      font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      font-feature-settings: "ss01", "cv02", "cv11";
+    }
 
-    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--grey-300); font-weight: 600; margin-bottom: 10px; }
+    /* ===== NAV BAR ===== */
+    .ap-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(4,7,53,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .ap-nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 18px 32px;
+      display: flex; align-items: center; gap: 32px;
+    }
+    .ap-logo { display: flex; align-items: center; }
+    .ap-logo svg { display: block; height: 42px; width: auto; }
+    .ap-nav-links { display: flex; gap: 28px; margin-left: 18px; }
+    .ap-nav-link {
+      color: var(--grey-100); text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .ap-nav-link:hover { color: var(--yellow); }
+    .ap-nav-spacer { flex: 1; }
+    .ap-nav-cta {
+      background: var(--yellow); color: var(--navy);
+      font-size: 14px; font-weight: 700;
+      padding: 11px 22px; border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.15s ease;
+      letter-spacing: -0.01em;
+    }
+    .ap-nav-cta:hover { background: var(--yellow-hover); transform: translateY(-1px); }
 
+    /* ===== HERO ===== */
+    .ap-hero {
+      padding: 56px 32px 40px;
+      max-width: 1280px; margin: 0 auto;
+      position: relative;
+    }
+    .ap-hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--yellow);
+      padding: 7px 14px;
+      background: rgba(249,217,0,0.08);
+      border: 1px solid rgba(249,217,0,0.25);
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .ap-hero-tag::before {
+      content: ""; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--yellow);
+      box-shadow: 0 0 12px var(--yellow);
+    }
+    .ap-hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.05;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      max-width: 900px;
+    }
+    .ap-hero h1 .accent {
+      background: linear-gradient(180deg, transparent 65%, rgba(249,217,0,0.55) 65%, rgba(249,217,0,0.55) 92%, transparent 92%);
+      padding: 0 4px;
+    }
+    .ap-hero p {
+      font-size: 17px; line-height: 1.5;
+      color: var(--grey-200);
+      max-width: 720px;
+    }
+
+    /* ===== CONTENT ===== */
+    .ap-content { padding: 0 32px 40px; max-width: 1280px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--grey-300);
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before {
+      content: ""; width: 24px; height: 2px; background: var(--yellow);
+    }
+
+    /* ===== INPUTS PANEL ===== */
     .assumptions-panel {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-      padding: 20px 24px;
+      gap: 0;
+      margin-bottom: 32px;
       background: var(--navy-card);
-      border-radius: 12px;
-      border: 0.5px solid var(--card-border);
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      overflow: hidden;
     }
-    .assumption-item .a-label { font-size: 11px; color: var(--grey-300); margin-bottom: 4px; }
-    .assumption-item .a-val { font-size: 24px; font-weight: 700; color: #fff; }
-    .assumption-item .a-sub { font-size: 10px; color: var(--grey-300); margin-top: 4px; }
+    .assumption-item {
+      padding: 20px 24px;
+      border-right: 1px solid var(--card-border);
+    }
+    .assumption-item:last-child { border-right: none; }
+    .assumption-item .a-label {
+      font-size: 11px; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 6px; font-weight: 600;
+    }
+    .assumption-item .a-val {
+      font-size: 28px; font-weight: 800; color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .assumption-item .a-sub {
+      font-size: 11px; color: var(--grey-300); margin-top: 6px;
+    }
     .assumption-item input[type=range] {
-      width: 100%; margin-top: 6px;
+      width: 100%; margin-top: 8px;
       -webkit-appearance: none; appearance: none;
       height: 4px; border-radius: 2px;
-      background: #1a1f6a;
-      outline: none;
+      background: rgba(255,255,255,0.1);
+      outline: none; cursor: pointer;
     }
     .assumption-item input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none; appearance: none;
-      width: 14px; height: 14px; border-radius: 50%;
+      width: 16px; height: 16px; border-radius: 50%;
       background: var(--yellow); cursor: pointer;
-      border: 2px solid var(--navy);
+      border: 3px solid var(--navy);
+      box-shadow: 0 0 0 1px var(--yellow);
+      transition: transform 0.15s ease;
     }
+    .assumption-item input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
     .assumption-item input[type=range]::-moz-range-thumb {
       width: 14px; height: 14px; border-radius: 50%;
       background: var(--yellow); cursor: pointer;
       border: 2px solid var(--navy);
     }
 
-    .kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px; margin-bottom: 24px; }
-    .kpi-card { background: var(--navy-card); border-radius: 10px; padding: 16px 18px; border: 0.5px solid var(--card-border); }
-    .kpi-card .kpi-label { font-size: 11px; color: var(--grey-300); margin-bottom: 6px; }
-    .kpi-card .kpi-value { font-size: 22px; font-weight: 700; color: #fff; }
-    .kpi-card .kpi-badge { margin-top: 6px; }
-    .badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
-    .badge-green { background: rgba(99,153,34,0.2); color: #8bc34a; }
-    .badge-red { background: rgba(216,90,48,0.2); color: #ff7043; }
-    .badge-amber { background: rgba(186,117,23,0.2); color: #ffb74d; }
-    .badge-teal { background: rgba(29,158,117,0.2); color: #4db6ac; }
-    .badge-purple { background: rgba(124,115,230,0.2); color: #b39ddb; }
+    /* ===== KPI CARDS ===== */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap: 12px; margin-bottom: 32px;
+    }
+    .kpi-card {
+      background: var(--navy-card);
+      border-radius: 14px;
+      padding: 20px 22px;
+      border: 1px solid var(--card-border);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .kpi-card:hover { border-color: var(--card-border-hover); transform: translateY(-2px); }
+    .kpi-card .kpi-label {
+      font-size: 11px; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 8px; font-weight: 600;
+    }
+    .kpi-card .kpi-value {
+      font-size: 28px; font-weight: 800; color: #fff;
+      letter-spacing: -0.02em; line-height: 1.1;
+    }
+    .kpi-card .kpi-badge { margin-top: 8px; min-height: 20px; }
+    .badge {
+      display: inline-block; font-size: 10px;
+      padding: 3px 10px; border-radius: 100px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .badge-green { background: rgba(139,195,74,0.15); color: var(--green-bright); }
+    .badge-red { background: rgba(255,112,67,0.15); color: var(--coral); }
+    .badge-amber { background: rgba(255,183,77,0.15); color: var(--amber-bright); }
+    .badge-teal { background: rgba(77,182,172,0.15); color: var(--teal-bright); }
+    .badge-yellow { background: rgba(249,217,0,0.15); color: var(--yellow); }
 
-    .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
-    .panel { background: var(--navy-card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 18px 20px; }
-    .panel-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
-    .panel-sub { font-size: 11px; color: var(--grey-300); margin-bottom: 14px; }
+    /* ===== PANELS ===== */
+    .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .panel {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 26px;
+    }
+    .panel-title {
+      font-size: 16px; font-weight: 700; color: #fff;
+      margin-bottom: 4px; letter-spacing: -0.01em;
+    }
+    .panel-sub { font-size: 12px; color: var(--grey-300); margin-bottom: 18px; line-height: 1.5; }
 
+    /* ===== SCENARIO TABLE ===== */
     .scenario-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-    .scenario-table th { font-size: 10px; font-weight: 600; color: var(--grey-300); text-align: center; padding: 4px 6px 8px; border-bottom: 0.5px solid var(--card-border); }
-    .scenario-table th.row-h { text-align: left; }
-    .scenario-table td { padding: 3px; border: none; }
-    .scenario-table td.row-label { padding: 3px 6px 3px 0; font-size: 10px; color: var(--grey-300); white-space: nowrap; border-bottom: 0.5px solid var(--card-border); }
-    .scenario-cell { border-radius: 4px; padding: 5px 6px; }
-    .cell-green { background: rgba(99,153,34,0.18); }
-    .cell-green .cv { color: #8bc34a; }
+    .scenario-table th {
+      font-size: 10px; font-weight: 700; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      text-align: center; padding: 8px 6px 10px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .scenario-table th.row-h { text-align: left; padding-left: 0; }
+    .scenario-table td { padding: 4px; border: none; }
+    .scenario-table td.row-label {
+      padding: 6px 10px 6px 0; font-size: 11px;
+      color: var(--grey-200); white-space: nowrap;
+      border-bottom: 1px solid var(--card-border);
+      font-weight: 500;
+    }
+    .scenario-cell {
+      border-radius: 6px; padding: 8px 10px;
+      transition: transform 0.1s ease;
+    }
+    .cell-green { background: rgba(139,195,74,0.14); }
+    .cell-green .cv { color: var(--green-bright); }
     .cell-green .cm { color: rgba(139,195,74,0.65); }
-    .cell-teal { background: rgba(29,158,117,0.15); }
-    .cell-teal .cv { color: #4db6ac; }
+    .cell-teal { background: rgba(77,182,172,0.14); }
+    .cell-teal .cv { color: var(--teal-bright); }
     .cell-teal .cm { color: rgba(77,182,172,0.65); }
-    .cell-amber { background: rgba(186,117,23,0.15); }
-    .cell-amber .cv { color: #ffb74d; }
+    .cell-amber { background: rgba(255,183,77,0.14); }
+    .cell-amber .cv { color: var(--amber-bright); }
     .cell-amber .cm { color: rgba(255,183,77,0.65); }
-    .cell-red { background: rgba(216,90,48,0.12); }
-    .cell-red .cv { color: #ff7043; }
+    .cell-red { background: rgba(255,112,67,0.12); }
+    .cell-red .cv { color: var(--coral); }
     .cell-red .cm { color: rgba(255,112,67,0.65); }
-    .cell-current { outline: 2px solid var(--purple); outline-offset: -1px; }
+    .cell-current {
+      outline: 2px solid var(--yellow);
+      outline-offset: -1px;
+      box-shadow: 0 0 0 4px rgba(249,217,0,0.15);
+    }
+    .cv { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
+    .cm { font-size: 10px; margin-top: 2px; font-weight: 500; }
 
-    .pl-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 0.5px solid var(--card-border); font-size: 12px; }
+    /* ===== P&L ===== */
+    .pl-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--card-border);
+      font-size: 13px;
+    }
     .pl-row:last-child { border-bottom: none; }
-    .pl-label { color: var(--grey-300); }
-    .pl-value { font-weight: 600; color: #fff; }
+    .pl-label { color: var(--grey-200); }
+    .pl-value { font-weight: 700; color: #fff; letter-spacing: -0.01em; }
     .pl-value.neg { color: var(--coral); }
-    .pl-value.pos { color: var(--teal); }
-    .pl-highlight { background: rgba(249,217,0,0.05); border-radius: 6px; margin: 0 -6px; padding: 8px 6px; border-bottom: none !important; }
-    .mode-pill { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; margin-top: 8px; display: inline-block; }
-    .mode-gmv { background: rgba(29,158,117,0.2); color: #4db6ac; }
-    .mode-base { background: rgba(186,117,23,0.2); color: #ffb74d; }
+    .pl-value.pos { color: var(--green-bright); }
+    .pl-highlight {
+      background: rgba(249,217,0,0.06);
+      border-radius: 10px; margin: 4px -10px;
+      padding: 14px 14px; border-bottom: none !important;
+      border: 1px solid rgba(249,217,0,0.18);
+    }
+    .pl-highlight .pl-label { color: #fff; font-weight: 700; font-size: 14px; }
+    .mode-callout {
+      margin-top: 14px; padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--yellow);
+      border-radius: 8px;
+      font-size: 12px; color: var(--grey-100); line-height: 1.55;
+    }
+    .mode-pill {
+      font-size: 10px; padding: 3px 10px;
+      border-radius: 100px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      display: inline-block; margin-bottom: 6px;
+    }
+    .mode-gmv { background: rgba(77,182,172,0.18); color: var(--teal-bright); }
+    .mode-base { background: rgba(255,183,77,0.18); color: var(--amber-bright); }
 
+    /* ===== CHART ===== */
     .chart-wrap { position: relative; width: 100%; }
 
-    .pod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-    .pod-card { border-radius: 10px; padding: 12px 14px; border: 0.5px solid var(--card-border); background: var(--navy-card2); }
-    .pod-card.active { border-color: var(--teal); background: rgba(29,158,117,0.08); }
-    .pod-card.partial { border-color: var(--amber); background: rgba(186,117,23,0.08); }
-    .pod-card.inactive { opacity: 0.3; }
-    .pod-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-    .pod-card.active .pod-title { color: #4db6ac; }
-    .pod-card.partial .pod-title { color: #ffb74d; }
+    /* ===== PODS ===== */
+    .pod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    .pod-card {
+      border-radius: 12px; padding: 18px 20px;
+      border: 1px solid var(--card-border);
+      background: var(--navy-card-2);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .pod-card:hover { transform: translateY(-2px); }
+    .pod-card.active {
+      border-color: rgba(77,182,172,0.4);
+      background: linear-gradient(165deg, rgba(77,182,172,0.08), rgba(77,182,172,0.02));
+    }
+    .pod-card.partial {
+      border-color: rgba(255,183,77,0.4);
+      background: linear-gradient(165deg, rgba(255,183,77,0.08), rgba(255,183,77,0.02));
+    }
+    .pod-card.inactive { opacity: 0.4; }
+    .pod-title {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .pod-card.active .pod-title { color: var(--teal-bright); }
+    .pod-card.partial .pod-title { color: var(--amber-bright); }
     .pod-card.inactive .pod-title { color: var(--grey-300); }
-    .pod-dots { display: flex; gap: 4px; margin-bottom: 8px; }
-    .pod-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .pod-stat { font-size: 10px; color: var(--grey-300); }
-    .pod-rev { font-size: 13px; font-weight: 600; color: #fff; margin-top: 2px; }
+    .pod-dots { display: flex; gap: 5px; margin-bottom: 12px; }
+    .pod-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .pod-stat { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .pod-rev { font-size: 20px; font-weight: 800; color: #fff; margin-top: 6px; letter-spacing: -0.02em; }
 
-    .legend-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 10px; color: var(--grey-300); }
-    .legend-item { display: flex; align-items: center; gap: 4px; }
+    /* ===== LEGEND ===== */
+    .legend-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; font-size: 11px; color: var(--grey-300); }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
     .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
-    .pricing-section { margin-top: 18px; }
-    .pricing-callout { background: rgba(124,115,230,0.08); border: 0.5px solid rgba(124,115,230,0.3); border-radius: 8px; padding: 10px 14px; font-size: 11px; color: var(--grey-200); margin-top: 10px; line-height: 1.5; }
+    /* ===== STATS BANNER ===== */
+    .stats-banner {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--card-border);
+      border-radius: 16px; overflow: hidden;
+      margin-bottom: 32px;
+      border: 1px solid var(--card-border);
+    }
+    .stats-banner-item {
+      background: var(--navy-card);
+      padding: 24px 28px;
+    }
+    .stats-banner-value {
+      font-size: 32px; font-weight: 800; color: var(--yellow);
+      letter-spacing: -0.02em; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stats-banner-label {
+      font-size: 12px; color: var(--grey-200);
+      font-weight: 500;
+    }
 
-    @media (max-width: 900px) {
-      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+    /* ===== FOOTER ===== */
+    .ap-footer {
+      margin-top: 80px; padding: 48px 32px 32px;
+      border-top: 1px solid var(--card-border);
+      background: var(--navy-deeper);
+    }
+    .ap-footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 32px;
+    }
+    .ap-footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
+    .ap-footer-brand svg { height: 40px; width: auto; }
+    .ap-footer-brand p { font-size: 12px; color: var(--grey-400); line-height: 1.5; }
+    .ap-footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .ap-footer-col .col-title {
+      font-size: 11px; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      font-weight: 700; margin-bottom: 6px;
+    }
+    .ap-footer-col a {
+      color: var(--grey-200); text-decoration: none;
+      font-size: 13px; transition: color 0.15s ease;
+    }
+    .ap-footer-col a:hover { color: var(--yellow); }
+    .ap-footer-bottom {
+      max-width: 1280px; margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .ap-footer-bottom p { font-size: 11px; color: var(--grey-400); }
+
+    @media (max-width: 1024px) {
+      .ap-nav-inner, .ap-hero, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; }
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+      .assumptions-panel { grid-template-columns: 1fr 1fr 1fr; }
+      .assumption-item:nth-child(-n+3) { border-bottom: 1px solid var(--card-border); }
+    }
+    @media (max-width: 760px) {
+      .ap-nav-links { display: none; }
       .main-grid { grid-template-columns: 1fr; }
-      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
       .assumptions-panel { grid-template-columns: 1fr 1fr; }
-      .pod-grid { grid-template-columns: repeat(2,1fr); }
+      .assumption-item:nth-child(-n+2) { border-bottom: 1px solid var(--card-border); }
+      .assumption-item { border-right: 1px solid var(--card-border); }
+      .assumption-item:nth-child(2n) { border-right: none; }
+      .pod-grid { grid-template-columns: 1fr 1fr; }
+      .stats-banner { grid-template-columns: 1fr; }
+      .ap-hero h1 { font-size: 32px; }
     }
   </style>
 </head>
 <body>
 
-<header class="ap-header">
-  <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
-    <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-    <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
-    <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
-  </svg>
-  <div class="ap-header-divider"></div>
-  <div class="ap-header-text">
-    <h1>TikTok Shop Agency Financial Model</h1>
-    <p>Scenario modeling · pod structure · pricing analysis — interactive</p>
+<nav class="ap-nav">
+  <div class="ap-nav-inner">
+    <a href="https://www.adpros.com" class="ap-logo" aria-label="Ad Pros">
+      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+        <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+        <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+      </svg>
+    </a>
+    <div class="ap-nav-links">
+      <a href="https://www.adpros.com/service" class="ap-nav-link">Services</a>
+      <a href="https://www.adpros.com/platforms" class="ap-nav-link">Platforms</a>
+      <a href="https://www.adpros.com/blog" class="ap-nav-link">Blog</a>
+      <a href="https://www.adpros.com/contact-us" class="ap-nav-link">Contact</a>
+    </div>
+    <div class="ap-nav-spacer"></div>
+    <a href="https://www.adpros.com/waitlist" class="ap-nav-cta">Join waitlist</a>
   </div>
-</header>
+</nav>
+
+<section class="ap-hero">
+  <div class="ap-hero-tag">Internal · Financial Model</div>
+  <h1>Unlock Unreasonable Growth Through <span class="accent">TikTok Shop</span> At Scale</h1>
+  <p>Interactive scenario planning for a dedicated TikTok Shop pod structure — $6,500/month base or 5% of GMV, 20 client capacity, $400k/month revenue target.</p>
+</section>
 
 <div class="ap-content">
+
+  <div class="stats-banner">
+    <div class="stats-banner-item">
+      <div class="stats-banner-value">$400K</div>
+      <div class="stats-banner-label">Monthly revenue target</div>
+    </div>
+    <div class="stats-banner-item">
+      <div class="stats-banner-value">87.5%</div>
+      <div class="stats-banner-label">Gross margin target</div>
+    </div>
+    <div class="stats-banner-item">
+      <div class="stats-banner-value">20</div>
+      <div class="stats-banner-label">Client capacity · 4 pods</div>
+    </div>
+  </div>
 
   <div class="section-label">Model inputs</div>
   <div class="assumptions-panel">
@@ -179,7 +476,7 @@
       <div class="a-sub">max 20 · 4 pods</div>
     </div>
     <div class="assumption-item">
-      <div class="a-label">Monthly GMV / client</div>
+      <div class="a-label">GMV / client / mo</div>
       <div id="v-gmv" class="a-val">$400k</div>
       <input type="range" min="50000" max="700000" value="400000" step="10000" id="s-gmv">
       <div class="a-sub">switch at $130k GMV</div>
@@ -187,20 +484,21 @@
     <div class="assumption-item">
       <div class="a-label">Base rate / client</div>
       <div class="a-val">$6,500</div>
-      <div class="a-sub" style="margin-top:16px;">per client / month</div>
+      <div class="a-sub" style="margin-top:20px;">per client / month</div>
     </div>
     <div class="assumption-item">
       <div class="a-label">GMV fee</div>
       <div class="a-val">5%</div>
-      <div class="a-sub" style="margin-top:16px;">whichever is greater</div>
+      <div class="a-sub" style="margin-top:20px;">whichever is greater</div>
     </div>
     <div class="assumption-item">
-      <div class="a-label">Cost of delivery</div>
+      <div class="a-label">CoD / client</div>
       <div class="a-val">$2,500</div>
-      <div class="a-sub" style="margin-top:16px;">$12.5k per pod</div>
+      <div class="a-sub" style="margin-top:20px;">$12.5k per pod</div>
     </div>
   </div>
 
+  <div class="section-label">Live metrics</div>
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Monthly revenue</div>
@@ -210,7 +508,7 @@
     <div class="kpi-card">
       <div class="kpi-label">Gross profit</div>
       <div id="k-gp" class="kpi-value">$350k</div>
-      <div class="kpi-badge"><span id="k-gp-b" style="font-size:10px;color:var(--grey-300);"></span></div>
+      <div class="kpi-badge"><span id="k-gp-b" style="font-size:11px;color:var(--grey-300);"></span></div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Gross margin</div>
@@ -225,81 +523,111 @@
     <div class="kpi-card">
       <div class="kpi-label">Active pods</div>
       <div id="k-pods" class="kpi-value">4</div>
-      <div class="kpi-badge"><span id="k-pods-b" style="font-size:10px;color:var(--grey-300);"></span></div>
+      <div class="kpi-badge"><span id="k-pods-b" style="font-size:11px;color:var(--grey-300);"></span></div>
     </div>
   </div>
 
+  <div class="section-label">Scenario planning</div>
   <div class="main-grid">
     <div class="panel">
       <div class="panel-title">Scenario matrix</div>
-      <div class="panel-sub">Total revenue · gross margin · <span style="color:#b39ddb;">■ current selection</span></div>
+      <div class="panel-sub">Total revenue · gross margin · <span style="color:var(--yellow);font-weight:600;">■ current selection</span></div>
       <table class="scenario-table">
         <thead>
           <tr>
-            <th class="row-h" style="text-align:left;padding-left:0;">GMV / client ↓ &nbsp;·&nbsp; clients →</th>
+            <th class="row-h">GMV ↓ · clients →</th>
             <th>5</th><th>10</th><th>15</th><th>20</th>
           </tr>
         </thead>
         <tbody id="matrix"></tbody>
       </table>
       <div class="legend-row">
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(99,153,34,.4);border:0.5px solid #639922;"></span>≥ $400k target</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(29,158,117,.35);border:0.5px solid #1D9E75;"></span>$200k–$399k</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(186,117,23,.3);border:0.5px solid #BA7517;"></span>$100k–$199k</div>
-        <div class="legend-item"><span class="legend-dot" style="background:rgba(216,90,48,.25);border:0.5px solid #D85A30;"></span>&lt; $100k</div>
+        <div class="legend-item"><span class="legend-dot" style="background:rgba(139,195,74,.3);border:1px solid var(--green-bright);"></span>≥ $400k target</div>
+        <div class="legend-item"><span class="legend-dot" style="background:rgba(77,182,172,.3);border:1px solid var(--teal-bright);"></span>$200k–$399k</div>
+        <div class="legend-item"><span class="legend-dot" style="background:rgba(255,183,77,.3);border:1px solid var(--amber-bright);"></span>$100k–$199k</div>
+        <div class="legend-item"><span class="legend-dot" style="background:rgba(255,112,67,.25);border:1px solid var(--coral);"></span>&lt; $100k</div>
       </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:16px;">
+    <div style="display:flex;flex-direction:column;gap:20px;">
       <div class="panel">
         <div class="panel-title">P&amp;L summary</div>
+        <div class="panel-sub">For current slider configuration</div>
         <div id="pl"></div>
       </div>
       <div class="panel">
         <div class="panel-title">Revenue vs $400k target</div>
         <div class="panel-sub">GMV levels across client counts</div>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;font-size:10px;color:var(--grey-300);">
-          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#F9D900;"></span>$400k GMV</span>
-          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#4db6ac;"></span>$300k</span>
-          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75;"></span>$200k</span>
-          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#5a6a9e;"></span>$100k</span>
-          <span style="display:flex;align-items:center;gap:4px;"><span style="width:20px;height:2px;background:#7c73e6;"></span>target</span>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;font-size:11px;color:var(--grey-300);">
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#F9D900;"></span>$400k GMV</span>
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#4db6ac;"></span>$300k</span>
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75;"></span>$200k</span>
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#5a6a9e;"></span>$100k</span>
+          <span style="display:flex;align-items:center;gap:6px;"><span style="width:22px;height:0;border-top:2px dashed #F9D900;"></span>target</span>
         </div>
-        <div class="chart-wrap" style="height:180px;">
-          <canvas id="rev-chart" role="img" aria-label="Grouped bar chart showing total revenue by client count at four GMV per client levels. Higher GMV and more clients drive higher revenue.">Revenue increases with more clients and higher GMV per client.</canvas>
+        <div class="chart-wrap" style="height:200px;">
+          <canvas id="rev-chart" role="img" aria-label="Grouped bar chart showing total revenue by client count at four GMV per client levels.">Revenue increases with more clients and higher GMV per client.</canvas>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="panel" style="margin-bottom:18px;">
+  <div class="section-label">Pod operations</div>
+  <div class="panel" style="margin-bottom:20px;">
     <div class="panel-title">Pod utilization</div>
-    <div class="panel-sub">4 pods max · 5 clients each · $12,500 cost / $100k revenue target per pod</div>
+    <div class="panel-sub">4 pods max · 5 clients each · $12,500 cost &amp; $100k revenue target per pod</div>
     <div class="pod-grid" id="pods"></div>
   </div>
 
+  <div class="section-label">Pricing mechanics</div>
   <div class="panel">
-    <div class="panel-title">Pricing mode — GMV breakeven analysis</div>
-    <div class="panel-sub">5% GMV fee activates above $130k monthly GMV · dashed line = $20k/client revenue target</div>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;font-size:10px;color:var(--grey-300);">
-      <span style="display:flex;align-items:center;gap:4px;"><span style="width:16px;height:2px;background:#1D9E75;"></span>rev / client</span>
-      <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:0;border-top:2px dashed #7c73e6;"></span>$130k switch</span>
-      <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:0;border-top:2px dashed #D85A30;"></span>$20k target</span>
+    <div class="panel-title">GMV breakeven analysis</div>
+    <div class="panel-sub">5% GMV fee activates above $130k monthly GMV · dashed line = $20k/client revenue target (exact pod economics)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;font-size:11px;color:var(--grey-300);">
+      <span style="display:flex;align-items:center;gap:6px;"><span style="width:18px;height:2px;background:#1D9E75;"></span>rev / client</span>
+      <span style="display:flex;align-items:center;gap:6px;"><span style="width:18px;height:0;border-top:2px dashed #F9D900;"></span>$130k switch</span>
+      <span style="display:flex;align-items:center;gap:6px;"><span style="width:18px;height:0;border-top:2px dashed #ff7043;"></span>$20k target</span>
     </div>
-    <div class="chart-wrap" style="height:160px;">
-      <canvas id="mode-chart" role="img" aria-label="Line chart showing revenue per client versus monthly GMV. Below $130k the $6,500 base rate applies; above it the 5% GMV fee scales linearly.">Revenue per client is flat at $6,500 below $130k GMV, then rises linearly at 5% above that threshold.</canvas>
+    <div class="chart-wrap" style="height:180px;">
+      <canvas id="mode-chart" role="img" aria-label="Line chart showing revenue per client versus monthly GMV, with the $130k switch point and $20k target marked.">Revenue per client is flat at $6,500 below $130k GMV, then rises linearly at 5% above that threshold.</canvas>
     </div>
   </div>
 
 </div>
 
 <footer class="ap-footer">
-  <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
-    <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-    <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
-    <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
-  </svg>
-  <p>Ad Pros &mdash; Internal Use</p>
+  <div class="ap-footer-inner">
+    <div class="ap-footer-brand">
+      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+        <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+        <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+      </svg>
+      <p>High-performance ad agency helping ambitious ecommerce brands grow to $100+ million.</p>
+    </div>
+    <div class="ap-footer-col">
+      <div class="col-title">Pages</div>
+      <a href="https://www.adpros.com/">Home</a>
+      <a href="https://www.adpros.com/service">Services</a>
+      <a href="https://www.adpros.com/platforms">Platforms</a>
+      <a href="https://www.adpros.com/blog">Blog</a>
+    </div>
+    <div class="ap-footer-col">
+      <div class="col-title">Company</div>
+      <a href="https://www.adpros.com/contact-us">Contact Us</a>
+      <a href="https://www.adpros.com/waitlist">Join Waitlist</a>
+    </div>
+    <div class="ap-footer-col">
+      <div class="col-title">Follow</div>
+      <a href="https://www.linkedin.com/company/adprosofficial/">LinkedIn</a>
+      <a href="https://www.instagram.com/nehalkazim/">Instagram</a>
+      <a href="https://www.youtube.com/@nehal-kazim">YouTube</a>
+    </div>
+  </div>
+  <div class="ap-footer-bottom">
+    <p>&copy; 2026 Ad Pros. Internal use only.</p>
+    <p>docs.adpros.com</p>
+  </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -312,7 +640,7 @@ const GMV_LABELS=['$100k','$200k','$300k','$400k','$500k','$600k'];
 const CLI_COLS=[5,10,15,20];
 
 function rpc(gmv){return Math.max(BASE,PCT*gmv);}
-function fmt(n){if(Math.abs(n)>=1e6)return'$'+(n/1e6).toFixed(2).replace(/\.?0+$/,'')+' M';if(Math.abs(n)>=1000)return'$'+Math.round(n/1000)+'k';return'$'+Math.round(n).toLocaleString();}
+function fmt(n){if(Math.abs(n)>=1e6)return'$'+(n/1e6).toFixed(2).replace(/\.?0+$/,'')+'M';if(Math.abs(n)>=1000)return'$'+Math.round(n/1000)+'k';return'$'+Math.round(n).toLocaleString();}
 function fmtFull(n){return(n<0?'-$':'$')+Math.abs(Math.round(n)).toLocaleString();}
 function pct(n){return(n*100).toFixed(1)+'%';}
 function nearest(v,arr){return arr.reduce((p,c)=>Math.abs(c-v)<Math.abs(p-v)?c:p);}
@@ -333,10 +661,10 @@ function buildMatrix(clients,gmv){
     const r=rpc(g);
     const tr=document.createElement('tr');
     const isGmv=g>=SWITCH;
-    const modeColor=isGmv?'#4db6ac':'#ffb74d';
+    const modeColor=isGmv?'var(--teal-bright)':'var(--amber-bright)';
     const td0=document.createElement('td');
     td0.className='row-label';
-    td0.innerHTML=`<span style="font-weight:600;color:#fff;">${GMV_LABELS[ri]}</span> <span style="color:${modeColor};font-size:9px;">${isGmv?'5%':'base'}</span>`;
+    td0.innerHTML=`<span style="font-weight:700;color:#fff;">${GMV_LABELS[ri]}</span> <span style="color:${modeColor};font-size:9px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;">${isGmv?'5%':'base'}</span>`;
     tr.appendChild(td0);
     CLI_COLS.forEach(nc=>{
       const totalRev=r*nc;
@@ -345,10 +673,10 @@ function buildMatrix(clients,gmv){
       const isCur=(nc===nCli&&g===nGmv);
       const cc=cellClass(totalRev);
       const td=document.createElement('td');
-      td.style.padding='3px';
+      td.style.padding='4px';
       td.innerHTML=`<div class="scenario-cell ${cc}${isCur?' cell-current':''}">
-        <div class="cv" style="font-size:11px;font-weight:600;">${fmt(totalRev)}</div>
-        <div class="cm" style="font-size:9px;">${pct(margin)} gm</div>
+        <div class="cv">${fmt(totalRev)}</div>
+        <div class="cm">${pct(margin)} gm</div>
       </div>`;
       tr.appendChild(td);
     });
@@ -376,13 +704,13 @@ function buildKPIs(clients,gmv){
 
   document.getElementById('k-gm').textContent=pct(gm);
   const gmb=document.getElementById('k-gm-b');
-  if(gm>=0.875){gmb.innerHTML=`<span class="badge badge-green">target met</span>`;}
-  else{gmb.innerHTML=`<span class="badge badge-amber">target: 87.5%</span>`;}
+  if(gm>=0.875){gmb.innerHTML=`<span class="badge badge-green">Target met</span>`;}
+  else{gmb.innerHTML=`<span class="badge badge-amber">Below 87.5%</span>`;}
 
   document.getElementById('k-rpc').textContent=fmt(rev);
   document.getElementById('k-mode').innerHTML=isGmv
     ?`<span class="badge badge-teal">GMV% active</span>`
-    :`<span class="badge badge-amber">base rate</span>`;
+    :`<span class="badge badge-amber">Base rate</span>`;
 
   document.getElementById('k-pods').textContent=activePods;
   document.getElementById('k-pods-b').textContent=`of ${MAX_PODS} · ${fmtFull(activePods*POD_COST)} cost`;
@@ -400,14 +728,14 @@ function buildPL(clients,gmv){
   const gmvFee=PCT*gmv;
 
   document.getElementById('pl').innerHTML=`
-    <div class="pl-row"><span class="pl-label">Revenue (${clients} clients × ${fmt(rev)})</span><span class="pl-value">${fmtFull(totalRev)}</span></div>
-    <div class="pl-row"><span class="pl-label">Cost of delivery ($2,500 / client)</span><span class="pl-value neg">(${fmtFull(totalCod)})</span></div>
-    <div class="pl-row pl-highlight"><span style="font-weight:600;color:#fff;">Gross profit</span><span class="pl-value pos">${fmtFull(gp)} <span style="font-size:11px;font-weight:400;color:var(--grey-300);">${pct(gm)}</span></span></div>
-    <div class="pl-row"><span class="pl-label">Pod structure (${activePods} × $12,500)</span><span style="font-size:11px;color:var(--grey-300);">same as CoD above</span></div>
-    <div style="margin-top:10px;">
+    <div class="pl-row"><span class="pl-label">Revenue — ${clients} clients × ${fmt(rev)}</span><span class="pl-value">${fmtFull(totalRev)}</span></div>
+    <div class="pl-row"><span class="pl-label">Cost of delivery — $2,500 / client</span><span class="pl-value neg">(${fmtFull(totalCod)})</span></div>
+    <div class="pl-row pl-highlight"><span class="pl-label">Gross profit</span><span class="pl-value pos">${fmtFull(gp)} &nbsp;<span style="font-size:12px;font-weight:500;color:var(--grey-200);">${pct(gm)}</span></span></div>
+    <div class="pl-row"><span class="pl-label">Pod structure view — ${activePods} × $12,500</span><span style="font-size:11px;color:var(--grey-300);">equals CoD above</span></div>
+    <div class="mode-callout">
       ${isGmv
-        ?`<span class="mode-pill mode-gmv">GMV% pricing active</span><div style="font-size:11px;color:var(--grey-300);margin-top:6px;line-height:1.5;">5% × ${fmt(gmv)} = ${fmt(rev)}/client &nbsp;·&nbsp; base would be $6,500</div>`
-        :`<span class="mode-pill mode-base">Base rate active</span><div style="font-size:11px;color:var(--grey-300);margin-top:6px;line-height:1.5;">$6,500/client &nbsp;·&nbsp; GMV fee = ${fmt(gmvFee)} (needs ${fmt(SWITCH)} GMV to switch)</div>`
+        ?`<span class="mode-pill mode-gmv">GMV% pricing active</span><div>5% × ${fmt(gmv)} = <strong style="color:#fff">${fmt(rev)}</strong> / client &nbsp;·&nbsp; base would be $6,500</div>`
+        :`<span class="mode-pill mode-base">Base rate active</span><div>$6,500 / client &nbsp;·&nbsp; GMV fee would be ${fmt(gmvFee)} &nbsp;·&nbsp; needs <strong style="color:#fff">${fmt(SWITCH)}</strong> GMV to trigger the switch</div>`
       }
     </div>
   `;
@@ -421,8 +749,8 @@ function buildPods(clients,gmv){
     const pc=Math.min(CPP,Math.max(0,clients-p*CPP));
     const full=pc===CPP,partial=pc>0&&pc<CPP,empty=pc===0;
     const cls=full?'active':partial?'partial':'inactive';
-    const dotColor=full?'#1D9E75':partial?'#BA7517':'#1a1f6a';
-    const dots=Array.from({length:CPP},(_,i)=>`<span class="pod-dot" style="background:${i<pc?dotColor:'#1a1f6a'};"></span>`).join('');
+    const dotColor=full?'#4db6ac':partial?'#ffb74d':'rgba(255,255,255,0.1)';
+    const dots=Array.from({length:CPP},(_,i)=>`<span class="pod-dot" style="background:${i<pc?dotColor:'rgba(255,255,255,0.08)'};"></span>`).join('');
     const podRev=pc*rev;
     const podGp=pc*(rev-COD);
     const d=document.createElement('div');
@@ -454,17 +782,17 @@ function buildCharts(){
           label:fmt(g)+' GMV',
           data:CLI_COLS.map(nc=>Math.round(rpc(g)*nc)),
           backgroundColor:colors[i],
-          borderRadius:3,borderSkipped:false,
+          borderRadius:4,borderSkipped:false,
         })),
-        {label:'Target',data:[REV_TARGET,REV_TARGET,REV_TARGET,REV_TARGET],type:'line',borderColor:'#7c73e6',borderWidth:2,borderDash:[5,3],pointRadius:0,fill:false,tension:0}
+        {label:'Target',data:[REV_TARGET,REV_TARGET,REV_TARGET,REV_TARGET],type:'line',borderColor:'#F9D900',borderWidth:2,borderDash:[6,4],pointRadius:0,fill:false,tension:0}
       ]
     },
     options:{
       responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`}}},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#0e1358',titleColor:'#fff',bodyColor:'#B0B1B6',borderColor:'#F9D900',borderWidth:1,padding:10,callbacks:{label:ctx=>` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`}}},
       scales:{
-        x:{grid:{display:false},ticks:{font:{size:10},color:'#8A8B93'}},
-        y:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v)}}
+        x:{grid:{display:false},ticks:{font:{size:11,weight:500},color:'#B0B1B6'}},
+        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v)}}
       }
     }
   });
@@ -477,17 +805,17 @@ function buildCharts(){
     type:'line',
     data:{
       datasets:[
-        {label:'Rev / client',data:modePoints,borderColor:'#1D9E75',borderWidth:2.5,pointRadius:0,fill:false,tension:0.05},
-        {label:'Switch $130k',data:[{x:SWITCH,y:0},{x:SWITCH,y:42000}],borderColor:'#7c73e6',borderWidth:1.5,borderDash:[5,3],pointRadius:0,fill:false},
-        {label:'$20k target',data:[{x:0,y:20000},{x:700000,y:20000}],borderColor:'#D85A30',borderWidth:1.5,borderDash:[4,2],pointRadius:0,fill:false}
+        {label:'Rev / client',data:modePoints,borderColor:'#1D9E75',borderWidth:3,pointRadius:0,fill:false,tension:0.05},
+        {label:'Switch $130k',data:[{x:SWITCH,y:0},{x:SWITCH,y:42000}],borderColor:'#F9D900',borderWidth:2,borderDash:[6,4],pointRadius:0,fill:false},
+        {label:'$20k target',data:[{x:0,y:20000},{x:700000,y:20000}],borderColor:'#ff7043',borderWidth:2,borderDash:[5,3],pointRadius:0,fill:false}
       ]
     },
     options:{
       responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`}}},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#0e1358',titleColor:'#fff',bodyColor:'#B0B1B6',borderColor:'#F9D900',borderWidth:1,padding:10,callbacks:{label:ctx=>` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`}}},
       scales:{
-        x:{type:'linear',min:0,max:700000,grid:{display:false},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v),maxTicksLimit:6},title:{display:true,text:'monthly GMV / client',font:{size:10},color:'#8A8B93'}},
-        y:{min:0,max:42000,grid:{color:'rgba(255,255,255,0.05)'},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v),maxTicksLimit:5},title:{display:true,text:'rev / client',font:{size:10},color:'#8A8B93'}}
+        x:{type:'linear',min:0,max:700000,grid:{display:false},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v),maxTicksLimit:6},title:{display:true,text:'monthly GMV / client',font:{size:10,weight:600},color:'#8A8B93'}},
+        y:{min:0,max:42000,grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10},color:'#8A8B93',callback:v=>fmt(v),maxTicksLimit:5},title:{display:true,text:'rev / client',font:{size:10,weight:600},color:'#8A8B93'}}
       }
     }
   });
