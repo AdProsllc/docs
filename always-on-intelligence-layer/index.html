@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>The Always-On Intelligence Layer — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --navy-deeper: #020523;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --grey-100: #D8D9DE;
+      --card-border: #0e1358;
+      --agency: #7aa8ff;
+      --brand: #f9d900;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; line-height: 1.6; }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+
+    /* Hero */
+    .hero { padding: 48px 0 64px; border-bottom: 1px solid var(--card-border); margin-bottom: 64px; }
+    .hero-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); padding: 6px 12px; border: 1px solid var(--yellow); border-radius: 4px; margin-bottom: 24px; }
+    .hero h1 { font-size: 56px; font-weight: 800; color: var(--white); letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 24px; }
+    .hero h1 .yellow { color: var(--yellow); }
+    .hero .lede { font-size: 20px; color: var(--grey-100); max-width: 820px; line-height: 1.5; font-weight: 400; }
+
+    h2 { font-size: 32px; font-weight: 700; color: var(--white); letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.2; }
+    h3 { font-size: 20px; font-weight: 700; color: var(--white); letter-spacing: -0.2px; margin-bottom: 12px; }
+    .section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
+    .section { margin-bottom: 72px; }
+    .section-lede { font-size: 17px; color: var(--grey-100); max-width: 820px; margin-bottom: 32px; }
+
+    p { margin-bottom: 16px; }
+    strong { color: var(--white); font-weight: 600; }
+
+    /* The one-liner block */
+    .thesis { background: linear-gradient(135deg, var(--navy-card) 0%, var(--navy-deeper) 100%); border: 1px solid var(--card-border); border-radius: 16px; padding: 40px; margin-bottom: 64px; position: relative; overflow: hidden; }
+    .thesis::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--yellow); }
+    .thesis-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
+    .thesis p { font-size: 22px; color: var(--white); font-weight: 500; line-height: 1.5; margin-bottom: 0; letter-spacing: -0.2px; }
+
+    /* Two-mode split */
+    .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .mode { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; }
+    .mode-icon { width: 48px; height: 48px; background: rgba(249,217,0,0.1); border: 1px solid rgba(249,217,0,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+    .mode h3 { margin-bottom: 8px; }
+    .mode-subtitle { font-size: 13px; color: var(--yellow); font-weight: 600; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+    .mode p { font-size: 15px; color: var(--grey-200); }
+
+    /* 8-step mapping */
+    .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px; }
+    .step { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px; position: relative; transition: all 0.2s; }
+    .step.active { border-color: var(--yellow); background: linear-gradient(135deg, rgba(249,217,0,0.08) 0%, var(--navy-card) 100%); }
+    .step-num { font-size: 11px; font-weight: 700; color: var(--grey-300); letter-spacing: 2px; margin-bottom: 8px; }
+    .step.active .step-num { color: var(--yellow); }
+    .step-name { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .step-role { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .step-note { font-size: 12px; color: var(--grey-200); line-height: 1.4; }
+    .step.active .step-note { color: var(--white); }
+    .step-indicator { position: absolute; top: 12px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: var(--grey-300); opacity: 0.4; }
+    .step.active .step-indicator { background: var(--yellow); opacity: 1; box-shadow: 0 0 12px var(--yellow); }
+
+    /* Use case split */
+    .use-cases { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 24px; }
+    .use-case { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; }
+    .use-case-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; border-radius: 4px; margin-bottom: 20px; }
+    .use-case.agency .use-case-label { background: rgba(122,168,255,0.1); color: var(--agency); border: 1px solid rgba(122,168,255,0.3); }
+    .use-case.brand .use-case-label { background: rgba(249,217,0,0.1); color: var(--yellow); border: 1px solid rgba(249,217,0,0.3); }
+    .use-case h3 { font-size: 22px; margin-bottom: 16px; }
+    .use-case-scenarios { margin-top: 24px; }
+    .scenario { padding: 16px 0; border-top: 1px solid var(--card-border); }
+    .scenario:first-child { border-top: none; padding-top: 0; }
+    .scenario-trigger { font-size: 13px; font-weight: 600; color: var(--yellow); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+    .use-case.agency .scenario-trigger { color: var(--agency); }
+    .scenario-body { font-size: 15px; color: var(--grey-100); line-height: 1.5; }
+
+    /* Flow diagram */
+    .flow { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; margin-top: 24px; }
+    .flow-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; align-items: center; }
+    .flow-node { background: var(--navy-deeper); border: 1px solid var(--card-border); border-radius: 8px; padding: 16px 12px; text-align: center; }
+    .flow-node.highlight { border-color: var(--yellow); background: linear-gradient(135deg, rgba(249,217,0,0.08) 0%, var(--navy-deeper) 100%); }
+    .flow-node-label { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .flow-node-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .flow-arrow { color: var(--yellow); font-size: 20px; text-align: center; }
+    .flow-note { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--grey-300); text-align: center; font-style: italic; }
+
+    /* Interface callouts */
+    .interfaces { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+    .interface { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px; }
+    .interface-name { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .interface-desc { font-size: 12px; color: var(--grey-300); line-height: 1.4; }
+
+    /* Principles */
+    .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .principle { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 24px; border-left: 3px solid var(--yellow); }
+    .principle-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--yellow); margin-bottom: 8px; }
+    .principle-title { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .principle-body { font-size: 14px; color: var(--grey-200); line-height: 1.5; }
+
+    /* What changes table */
+    .changes-table { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; margin-top: 24px; }
+    .changes-row { display: grid; grid-template-columns: 240px 1fr 1fr; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--card-border); align-items: start; }
+    .changes-row:last-child { border-bottom: none; }
+    .changes-row.header { background: var(--navy-deeper); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-300); padding: 16px 24px; }
+    .changes-who { font-size: 14px; font-weight: 700; color: var(--white); }
+    .changes-before { font-size: 14px; color: var(--grey-300); }
+    .changes-after { font-size: 14px; color: var(--grey-100); }
+    .changes-after strong { color: var(--yellow); font-weight: 600; }
+
+    /* CTA */
+    .cta { background: linear-gradient(135deg, var(--navy-card) 0%, var(--navy-deeper) 100%); border: 1px solid var(--yellow); border-radius: 16px; padding: 48px; text-align: center; margin-top: 48px; }
+    .cta h2 { margin-bottom: 16px; }
+    .cta p { font-size: 17px; color: var(--grey-100); max-width: 600px; margin: 0 auto; }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 40px; }
+      .hero .lede { font-size: 17px; }
+      .modes, .use-cases, .principles { grid-template-columns: 1fr; }
+      .step-grid { grid-template-columns: repeat(2, 1fr); }
+      .interfaces { grid-template-columns: repeat(2, 1fr); }
+      .flow-row { grid-template-columns: 1fr; gap: 8px; }
+      .flow-arrow { transform: rotate(90deg); }
+      .changes-row { grid-template-columns: 1fr; gap: 8px; }
+      .changes-row.header { display: none; }
+      .changes-before::before { content: 'Before: '; color: var(--grey-300); font-weight: 600; }
+      .changes-after::before { content: 'After: '; color: var(--yellow); font-weight: 600; }
+    }
+    @media (max-width: 640px) {
+      .ap-header, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; }
+      .hero h1 { font-size: 32px; }
+      h2 { font-size: 24px; }
+      .thesis { padding: 28px; }
+      .thesis p { font-size: 18px; }
+      .step-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>The Always-On Intelligence Layer</h1>
+      <p>Executive Summary &middot; Voice + Copilot, one unified system</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <!-- HERO -->
+    <section class="hero">
+      <span class="hero-eyebrow">Executive Summary</span>
+      <h1>An intelligence layer that <span class="yellow">listens, thinks, and remembers</span> — across every call, every brainstorm, every brand.</h1>
+      <p class="lede">One system. Two modes of conversation. Built on the memory and orchestration infrastructure Ad Pros already operates — extended so the entire team and every client brand can think with it in real time.</p>
+    </section>
+
+    <!-- THESIS -->
+    <div class="thesis">
+      <div class="thesis-label">The Thesis</div>
+      <p>Your data stack, your client history, your creative library, and your institutional knowledge should be available in the moment you need them — whether you're walking into a pitch, on a live client call, brainstorming a creative angle, or debriefing after a meeting. The interface shouldn't matter. The intelligence should be there.</p>
+    </div>
+
+    <!-- TWO MODES -->
+    <section class="section">
+      <div class="section-eyebrow">What It Is</div>
+      <h2>Two modes. One brain.</h2>
+      <p class="section-lede">Most AI tools force a choice: a chatbot you type at, a meeting recorder that reads to you after the fact, a voice assistant that can't access your business. This system collapses them into a single agent with two ways of showing up.</p>
+
+      <div class="modes">
+        <div class="mode">
+          <div class="mode-icon">🎙</div>
+          <div class="mode-subtitle">Mode 1</div>
+          <h3>Voice Conversations</h3>
+          <p>Talk to it. Ask questions about any client, campaign, creative test, or performance pattern. Brainstorm strategy hands-free. Prep for calls on the walk to the meeting. It speaks back, pulling from the same memory the entire team writes to.</p>
+        </div>
+        <div class="mode">
+          <div class="mode-icon">👁</div>
+          <div class="mode-subtitle">Mode 2</div>
+          <h3>Silent Call Copilot</h3>
+          <p>Sits quietly on live calls — internal, client, pitch, strategy. Listens to both sides. Surfaces relevant context to you visually, never audibly. Recalls the last conversation, the current numbers, the contract terms, the pattern it's seen before. You stay present. It handles the recall.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT FITS THE 8-STEP MODEL -->
+    <section class="section">
+      <div class="section-eyebrow">Where It Fits</div>
+      <h2>Inside the 8-step model.</h2>
+      <p class="section-lede">This is not a new system. It is a new set of inputs and outputs to the intelligence infrastructure already designed in the Ad Pros operating model. Here is exactly where voice + copilot touches each step.</p>
+
+      <div class="step-grid">
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">01</div>
+          <div class="step-name">Collect</div>
+          <div class="step-role">Input Layer</div>
+          <div class="step-note">Voice conversations and live-call audio become two new signal sources — alongside GA4, Shopify, Slack, and CRM. Every spoken interaction is captured and flows upstream.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">02</div>
+          <div class="step-name">Organize</div>
+          <div class="step-role">Ingestion Layer</div>
+          <div class="step-note">The Librarian routes audio signals the same way it routes other inputs — tagged by client, brand, participant, topic, and intent.</div>
+        </div>
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">03</div>
+          <div class="step-name">Remember</div>
+          <div class="step-role">Context Layer</div>
+          <div class="step-note">Conversations become permanent memory. BigQuery holds the structured outcomes, pgvector holds the semantic embeddings. Every future conversation can reference every past one.</div>
+        </div>
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">04</div>
+          <div class="step-name">Think</div>
+          <div class="step-role">Intelligence Layer</div>
+          <div class="step-note">A new Conversation Agent joins Noor in the intelligence layer. Fast model for real-time listening, Claude for reasoning. Noor routes between them.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">05</div>
+          <div class="step-name">Plan</div>
+          <div class="step-role">Planning Layer</div>
+          <div class="step-note">Insights surfaced during calls and decisions made in voice sessions feed directly into ClickUp and Linear as the plans they become.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">06</div>
+          <div class="step-name">Assign</div>
+          <div class="step-role">Delegation Layer</div>
+          <div class="step-note">"Voice → assign task" and "copilot flag → task" become first-class paths into the same human / AI / hybrid delegation model.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">07</div>
+          <div class="step-name">Action</div>
+          <div class="step-role">Execution Layer</div>
+          <div class="step-note">Work gets done. The conversation that triggered it is linked as context, so the executor knows why — not just what.</div>
+        </div>
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">08</div>
+          <div class="step-name">Review</div>
+          <div class="step-role">Audit Layer</div>
+          <div class="step-note">Every conversation becomes auditable. Did the call land? Did the brainstorm ship? Did the copilot's recommendation improve the outcome? Closed loop.</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; padding: 20px 24px; background: var(--navy-card); border: 1px solid var(--card-border); border-left: 3px solid var(--yellow); border-radius: 8px;">
+        <p style="font-size: 13px; color: var(--grey-300); margin: 0;"><strong style="color: var(--yellow);">Primary insertion points:</strong> Steps 1, 3, 4, and 8. The system captures (1), remembers (3), thinks with the team (4), and feeds the audit loop (8). It runs across the whole system rather than living inside any one step — a machine-level capability, consistent with how Noor operates.</p>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="section">
+      <div class="section-eyebrow">Who It Serves</div>
+      <h2>Built for two audiences. Same system.</h2>
+      <p class="section-lede">Ad Pros operates on both sides of the performance marketing relationship. This system is designed to serve both.</p>
+
+      <div class="use-cases">
+        <div class="use-case agency">
+          <span class="use-case-label">Agency Side</span>
+          <h3>For Ad Pros strategists, media buyers, creative teams, and leadership.</h3>
+          <p style="color: var(--grey-200); font-size: 15px;">The agency runs on conversations — client QBRs, pitch calls, internal pod syncs, creative reviews, retention conversations. Every one of those is a decision moment, and today the context lives in separate heads and scattered tools.</p>
+
+          <div class="use-case-scenarios">
+            <div class="scenario">
+              <div class="scenario-trigger">Pitch call</div>
+              <div class="scenario-body">Prospect mentions a competitor's creative approach. Copilot surfaces competitive intel from your ad library data — no scrambling, no "I'll follow up on that."</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Client QBR</div>
+              <div class="scenario-body">Client asks about a campaign from three months ago. Copilot pulls the performance data, the creative, and the decision rationale from the last QBR deck — all before you finish your sentence.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Retention conversation</div>
+              <div class="scenario-body">Client signals hesitation. Copilot flags patterns from prior clients who used similar language, with retention plays that worked historically.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Between calls</div>
+              <div class="scenario-body">Walking between meetings, strategist says: "Prep me for the 47 Skin call in twenty minutes." Voice mode walks through recent performance, open concerns, and the last meeting's follow-ups.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="use-case brand">
+          <span class="use-case-label">Brand Side</span>
+          <h3>For DTC founders, ecommerce operators, and in-house marketing teams.</h3>
+          <p style="color: var(--grey-200); font-size: 15px;">Brands live inside their own data — Shopify, Meta Ads, Google Ads, Klaviyo, Triple Whale, Northbeam. The copilot collapses that fragmented stack into one conversational layer. Ask anything. Be prepared for every meeting. Never lose institutional context when someone leaves.</p>
+
+          <div class="use-case-scenarios">
+            <div class="scenario">
+              <div class="scenario-trigger">Agency review call</div>
+              <div class="scenario-body">Founder on a call with their agency. Copilot surfaces real-time performance against targets, flags anomalies in the current spend pattern, and recalls the creative directions agreed to last quarter.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Strategic planning</div>
+              <div class="scenario-body">Operator asks voice mode: "Which of our top ten SKUs have degraded in ROAS over the last sixty days, and what creative angles did we retire?" Answer in seconds, with sources.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Vendor negotiation</div>
+              <div class="scenario-body">On a call with a supplier or partner, copilot pulls the contract terms, the historical performance of this relationship, and flags commitments made in prior conversations.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Post-meeting debrief</div>
+              <div class="scenario-body">Founder leaves a board call. Voice mode: "Walk me through the decisions we just made and draft the follow-up." The conversation is already transcribed, categorized, and ready to action.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOW -->
+    <section class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>The audio-to-action loop.</h2>
+      <p class="section-lede">Both modes run the same pipeline. Only the inputs and outputs differ.</p>
+
+      <div class="flow">
+        <div class="flow-row">
+          <div class="flow-node">
+            <div class="flow-node-label">Capture</div>
+            <div class="flow-node-name">Voice or Call Audio</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node highlight">
+            <div class="flow-node-label">Understand</div>
+            <div class="flow-node-name">Conversation Agent</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node highlight">
+            <div class="flow-node-label">Retrieve</div>
+            <div class="flow-node-name">Memory Layer</div>
+          </div>
+        </div>
+        <div class="flow-row" style="margin-top: 20px;">
+          <div class="flow-node highlight">
+            <div class="flow-node-label">Reason</div>
+            <div class="flow-node-name">Claude + Noor</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="flow-node-label">Surface</div>
+            <div class="flow-node-name">Voice or Visual</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="flow-node-label">Write Back</div>
+            <div class="flow-node-name">Memory + ClickUp</div>
+          </div>
+        </div>
+        <div class="flow-note">Every interaction — voice or copilot — reads from and writes to the same session memory. The system gets smarter about your business every time it's used.</div>
+      </div>
+    </section>
+
+    <!-- INTERFACES -->
+    <section class="section">
+      <div class="section-eyebrow">Where It Lives</div>
+      <h2>Four surfaces. One agent.</h2>
+      <p class="section-lede">The same intelligence shows up wherever the conversation is happening.</p>
+
+      <div class="interfaces">
+        <div class="interface">
+          <div class="interface-name">📱 Mobile Voice App</div>
+          <div class="interface-desc">Talk to it anywhere. Prep, brainstorm, query, debrief. Hands-free, context-aware.</div>
+        </div>
+        <div class="interface">
+          <div class="interface-name">💻 Desktop Copilot Overlay</div>
+          <div class="interface-desc">Silent sidebar during calls. Insights appear visually. Stays out of the way until relevant.</div>
+        </div>
+        <div class="interface">
+          <div class="interface-name">💬 Slack Integration</div>
+          <div class="interface-desc">Continue conversations in Slack. Ask the same questions in text. Same memory, different channel.</div>
+        </div>
+        <div class="interface">
+          <div class="interface-name">📞 Meeting Bot</div>
+          <div class="interface-desc">Joins Zoom, Meet, and Teams calls automatically. Captures, categorizes, and remembers.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section class="section">
+      <div class="section-eyebrow">How It Behaves</div>
+      <h2>The operating principles.</h2>
+      <p class="section-lede">A copilot that speaks out of turn breaks the call. A copilot that never speaks is just a recorder. These principles draw the line.</p>
+
+      <div class="principles">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div class="principle-title">Silent by default on calls</div>
+          <div class="principle-body">Copilot never speaks during live conversations. All output is visual and only to the operator. The call belongs to the humans.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Facts before opinions</div>
+          <div class="principle-body">The system surfaces what's known — performance data, contract terms, prior conversations, patterns. Strategic suggestions are rare, reserved for clear signal, and always cite their source.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Consent and disclosure first</div>
+          <div class="principle-body">Every call where the copilot is active is disclosed and consented to. For client calls, consent is baked into agreements. Trust is the product.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div class="principle-title">One memory, every interface</div>
+          <div class="principle-body">Ask about last Tuesday's call on your phone while you're walking, and the system answers from the same memory the copilot wrote to during the call. No re-briefing, ever.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">05</div>
+          <div class="principle-title">Scoped to calls that matter</div>
+          <div class="principle-body">Not every call gets the copilot. QBRs, pitches, retention conversations, strategic reviews — yes. Standups and quick syncs — no. The surface area is curated, not maximal.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">06</div>
+          <div class="principle-title">Privacy-first multi-tenant</div>
+          <div class="principle-body">Agency data and brand data are strictly isolated. A client brand's copilot sees only that brand's universe. Ad Pros operators see only what they're permissioned for.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT CHANGES -->
+    <section class="section">
+      <div class="section-eyebrow">What Changes</div>
+      <h2>Day-to-day, before and after.</h2>
+      <p class="section-lede">The difference isn't the technology. It's what the team stops doing — and what becomes possible.</p>
+
+      <div class="changes-table">
+        <div class="changes-row header">
+          <div>Who</div>
+          <div>Before</div>
+          <div>After</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Strategist prepping for a client call</div>
+          <div class="changes-before">Digs through Slack, old decks, and the CRM for fifteen minutes. Half the context is in someone else's head.</div>
+          <div class="changes-after">Asks voice mode on the walk to the meeting: <strong>"Prep me on this account."</strong> Gets the full picture in ninety seconds.</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Media buyer on a QBR</div>
+          <div class="changes-before">Has to remember or re-verify every number the client references. Moments of hesitation erode credibility.</div>
+          <div class="changes-after">Copilot surfaces the numbers as they come up. The buyer stays <strong>engaged with the client</strong>, not the spreadsheet.</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Account lead after a tense retention call</div>
+          <div class="changes-before">Writes recap notes from memory. Half the nuance is lost by the time it hits ClickUp.</div>
+          <div class="changes-after">Transcript, categorized insights, and <strong>draft follow-ups ready before the tab closes.</strong></div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">DTC founder on a strategy call with Ad Pros</div>
+          <div class="changes-before">Relies on the agency to know the brand's own history. Context gaps become friction.</div>
+          <div class="changes-after">The founder's copilot knows the brand. The agency's copilot knows the engagement. Both surfaces <strong>align the conversation in real time.</strong></div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Ops lead auditing call quality</div>
+          <div class="changes-before">Random-sample a few Fathom recordings. Hope the patterns are representative.</div>
+          <div class="changes-after">Every conversation is searchable, categorized, and <strong>scored against outcomes.</strong> Patterns across hundreds of calls, not five.</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">New hire onboarding to a client account</div>
+          <div class="changes-before">Weeks of reading old docs and shadowing calls to absorb the relationship history.</div>
+          <div class="changes-after">Voice mode becomes the onboarding partner. <strong>"Walk me through this client."</strong> The history is institutional, not tribal.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGIC FRAMING -->
+    <section class="section">
+      <div class="section-eyebrow">Why It Matters</div>
+      <h2>The strategic frame.</h2>
+      <p class="section-lede">The compounding value is not in any single conversation — it's in the system that accumulates.</p>
+
+      <p style="font-size: 16px; color: var(--grey-100); max-width: 820px; margin-bottom: 20px;">Today, institutional knowledge at an agency — and at most brands — lives in people's heads, scattered Slack threads, old decks, and half-transcribed Fathom recordings. When a strategist leaves, the context leaves with them. When a client asks about a decision made nine months ago, someone has to go hunting. When a pitch goes sideways because a small detail was missed, that failure doesn't become a pattern the next pitch can learn from.</p>
+
+      <p style="font-size: 16px; color: var(--grey-100); max-width: 820px; margin-bottom: 20px;">An always-on intelligence layer — listening, remembering, retrievable on demand — changes the nature of what the organization is. The agency becomes harder to leave (the context stays). The brand becomes faster to scale (every new operator inherits the full history). Calls get better because the humans are freed to be present rather than scrambling to recall.</p>
+
+      <p style="font-size: 16px; color: var(--grey-100); max-width: 820px; margin-bottom: 0;">This is the same memory layer that powers the data stack, extended to a new class of interfaces. One agent. Many surfaces. Every conversation, accumulating.</p>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta">
+      <h2>One system. Team-wide. Client-wide.</h2>
+      <p>Voice and copilot are not two products. They are two interfaces to the intelligence layer Ad Pros is already building — extended across every conversation the agency and its brands have.</p>
+    </div>
+
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+
+</body>
+</html>
