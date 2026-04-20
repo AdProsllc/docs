@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Brand Kit — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-deep: #02041f;
+      --navy-card: #070b3d;
+      --navy-card-hover: #0a1050;
+      --yellow: #F9D900;
+      --yellow-dim: #DFC200;
+      --blue: #1A6FD4;
+      --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --grey-100: #E6E6E7;
+      --card-border: #0e1358;
+      --card-border-strong: #1a2375;
+      --success: #0F973D;
+      --error: #D42620;
+      --radius: 10px;
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      background: var(--navy);
+      color: var(--grey-200);
+      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    /* ========== HEADER ========== */
+    .ap-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(4,7,53,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 48px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .ap-header-left { display: flex; align-items: center; gap: 16px; flex: 1; }
+    .ap-header-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.12); }
+    .ap-header-text h1 { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
+    .ap-header-text p { font-size: 12px; color: var(--grey-300); margin-top: 2px; }
+    .ap-header-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+    .ap-header-nav a {
+      font-size: 12px; font-weight: 500; color: var(--grey-300);
+      padding: 6px 10px; border-radius: 6px;
+      text-decoration: none; transition: color .15s, background .15s;
+    }
+    .ap-header-nav a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+    /* ========== HERO ========== */
+    .ap-hero {
+      padding: 96px 48px 72px;
+      max-width: 1200px; margin: 0 auto;
+      position: relative;
+    }
+    .ap-hero::before {
+      content: ""; position: absolute; top: 40px; right: 48px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(249,217,0,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ap-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 24px;
+    }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+    .ap-hero h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 800; color: #fff;
+      letter-spacing: -2px; line-height: 1.05;
+      margin-bottom: 20px; max-width: 900px;
+    }
+    .ap-hero h1 em { font-style: normal; color: var(--yellow); }
+    .ap-hero-sub {
+      font-size: 18px; line-height: 1.6; color: var(--grey-200);
+      max-width: 680px; margin-bottom: 36px;
+    }
+    .ap-hero-meta {
+      display: flex; gap: 32px; flex-wrap: wrap;
+      padding-top: 24px; border-top: 1px solid var(--card-border);
+      max-width: 680px;
+    }
+    .ap-hero-meta div span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-300); margin-bottom: 4px; }
+    .ap-hero-meta div strong { font-size: 14px; color: #fff; font-weight: 600; }
+
+    /* ========== LAYOUT ========== */
+    .ap-content { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+    section.ap-section { padding: 72px 0; border-top: 1px solid var(--card-border); }
+    section.ap-section:first-of-type { border-top: none; }
+    .ap-section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px; color: var(--grey-300);
+      margin-bottom: 12px; letter-spacing: 0.5px;
+    }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+    h2.ap-h2 {
+      font-size: 36px; font-weight: 800; color: #fff;
+      letter-spacing: -1px; line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .ap-lead {
+      font-size: 17px; line-height: 1.6; color: var(--grey-200);
+      max-width: 720px; margin-bottom: 40px;
+    }
+    h3.ap-h3 {
+      font-size: 20px; font-weight: 700; color: #fff;
+      letter-spacing: -0.3px;
+      margin: 40px 0 16px;
+    }
+
+    /* ========== CARDS ========== */
+    .ap-card {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 900px) {
+      .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .ap-grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* ========== MVP ========== */
+    .ap-mvp-card h4 {
+      font-size: 13px; font-weight: 600; color: var(--yellow);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+    }
+    .ap-mvp-card p { font-size: 15px; color: var(--grey-100); line-height: 1.55; }
+
+    /* ========== VALUES ========== */
+    .ap-value {
+      display: grid; grid-template-columns: 72px 1fr; gap: 20px;
+      align-items: stretch;
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .ap-value-num {
+      background: var(--yellow); color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 24px;
+    }
+    .ap-value-body { padding: 20px 24px; }
+    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .ap-value-body p { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+
+    /* ========== NUMBERS ========== */
+    .ap-stat {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .ap-stat-num {
+      font-size: 40px; font-weight: 800; color: var(--yellow);
+      letter-spacing: -1.5px; line-height: 1;
+    }
+    .ap-stat-label {
+      font-size: 12px; color: var(--grey-300); margin-top: 10px;
+      text-transform: uppercase; letter-spacing: 0.8px;
+    }
+
+    /* ========== LOGO BLOCK ========== */
+    .ap-logo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 760px) { .ap-logo-grid { grid-template-columns: 1fr; } }
+    .ap-logo-tile {
+      border-radius: var(--radius);
+      padding: 48px 24px 16px;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      gap: 32px;
+      min-height: 240px;
+      border: 1px solid var(--card-border);
+    }
+    .ap-logo-tile.dark { background: var(--navy); }
+    .ap-logo-tile.light { background: #F6F7FB; border-color: #D7DBE8; }
+    .ap-logo-tile.yellow { background: var(--yellow); border-color: #DFC200; }
+    .ap-logo-tile-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px;
+      font-family: "JetBrains Mono", monospace;
+    }
+    .ap-logo-tile.dark .ap-logo-tile-label { color: var(--grey-300); }
+    .ap-logo-tile.light .ap-logo-tile-label { color: #54556A; }
+    .ap-logo-tile.yellow .ap-logo-tile-label { color: var(--navy); }
+
+    /* Logo SVG: stacked ad/pros wordmark */
+    .ap-logo { width: 110px; }
+
+    /* ========== COLOR SYSTEM ========== */
+    .ap-color-primary { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    @media (max-width: 900px) { .ap-color-primary { grid-template-columns: repeat(2, 1fr); } }
+    .ap-swatch {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: transform .15s, border-color .15s;
+      position: relative;
+    }
+    .ap-swatch:hover { transform: translateY(-2px); border-color: var(--yellow); }
+    .ap-swatch-fill { height: 120px; position: relative; }
+    .ap-swatch-body { padding: 12px 14px; background: var(--navy-card); }
+    .ap-swatch-hex { font-family: "JetBrains Mono", monospace; font-size: 13px; color: #fff; font-weight: 600; }
+    .ap-swatch-name { font-size: 11px; color: var(--grey-300); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .ap-swatch-role { font-size: 11px; color: var(--grey-400); margin-top: 2px; }
+    .ap-swatch-copy-flag {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(0,0,0,0.4); color: #fff;
+      font-family: "JetBrains Mono", monospace; font-size: 10px;
+      padding: 3px 6px; border-radius: 4px;
+      opacity: 0; transition: opacity .2s;
+    }
+    .ap-swatch:hover .ap-swatch-copy-flag { opacity: 1; }
+    .ap-swatch.copied .ap-swatch-copy-flag { opacity: 1; background: var(--yellow); color: var(--navy); font-weight: 700; }
+
+    .ap-scale { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: 12px; }
+    @media (max-width: 760px) { .ap-scale { grid-template-columns: repeat(5, 1fr); } }
+    .ap-scale-item {
+      border-radius: 6px; overflow: hidden;
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: transform .15s;
+    }
+    .ap-scale-item:hover { transform: translateY(-1px); }
+    .ap-scale-fill { height: 56px; }
+    .ap-scale-body { padding: 6px 8px; background: var(--navy-card); font-family: "JetBrains Mono", monospace; font-size: 10px; }
+    .ap-scale-step { color: #fff; font-weight: 600; }
+    .ap-scale-hex { color: var(--grey-300); margin-top: 1px; }
+
+    .ap-a11y-callout {
+      margin-top: 28px;
+      background: rgba(26,111,212,0.1);
+      border: 1px solid rgba(26,111,212,0.4);
+      border-left: 3px solid var(--blue);
+      padding: 16px 20px; border-radius: 8px;
+      font-size: 14px; color: var(--grey-100);
+    }
+    .ap-a11y-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+
+    /* ========== TYPOGRAPHY ========== */
+    .ap-type-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 32px; }
+    .ap-type-table th, .ap-type-table td {
+      text-align: left; padding: 12px 14px;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 13px;
+    }
+    .ap-type-table th { color: var(--grey-300); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; background: var(--navy-card); }
+    .ap-type-table td { color: var(--grey-200); }
+    .ap-type-table td.style-name { color: #fff; font-weight: 600; }
+    .ap-type-table tr:last-child td { border-bottom: none; }
+
+    .ap-type-demo { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; }
+    .ap-type-demo-row { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--card-border); align-items: baseline; }
+    .ap-type-demo-row:last-child { border-bottom: none; }
+    .ap-type-demo-label { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; font-family: "JetBrains Mono", monospace; }
+    .ap-type-demo-text { color: #fff; }
+    @media (max-width: 640px) { .ap-type-demo-row { grid-template-columns: 1fr; gap: 8px; } }
+
+    /* ========== SPACING ========== */
+    .ap-space-row { display: grid; grid-template-columns: 160px 70px 1fr; gap: 16px; align-items: center; padding: 10px 16px; border-radius: 6px; }
+    .ap-space-row:nth-child(odd) { background: rgba(14,19,88,0.35); }
+    .ap-space-row .token { font-family: "JetBrains Mono", monospace; font-size: 12px; color: #fff; }
+    .ap-space-row .size { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--grey-300); }
+    .ap-space-bar { height: 16px; background: var(--yellow); border-radius: 3px; }
+
+    /* ========== UI COMPONENTS ========== */
+    .ap-btn-demo { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; }
+    .btn-primary:hover { background: var(--yellow-dim); }
+    .btn-secondary { background: var(--navy); color: var(--yellow); border: 1.5px solid var(--yellow); padding: 10.5px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; }
+    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid var(--card-border-strong); padding: 10.5px 22px; border-radius: 8px; font-weight: 500; font-size: 14px; font-family: inherit; cursor: pointer; }
+    .btn-ghost:hover { border-color: var(--grey-300); }
+
+    .ap-input-demo { max-width: 340px; }
+    .ap-input-demo label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .ap-input-demo input { width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 14px; font-family: inherit; outline: none; transition: border-color .15s; }
+    .ap-input-demo input:focus { border-color: var(--blue); }
+
+    .toast-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (max-width: 640px) { .toast-grid { grid-template-columns: 1fr; } }
+    .toast { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 3px solid; }
+    .toast-success { background: rgba(15,151,61,0.1); border-color: var(--success); color: #b6f2ce; }
+    .toast-error { background: rgba(212,38,32,0.1); border-color: var(--error); color: #ffbdbb; }
+    .toast-warn { background: rgba(249,217,0,0.08); border-color: var(--yellow); color: #ffe57d; }
+    .toast-info { background: rgba(26,111,212,0.1); border-color: var(--blue); color: #b1d5ff; }
+    .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+    /* ========== VOICE ========== */
+    .ap-pillar { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px 22px; border-top: 3px solid; }
+    .ap-pillar:nth-child(1) { border-top-color: var(--yellow); }
+    .ap-pillar:nth-child(2) { border-top-color: var(--blue); }
+    .ap-pillar:nth-child(3) { border-top-color: #0F973D; }
+    .ap-pillar:nth-child(4) { border-top-color: #D42620; }
+    .ap-pillar h4 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .ap-pillar p { font-size: 13px; color: var(--grey-200); line-height: 1.55; }
+
+    .ap-tone-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .ap-tone-table th, .ap-tone-table td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--card-border); font-size: 13px; vertical-align: top; }
+    .ap-tone-table th { color: var(--grey-300); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; background: var(--navy-card); }
+    .ap-tone-table td.tone-ctx { color: #fff; font-weight: 600; width: 160px; }
+    .ap-tone-table td.tone-kind { color: var(--yellow); font-weight: 500; width: 220px; }
+    .ap-tone-table td.tone-ex { color: var(--grey-100); font-style: italic; }
+    .ap-tone-table tr:last-child td { border-bottom: none; }
+
+    .ap-words { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .ap-words { grid-template-columns: 1fr; } }
+    .ap-words-col { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px 22px; }
+    .ap-words-col h5 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .ap-words-col.use h5 { color: #3ae27d; }
+    .ap-words-col.avoid h5 { color: #ff8078; }
+    .ap-words-col p { color: var(--grey-100); font-size: 14px; line-height: 1.7; }
+
+    /* ========== SERVICES ========== */
+    .ap-service {
+      display: grid; grid-template-columns: 72px 1fr; gap: 20px;
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .ap-service-num { background: var(--navy-deep); color: var(--yellow); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; font-family: "JetBrains Mono", monospace; border-right: 1px solid var(--card-border); }
+    .ap-service-body { padding: 20px 24px; }
+    .ap-service-body h4 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .ap-service-body p { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+
+    .ap-platforms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+    @media (max-width: 760px) { .ap-platforms { grid-template-columns: repeat(2, 1fr); } }
+    .ap-platform { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .ap-platform::before { content: ""; width: 6px; height: 6px; background: var(--yellow); border-radius: 50%; flex-shrink: 0; }
+
+    /* ========== DO / DON'T ========== */
+    .ap-dodont { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    @media (max-width: 720px) { .ap-dodont { grid-template-columns: 1fr; } }
+    .ap-dodont-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 720px) { .ap-dodont-row { grid-template-columns: 1fr; } }
+    .ap-dodont-cell { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px 16px; border-left: 3px solid; font-size: 13px; color: var(--grey-100); line-height: 1.5; }
+    .ap-do { border-left-color: #0F973D; }
+    .ap-dont { border-left-color: #D42620; }
+    .ap-dodont-head { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .ap-do .ap-dodont-head { color: #3ae27d; }
+    .ap-dont .ap-dodont-head { color: #ff8078; }
+
+    /* ========== DOWNLOADS ========== */
+    .ap-download-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (max-width: 640px) { .ap-download-grid { grid-template-columns: 1fr; } }
+    .ap-download {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      background: var(--navy-card); border: 1px solid var(--card-border);
+      border-radius: var(--radius); padding: 16px 20px;
+      text-decoration: none; color: #fff;
+      transition: border-color .15s, background .15s;
+    }
+    .ap-download:hover { border-color: var(--yellow); background: var(--navy-card-hover); }
+    .ap-download-title { font-size: 14px; font-weight: 600; }
+    .ap-download-meta { font-size: 11px; color: var(--grey-300); margin-top: 2px; font-family: "JetBrains Mono", monospace; }
+    .ap-download-icon { color: var(--yellow); font-size: 18px; }
+
+    /* ========== CONTACT ========== */
+    .ap-contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px; }
+    @media (max-width: 640px) { .ap-contact-grid { grid-template-columns: 1fr; } }
+    .ap-contact {
+      background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius);
+      padding: 22px 24px; text-decoration: none; color: inherit; display: block;
+      transition: border-color .15s, background .15s;
+    }
+    .ap-contact:hover { border-color: var(--yellow); background: var(--navy-card-hover); }
+    .ap-contact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-300); margin-bottom: 6px; }
+    .ap-contact-value { font-size: 18px; font-weight: 700; color: #fff; }
+    .ap-contact-meta { font-size: 13px; color: var(--grey-200); margin-top: 4px; }
+
+    /* ========== FOOTER ========== */
+    .ap-footer {
+      margin: 96px 48px 48px; padding-top: 32px;
+      border-top: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-right { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-400); }
+
+    @media (max-width: 720px) {
+      .ap-header { padding: 14px 20px; }
+      .ap-header-nav { display: none; }
+      .ap-hero { padding: 64px 20px 48px; }
+      .ap-content { padding: 0 20px; }
+      .ap-footer { margin: 64px 20px 32px; }
+    }
+
+    /* Toast for copy */
+    .ap-copy-toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--yellow); color: var(--navy);
+      padding: 12px 22px; border-radius: 999px;
+      font-weight: 700; font-size: 13px; font-family: "JetBrains Mono", monospace;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      opacity: 0; transition: opacity .2s, transform .2s;
+      z-index: 200; pointer-events: none;
+    }
+    .ap-copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="ap-header">
+  <div class="ap-header-left">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:36px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Brand Kit</h1>
+      <p>single source of truth &middot; v1.0</p>
+    </div>
+  </div>
+  <nav class="ap-header-nav">
+    <a href="#story">Story</a>
+    <a href="#logo">Logo</a>
+    <a href="#color">Color</a>
+    <a href="#type">Type</a>
+    <a href="#space">Spacing</a>
+    <a href="#ui">UI</a>
+    <a href="#voice">Voice</a>
+    <a href="#services">Services</a>
+    <a href="#rules">Do's &amp; Don'ts</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="ap-hero">
+  <div class="ap-kicker">Ad Pros &middot; Brand Kit 2026</div>
+  <h1>The <em>visual &amp; verbal system</em> behind every Ad Pros touchpoint.</h1>
+  <p class="ap-hero-sub">
+    This is how Ad Pros shows up in the world. Colors, typography, voice, components, and the rules that keep every ad, deck, email, and dashboard unmistakably ours. Designers, marketers, developers, and partner agencies all work from this page.
+  </p>
+  <div class="ap-hero-meta">
+    <div><span>Version</span><strong>1.0 &middot; 2026</strong></div>
+    <div><span>Owner</span><strong>Ad Pros Team</strong></div>
+    <div><span>Questions</span><strong>book@adpros.com</strong></div>
+  </div>
+</section>
+
+<div class="ap-content">
+
+  <!-- ========== 01 BRAND STORY ========== -->
+  <section class="ap-section" id="story">
+    <div class="ap-section-label"><span class="num">01</span> &mdash; Brand Story</div>
+    <h2 class="ap-h2">Who We Are</h2>
+    <p class="ap-lead">Ad Pros unlocks unreasonable growth for ambitious ecommerce brands &mdash; through media buying, creatives, data, and strategy. We're the growth partner that helps brands scale past $100M+ in revenue.</p>
+
+    <div class="ap-grid-3">
+      <div class="ap-card ap-mvp-card">
+        <h4>Our Mission</h4>
+        <p>Ad Pros is a growth partner driving extraordinary profits for ecommerce brands to positively transform lives at scale.</p>
+      </div>
+      <div class="ap-card ap-mvp-card">
+        <h4>Our Vision</h4>
+        <p>Ad Pros will empower millions of customers with life-changing products.</p>
+      </div>
+      <div class="ap-card ap-mvp-card">
+        <h4>Our Promise</h4>
+        <p>Unreasonable growth for ambitious ecommerce brands. We set records, design masterpieces, and deliver positive transformation &mdash; every time.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;">Our Values</h3>
+    <div class="ap-value">
+      <div class="ap-value-num">01</div>
+      <div class="ap-value-body">
+        <h4>Relentless Breakthroughs</h4>
+        <p>Set and break records, all the time. Relentless momentum that's impossible to stop &mdash; making a meaningful impact by tracking your best and then beating it, again and again.</p>
+      </div>
+    </div>
+    <div class="ap-value">
+      <div class="ap-value-num">02</div>
+      <div class="ap-value-body">
+        <h4>Design Masterpieces</h4>
+        <p>Your art, backed by science. We create something you're proud of that also performs &mdash; unique creative backed by formulas, data, and systems.</p>
+      </div>
+    </div>
+    <div class="ap-value">
+      <div class="ap-value-num">03</div>
+      <div class="ap-value-body">
+        <h4>Positive Transformation</h4>
+        <p>A better you. Upward movement and big change for everyone we touch: clients' customers, clients' businesses, Ad Pros as a company, and every team member.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;">By the Numbers</h3>
+    <div class="ap-grid-4">
+      <div class="ap-stat"><div class="ap-stat-num">$250M+</div><div class="ap-stat-label">Revenue generated for clients</div></div>
+      <div class="ap-stat"><div class="ap-stat-num">85%</div><div class="ap-stat-label">Average ROI on ad spend</div></div>
+      <div class="ap-stat"><div class="ap-stat-num">11</div><div class="ap-stat-label">Advertising channels managed</div></div>
+      <div class="ap-stat"><div class="ap-stat-num">10+</div><div class="ap-stat-label">Years performance experience</div></div>
+    </div>
+  </section>
+
+  <!-- ========== 02 LOGO ========== -->
+  <section class="ap-section" id="logo">
+    <div class="ap-section-label"><span class="num">02</span> &mdash; Logo</div>
+    <h2 class="ap-h2">Logo &amp; Wordmark</h2>
+    <p class="ap-lead">The Ad Pros wordmark is the lowercase "ad pros" logotype with a bold yellow rule beneath it &mdash; a symbol of the line between strategy and execution. Brand colors: Navy <code>#040735</code> and Yellow <code>#F9D900</code>.</p>
+
+    <div class="ap-logo-grid">
+      <div class="ap-logo-tile dark">
+        <svg class="ap-logo" viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros on navy">
+          <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+          <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+          <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+        </svg>
+        <div class="ap-logo-tile-label">Primary &mdash; Dark BG</div>
+      </div>
+      <div class="ap-logo-tile light">
+        <svg class="ap-logo" viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros on light">
+          <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="#040735" letter-spacing="-0.5">ad</text>
+          <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="#040735" letter-spacing="-0.5">pros</text>
+          <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+        </svg>
+        <div class="ap-logo-tile-label">Primary &mdash; Light BG</div>
+      </div>
+      <div class="ap-logo-tile yellow">
+        <svg class="ap-logo" viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros on yellow">
+          <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="#040735" letter-spacing="-0.5">ad</text>
+          <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="#040735" letter-spacing="-0.5">pros</text>
+          <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#040735"/>
+        </svg>
+        <div class="ap-logo-tile-label">Reversed &mdash; Yellow BG</div>
+      </div>
+    </div>
+
+    <h3 class="ap-h3">Logo Rules</h3>
+    <div class="ap-dodont-row">
+      <div class="ap-dodont-cell ap-do">
+        <div class="ap-dodont-head">&check; Do</div>
+        Use approved logo files. Maintain clear space equal to the height of the "a" on all sides. Use dark on light, and vice versa. Minimum 24px digital / 10mm print. Use only Navy, White, or Yellow variants.
+      </div>
+      <div class="ap-dodont-cell ap-dont">
+        <div class="ap-dodont-head">&times; Don't</div>
+        Recreate or retype the logo in any font. Stretch, skew, or rotate it. Add drop shadows, outlines, or effects. Use below the minimum size. Place on busy or clashing backgrounds.
+      </div>
+    </div>
+
+    <h3 class="ap-h3">Downloads</h3>
+    <div class="ap-download-grid">
+      <a class="ap-download" href="#" onclick="downloadLogo('dark', event)">
+        <div><div class="ap-download-title">Logo &mdash; Dark BG</div><div class="ap-download-meta">logo-dark.svg</div></div>
+        <div class="ap-download-icon">&darr;</div>
+      </a>
+      <a class="ap-download" href="#" onclick="downloadLogo('light', event)">
+        <div><div class="ap-download-title">Logo &mdash; Light BG</div><div class="ap-download-meta">logo-light.svg</div></div>
+        <div class="ap-download-icon">&darr;</div>
+      </a>
+      <a class="ap-download" href="#" onclick="downloadLogo('yellow', event)">
+        <div><div class="ap-download-title">Logo &mdash; Yellow BG</div><div class="ap-download-meta">logo-yellow.svg</div></div>
+        <div class="ap-download-icon">&darr;</div>
+      </a>
+      <a class="ap-download" href="mailto:book@adpros.com?subject=Brand%20asset%20request">
+        <div><div class="ap-download-title">Need other formats?</div><div class="ap-download-meta">PNG, EPS, PDF &mdash; request</div></div>
+        <div class="ap-download-icon">&rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== 03 COLOR ========== -->
+  <section class="ap-section" id="color">
+    <div class="ap-section-label"><span class="num">03</span> &mdash; Color System</div>
+    <h2 class="ap-h2">Color System</h2>
+    <p class="ap-lead">Anchored by Navy <code>#040735</code> and Yellow <code>#F9D900</code>. Every hue has a 10-step tint/shade scale (50&ndash;900) for flexible application. Click any swatch to copy the hex.</p>
+
+    <h3 class="ap-h3">Primary Palette</h3>
+    <div class="ap-color-primary">
+      <div class="ap-swatch" data-hex="#040735"><div class="ap-swatch-fill" style="background:#040735;"><div class="ap-swatch-copy-flag">copy</div></div><div class="ap-swatch-body"><div class="ap-swatch-hex">#040735</div><div class="ap-swatch-name">Brand Navy</div><div class="ap-swatch-role">Primary / Background</div></div></div>
+      <div class="ap-swatch" data-hex="#F9D900"><div class="ap-swatch-fill" style="background:#F9D900;"><div class="ap-swatch-copy-flag">copy</div></div><div class="ap-swatch-body"><div class="ap-swatch-hex">#F9D900</div><div class="ap-swatch-name">Brand Yellow</div><div class="ap-swatch-role">Primary / CTA</div></div></div>
+      <div class="ap-swatch" data-hex="#1A6FD4"><div class="ap-swatch-fill" style="background:#1A6FD4;"><div class="ap-swatch-copy-flag">copy</div></div><div class="ap-swatch-body"><div class="ap-swatch-hex">#1A6FD4</div><div class="ap-swatch-name">Brand Blue</div><div class="ap-swatch-role">Interactive / Links</div></div></div>
+      <div class="ap-swatch" data-hex="#FFFFFF"><div class="ap-swatch-fill" style="background:#FFFFFF;"><div class="ap-swatch-copy-flag">copy</div></div><div class="ap-swatch-body"><div class="ap-swatch-hex">#FFFFFF</div><div class="ap-swatch-name">White</div><div class="ap-swatch-role">Text on Dark</div></div></div>
+      <div class="ap-swatch" data-hex="#2A2D4A"><div class="ap-swatch-fill" style="background:#2A2D4A;"><div class="ap-swatch-copy-flag">copy</div></div><div class="ap-swatch-body"><div class="ap-swatch-hex">#2A2D4A</div><div class="ap-swatch-name">Dark Grey</div><div class="ap-swatch-role">Secondary Text</div></div></div>
+    </div>
+
+    <h3 class="ap-h3">Grey Scale</h3>
+    <div class="ap-scale" id="grey-scale"></div>
+
+    <h3 class="ap-h3">Blue Scale</h3>
+    <div class="ap-scale" id="blue-scale"></div>
+
+    <h3 class="ap-h3">Yellow Scale</h3>
+    <div class="ap-scale" id="yellow-scale"></div>
+
+    <div class="ap-a11y-callout">
+      <strong>Accessibility</strong>
+      All text combinations must meet WCAG 2.1 AA contrast minimums: <strong style="color:var(--yellow)">4.5:1</strong> for normal text, <strong style="color:var(--yellow)">3:1</strong> for large text. White on Navy passes at 18.8:1. Never use yellow text on white backgrounds &mdash; fails contrast.
+    </div>
+  </section>
+
+  <!-- ========== 04 TYPOGRAPHY ========== -->
+  <section class="ap-section" id="type">
+    <div class="ap-section-label"><span class="num">04</span> &mdash; Typography</div>
+    <h2 class="ap-h2">Typography</h2>
+    <p class="ap-lead">Primary typeface is <strong style="color:#fff">Power Grotesk</strong> &mdash; a geometric sans-serif that anchors all brand communications. When unavailable, use Inter or Helvetica Neue as fallbacks. CSS stack: <code>"Power Grotesk", Inter, "Helvetica Neue", Arial, sans-serif</code>.</p>
+
+    <h3 class="ap-h3">Type Scale</h3>
+    <table class="ap-type-table">
+      <thead><tr><th>Style</th><th>Size</th><th>Weight</th><th>Line</th><th>Tracking</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td class="style-name">Display Large</td><td>56px</td><td>Bold</td><td>1.1&times;</td><td>&minus;1px</td><td>Hero headlines, covers</td></tr>
+        <tr><td class="style-name">Display Small</td><td>48px</td><td>Bold</td><td>1.1&times;</td><td>&minus;1px</td><td>Section heroes</td></tr>
+        <tr><td class="style-name">Heading H1</td><td>40px</td><td>Bold</td><td>1.15&times;</td><td>&minus;0.5px</td><td>Page titles</td></tr>
+        <tr><td class="style-name">Heading H2</td><td>32px</td><td>Bold</td><td>1.2&times;</td><td>&minus;0.5px</td><td>Section headings</td></tr>
+        <tr><td class="style-name">Heading H3</td><td>24px</td><td>SemiBold</td><td>1.2&times;</td><td>0</td><td>Sub-section headings</td></tr>
+        <tr><td class="style-name">Heading H4</td><td>20px</td><td>SemiBold</td><td>1.3&times;</td><td>0</td><td>Card headings</td></tr>
+        <tr><td class="style-name">Heading H5</td><td>16px</td><td>SemiBold</td><td>1.4&times;</td><td>0</td><td>Sidebar headings</td></tr>
+        <tr><td class="style-name">Heading H6</td><td>14px</td><td>Medium</td><td>1.4&times;</td><td>0</td><td>Small labels</td></tr>
+        <tr><td class="style-name">Paragraph Large</td><td>18px</td><td>Regular</td><td>1.6&times;</td><td>0</td><td>Intro copy, hero sub-text</td></tr>
+        <tr><td class="style-name">Paragraph Med</td><td>16px</td><td>Regular/Med</td><td>1.6&times;</td><td>0</td><td>Body copy</td></tr>
+        <tr><td class="style-name">Paragraph Small</td><td>14px</td><td>Regular</td><td>1.5&times;</td><td>0</td><td>Supporting text</td></tr>
+        <tr><td class="style-name">Caption</td><td>12px</td><td>Regular</td><td>1.5&times;</td><td>0</td><td>Captions, footnotes</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="ap-h3">Hierarchy in Practice</h3>
+    <div class="ap-type-demo">
+      <div class="ap-type-demo-row">
+        <div class="ap-type-demo-label">Display</div>
+        <div class="ap-type-demo-text" style="font-size:48px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;">Ad Pros &mdash; High-Performance Growth</div>
+      </div>
+      <div class="ap-type-demo-row">
+        <div class="ap-type-demo-label">Heading H1</div>
+        <div class="ap-type-demo-text" style="font-size:36px;font-weight:700;letter-spacing:-0.8px;line-height:1.15;">Ad Pros &mdash; High-Performance Growth</div>
+      </div>
+      <div class="ap-type-demo-row">
+        <div class="ap-type-demo-label">Heading H2</div>
+        <div class="ap-type-demo-text" style="font-size:28px;font-weight:700;letter-spacing:-0.5px;line-height:1.2;">Ad Pros &mdash; High-Performance Growth</div>
+      </div>
+      <div class="ap-type-demo-row">
+        <div class="ap-type-demo-label">Heading H3</div>
+        <div class="ap-type-demo-text" style="font-size:22px;font-weight:600;line-height:1.2;">Ad Pros &mdash; High-Performance Growth</div>
+      </div>
+      <div class="ap-type-demo-row">
+        <div class="ap-type-demo-label">Body / Paragraph</div>
+        <div class="ap-type-demo-text" style="font-size:16px;font-weight:400;color:var(--grey-100);">Ad Pros &mdash; High-Performance Growth</div>
+      </div>
+      <div class="ap-type-demo-row">
+        <div class="ap-type-demo-label">Caption / Label</div>
+        <div class="ap-type-demo-text" style="font-size:12px;color:var(--grey-300);">Ad Pros &mdash; High-Performance Growth</div>
+      </div>
+    </div>
+
+    <div class="ap-a11y-callout" style="margin-top:28px;">
+      <strong>Fallback Fonts</strong>
+      <strong style="color:var(--yellow)">Email:</strong> Arial, Helvetica, sans-serif. <strong style="color:var(--yellow)">Google Docs / Office:</strong> Inter. <strong style="color:var(--yellow)">CSS:</strong> <code>"Power Grotesk", Inter, "Helvetica Neue", Arial, sans-serif</code>.
+    </div>
+  </section>
+
+  <!-- ========== 05 SPACING ========== -->
+  <section class="ap-section" id="space">
+    <div class="ap-section-label"><span class="num">05</span> &mdash; Spacing System</div>
+    <h2 class="ap-h2">Spacing System</h2>
+    <p class="ap-lead">Built on a <strong style="color:var(--yellow)">4px base unit</strong>. Every layout gap, padding, and margin uses a value from this scale. Keeps visual harmony across screens and materials.</p>
+
+    <div class="ap-card" style="padding:8px;">
+      <div id="space-list"></div>
+    </div>
+
+    <div class="ap-grid-4" style="margin-top:24px;">
+      <div class="ap-card"><h4 style="color:var(--yellow);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Micro</h4><p style="font-size:13px;color:var(--grey-200);">4&ndash;16px. Inline elements, icon padding, tight lists.</p></div>
+      <div class="ap-card"><h4 style="color:var(--yellow);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Small</h4><p style="font-size:13px;color:var(--grey-200);">20&ndash;32px. Component padding, cards, form fields.</p></div>
+      <div class="ap-card"><h4 style="color:var(--yellow);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Medium</h4><p style="font-size:13px;color:var(--grey-200);">40&ndash;64px. Sub-components, feature blocks, modals.</p></div>
+      <div class="ap-card"><h4 style="color:var(--yellow);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Large</h4><p style="font-size:13px;color:var(--grey-200);">80&ndash;192px. Section separators, hero padding, gutters.</p></div>
+    </div>
+  </section>
+
+  <!-- ========== 06 UI COMPONENTS ========== -->
+  <section class="ap-section" id="ui">
+    <div class="ap-section-label"><span class="num">06</span> &mdash; UI Components</div>
+    <h2 class="ap-h2">UI Components</h2>
+    <p class="ap-lead">Core building blocks. The full component library lives in Figma &mdash; these are the foundational primitives every surface uses.</p>
+
+    <h3 class="ap-h3">Buttons</h3>
+    <div class="ap-card">
+      <div class="ap-btn-demo">
+        <button class="btn-primary">Join Waitlist</button>
+        <button class="btn-secondary">Learn More</button>
+        <button class="btn-ghost">View Details</button>
+      </div>
+      <p style="margin-top:16px;font-size:12px;color:var(--grey-300);">Primary CTA &mdash; yellow on navy, for hero actions. Secondary &mdash; outlined yellow, for supporting nav. Ghost &mdash; low-emphasis, inline actions. All support Default / Hover / Disabled / Loading states.</p>
+    </div>
+
+    <h3 class="ap-h3">Form Fields</h3>
+    <div class="ap-card">
+      <div class="ap-input-demo">
+        <label>Email Address</label>
+        <input type="text" placeholder="you@company.com" value="you@company.com">
+      </div>
+      <p style="margin-top:16px;font-size:12px;color:var(--grey-300);">Flat style, 1px grey-200 border. On focus, border becomes Brand Blue <code>#1A6FD4</code>. Error borders use Red <code>#D42620</code>; success uses Green <code>#0F973D</code>.</p>
+    </div>
+
+    <h3 class="ap-h3">Notifications &amp; Toasts</h3>
+    <div class="toast-grid">
+      <div class="toast toast-success"><span class="toast-dot"></span>Campaign published successfully.</div>
+      <div class="toast toast-error"><span class="toast-dot"></span>An error occurred. Please try again.</div>
+      <div class="toast toast-warn"><span class="toast-dot"></span>Budget below recommended threshold.</div>
+      <div class="toast toast-info"><span class="toast-dot"></span>New platform update available.</div>
+    </div>
+  </section>
+
+  <!-- ========== 07 VOICE ========== -->
+  <section class="ap-section" id="voice">
+    <div class="ap-section-label"><span class="num">07</span> &mdash; Brand Voice &amp; Tone</div>
+    <h2 class="ap-h2">Brand Voice &amp; Tone</h2>
+    <p class="ap-lead">Ad Pros speaks like a trusted expert who gets results. Confident without being arrogant, direct without being cold, data-driven without being robotic.</p>
+
+    <h3 class="ap-h3">Voice Pillars</h3>
+    <div class="ap-grid-4">
+      <div class="ap-pillar"><h4>Authoritative</h4><p>$250M+ in ad spend managed. We speak with conviction.</p></div>
+      <div class="ap-pillar"><h4>Clear &amp; Direct</h4><p>No jargon. We get to the point in emails, ads, and decks.</p></div>
+      <div class="ap-pillar"><h4>Data-Led</h4><p>We back every claim with numbers. Specifics build trust.</p></div>
+      <div class="ap-pillar"><h4>Human</h4><p>We're performance obsessed but never robotic.</p></div>
+    </div>
+
+    <h3 class="ap-h3">Tone in Context</h3>
+    <div class="ap-card" style="padding:0;overflow:hidden;">
+      <table class="ap-tone-table">
+        <thead><tr><th>Context</th><th>Tone</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="tone-ctx">Ad Copy</td><td class="tone-kind">Bold, punchy, urgent</td><td class="tone-ex">"Scale past $1M in 90 days. We'll build the engine."</td></tr>
+          <tr><td class="tone-ctx">Client Email</td><td class="tone-kind">Professional, warm, specific</td><td class="tone-ex">"Your ROAS jumped 34% this week &mdash; here's why."</td></tr>
+          <tr><td class="tone-ctx">Error Message</td><td class="tone-kind">Calm, actionable</td><td class="tone-ex">"Something went wrong. Refresh or contact your account manager."</td></tr>
+          <tr><td class="tone-ctx">Success Message</td><td class="tone-kind">Encouraging, concise</td><td class="tone-ex">"Campaign live. First impressions incoming."</td></tr>
+          <tr><td class="tone-ctx">Case Study</td><td class="tone-kind">Confident, evidence-first</td><td class="tone-ex">"$0 to $4.2M revenue in 6 months &mdash; no increase in spend."</td></tr>
+          <tr><td class="tone-ctx">Social Media</td><td class="tone-kind">Conversational, insight-led</td><td class="tone-ex">"We optimize for customers. Not clicks. Big difference."</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="ap-h3">Words We Use &amp; Words We Avoid</h3>
+    <div class="ap-words">
+      <div class="ap-words-col use">
+        <h5>&check; Use</h5>
+        <p>Scale, grow, results, revenue, impact, data-driven, omnichannel, performance, clients, brands.</p>
+      </div>
+      <div class="ap-words-col avoid">
+        <h5>&times; Avoid</h5>
+        <p>Cheap, guaranteed, synergy, leverage (as verb), world-class (without proof), solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 08 SERVICES ========== -->
+  <section class="ap-section" id="services">
+    <div class="ap-section-label"><span class="num">08</span> &mdash; Services Overview</div>
+    <h2 class="ap-h2">Services Overview</h2>
+    <p class="ap-lead">Use these descriptions consistently across all client, partner, and prospect communications.</p>
+
+    <div class="ap-service">
+      <div class="ap-service-num">01</div>
+      <div class="ap-service-body">
+        <h4>Media Buying &mdash; Scale Your Presence Across Every Channel</h4>
+        <p>Ad Pros expertly manages your omnichannel advertising strategy. Advertise seamlessly across up to 11 channels, efficiently driving customer acquisition at scale and boosting market impact.</p>
+      </div>
+    </div>
+    <div class="ap-service">
+      <div class="ap-service-num">02</div>
+      <div class="ap-service-body">
+        <h4>Creatives &mdash; Maximize Your Marketing Potential Immediately</h4>
+        <p>Ad Pros fully owns strategy, briefing, copywriting, design, and approval processes for all creative outputs. Our dedicated, full-stack creative team integrates seamlessly into your operations overnight, enabling high-volume production of impactful, high-quality creatives.</p>
+      </div>
+    </div>
+    <div class="ap-service">
+      <div class="ap-service-num">03</div>
+      <div class="ap-service-body">
+        <h4>Data &mdash; Transform Your Business with Actionable Insights</h4>
+        <p>Convert data into meaningful insights with customized dashboards designed for performance. Unlock unique analytics and critical learnings for your brand, including detailed views on profitability, pacing, and growth opportunities.</p>
+      </div>
+    </div>
+    <div class="ap-service">
+      <div class="ap-service-num">04</div>
+      <div class="ap-service-body">
+        <h4>Strategy &mdash; From Data to Scale: Your Growth Plan in Action</h4>
+        <p>We integrate media buying, creatives, and data into a seamless, high-growth strategy tailored to your business. Expert-led plans include monthly and quarterly performance reviews, ensuring continuous optimization and scalable success.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3">Advertising Platforms</h3>
+    <div class="ap-platforms">
+      <div class="ap-platform">Meta (Facebook &amp; IG)</div>
+      <div class="ap-platform">Google Ads</div>
+      <div class="ap-platform">YouTube</div>
+      <div class="ap-platform">LinkedIn</div>
+      <div class="ap-platform">X (Twitter)</div>
+      <div class="ap-platform">TikTok</div>
+      <div class="ap-platform">Pinterest</div>
+      <div class="ap-platform">Snapchat</div>
+      <div class="ap-platform">Programmatic Display</div>
+      <div class="ap-platform">Connected TV (CTV)</div>
+      <div class="ap-platform">Amazon Ads</div>
+    </div>
+  </section>
+
+  <!-- ========== 09 DO / DON'T ========== -->
+  <section class="ap-section" id="rules">
+    <div class="ap-section-label"><span class="num">09</span> &mdash; Usage Do's &amp; Don'ts</div>
+    <h2 class="ap-h2">Usage Do's &amp; Don'ts</h2>
+    <p class="ap-lead">Quick reference for common brand application questions. When in doubt, reach us at <a href="mailto:book@adpros.com" style="color:var(--yellow);text-decoration:none;font-weight:600;">book@adpros.com</a>.</p>
+
+    <h3 class="ap-h3">Colors</h3>
+    <div class="ap-dodont-row">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Use Navy <code>#040735</code> and Yellow <code>#F9D900</code> as the hero combination for primary CTAs and headers.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Use yellow as a text color on white backgrounds &mdash; fails contrast.</div>
+    </div>
+    <div class="ap-dodont-row" style="margin-top:12px;">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Use Blue <code>#1A6FD4</code> for interactive elements and links.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Introduce new brand colors outside the approved palette.</div>
+    </div>
+    <div class="ap-dodont-row" style="margin-top:12px;">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Use the full grey scale for neutral UI, text hierarchy, and backgrounds.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Create new "tints" via opacity &mdash; use the official palette steps.</div>
+    </div>
+
+    <h3 class="ap-h3">Typography</h3>
+    <div class="ap-dodont-row">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Use Power Grotesk in all digital, print, and marketing materials.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Mix more than two font weights in a single layout block.</div>
+    </div>
+    <div class="ap-dodont-row" style="margin-top:12px;">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Maintain hierarchy: Display &gt; Heading &gt; Paragraph &gt; Caption.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Use all-caps for body text or paragraphs.</div>
+    </div>
+    <div class="ap-dodont-row" style="margin-top:12px;">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Use letter-spacing &minus;1px on Display styles for brand-accurate headlines.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Use decorative or script fonts in Ad Pros materials.</div>
+    </div>
+
+    <h3 class="ap-h3">Imagery &amp; Creative</h3>
+    <div class="ap-dodont-row">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Use high-contrast, energetic imagery reflecting ambition and growth.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Use generic stock imagery (handshakes, fake diversity shots).</div>
+    </div>
+    <div class="ap-dodont-row" style="margin-top:12px;">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Apply navy or yellow overlays at &le;60% opacity to reinforce brand presence.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Place the logo over busy imagery without a clear-space treatment.</div>
+    </div>
+    <div class="ap-dodont-row" style="margin-top:12px;">
+      <div class="ap-dodont-cell ap-do"><div class="ap-dodont-head">&check; Do</div>Feature real data, dashboards, and outcomes wherever appropriate.</div>
+      <div class="ap-dodont-cell ap-dont"><div class="ap-dodont-head">&times; Don't</div>Use competitor brand colors or visual styles.</div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="ap-section" id="contact">
+    <div class="ap-section-label">Contacts &amp; Resources</div>
+    <h2 class="ap-h2">Get in Touch</h2>
+    <p class="ap-lead">Questions about the brand, need additional assets, or something not covered here? Reach out.</p>
+
+    <div class="ap-contact-grid">
+      <a class="ap-contact" href="https://www.adpros.com" target="_blank" rel="noopener">
+        <div class="ap-contact-label">Website</div>
+        <div class="ap-contact-value">www.adpros.com</div>
+        <div class="ap-contact-meta">Main site &mdash; services, case studies, team</div>
+      </a>
+      <a class="ap-contact" href="mailto:book@adpros.com">
+        <div class="ap-contact-label">Book a Call</div>
+        <div class="ap-contact-value">book@adpros.com</div>
+        <div class="ap-contact-meta">Partnerships, new business, brand asset requests</div>
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="ap-footer">
+  <div style="display:flex;align-items:center;gap:16px;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:28px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>&copy; 2026 Ad Pros. Confidential &mdash; Internal &amp; approved partner use only.</p>
+  </div>
+  <div class="ap-footer-right">brand-kit v1.0 &middot; updated 2026</div>
+</footer>
+
+<div class="ap-copy-toast" id="copy-toast">Copied!</div>
+
+<script>
+(function(){
+  // Color scales
+  var greyScale = [
+    ['50','#F5F5F6'],['100','#E6E6E7'],['200','#B0B1B6'],['300','#8A8B93'],['400','#54556A'],
+    ['500','#33354A'],['600','#1E2035'],['700','#10111F'],['800','#06070F'],['900','#040735']
+  ];
+  var blueScale = [
+    ['50','#E7F4FE'],['100','#B3DEFD'],['200','#8ECEFB'],['300','#5BB7FA'],['400','#3BA9F9'],
+    ['500','#1A6FD4'],['600','#1560BB'],['700','#0F489B'],['800','#09307A'],['900','#040735']
+  ];
+  var yellowScale = [
+    ['50','#FFFDE8'],['100','#FFF7C2'],['200','#FFF4A5'],['300','#FFEE7C'],['400','#FFEB62'],
+    ['500','#F9D900'],['600','#DFC200'],['700','#B59E00'],['800','#8A7900'],['900','#5F5300']
+  ];
+
+  function renderScale(id, scale){
+    var el = document.getElementById(id);
+    scale.forEach(function(pair){
+      var step = pair[0], hex = pair[1];
+      var dark = parseInt(hex.slice(1),16);
+      var r=(dark>>16)&255, g=(dark>>8)&255, b=dark&255;
+      var lum = (0.299*r + 0.587*g + 0.114*b);
+      var stepColor = lum > 140 ? '#040735' : '#fff';
+      var html = '<div class="ap-scale-item" data-hex="'+hex+'">'+
+        '<div class="ap-scale-fill" style="background:'+hex+'"></div>'+
+        '<div class="ap-scale-body"><div class="ap-scale-step">'+step+'</div><div class="ap-scale-hex">'+hex+'</div></div>'+
+        '</div>';
+      el.insertAdjacentHTML('beforeend', html);
+    });
+  }
+  renderScale('grey-scale', greyScale);
+  renderScale('blue-scale', blueScale);
+  renderScale('yellow-scale', yellowScale);
+
+  // Spacing scale
+  var spaces = [
+    ['$spacing-xx-sm',4],['$spacing-x-sm',8],['$spacing-sm',12],['$spacing-md',16],
+    ['$spacing-big',20],['$spacing-x-big',24],['$spacing-xx-big',28],['$spacing-xxx-big',32],
+    ['$spacing-lg',40],['$spacing-x-lg',48],['$spacing-xx-lg',64],['$spacing-xxx-lg',80],
+    ['$spacing-huge',96],['$spacing-x-huge',128],['$spacing-xx-huge',160],['$spacing-xxx-huge',192]
+  ];
+  var maxPx = 192;
+  var spaceList = document.getElementById('space-list');
+  spaces.forEach(function(s){
+    var name = s[0], px = s[1];
+    var pct = (px/maxPx*100).toFixed(1);
+    var html = '<div class="ap-space-row">'+
+      '<div class="token">'+name+'</div>'+
+      '<div class="size">'+px+'px</div>'+
+      '<div><div class="ap-space-bar" style="width:'+pct+'%"></div></div>'+
+      '</div>';
+    spaceList.insertAdjacentHTML('beforeend', html);
+  });
+
+  // Copy-to-clipboard for swatches
+  var toast = document.getElementById('copy-toast');
+  var toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 1400);
+  }
+  function copyText(text){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  }
+  document.addEventListener('click', function(e){
+    var sw = e.target.closest('[data-hex]');
+    if (!sw) return;
+    var hex = sw.getAttribute('data-hex');
+    copyText(hex);
+    showToast('Copied ' + hex);
+    sw.classList.add('copied');
+    setTimeout(function(){ sw.classList.remove('copied'); }, 1000);
+  });
+
+  // Logo SVG downloads
+  window.downloadLogo = function(variant, ev){
+    if (ev) ev.preventDefault();
+    var cfg = {
+      dark:   { bg:'#040735', textColor:'white',   barColor:'#F9D900', name:'adpros-logo-dark.svg' },
+      light:  { bg:'#FFFFFF', textColor:'#040735', barColor:'#F9D900', name:'adpros-logo-light.svg' },
+      yellow: { bg:'#F9D900', textColor:'#040735', barColor:'#040735', name:'adpros-logo-yellow.svg' }
+    }[variant];
+    var svg = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 72" width="432" height="288">\n' +
+      '  <rect width="108" height="72" fill="' + cfg.bg + '"/>\n' +
+      '  <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="' + cfg.textColor + '" letter-spacing="-0.5">ad</text>\n' +
+      '  <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="' + cfg.textColor + '" letter-spacing="-0.5">pros</text>\n' +
+      '  <rect x="0" y="64" width="96" height="7" rx="1.5" fill="' + cfg.barColor + '"/>\n' +
+      '</svg>';
+    var blob = new Blob([svg], {type:'image/svg+xml'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = cfg.name;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    showToast('Downloaded ' + cfg.name);
+  };
+})();
+</script>
+
+</body>
+</html>
