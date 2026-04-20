@@ -857,10 +857,10 @@ function SalesTab({ m }) {
 
 // ============ TAB: PER-CLIENT TARGET ============
 function ClientTargetTab({ m }) {
-  const [brandRev, setBrandRev] = useState(300000);
-  const [brandSpend, setBrandSpend] = useState(180000);
-  const [orgAlloc, setOrgAlloc] = useState(20);
-  const [adAlloc, setAdAlloc] = useState(20);
+  const [brandRev, setBrandRev] = useState(500000);
+  const [brandSpend, setBrandSpend] = useState(300000);
+  const [orgAlloc, setOrgAlloc] = useState(25);
+  const [adAlloc, setAdAlloc] = useState(25);
   const [apTarget, setApTarget] = useState(20000);
 
   const fmt = n => n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : n >= 1000 ? "$" + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "K" : "$" + n.toFixed(0);
@@ -1105,11 +1105,42 @@ function ClientTargetTab({ m }) {
 
         <div style={{ marginTop: 14 }}>
           <Callout m={m}>
-            <strong style={{ color: C.white }}>Bottom line:</strong> A client needs to push <strong style={{ color: C.accent }}>{fmtFull(needTotal)}/mo</strong> through the creator network for AP to earn {fmtFull(apTarget)}.
-            A $300K/mo brand at 30% organic + 20% ad gets you to ${fmtFull(300000 * 0.30 * 0.10 + 180000 * 0.20 * 0.10)}.
-            A $500K/mo brand at 20/20 hits ${fmtFull(500000 * 0.20 * 0.10 + 300000 * 0.20 * 0.10)} — right at target.
+            <strong style={{ color: C.white }}>Key insight:</strong> Organic GMV is 2.5x more margin-efficient.
+            Each $1 of organic GMV generates $0.10 at 100% margin. Each $1 of ad spend generates $0.10 at 70% margin.
+            Weight the mix toward organic for maximum profitability.
           </Callout>
         </div>
+      </FadeIn>
+
+      {/* MOST REALISTIC PATH */}
+      <FadeIn delay={0.03}>
+        <SL num="—" text={`Most Realistic Path to ${fmt(apTarget)}/Client`} m={m} />
+        <Surf m={m}>
+          <ML>By Client Size</ML>
+          <div style={{ marginTop: 10 }}>
+            {[
+              { size: "$1M/mo", path: "Conservative: 10% organic + 10% ad", ap: "$16K", color: C.muted },
+              { size: "$750K/mo", path: "Moderate: 15% organic + 15% ad", ap: "$18K", color: C.muted },
+              { size: "$500K/mo", path: "Sweet spot: 25% organic + 25% ad", ap: "$20K ✓", color: C.green },
+              { size: "$300K/mo", path: "Aggressive: 40% organic + 25% ad", ap: "$17K", color: C.muted },
+              { size: "$300K/mo", path: "Creator-first: 50% organic + 30% ad", ap: "$20K ✓", color: C.green },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: m ? 8 : 14, padding: "10px 0", borderBottom: i < 4 ? `1px solid ${C.border}` : "none", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: m ? 8 : 12, minWidth: 0 }}>
+                  <span style={{ fontFamily: F.mono, fontSize: m ? 12 : 14, fontWeight: 800, color: r.color === C.green ? C.green : C.accent, minWidth: m ? 65 : 80 }}>{r.size}</span>
+                  <span style={{ fontSize: m ? 11 : 12, color: C.offWhite }}>{r.path}</span>
+                </div>
+                <span style={{ fontFamily: F.mono, fontSize: m ? 12 : 13, fontWeight: 700, color: r.color }}>{r.ap}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: C.accentDim, borderRadius: 10, padding: m ? "12px 14px" : "14px 18px", marginTop: 14 }}>
+            <div style={{ fontSize: m ? 12 : 13, lineHeight: 1.6, color: C.offWhite }}>
+              <strong style={{ color: C.white }}>Sweet spot:</strong> A <strong style={{ color: C.accent }}>$500K/mo brand</strong> allocating 25% organic + 25% ad spend hits {fmtFull(apTarget)}/mo AP revenue
+              with {fmtFull(500000 * 0.25)} creator GMV + {fmtFull(300000 * 0.25)} creator ad spend = {fmtFull(200000)} total network flow.
+            </div>
+          </div>
+        </Surf>
       </FadeIn>
     </>
   );
