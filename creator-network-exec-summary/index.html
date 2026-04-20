@@ -157,11 +157,10 @@ function OverviewTab({ m }) {
         <Surf m={m}>
           <div style={{ fontSize: 11, color: C.muted, marginBottom: 12 }}>Example: brand with $100K/mo creator GMV + $100K/mo ad spend on creator content</div>
           {[
-            { l: "Base Fee", v: "$5,000", c: C.offWhite, sub: "break-even" },
             { l: "10% of $100K GMV", v: "$10,000", c: C.green, sub: "network fee → 100% margin" },
             { l: "10% of $100K Spend", v: "$10,000", c: C.accent, sub: "7% AP ($7K) + 3% creator ($3K)" },
           ].map((r, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: i < 2 ? `1px solid ${C.border}` : "none" }}>
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
               <div>
                 <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>{r.l}</span>
                 <span style={{ fontSize: 10, color: C.muted, marginLeft: 8 }}>{r.sub}</span>
@@ -169,24 +168,29 @@ function OverviewTab({ m }) {
               <span style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 700, color: r.c }}>{r.v}</span>
             </div>
           ))}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
+            <div>
+              <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>Base Retainer</span>
+              <span style={{ fontSize: 10, color: C.muted, marginLeft: 8 }}>pass-through to creators</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 400, color: C.muted }}>$5,000</span>
+          </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, paddingTop: 12, borderTop: `2px solid ${C.accent}` }}>
             <div>
-              <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>Total Revenue</span>
+              <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>AP Revenue</span>
               <span style={{ fontSize: 11, color: C.muted, marginLeft: 8 }}>$17K margin</span>
             </div>
-            <span style={{ fontFamily: F.display, fontSize: m ? 26 : 30, fontStyle: "italic", color: C.accent }}>$25,000</span>
+            <span style={{ fontFamily: F.display, fontSize: m ? 26 : 30, fontStyle: "italic", color: C.accent }}>$20,000</span>
           </div>
 
           {/* Margin split bar */}
           <div style={{ marginTop: 14 }}>
             <div style={{ display: "flex", height: 10, borderRadius: 5, overflow: "hidden" }}>
-              <div style={{ width: "20%", background: `${C.white}20` }} title="Base (break-even)" />
-              <div style={{ width: "40%", background: C.green }} title="GMV fee" />
-              <div style={{ width: "28%", background: C.accent }} title="AP spend margin" />
-              <div style={{ width: "12%", background: C.purple }} title="Creator bonus" />
+              <div style={{ width: "50%", background: C.green }} title="GMV fee (100% margin)" />
+              <div style={{ width: "35%", background: C.accent }} title="AP spend margin (7%)" />
+              <div style={{ width: "15%", background: C.purple }} title="Creator bonus (3%)" />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 10, flexWrap: "wrap", gap: 4 }}>
-              <span style={{ color: C.muted }}>Base $5K</span>
               <span style={{ color: C.green }}>GMV $10K</span>
               <span style={{ color: C.accent }}>AP $7K</span>
               <span style={{ color: C.purple }}>Creator $3K</span>
@@ -205,8 +209,8 @@ function OverviewTab({ m }) {
             const baseFees = r.b * 5000;
             const gmvRev = totalGmv * 0.10;
             const spendRev = totalSpend * 0.10;
-            const rev = baseFees + gmvRev + spendRev;
-            const margin = gmvRev + (totalSpend * 0.07); // GMV fee is 100% margin, spend fee 7% is margin
+            const rev = gmvRev + spendRev;
+            const margin = gmvRev + (totalSpend * 0.07);
             const last = i === 3;
             return (
               <Surf key={i} m={m} style={{ background: last ? C.accentDim : C.surface, borderColor: last ? C.accentBorder : C.border, padding: m ? 14 : 18 }}>
@@ -214,12 +218,13 @@ function OverviewTab({ m }) {
                   <span style={{ fontSize: 14, fontWeight: 700, color: last ? C.accent : C.white }}>{r.p}</span>
                   <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>{r.b} brands</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr", gap: m ? 8 : 4, marginBottom: 10 }}>
+                <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr 1fr", gap: m ? 8 : 4, marginBottom: 10 }}>
                   {[
                     { l: "GMV", v: fmt(totalGmv), c: C.offWhite },
                     { l: "Ad Spend", v: fmt(totalSpend), c: C.offWhite },
-                    { l: "Revenue", v: fmt(rev), c: C.green },
-                    { l: "Margin", v: fmt(margin), c: last ? C.accent : C.white },
+                    { l: "AP Revenue", v: fmt(rev), c: C.green },
+                    { l: "AP Margin", v: fmt(margin), c: last ? C.accent : C.white },
+                    { l: "Base (P/T)", v: fmt(baseFees), c: C.muted },
                   ].map((d, j) => (
                     <div key={j}>
                       <ML>{d.l}</ML>
@@ -245,8 +250,8 @@ function OverviewTab({ m }) {
 
         <div style={{ marginTop: 12 }}>
           <Callout m={m} color={C.green} bg={C.greenDim}>
-            <strong style={{ color: C.white }}>At 50 brands:</strong> $50M creator GMV + $25M ad spend = $7.75M/mo revenue, $6.75M/mo margin.
-            GMV fee is the dominant revenue driver — 100% margin with no creator split.
+            <strong style={{ color: C.white }}>At 50 brands:</strong> $50M creator GMV + $25M ad spend = $7.5M/mo AP revenue, $6.75M/mo AP margin.
+            GMV fee is the dominant revenue driver — 100% margin with no creator split. Base retainers ($250K) pass through to creators.
           </Callout>
         </div>
       </FadeIn>
