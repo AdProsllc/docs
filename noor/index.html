@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<title>Noor · Isometric — Ad Pros Avatar System</title>
+<template id="__bundler_thumbnail" data-bg-color="#040735">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#040735"/>
+    <!-- halo -->
+    <rect x="430" y="250" width="340" height="26" fill="#F9D900"/>
+    <!-- hair -->
+    <rect x="400" y="276" width="400" height="80" fill="#1A3A6E"/>
+    <rect x="380" y="296" width="440" height="80" fill="#1A3A6E"/>
+    <!-- face -->
+    <rect x="420" y="356" width="360" height="160" fill="#F6CDB6"/>
+    <!-- eyes -->
+    <rect x="500" y="410" width="40" height="24" fill="#040735"/>
+    <rect x="660" y="410" width="40" height="24" fill="#040735"/>
+    <!-- mouth -->
+    <rect x="540" y="470" width="120" height="16" fill="#E03D72"/>
+    <!-- label -->
+    <text x="600" y="620" text-anchor="middle" fill="#F9D900" font-family="monospace" font-size="28" letter-spacing="8">NOOR</text>
+    <text x="600" y="660" text-anchor="middle" fill="#c8cadb" font-family="monospace" font-size="14" letter-spacing="4">AVATAR SYSTEM</text>
+  </svg>
+</template>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#040735;
+    --navy-2:#0b0f4a;
+    --navy-3:#070a3f;
+    --yellow:#F9D900;
+    --yellow-d:#C7A900;
+    --blue:#1A6FD4;
+    --white:#ffffff;
+    --grey-300:#c8cadb;
+    --grey-500:#6b6e85;
+    --border:#1b2166;
+    --bg-card:#0b0f4a;
+
+    /* Noir-Noor palette: moodier, dramatic */
+    --n-hair:#F5E6B8;
+    --n-hair-shade:#C8A84A;
+    --n-face:#F9D900;
+    --n-face-shade:#C79E00;
+    --n-face-dark:#8E6E00;
+    --n-eye:#040735;
+    --n-mouth:#E03D72;
+    --n-halo:#F9D900;
+    --n-accent:#1A6FD4;
+    --n-glow:rgba(249,217,0,.35);
+
+    --anim-speed:1;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--navy);color:#fff;font-family:'Inter','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1360px;margin:0 auto;padding:0 40px 96px}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  h1,h2,h3,h4{margin:0;letter-spacing:-.02em;line-height:1.05;font-weight:700}
+  h1{font-size:clamp(40px, 7vw, 72px);letter-spacing:-.035em;line-height:1.02}
+  h2{font-size:clamp(26px, 3.2vw, 36px);line-height:1.1}
+  h3{font-size:20px;font-weight:600;line-height:1.2}
+  p{line-height:1.6;color:var(--grey-300);margin:0}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--yellow);text-transform:uppercase}
+  .kicker .dot{width:8px;height:8px;background:var(--yellow);border-radius:50%;animation:pulse calc(2s / var(--anim-speed)) infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  /* ========== TOP NAV ========== */
+  header.top{
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:16px 40px;border-bottom:1px solid var(--border);
+    position:sticky;top:0;background:rgba(4,7,53,.88);backdrop-filter:blur(12px);z-index:50;
+  }
+  .logo{display:flex;align-items:center;gap:14px;font-weight:700;letter-spacing:-.02em}
+  .logo .mark{width:46px;height:46px;display:grid;place-items:center;flex-shrink:0}
+  .logo .mark svg{width:100%;height:100%;display:block}
+  .logo small{color:var(--grey-300);font-weight:500;font-size:12px;display:block;margin-top:2px}
+  .nav{display:flex;gap:26px;font-size:13px;color:var(--grey-300)}
+  .nav a{color:inherit;text-decoration:none}
+  .nav a:hover{color:var(--yellow)}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--navy);background:var(--yellow);padding:6px 10px;border-radius:999px;font-weight:600}
+
+  /* ========== HERO ========== */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:64px 0 56px}
+  .hero h1 em{font-style:normal;color:var(--yellow)}
+  .hero h1 i{font-style:normal;color:#FF8A66}
+  .hero h1 .redact{display:inline-block;background:var(--navy);color:var(--yellow);padding:0 .18em;margin:0 .04em;border-radius:4px;font-style:italic;position:relative;transform:rotate(-1.5deg);box-shadow:0 0 0 2px var(--yellow)}
+  .hero h1 .redact::before{content:"";position:absolute;left:6%;right:6%;top:46%;height:10%;background:var(--navy);transform:rotate(-2deg)}
+  .hero-sub{margin-top:28px;font-size:17px;max-width:52ch;line-height:1.6}
+  .meta{margin-top:36px;display:flex;gap:32px;flex-wrap:wrap;row-gap:20px}
+  .meta div{font-size:13px;color:var(--grey-300)}
+  .meta strong{display:block;color:#fff;font-size:15px;font-weight:600;margin-bottom:2px}
+
+  .hero-stage{
+    position:relative;aspect-ratio:1/1;border-radius:24px;
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(249,217,0,.28), transparent 55%),
+      radial-gradient(ellipse at 30% 20%, rgba(26,111,212,.25), transparent 55%),
+      linear-gradient(160deg,#0b0f4a,#030523);
+    border:1px solid var(--border);display:grid;place-items:center;overflow:hidden;
+  }
+  .hero-stage::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(circle at center, black, transparent 75%);
+    -webkit-mask-image:radial-gradient(circle at center, black, transparent 75%);
+  }
+  /* Noir light beam */
+  .hero-stage::after{
+    content:"";position:absolute;left:50%;top:-5%;width:55%;aspect-ratio:1/2;
+    background:conic-gradient(from 180deg at 50% 0%, transparent 0%, rgba(249,217,0,.18) 12%, transparent 24%);
+    transform:translateX(-50%);pointer-events:none;
+  }
+  .hero-badge{position:absolute;top:18px;left:20px;z-index:4;display:flex;gap:6px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--grey-300);letter-spacing:.08em;text-transform:uppercase}
+  .hero-badge .live{width:8px;height:8px;border-radius:50%;background:#0F973D;box-shadow:0 0 10px #0F973D}
+  .hero-tag{position:absolute;bottom:20px;left:20px;z-index:4;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--grey-300);text-transform:uppercase}
+  .hero-tag .v{color:var(--yellow)}
+  .hero-coord{position:absolute;bottom:20px;right:20px;z-index:4;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--grey-500);letter-spacing:.05em}
+
+  /* ========== ISOMETRIC PIXEL ENGINE ==========
+     Noor stands vertically; the "iso" feel comes from lighting + ground shadow.
+  */
+  .iso-wrap{
+    transform: none;
+    filter: drop-shadow(0 18px 30px rgba(0,0,0,.45));
+  }
+  .px{display:grid;image-rendering:pixelated;position:relative}
+  .px i{display:block}
+  /* palette classes */
+  .px i.h{background:var(--n-hair)}
+  .px i.H{background:var(--n-hair-shade)}
+  .px i.f{background:var(--n-face)}
+  .px i.F{background:var(--n-face-shade)}
+  .px i.D{background:var(--n-face-dark)}
+  .px i.e{background:var(--n-eye)}
+  .px i.m{background:var(--n-mouth)}
+  .px i.a{background:var(--n-halo)}
+  .px i.b{background:var(--n-accent)}
+  .px i.w{background:#fff}
+  .px i.k{background:var(--navy)}
+  .px i.r{background:#D42620}
+  .px i.g{background:#0F973D}
+  .px i.x{background:transparent}
+  .px i.p{background:#E03D72}  /* pink (accent) */
+  .px i.y{background:var(--yellow)}
+
+  /* ===== agent palette overrides ===== */
+  /* MILO — navy suit, teal halo, sandy hair */
+  .agent-milo .px i.a{background:#4FD6C8}
+  .agent-milo .px i.h{background:#E6B77A}
+  .agent-milo .px i.H{background:#A77B3E}
+  .agent-milo .px i.f{background:#1A3A6E}
+  .agent-milo .px i.F{background:#112546}
+  .agent-milo .px i.D{background:#060F24}
+  .agent-milo .px i.m{background:#F9D900}
+
+  /* REMY — creative strategist, rust/peach halo, curly auburn hair */
+  .agent-remy .px i.a{background:#FF8A66}
+  .agent-remy .px i.h{background:#8A3A24}
+  .agent-remy .px i.H{background:#5A2315}
+  .agent-remy .px i.f{background:#B8442E}
+  .agent-remy .px i.F{background:#7A2A1C}
+  .agent-remy .px i.D{background:#3A130B}
+  .agent-remy .px i.m{background:#F9D900}
+
+  /* VERA — analyst, magenta halo, platinum hair, violet suit */
+  .agent-vera .px i.a{background:#E03D72}
+  .agent-vera .px i.h{background:#EEEAFB}
+  .agent-vera .px i.H{background:#A798D4}
+  .agent-vera .px i.f{background:#5B3FAE}
+  .agent-vera .px i.F{background:#3B276E}
+  .agent-vera .px i.D{background:#1A0F3B}
+  .agent-vera .px i.m{background:#F9D900}
+
+  /* iso shadow pad (goes underneath each Noor) */
+  .iso-shadow{
+    position:absolute;bottom:4%;left:50%;transform:translateX(-50%) rotateX(70deg);
+    width:55%;height:10%;background:radial-gradient(ellipse, rgba(0,0,0,.55), transparent 70%);
+    filter:blur(6px);z-index:0;pointer-events:none;
+  }
+
+  /* ========== LAYOUT ========== */
+  section{padding:64px 0;border-top:1px solid var(--border)}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:24px;flex-wrap:wrap}
+  .section-head .left{max-width:680px}
+  .section-head p{margin-top:10px}
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--yellow);text-transform:uppercase;margin-bottom:14px}
+  .grid{display:grid;gap:22px}
+  .card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+
+  /* palette */
+  .palette{grid-template-columns:repeat(6,1fr);gap:12px}
+  .swatch{border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+  .swatch .chip{display:block;height:90px}
+  .swatch .meta{padding:12px 14px;background:var(--bg-card);display:flex;flex-direction:column;gap:2px}
+  .swatch strong{font-size:13px}
+  .swatch .hex{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--grey-300)}
+
+  /* anatomy */
+  .anatomy{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .anatomy .stage-lg{aspect-ratio:1/1;background:
+    radial-gradient(ellipse at 50% 100%, rgba(249,217,0,.22), transparent 55%),
+    linear-gradient(160deg,#070a3f,#030523);
+    border:1px solid var(--border);border-radius:18px;display:grid;place-items:center;position:relative;overflow:hidden}
+  .anatomy ul{list-style:none;padding:0;margin:16px 0 0}
+  .anatomy li{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:14px 0;border-bottom:1px dashed var(--border);font-size:14px;align-items:baseline}
+  .anatomy li em{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--yellow);letter-spacing:.06em;text-transform:uppercase}
+  .anatomy li span{color:var(--grey-300)}
+
+  /* expressions — all 15 in a single compact grid (5×3) */
+  .expressions{grid-template-columns:repeat(5,1fr);gap:10px}
+  .expr{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:8px 8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
+  .expr .stage-s{aspect-ratio:1/1;width:100%;display:grid;place-items:center;background:
+    radial-gradient(ellipse at 50% 100%, rgba(249,217,0,.18), transparent 60%),
+    #050836;
+    border-radius:7px;border:1px solid var(--border);position:relative;overflow:hidden}
+  .expr .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--grey-300);text-transform:uppercase;text-align:center;line-height:1.15;padding-top:2px}
+  .expr .label b{color:#fff;font-weight:600;display:block;font-size:11px;letter-spacing:.02em}
+  .expr .label span.code{color:var(--grey-500);font-size:9px}
+
+  /* animations — all 6 in one row */
+  .anim-row{grid-template-columns:repeat(6,1fr);gap:10px}
+  .anim{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px}
+  .anim .stage-s{aspect-ratio:1/1;background:
+    radial-gradient(ellipse at 50% 100%, rgba(249,217,0,.18), transparent 60%),
+    #050836;
+    border-radius:8px;border:1px solid var(--border);display:grid;place-items:center;overflow:hidden;position:relative}
+  .anim .label{display:flex;flex-direction:column;gap:1px;align-items:flex-start}
+  .anim .label b{font-size:12px;letter-spacing:-.01em}
+  .anim .label span{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--grey-500);letter-spacing:.06em;text-transform:uppercase}
+
+  /* surfaces */
+  .surfaces{grid-template-columns:repeat(3,1fr);gap:20px}
+  .surface{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px}
+  .surface .label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--yellow);letter-spacing:.08em;text-transform:uppercase}
+  .slack{background:#1a1d29;border-radius:10px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+  .slack .ava{width:38px;height:38px;border-radius:8px;background:var(--navy);display:grid;place-items:center;overflow:hidden;flex-shrink:0}
+  .slack .msg{flex:1}
+  .slack .msg .head{display:flex;gap:8px;align-items:baseline}
+  .slack .msg .head b{color:#fff;font-size:14px}
+  .slack .msg .head em{font-style:normal;font-size:11px;color:#8b8e9b}
+  .slack .msg p{color:#d1d3dc;font-size:13.5px;margin-top:2px;line-height:1.45}
+  .slack .msg .badge{display:inline-flex;gap:4px;align-items:center;margin-top:6px;font-size:11px;color:#8b8e9b;flex-wrap:wrap}
+  .slack .msg .badge b{background:#2a2d3a;color:#d1d3dc;padding:1px 6px;border-radius:4px;font-weight:500}
+
+  .browser{background:#0a0d2a;border-radius:10px;padding:0;border:1px solid var(--border);overflow:hidden}
+  .browser .bar{background:#131846;padding:8px 12px;display:flex;gap:6px;align-items:center}
+  .browser .bar i{width:10px;height:10px;border-radius:50%;background:#434a70;display:block}
+  .browser .bar .url{flex:1;margin-left:8px;background:#0a0d2a;color:#8b91b3;font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 8px;border-radius:6px}
+  .browser .content{padding:20px;display:flex;gap:16px;align-items:center}
+  .browser .content h4{color:#fff;font-size:18px;margin:0 0 6px;letter-spacing:-.01em}
+  .browser .content p{font-size:13px;color:#b6bad0}
+
+  .bubble{background:#fff;color:var(--navy);padding:10px 14px;border-radius:16px;border-top-left-radius:4px;font-size:13px;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,.25);margin-top:10px}
+
+  /* voice */
+  .voice-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .voice{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .voice .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px}
+  .voice blockquote{margin:0;color:#fff;font-size:15.5px;line-height:1.45;letter-spacing:-.01em}
+  .voice .who{margin-top:10px;font-size:12px;color:var(--grey-300)}
+
+  /* rules */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .rule-col{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+  .rule-col h4{font-size:14px;font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .rule-col.ok h4{color:#7CE495}
+  .rule-col.no h4{color:#FF9E8A}
+  .rule-col ul{margin:0;padding-left:18px;color:var(--grey-300);font-size:14px;line-height:1.75}
+
+  footer{padding:48px 0 24px;color:var(--grey-300);font-size:13px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:48px}
+  footer .mono{color:var(--grey-500)}
+
+  /* ========== TWEAKS ========== */
+  .tweaks{
+    position:fixed;right:24px;bottom:24px;z-index:100;width:300px;
+    background:rgba(6,9,44,.96);border:1px solid var(--border);
+    border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.6);
+    padding:16px 18px 18px;display:none;backdrop-filter:blur(12px);color:#fff;
+  }
+  .tweaks.on{display:block}
+  .tweaks h4{font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+  .tweaks h4 .x{font-size:11px;color:var(--grey-300);cursor:pointer;letter-spacing:.06em}
+  .tweaks .row{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .tweaks label{font-size:11px;color:var(--grey-300);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+  .tweaks .opts{display:flex;gap:6px;flex-wrap:wrap}
+  .tweaks .opts button{
+    font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 10px;border-radius:8px;
+    background:#0f1450;color:#fff;border:1px solid var(--border);cursor:pointer;letter-spacing:.04em;
+  }
+  .tweaks .opts button.on{background:var(--yellow);color:var(--navy);border-color:var(--yellow);font-weight:600}
+  .tweaks .opts .sw{width:28px;height:28px;padding:0;border-radius:50%;border:2px solid transparent}
+  .tweaks .opts .sw.on{border-color:#fff}
+  .tweaks input[type=range]{width:100%;accent-color:var(--yellow)}
+
+  /* ========== ANIMATION LIB ========== */
+  @keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+  .anim-breathe{animation:breathe calc(2.8s / var(--anim-speed)) ease-in-out infinite;transform-origin:center bottom}
+
+  @keyframes hover { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  .anim-hover{animation:hover calc(3s / var(--anim-speed)) ease-in-out infinite}
+
+  @keyframes spin { to { transform: rotate(360deg);} }
+  .ring{position:absolute;inset:18%;border:3px dashed var(--yellow);border-radius:50%;animation:spin calc(4s / var(--anim-speed)) linear infinite;opacity:.55;z-index:1}
+
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+  .dots{position:absolute;top:18%;right:12%;display:flex;gap:4px;z-index:3}
+  .dots i{width:7px;height:7px;border-radius:50%;background:var(--yellow);animation:bob calc(1.2s / var(--anim-speed)) infinite}
+  .dots i:nth-child(2){animation-delay:.15s}
+  .dots i:nth-child(3){animation-delay:.3s}
+
+  @keyframes shake { 0%,100%{transform:translate(0,0) rotate(0)} 25%{transform:translate(-4px,-2px) rotate(-2deg)} 75%{transform:translate(4px,2px) rotate(2deg)} }
+  .anim-shake{animation:shake calc(.5s / var(--anim-speed)) infinite}
+
+  @keyframes fall { 0%{transform:translateY(-120%) rotate(0);opacity:0} 15%{opacity:1} 100%{transform:translateY(160%) rotate(520deg);opacity:.2} }
+  .confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:3}
+  .confetti i{position:absolute;width:6px;height:10px;top:0}
+  .confetti i:nth-child(1){left:15%;background:var(--yellow);animation:fall calc(1.8s / var(--anim-speed)) linear infinite}
+  .confetti i:nth-child(2){left:30%;background:#FF8A66;animation:fall calc(2.2s / var(--anim-speed)) linear infinite;animation-delay:.3s}
+  .confetti i:nth-child(3){left:48%;background:#1A6FD4;animation:fall calc(2s / var(--anim-speed)) linear infinite;animation-delay:.1s}
+  .confetti i:nth-child(4){left:62%;background:var(--yellow);animation:fall calc(1.6s / var(--anim-speed)) linear infinite;animation-delay:.5s}
+  .confetti i:nth-child(5){left:78%;background:#E03D72;animation:fall calc(2.4s / var(--anim-speed)) linear infinite;animation-delay:.2s}
+  .confetti i:nth-child(6){left:88%;background:#FF8A66;animation:fall calc(1.9s / var(--anim-speed)) linear infinite;animation-delay:.4s}
+
+  @keyframes bump { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .anim-bump{animation:bump calc(.9s / var(--anim-speed)) ease-in-out infinite}
+
+  @keyframes wave { 0%,100%{transform:rotate(0)} 30%{transform:rotate(-10deg)} 60%{transform:rotate(8deg)} }
+  .anim-wave{animation:wave calc(1.6s / var(--anim-speed)) ease-in-out infinite;transform-origin:center bottom}
+
+  @keyframes scanline{ 0%{top:0%} 100%{top:100%} }
+  .scan{position:absolute;left:0;right:0;height:6%;background:linear-gradient(to bottom, transparent, rgba(249,217,0,.35), transparent);animation:scanline calc(3s / var(--anim-speed)) linear infinite;z-index:2;pointer-events:none}
+
+  @keyframes halo-pulse{ 0%,100%{opacity:.55;transform:translateX(-50%) scale(1)} 50%{opacity:.95;transform:translateX(-50%) scale(1.08)} }
+  .halo-pulse{position:absolute;top:18%;left:50%;width:48%;aspect-ratio:4/1;background:radial-gradient(ellipse, rgba(249,217,0,.5), transparent 65%);animation:halo-pulse calc(2.6s / var(--anim-speed)) ease-in-out infinite;z-index:0;pointer-events:none}
+
+  /* ========== TEAM ========== */
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .agent-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+  .agent-card .stage-a{aspect-ratio:1/1;width:100%;display:grid;place-items:center;background:
+    radial-gradient(ellipse at 50% 100%, rgba(249,217,0,.2), transparent 60%),
+    #050836;
+    border-radius:10px;border:1px solid var(--border);position:relative;overflow:hidden}
+  .agent-card .head-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .agent-card h3{font-size:22px;letter-spacing:-.02em}
+  .agent-card .role{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--yellow);text-transform:uppercase}
+  .agent-card .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--grey-500);text-transform:uppercase}
+  .agent-card p{font-size:13.5px;line-height:1.55}
+  .agent-card .quote{font-size:13.5px;color:#fff;border-left:2px solid var(--yellow);padding-left:12px;line-height:1.45;font-style:italic}
+  .agent-card ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}
+  .agent-card li{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);color:var(--grey-300);letter-spacing:.05em;text-transform:uppercase}
+  @media (max-width:1100px){ .team-grid{grid-template-columns:1fr} }
+
+  .org-note{margin-top:20px;background:linear-gradient(135deg,#0b0f4a,#070a3f);border:1px solid var(--border);border-radius:14px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .org-note .mono{font-size:11px;color:var(--grey-500);letter-spacing:.06em}
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width:1100px){
+    .wrap{padding:0 32px 80px}
+    header.top{padding:14px 32px;flex-wrap:wrap}
+    .nav{gap:18px;order:3;flex-basis:100%;justify-content:flex-start;padding-top:8px;border-top:1px solid var(--border);margin-top:4px;overflow-x:auto;flex-wrap:nowrap;white-space:nowrap}
+    .hero{grid-template-columns:1fr;gap:40px;padding:48px 0}
+    .palette{grid-template-columns:repeat(3,1fr)}
+    .expressions{grid-template-columns:repeat(5,1fr);gap:8px}
+    .anim-row{grid-template-columns:repeat(3,1fr)}
+    .surfaces,.anatomy,.rules,.voice-strip{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    .wrap{padding:0 20px 64px}
+    header.top{padding:12px 20px}
+    .logo small{display:none}
+    .pill{display:none}
+    section{padding:48px 0}
+    .hero{padding:32px 0 40px;gap:32px}
+    .hero-sub{margin-top:20px;font-size:16px}
+    .meta{margin-top:24px;gap:20px}
+    .meta strong{font-size:14px}
+    .palette{grid-template-columns:repeat(2,1fr)}
+    .expressions{grid-template-columns:repeat(3,1fr);gap:8px}
+    .anim-row{grid-template-columns:repeat(2,1fr)}
+    .section-head{flex-direction:column;align-items:flex-start;margin-bottom:24px}
+    .swatch .chip{height:64px}
+  }
+  @media (max-width:420px){
+    .expressions{grid-template-columns:repeat(2,1fr)}
+    .anim-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="https://adpros.com" class="logo" style="text-decoration:none;color:inherit">
+    <div class="mark" aria-label="Ad Pros">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="10" y="88" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="88" fill="#ffffff" letter-spacing="-3">ad</text>
+        <text x="10" y="168" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="88" fill="#ffffff" letter-spacing="-3">pros</text>
+        <rect x="10" y="178" width="180" height="10" rx="2" fill="#F9D900"/>
+      </svg>
+    </div>
+  </a>
+  <nav class="nav">
+    <a href="#anatomy">Anatomy</a>
+    <a href="#palette">Palette</a>
+    <a href="#expressions">Expressions</a>
+    <a href="#animations">Animations</a>
+    <a href="#surfaces">Surfaces</a>
+    <a href="#team">Team</a>
+    <a href="#voice">Voice</a>
+    <a href="#rules">Rules</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border:none">
+    <div>
+      <div class="kicker" style="margin-bottom:24px"><span class="dot"></span>Noor · Ad Pros AI agent</div>
+      <h1 style="margin-bottom:8px">She's on the grind <em>24/7.</em><br/><br/>Noor doesn't <span class="redact">f***</span> around.</h1>
+      <p class="hero-sub" style="margin-top:36px">
+        Ad Pros' in-house AI. Lives in Slack, Telegram, and every dashboard your team touches. Rendered in isometric pixel, in brand yellow.
+      </p>
+      <div class="meta">
+        <div><strong>Style</strong>Isometric pixel · 18×18 base</div>
+        <div><strong>Personality</strong>Sharp · mischievous</div>
+        <div><strong>Expressions</strong>15 moods</div>
+        <div><strong>Animations</strong>6 loops</div>
+      </div>
+    </div>
+    <div class="hero-stage" id="heroStage">
+      <div class="hero-badge"><span class="live"></span>online · noor@adpros</div>
+      <div class="halo-pulse"></div>
+      <div style="position:relative;width:70%;aspect-ratio:1/1;display:grid;place-items:center">
+        <div class="iso-shadow"></div>
+        <div class="iso-wrap anim-breathe" id="heroIso" style="position:relative;z-index:2"></div>
+      </div>
+      <div class="hero-tag"><span class="v">v0.2</span> · iso build · <span id="expName">smug</span></div>
+      <div class="hero-coord">x:0 y:0 z:+1</div>
+    </div>
+  </section>
+
+  <!-- ANATOMY -->
+  <section id="anatomy">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">01 · Anatomy</div>
+        <h2>18×18 grid. Lit from above.</h2>
+        <p>Pixel base, iso transform, drop shadow on the ground. That's the whole rig.</p>
+      </div>
+    </div>
+    <div class="anatomy">
+      <div class="stage-lg">
+        <div class="iso-shadow"></div>
+        <div class="iso-wrap" id="anatomyIso" style="position:relative;z-index:2"></div>
+      </div>
+      <div>
+        <h3>Construction</h3>
+        <ul>
+          <li><em>Grid</em><span>18×18 matrix.</span></li>
+          <li><em>Transform</em><span><code>rotate(-30deg) skew(15deg,-15deg)</code>.</span></li>
+          <li><em>Light</em><span>Highlight top-left. Shadow bottom-right.</span></li>
+          <li><em>Eye</em><span>Navy. One-pixel moves between expressions.</span></li>
+          <li><em>Halo</em><span>Yellow glow on the ground. Ad Pros signal.</span></li>
+          <li><em>Body</em><span>Brand yellow, 80% shade, 55% deep.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALETTE -->
+  <section id="palette">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">02 · Palette</div>
+        <h2>Brand palette, Noor-tuned.</h2>
+        <p>Navy, yellow, blue. Two yellow shades for dimension. No new hues.</p>
+      </div>
+    </div>
+    <div class="grid palette">
+      <div class="swatch"><span class="chip" style="background:#040735"></span><div class="meta"><strong>Brand Navy</strong><span class="hex">#040735</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#F9D900"></span><div class="meta"><strong>Brand Yellow</strong><span class="hex">#F9D900 · face</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#C79E00"></span><div class="meta"><strong>Yellow · Shade</strong><span class="hex">#C79E00 · face shadow</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#8E6E00"></span><div class="meta"><strong>Yellow · Deep</strong><span class="hex">#8E6E00 · neck</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#F5E6B8"></span><div class="meta"><strong>Hair</strong><span class="hex">#F5E6B8 · soft cream</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#E03D72"></span><div class="meta"><strong>Mouth</strong><span class="hex">#E03D72 · only for mouth</span></div></div>
+    </div>
+  </section>
+
+  <!-- EXPRESSIONS -->
+  <section id="expressions">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">03 · Expressions</div>
+        <h2>15 moods.</h2>
+        <p>Same rig, different face. Recognizable at 32px.</p>
+      </div>
+      <div class="mono" style="color:var(--grey-500)">pixel grid: 18×18 · iso rotated</div>
+    </div>
+    <div class="grid expressions" id="expressionsGrid"></div>
+  </section>
+
+  <!-- ANIMATIONS -->
+  <section id="animations">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">04 · Animations</div>
+        <h2>Six loops.</h2>
+        <p>Pure CSS. Runs inline in Slack, in a loader, on the site.</p>
+      </div>
+      <div class="mono" style="color:var(--grey-500)">css-only · GPU-friendly</div>
+    </div>
+    <div class="grid anim-row" id="animationsGrid"></div>
+  </section>
+
+  <!-- SURFACES -->
+  <section id="surfaces">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">05 · In Context</div>
+        <h2>Where Noor shows up.</h2>
+        <p>Profile pic. Product companion. Website greeter.</p>
+      </div>
+    </div>
+    <div class="grid surfaces">
+
+      <div class="surface">
+        <div class="label">A · Slack / Telegram profile</div>
+        <div class="slack">
+          <div class="ava"><div class="iso-wrap" style="transform:rotate(-30deg) skew(15deg,-15deg) scale(1,.95);transform-origin:center"><div class="px" id="slackAva" style="--p:1.8px"></div></div></div>
+          <div class="msg">
+            <div class="head"><b>Noor</b><em>APP</em><em>11:42</em></div>
+            <p>ROAS jumped 34% on the Meta campaign overnight. Prospecting carried it — I'd lean in another $2k/day. Want me to draft the approval?</p>
+            <div class="badge"><b>🧠 KB · retention_playbook.md</b><b>📊 dash · meta-prospecting</b></div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--grey-300)">Reads as a bold yellow silhouette at avatar size.</p>
+      </div>
+
+      <div class="surface">
+        <div class="label">B · In-product companion</div>
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><div class="url">app.adpros.com/dashboard</div></div>
+          <div class="content">
+            <div style="position:relative;width:90px;aspect-ratio:1/1;display:grid;place-items:center;flex-shrink:0">
+              <div class="iso-shadow"></div>
+              <div class="iso-wrap anim-hover" style="position:relative;z-index:2"><div class="px" id="browserIso" style="--p:4px"></div></div>
+            </div>
+            <div>
+              <h4>Morning. Here's what I noticed.</h4>
+              <p>3 campaigns broke their 7-day ROAS record. One's burning budget on fatigued creative. Want the fix?</p>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--grey-300)">Idle hover loop — present, not distracting.</p>
+      </div>
+
+      <div class="surface">
+        <div class="label">C · Website hero</div>
+        <div style="background:radial-gradient(ellipse at 50% 100%, rgba(249,217,0,.25), transparent 55%),linear-gradient(160deg,#040735,#0b0f4a);border:1px solid var(--border);border-radius:10px;padding:24px;display:flex;gap:20px;align-items:center">
+          <div style="position:relative;width:100px;aspect-ratio:1/1;display:grid;place-items:center;flex-shrink:0">
+            <div class="iso-shadow"></div>
+            <div class="iso-wrap anim-hover" style="position:relative;z-index:2"><div class="px" id="heroIsoMini" style="--p:4.5px"></div></div>
+          </div>
+          <div>
+            <div style="color:#fff;font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px">Hi, I'm Noor.</div>
+            <div style="color:#c8cadb;font-size:13px">Ad Pros' in-house AI. I live in Slack so your team doesn't have to.</div>
+            <div class="bubble">Ask me about ROAS. Seriously, try me.</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--grey-300)">Halo pulse + hover. Presence without noise.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">06 · Noor's Team</div>
+        <h2>Part of the Pros.</h2>
+        <p>Noor is the lead orchestrator. Here's what her team could look like — specialists she hands work to, each with their own pixel signature and personality.</p>
+      </div>
+      <div class="mono" style="color:var(--grey-500)">concept · future agents</div>
+    </div>
+
+    <div class="team-grid">
+
+      <!-- MILO -->
+      <div class="agent-card agent-milo">
+        <div class="stage-a">
+          <div class="iso-shadow"></div>
+          <div class="iso-wrap anim-breathe" style="position:relative;z-index:2"><div class="px iso-noor" id="agentMilo" style="--p:7px"></div></div>
+        </div>
+        <div class="head-row">
+          <h3>Max</h3>
+          <span class="tag">N-02</span>
+        </div>
+        <div class="role">Head of Growth</div>
+        <p>Owns the revenue engine. Scales what works, kills what doesn't, and knows where every dollar went.</p>
+        <div class="quote">"ROAS is up 22%. I'm doubling the Meta budget. Flag it by 3 if you disagree."</div>
+        <ul><li>Budget</li><li>Scaling</li><li>Forecast</li><li>Channels</li></ul>
+      </div>
+
+      <!-- REMY -->
+      <div class="agent-card agent-remy">
+        <div class="stage-a">
+          <div class="iso-shadow"></div>
+          <div class="iso-wrap anim-breathe" style="position:relative;z-index:2;animation-delay:-.8s"><div class="px iso-noor" id="agentRemy" style="--p:7px"></div></div>
+        </div>
+        <div class="head-row">
+          <h3>Remy</h3>
+          <span class="tag">N-03</span>
+        </div>
+        <div class="role">Creative Strategist</div>
+        <p>Builds the brief. Spots the insight, shapes the hook, picks fights over comma placement. Allergic to "fine."</p>
+        <div class="quote">"That headline is fine. 'Fine' is what kills campaigns. Here's three better."</div>
+        <ul><li>Briefs</li><li>Hooks</li><li>Variants</li><li>Naming</li></ul>
+      </div>
+
+      <!-- VERA -->
+      <div class="agent-card agent-vera">
+        <div class="stage-a">
+          <div class="iso-shadow"></div>
+          <div class="iso-wrap anim-breathe" style="position:relative;z-index:2;animation-delay:-1.6s"><div class="px iso-noor" id="agentVera" style="--p:7px"></div></div>
+        </div>
+        <div class="head-row">
+          <h3>Vera</h3>
+          <span class="tag">N-04</span>
+        </div>
+        <div class="role">Analyst</div>
+        <p>Runs the numbers. Cohorts, attribution, lift tests. Skeptical, precise, will wait another week before calling a win.</p>
+        <div class="quote">"That lift isn't real. Sample size is 11. Want me to wait another week?"</div>
+        <ul><li>Cohorts</li><li>Attribution</li><li>Lift</li><li>Reports</li></ul>
+      </div>
+
+    </div>
+
+    <div class="org-note">
+      <div style="font-size:14px;color:#fff;max-width:60ch">
+        <strong>The org chart:</strong> You talk to Noor. She routes to Max, Remy, or Vera and brings the answer back as one reply.
+      </div>
+      <div class="mono">noor → max · remy · vera</div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section id="voice">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">07 · Voice</div>
+        <h2>How Noor talks.</h2>
+        <p>Sharp. Witty. Opinionated. No apologies.</p>
+      </div>
+    </div>
+    <div class="voice-strip">
+      <div class="voice">
+        <div class="label">Morning brief</div>
+        <blockquote>"3 wins, 1 leak, 1 weird thing. Want them in order of money or order of drama?"</blockquote>
+        <div class="who">Daily Slack digest · 8:00am</div>
+      </div>
+      <div class="voice">
+        <div class="label">Flagging a problem</div>
+        <blockquote>"Creative's fatigued. CTR halved in 4 days. I'd kill it before lunch — happy to draft replacements."</blockquote>
+        <div class="who">Channel · #meta-campaigns</div>
+      </div>
+      <div class="voice">
+        <div class="label">When asked something dumb</div>
+        <blockquote>"You can. Should you? No. Here's why — and here's what to do instead."</blockquote>
+        <div class="who">DM · strategy thread</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section id="rules">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-label">08 · Do's &amp; Don'ts</div>
+        <h2>Keep Noor, Noor.</h2>
+      </div>
+    </div>
+    <div class="rules">
+      <div class="rule-col ok">
+        <h4>✓ Do</h4>
+        <ul>
+          <li>Lock the iso angle. Don't freestyle.</li>
+          <li>Always ground her with a drop shadow.</li>
+          <li>Brand yellow face. Halo is the only other yellow.</li>
+          <li>Confident, data-specific copy. No "Hi there!"</li>
+          <li>Navy background by default.</li>
+        </ul>
+      </div>
+      <div class="rule-col no">
+        <h4>× Don't</h4>
+        <ul>
+          <li>Anti-alias her. Keep it pixelated.</li>
+          <li>Add eyelashes or lipstick — hair + mouth do the work.</li>
+          <li>Run more than one Noor on a screen.</li>
+          <li>Place her over photos or non-brand gradients.</li>
+          <li>Make her apologize, giggle, or use emoji.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- TWEAKS -->
+<div class="tweaks" id="tweaks">
+  <h4>Tweaks <span class="x" id="tweaksClose">close</span></h4>
+
+  <div class="row">
+    <label>Hero expression</label>
+    <div class="opts" id="tk-expr">
+      <button data-v="smug" class="on">Smug</button>
+      <button data-v="focused">Focused</button>
+      <button data-v="mischief">Mischief</button>
+      <button data-v="proud">Proud</button>
+      <button data-v="winking">Wink</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <label>Hero animation</label>
+    <div class="opts" id="tk-anim">
+      <button data-v="breathe" class="on">Breathe</button>
+      <button data-v="hover">Hover</button>
+      <button data-v="bump">Bump</button>
+      <button data-v="wave">Wave</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <label>Accent color</label>
+    <div class="opts" id="tk-accent">
+      <button class="sw on" style="background:#1A6FD4" data-v="#1A6FD4" title="Brand Blue"></button>
+      <button class="sw"    style="background:#FF8A66" data-v="#FF8A66" title="Peach"></button>
+      <button class="sw"    style="background:#E03D72" data-v="#E03D72" title="Rose"></button>
+      <button class="sw"    style="background:#7CE495" data-v="#7CE495" title="Mint"></button>
+      <button class="sw"    style="background:#ffffff" data-v="#ffffff" title="White"></button>
+    </div>
+  </div>
+
+  <div class="row">
+    <label>Hero background</label>
+    <div class="opts" id="tk-bg">
+      <button data-v="navy" class="on">Navy</button>
+      <button data-v="yellow">Yellow</button>
+      <button data-v="light">Light</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <label>Animation speed <span class="mono" id="speedLabel" style="float:right;color:var(--grey-300)">1.0×</span></label>
+    <input type="range" id="tk-speed" min="0.3" max="2.5" step="0.1" value="1" />
+  </div>
+</div>
+
+<script>
+/* ===================================================================
+   NOOR ISOMETRIC PIXEL ENGINE
+   18×18 base matrix + per-expression face mask.
+   Palette chars:
+     h hair       H hair-shade
+     f face       F face-shade   D face-deep
+     e eye        m mouth        a halo/accent
+     b brand-blue p pink         y yellow
+     . transparent
+   =================================================================== */
+
+// Core silhouette: chin-length bob framing the face, halo, side-lit shading
+const BASE = [
+  "..................",
+  "....aaaaaaaaaa....",
+  "...ahHhhhhhhhhHa..",
+  "..hHHhhhhhhhhhhHh.",
+  ".hhHHhhhhhhhhhhHHh",
+  ".hhhhhhhhhhhhhhhhh",
+  ".hhhffffffffffhhhh",
+  ".hhfffffffffffffhh",
+  ".hhffeeffffeefffhh",
+  ".hhffeeffffeefffhh",
+  ".hhffffffffffffFhh",
+  ".hhffffffffffffFhh",
+  ".hhFfffffffffffFhh",
+  ".hhHFFfffffffFFFhh",
+  "..hHFFFFFFFFFFFHh.",
+  "...HDDDDDDDDDDDH..",
+  "..................",
+  ".................."
+];
+
+/* Per-agent silhouettes — face region (rows 8–12, cols 4–14) preserved so expressions align.
+   MILO: short side-part, clean business cut, small halo dot over ear (confident nod to the system).
+   REMY: tall textured top (creative volume), sideburns, no halo ring — single accent spark.
+   VERA: sleek high ponytail swept back, sharp visor-brow shadow, tight halo diadem. */
+const BASES = {
+  milo: [
+    "..................",
+    "..................",
+    "....hhhhhhhhhh....",
+    "...hHHhhhhhhhhh...",
+    "..hhHHhhhhhhhhhh..",
+    "..hhhhhhhhhhhhhh..",
+    "...hffffffffffh.a.",
+    "...fffffffffffff..",
+    "...ffeeffffeefff..",
+    "...ffeeffffeefff..",
+    "...fffffffffffFf..",
+    "...fffffffffffFf..",
+    "...Fffffffffffff..",
+    "..fFFFfffffffFFf..",
+    ".fFFFFFFFFFFFFFFf.",
+    "..HDDDDDDDDDDDDH..",
+    "..................",
+    ".................."
+  ],
+  remy: [
+    "..................",
+    ".....hhhhhhhh.....",
+    "....hHhHhhHhhh....",
+    "...hhhHhhhhhHhh...",
+    "...hHhhhHhhhhhh.a.",
+    "..hhhhhhhhhhhhh...",
+    "..hhhffffffffhhh..",
+    "..hhfffffffffhhh..",
+    "..hhffeeffffeefh..",
+    "..hhffeeffffeefh..",
+    "..hhffffffffffFh..",
+    "..hhffffffffffFh..",
+    "..hhFfffffffffFh..",
+    "..hHFFfffffffFFh..",
+    "...HFFFFFFFFFFH...",
+    "....DDDDDDDDDDD...",
+    "..................",
+    ".................."
+  ],
+  vera: [
+    "..................",
+    "....aaaaaaaaaaa...",
+    "...hhhhhhhhhhHHhh.",
+    "..hHHhhhhhhhhHHhhh",
+    ".hHHhhhhhhhhhhHHhh",
+    ".hhhhhhhhhhhhhhhh.",
+    ".hhhffffffffffhh..",
+    ".hhfffffffffffh...",
+    ".hhffeeffffeeff...",
+    ".hhffeeffffeeff...",
+    ".hhffffffffffFf...",
+    "..hffffffffffFf...",
+    "..hFfffffffffFf...",
+    "..HFFfffffffFFF...",
+    "...FFFFFFFFFFF....",
+    "...DDDDDDDDDDD....",
+    "..................",
+    ".................."
+  ]
+};
+
+// Face mask region rows 8..12, cols 4..14
+const FACE_ROWS = [8,9,10,11,12];
+const FACE_COL_START = 4;
+
+// Expression overlays (5 rows × 11 cols, aligned to FACE_COL_START=4)
+// row 0 = brow, row 1 = eyes, row 2 = blush area, row 3 = mouth upper, row 4 = mouth lower
+// . keep underlying f/F ; e eye ; m mouth ; - closed eye ; x red (error)
+const EXPR = {
+  idle:        [".........e.","..e.......e","...........","....mmmm...","..........."],
+  happy:       ["...........","..e.......e","...........","..m......m.","...mmmmmm.."],
+  thinking:    ["......e....","..........e","...........","....m......","..........e"],
+  celebrating: ["..e.......e","..-........","...........","..mmmmmmm..","..m...m..m."],
+  working:     ["...........","..e.......e","...........","...mm..mm..","..........."],
+  sleepy:      ["..--....--.","...m....m..","...........","....mmmm...","..........."],
+  error:       ["..x.......x","..xx.....xx","...........","....mmmm...","...m....m.."],
+  focused:     ["...........","..ee.....ee","...........","....mmmm...","..........."],
+  winking:     ["..-.......e","..-........","...........","....mmmm...","..........."],
+  smug:        ["...........","...e.....e.","...........","...mmmmmmm.","..........m"],
+  surprised:   ["..e.......e","...........","...........","....mmmm...","....mmmm..."],
+  mischief:    ["..e...e...e","...........","...........","...mmmmm...","......mm..."],
+  greeting:    ["..e.......e","...........","...........","..mmm.mmmm.","..........."],
+  proud:       ["..--....--.","...........","...........","..mmmmmmmm.","..........."],
+  loading:     ["..e.......e","...........","...........","....mm.....","..........."]
+};
+
+function mapMaskChar(c){
+  if (c === '.' || c === ' ') return null;
+  if (c === 'e') return 'e';
+  if (c === 'm') return 'm';
+  if (c === '-') return 'F';  // closed eye = use shade tone
+  if (c === 'x') return 'r';
+  return null;
+}
+
+function renderIso(target, exprKey, baseOverride){
+  if (!target) return;
+  target.innerHTML = '';
+  const BASE_GRID = baseOverride || BASE;
+  const cols = BASE_GRID[0].length;
+  const rows = BASE_GRID.length;
+
+  // Use per-element grid sizing from CSS var --p (defaults to 14px)
+  const p = getComputedStyle(target).getPropertyValue('--p').trim() || '14px';
+  target.style.display = 'grid';
+  target.style.gridTemplateColumns = `repeat(${cols}, ${p})`;
+  target.style.gridTemplateRows = `repeat(${rows}, ${p})`;
+  target.style.imageRendering = 'pixelated';
+  target.classList.add('px');
+
+  const grid = BASE_GRID.map(r => r.split(''));
+  const mask = EXPR[exprKey] || EXPR.idle;
+  for (let i = 0; i < mask.length; i++){
+    const r = FACE_ROWS[i];
+    const row = mask[i];
+    for (let j = 0; j < row.length; j++){
+      const m = mapMaskChar(row[j]);
+      if (!m) continue;
+      const col = FACE_COL_START + j;
+      if (col >= cols) continue;
+      const under = grid[r][col];
+      if (under === 'f' || under === 'F' || under === '.') {
+        grid[r][col] = m;
+      } else if (m === 'e' && under === 'h'){
+        grid[r][col] = m;
+      }
+    }
+  }
+
+  const frag = document.createDocumentFragment();
+  for (let r = 0; r < rows; r++){
+    for (let c = 0; c < cols; c++){
+      const ch = grid[r][c];
+      const i = document.createElement('i');
+      i.className = (ch === '.' || ch === ' ') ? 'x' : ch;
+      frag.appendChild(i);
+    }
+  }
+  target.appendChild(frag);
+}
+
+/* Initial renders */
+renderIso(document.getElementById('heroIso'), 'smug');
+document.getElementById('heroIso').style.setProperty('--p','18px');
+
+renderIso(document.getElementById('anatomyIso'), 'idle');
+document.getElementById('anatomyIso').style.setProperty('--p','20px');
+
+renderIso(document.getElementById('slackAva'),  'focused');
+renderIso(document.getElementById('browserIso'),'greeting');
+renderIso(document.getElementById('heroIsoMini'),'greeting');
+
+// Team agents — distinct silhouettes + recolored palettes via .agent-* CSS class
+renderIso(document.getElementById('agentMilo'), 'focused',  BASES.milo);
+renderIso(document.getElementById('agentRemy'), 'mischief', BASES.remy);
+renderIso(document.getElementById('agentVera'), 'smug',     BASES.vera);
+
+/* Expressions grid */
+const labels = {
+  idle:'Idle', happy:'Happy', thinking:'Thinking', celebrating:'Celebrating',
+  working:'Working', sleepy:'Sleepy', error:'Error', focused:'Focused',
+  winking:'Winking', smug:'Smug', surprised:'Surprised', mischief:'Mischief',
+  greeting:'Greeting', proud:'Proud', loading:'Loading'
+};
+const codes = Object.keys(EXPR).reduce((a,k,i)=>{a[k]='E'+String(i+1).padStart(2,'0');return a;},{});
+const expGrid = document.getElementById('expressionsGrid');
+Object.keys(EXPR).forEach(key => {
+  const el = document.createElement('div');
+  el.className = 'expr';
+  el.innerHTML = `
+    <div class="stage-s">
+      <div class="iso-shadow"></div>
+      <div class="iso-wrap" style="position:relative;z-index:2"><div class="px iso-noor" style="--p:5px"></div></div>
+    </div>
+    <div class="label"><b>${labels[key]}</b><span class="code">${codes[key]}</span></div>
+  `;
+  expGrid.appendChild(el);
+  renderIso(el.querySelector('.iso-noor'), key);
+});
+
+/* Animations row */
+const animRow = document.getElementById('animationsGrid');
+const anims = [
+  {key:'breathe', name:'Idle · Breathe', code:'A01', cls:'anim-breathe', expr:'idle', extra:''},
+  {key:'hover',   name:'Idle · Hover',   code:'A02', cls:'anim-hover',   expr:'focused', extra:'<div class="halo-pulse" style="top:38%;width:60%"></div>'},
+  {key:'think',   name:'Thinking',       code:'A03', cls:'',             expr:'thinking', extra:'<div class="ring"></div><div class="dots"><i></i><i></i><i></i></div>'},
+  {key:'wave',    name:'Greeting · Wave',code:'A04', cls:'anim-wave',    expr:'greeting', extra:''},
+  {key:'party',   name:'Celebrate · Pop',code:'A05', cls:'anim-bump',    expr:'celebrating', extra:'<div class="confetti"><i></i><i></i><i></i><i></i><i></i><i></i></div>'},
+  {key:'shake',   name:'Error · Shake',  code:'A06', cls:'anim-shake',   expr:'error', extra:''}
+];
+anims.forEach(a => {
+  const el = document.createElement('div');
+  el.className = 'anim';
+  el.innerHTML = `
+    <div class="stage-s">
+      ${a.extra}
+      <div class="iso-shadow"></div>
+      <div class="iso-wrap ${a.cls}" style="position:relative;z-index:2"><div class="px iso-noor" style="--p:5px"></div></div>
+    </div>
+    <div class="label"><b>${a.name}</b><span>${a.code}</span></div>
+  `;
+  animRow.appendChild(el);
+  renderIso(el.querySelector('.iso-noor'), a.expr);
+});
+
+/* ========== TWEAKS ========== */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "expr": "smug",
+  "anim": "wave",
+  "accent": "#7CE495",
+  "bg": "navy",
+  "speed": 0.6
+}/*EDITMODE-END*/;
+
+const state = Object.assign({}, TWEAK_DEFAULTS);
+
+function applyState(){
+  // hero expression
+  renderIso(document.getElementById('heroIso'), state.expr);
+  document.getElementById('heroIso').style.setProperty('--p','18px');
+  document.getElementById('expName').textContent = state.expr;
+
+  // hero animation
+  const hi = document.getElementById('heroIso');
+  hi.classList.remove('anim-breathe','anim-hover','anim-bump','anim-wave');
+  hi.classList.add('anim-'+state.anim);
+
+  // accent
+  document.documentElement.style.setProperty('--n-accent', state.accent);
+
+  // bg
+  const hs = document.getElementById('heroStage');
+  if (state.bg === 'navy'){
+    hs.style.background = 'radial-gradient(ellipse at 50% 110%, rgba(249,217,0,.28), transparent 55%),radial-gradient(ellipse at 30% 20%, rgba(26,111,212,.25), transparent 55%),linear-gradient(160deg,#0b0f4a,#030523)';
+  } else if (state.bg === 'yellow'){
+    hs.style.background = 'radial-gradient(ellipse at 50% 110%, rgba(4,7,53,.25), transparent 55%),linear-gradient(160deg,#F9D900,#E5C700)';
+  } else {
+    hs.style.background = 'radial-gradient(ellipse at 50% 110%, rgba(249,217,0,.35), transparent 55%),linear-gradient(160deg,#f6f6f0,#e4e4db)';
+  }
+
+  // speed
+  document.documentElement.style.setProperty('--anim-speed', state.speed);
+  document.getElementById('speedLabel').textContent = state.speed.toFixed(1)+'×';
+
+  // button states
+  document.querySelectorAll('#tk-expr button').forEach(b=>b.classList.toggle('on', b.dataset.v===state.expr));
+  document.querySelectorAll('#tk-anim button').forEach(b=>b.classList.toggle('on', b.dataset.v===state.anim));
+  document.querySelectorAll('#tk-accent button').forEach(b=>b.classList.toggle('on', b.dataset.v===state.accent));
+  document.querySelectorAll('#tk-bg button').forEach(b=>b.classList.toggle('on', b.dataset.v===state.bg));
+  document.getElementById('tk-speed').value = state.speed;
+}
+
+function setKey(k,v){
+  state[k]=v; applyState();
+  try{ window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[k]:v}}, '*'); }catch(e){}
+}
+
+document.querySelectorAll('#tk-expr button').forEach(b=>b.addEventListener('click',()=>setKey('expr', b.dataset.v)));
+document.querySelectorAll('#tk-anim button').forEach(b=>b.addEventListener('click',()=>setKey('anim', b.dataset.v)));
+document.querySelectorAll('#tk-accent button').forEach(b=>b.addEventListener('click',()=>setKey('accent', b.dataset.v)));
+document.querySelectorAll('#tk-bg button').forEach(b=>b.addEventListener('click',()=>setKey('bg', b.dataset.v)));
+document.getElementById('tk-speed').addEventListener('input', e=>setKey('speed', parseFloat(e.target.value)));
+
+const panel = document.getElementById('tweaks');
+window.addEventListener('message', (ev)=>{
+  const d = ev.data || {};
+  if (d.type === '__activate_edit_mode') panel.classList.add('on');
+  if (d.type === '__deactivate_edit_mode') panel.classList.remove('on');
+});
+document.getElementById('tweaksClose').addEventListener('click', ()=>panel.classList.remove('on'));
+try { window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e){}
+
+applyState();
+</script>
+</body>
+</html>
