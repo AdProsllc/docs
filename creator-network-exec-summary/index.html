@@ -850,6 +850,288 @@ function SalesTab({ m }) {
   );
 }
 
+// ============ TAB: SCALE PLANNING ============
+function ScaleTab({ m }) {
+  const [brandRev, setBrandRev] = useState(3000000);
+  const [brandSpend, setBrandSpend] = useState(1800000);
+  const [orgAlloc, setOrgAlloc] = useState(20);
+  const [adAlloc, setAdAlloc] = useState(20);
+  const [apTarget, setApTarget] = useState(100000);
+
+  const fmt = n => n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : n >= 1000 ? "$" + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "K" : "$" + n.toFixed(0);
+  const fmtFull = n => "$" + Math.round(n).toLocaleString();
+
+  const orgGmv = brandRev * (orgAlloc / 100);
+  const adOnCreator = brandSpend * (adAlloc / 100);
+  const apFromOrg = orgGmv * 0.10;
+  const apFromAd = adOnCreator * 0.10;
+  const apTotal = apFromOrg + apFromAd;
+  const creatorBonus = adOnCreator * 0.03;
+  const apMargin = apFromOrg + (adOnCreator * 0.07);
+  const totalFlow = orgGmv + adOnCreator;
+  const pctToTarget = (apTotal / apTarget) * 100;
+  const gap = apTarget - apTotal;
+  const needTotal = apTarget / 0.10;
+  const hit = apTotal >= apTarget;
+
+  const Th = ({ children, align = "right" }) => (
+    <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: align, fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{children}</th>
+  );
+  const Td = ({ children, color = C.offWhite, bold, align = "right" }) => (
+    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: align, fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: bold ? 700 : 400, color, borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{children}</td>
+  );
+
+  return (
+    <>
+      {/* INTERACTIVE SECTION */}
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          Model the path to <strong style={{ color: C.accent }}>{fmtFull(apTarget)}/mo</strong> Ad Pros revenue from a single client.
+          AP earns 10% on both streams — so organic GMV + creator ad spend must total <strong style={{ color: C.white }}>{fmtFull(needTotal)}</strong>.
+        </p>
+
+        <Surf m={m} style={{ marginBottom: m ? 16 : 20 }}>
+          <ML>Brand Profile</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Brand Monthly Revenue" value={brandRev} onChange={setBrandRev} min={500000} max={10000000} step={100000} format={v => fmtFull(v)} />
+            <Slider m={m} label="Brand Monthly Ad Spend" value={brandSpend} onChange={setBrandSpend} min={100000} max={5000000} step={50000} format={v => fmtFull(v)} />
+          </div>
+          <ML>Creator Network Allocation</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="% Revenue via Organic Affiliates" value={orgAlloc} onChange={setOrgAlloc} min={5} max={60} step={5} format={v => `${v}% (${fmt(brandRev * v / 100)} GMV)`} color={C.green} />
+            <Slider m={m} label="% Spend on Creator Content" value={adAlloc} onChange={setAdAlloc} min={5} max={60} step={5} format={v => `${v}% (${fmt(brandSpend * v / 100)} spend)`} color={C.accent} />
+            <Slider m={m} label="AP Revenue Target" value={apTarget} onChange={setApTarget} min={10000} max={500000} step={10000} format={v => fmtFull(v)} color={C.purple} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* RESULTS */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <Surf m={m} style={{ borderTop: hit ? `3px solid ${C.green}` : `3px solid ${C.accent}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+            <div>
+              <ML>AP Monthly Revenue</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 30 : 38, fontStyle: "italic", color: hit ? C.green : C.accent }}>{fmtFull(apTotal)}</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, padding: "4px 10px", borderRadius: 6, background: hit ? C.greenDim : `${C.red}18`, color: hit ? C.green : C.red }}>
+                {hit ? `✓ +${fmtFull(apTotal - apTarget)} OVER TARGET` : `${fmtFull(gap)} TO GO`}
+              </div>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div style={{ height: 6, background: C.border, borderRadius: 3, overflow: "hidden", marginBottom: 14 }}>
+            <div style={{ height: "100%", width: `${Math.min(pctToTarget, 100)}%`, background: hit ? C.green : C.accent, borderRadius: 3, transition: "width 0.3s" }} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 8 : 12 }}>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, color: C.green, fontWeight: 600 }}>Organic GMV</span>
+                <span style={{ fontFamily: F.mono, fontSize: 12, color: C.offWhite }}>{fmt(orgGmv)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: 12, color: C.muted }}>AP Revenue (10%)</span>
+                <span style={{ fontFamily: F.mono, fontSize: 13, fontWeight: 700, color: C.green }}>{fmtFull(apFromOrg)}</span>
+              </div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>100% margin</div>
+            </div>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, color: C.accent, fontWeight: 600 }}>Creator Ad Spend</span>
+                <span style={{ fontFamily: F.mono, fontSize: 12, color: C.offWhite }}>{fmt(adOnCreator)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: 12, color: C.muted }}>AP Revenue (10%)</span>
+                <span style={{ fontFamily: F.mono, fontSize: 13, fontWeight: 700, color: C.accent }}>{fmtFull(apFromAd)}</span>
+              </div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>70% margin (3% → creators)</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: 14, paddingTop: 14, borderTop: `2px solid ${C.accent}` }}>
+            <div>
+              <span style={{ fontSize: m ? 13 : 14, fontWeight: 700, color: C.white }}>AP Margin</span>
+              <span style={{ fontSize: 11, color: C.muted, marginLeft: 6 }}>(after creator bonus)</span>
+            </div>
+            <span style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.green }}>{fmtFull(apMargin)}</span>
+          </div>
+        </Surf>
+
+        {!hit && (
+          <Callout m={m} color={C.red} bg={`${C.red}10`}>
+            <strong style={{ color: C.white }}>Gap: {fmtFull(gap)}</strong> — need {fmtFull(gap / 0.10)} more flowing through the network.
+            Either increase organic allocation to {Math.ceil(((orgGmv + gap / 0.10 * 0.6) / brandRev) * 100)}% or ad allocation to {Math.ceil(((adOnCreator + gap / 0.10 * 0.4) / brandSpend) * 100)}%, or both.
+          </Callout>
+        )}
+      </FadeIn>
+
+      {/* TABLE 1: Combinations that hit $100K */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="01" text={`Combinations That Hit ${fmt(apTarget)}`} m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+            <thead>
+              <tr>
+                <Th align="left">Organic GMV</Th>
+                <Th>Creator Ad Spend</Th>
+                <Th>AP from Organic</Th>
+                <Th>AP from Ads</Th>
+                <Th>AP Total</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                [1.0, 0], [0.8, 0.2], [0.6, 0.4], [0.5, 0.5], [0.4, 0.6], [0.2, 0.8], [0, 1.0],
+              ].map(([orgPct, adPct], i) => {
+                const orgV = needTotal * orgPct;
+                const adV = needTotal * adPct;
+                const isBalanced = orgPct === 0.6 || orgPct === 0.5;
+                return (
+                  <tr key={i} style={{ background: isBalanced ? C.accentDim : "transparent" }}>
+                    <Td align="left" bold={isBalanced} color={isBalanced ? C.white : C.offWhite}>{fmt(orgV)}</Td>
+                    <Td bold={isBalanced} color={isBalanced ? C.white : C.offWhite}>{fmt(adV)}</Td>
+                    <Td color={C.green}>{fmtFull(orgV * 0.10)}</Td>
+                    <Td color={C.accent}>{fmtFull(adV * 0.10)}</Td>
+                    <Td bold color={C.white}>{fmtFull(apTarget)}</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+      </FadeIn>
+
+      {/* TABLE 2: Brand sizes that get there */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="02" text="Brand Size Required" m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: m ? 500 : 580 }}>
+            <thead>
+              <tr>
+                <Th align="left">Brand Rev</Th>
+                <Th>Brand Spend</Th>
+                <Th>Org %</Th>
+                <Th>Ad %</Th>
+                <Th>Org GMV</Th>
+                <Th>Creator Spend</Th>
+                <Th>AP Revenue</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                [5000000, 3000000, 10, 10],
+                [5000000, 3000000, 15, 10],
+                [3000000, 1800000, 20, 20],
+                [3000000, 1800000, 25, 20],
+                [2000000, 1200000, 30, 20],
+                [2000000, 1200000, 30, 30],
+                [2000000, 1200000, 35, 30],
+                [1500000, 900000, 40, 30],
+                [1500000, 900000, 50, 30],
+                [1000000, 600000, 50, 50],
+              ].map(([rev, sp, oP, aP], i) => {
+                const oGmv = rev * (oP / 100);
+                const aSpend = sp * (aP / 100);
+                const apRev = oGmv * 0.10 + aSpend * 0.10;
+                const hitsTarget = apRev >= apTarget;
+                return (
+                  <tr key={i} style={{ background: hitsTarget ? C.accentDim : "transparent" }}>
+                    <Td align="left" color={C.white} bold>{fmt(rev)}</Td>
+                    <Td color={C.offWhite}>{fmt(sp)}</Td>
+                    <Td color={C.green}>{oP}%</Td>
+                    <Td color={C.accent}>{aP}%</Td>
+                    <Td color={C.offWhite}>{fmt(oGmv)}</Td>
+                    <Td color={C.offWhite}>{fmt(aSpend)}</Td>
+                    <Td bold color={hitsTarget ? C.green : C.muted}>{fmtFull(apRev)}{hitsTarget ? " ✓" : ""}</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+      </FadeIn>
+
+      {/* TABLE 3: Margin by mix */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="03" text={`AP Margin by Mix (on ${fmt(apTarget)} Revenue)`} m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+            <thead>
+              <tr>
+                <Th align="left">Mix</Th>
+                <Th>Organic Rev</Th>
+                <Th>Ad Rev</Th>
+                <Th>Creator Bonus</Th>
+                <Th>AP Margin</Th>
+                <Th>Margin %</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["100% organic", 1.0, 0],
+                ["80/20", 0.8, 0.2],
+                ["60/40", 0.6, 0.4],
+                ["50/50", 0.5, 0.5],
+                ["40/60", 0.4, 0.6],
+                ["20/80", 0.2, 0.8],
+                ["100% ads", 0, 1.0],
+              ].map(([label, orgR, adR], i) => {
+                const orgAmt = apTarget * orgR;
+                const adAmt = apTarget * adR;
+                const bonus = (adAmt / 0.10) * 0.03;
+                const margin = orgAmt + adAmt - bonus;
+                const marginPct = ((margin / apTarget) * 100).toFixed(0);
+                const best = orgR >= 0.6;
+                return (
+                  <tr key={i} style={{ background: best ? C.greenDim : "transparent" }}>
+                    <Td align="left" color={C.white} bold>{label}</Td>
+                    <Td color={C.green}>{fmtFull(orgAmt)}</Td>
+                    <Td color={C.accent}>{fmtFull(adAmt)}</Td>
+                    <Td color={C.red}>{fmtFull(bonus)}</Td>
+                    <Td bold color={best ? C.green : C.white}>{fmtFull(margin)}</Td>
+                    <Td bold color={best ? C.green : C.offWhite}>{marginPct}%</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+
+        <div style={{ marginTop: 14 }}>
+          <Callout m={m}>
+            <strong style={{ color: C.white }}>Key insight:</strong> Organic GMV is 2.5x more margin-efficient.
+            Each $1 of organic GMV generates $0.10 at 100% margin. Each $1 of ad spend generates $0.10 at 70% margin.
+            Weight the mix toward organic for maximum profitability.
+          </Callout>
+        </div>
+      </FadeIn>
+
+      {/* BOTTOM LINE */}
+      <FadeIn delay={0.03}>
+        <SL num="—" text="Bottom Line" m={m} />
+        <Surf m={m}>
+          <ML>Most Realistic Path by Brand Size</ML>
+          <div style={{ marginTop: 10 }}>
+            {[
+              { size: "$5M/mo", path: "Conservative: 15% organic + 10% ad", color: C.green },
+              { size: "$3M/mo", path: "Moderate: 25% organic + 20% ad", color: C.accent },
+              { size: "$2M/mo", path: "Aggressive: 35% organic + 30% ad", color: C.blue },
+              { size: "$1.5M/mo", path: "Creator-first: 50% organic + 30% ad", color: C.purple },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: m ? 10 : 14, padding: "10px 0", borderBottom: i < 3 ? `1px solid ${C.border}` : "none" }}>
+                <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 15, fontWeight: 800, color: r.color, minWidth: m ? 70 : 90 }}>{r.size}</span>
+                <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>{r.path}</span>
+              </div>
+            ))}
+          </div>
+        </Surf>
+      </FadeIn>
+    </>
+  );
+}
+
 // ============ MAIN ============
 function App() {
   const { m } = useBp();
@@ -860,6 +1142,7 @@ function App() {
     { id: "single", label: "1-Brand Calc" },
     { id: "portfolio", label: "Portfolio Calc" },
     { id: "sales", label: "Sales Model" },
+    { id: "scale", label: "Scale Planning" },
   ];
 
   return (
@@ -899,6 +1182,7 @@ function App() {
         {tab === "single" && <FunnelCalc m={m} brandCount={1} />}
         {tab === "portfolio" && <FunnelCalc m={m} brandCount={10} />}
         {tab === "sales" && <SalesTab m={m} />}
+        {tab === "scale" && <ScaleTab m={m} />}
       </div>
 
       <div style={{ maxWidth: 760, margin: "0 auto", padding: m ? "0 18px 28px" : "0 40px 36px" }}>
