@@ -1147,6 +1147,190 @@ function ClientTargetTab({ m }) {
   );
 }
 
+// ============ TAB: PRODUCT CALC ============
+function ProductCalcTab({ m }) {
+  const [aov, setAov] = useState(62.50);
+  const [maxCpa, setMaxCpa] = useState(34.72);
+
+  const apPct = 10;
+  const levantaPct = 3.5;
+  const apDollar = aov * (apPct / 100);
+  const levantaDollar = aov * (levantaPct / 100);
+  const totalFees = apDollar + levantaDollar;
+  const totalFeesPct = apPct + levantaPct;
+  const remaining = maxCpa - totalFees;
+  const affiliatePct = remaining > 0 ? (remaining / aov) * 100 : 0;
+  const affiliateDollar = remaining > 0 ? remaining : 0;
+  const brandKeeps = aov - maxCpa;
+  const brandKeepsPct = (brandKeeps / aov) * 100;
+  const valid = remaining > 0;
+
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          Input any product's AOV and target CPA to see the <strong style={{ color: C.white }}>max affiliate commission</strong> after Ad Pros and Levanta fees.
+        </p>
+
+        <Surf m={m} style={{ marginBottom: m ? 18 : 24 }}>
+          <ML>Product Inputs</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Average Order Value" value={aov} onChange={setAov} min={10} max={1000} step={2.5} format={v => `$${v.toFixed(2)}`} />
+            <Slider m={m} label="Max All-In CPA (Affiliate)" value={maxCpa} onChange={setMaxCpa} min={10} max={1000} step={1} format={v => `$${v.toFixed(2)}`} color={C.green} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* WATERFALL */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="01" text="Per-Order Breakdown" m={m} />
+        <Surf m={m} style={{ borderTop: `3px solid ${valid ? C.green : C.red}` }}>
+
+          {/* AOV header */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div>
+              <ML>AOV</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 30 : 38, fontStyle: "italic", color: C.white }}>${aov.toFixed(2)}</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <ML>Max CPA</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 30 : 38, fontStyle: "italic", color: C.accent }}>${maxCpa.toFixed(2)}</div>
+            </div>
+          </div>
+
+          {/* Stacked bar */}
+          <div style={{ height: 12, borderRadius: 6, overflow: "hidden", display: "flex", marginBottom: 16, background: C.border }}>
+            {valid && <div style={{ width: `${(apDollar / aov) * 100}%`, background: C.accent }} />}
+            {valid && <div style={{ width: `${(levantaDollar / aov) * 100}%`, background: C.purple }} />}
+            {valid && <div style={{ width: `${(affiliateDollar / aov) * 100}%`, background: C.green }} />}
+            <div style={{ width: `${Math.max(brandKeepsPct, 0)}%`, background: `${C.white}20` }} />
+          </div>
+
+          {/* Line items */}
+          {[
+            { label: "Ad Pros Management", pct: `${apPct}%`, dollar: apDollar, color: C.accent, sub: "network fee" },
+            { label: "Levanta Platform Fee", pct: `${levantaPct}%`, dollar: levantaDollar, color: C.purple, sub: "processing" },
+          ].map((r, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: r.color, flexShrink: 0 }} />
+                <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>{r.label}</span>
+                <span style={{ fontSize: 10, color: C.muted }}>({r.pct})</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 600, color: r.color }}>${r.dollar.toFixed(2)}</span>
+            </div>
+          ))}
+
+          {/* Subtotal fees */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: "transparent", flexShrink: 0 }} />
+              <span style={{ fontSize: m ? 12 : 13, color: C.muted, fontStyle: "italic" }}>Total Fees</span>
+              <span style={{ fontSize: 10, color: C.muted }}>({totalFeesPct}%)</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 600, color: C.muted }}>${totalFees.toFixed(2)}</span>
+          </div>
+
+          {/* MAX AFFILIATE COMMISSION */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: `2px solid ${valid ? C.green : C.red}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: valid ? C.green : C.red, flexShrink: 0 }} />
+              <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>Max Affiliate Commission</span>
+              <span style={{ fontSize: 10, color: C.muted }}>({valid ? affiliatePct.toFixed(1) : "0"}%)</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 18 : 22, fontWeight: 800, color: valid ? C.green : C.red }}>{valid ? `$${affiliateDollar.toFixed(2)}` : "N/A"}</span>
+          </div>
+
+          {/* Brand keeps */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: `${C.white}30`, flexShrink: 0 }} />
+              <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>Brand Keeps</span>
+              <span style={{ fontSize: 10, color: C.muted }}>({brandKeepsPct.toFixed(1)}%)</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 600, color: C.offWhite }}>${brandKeeps.toFixed(2)}</span>
+          </div>
+
+          {!valid && (
+            <div style={{ background: `${C.red}10`, borderRadius: 8, padding: "10px 14px", marginTop: 10, borderLeft: `3px solid ${C.red}`, fontSize: 12, color: C.offWhite }}>
+              <strong style={{ color: C.red }}>CPA too low.</strong> The max CPA (${maxCpa.toFixed(2)}) doesn't cover Ad Pros + Levanta fees (${totalFees.toFixed(2)}). Increase CPA or lower AOV.
+            </div>
+          )}
+        </Surf>
+      </FadeIn>
+
+      {/* SUMMARY CARDS */}
+      {valid && (
+        <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr", gap: m ? 8 : 10 }}>
+            {[
+              { label: "Ad Pros", value: `$${apDollar.toFixed(2)}`, sub: `${apPct}% of AOV`, color: C.accent },
+              { label: "Levanta", value: `$${levantaDollar.toFixed(2)}`, sub: `${levantaPct}% of AOV`, color: C.purple },
+              { label: "Affiliate", value: `$${affiliateDollar.toFixed(2)}`, sub: `${affiliatePct.toFixed(1)}% of AOV`, color: C.green },
+              { label: "Brand", value: `$${brandKeeps.toFixed(2)}`, sub: `${brandKeepsPct.toFixed(1)}% of AOV`, color: C.white },
+            ].map((c, i) => (
+              <Surf key={i} m={m} style={{ textAlign: "center", padding: m ? 14 : 16 }}>
+                <ML>{c.label}</ML>
+                <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: c.color, marginTop: 4 }}>{c.value}</div>
+                <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{c.sub}</div>
+              </Surf>
+            ))}
+          </div>
+        </FadeIn>
+      )}
+
+      {/* QUICK REFERENCE TABLE */}
+      {valid && (
+        <FadeIn delay={0.03}>
+          <SL num="02" text="Quick Reference by AOV" m={m} />
+          <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+              <thead>
+                <tr>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "left", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>AOV</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>CPA</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Ad Pros</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Levanta</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Max Affiliate</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Aff %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  [30, 15], [50, 25], [62.50, 34.72], [80, 44], [100, 55], [150, 83], [200, 111], [300, 167], [500, 278],
+                ].map(([a, c], i) => {
+                  const ap = a * 0.10;
+                  const lev = a * 0.035;
+                  const aff = c - ap - lev;
+                  const affPct = ((aff / a) * 100).toFixed(1);
+                  const isMatch = a === aov;
+                  return (
+                    <tr key={i} style={{ background: isMatch ? C.accentDim : "transparent" }}>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "left", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.white, borderBottom: `1px solid ${C.border}` }}>${a.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.offWhite, borderBottom: `1px solid ${C.border}` }}>${c.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.accent, borderBottom: `1px solid ${C.border}` }}>${ap.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.purple, borderBottom: `1px solid ${C.border}` }}>${lev.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.green, borderBottom: `1px solid ${C.border}` }}>${aff.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.green, borderBottom: `1px solid ${C.border}` }}>{affPct}%</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Surf>
+
+          <div style={{ marginTop: 14 }}>
+            <Callout m={m}>
+              <strong style={{ color: C.white }}>Formula:</strong> Max Affiliate = CPA − (AOV × 10%) − (AOV × 3.5%).
+              At ${aov.toFixed(2)} AOV and ${maxCpa.toFixed(2)} CPA: ${maxCpa.toFixed(2)} − ${apDollar.toFixed(2)} − ${levantaDollar.toFixed(2)} = <strong style={{ color: C.green }}>${affiliateDollar.toFixed(2)} ({affiliatePct.toFixed(1)}%)</strong>
+            </Callout>
+          </div>
+        </FadeIn>
+      )}
+    </>
+  );
+}
+
 // ============ TAB: SCALE PLANNING ============
 function ScaleTab({ m }) {
   const [brandRev, setBrandRev] = useState(3000000);
@@ -1439,6 +1623,7 @@ function App() {
     { id: "single", label: "1-Brand Calc" },
     { id: "portfolio", label: "Portfolio Calc" },
     { id: "sales", label: "Sales Model" },
+    { id: "product", label: "Product Calc" },
     { id: "client", label: "Per-Client $20K" },
     { id: "scale", label: "Scale $100K" },
   ];
@@ -1480,6 +1665,7 @@ function App() {
         {tab === "single" && <FunnelCalc m={m} brandCount={1} />}
         {tab === "portfolio" && <FunnelCalc m={m} brandCount={10} />}
         {tab === "sales" && <SalesTab m={m} />}
+        {tab === "product" && <ProductCalcTab m={m} />}
         {tab === "client" && <ClientTargetTab m={m} />}
         {tab === "scale" && <ScaleTab m={m} />}
       </div>
