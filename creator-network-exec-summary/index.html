@@ -264,7 +264,7 @@ function CreatorTab({ m }) {
   const streams = [
     { n: "01", t: "TikTok Shop Commission", rate: "10–30%", c: C.accent, d: C.accentDim, desc: "Standard TTS affiliate commission. Creator earns from TikTok on GMV through affiliate links. In-app checkout — highest conversion channel.", mech: "Video → viewer taps product tag → buys in TikTok Shop → 30% commission", ex: "$150 AOV × 30% = $45/sale" },
     { n: "02", t: "Organic Sales Commission", rate: "10–30%", c: C.green, d: C.greenDim, desc: "Commission on sales via creator's link to Shopify/Amazon. Same video, different purchase path. Lower conversion but higher AOV potential.", mech: "Video → profile visit → bio link → Shopify/Amazon purchase → 30% commission", ex: "$150 AOV × 30% = $45/sale" },
-    { n: "03", t: "Fixed Base Pay", rate: "$5/video", c: C.blue, d: C.blueDim, desc: "$150/mo floor for 30 videos. $300/mo for 60 videos. Guaranteed regardless of sales. We decide tier per creator.", mech: "Creator delivers videos → receives guaranteed base → paid by Ad Pros", ex: "30 videos × $5 = $150/mo | 150 videos × $5 = $750/mo" },
+    { n: "03", t: "Fixed Base Pay", rate: "$5/video", c: C.blue, d: C.blueDim, desc: "$150/mo floor for 30 videos. $300/mo for 60 videos. Guaranteed regardless of sales. Paid from brand's base retainer (pass-through).", mech: "Creator delivers videos → receives guaranteed base → funded by brand retainer", ex: "30 videos × $5 = $150/mo | 150 videos × $5 = $750/mo" },
     { n: "04", t: "Ad Spend Bonus", rate: "3% of spend", c: C.purple, d: C.purpleDim, desc: "When brand boosts content via partnership ads or whitelisting, creator earns 3% of spend. No cap. Whitelisting required.", mech: "Brand boosts video → $10K ad spend → creator earns $300", ex: "$50K spend × 3% = $1,500 bonus" },
   ];
   return (
@@ -633,14 +633,14 @@ function SalesTab({ m }) {
   const apMgmtPctOrg = 10;
   const platformPct = 3.5;
   const totalApPctOrg = apMgmtPctOrg + platformPct; // 13.5%
-  const affiliatePctOrg = 43;
-  const brandKeepsPctOrg = 100 - totalApPctOrg - affiliatePctOrg; // 43.5%
+  const targetCpa = aov / targetRoas;
+  const affiliatePctOrg = Math.round(((targetCpa - (aov * totalApPctOrg / 100)) / aov) * 100); // derived from CPA gap
+  const brandKeepsPctOrg = 100 - totalApPctOrg - affiliatePctOrg;
   const apOrgRev = orgRevenue * (apMgmtPctOrg / 100);
   const platformFee = orgRevenue * (platformPct / 100);
   const affiliateOrgPay = orgRevenue * (affiliatePctOrg / 100);
   const brandKeepsOrg = orgRevenue * (brandKeepsPctOrg / 100);
   const orgCpa = orgSales > 0 ? (orgRevenue - brandKeepsOrg) / orgSales : 0;
-  const orgPerSaleAp = orgSales > 0 ? (totalApPctOrg / 100) * aov : 0;
   const orgPerSaleAffiliate = (affiliatePctOrg / 100) * aov;
   const orgPerSaleBrand = (brandKeepsPctOrg / 100) * aov;
 
@@ -747,7 +747,9 @@ function SalesTab({ m }) {
         </div>
 
         <Callout m={m} color={C.green} bg={C.greenDim}>
-          <strong style={{ color: C.white }}>Both models profitable on order 1.</strong> Organic CPA: ${orgCpa.toFixed(2)}. Ad CPA: ${adAllInCpa.toFixed(2)}. Brand target: ${(aov / targetRoas).toFixed(2)}. No risk — brand pays on results only.
+          <strong style={{ color: C.white }}>Both models profitable on order 1.</strong> Organic CPA: ${orgCpa.toFixed(2)} (hits ${targetCpa.toFixed(2)} target).
+          Ad model: brand pays ${adCpa.toFixed(2)} CPA at {targetRoas.toFixed(1)}x ROAS + {apAdFee > 0 && adSales > 0 ? `$${(apAdFee / adSales).toFixed(2)}` : "$0"} AP management fee.
+          No risk — brand pays on results only.
         </Callout>
       </FadeIn>
 
@@ -845,9 +847,8 @@ function SalesTab({ m }) {
         {/* THE PITCH */}
         <div style={{ marginTop: m ? 14 : 18 }}>
           <Callout m={m}>
-            <strong style={{ color: C.white }}>The pitch:</strong> Zero risk. Brand pays only on results — {affiliatePctOrg}% to creators who drive organic sales, {totalApPctOrg}% management + platform fee.
-            On boosted content, 10% of spend. Both models hit their ${(aov / targetRoas).toFixed(2)} CPA target.
-            Base retainer ({fmtFull(baseRetainer)}/mo) covers creator content — passes straight through. No hidden fees.
+            <strong style={{ color: C.white }}>The pitch:</strong> Zero risk. Brand pays only on results — {affiliatePctOrg}% to creators who drive organic sales, {totalApPctOrg}% management + platform fee (CPA stays at ${targetCpa.toFixed(2)} target).
+            On boosted content, 10% of spend as management fee. Base retainer ({fmtFull(baseRetainer)}/mo) covers creator content — passes straight through.
           </Callout>
         </div>
       </FadeIn>
@@ -1023,18 +1024,18 @@ function ClientTargetTab({ m }) {
             </thead>
             <tbody>
               {[
-                [1000000, 600000, 10, 10],
                 [1000000, 600000, 15, 10],
-                [750000, 450000, 15, 15],
-                [500000, 300000, 20, 20],
-                [500000, 300000, 25, 20],
-                [400000, 240000, 25, 25],
-                [300000, 180000, 30, 20],
-                [300000, 180000, 30, 30],
-                [300000, 180000, 40, 25],
-                [200000, 120000, 40, 40],
-                [200000, 120000, 50, 40],
-                [150000, 90000, 50, 50],
+                [1000000, 600000, 10, 15],
+                [750000, 450000, 20, 15],
+                [750000, 450000, 15, 20],
+                [500000, 300000, 25, 25],
+                [500000, 300000, 30, 20],
+                [500000, 300000, 20, 30],
+                [400000, 240000, 35, 25],
+                [300000, 180000, 50, 30],
+                [300000, 180000, 40, 40],
+                [250000, 150000, 50, 40],
+                [200000, 120000, 60, 50],
               ].map(([rev, sp, oP, aP], i) => {
                 const oGmv = rev * (oP / 100);
                 const aSpend = sp * (aP / 100);
@@ -1119,11 +1120,11 @@ function ClientTargetTab({ m }) {
           <ML>By Client Size</ML>
           <div style={{ marginTop: 10 }}>
             {[
-              { size: "$1M/mo", path: "Conservative: 10% organic + 10% ad", ap: "$16K", color: C.muted },
-              { size: "$750K/mo", path: "Moderate: 15% organic + 15% ad", ap: "$18K", color: C.muted },
+              { size: "$1M/mo", path: "Conservative: 15% organic + 10% ad", ap: "$21K ✓", color: C.green },
+              { size: "$750K/mo", path: "Moderate: 20% organic + 15% ad", ap: "$21.8K ✓", color: C.green },
               { size: "$500K/mo", path: "Sweet spot: 25% organic + 25% ad", ap: "$20K ✓", color: C.green },
-              { size: "$300K/mo", path: "Aggressive: 40% organic + 25% ad", ap: "$17K", color: C.muted },
-              { size: "$300K/mo", path: "Creator-first: 50% organic + 30% ad", ap: "$20K ✓", color: C.green },
+              { size: "$400K/mo", path: "Aggressive: 35% organic + 25% ad", ap: "$20K ✓", color: C.green },
+              { size: "$300K/mo", path: "Creator-first: 50% organic + 30% ad", ap: "$20.4K ✓", color: C.green },
             ].map((r, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: m ? 8 : 14, padding: "10px 0", borderBottom: i < 4 ? `1px solid ${C.border}` : "none", flexWrap: "wrap" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: m ? 8 : 12, minWidth: 0 }}>
