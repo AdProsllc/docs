@@ -80,16 +80,37 @@ const Surf = ({ children, m, style = {} }) => <div style={{ background: C.surfac
 const ML = ({ children }) => <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 4 }}>{children}</div>;
 const Callout = ({ children, color = C.accent, bg = C.accentDim, m }) => <div style={{ padding: m ? "12px 14px" : "14px 18px", borderRadius: 12, background: bg, borderLeft: `3px solid ${color}`, fontSize: m ? 12 : 13, lineHeight: 1.7, color: C.offWhite }}>{children}</div>;
 
-const Slider = ({ label, value, onChange, min, max, step = 1, format, m, color = C.accent }) => (
-  <div style={{ marginBottom: m ? 10 : 12 }}>
-    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-      <span style={{ fontSize: 12, color: C.offWhite }}>{label}</span>
-      <span style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color }}>{format ? format(value) : value}</span>
+const Slider = ({ label, value, onChange, min, max, step = 1, format, m, color = C.accent }) => {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState("");
+  const handleStart = () => { setDraft(String(value)); setEditing(true); };
+  const handleEnd = () => {
+    const parsed = parseFloat(draft.replace(/[^0-9.\-]/g, ""));
+    if (!isNaN(parsed)) onChange(Math.min(max, Math.max(min, Math.round(parsed / step) * step)));
+    setEditing(false);
+  };
+  return (
+    <div style={{ marginBottom: m ? 10 : 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
+        <span style={{ fontSize: 12, color: C.offWhite }}>{label}</span>
+        {editing ? (
+          <input type="text" value={draft} onChange={e => setDraft(e.target.value)}
+            onBlur={handleEnd} onKeyDown={e => { if (e.key === "Enter") handleEnd(); }}
+            autoFocus
+            style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color, background: C.bg, border: `1px solid ${color}`, borderRadius: 4, padding: "2px 6px", width: m ? 90 : 110, textAlign: "right", outline: "none" }} />
+        ) : (
+          <span onClick={handleStart} style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color, cursor: "pointer", padding: "2px 6px", borderRadius: 4, border: `1px solid transparent`, transition: "border-color 0.15s" }}
+            onMouseEnter={e => e.target.style.borderColor = `${color}50`}
+            onMouseLeave={e => e.target.style.borderColor = "transparent"}>
+            {format ? format(value) : value}
+          </span>
+        )}
+      </div>
+      <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(Number(e.target.value))}
+        style={{ width: "100%", height: 5, appearance: "none", background: C.border, borderRadius: 3, outline: "none", cursor: "pointer", accentColor: color }} />
     </div>
-    <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(Number(e.target.value))}
-      style={{ width: "100%", height: 5, appearance: "none", background: C.border, borderRadius: 3, outline: "none", cursor: "pointer", accentColor: color }} />
-  </div>
-);
+  );
+};
 
 // ============ TAB: OVERVIEW ============
 function OverviewTab({ m }) {
