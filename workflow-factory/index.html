@@ -33,8 +33,8 @@
   --orange:#ff9140;
   --pink:#ff6aa8;
 }
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;min-width:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden;width:100%}
 body{
   background:var(--navy);
   color:var(--ink);
@@ -43,8 +43,14 @@ body{
   line-height:1.55;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+  width:100%;
+  max-width:100vw;
+  position:relative;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
 }
-.mono{font-family:'JetBrains Mono',monospace}
+img,svg,video{max-width:100%;height:auto;display:block}
+.mono{font-family:'JetBrains Mono',monospace;word-break:break-all}
 .serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400}
 
 /* Starfield */
@@ -68,12 +74,11 @@ body::before{
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--rule);
+  width:100%;
 }
-.nav-top{
-  padding:18px 0;
-}
+.nav-top{padding:18px 0}
 .nav-inner{
-  max-width:1320px;margin:0 auto;padding:0 32px;
+  max-width:1320px;margin:0 auto;padding:0 20px;
   display:flex;align-items:center;justify-content:space-between;gap:16px;
 }
 .logo{
@@ -86,9 +91,9 @@ body::before{
 .logo span{display:block}
 .logo span:first-child{margin-bottom:-2px}
 .nav-version{
-  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
-  letter-spacing:0.12em;color:var(--ink-3);text-transform:uppercase;
-  white-space:nowrap;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;
+  letter-spacing:0.1em;color:var(--ink-3);text-transform:uppercase;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
 }
 .nav-version strong{color:var(--yellow);font-weight:600}
 
@@ -98,52 +103,54 @@ body::before{
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
+  width:100%;
 }
 .tabs-wrap::-webkit-scrollbar{display:none}
 .tabs{
-  max-width:1320px;margin:0 auto;padding:0 32px;
-  display:flex;gap:4px;min-width:max-content;
+  max-width:1320px;margin:0 auto;padding:0 20px;
+  display:flex;gap:4px;
 }
 .tab{
   background:transparent;border:none;cursor:pointer;
-  font-family:'Archivo',sans-serif;font-weight:600;font-size:13.5px;
-  color:var(--ink-3);padding:16px 18px;
+  font-family:'Archivo',sans-serif;font-weight:600;font-size:13px;
+  color:var(--ink-3);padding:14px 14px;
   letter-spacing:-0.005em;
   border-bottom:2px solid transparent;
   transition:all 0.2s ease;
   white-space:nowrap;display:flex;align-items:center;gap:8px;
-  position:relative;
+  position:relative;flex-shrink:0;
 }
 .tab:hover{color:var(--ink-2)}
-.tab.active{
-  color:var(--yellow);
-  border-bottom-color:var(--yellow);
-}
+.tab.active{color:var(--yellow);border-bottom-color:var(--yellow)}
 .tab-num{
-  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
   color:var(--ink-4);letter-spacing:0.08em;
 }
 .tab.active .tab-num{color:var(--yellow)}
 
 /* CONTAINER */
-.wrap{max-width:1320px;margin:0 auto;padding:0 32px;position:relative;z-index:1}
+.wrap{
+  max-width:1320px;margin:0 auto;padding:0 20px;
+  position:relative;z-index:1;width:100%;
+}
 
 /* TAB PANELS */
-.panel{display:none;padding:48px 0 80px;animation:fadeIn 0.3s ease}
+.panel{display:none;padding:40px 0 64px;animation:fadeIn 0.3s ease}
 .panel.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* HEADINGS */
 .panel-kicker{
-  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
   letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);
-  margin-bottom:16px;display:flex;align-items:center;gap:12px;
+  margin-bottom:14px;display:flex;align-items:center;gap:12px;
 }
-.panel-kicker::before{content:'';width:28px;height:2px;background:var(--yellow)}
+.panel-kicker::before{content:'';width:24px;height:2px;background:var(--yellow);flex-shrink:0}
 h1{
   font-family:'Archivo',sans-serif;font-weight:800;
-  font-size:clamp(40px,6vw,88px);line-height:0.94;letter-spacing:-0.04em;
-  margin-bottom:28px;color:var(--ink);
+  font-size:clamp(34px,7vw,84px);line-height:0.96;letter-spacing:-0.04em;
+  margin-bottom:24px;color:var(--ink);
+  word-wrap:break-word;overflow-wrap:break-word;hyphens:auto;
 }
 h1 em{
   font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
@@ -151,12 +158,13 @@ h1 em{
 }
 h2{
   font-family:'Archivo',sans-serif;font-weight:800;
-  font-size:clamp(32px,4.5vw,60px);line-height:0.98;letter-spacing:-0.035em;
-  margin-bottom:18px;color:var(--ink);
+  font-size:clamp(28px,5vw,56px);line-height:1;letter-spacing:-0.035em;
+  margin-bottom:16px;color:var(--ink);
+  word-wrap:break-word;overflow-wrap:break-word;
 }
 h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
 .lede{
-  font-size:clamp(17px,1.8vw,20px);color:var(--ink-2);line-height:1.55;
+  font-size:clamp(15px,2.2vw,19px);color:var(--ink-2);line-height:1.55;
   max-width:880px;font-weight:400;
 }
 .lede em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
@@ -165,39 +173,40 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 /* TAB 1 — OVERVIEW */
 .hero-tag{
   display:inline-flex;align-items:center;gap:10px;
-  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
-  letter-spacing:0.12em;color:var(--yellow);text-transform:uppercase;
-  margin-bottom:32px;padding:7px 14px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;
+  letter-spacing:0.1em;color:var(--yellow);text-transform:uppercase;
+  margin-bottom:28px;padding:7px 12px;
   background:rgba(255,212,0,0.08);border:1px solid rgba(255,212,0,0.25);
-  border-radius:100px;
+  border-radius:100px;max-width:100%;
 }
 .hero-tag::before{
   content:'';width:6px;height:6px;background:var(--yellow);border-radius:50%;
-  box-shadow:0 0 10px var(--yellow);
+  box-shadow:0 0 10px var(--yellow);flex-shrink:0;
 }
 .hero-lede{
-  font-size:clamp(17px,1.8vw,22px);color:var(--ink-2);line-height:1.5;
+  font-size:clamp(15px,2.2vw,21px);color:var(--ink-2);line-height:1.55;
   max-width:920px;font-weight:400;
 }
 .hero-lede em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
 .hero-lede strong{color:var(--ink);font-weight:600}
 
 .stats-row{
-  margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
-  padding-top:40px;border-top:1px solid var(--rule);
+  margin-top:48px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;
+  padding-top:36px;border-top:1px solid var(--rule);
 }
-.stat{position:relative}
+.stat{position:relative;min-width:0}
 .stat-num{
   font-family:'Archivo',sans-serif;font-weight:800;
-  font-size:clamp(40px,5vw,60px);line-height:1;letter-spacing:-0.035em;
+  font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:-0.035em;
   color:var(--ink);margin-bottom:8px;
 }
 .stat-num em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
-.stat-label{font-size:13.5px;color:var(--ink-3);line-height:1.45;max-width:220px}
+.stat-label{font-size:13px;color:var(--ink-3);line-height:1.45}
 
-/* Big thesis block */
+/* Thesis block */
 .thesis{
-  margin-top:56px;padding:clamp(32px,5vw,60px);
+  margin-top:40px;padding:clamp(24px,4vw,52px);
   background:linear-gradient(135deg,var(--navy-3) 0%,var(--navy-4) 100%);
   border:1px solid var(--rule-2);position:relative;overflow:hidden;
   border-radius:2px;
@@ -212,18 +221,18 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
   opacity:0.06;filter:blur(40px);pointer-events:none;
 }
 .thesis-kicker{
-  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
   letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);
-  margin-bottom:18px;position:relative;
+  margin-bottom:16px;position:relative;
 }
 .thesis h3{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(26px,3vw,36px);
-  line-height:1.1;letter-spacing:-0.025em;margin-bottom:22px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3.5vw,34px);
+  line-height:1.12;letter-spacing:-0.025em;margin-bottom:20px;
   color:var(--ink);position:relative;
 }
 .thesis h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
 .thesis p{
-  color:var(--ink-2);font-size:clamp(15px,1.6vw,17px);line-height:1.65;
+  color:var(--ink-2);font-size:clamp(14px,2vw,16.5px);line-height:1.65;
   margin-bottom:14px;max-width:920px;position:relative;
 }
 .thesis p:last-child{margin-bottom:0}
@@ -232,8 +241,8 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
 /* TAB 2 — LOOP DIAGRAM */
 .loop-container{
-  margin-top:40px;background:var(--navy-2);border:1px solid var(--rule);
-  padding:clamp(28px,4vw,52px);border-radius:2px;position:relative;overflow:hidden;
+  margin-top:32px;background:var(--navy-2);border:1px solid var(--rule);
+  padding:clamp(22px,4vw,48px);border-radius:2px;position:relative;overflow:hidden;
 }
 .loop-container::after{
   content:'';position:absolute;top:-30%;right:-10%;width:400px;height:400px;
@@ -242,30 +251,33 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 }
 .loop-head{
   display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
-  gap:16px;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--rule);
+  gap:16px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--rule);
 }
 .loop-title{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,2.5vw,26px);
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(18px,2.5vw,24px);
   letter-spacing:-0.015em;color:var(--ink);
 }
 .loop-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
 .loop-sub{
-  font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-3);
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);
   letter-spacing:0.1em;text-transform:uppercase;
 }
 
-/* The circular loop */
-.loop-flow{
-  position:relative;padding:40px 0;
-}
+.loop-flow{position:relative;padding:24px 0}
+
+/* Single column on mobile, row on desktop */
 .loop-arrows{
-  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:16px;
-  align-items:stretch;margin-bottom:24px;
+  display:flex;flex-direction:column;gap:12px;margin-bottom:20px;
+}
+.loop-arrow{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--yellow);
+  font-weight:300;padding:2px 0;transform:rotate(90deg);
 }
 .loop-phase{
   background:var(--navy-3);border:1px solid var(--rule-2);
-  padding:24px 20px;border-radius:2px;position:relative;
-  transition:all 0.2s ease;
+  padding:22px 20px;border-radius:2px;position:relative;
+  transition:all 0.2s ease;flex:1;min-width:0;
 }
 .loop-phase:hover{
   border-color:var(--yellow);transform:translateY(-3px);
@@ -276,7 +288,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .loop-phase.deploy{border-color:rgba(48,217,123,0.3)}
 
 .loop-phase-label{
-  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
   letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;
 }
 .loop-phase.signals .loop-phase-label{color:var(--blue)}
@@ -284,18 +296,19 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .loop-phase.deploy .loop-phase-label{color:var(--green)}
 
 .loop-phase-title{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;
-  line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:10px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(16px,2.2vw,19px);
+  line-height:1.12;letter-spacing:-0.02em;color:var(--ink);margin-bottom:10px;
+  word-wrap:break-word;overflow-wrap:break-word;
 }
 .loop-phase-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
 
-.loop-phase-desc{font-size:13px;color:var(--ink-3);line-height:1.5;margin-bottom:14px}
+.loop-phase-desc{font-size:13px;color:var(--ink-3);line-height:1.55;margin-bottom:14px}
 .loop-phase-desc em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink-2)}
 
 .loop-phase-agents{display:flex;flex-wrap:wrap;gap:4px}
 .phase-chip{
   font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;
-  padding:3px 7px;border-radius:2px;letter-spacing:0.04em;
+  padding:3px 7px;border-radius:2px;letter-spacing:0.04em;white-space:nowrap;
 }
 .chip-rec{background:var(--pink);color:#fff}
 .chip-intake{background:var(--blue);color:#fff}
@@ -306,70 +319,60 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .chip-deploy{background:var(--red);color:#fff}
 .chip-improve{background:#fff;color:var(--navy)}
 
-.loop-arrow{
-  display:flex;align-items:center;justify-content:center;
-  font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--yellow);
-  font-weight:300;
-}
-
-/* Feedback arrow */
 .loop-feedback{
-  margin-top:8px;padding:18px 24px;background:rgba(255,212,0,0.04);
+  margin-top:8px;padding:16px 20px;background:rgba(255,212,0,0.04);
   border:1px dashed rgba(255,212,0,0.25);border-radius:2px;
-  display:flex;align-items:center;gap:14px;
+  display:flex;align-items:flex-start;gap:12px;
 }
 .loop-feedback-arrow{
-  font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--yellow);
-  flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--yellow);
+  flex-shrink:0;line-height:1.3;
 }
-.loop-feedback-text{
-  font-size:13.5px;color:var(--ink-2);line-height:1.5;
-}
+.loop-feedback-text{font-size:13px;color:var(--ink-2);line-height:1.55;min-width:0}
 .loop-feedback-text strong{color:var(--yellow);font-weight:600}
 .loop-feedback-text em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
 
-/* The 8 steps strip */
+/* 8 steps strip */
 .eight-strip{
-  margin-top:40px;background:var(--navy-2);border:1px solid var(--rule);
-  padding:clamp(28px,4vw,40px);border-radius:2px;overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
+  margin-top:32px;background:var(--navy-2);border:1px solid var(--rule);
+  padding:clamp(22px,4vw,36px);border-radius:2px;
 }
 .eight-strip-head{
   display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:28px;flex-wrap:wrap;gap:16px;padding-bottom:20px;
+  margin-bottom:24px;flex-wrap:wrap;gap:12px;padding-bottom:16px;
   border-bottom:1px solid var(--rule);
 }
 .eight-strip-title{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(16px,2vw,18px);
   letter-spacing:-0.015em;color:var(--ink);
 }
 .eight-strip-sub{
-  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3);
   letter-spacing:0.1em;text-transform:uppercase;
 }
 .eight-steps{
-  display:grid;grid-template-columns:repeat(8,minmax(125px,1fr));gap:4px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:4px;
 }
 .eight-step{
   background:var(--navy-3);border:1px solid var(--rule-2);
-  padding:18px 14px;position:relative;min-height:140px;
+  padding:16px 14px;position:relative;min-height:120px;
   transition:all 0.2s ease;display:flex;flex-direction:column;gap:4px;
-  border-radius:2px;
+  border-radius:2px;min-width:0;
 }
 .eight-step:hover{
   border-color:var(--yellow);transform:translateY(-2px);
   box-shadow:0 6px 24px rgba(255,212,0,0.1);
 }
 .eight-step-num{
-  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
   color:var(--yellow);letter-spacing:0.1em;margin-bottom:4px;
 }
 .eight-step-name{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:16px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:15px;
   letter-spacing:-0.02em;line-height:1.05;color:var(--ink);
 }
 .eight-step-q{
-  font-family:'Instrument Serif',serif;font-style:italic;font-size:12px;
+  font-family:'Instrument Serif',serif;font-style:italic;font-size:11.5px;
   color:var(--ink-3);line-height:1.3;margin-top:2px;
 }
 .eight-step-agents{
@@ -378,14 +381,13 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 }
 
 /* TAB 3 — AGENTS */
-.agents-grid{
-  margin-top:40px;display:flex;flex-direction:column;gap:12px;
-}
+.agents-grid{margin-top:32px;display:flex;flex-direction:column;gap:10px}
 .agent-card{
   background:var(--navy-2);border:1px solid var(--rule);
-  padding:clamp(28px,4vw,44px);display:grid;
-  grid-template-columns:auto 1fr;gap:clamp(20px,3vw,40px);
+  padding:clamp(22px,4vw,42px);display:flex;flex-direction:column;
+  gap:16px;
   transition:all 0.2s;position:relative;overflow:hidden;border-radius:2px;
+  min-width:0;
 }
 .agent-card::before{
   content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
@@ -399,27 +401,29 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 }
 .agent-card.featured::before{background:var(--pink)}
 
+.agent-header{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
 .agent-num{
   font-family:'Archivo',sans-serif;font-weight:800;
-  font-size:clamp(56px,8vw,88px);line-height:0.9;letter-spacing:-0.045em;
-  color:var(--ink);min-width:clamp(70px,10vw,110px);
+  font-size:clamp(44px,8vw,72px);line-height:0.9;letter-spacing:-0.045em;
+  color:var(--ink);flex-shrink:0;
 }
 .agent-num em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
 .featured .agent-num em{color:var(--pink)}
 
-.agent-body h3{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(24px,3vw,34px);
-  line-height:1.08;letter-spacing:-0.025em;margin-bottom:14px;color:var(--ink);
+.agent-header h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(20px,3.5vw,30px);
+  line-height:1.08;letter-spacing:-0.025em;color:var(--ink);flex:1;min-width:0;
+  word-wrap:break-word;overflow-wrap:break-word;
 }
-.agent-body h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
-.featured .agent-body h3 em{color:var(--pink)}
+.agent-header h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.featured .agent-header h3 em{color:var(--pink)}
 
-.agent-tags{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.agent-tags{display:flex;gap:6px;flex-wrap:wrap}
 .tag{
-  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
-  letter-spacing:0.06em;text-transform:uppercase;padding:5px 10px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;padding:5px 9px;
   background:var(--navy-3);border:1px solid var(--rule-2);color:var(--ink-2);
-  border-radius:2px;
+  border-radius:2px;white-space:nowrap;
 }
 .tag.step{background:var(--yellow);color:var(--navy);border-color:var(--yellow)}
 .tag.gate{background:rgba(255,85,64,0.1);color:var(--red);border-color:var(--red)}
@@ -427,28 +431,29 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .tag.new{background:rgba(255,106,168,0.12);color:var(--pink);border-color:var(--pink)}
 
 .agent-desc{
-  color:var(--ink-2);font-size:clamp(15px,1.6vw,17px);line-height:1.6;
-  margin-bottom:24px;max-width:920px;
+  color:var(--ink-2);font-size:clamp(14px,2vw,16px);line-height:1.6;
+  max-width:920px;
 }
 .agent-desc strong{color:var(--ink);font-weight:600}
 .agent-desc em{font-style:italic;font-family:'Instrument Serif',serif}
 
-.agent-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
-.agent-cell{background:var(--navy);padding:16px 18px;border:1px solid var(--rule);border-radius:2px}
+.agent-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.agent-cell{background:var(--navy);padding:14px 16px;border:1px solid var(--rule);border-radius:2px;min-width:0}
 .agent-cell-label{
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:7px;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:6px;
 }
 .featured .agent-cell-label{color:var(--pink)}
-.agent-cell-body{font-size:13.5px;color:var(--ink);line-height:1.55}
+.agent-cell-body{font-size:13px;color:var(--ink);line-height:1.55}
 .agent-cell-body code{
   font-family:'JetBrains Mono',monospace;background:var(--navy-3);
-  padding:2px 6px;font-size:11.5px;color:var(--yellow);
+  padding:2px 5px;font-size:11px;color:var(--yellow);
   border:1px solid var(--rule-2);font-weight:500;border-radius:2px;
+  word-break:break-all;
 }
 
 .agent-example{
-  margin-top:14px;padding:18px 22px;background:rgba(255,212,0,0.04);
+  padding:16px 18px;background:rgba(255,212,0,0.04);
   border-left:3px solid var(--yellow);border-radius:0 2px 2px 0;
 }
 .featured .agent-example{background:rgba(255,106,168,0.06);border-left-color:var(--pink)}
@@ -457,19 +462,19 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
   letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;
 }
 .featured .agent-example-label{color:var(--pink)}
-.agent-example p{font-size:14px;color:var(--ink-2);line-height:1.6}
+.agent-example p{font-size:13.5px;color:var(--ink-2);line-height:1.6}
 .agent-example em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
 .agent-example strong{color:var(--ink);font-weight:600}
 
 /* TAB 4 — SEQUENCE */
 .sequence-list{
-  margin-top:40px;display:flex;flex-direction:column;gap:3px;
+  margin-top:32px;display:flex;flex-direction:column;gap:2px;
   background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
 }
 .seq-row{
-  display:grid;grid-template-columns:60px 220px 1fr 140px;gap:20px;
-  padding:20px 24px;background:var(--navy-2);
-  align-items:center;transition:all 0.15s;
+  display:grid;grid-template-columns:40px 1fr;gap:12px;
+  padding:16px 18px;background:var(--navy-2);
+  align-items:flex-start;transition:all 0.15s;
 }
 .seq-row:hover{background:var(--navy-3)}
 .seq-row.gate{background:rgba(255,85,64,0.06)}
@@ -477,20 +482,22 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .seq-row.signal{background:rgba(94,159,255,0.04)}
 .seq-row.signal:hover{background:rgba(94,159,255,0.07)}
 .seq-num{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;
   line-height:1;letter-spacing:-0.03em;color:var(--yellow);
 }
 .seq-row.signal .seq-num{color:var(--blue)}
+.seq-body{min-width:0}
 .seq-agent{
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:15.5px;
-  letter-spacing:-0.01em;color:var(--ink);
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;
+  letter-spacing:-0.01em;color:var(--ink);margin-bottom:4px;
 }
-.seq-action{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.seq-action{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:6px}
 .seq-action strong{color:var(--ink);font-weight:600}
 .seq-action em{font-style:italic;font-family:'Instrument Serif',serif}
 .seq-cost{
-  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
-  letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-3);text-align:right;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-3);
+  display:inline-block;
 }
 .seq-cost.gate-tag{color:var(--red)}
 .seq-cost.auto-tag{color:var(--green)}
@@ -498,195 +505,330 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
 /* TAB 5 — GATES & METRICS */
 .gates-block{
-  margin-top:40px;padding:clamp(28px,5vw,52px);background:var(--navy-2);
+  margin-top:32px;padding:clamp(22px,4vw,48px);background:var(--navy-2);
   border:1px solid var(--rule);position:relative;overflow:hidden;border-radius:2px;
 }
 .gates-block::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--red)}
 .gates-label{
-  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;
-  letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:16px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:14px;
 }
 .gates-block h3{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(24px,3vw,32px);
-  line-height:1.15;letter-spacing:-0.02em;margin-bottom:22px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(20px,3vw,28px);
+  line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px;
   max-width:920px;color:var(--ink);
 }
 .gates-block h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--red)}
-.gates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.gates-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;
+  margin-top:20px;
+}
 .gate-card{
-  background:var(--navy-3);border:1px solid var(--rule-2);padding:24px;
-  border-radius:2px;transition:all 0.2s;
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:22px;
+  border-radius:2px;transition:all 0.2s;min-width:0;
 }
 .gate-card:hover{border-color:var(--red);transform:translateY(-2px)}
 .gate-card-num{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:36px;
-  line-height:0.9;letter-spacing:-0.04em;color:var(--yellow);margin-bottom:12px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:32px;
+  line-height:0.9;letter-spacing:-0.04em;color:var(--yellow);margin-bottom:10px;
 }
 .gate-card h4{
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:17px;
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;
   letter-spacing:-0.01em;margin-bottom:10px;color:var(--ink);
 }
-.gate-card p{font-size:13.5px;color:var(--ink-2);line-height:1.55;margin-bottom:8px}
+.gate-card p{font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:8px}
 .gate-card p:last-child{margin-bottom:0}
 .gate-card strong{color:var(--ink);font-weight:600}
 .gate-card em{font-style:italic;font-family:'Instrument Serif',serif}
 
 .metrics-grid{
-  margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  margin-top:32px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:2px;
   background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
 }
-.metric{
-  background:var(--navy-2);padding:28px 24px;transition:all 0.2s;
-}
+.metric{background:var(--navy-2);padding:24px 22px;transition:all 0.2s;min-width:0}
 .metric:hover{background:var(--navy-3)}
 .metric-num{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(36px,4.5vw,48px);
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(32px,4vw,44px);
   line-height:0.95;letter-spacing:-0.035em;color:var(--yellow);margin-bottom:10px;
 }
 .metric-num em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--ink)}
 .metric h4{
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:13.5px;
   letter-spacing:-0.005em;margin-bottom:6px;color:var(--ink);
 }
-.metric p{font-size:12.5px;color:var(--ink-3);line-height:1.5}
+.metric p{font-size:12px;color:var(--ink-3);line-height:1.5}
 
-/* TAB 6 — FOUNDATION */
-.foundation-block{
-  margin-top:40px;padding:clamp(28px,5vw,52px);
+/* TAB 6 — FOUNDATION (EXPANDED) */
+.found-intro{
+  margin-top:32px;padding:clamp(22px,4vw,40px);
   background:linear-gradient(135deg,var(--navy-3),var(--navy-4));
-  border:1px solid var(--rule-2);position:relative;overflow:hidden;border-radius:2px;
+  border:1px solid var(--rule-2);border-radius:2px;position:relative;overflow:hidden;
 }
-.foundation-block::after{
+.found-intro::after{
   content:'';position:absolute;bottom:-40%;left:-15%;width:500px;height:500px;
   background:radial-gradient(circle,var(--yellow) 0%,transparent 60%);
   opacity:0.08;filter:blur(50px);pointer-events:none;
 }
-.foundation-label{
-  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;
-  letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;position:relative;
+.found-intro h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3.5vw,30px);
+  letter-spacing:-0.025em;line-height:1.15;margin-bottom:16px;color:var(--ink);position:relative;
 }
-.foundation-block h3{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(24px,3vw,32px);
-  line-height:1.1;letter-spacing:-0.025em;margin-bottom:24px;
-  max-width:920px;color:var(--ink);position:relative;
+.found-intro h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.found-intro p{color:var(--ink-2);font-size:clamp(14px,2vw,16px);line-height:1.65;max-width:920px;position:relative}
+.found-intro p em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.found-intro strong{color:var(--ink);font-weight:600}
+
+.found-section{
+  margin-top:40px;
 }
-.foundation-block h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
-.foundation-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:2px;position:relative;
+.found-section-kicker{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);
+  margin-bottom:14px;display:flex;align-items:center;gap:12px;
 }
-.foundation-item{
-  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
-  padding:22px 24px;transition:all 0.15s;border-radius:2px;
+.found-section-kicker::before{content:'';width:20px;height:2px;background:var(--yellow);flex-shrink:0}
+.found-section h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(20px,3vw,28px);
+  line-height:1.15;letter-spacing:-0.025em;margin-bottom:12px;color:var(--ink);
 }
-.foundation-item:hover{
-  border-color:var(--yellow);background:rgba(255,212,0,0.05);
+.found-section h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.found-section-lede{
+  color:var(--ink-2);font-size:14.5px;line-height:1.6;max-width:920px;margin-bottom:20px;
 }
-.foundation-item-tag{
+.found-section-lede em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.found-section-lede strong{color:var(--ink);font-weight:600}
+
+/* Framework cards — rich */
+.framework-grid{
+  display:grid;grid-template-columns:1fr;gap:12px;
+}
+.framework-card{
+  background:var(--navy-2);border:1px solid var(--rule);padding:clamp(22px,3.5vw,32px);
+  border-radius:2px;transition:all 0.2s;position:relative;overflow:hidden;min-width:0;
+}
+.framework-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--yellow);opacity:0;transition:opacity 0.2s;
+}
+.framework-card:hover::before{opacity:1}
+.framework-card:hover{border-color:var(--rule-2);background:var(--navy-3)}
+
+.fw-head{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px;
+}
+.fw-name{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(19px,3vw,25px);
+  letter-spacing:-0.02em;color:var(--ink);line-height:1.15;min-width:0;
+  word-wrap:break-word;
+}
+.fw-name em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.fw-meta{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:0.08em;color:var(--ink-3);text-transform:uppercase;
+}
+
+.fw-role{
+  display:inline-block;padding:5px 10px;background:rgba(255,212,0,0.08);
+  border:1px solid rgba(255,212,0,0.25);color:var(--yellow);
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;border-radius:2px;
+}
+
+.fw-body{
+  font-size:14.5px;color:var(--ink-2);line-height:1.65;margin-bottom:16px;
+}
+.fw-body strong{color:var(--ink);font-weight:600}
+.fw-body em{font-style:italic;font-family:'Instrument Serif',serif}
+.fw-body code{
+  font-family:'JetBrains Mono',monospace;background:var(--navy);
+  padding:2px 6px;font-size:12px;color:var(--yellow);border-radius:2px;
+  border:1px solid var(--rule-2);
+}
+
+.fw-how{
+  margin-top:14px;padding:16px 18px;background:var(--navy);
+  border:1px dashed var(--rule-2);border-radius:2px;
+}
+.fw-how-label{
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px;
 }
-.foundation-item h4{
+.fw-how-text{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+.fw-how-text strong{color:var(--ink);font-weight:600}
+.fw-how-text em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+
+.fw-link{
+  display:inline-block;margin-top:12px;font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;font-weight:500;color:var(--yellow);text-decoration:none;
+  letter-spacing:0.02em;border-bottom:1px solid rgba(255,212,0,0.35);padding-bottom:2px;
+  transition:all 0.15s;word-break:break-all;
+}
+.fw-link:hover{color:#fff;border-bottom-color:#fff}
+.fw-link + .fw-link{margin-left:16px}
+
+/* The five patterns block */
+.patterns-block{
+  margin-top:20px;padding:clamp(22px,4vw,36px);
+  background:var(--navy-2);border:1px solid var(--rule);border-radius:2px;
+}
+.patterns-grid{
+  display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px;
+}
+.pattern-item{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:20px 22px;
+  border-radius:2px;transition:all 0.15s;min-width:0;
+}
+.pattern-item:hover{border-color:var(--yellow)}
+.pattern-item-num{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:0.1em;color:var(--yellow);margin-bottom:8px;
+}
+.pattern-item h4{
   font-family:'Archivo',sans-serif;font-weight:700;font-size:17px;
   letter-spacing:-0.01em;margin-bottom:8px;color:var(--ink);
 }
-.foundation-item p{
-  font-size:13.5px;color:var(--ink-2);line-height:1.55;
+.pattern-item p{font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:8px}
+.pattern-item .pattern-use{
+  font-size:12.5px;color:var(--ink-3);line-height:1.5;
+  padding-top:8px;margin-top:8px;border-top:1px dashed var(--rule-2);
 }
-.foundation-item em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
-.foundation-item code{
-  font-family:'JetBrains Mono',monospace;background:var(--navy);
-  padding:2px 6px;font-size:11px;color:var(--yellow);border-radius:2px;
+.pattern-item .pattern-use strong{color:var(--yellow);font-weight:600}
+
+/* Failure modes */
+.failures-block{
+  margin-top:20px;padding:clamp(22px,4vw,36px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;position:relative;overflow:hidden;
 }
+.failures-block::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--red);
+}
+.failures-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px}
+.failure-item{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:20px 22px;
+  border-radius:2px;min-width:0;
+}
+.failure-item-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;
+}
+.failure-item h4{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:16.5px;
+  letter-spacing:-0.01em;margin-bottom:8px;color:var(--ink);
+}
+.failure-item p{font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:8px}
+.failure-item p:last-child{margin-bottom:0}
+.failure-item strong{color:var(--ink);font-weight:600}
+.failure-item em{font-style:italic;font-family:'Instrument Serif',serif}
+.failure-item .failure-fix{
+  font-size:12.5px;color:var(--ink-3);line-height:1.5;padding-top:8px;
+  margin-top:8px;border-top:1px dashed var(--rule-2);
+}
+.failure-item .failure-fix strong{color:var(--green);font-weight:600}
+
+/* Reading list */
+.reading-block{
+  margin-top:20px;padding:clamp(22px,4vw,36px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.reading-list{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.reading-item{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:16px 20px;
+  border-radius:2px;display:grid;grid-template-columns:40px 1fr;gap:14px;
+  align-items:flex-start;transition:all 0.15s;min-width:0;
+}
+.reading-item:hover{border-color:var(--yellow);background:var(--navy-4)}
+.reading-item-num{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;
+  color:var(--yellow);line-height:1;letter-spacing:-0.03em;
+}
+.reading-item-body{min-width:0}
+.reading-item-title{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;
+  letter-spacing:-0.01em;color:var(--ink);margin-bottom:4px;line-height:1.3;
+  word-wrap:break-word;
+}
+.reading-item-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.reading-item-meta{font-size:12px;color:var(--ink-3);line-height:1.5;margin-bottom:6px}
+.reading-item-why{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.reading-item-why em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
 
 /* FOOTER */
 .footer{
-  margin-top:80px;padding:40px 0;background:var(--navy-2);
+  margin-top:64px;padding:32px 0;background:var(--navy-2);
   border-top:1px solid var(--rule);
 }
 .footer-inner{
-  max-width:1320px;margin:0 auto;padding:0 32px;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  max-width:1320px;margin:0 auto;padding:0 20px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
 }
 .footer-brand{
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:var(--ink);
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:var(--ink);
   letter-spacing:-0.005em;
 }
 .footer-meta{
-  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3);
   letter-spacing:0.08em;text-transform:uppercase;
 }
 
-/* MOBILE */
-@media(max-width:860px){
-  .nav-inner,.wrap,.footer-inner,.tabs{padding-left:20px;padding-right:20px}
-  .panel{padding:32px 0 48px}
-  .stats-row{grid-template-columns:repeat(2,1fr);gap:20px}
-  .loop-arrows{grid-template-columns:1fr;gap:10px}
-  .loop-arrow{transform:rotate(90deg);padding:2px 0}
-  .agents-grid{gap:8px}
-  .agent-card{grid-template-columns:1fr;gap:16px;padding:24px 22px}
-  .agent-num{font-size:44px;min-width:auto}
-  .agent-body h3{font-size:22px}
-  .agent-grid,.gates-grid,.foundation-grid{grid-template-columns:1fr}
-  .metrics-grid{grid-template-columns:repeat(2,1fr)}
-  .seq-row{grid-template-columns:40px 1fr;gap:12px;padding:14px 18px}
-  .seq-action{grid-column:1/-1;margin-top:-6px}
-  .seq-cost{grid-column:1/-1;text-align:left;margin-top:2px}
-  .eight-steps{grid-template-columns:repeat(4,minmax(100px,1fr));min-width:auto}
-  .footer{margin-top:56px;padding:28px 0}
-  .footer-inner{gap:8px}
+/* DESKTOP ENHANCEMENTS */
+@media(min-width:720px){
+  .panel{padding:48px 0 72px}
+  .eight-steps{grid-template-columns:repeat(4,1fr)}
+  .agent-grid{grid-template-columns:repeat(2,1fr)}
+  .framework-grid{grid-template-columns:repeat(2,1fr)}
+  .patterns-grid{grid-template-columns:repeat(2,1fr)}
+  .failures-grid{grid-template-columns:repeat(2,1fr)}
+  .tab{font-size:13.5px;padding:16px 18px}
+  .tab-num{font-size:10.5px}
 }
-@media(max-width:480px){
-  .tab{padding:14px 14px;font-size:12.5px}
-  .tab-num{display:none}
-  .eight-steps{grid-template-columns:repeat(2,1fr)}
-  .metrics-grid{grid-template-columns:1fr}
-  .hero-tag{font-size:10px}
+@media(min-width:960px){
+  .nav-inner,.wrap,.footer-inner,.tabs{padding-left:32px;padding-right:32px}
+  .eight-steps{grid-template-columns:repeat(8,1fr)}
+  .loop-arrows{flex-direction:row;align-items:stretch}
+  .loop-arrow{transform:none}
+  .agent-card{flex-direction:row;align-items:flex-start;gap:32px}
+  .agent-card > .agent-header{flex-direction:column;align-items:flex-start;min-width:110px;flex-shrink:0}
+  .agent-card > .agent-header > .agent-num{font-size:84px}
+  .agent-card > .agent-body{flex:1;min-width:0}
+  .agent-header h3{font-size:32px}
+  .framework-grid{grid-template-columns:repeat(2,1fr)}
+  .patterns-grid{grid-template-columns:repeat(3,1fr)}
+  .failures-grid{grid-template-columns:repeat(3,1fr)}
+  .seq-row{grid-template-columns:50px 200px 1fr 130px;gap:20px;padding:18px 22px}
+  .seq-body{display:contents}
+  .seq-agent{grid-column:2;margin-bottom:0;font-size:15.5px}
+  .seq-action{grid-column:3;font-size:13.5px;margin-bottom:0}
+  .seq-cost{grid-column:4;text-align:right}
+}
+
+/* AGENT CARD — RESTRUCTURE FOR FLEX */
+.agent-card > .agent-header{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.agent-card > .agent-body{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+@media(min-width:960px){
+  .agent-card{display:grid;grid-template-columns:auto 1fr;gap:36px}
+  .agent-card > .agent-header{display:block;min-width:100px}
+  .agent-card > .agent-header h3{display:none}
+  .agent-card > .agent-body > .agent-header-mobile{display:none}
+}
+
+/* Hide mobile agent header on desktop */
+.agent-header-desktop-title{display:none}
+@media(min-width:960px){
+  .agent-header-desktop-title{
+    display:block;
+    font-family:'Archivo',sans-serif;font-weight:800;font-size:30px;
+    line-height:1.08;letter-spacing:-0.025em;color:var(--ink);
+    margin-bottom:4px;
+  }
+  .agent-header-desktop-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+  .featured .agent-header-desktop-title em{color:var(--pink)}
+  .agent-card > .agent-body > .agent-header > h3{display:none}
 }
 </style>
 </head>
 <body>
-<!-- AP-GATE START -->
-<div id="ap-gate" style="position:fixed;inset:0;background:#0a0f2e;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:'Archivo','Helvetica Neue',Arial,sans-serif;padding:20px;">
-  <div style="max-width:400px;width:100%;text-align:center;">
-    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
-      <text x="0" y="30" font-family="Archivo,Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-      <text x="0" y="58" font-family="Archivo,Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
-      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#ffd400"/>
-    </svg>
-    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:-0.02em;">Protected Page</h2>
-    <p style="color:#c8ccdb;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
-    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
-      style="width:100%;padding:14px 16px;background:#141a40;border:1px solid #1d2550;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
-      onkeydown="if(event.key==='Enter')ap_check()">
-    <button onclick="ap_check()"
-      style="width:100%;padding:14px;background:#ffd400;color:#0a0f2e;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:-0.01em;">
-      Unlock
-    </button>
-    <p id="ap-err" style="color:#ff5540;font-size:13px;margin-top:12px;min-height:18px;"></p>
-  </div>
-</div>
-<script>
-(function(){
-  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
-  var K="ap-ok-workflow-factory";
-  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
-  window.ap_check=async function(){
-    var pw=document.getElementById('ap-pw').value;
-    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
-    else{document.getElementById('ap-err').textContent='Incorrect password';}
-  };
-  function reveal(){
-    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
-    var c=document.getElementById('ap-content');if(c)c.style.display='';
-  }
-  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
-  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
-})();
-</script>
-<!-- AP-GATE END -->
-
-<div id="ap-content" style="display:none;">
 
 <!-- NAV -->
 <nav class="nav">
@@ -696,7 +838,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <span>ad</span>
         <span>pros</span>
       </a>
-      <div class="nav-version">The Workflow Factory · <strong>Rev 2.0</strong></div>
+      <div class="nav-version">Factory · <strong>Rev 3.0</strong></div>
     </div>
   </div>
   <div class="tabs-wrap">
@@ -705,7 +847,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
       <button class="tab" data-tab="loop" role="tab"><span class="tab-num">02</span>The Loop</button>
       <button class="tab" data-tab="agents" role="tab"><span class="tab-num">03</span>Agents</button>
       <button class="tab" data-tab="sequence" role="tab"><span class="tab-num">04</span>Sequence</button>
-      <button class="tab" data-tab="gates" role="tab"><span class="tab-num">05</span>Gates & Metrics</button>
+      <button class="tab" data-tab="gates" role="tab"><span class="tab-num">05</span>Gates</button>
       <button class="tab" data-tab="foundation" role="tab"><span class="tab-num">06</span>Foundation</button>
     </div>
   </div>
@@ -724,7 +866,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
   <div class="stats-row">
     <div class="stat">
       <div class="stat-num"><em>8</em></div>
-      <div class="stat-label">Factory agents — including a Recommender Agent that decides what to build next</div>
+      <div class="stat-label">Factory agents — including a Recommender that decides what to build next</div>
     </div>
     <div class="stat">
       <div class="stat-num">3</div>
@@ -758,7 +900,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 <!-- TAB 2: THE LOOP -->
 <div class="panel" data-panel="loop">
   <div class="panel-kicker">02 · The Autonomous Loop</div>
-  <h2>Signals in. Workflows out. <em>Feedback back in</em>.</h2>
+  <h2>Signals in. Workflows out. <em>Feedback back in.</em></h2>
   <p class="lede">
     This is the design flow for autonomous agent creation. The Recommender Agent kicks it off not because a human asked, but because the factory's own observations flagged a gap. Human gates only enforce quality at three design moments.
   </p>
@@ -771,7 +913,6 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <div class="loop-flow">
       <div class="loop-arrows">
-        <!-- SIGNALS -->
         <div class="loop-phase signals">
           <div class="loop-phase-label">◉ Phase 1 · Signals</div>
           <div class="loop-phase-title">What <em>does Ad Pros</em> need next?</div>
@@ -782,8 +923,6 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
           </div>
         </div>
         <div class="loop-arrow">→</div>
-
-        <!-- FACTORY -->
         <div class="loop-phase factory">
           <div class="loop-phase-label">◉ Phase 2 · Factory</div>
           <div class="loop-phase-title">How does <em>it get designed</em>?</div>
@@ -797,8 +936,6 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
           </div>
         </div>
         <div class="loop-arrow">→</div>
-
-        <!-- DEPLOY -->
         <div class="loop-phase deploy">
           <div class="loop-phase-label">◉ Phase 3 · Deploy</div>
           <div class="loop-phase-title">How does <em>it ship</em>?</div>
@@ -828,68 +965,49 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <div class="eight-step-num">01</div>
         <div class="eight-step-name">Collect</div>
         <div class="eight-step-q">What's happening?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-rec">REC</span>
-          <span class="phase-chip chip-intake">INT</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-rec">REC</span><span class="phase-chip chip-intake">INT</span></div>
       </div>
       <div class="eight-step">
         <div class="eight-step-num">02</div>
         <div class="eight-step-name">Organize</div>
         <div class="eight-step-q">Where does it go?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-shape">SHP</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-shape">SHP</span></div>
       </div>
       <div class="eight-step">
         <div class="eight-step-num">03</div>
         <div class="eight-step-name">Remember</div>
         <div class="eight-step-q">What do we know?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-skills">SKL</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-skills">SKL</span></div>
       </div>
       <div class="eight-step">
         <div class="eight-step-num">04</div>
         <div class="eight-step-name">Think</div>
         <div class="eight-step-q">What do we do?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-stage">STG</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-stage">STG</span></div>
       </div>
       <div class="eight-step">
         <div class="eight-step-num">05</div>
         <div class="eight-step-name">Plan</div>
         <div class="eight-step-q">How do we do it?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-stage">STG</span>
-          <span class="phase-chip chip-eval">EVL</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-stage">STG</span><span class="phase-chip chip-eval">EVL</span></div>
       </div>
       <div class="eight-step">
         <div class="eight-step-num">06</div>
         <div class="eight-step-name">Do</div>
         <div class="eight-step-q">Who does what?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-deploy">DEP</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-deploy">DEP</span></div>
       </div>
       <div class="eight-step">
         <div class="eight-step-num">07</div>
         <div class="eight-step-name">Review</div>
         <div class="eight-step-q">Did it work?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-eval">EVL</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-eval">EVL</span></div>
       </div>
       <div class="eight-step">
         <div class="eight-step-num">08</div>
         <div class="eight-step-name">Improve</div>
         <div class="eight-step-q">What changes?</div>
-        <div class="eight-step-agents">
-          <span class="phase-chip chip-improve">IMP</span>
-          <span class="phase-chip chip-rec">REC</span>
-        </div>
+        <div class="eight-step-agents"><span class="phase-chip chip-improve">IMP</span><span class="phase-chip chip-rec">REC</span></div>
       </div>
     </div>
   </div>
@@ -907,17 +1025,19 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <!-- 01 RECOMMENDER (FEATURED) -->
     <div class="agent-card featured">
-      <div class="agent-num"><em>01</em></div>
-      <div class="agent-body">
+      <div class="agent-header">
+        <div class="agent-num"><em>01</em></div>
         <h3>The <em>Recommender</em> Agent</h3>
+      </div>
+      <div class="agent-body">
+        <div class="agent-header-desktop-title">The <em>Recommender</em> Agent</div>
         <div class="agent-tags">
           <span class="tag new">NEW · Opens the loop</span>
           <span class="tag step">Step 01 — Collect</span>
-          <span class="tag auto">Fully autonomous</span>
-          <span class="tag">Output: Next-workflow backlog</span>
+          <span class="tag auto">Autonomous</span>
         </div>
         <p class="agent-desc">
-          <strong>The most important agent — because it removes the human from the "what should we build next?" decision.</strong> Watches deployed workflow performance, client signals, Improve Agent patterns, and the Skills Library's gaps. Proposes the next workflow to add to the queue. Writes a ranked backlog of next-up workflows with justification per item.
+          <strong>The most important agent — because it removes the human from the "what should we build next?" decision.</strong> Watches deployed workflow performance, client signals, Improve Agent patterns, and the Skills Library's gaps. Proposes the next workflow to add to the queue. Writes a ranked backlog with justification per item.
         </p>
         <p class="agent-desc">
           Without this agent, the factory still needs a human to decide what to build. With it, <em>the factory is genuinely self-directing</em> — humans approve the queue, but agents populate it.
@@ -925,58 +1045,59 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">Improve Agent signals (gap patterns, human-edit frequency), client request logs, workflow performance scorecards, Skills Library coverage map</div>
+            <div class="agent-cell-body">Improve Agent signals, client request logs, workflow performance scorecards, Skills Library coverage map</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Ranked backlog of proposed workflows to <code>workflows/_backlog</code> — each item has: proposed workflow name, evidence, expected impact score, estimated factory cost</div>
+            <div class="agent-cell-body">Ranked backlog to <code>workflows/_backlog</code> — each item: name, evidence, impact score, factory cost</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Evaluator-Optimizer over workflow library gaps + Agentic RAG over past requests</div>
+            <div class="agent-cell-body">Evaluator-Optimizer over library gaps + Agentic RAG over past requests</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Full — proposes; humans approve what enters the active queue (fast yes/no, not original ideation)</div>
+            <div class="agent-cell-body">Full — proposes; humans approve queue (fast yes/no, not ideation)</div>
           </div>
         </div>
         <div class="agent-example">
           <div class="agent-example-label">Example</div>
-          <p>Recommender notices: <em>(1) 3 supplement clients asked about "cohort quality by acquisition source" in the last 30 days, (2) the Improve Agent flagged that 4 workflows all had to manually add acquisition-source joins, (3) no existing workflow covers this directly.</em> Proposes: <strong>"Acquisition Source LTV Quality" workflow</strong> — ranked #2 in next-build queue, expected impact 7.8/10, estimated factory cost $11. Human approves or deprioritizes in 10 seconds.</p>
+          <p>Recommender notices: <em>3 supplement clients asked about "cohort quality by acquisition source" in the last 30 days, Improve Agent flagged that 4 workflows manually added acquisition-source joins, no existing workflow covers this.</em> Proposes: <strong>"Acquisition Source LTV Quality"</strong> — #2 in queue, impact 7.8/10, cost $11. Human approves in 10 seconds.</p>
         </div>
       </div>
     </div>
 
     <!-- 02 INTAKE -->
     <div class="agent-card">
-      <div class="agent-num"><em>02</em></div>
-      <div class="agent-body">
+      <div class="agent-header">
+        <div class="agent-num"><em>02</em></div>
         <h3>The <em>Intake</em> Agent</h3>
+      </div>
+      <div class="agent-body">
+        <div class="agent-header-desktop-title">The <em>Intake</em> Agent</div>
         <div class="agent-tags">
           <span class="tag step">Step 01 — Collect</span>
           <span class="tag gate">Gate 1: Brief</span>
-          <span class="tag">Input: Approved backlog item</span>
-          <span class="tag">Output: Workflow Brief</span>
         </div>
         <p class="agent-desc">
-          Takes the approved Recommender proposal (or a direct human request) and expands it into a structured <strong>Workflow Brief</strong>. Uses the <em>Thinking Partner Protocol V3</em> to interview-first if details are missing. Outputs to ClickUp as a Brief task tagged for Gate 1 review.
+          Takes the approved Recommender proposal (or a direct human request) and expands it into a structured <strong>Workflow Brief</strong>. Uses the <em>Thinking Partner Protocol V3</em> to interview-first if details are missing.
         </p>
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">Approved backlog item, Remember layer for similar past workflows, client brand sheets</div>
+            <div class="agent-cell-body">Approved backlog item, Remember layer, client brand sheets</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Workflow Brief (goal + data sources + stage list + risk tags) to <code>workflows/_briefs</code></div>
+            <div class="agent-cell-body">Workflow Brief to <code>workflows/_briefs</code></div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Prompt Chaining + Routing (branches by input format)</div>
+            <div class="agent-cell-body">Prompt Chaining + Routing by input format</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Full until Gate 1 — human approves Brief before Blueprint work begins</div>
+            <div class="agent-cell-body">Full until Gate 1</div>
           </div>
         </div>
       </div>
@@ -984,33 +1105,35 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <!-- 03 SHAPE -->
     <div class="agent-card">
-      <div class="agent-num"><em>03</em></div>
-      <div class="agent-body">
+      <div class="agent-header">
+        <div class="agent-num"><em>03</em></div>
         <h3>The <em>Shape</em> Agent</h3>
+      </div>
+      <div class="agent-body">
+        <div class="agent-header-desktop-title">The <em>Shape</em> Agent</div>
         <div class="agent-tags">
-          <span class="tag step">Steps 02-03 — Organize + Remember</span>
-          <span class="tag auto">Fully autonomous</span>
-          <span class="tag">Output: Canonical Shape</span>
+          <span class="tag step">Steps 02-03</span>
+          <span class="tag auto">Autonomous</span>
         </div>
         <p class="agent-desc">
-          Picks the canonical workflow shape from the <strong>Ad Pros Shape Library</strong> — Analysis, Audit, Brief, Launch, Optimize, Retro, Investigation, Reallocation. Tags each as <em>read-heavy</em> (multi-agent OK, per Anthropic) or <em>write-heavy</em> (single-context, per Cognition). If no shape fits, flags for human — never invents silently.
+          Picks the canonical shape from the <strong>Ad Pros Shape Library</strong> — Analysis, Audit, Brief, Launch, Optimize, Retro, Investigation, Reallocation. Tags each as <em>read-heavy</em> (multi-agent OK, per Anthropic) or <em>write-heavy</em> (single-context, per Cognition). If no shape fits, flags for human.
         </p>
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">Workflow Brief, Shape Library in Remember, past workflow outcomes</div>
+            <div class="agent-cell-body">Brief, Shape Library, past workflow outcomes</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Shape Selection (one of 8 canonical shapes + read/write tag + expected token budget)</div>
+            <div class="agent-cell-body">Shape Selection + read/write tag + token budget</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Routing + Agentic RAG over Shape Library embeddings</div>
+            <div class="agent-cell-body">Routing + Agentic RAG over embeddings</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Full — selection, not a decision that moves money</div>
+            <div class="agent-cell-body">Full</div>
           </div>
         </div>
       </div>
@@ -1018,33 +1141,36 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <!-- 04 STAGE DESIGNER -->
     <div class="agent-card">
-      <div class="agent-num"><em>04</em></div>
+      <div class="agent-header">
+        <div class="agent-num"><em>04</em></div>
+        <h3>The <em>Stage Designer</em> (×11)</h3>
+      </div>
       <div class="agent-body">
-        <h3>The <em>Stage Designer</em> Agent (×11 parallel)</h3>
+        <div class="agent-header-desktop-title">The <em>Stage Designer</em> (×11 parallel)</div>
         <div class="agent-tags">
-          <span class="tag step">Steps 04-05 — Think + Plan</span>
+          <span class="tag step">Steps 04-05</span>
           <span class="tag gate">Gate 2: Blueprint</span>
-          <span class="tag auto">Parallel orchestrator-workers</span>
+          <span class="tag auto">Parallel</span>
         </div>
         <p class="agent-desc">
-          <strong>The highest-leverage design agent.</strong> Eleven instances run in parallel — one per stage of the selected shape. Each designer produces its stage's atomic subtasks, agent pattern, dependencies, eval rules, and MCP servers. The <em>Blueprint Merger</em> joins outputs and validates the DAG. This is where LTV-template fidelity actually gets produced.
+          <strong>The highest-leverage design agent.</strong> Eleven instances run in parallel — one per stage of the selected shape. Each produces atomic subtasks, agent pattern, dependencies, eval rules, and MCP servers. <em>Blueprint Merger</em> joins outputs and validates the DAG. This is where LTV-template fidelity actually gets produced.
         </p>
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">Shape Selection, Brief, past workflows of same shape, pattern library</div>
+            <div class="agent-cell-body">Shape, Brief, past workflows of same shape, pattern library</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Stage Blueprint per stage (subtasks, agent patterns, MCP servers, evaluators, cost estimates, HITL gates)</div>
+            <div class="agent-cell-body">Per-stage Blueprint: subtasks, patterns, MCP servers, evaluators, cost, HITL gates</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Orchestrator-Workers (11 parallel) + Evaluator-Optimizer for DAG validation</div>
+            <div class="agent-cell-body">Orchestrator-Workers (11 parallel) + Evaluator-Optimizer</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Full until Gate 2 — human approves full Blueprint before Skills work begins</div>
+            <div class="agent-cell-body">Full until Gate 2</div>
           </div>
         </div>
       </div>
@@ -1052,33 +1178,35 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <!-- 05 SKILLS -->
     <div class="agent-card">
-      <div class="agent-num"><em>05</em></div>
+      <div class="agent-header">
+        <div class="agent-num"><em>05</em></div>
+        <h3>The <em>Skills Curator</em></h3>
+      </div>
       <div class="agent-body">
-        <h3>The <em>Skills Curator</em> Agent</h3>
+        <div class="agent-header-desktop-title">The <em>Skills Curator</em> Agent</div>
         <div class="agent-tags">
           <span class="tag step">Step 03 — Remember</span>
           <span class="tag gate">Gate 3: Skills</span>
-          <span class="tag">Library-first</span>
         </div>
         <p class="agent-desc">
-          Reads the Blueprint, identifies which Skills are needed. Checks the <strong>Ad Pros Skills Library</strong> first. Reuses where possible. For gaps, drafts a new Skill as a proposal — <em>never writes to production unilaterally</em>. Uses Claude Skills progressive disclosure: name + description always loaded (~50 tokens), SKILL.md body on trigger, scripts on demand.
+          Reads the Blueprint, identifies Skills needed. Checks the <strong>Ad Pros Skills Library</strong> first. Reuses where possible. For gaps, drafts a new Skill as a proposal — <em>never writes to production unilaterally</em>. Uses Claude Skills progressive disclosure.
         </p>
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">Blueprint, Skills Library (<code>skills/*.md</code>), industry references, client brand sheets</div>
+            <div class="agent-cell-body">Blueprint, Skills Library, industry references, brand sheets</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Skills manifest — existing Skills to reuse + new Skills proposed as full SKILL.md drafts</div>
+            <div class="agent-cell-body">Skills manifest: existing to reuse + new SKILL.md drafts</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Agentic RAG + NL generation with compliance-check evaluator on every new Skill</div>
+            <div class="agent-cell-body">Agentic RAG + NL gen with compliance evaluator</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Full for reuse; <em>propose-only</em> for new Skills — human approves at Gate 3</div>
+            <div class="agent-cell-body">Full for reuse; propose-only for new Skills</div>
           </div>
         </div>
       </div>
@@ -1086,33 +1214,35 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <!-- 06 EVAL -->
     <div class="agent-card">
-      <div class="agent-num"><em>06</em></div>
-      <div class="agent-body">
+      <div class="agent-header">
+        <div class="agent-num"><em>06</em></div>
         <h3>The <em>Eval</em> Agent</h3>
+      </div>
+      <div class="agent-body">
+        <div class="agent-header-desktop-title">The <em>Eval</em> Agent</div>
         <div class="agent-tags">
-          <span class="tag step">Steps 06-07 — Do + Review</span>
-          <span class="tag auto">Fully autonomous</span>
-          <span class="tag">The gating function</span>
+          <span class="tag step">Steps 06-07</span>
+          <span class="tag auto">Autonomous</span>
         </div>
         <p class="agent-desc">
-          <strong>Per Hamel Husain, Shunyu Yao, Eugene Yan: evaluation is the bottleneck, not model capability.</strong> For every workflow, generates the eval harness — test cases, assertion rules, anti-hacking scans, success metrics, cost caps. <em>No workflow deploys without passing evals.</em> This is what prevents the factory from shipping 100 liabilities.
+          <strong>Per Hamel Husain, Shunyu Yao, Eugene Yan: evaluation is the bottleneck, not model capability.</strong> Generates the eval harness — test cases, assertion rules, anti-hacking scans, cost caps. <em>No workflow deploys without passing evals.</em> This prevents the factory from shipping 100 liabilities.
         </p>
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">Blueprint, Skills manifest, past workflow failure modes, client constraints</div>
+            <div class="agent-cell-body">Blueprint, Skills manifest, past failure modes</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Eval harness (test cases, schema checks, anti-evasion scans, cost caps) to Braintrust / Langfuse</div>
+            <div class="agent-cell-body">Eval harness to Braintrust / Langfuse</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Evaluator-Optimizer loop + Adversarial Red Team</div>
+            <div class="agent-cell-body">Evaluator-Optimizer + Adversarial Red Team</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Full — evals are structural; humans review aggregate scorecards, not individual tests</div>
+            <div class="agent-cell-body">Full</div>
           </div>
         </div>
       </div>
@@ -1120,33 +1250,35 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <!-- 07 DEPLOY -->
     <div class="agent-card">
-      <div class="agent-num"><em>07</em></div>
-      <div class="agent-body">
+      <div class="agent-header">
+        <div class="agent-num"><em>07</em></div>
         <h3>The <em>Deploy</em> Agent</h3>
+      </div>
+      <div class="agent-body">
+        <div class="agent-header-desktop-title">The <em>Deploy</em> Agent</div>
         <div class="agent-tags">
           <span class="tag step">Step 06 — Do</span>
-          <span class="tag auto">Fully autonomous</span>
-          <span class="tag">ClickUp write access</span>
+          <span class="tag auto">Autonomous</span>
         </div>
         <p class="agent-desc">
-          Takes the approved Blueprint + Skills + Eval harness and <strong>actually builds the workflow in ClickUp</strong>. Creates the List, renders Custom Field values via the first-party MCP, generates the import CSV, creates parent + N subtasks with dependencies, configures Autopilot Agents, saves as template. Handles the ClickUp API's custom-fields-must-pre-exist constraint via the pre-built <em>Field Template Pack</em>.
+          Takes approved Blueprint + Skills + Eval harness and <strong>builds the workflow in ClickUp</strong>. Creates List, renders Custom Field values via first-party MCP, generates import CSV, creates parent + N subtasks with dependencies, configures Autopilot Agents, saves as template. Handles the custom-fields-must-pre-exist constraint via the pre-built <em>Field Template Pack</em>.
         </p>
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">Approved Blueprint, Skills manifest, Eval harness, client workspace context</div>
+            <div class="agent-cell-body">Approved Blueprint, Skills manifest, Eval harness</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Live ClickUp List + tasks + dependencies + Autopilot Agent configs; SKILL.md files to Remember</div>
+            <div class="agent-cell-body">Live ClickUp List + tasks + dependencies + Autopilot configs</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Prompt Chaining + Idempotent Tools (rerun-safe; no duplicate creation)</div>
+            <div class="agent-cell-body">Prompt Chaining + Idempotent Tools</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Full — Gates 1-3 cleared; Deploy is mechanical execution with idempotency guards</div>
+            <div class="agent-cell-body">Full — Gates cleared; mechanical execution</div>
           </div>
         </div>
       </div>
@@ -1154,33 +1286,35 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <!-- 08 IMPROVE -->
     <div class="agent-card">
-      <div class="agent-num"><em>08</em></div>
-      <div class="agent-body">
+      <div class="agent-header">
+        <div class="agent-num"><em>08</em></div>
         <h3>The <em>Improve</em> Agent</h3>
+      </div>
+      <div class="agent-body">
+        <div class="agent-header-desktop-title">The <em>Improve</em> Agent</div>
         <div class="agent-tags">
           <span class="tag step">Step 08 — Improve</span>
-          <span class="tag auto">Fully autonomous</span>
-          <span class="tag">Closes the loop</span>
+          <span class="tag auto">Autonomous</span>
         </div>
         <p class="agent-desc">
-          <strong>Closes the loop back to the Recommender.</strong> Monitors every deployed workflow's actual performance — where humans kept editing briefs, which Skills got revised, which shapes underperformed. Rewrites the factory's own prompts, adds new shapes to the Library, promotes patterns into foundational playbooks. <em>Feeds pattern signals to the Recommender</em> so it knows what gaps to propose filling next.
+          <strong>Closes the loop back to the Recommender.</strong> Monitors every deployed workflow's actual performance — where humans kept editing briefs, which Skills got revised, which shapes underperformed. Rewrites factory prompts, adds new shapes, promotes patterns. <em>Feeds gap signals to the Recommender.</em>
         </p>
         <div class="agent-grid">
           <div class="agent-cell">
             <div class="agent-cell-label">Reads From</div>
-            <div class="agent-cell-body">All deployed workflow logs, eval scorecards, human edit histories, client outcomes</div>
+            <div class="agent-cell-body">All deployed workflow logs, eval scorecards, human edits, outcomes</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Writes</div>
-            <div class="agent-cell-body">Prompt patches to other factory agents (as PRs), new shapes to Library, gap signals → Recommender</div>
+            <div class="agent-cell-body">Prompt patches as PRs, new shapes, gap signals → Recommender</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Pattern</div>
-            <div class="agent-cell-body">Reflexion + Outcome-Based Self-Improvement + DSPy/GEPA-style reflective prompt evolution</div>
+            <div class="agent-cell-body">Reflexion + DSPy/GEPA-style reflective prompt evolution</div>
           </div>
           <div class="agent-cell">
             <div class="agent-cell-label">Autonomy</div>
-            <div class="agent-cell-body">Propose-only for factory-agent changes; self-updates its own playbooks</div>
+            <div class="agent-cell-body">Propose-only for factory changes; self-updates playbooks</div>
           </div>
         </div>
       </div>
@@ -1200,75 +1334,99 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
   <div class="sequence-list">
     <div class="seq-row signal">
       <div class="seq-num">00</div>
-      <div class="seq-agent">Recommender Agent</div>
-      <div class="seq-action">Observes signals across deployed workflows + client requests. Drafts ranked backlog of next workflows to build.</div>
-      <div class="seq-cost signal-tag">continuous</div>
+      <div class="seq-body">
+        <div class="seq-agent">Recommender Agent</div>
+        <div class="seq-action">Observes signals across deployed workflows + client requests. Drafts ranked backlog.</div>
+        <div class="seq-cost signal-tag">continuous</div>
+      </div>
     </div>
     <div class="seq-row gate">
       <div class="seq-num">—</div>
-      <div class="seq-agent">Queue Approval</div>
-      <div class="seq-action">Human glances at proposed backlog weekly, reorders or rejects. <em>Fast yes/no on agent-generated options.</em></div>
-      <div class="seq-cost gate-tag">~5 min/wk</div>
+      <div class="seq-body">
+        <div class="seq-agent">Queue Approval</div>
+        <div class="seq-action">Human glances at proposed backlog weekly, reorders or rejects. <em>Fast yes/no on agent-generated options.</em></div>
+        <div class="seq-cost gate-tag">~5 min/wk</div>
+      </div>
     </div>
     <div class="seq-row">
       <div class="seq-num">01</div>
-      <div class="seq-agent">Intake Agent</div>
-      <div class="seq-action">Takes approved backlog item (or direct human request), drafts Workflow Brief.</div>
-      <div class="seq-cost">~15 min</div>
+      <div class="seq-body">
+        <div class="seq-agent">Intake Agent</div>
+        <div class="seq-action">Takes approved backlog item (or direct human request), drafts Workflow Brief.</div>
+        <div class="seq-cost">~15 min</div>
+      </div>
     </div>
     <div class="seq-row gate">
       <div class="seq-num">—</div>
-      <div class="seq-agent">GATE 1 · Brief</div>
-      <div class="seq-action">Human reviews Brief in ClickUp. One-click approve, comment to revise, or reject.</div>
-      <div class="seq-cost gate-tag">~10 min human</div>
+      <div class="seq-body">
+        <div class="seq-agent">GATE 1 · Brief</div>
+        <div class="seq-action">Human reviews Brief in ClickUp. One-click approve, comment to revise, or reject.</div>
+        <div class="seq-cost gate-tag">~10 min human</div>
+      </div>
     </div>
     <div class="seq-row">
       <div class="seq-num">02</div>
-      <div class="seq-agent">Shape Agent</div>
-      <div class="seq-action">Selects canonical shape from Library. Tags read-heavy or write-heavy.</div>
-      <div class="seq-cost">~3 min</div>
+      <div class="seq-body">
+        <div class="seq-agent">Shape Agent</div>
+        <div class="seq-action">Selects canonical shape from Library. Tags read-heavy or write-heavy.</div>
+        <div class="seq-cost">~3 min</div>
+      </div>
     </div>
     <div class="seq-row">
       <div class="seq-num">03</div>
-      <div class="seq-agent">Stage Designers × 11</div>
-      <div class="seq-action"><strong>Parallel.</strong> Each stage independently designs subtasks, patterns, evaluators. Blueprint Merger joins.</div>
-      <div class="seq-cost">~25 min</div>
+      <div class="seq-body">
+        <div class="seq-agent">Stage Designers × 11</div>
+        <div class="seq-action"><strong>Parallel.</strong> Each stage independently designs subtasks, patterns, evaluators. Blueprint Merger joins.</div>
+        <div class="seq-cost">~25 min</div>
+      </div>
     </div>
     <div class="seq-row gate">
       <div class="seq-num">—</div>
-      <div class="seq-agent">GATE 2 · Blueprint</div>
-      <div class="seq-action">Human reviews full Blueprint — DAG, stages, subtasks, evaluators. Approve or request patches.</div>
-      <div class="seq-cost gate-tag">~30 min human</div>
+      <div class="seq-body">
+        <div class="seq-agent">GATE 2 · Blueprint</div>
+        <div class="seq-action">Human reviews full Blueprint — DAG, stages, subtasks, evaluators. Approve or request patches.</div>
+        <div class="seq-cost gate-tag">~30 min human</div>
+      </div>
     </div>
     <div class="seq-row">
       <div class="seq-num">04</div>
-      <div class="seq-agent">Skills Curator</div>
-      <div class="seq-action">Maps required Skills. Reuses library where possible. Drafts new Skills as proposals.</div>
-      <div class="seq-cost">~20 min</div>
+      <div class="seq-body">
+        <div class="seq-agent">Skills Curator</div>
+        <div class="seq-action">Maps required Skills. Reuses library where possible. Drafts new Skills as proposals.</div>
+        <div class="seq-cost">~20 min</div>
+      </div>
     </div>
     <div class="seq-row gate">
       <div class="seq-num">—</div>
-      <div class="seq-agent">GATE 3 · Skills</div>
-      <div class="seq-action">Human approves new Skills (reuses auto-approved). Ensures compliance on domain drafts.</div>
-      <div class="seq-cost gate-tag">~15 min human</div>
+      <div class="seq-body">
+        <div class="seq-agent">GATE 3 · Skills</div>
+        <div class="seq-action">Human approves new Skills (reuses auto-approved). Ensures compliance on domain drafts.</div>
+        <div class="seq-cost gate-tag">~15 min human</div>
+      </div>
     </div>
     <div class="seq-row">
       <div class="seq-num">05</div>
-      <div class="seq-agent">Eval Agent</div>
-      <div class="seq-action">Generates test suite + assertions + anti-hacking scans. Deploys to Braintrust/Langfuse.</div>
-      <div class="seq-cost auto-tag">~10 min · auto</div>
+      <div class="seq-body">
+        <div class="seq-agent">Eval Agent</div>
+        <div class="seq-action">Generates test suite + assertions + anti-hacking scans. Deploys to Braintrust/Langfuse.</div>
+        <div class="seq-cost auto-tag">~10 min · auto</div>
+      </div>
     </div>
     <div class="seq-row">
       <div class="seq-num">06</div>
-      <div class="seq-agent">Deploy Agent</div>
-      <div class="seq-action">Builds ClickUp List, imports CSV, wires dependencies, configures Autopilot Agents, saves as template.</div>
-      <div class="seq-cost auto-tag">~4 min · auto</div>
+      <div class="seq-body">
+        <div class="seq-agent">Deploy Agent</div>
+        <div class="seq-action">Builds ClickUp List, imports CSV, wires dependencies, configures Autopilot Agents, saves as template.</div>
+        <div class="seq-cost auto-tag">~4 min · auto</div>
+      </div>
     </div>
     <div class="seq-row signal">
       <div class="seq-num">07</div>
-      <div class="seq-agent">Improve Agent</div>
-      <div class="seq-action">Logs run data. Pattern-analyzes across deployed workflows. <em>Feeds gap signals back to Recommender.</em></div>
-      <div class="seq-cost signal-tag">continuous</div>
+      <div class="seq-body">
+        <div class="seq-agent">Improve Agent</div>
+        <div class="seq-action">Logs run data. Pattern-analyzes across deployed workflows. <em>Feeds gap signals back to Recommender.</em></div>
+        <div class="seq-cost signal-tag">continuous</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1311,7 +1469,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     <div class="metric">
       <div class="metric-num">~<em>4</em>hr</div>
       <h4>Brief to deployed</h4>
-      <p>Wall-clock from human request to live ClickUp workflow</p>
+      <p>Wall-clock from human request to live workflow</p>
     </div>
     <div class="metric">
       <div class="metric-num">$<em>8</em>-12</div>
@@ -1321,81 +1479,569 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     <div class="metric">
       <div class="metric-num"><em>55</em>min</div>
       <h4>Human time per workflow</h4>
-      <p>Across 3 gates. vs. ~80 expert-hours for manual design</p>
+      <p>Across 3 gates. vs. ~80 expert-hours manual</p>
     </div>
     <div class="metric">
       <div class="metric-num"><em>85</em>%</div>
       <h4>First-pass acceptance</h4>
-      <p>Target for Blueprints clearing Gate 2 without revision</p>
+      <p>Target for Blueprints clearing Gate 2</p>
     </div>
   </div>
 </div>
 
-<!-- TAB 6: FOUNDATION -->
+<!-- TAB 6: FOUNDATION (MASSIVELY EXPANDED) -->
 <div class="panel" data-panel="foundation">
-  <div class="panel-kicker">06 · The Research Foundation</div>
+  <div class="panel-kicker">06 · Research Foundation</div>
   <h2>Not invention. <em>Composition</em>.</h2>
   <p class="lede">
-    Every piece of this factory is grounded in published research or production systems from 2024-2026. Synthesis, not speculation.
+    Every piece of this factory maps to a published research paper, production system, or engineering playbook from 2022–2026. This tab walks through the actual logic, the papers, the GitHub repos, and why each one earns its place in the architecture.
   </p>
 
-  <div class="foundation-block">
-    <div class="foundation-label">The Building Blocks</div>
-    <h3>Each factory agent maps to a <em>specific known pattern</em>.</h3>
+  <div class="found-intro">
+    <h3>The mental model: <em>outer loop searches; inner loop optimizes; skills persist; evals gate</em>.</h3>
+    <p>
+      Every serious agent-factory in the research literature follows the same four-tier mental model. <strong>(1) An outer loop that searches over workflow topologies</strong> — what stages should exist, what agents should run in parallel, where should routing happen. <strong>(2) An inner loop that optimizes prompts and weights</strong> within a chosen topology. <strong>(3) A persistent skill library</strong> that grows over time, so workflow 100 can reuse what workflow 47 learned. <strong>(4) An eval harness that gates everything</strong> — topology choices, prompt changes, deployment decisions.
+    </p>
+    <p>
+      Miss any one of the four and the factory collapses: no outer loop means you hand-author topologies, no inner loop means you hand-tune prompts, no skill library means every workflow starts from zero, no evals means you ship 100 unmeasured liabilities. The research consensus (Khattab/DSPy, Zhang/MetaGPT, Hu/ADAS, Husain/evals, Anthropic/Skills) is that all four must be built together — <em>and the rest of this tab maps that consensus to the concrete agents in the Ad Pros factory</em>.
+    </p>
+  </div>
 
-    <div class="foundation-grid">
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Outer Loop</div>
-        <h4>AFlow (MetaGPT, ICLR 2025 Oral)</h4>
-        <p>Monte Carlo Tree Search over code-represented workflows. Generates workflows in ~1.5 hrs that beat hand-designed ones. <em>Inspires the Shape + Stage Designer agents.</em></p>
+  <!-- SECTION: The Four Core Frameworks -->
+  <div class="found-section">
+    <div class="found-section-kicker">A · The Four Core Frameworks</div>
+    <h3>What each factory agent <em>actually runs on</em>.</h3>
+    <p class="found-section-lede">
+      These four papers/systems are the load-bearing research the factory is built on. Each has a working implementation, measured performance, and a direct mapping to one or more Ad Pros factory agents.
+    </p>
+
+    <div class="framework-grid">
+
+      <!-- AFLOW -->
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">AFlow <em>(MetaGPT)</em></div>
+          <div class="fw-meta">ICLR 2025 Oral · Zhang et al.</div>
+        </div>
+        <div class="fw-role">Outer Loop · Topology Search</div>
+        <div class="fw-body">
+          Represents agentic workflows as <strong>code-based graphs of Operators and Nodes</strong>. Uses <strong>Monte Carlo Tree Search (MCTS)</strong> to search over possible workflow topologies, given only an eval function. Generates workflows in ~1.5 hours that <strong>beat hand-designed workflows by 5.7% average across Coding, Math, QA</strong>. Matches GPT-4o performance at <code>4.55%</code> of its cost on HumanEval.
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">The <strong>Shape Agent</strong> and <strong>Stage Designers</strong> use AFlow-style topology reasoning when they compose a new workflow. Instead of running full MCTS per request (too slow), the factory pre-searches MCTS across the 8 canonical shapes offline, then the Shape Agent selects from those cached topologies. <em>Cold-path MCTS. Hot-path retrieval.</em></div>
+        </div>
+        <a href="https://arxiv.org/abs/2410.10762" class="fw-link" target="_blank">arxiv.org/abs/2410.10762</a>
+        <a href="https://github.com/FoundationAgents/AFlow" class="fw-link" target="_blank">github.com/FoundationAgents/AFlow</a>
       </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Inner Loop</div>
-        <h4>DSPy + GEPA (Stanford, 2025)</h4>
-        <p>Declarative modules compiled by reflective prompt evolution. Outperforms RL using 35× fewer rollouts. <em>Inspires the Improve Agent's reflection loop.</em></p>
+
+      <!-- DSPy + GEPA -->
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">DSPy + GEPA</div>
+          <div class="fw-meta">Stanford · Khattab · 2023–2025</div>
+        </div>
+        <div class="fw-role">Inner Loop · Prompt Optimization</div>
+        <div class="fw-body">
+          <strong>DSPy</strong> treats LM pipelines as <em>programs, not prompts</em> — declarative Modules with typed Signatures, compiled by outer-loop optimizers. <strong>GEPA</strong> (Jul 2025) is the state-of-the-art optimizer: <em>reflective prompt evolution</em>, outperforms reinforcement learning methods using <strong>35× fewer rollouts</strong>. Think: genetic algorithm where each mutation is a reflection-driven prompt edit.
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">The <strong>Improve Agent</strong> runs GEPA-style reflection on each deployed workflow. When human edits to a Stage Designer's output show a pattern (e.g., humans keep adding Pydantic schemas to Stage 4), GEPA proposes a prompt patch: <em>"add explicit Pydantic output schema requirement to Stage 4 template."</em> The patch is PR'd to the factory's prompt repo. Workflow 11+ gets the improved prompt on first try.</div>
+        </div>
+        <a href="https://arxiv.org/abs/2310.03714" class="fw-link" target="_blank">DSPy: arxiv.org/abs/2310.03714</a>
+        <a href="https://arxiv.org/abs/2507.19457" class="fw-link" target="_blank">GEPA: arxiv.org/abs/2507.19457</a>
+        <a href="https://github.com/stanfordnlp/dspy" class="fw-link" target="_blank">github.com/stanfordnlp/dspy</a>
       </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Signal Discovery</div>
-        <h4>BabyAGI 2o (Yohei Nakajima, 2024)</h4>
-        <p>The purest public instance of "agent builds agent" — dynamically creates and registers new tools at runtime. <em>Mental model for the Recommender Agent's autonomous backlog generation.</em></p>
+
+      <!-- ADAS -->
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">ADAS <em>(Meta Agent Search)</em></div>
+          <div class="fw-meta">ICLR 2025 · Hu/Lu/Clune · UBC</div>
+        </div>
+        <div class="fw-role">Meta-Loop · Agent Discovery</div>
+        <div class="fw-body">
+          <strong>A meta-agent iteratively programs new agents in code</strong>, tests them on held-out tasks, adds successful ones to an archive, and uses the archive to inform further discoveries. Discovers novel agent architectures that <em>outperform human-designed baselines</em>. The purest published instance of "agent-designs-agents."
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">The <strong>Recommender Agent</strong> runs an ADAS-style search over the <em>workflow backlog</em>, not agent code. It proposes candidate workflows by recombining successful patterns from the archive (past deployed workflows), scores them against signal gaps, and ranks. The Shape Library <em>is</em> the archive. <em>New shapes get born when ADAS-style search finds gap-filling combinations.</em></div>
+        </div>
+        <a href="https://arxiv.org/abs/2408.08435" class="fw-link" target="_blank">arxiv.org/abs/2408.08435</a>
+        <a href="https://github.com/ShengranHu/ADAS" class="fw-link" target="_blank">github.com/ShengranHu/ADAS</a>
       </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Skills Primitive</div>
-        <h4>Claude Skills (Anthropic, Oct 2025)</h4>
-        <p>Progressive disclosure: name+desc always loaded, SKILL.md on trigger, scripts on demand. Open standard adopted by Microsoft, Cursor, Notion. <em>The Skills Curator's output format.</em></p>
+
+      <!-- CLAUDE SKILLS -->
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Claude Agent Skills</div>
+          <div class="fw-meta">Anthropic · Oct 2025 · open Dec 2025</div>
+        </div>
+        <div class="fw-role">Persistence · Skill Library</div>
+        <div class="fw-body">
+          <strong>Progressive disclosure</strong>: name + description always loaded (~50 tokens), <code>SKILL.md</code> body loaded on trigger, scripts/references loaded on demand. Solves the "bloated system prompt" problem directly. Open standard since Dec 2025 — adopted by Microsoft, Cursor, Goose, Amp; partners include Atlassian, Canva, Figma, Notion, Stripe, Zapier.
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">The <strong>Skills Curator</strong> outputs every new Skill as a SKILL.md file following this standard. The LTV template's three Skills (<code>supplement-economics.md</code>, <code>metric-definitions.md</code>, <code>compliance.md</code>) are exactly this format. Factory-generated workflows can load any Skill from the Library at any stage without context bloat, because only the 50-token header is ever in the system prompt — the body loads just-in-time when the stage references it.</div>
+        </div>
+        <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" class="fw-link" target="_blank">anthropic.com/engineering/agent-skills</a>
+        <a href="https://github.com/anthropics/skills" class="fw-link" target="_blank">github.com/anthropics/skills</a>
       </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Architecture Rule</div>
-        <h4>Cognition × Anthropic (June 2025)</h4>
-        <p>Read-heavy tasks benefit from multi-agent; write-heavy tasks need single shared context. Resolved by Chase June 16. <em>Shape Agent encodes this as a tag.</em></p>
-      </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Pattern Vocabulary</div>
-        <h4>Anthropic Building Effective Agents</h4>
-        <p>Five canonical patterns: prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer. <em>What the Stage Designers emit.</em></p>
-      </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Eval Discipline</div>
-        <h4>Hamel Husain + Shunyu Yao (2025)</h4>
-        <p>Evaluation is the bottleneck, not capability. Error analysis on real traces. <em>Why Eval Agent gets first-class status.</em></p>
-      </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Integration Surface</div>
-        <h4>ClickUp MCP (Q1 2026, public beta)</h4>
-        <p>First-party MCP at <code>mcp.clickup.com/mcp</code>. OAuth 2.1. Covers tasks, docs, comments, search. <em>Deploy Agent's primary tool.</em></p>
-      </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Self-Evolution</div>
-        <h4>Voyager (NVIDIA, 2023)</h4>
-        <p>Agent writes, stores, and retrieves its own skills. <em>The mental model for how the Skills Library grows autonomously over time.</em></p>
-      </div>
-      <div class="foundation-item">
-        <div class="foundation-item-tag">Meta-Agent Search</div>
-        <h4>ADAS (ICLR 2025, Hu/Lu/Clune)</h4>
-        <p>Meta-agent iteratively programs new agents in code, tests them, and archives for future discoveries. <em>Blueprint for Improve Agent's self-rewriting.</em></p>
+
+    </div>
+  </div>
+
+  <!-- SECTION: The Five Patterns -->
+  <div class="found-section">
+    <div class="found-section-kicker">B · The Five Canonical Patterns</div>
+    <h3>The <em>vocabulary</em> the Stage Designers emit.</h3>
+    <p class="found-section-lede">
+      From Anthropic's "Building Effective Agents" (Dec 2024, Schluntz & Zhang). Every serious framework (LangGraph, CrewAI, AutoGen, Semantic Kernel) has converged on these five primitives plus the augmented LLM base. <strong>This is the only pattern vocabulary the Stage Designers are allowed to emit</strong> — banning exotic patterns is what keeps the factory's output auditable.
+    </p>
+
+    <div class="patterns-block">
+      <div class="patterns-grid">
+        <div class="pattern-item">
+          <div class="pattern-item-num">01</div>
+          <h4>Prompt Chaining</h4>
+          <p>Decompose a task into a fixed sequence of LLM calls. Each step processes the previous step's output. Add programmatic checks ("gates") between calls.</p>
+          <div class="pattern-use"><strong>Used in LTV stages:</strong> 0.1, 0.2, 1.1–1.4, 3.1, 9.x</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-item-num">02</div>
+          <h4>Routing</h4>
+          <p>Classify input and direct to a specialized follow-up. Different prompts/models for different paths. Enables separation of concerns.</p>
+          <div class="pattern-use"><strong>Used in LTV stage:</strong> 4.1 (LTV Method Router — picks Bayesian / BG-NBD / Contractual / Triangle)</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-item-num">03</div>
+          <h4>Parallelization</h4>
+          <p>Run multiple LLM calls simultaneously then aggregate. Two flavors: <em>sectioning</em> (split into independent subtasks) and <em>voting</em> (multiple runs for consensus).</p>
+          <div class="pattern-use"><strong>Used in LTV stages:</strong> 2.1, 2.2, 2.3 (cohort analyses); 7.1–7.7 (brief writers)</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-item-num">04</div>
+          <h4>Orchestrator-Workers</h4>
+          <p>A central LLM dynamically breaks down tasks, delegates to worker LLMs, synthesizes. Workers don't know about each other. Essential for unbounded/dynamic work.</p>
+          <div class="pattern-use"><strong>Used in LTV stage:</strong> 5.1–5.3 (Per-SKU Worker Spawn — one worker per SKU, orchestrator joins)</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-item-num">05</div>
+          <h4>Evaluator-Optimizer</h4>
+          <p>Generator LLM produces output, evaluator LLM critiques, loop until acceptance criteria met. Works when LLMs can critique better than they can one-shot.</p>
+          <div class="pattern-use"><strong>Used in LTV stage:</strong> 3.2 (Numbers Reviewer — loops up to 3 times on failure, then escalates)</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-item-num">06</div>
+          <h4>+ Augmented LLM (base)</h4>
+          <p>The foundation: LLM + retrieval + tools + memory. Every other pattern composes over this. <em>Not a separate pattern — the substrate everything runs on.</em></p>
+          <div class="pattern-use"><strong>Used in LTV:</strong> every Autopilot Agent + Super Agent runs as augmented LLM</div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- SECTION: Architecture Debate -->
+  <div class="found-section">
+    <div class="found-section-kicker">C · The Architecture Debate</div>
+    <h3>Cognition vs. Anthropic, and why it matters <em>every time the factory runs</em>.</h3>
+    <p class="found-section-lede">
+      June 2025 saw the most important architectural argument in applied agents: <strong>multi-agent vs. single-context</strong>. The factory must take a position on this for every workflow it generates. Here's the debate, the resolution, and how the Shape Agent encodes it.
+    </p>
+
+    <div class="framework-grid">
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Cognition: <em>"Don't Build Multi-Agents"</em></div>
+          <div class="fw-meta">Walden Yan · June 12, 2025</div>
+        </div>
+        <div class="fw-role">Single-Context Camp</div>
+        <div class="fw-body">
+          <strong>Core claim: parallel subagents make conflicting implicit decisions</strong>. The canonical example: one subagent generates a Mario-style background, another generates a Flappy-Bird-style bird, neither saw the other's implicit choices, result is incoherent. <em>Solution: one agent, one context, shared state, linear execution.</em>
+        </div>
+        <a href="https://cognition.ai/blog/dont-build-multi-agents" class="fw-link" target="_blank">cognition.ai/blog/dont-build-multi-agents</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Anthropic: <em>Multi-Agent Research System</em></div>
+          <div class="fw-meta">June 13, 2025 · next-day response</div>
+        </div>
+        <div class="fw-role">Multi-Agent Camp</div>
+        <div class="fw-body">
+          LeadResearcher (Opus) plans → spawns parallel Sonnet subagents with separate contexts → synthesizes. <strong>90.2% improvement over single-agent Opus</strong> on internal research evals, at <code>~15×</code> the tokens. Explicit task boundaries + orchestrator persistence + rainbow deployment handle the coordination problem.
+        </div>
+        <a href="https://www.anthropic.com/engineering/multi-agent-research-system" class="fw-link" target="_blank">anthropic.com/engineering/multi-agent-research-system</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Chase Reconciliation</div>
+          <div class="fw-meta">LangChain · June 16, 2025</div>
+        </div>
+        <div class="fw-role">The Resolution</div>
+        <div class="fw-body">
+          Both sides are right, for different workload types: <strong>read-heavy tasks (research, analysis, retrieval) benefit from multi-agent</strong> because subagents return synthesized outputs, not conflicting artifacts. <strong>Write-heavy tasks (code, coordinated content) stay single-context</strong> because one coherent decision-maker beats parallel implicit decisions. <em>Tag every workflow accordingly.</em>
+        </div>
+        <a href="https://blog.langchain.com/how-and-when-to-build-multi-agent-systems" class="fw-link" target="_blank">blog.langchain.com/how-and-when-to-build-multi-agent-systems</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">How the Factory Encodes It</div>
+          <div class="fw-meta">Ad Pros · architectural rule</div>
+        </div>
+        <div class="fw-role">Binary Tag · Per Workflow</div>
+        <div class="fw-body">
+          The <strong>Shape Agent</strong> tags every workflow as <code>read-heavy</code> or <code>write-heavy</code>. Read-heavy (LTV, creative fatigue, attribution analysis) → Stage Designers are allowed to use Orchestrator-Workers + Parallelization. Write-heavy (campaign restructure, budget reallocation, PDP copy changes) → single-context only; parallelization banned; Evaluator-Optimizer loops instead. <em>This tag is non-negotiable and the Eval Agent enforces it.</em>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION: Self-Evolution -->
+  <div class="found-section">
+    <div class="found-section-kicker">D · Self-Evolution Mechanics</div>
+    <h3>How the factory <em>learns from itself</em>.</h3>
+    <p class="found-section-lede">
+      Three systems establish the mental model for agents that write, store, retrieve, and improve their own skills over time. Without these, the factory is a one-shot generator — with them, workflow 100 is materially better than workflow 1.
+    </p>
+
+    <div class="framework-grid">
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Voyager</div>
+          <div class="fw-meta">NVIDIA · Wang et al. · 2023</div>
+        </div>
+        <div class="fw-role">Skill Library Growth</div>
+        <div class="fw-body">
+          LLM-powered Minecraft agent with three components: <strong>(1) automatic curriculum</strong> that proposes progressively harder goals, <strong>(2) skill library</strong> of executable code for behaviors, <strong>(3) iterative prompting</strong> with environment feedback, self-verification, and code refinement. <em>The agent writes its own skills, stores them, retrieves them for composition.</em>
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">The Skills Curator + Improve Agent together implement Voyager's three components. Curriculum = the Recommender's backlog. Skill library = the SKILL.md repo. Iterative refinement = the Improve Agent's PR-based prompt edits after observing real workflow runs.</div>
+        </div>
+        <a href="https://arxiv.org/abs/2305.16291" class="fw-link" target="_blank">arxiv.org/abs/2305.16291</a>
+        <a href="https://github.com/MineDojo/Voyager" class="fw-link" target="_blank">github.com/MineDojo/Voyager</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Reflexion</div>
+          <div class="fw-meta">Shinn et al. · 2023</div>
+        </div>
+        <div class="fw-role">Self-Critique Loop</div>
+        <div class="fw-body">
+          Agent receives feedback signal, converts it to <strong>verbal reflection</strong>, stores the reflection in episodic memory, uses it as additional context for the next trial. No weight updates — pure prompting with reflection traces. <em>Simple, cheap, and foundational for every self-improving loop since.</em>
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">The Improve Agent runs Reflexion loops on failed workflow runs (evals failed, human overrode output, cost cap hit). Each failure becomes a verbal reflection stored against the relevant factory agent. Those reflections enter the next-run system prompt as few-shot examples.</div>
+        </div>
+        <a href="https://arxiv.org/abs/2303.11366" class="fw-link" target="_blank">arxiv.org/abs/2303.11366</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">BabyAGI 2o</div>
+          <div class="fw-meta">Yohei Nakajima · 2024</div>
+        </div>
+        <div class="fw-role">Self-Tooling</div>
+        <div class="fw-body">
+          Agent <strong>dynamically creates and registers new Python tools at runtime</strong>. Hits a capability it lacks → writes a tool for it → adds it to the registry → uses it. Function-registry stored with embedding search, triggers, authed secrets, and logs. The purest public instance of "agent-builds-tool."
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">Informs the Recommender's autonomy model: when the Recommender identifies a gap that needs a <em>new Skill</em>, it doesn't just propose the workflow — it proposes the Skill that would need to exist to power the workflow. Skills Curator drafts. Human approves. Registry grows.</div>
+        </div>
+        <a href="https://github.com/yoheinakajima/babyagi-2o" class="fw-link" target="_blank">github.com/yoheinakajima/babyagi-2o</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION: Eval Discipline -->
+  <div class="found-section">
+    <div class="found-section-kicker">E · Eval Discipline</div>
+    <h3>Why the Eval Agent is <em>the most important</em> factory agent.</h3>
+    <p class="found-section-lede">
+      Three 2025 voices converge on the same point: <strong>evaluation is the bottleneck, not model capability</strong>. A factory shipping agents without evals is shipping tech debt at 100× the rate. Here's the consensus and how the factory implements it.
+    </p>
+
+    <div class="framework-grid">
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Hamel Husain <em>(Parlance Labs)</em></div>
+          <div class="fw-meta">A Field Guide to Rapidly Improving AI Products</div>
+        </div>
+        <div class="fw-role">The Error-Analysis Doctrine</div>
+        <div class="fw-body">
+          <strong>Start with error analysis on 20–50 real traces</strong>, not eval-driven dogma. Use a domain-expert "benevolent dictator" as evaluator. Avoid generic criteria ("is it helpful?"). <em>Build evals from observed failures, not imagined ones.</em>
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">The Eval Agent doesn't generate evals from theory. It reads the Improve Agent's failure archive (real traces from past workflows) and clones the test patterns that caught those failures into the new workflow's eval harness.</div>
+        </div>
+        <a href="https://hamel.dev/blog/posts/evals-faq/" class="fw-link" target="_blank">hamel.dev/blog/posts/evals-faq</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Shunyu Yao <em>(Princeton/OpenAI)</em></div>
+          <div class="fw-meta">"The Second Half" · April 2025</div>
+        </div>
+        <div class="fw-role">The Evaluation-Bottleneck Thesis</div>
+        <div class="fw-body">
+          <strong>Reframes AI progress as evaluation-limited</strong>, not capability-limited. The "second half" of AI progress is not better models — it's better benchmarks, better evals, better scoring. <em>Whoever ships the best evals ships the best agents.</em>
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">Eval Agent has first-class status equal to Stage Designers, not subordinate. Evals ship alongside the workflow; they are the deliverable, not the afterthought.</div>
+        </div>
+        <a href="https://ysymyth.github.io/The-Second-Half/" class="fw-link" target="_blank">ysymyth.github.io/The-Second-Half</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Eugene Yan</div>
+          <div class="fw-meta">Patterns for Building LLM-based Systems</div>
+        </div>
+        <div class="fw-role">The Operational Checklist</div>
+        <div class="fw-body">
+          Canonical pattern list: <strong>evals, retrieval augmented generation, fine-tuning, caching, guardrails, defensive UX, collect user feedback</strong>. The closest thing applied LLM engineering has to a standard checklist.
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">Every Stage Designer's output must address each of the seven patterns or explicitly decline with rationale. The Eval Agent validates this as part of the Blueprint check.</div>
+        </div>
+        <a href="https://eugeneyan.com/writing/llm-patterns/" class="fw-link" target="_blank">eugeneyan.com/writing/llm-patterns</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Braintrust + Langfuse</div>
+          <div class="fw-meta">Production eval tooling · 2024–26</div>
+        </div>
+        <div class="fw-role">The Harness Runtime</div>
+        <div class="fw-body">
+          Production tools for running evals continuously against deployed agents. Traces + scorers + dashboards + regression detection. <em>What the factory deploys its Eval Agent output to.</em>
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory uses it</div>
+          <div class="fw-how-text">Every eval suite the Eval Agent generates is deployed to Braintrust (Langfuse is the fallback). Regression scores feed the Improve Agent. When scores drop, the Improve Agent files a PR.</div>
+        </div>
+        <a href="https://www.braintrust.dev" class="fw-link" target="_blank">braintrust.dev</a>
+        <a href="https://langfuse.com" class="fw-link" target="_blank">langfuse.com</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION: Failure Modes -->
+  <div class="found-section">
+    <div class="found-section-kicker">F · Failure Modes the Factory Must Plan For</div>
+    <h3>What goes wrong, and how <em>each failure is prevented</em>.</h3>
+    <p class="found-section-lede">
+      Six failure modes come up repeatedly across credible critiques of agent factories. Each has a documented origin, an engineering mitigation, and a factory-agent that enforces the mitigation.
+    </p>
+
+    <div class="failures-block">
+      <div class="failures-grid">
+
+        <div class="failure-item">
+          <div class="failure-item-tag">Failure 01</div>
+          <h4>Autonomy-Hallucination Gap</h4>
+          <p><strong>Karpathy (Oct 2025):</strong> reliability improves exponentially slower than capability. "Decade of agents, not year of agents." The Waymo analogy: 10 years from demo to limited deployment.</p>
+          <div class="failure-fix"><strong>Mitigation:</strong> 3 human gates + eval-gated deploy. Factory never ships an unevaluated workflow.</div>
+        </div>
+
+        <div class="failure-item">
+          <div class="failure-item-tag">Failure 02</div>
+          <h4>Context Rot</h4>
+          <p><strong>Anthropic (Sept 2025):</strong> performance degradation as context lengthens. Multi-agent systems burn ~15× more tokens than single-agent.</p>
+          <div class="failure-fix"><strong>Mitigation:</strong> Claude Skills progressive disclosure + compaction + structured note-taking + sub-context isolation per stage.</div>
+        </div>
+
+        <div class="failure-item">
+          <div class="failure-item-tag">Failure 03</div>
+          <h4>Conflicting Implicit Decisions</h4>
+          <p><strong>Cognition (June 2025):</strong> parallel subagents make implicit choices that don't align. Mario background + Flappy Bird bird.</p>
+          <div class="failure-fix"><strong>Mitigation:</strong> Shape Agent tags read-heavy vs write-heavy; write-heavy workflows are banned from using parallel patterns.</div>
+        </div>
+
+        <div class="failure-item">
+          <div class="failure-item-tag">Failure 04</div>
+          <h4>Eval Debt</h4>
+          <p><strong>Hamel Husain:</strong> teams ship LLM products without evals, accumulate unmeasured failures, hit a wall where no one knows why performance regressed.</p>
+          <div class="failure-fix"><strong>Mitigation:</strong> Eval Agent runs before Deploy. No eval = no deploy. Regression monitoring via Braintrust/Langfuse.</div>
+        </div>
+
+        <div class="failure-item">
+          <div class="failure-item-tag">Failure 05</div>
+          <h4>Lethal Trifecta</h4>
+          <p><strong>Simon Willison:</strong> private data access + untrusted input + external communication = exfiltration via prompt injection. Existential for any factory with ClickUp write access.</p>
+          <div class="failure-fix"><strong>Mitigation:</strong> Deploy Agent has scoped MCP tokens, idempotency guards, audit logs, treat-user-input-as-hostile on any externally-triggered workflow.</div>
+        </div>
+
+        <div class="failure-item">
+          <div class="failure-item-tag">Failure 06</div>
+          <h4>Demoware-to-Production Gap</h4>
+          <p><strong>METR (July 2025):</strong> experienced devs were <code>19%</code> slower with AI tools despite feeling 20% faster. Production agents need retries, checkpoints, idempotency, circuit breakers.</p>
+          <div class="failure-fix"><strong>Mitigation:</strong> Every Stage Designer's output must include cost caps, retry logic, idempotency keys, and a circuit breaker. Non-negotiable Blueprint requirements.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: ClickUp Integration -->
+  <div class="found-section">
+    <div class="found-section-kicker">G · ClickUp Integration Surface</div>
+    <h3>What the Deploy Agent <em>can and can't actually do</em>.</h3>
+    <p class="found-section-lede">
+      Verified against ClickUp's Q1 2026 API and MCP docs. These constraints define what the Deploy Agent must plan around. Don't skip — most agent-factory dreams die on API-reality mismatches.
+    </p>
+
+    <div class="framework-grid">
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">ClickUp MCP Server</div>
+          <div class="fw-meta">First-party · public beta · Q1 2026</div>
+        </div>
+        <div class="fw-role">Deploy Agent · Primary Tool</div>
+        <div class="fw-body">
+          Endpoint: <code>mcp.clickup.com/mcp</code>. <strong>OAuth 2.1</strong>. Covers tasks, docs, comments, time tracking, search. <em>This is the right integration surface</em> — community MCP servers (e.g., taazkareem/clickup-mcp-server, 460+ stars) exist but first-party is the target.
+        </div>
+        <a href="https://developer.clickup.com/docs/connect-an-ai-assistant-to-clickups-mcp-server" class="fw-link" target="_blank">developer.clickup.com/docs/clickup-mcp-server</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Autopilot Agents + Super Agents</div>
+          <div class="fw-meta">ClickUp Brain · 2025</div>
+        </div>
+        <div class="fw-role">Runtime for Deployed Workflows</div>
+        <div class="fw-body">
+          <strong>Autopilot Agents</strong> = deterministic trigger → action (fully API-coverable). <strong>Super Agents</strong> = reasoning-based, conversational (Super Agent Builder accepts NL prompts). The Deploy Agent generates the NL prompts that instantiate Super Agents; Autopilot Agents get wired via direct API.
+        </div>
+        <a href="https://help.clickup.com/hc/en-us/articles/31012020810775-Custom-Autopilot-Agents" class="fw-link" target="_blank">help.clickup.com/Custom-Autopilot-Agents</a>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">The Custom-Field Constraint</div>
+          <div class="fw-meta">API reality · verified</div>
+        </div>
+        <div class="fw-role">Deploy Agent · Must Work Around</div>
+        <div class="fw-body">
+          <strong>Custom field definitions cannot be created via API</strong> — only read/written. This is the single biggest architectural constraint. <em>Naive factory: fails. Ad Pros factory: pre-builds a canonical Field Template Pack once, reuses across all 100 workflows.</em>
+        </div>
+        <div class="fw-how">
+          <div class="fw-how-label">How the factory handles it</div>
+          <div class="fw-how-text">The LTV template's 22 custom fields become the <strong>Field Template Pack</strong>. Deploy Agent never tries to create fields — it inherits them from the workspace's canonical schema and only sets <em>values</em> on tasks. The Blueprint must declare which Pack fields it needs; the Eval Agent rejects Blueprints requiring fields not in a Pack.</div>
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <div class="fw-head">
+          <div class="fw-name">Anthropic MCP Standard</div>
+          <div class="fw-meta">Open protocol · 2024–26</div>
+        </div>
+        <div class="fw-role">How Agents Call Tools</div>
+        <div class="fw-body">
+          The Model Context Protocol is the standard way LLMs connect to external systems. Every Deploy Agent call routes through MCP. <em>This is how the factory remains toolchain-agnostic — swap ClickUp for Asana and only the Deploy Agent changes.</em>
+        </div>
+        <a href="https://modelcontextprotocol.io" class="fw-link" target="_blank">modelcontextprotocol.io</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION: Reading List -->
+  <div class="found-section">
+    <div class="found-section-kicker">H · Starter Reading List</div>
+    <h3>If you have <em>four hours</em> this weekend.</h3>
+    <p class="found-section-lede">
+      In this specific order. Each hour builds on the last. By Sunday night you will have the patterns, the debate, the research, and the integration story in one mental model.
+    </p>
+
+    <div class="reading-block">
+      <div class="reading-list">
+        <div class="reading-item">
+          <div class="reading-item-num">01</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">Building Effective Agents <em>(Anthropic)</em></div>
+            <div class="reading-item-meta">Schluntz &amp; Zhang · Dec 2024 · 45 min</div>
+            <div class="reading-item-why">The canonical taxonomy. Start here. Then open the cookbook notebooks (<code>orchestrator_workers.ipynb</code>, <code>evaluator_optimizer.ipynb</code>) to see runnable code.</div>
+          </div>
+        </div>
+        <div class="reading-item">
+          <div class="reading-item-num">02</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">How We Built Our Multi-Agent Research System <em>(Anthropic)</em></div>
+            <div class="reading-item-meta">June 13, 2025 · 30 min</div>
+            <div class="reading-item-why">Production counterpart. Read immediately after #01. The engineering takeaways read like a checklist.</div>
+          </div>
+        </div>
+        <div class="reading-item">
+          <div class="reading-item-num">03</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">Don't Build Multi-Agents <em>(Cognition)</em></div>
+            <div class="reading-item-meta">Walden Yan · June 12, 2025 · 15 min</div>
+            <div class="reading-item-why">The counter-argument. Read this right after Anthropic's post to get the debate in proper tension.</div>
+          </div>
+        </div>
+        <div class="reading-item">
+          <div class="reading-item-num">04</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">How and When to Build Multi-Agent Systems <em>(LangChain)</em></div>
+            <div class="reading-item-meta">Harrison Chase · June 16, 2025 · 15 min</div>
+            <div class="reading-item-why">The reconciliation. By the end you'll have a position on read-heavy vs write-heavy workflows.</div>
+          </div>
+        </div>
+        <div class="reading-item">
+          <div class="reading-item-num">05</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">AFlow: Automating Agentic Workflow Generation</div>
+            <div class="reading-item-meta">arXiv 2410.10762 · ICLR 2025 Oral · skim 30 min</div>
+            <div class="reading-item-why">Focus on Section 3 (workflow representation) and Section 4 (MCTS search). This is the academic blueprint for topology search.</div>
+          </div>
+        </div>
+        <div class="reading-item">
+          <div class="reading-item-num">06</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">Equipping Agents for the Real World with Agent Skills</div>
+            <div class="reading-item-meta">Anthropic · Oct 16, 2025 · 20 min</div>
+            <div class="reading-item-why">Then open <code>github.com/anthropics/skills</code> and read <code>skill-creator/SKILL.md</code>. This is the reference meta-skill architecture.</div>
+          </div>
+        </div>
+        <div class="reading-item">
+          <div class="reading-item-num">07</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">A Field Guide to Rapidly Improving AI Products</div>
+            <div class="reading-item-meta">Hamel Husain · hamel.dev · 25 min</div>
+            <div class="reading-item-why">The eval playbook. Required reading for anyone shipping agents that humans depend on.</div>
+          </div>
+        </div>
+        <div class="reading-item">
+          <div class="reading-item-num">08</div>
+          <div class="reading-item-body">
+            <div class="reading-item-title">The Second Half <em>(Shunyu Yao)</em></div>
+            <div class="reading-item-meta">April 2025 · 15 min</div>
+            <div class="reading-item-why">Why eval tooling is the next frontier, not better models. Short, important, worth re-reading.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 </div>
@@ -1403,22 +2049,22 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">ad pros · The Workflow Factory · Executive Summary</div>
-    <div class="footer-meta">Internal · Rev 2.0 · Apr 2026</div>
+    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.0</div>
+    <div class="footer-meta">Internal · Apr 2026</div>
   </div>
 </footer>
 
 <script>
 (function(){
-  const tabs = document.querySelectorAll('.tab');
-  const panels = document.querySelectorAll('.panel');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.dataset.tab;
+      tabs.forEach(function(t){t.classList.remove('active');});
+      panels.forEach(function(p){p.classList.remove('active');});
       tab.classList.add('active');
-      const panel = document.querySelector(`[data-panel="${target}"]`);
+      var panel = document.querySelector('[data-panel="'+target+'"]');
       if (panel) panel.classList.add('active');
       window.scrollTo({top:0, behavior:'smooth'});
     });
@@ -1426,6 +2072,5 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 })();
 </script>
 
-</div>
 </body>
 </html>
