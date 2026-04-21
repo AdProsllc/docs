@@ -380,8 +380,72 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
   display:flex;flex-wrap:wrap;gap:3px;
 }
 
-/* TAB 3 — AGENTS */
-.agents-grid{margin-top:32px;display:flex;flex-direction:column;gap:10px}
+/* TAB 3 — AGENTS — ROSTER */
+.agents-roster{
+  margin-top:32px;background:var(--navy-2);border:1px solid var(--rule);
+  border-radius:2px;overflow:hidden;
+}
+.agents-roster-head{
+  padding:18px 22px;border-bottom:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:16px;flex-wrap:wrap;
+}
+.agents-roster-label{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);
+}
+.agents-roster-sub{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3);
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.agents-roster-list{display:flex;flex-direction:column}
+.roster-row{
+  display:grid;grid-template-columns:36px 1fr;gap:14px;
+  padding:14px 22px;background:var(--navy-2);
+  border-top:1px solid var(--rule);
+  text-decoration:none;color:inherit;
+  transition:all 0.15s;cursor:pointer;min-width:0;
+  align-items:flex-start;
+}
+.roster-row:first-child{border-top:none}
+.roster-row:hover{background:var(--navy-3);border-left:3px solid var(--yellow);padding-left:19px}
+.roster-row.featured{background:rgba(255,106,168,0.04)}
+.roster-row.featured:hover{background:rgba(255,106,168,0.08);border-left-color:var(--pink);padding-left:19px}
+.roster-num{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;
+  line-height:1.1;letter-spacing:-0.03em;color:var(--yellow);
+}
+.roster-row.featured .roster-num{color:var(--pink)}
+.roster-body{min-width:0;display:flex;flex-direction:column;gap:4px}
+.roster-name{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:14.5px;
+  letter-spacing:-0.01em;color:var(--ink);line-height:1.25;
+}
+.roster-name em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.roster-row.featured .roster-name em{color:var(--pink)}
+.roster-job{font-size:12.5px;color:var(--ink-3);line-height:1.45}
+.roster-job em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink-2)}
+.roster-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.roster-tag{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;
+  padding:2px 6px;border-radius:2px;letter-spacing:0.06em;text-transform:uppercase;
+  background:var(--navy-3);border:1px solid var(--rule-2);color:var(--ink-3);
+  white-space:nowrap;
+}
+.roster-tag.step{background:rgba(255,212,0,0.1);color:var(--yellow);border-color:rgba(255,212,0,0.3)}
+.roster-tag.gate{background:rgba(255,85,64,0.1);color:var(--red);border-color:rgba(255,85,64,0.3)}
+.roster-tag.auto{background:rgba(48,217,123,0.1);color:var(--green);border-color:rgba(48,217,123,0.3)}
+.roster-tag.new{background:rgba(255,106,168,0.12);color:var(--pink);border-color:rgba(255,106,168,0.3)}
+
+@media(min-width:720px){
+  .roster-row{grid-template-columns:42px 220px 1fr auto;gap:16px;align-items:center}
+  .roster-body{flex-direction:row;align-items:center;gap:14px;min-width:0}
+  .roster-name{flex-shrink:0;font-size:15px}
+  .roster-job{flex:1;min-width:0}
+  .roster-tags{flex-shrink:0;margin-top:0}
+}
+
+.agents-grid{margin-top:28px;display:flex;flex-direction:column;gap:10px}
 .agent-card{
   background:var(--navy-2);border:1px solid var(--rule);
   padding:clamp(22px,4vw,42px);display:flex;flex-direction:column;
@@ -838,7 +902,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <span>ad</span>
         <span>pros</span>
       </a>
-      <div class="nav-version">Factory · <strong>Rev 3.0</strong></div>
+      <div class="nav-version">Factory · <strong>Rev 3.1</strong></div>
     </div>
   </div>
   <div class="tabs-wrap">
@@ -1021,10 +1085,109 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     Each agent has a single job, a narrow output, and a clear hand-off. The Recommender opens the loop. The Improve Agent closes it. The six in between do the design work. Three gates enforce quality.
   </p>
 
+  <div class="agents-roster">
+    <div class="agents-roster-head">
+      <div class="agents-roster-label">◉ Roster · Tap an agent to jump to full card</div>
+      <div class="agents-roster-sub">8 agents</div>
+    </div>
+    <div class="agents-roster-list">
+      <a href="#agent-01" class="roster-row featured">
+        <div class="roster-num">01</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Recommender</em> Agent</div>
+          <div class="roster-job"><em>Decides what workflow to build next</em> — watches signals, proposes ranked backlog.</div>
+          <div class="roster-tags">
+            <span class="roster-tag new">NEW</span>
+            <span class="roster-tag step">Collect</span>
+            <span class="roster-tag auto">Auto</span>
+          </div>
+        </div>
+      </a>
+      <a href="#agent-02" class="roster-row">
+        <div class="roster-num">02</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Intake</em> Agent</div>
+          <div class="roster-job"><em>Parses the request</em> — expands approved items into a structured Workflow Brief.</div>
+          <div class="roster-tags">
+            <span class="roster-tag step">Collect</span>
+            <span class="roster-tag gate">Gate 1</span>
+          </div>
+        </div>
+      </a>
+      <a href="#agent-03" class="roster-row">
+        <div class="roster-num">03</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Shape</em> Agent</div>
+          <div class="roster-job"><em>Picks the skeleton</em> — one of 8 canonical shapes, tagged read- or write-heavy.</div>
+          <div class="roster-tags">
+            <span class="roster-tag step">Organize</span>
+            <span class="roster-tag auto">Auto</span>
+          </div>
+        </div>
+      </a>
+      <a href="#agent-04" class="roster-row">
+        <div class="roster-num">04</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Stage Designer</em> (×11)</div>
+          <div class="roster-job"><em>Designs the insides</em> — 11 parallel agents, one per stage; Blueprint Merger joins.</div>
+          <div class="roster-tags">
+            <span class="roster-tag step">Think</span>
+            <span class="roster-tag gate">Gate 2</span>
+            <span class="roster-tag auto">Parallel</span>
+          </div>
+        </div>
+      </a>
+      <a href="#agent-05" class="roster-row">
+        <div class="roster-num">05</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Skills Curator</em></div>
+          <div class="roster-job"><em>Maps the Skills</em> — reuses library first, drafts new SKILL.md only when needed.</div>
+          <div class="roster-tags">
+            <span class="roster-tag step">Remember</span>
+            <span class="roster-tag gate">Gate 3</span>
+          </div>
+        </div>
+      </a>
+      <a href="#agent-06" class="roster-row">
+        <div class="roster-num">06</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Eval</em> Agent</div>
+          <div class="roster-job"><em>Gates deployment</em> — generates test suite, assertions, anti-hacking scans.</div>
+          <div class="roster-tags">
+            <span class="roster-tag step">Review</span>
+            <span class="roster-tag auto">Auto</span>
+          </div>
+        </div>
+      </a>
+      <a href="#agent-07" class="roster-row">
+        <div class="roster-num">07</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Deploy</em> Agent</div>
+          <div class="roster-job"><em>Builds it in ClickUp</em> — List, tasks, dependencies, Autopilot Agents, template.</div>
+          <div class="roster-tags">
+            <span class="roster-tag step">Do</span>
+            <span class="roster-tag auto">Auto</span>
+          </div>
+        </div>
+      </a>
+      <a href="#agent-08" class="roster-row">
+        <div class="roster-num">08</div>
+        <div class="roster-body">
+          <div class="roster-name">The <em>Improve</em> Agent</div>
+          <div class="roster-job"><em>Closes the loop</em> — reflects on runs, rewrites factory prompts, feeds Recommender.</div>
+          <div class="roster-tags">
+            <span class="roster-tag step">Improve</span>
+            <span class="roster-tag auto">Auto</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
   <div class="agents-grid">
 
     <!-- 01 RECOMMENDER (FEATURED) -->
-    <div class="agent-card featured">
+    <div class="agent-card featured" id="agent-01">
       <div class="agent-header">
         <div class="agent-num"><em>01</em></div>
         <h3>The <em>Recommender</em> Agent</h3>
@@ -1068,7 +1231,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     </div>
 
     <!-- 02 INTAKE -->
-    <div class="agent-card">
+    <div class="agent-card" id="agent-02">
       <div class="agent-header">
         <div class="agent-num"><em>02</em></div>
         <h3>The <em>Intake</em> Agent</h3>
@@ -1104,7 +1267,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     </div>
 
     <!-- 03 SHAPE -->
-    <div class="agent-card">
+    <div class="agent-card" id="agent-03">
       <div class="agent-header">
         <div class="agent-num"><em>03</em></div>
         <h3>The <em>Shape</em> Agent</h3>
@@ -1140,7 +1303,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     </div>
 
     <!-- 04 STAGE DESIGNER -->
-    <div class="agent-card">
+    <div class="agent-card" id="agent-04">
       <div class="agent-header">
         <div class="agent-num"><em>04</em></div>
         <h3>The <em>Stage Designer</em> (×11)</h3>
@@ -1177,7 +1340,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     </div>
 
     <!-- 05 SKILLS -->
-    <div class="agent-card">
+    <div class="agent-card" id="agent-05">
       <div class="agent-header">
         <div class="agent-num"><em>05</em></div>
         <h3>The <em>Skills Curator</em></h3>
@@ -1213,7 +1376,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     </div>
 
     <!-- 06 EVAL -->
-    <div class="agent-card">
+    <div class="agent-card" id="agent-06">
       <div class="agent-header">
         <div class="agent-num"><em>06</em></div>
         <h3>The <em>Eval</em> Agent</h3>
@@ -1249,7 +1412,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     </div>
 
     <!-- 07 DEPLOY -->
-    <div class="agent-card">
+    <div class="agent-card" id="agent-07">
       <div class="agent-header">
         <div class="agent-num"><em>07</em></div>
         <h3>The <em>Deploy</em> Agent</h3>
@@ -1285,7 +1448,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
     </div>
 
     <!-- 08 IMPROVE -->
-    <div class="agent-card">
+    <div class="agent-card" id="agent-08">
       <div class="agent-header">
         <div class="agent-num"><em>08</em></div>
         <h3>The <em>Improve</em> Agent</h3>
@@ -2049,7 +2212,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.0</div>
+    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.1</div>
     <div class="footer-meta">Internal · Apr 2026</div>
   </div>
 </footer>
@@ -2067,6 +2230,20 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
       var panel = document.querySelector('[data-panel="'+target+'"]');
       if (panel) panel.classList.add('active');
       window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // Roster anchor links: scroll to agent card with offset for sticky nav
+  document.querySelectorAll('.roster-row').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var href = link.getAttribute('href');
+      var target = document.querySelector(href);
+      if (!target) return;
+      var nav = document.querySelector('.nav');
+      var offset = nav ? nav.offsetHeight + 16 : 80;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({top:top, behavior:'smooth'});
     });
   });
 })();
