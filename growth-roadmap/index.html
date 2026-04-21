@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Growth Department Transition Roadmap — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+    }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; }
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; } }
+
+    /* Roadmap app wrapper */
+    #roadmap-root {
+      background: #0f0f23;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      color: #e2e8f0;
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-growth-roadmap";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+
+<div id="ap-content" style="display:none;">
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Growth Department Transition Roadmap</h1>
+      <p>Kevin Watson → Nehal Kazim · April 2026 · Working Draft</p>
+    </div>
+  </header>
+  <div class="ap-content">
+    <div id="roadmap-root"></div>
+  </div>
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+</div>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState } = React;
+
+const tabs = [
+  "Overview",
+  "Team & Capacity",
+  "Growth Marketer Role",
+  "Day in the Life",
+  "AI Systems",
+  "Training",
+  "Phased Plan",
+  "Open Decisions",
+];
+
+function Card({ title, children, accent, sub }) {
+  return (
+    <div style={{ background: "#1a1a2e", borderRadius: 10, padding: "24px 28px", borderLeft: accent ? `4px solid ${accent}` : "none", marginBottom: 16 }}>
+      {title && (
+        <div style={{ fontSize: 15, fontWeight: 700, color: "#e2e8f0", marginBottom: sub ? 2 : 12, letterSpacing: "0.01em" }}>
+          {title}
+        </div>
+      )}
+      {sub && (<div style={{ fontSize: 12, color: "#94a3b8", marginBottom: 12 }}>{sub}</div>)}
+      <div style={{ fontSize: 14, color: "#cbd5e1", lineHeight: 1.65 }}>{children}</div>
+    </div>
+  );
+}
+
+function Pill({ color, label }) {
+  return (
+    <span style={{ display: "inline-block", background: color + "22", color: color, fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 20, marginRight: 6, letterSpacing: "0.03em" }}>
+      {label}
+    </span>
+  );
+}
+
+function Stat({ value, label, sub }) {
+  return (
+    <div style={{ textAlign: "center", minWidth: 100 }}>
+      <div style={{ fontSize: 32, fontWeight: 800, color: "#e2e8f0", fontFamily: "'DM Mono', monospace" }}>{value}</div>
+      <div style={{ fontSize: 12, color: "#94a3b8", fontWeight: 600, marginTop: 2 }}>{label}</div>
+      {sub && (<div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{sub}</div>)}
+    </div>
+  );
+}
+
+function Tag({ children, color = "#3b82f6" }) {
+  return (
+    <span style={{ display: "inline-block", background: color + "18", color: color, fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 6, marginRight: 6, marginBottom: 6 }}>
+      {children}
+    </span>
+  );
+}
+
+function Row({ left, right, divider = true }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "10px 0", borderBottom: divider ? "1px solid #ffffff0a" : "none", gap: 20 }}>
+      <div style={{ flex: 1, fontSize: 13, color: "#94a3b8" }}>{left}</div>
+      <div style={{ flex: 2, fontSize: 13, color: "#e2e8f0", textAlign: "right" }}>{right}</div>
+    </div>
+  );
+}
+
+function SplitCompare({ leftTitle, rightTitle, leftItems, rightItems, leftColor = "#ef4444", rightColor = "#22c55e" }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+      <div style={{ background: leftColor + "08", borderRadius: 10, padding: "20px 24px", border: `1px solid ${leftColor}22` }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: leftColor, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+          {leftTitle}
+        </div>
+        {leftItems.map((item, i) => (
+          <div key={i} style={{ fontSize: 13, color: "#94a3b8", padding: "5px 0", borderBottom: i < leftItems.length - 1 ? "1px solid #ffffff06" : "none" }}>{item}</div>
+        ))}
+      </div>
+      <div style={{ background: rightColor + "08", borderRadius: 10, padding: "20px 24px", border: `1px solid ${rightColor}22` }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: rightColor, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+          {rightTitle}
+        </div>
+        {rightItems.map((item, i) => (
+          <div key={i} style={{ fontSize: 13, color: "#cbd5e1", padding: "5px 0", borderBottom: i < rightItems.length - 1 ? "1px solid #ffffff06" : "none" }}>{item}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Overview() {
+  return (
+    <div>
+      <div style={{ marginBottom: 24 }}>
+        <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.7 }}>
+          Ad Pros is transitioning from a traditional pod-based agency model to the Creative Advisory Board (CAB) model. This roadmap defines how the Growth department adapts — team structure, Growth Marketer responsibilities, AI integration, and capacity scaling — to support that transition.
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-around", background: "#1a1a2e", borderRadius: 10, padding: "28px 20px", marginBottom: 24, flexWrap: "wrap", gap: 16 }}>
+        <Stat value="2" label="Active Growth Marketers" sub="Gabriel, JP" />
+        <Stat value="~6" label="Media Buying Clients" sub="After month-end changes" />
+        <Stat value="8" label="Target Per Growth Marketer" sub="Stretch to 10" />
+        <Stat value="16–20" label="Capacity Target" sub="Before next hire" />
+      </div>
+      <Card title="Current State" accent="#64748b">
+        <Row left="Team" right="Kevin (HoG), Joao (TBD), Gabriel (Growth Marketer), JP (Growth Marketer)" />
+        <Row left="Clients" right="~6 media buying clients after month-end" />
+        <Row left="Model" right="Pod structure, traditional agency — pre-CAB" />
+        <Row left="Tools" right="AdManage AI (bulk editor) in place. No AI automation in workflows yet." />
+        <Row left="GS Role" right="Being eliminated. No Growth Strategist in the new model." />
+        <Row left="Data Analyst" right="Rodrigo moved to Creative team." divider={false} />
+      </Card>
+      <Card title="Future State" accent="#22c55e">
+        <Row left="Team" right="Kevin + 2 Growth Marketers (scaling to 3+ via reactive hiring)" />
+        <Row left="Clients" right="8 per Growth Marketer. 16–20 with current team, 24–30 with 3 Growth Marketers." />
+        <Row left="Model" right="No pods. Growth Marketers own everything per client: execution, meetings, relationship." />
+        <Row left="AI Role" right="AI handles reporting, meeting prep/notes, initial analysis. Growth Marketers verify, decide, ideate." />
+        <Row left="Client Tiers" right="Base (<$125k), Mid ($125–500k), Top ($500k+). Pricing set. Service level and relationship ownership varies by tier." />
+        <Row left="Hiring Trigger" right="Reactive — when client volume exceeds current Growth Marketer capacity." divider={false} />
+      </Card>
+    </div>
+  );
+}
+
+function TeamCapacity() {
+  return (
+    <div>
+      <Card title="Growth Team — Current" accent="#64748b">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 8 }}>
+          {[
+            { name: "Kevin Watson", role: "Head of Growth", status: "Active", color: "#3b82f6" },
+            { name: "Joao", role: "Role TBD", status: "Transition", color: "#f59e0b" },
+            { name: "Gabriel", role: "Growth Marketer", status: "Active", color: "#22c55e" },
+            { name: "JP", role: "Growth Marketer", status: "Active", color: "#22c55e" },
+          ].map((p, i) => (
+            <div key={i} style={{ background: "#0f0f23", borderRadius: 8, padding: "14px 18px", borderLeft: `3px solid ${p.color}` }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#e2e8f0" }}>{p.name}</div>
+              <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2, marginBottom: 6 }}>{p.role}</div>
+              <Pill color={p.color} label={p.status} />
+            </div>
+          ))}
+        </div>
+      </Card>
+      <Card title="Capacity Model" accent="#3b82f6">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 16 }}>
+          Growth Marketers own the full client relationship — execution, calls, communication, project management. That limits realistic capacity vs. a model where someone else handles meetings.
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
+          {[
+            { gms: "2 Growth Marketers", clients: "12–16", rev: "$60–80k/mo", label: "Current team", color: "#22c55e" },
+            { gms: "3 Growth Marketers", clients: "18–24", rev: "$90–120k/mo", label: "1 hire", color: "#3b82f6" },
+            { gms: "4 Growth Marketers", clients: "24–32", rev: "$120–160k/mo", label: "2 hires", color: "#a855f7" },
+          ].map((s, i) => (
+            <div key={i} style={{ background: "#0f0f23", borderRadius: 8, padding: "18px 16px", textAlign: "center", border: `1px solid ${s.color}22` }}>
+              <div style={{ fontSize: 11, color: s.color, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>{s.label}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: "#e2e8f0" }}>{s.gms}</div>
+              <div style={{ fontSize: 13, color: "#94a3b8", marginTop: 4 }}>{s.clients} clients</div>
+              <div style={{ fontSize: 12, color: "#64748b" }}>{s.rev} revenue</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 12, color: "#64748b", marginTop: 12 }}>
+          Based on 8 clients/Growth Marketer at $5k/mo base. Actual revenue higher for clients on tiered % of spend pricing.
+        </div>
+      </Card>
+      <Card title="Hiring Approach" accent="#f59e0b">
+        <div style={{ fontSize: 13, color: "#cbd5e1" }}>
+          Hiring is reactive — triggered when client volume approaches current capacity. No proactive hiring planned. When the time comes, the new hire is a Growth Marketer, not a Growth Strategist. The GS role no longer exists.
+        </div>
+        <div style={{ marginTop: 12, fontSize: 13, color: "#94a3b8" }}>
+          <strong style={{ color: "#f59e0b" }}>Hire trigger:</strong> When active media buying clients exceed ~14 (7 per Growth Marketer with buffer) and pipeline shows continued growth.
+        </div>
+      </Card>
+      <Card title="Client Tiering" accent="#a855f7" sub="Pricing structure already defined (see Investment model). Service level and relationship ownership by tier:">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+          {[
+            { tier: "Base", spend: "< $125k/mo", calls: "Bi-weekly + Slack", owner: "Growth Marketer owns everything", desc: "Execution-focused. Looker dashboard, AI reports, standard optimization. Low-touch relationship. Growth Marketer handles all communication and media buying.", color: "#64748b" },
+            { tier: "Mid", spend: "$125k–500k/mo", calls: "Weekly", owner: "Growth Marketer owns everything", desc: "Same deliverables + deeper strategic involvement. Growth Marketer handles testing roadmaps, attribution analysis, and client relationship.", color: "#3b82f6" },
+            { tier: "Top", spend: "$500k–1M+", calls: "Weekly + ad hoc", owner: "Kevin owns relationship, Growth Marketer does media buying", desc: "Kevin owns executive-level communication and strategic conversations. Growth Marketer executes media buying. Similar to traditional model for highest-value accounts.", color: "#a855f7" },
+          ].map((t, i) => (
+            <div key={i} style={{ background: "#0f0f23", borderRadius: 8, padding: "18px 16px", border: `1px solid ${t.color}33` }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: t.color, marginBottom: 4 }}>{t.tier} Tier</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: "#e2e8f0", marginBottom: 2 }}>{t.spend}</div>
+              <div style={{ fontSize: 11, color: "#64748b", marginBottom: 4 }}>{t.calls}</div>
+              <div style={{ fontSize: 11, color: t.color, fontWeight: 600, marginBottom: 10 }}>{t.owner}</div>
+              <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.5 }}>{t.desc}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, fontSize: 12, color: "#64748b" }}>
+          Open question: Do deliverables change by tier, or does every media buying client get the same deliverables regardless of spend (with only pricing and relationship ownership varying)?
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function GMRole() {
+  return (
+    <div>
+      <Card title="The Shift" accent="#3b82f6">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 0 }}>
+          Growth Marketers go from doing everything manually to operating as strategic decision-makers on top of AI-powered workflows. AI handles the repetitive, time-consuming work. Growth Marketers verify, interpret, decide, and build the client relationship.
+        </div>
+      </Card>
+      <SplitCompare
+        leftTitle="Automated / Removed"
+        rightTitle="Growth Marketer Owns This"
+        leftColor="#ef4444"
+        rightColor="#22c55e"
+        leftItems={[
+          "Manual ad launching → AdManage AI (bulk editor + verify)",
+          "Building weekly slide decks from scratch → AI-generated client presentations",
+          "Writing post-meeting notes/recaps",
+          "Manual weekly reporting (pulling data, formatting)",
+          "Raw data pulling for routine analysis",
+          "Scheduling & admin coordination",
+        ]}
+        rightItems={[
+          "Client relationship — own the calls, own the trust",
+          "Account structure decisions & optimization",
+          "Testing methodology & ideation (what to test, why)",
+          "Scaling methodology (when to push, when to hold)",
+          "3-point analysis: business wide vs. platform vs. attribution",
+          "Report & data interpretation → actionable insights",
+          "Technical troubleshooting on workflows & integrations",
+          "Innovation — R&D, new ideas, breakthroughs, sharing learnings",
+          "Verification of all AI-generated outputs",
+          "Project management per client",
+          "Follow the communication cadence SOP — proactive updates per tier, not just reactive",
+          "Execute the performance recovery protocol when KPIs decline 2+ weeks",
+          "Pre-launch QA — mandatory checklist before any campaign goes live",
+        ]}
+      />
+      <div style={{ height: 16 }} />
+      <Card title="How to Position This" accent="#f59e0b" sub="For clients, recruits, and internal framing">
+        <div style={{ fontSize: 13, color: "#cbd5e1", lineHeight: 1.7 }}>
+          Growth Marketers are the people who know what decisions to make and why. AI processes data, generates reports, and handles admin. Growth Marketers interpret, decide, and drive performance. They're strategic operators inside ad accounts — not button-clickers executing someone else's plan.
+        </div>
+      </Card>
+      <Card title="Key Expectation Change" accent="#ef4444">
+        <div style={{ fontSize: 13, color: "#cbd5e1", lineHeight: 1.7 }}>
+          Growth Marketers can no longer rely on Kevin or Nehal to save them on client calls. They own the relationship. They run the meeting. They field the hard questions. The training plan needs to address this gap directly — it's a confidence and skill problem, not a knowledge problem.
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function DayInLife() {
+  const [view, setView] = useState("monday");
+  const mondaySchedule = [
+    { time: "8:00–10:00", activity: "Ad launches & QA", detail: "Batch launch day. Use AdManage AI to stage all new ads across accounts. Verify naming conventions, placements, budgets, creative assignments. QA everything before going live. This is the biggest time block of the week for launches.", tag: "Launches", color: "#22c55e" },
+    { time: "10:00–10:30", activity: "Check AI-generated performance alerts", detail: "Review Slack notifications on what to scale, pause, or flag from weekend performance. Quick scan across all accounts.", tag: "Analysis", color: "#3b82f6" },
+    { time: "10:30–12:00", activity: "Deep account work", detail: "In-account decision-making: adjust bids, restructure campaigns, implement scaling moves, troubleshoot issues. Handle anything flagged by morning alerts.", tag: "Execution", color: "#22c55e" },
+    { time: "1:00–2:00", activity: "Review AI-generated reports & analysis", detail: "Verify weekly performance reports, flag anything AI got wrong, annotate with insights. Use the 5-question framework: what happened, why, evidence, learning, next step.", tag: "Verification", color: "#a855f7" },
+    { time: "2:00–3:00", activity: "Testing & ideation", detail: "Plan new tests based on AI insights and own analysis. Build testing plans. Brainstorm creative requests to brief to the Creative team. Think about what's next for each account.", tag: "Strategy", color: "#ec4899" },
+    { time: "3:00–3:30", activity: "Innovation & learning", detail: "R&D time. Test new platform features, explore new tools, read industry content, share findings with the team.", tag: "Innovation", color: "#06b6d4" },
+    { time: "3:30–4:00", activity: "Slack updates & async client comms", detail: "Send performance updates, respond to client questions, coordinate with Creative team on assets.", tag: "Client Facing", color: "#f59e0b" },
+  ];
+  const restOfWeekSchedule = [
+    { time: "8:00–8:30", activity: "Check AI-generated performance alerts", detail: "Review overnight Slack notifications on what to scale, pause, or flag. Quick scan across all accounts for anomalies.", tag: "Analysis", color: "#3b82f6" },
+    { time: "8:30–10:00", activity: "Deep account work", detail: "In-account decision-making: adjust bids, restructure campaigns, implement scaling moves, troubleshoot issues. This is the core execution window without Monday launch pressure.", tag: "Execution", color: "#22c55e" },
+    { time: "10:00–11:30", activity: "Client meetings (2–3 per day on meeting days)", detail: "AI pre-builds meeting notes and talking points. Growth Marketer reviews before the call, runs the meeting, owns the relationship. Post-meeting recap auto-generated.", tag: "Client Facing", color: "#f59e0b" },
+    { time: "11:30–12:00", activity: "Post-meeting actions", detail: "Review AI-generated meeting recap, verify accuracy, post to client channel. Update task tracker with action items.", tag: "Admin", color: "#64748b" },
+    { time: "1:00–2:00", activity: "Testing & ideation", detail: "Plan new tests based on AI insights and own analysis. Build testing plans. Brainstorm creative requests to brief to the Creative team. Think about what's next for each account.", tag: "Strategy", color: "#ec4899" },
+    { time: "2:00–3:00", activity: "3-point analysis & deeper work", detail: "Compare business-wide performance vs. ad platform data vs. attribution platform data on accounts that need it. This is the Growth Marketer's highest-value analytical work — cross-referencing data sources to find the real story behind the numbers.", tag: "Analysis", color: "#3b82f6" },
+    { time: "3:00–3:30", activity: "Innovation & learning", detail: "R&D time. Test new platform features, explore new tools, read industry content, share findings with the team. Contribute ideas that push the department forward.", tag: "Innovation", color: "#06b6d4" },
+    { time: "3:30–4:00", activity: "Slack updates & async client comms", detail: "Send performance updates, respond to client questions, coordinate with Creative team on assets. Keep clients informed between calls.", tag: "Client Facing", color: "#f59e0b" },
+  ];
+  const schedule = view === "monday" ? mondaySchedule : restOfWeekSchedule;
+  return (
+    <div>
+      <Card title="What a Growth Marketer Day Looks Like" accent="#3b82f6" sub="With AI integrated into workflows — two distinct rhythms">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 16 }}>
+          Mondays are launch-heavy — batch ad launches happen first thing, no client meetings. The rest of the week opens up for client calls, deeper account work, analysis, and strategy.
+        </div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {[{ id: "monday", label: "Monday (Launch Day)" }, { id: "restofweek", label: "Tuesday–Friday" }].map((v) => (
+            <button key={v.id} onClick={() => setView(v.id)} style={{ background: view === v.id ? "#3b82f6" : "transparent", color: view === v.id ? "#fff" : "#64748b", border: view === v.id ? "1px solid #3b82f6" : "1px solid #ffffff15", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
+              {v.label}
+            </button>
+          ))}
+        </div>
+      </Card>
+      {schedule.map((s, i) => (
+        <div key={i} style={{ display: "flex", gap: 16, padding: "14px 0", borderBottom: i < schedule.length - 1 ? "1px solid #ffffff08" : "none" }}>
+          <div style={{ minWidth: 90, fontSize: 12, color: "#64748b", fontFamily: "'DM Mono', monospace", paddingTop: 2 }}>{s.time}</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "#e2e8f0" }}>{s.activity}</span>
+              <Tag color={s.color}>{s.tag}</Tag>
+            </div>
+            <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>{s.detail}</div>
+          </div>
+        </div>
+      ))}
+      <div style={{ height: 16 }} />
+      <Card title="Time Allocation Summary" accent="#22c55e">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
+          {[
+            { pct: "30%", label: "Client-facing", desc: "Meetings, Slack, relationship", color: "#f59e0b" },
+            { pct: "30%", label: "Execution & QA", desc: "Account work, launches, troubleshooting", color: "#22c55e" },
+            { pct: "25%", label: "Analysis & Strategy", desc: "3-point analysis, testing plans, ideation", color: "#3b82f6" },
+          ].map((t, i) => (
+            <div key={i} style={{ background: "#0f0f23", borderRadius: 8, padding: "16px", textAlign: "center" }}>
+              <div style={{ fontSize: 28, fontWeight: 800, color: t.color }}>{t.pct}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "#e2e8f0", marginTop: 4 }}>{t.label}</div>
+              <div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{t.desc}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ textAlign: "center", marginTop: 12 }}>
+          <span style={{ fontSize: 12, color: "#64748b" }}>Remaining ~15% → Innovation, R&D, learning, team collaboration</span>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function AISystems() {
+  const systems = [
+    { priority: 1, name: "Weekly Internal Performance Report", desc: "Auto-generates weekly performance summaries from platform exports and dashboards. WoW comparisons, key movers, likely causes, recommended actions.", input: "Meta/Google exports, attribution data, dashboard pulls", output: "Slack post or doc per client with insights and next steps", impact: "Saves 2–3 hours per Growth Marketer per week. Replaces inconsistent manual analysis.", phase: "Phase 1", color: "#22c55e" },
+    { priority: 2, name: "Client Meeting Notes Builder", desc: "Takes meeting transcript + performance data and generates structured meeting notes with action items. Growth Marketer verifies and posts.", input: "Call transcript (ClickUp Notetaker), recent performance data", output: "Formatted meeting recap with action items", impact: "Eliminates 20–30 min of post-meeting admin per call.", phase: "Phase 1", color: "#22c55e" },
+    { priority: 3, name: "Meeting Prep Builder", desc: "Pre-builds meeting talking points and agenda based on recent performance data, last meeting's action items, and account activity.", input: "Performance data, previous meeting notes, task tracker", output: "Pre-built agenda with talking points for Growth Marketer to customize", impact: "Cuts meeting prep from 30 min to 10 min per client.", phase: "Phase 1", color: "#22c55e" },
+    { priority: 4, name: "Client Presentation Generator", desc: "Auto-builds weekly client slide decks from performance data and dashboard exports. Growth Marketers review, customize, and add their own insights before client calls instead of building from scratch.", input: "Performance data, dashboard exports, previous deck template", output: "Pre-built slide deck per client ready for Growth Marketer review", impact: "Biggest single time saver after reports. Eliminates 1–2 hours of deck building per client per week.", phase: "Phase 1", color: "#22c55e" },
+    { priority: 5, name: "AI Performance Analyst", desc: "Reads platform exports and flags biggest performance changes, identifies likely causes, and recommends actions. Growth Marketers verify instead of building from scratch.", input: "Daily/weekly platform data exports", output: "Slack alerts + analysis doc with flagged anomalies", impact: "Surfaces problems faster. Reduces risk of Growth Marketers missing things across 8+ accounts.", phase: "Phase 2", color: "#3b82f6" },
+    { priority: 6, name: "Account Audit Tool", desc: "Automated audits on ad accounts — for new client onboarding and quarterly reviews. Checks structure, tracking, naming conventions, budget pacing, signal health.", input: "Ad account access, tracking config", output: "Structured audit report with findings and recommendations", impact: "Speeds up onboarding. Standardizes quality checks across all Growth Marketers.", phase: "Phase 2", color: "#3b82f6" },
+    { priority: 7, name: "Strategy Document Builder", desc: "Turns performance insights and internal planning notes into clean strategy docs for client sharing or internal use.", input: "Analysis outputs, Growth Marketer notes, performance data", output: "Formatted strategy doc", impact: "Nice-to-have. Saves time on mid/top-tier client deliverables.", phase: "Phase 3", color: "#a855f7" },
+  ];
+  const [expanded, setExpanded] = useState(null);
+  return (
+    <div>
+      <Card title="AI Systems Priority Stack" accent="#3b82f6" sub="Ranked by impact on Growth Marketer capacity. Phase 1 systems are non-negotiable.">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 0 }}>
+          These systems require dev time. Kevin needs an explicit allocation of dev hours per week from Nehal before builds can start.
+        </div>
+      </Card>
+      {systems.map((s, i) => (
+        <div key={i} onClick={() => setExpanded(expanded === i ? null : i)} style={{ background: "#1a1a2e", borderRadius: 10, padding: "16px 20px", marginBottom: 8, borderLeft: `4px solid ${s.color}`, cursor: "pointer", transition: "background 0.15s" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: s.color + "22", color: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, flexShrink: 0 }}>{s.priority}</div>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "#e2e8f0" }}>{s.name}</span>
+            </div>
+            <Pill color={s.color} label={s.phase} />
+          </div>
+          {expanded === i && (
+            <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px solid #ffffff0a" }}>
+              <div style={{ fontSize: 13, color: "#cbd5e1", marginBottom: 12 }}>{s.desc}</div>
+              <Row left="Input" right={s.input} />
+              <Row left="Output" right={s.output} />
+              <Row left="Impact" right={s.impact} divider={false} />
+            </div>
+          )}
+        </div>
+      ))}
+      <div style={{ height: 16 }} />
+      <Card title="Build vs. Buy" accent="#f59e0b">
+        <Row left="AdManage AI" right="Already purchased. Bulk editor for launches. Not full automation — Growth Marketers still verify." />
+        <Row left="AI Performance Reports" right="Build internally. Needs dev time + data pipeline setup." />
+        <Row left="Meeting Notes Builder" right="Build internally. Relies on ClickUp Notetaker transcripts." />
+        <Row left="Meeting Prep Builder" right="Build internally. Pulls from performance data + previous notes." />
+        <Row left="Client Presentation Generator" right="Build internally. Generates slide decks from performance data. Growth Marketers review and customize." />
+        <Row left="Performance Analyst" right="Build internally. Most complex system — needs reliable data exports." divider={false} />
+      </Card>
+    </div>
+  );
+}
+
+function Training() {
+  const [expandedArea, setExpandedArea] = useState(null);
+  const areas = [
+    {
+      id: "client",
+      title: "Account Management — Owning the Client Relationship",
+      priority: "Critical",
+      color: "#ef4444",
+      problem: "Growth Marketers have historically had a GS between them and the client. With the GS role eliminated, Growth Marketers now own meetings, communication, and the relationship. The gap is confidence, not knowledge — they freeze on calls, avoid hard conversations, and wait for Kevin or Nehal to rescue them. This is the most immediate gap because it's client-facing and visible from day one.",
+      standard: ["Run the meeting without backup", "Handle pushback and hard questions in the moment", "Deliver bad performance news without losing the room", "Proactively communicate between calls (Slack, email)", "Manage client expectations on scope, timelines, and results"],
+      training: [
+        { item: "External Account Management Training", desc: "Research and source a structured account management or client communication training program — could be an online course, masterclass, or info product. Kevin identifies 2–3 options with pricing and brings a recommendation to Nehal. This is the one area where external training is worth the spend — the team needs frameworks and confidence that internal coaching alone may not build fast enough.", type: "External — Source + Purchase" },
+        { item: "Mock Client Calls", desc: "Weekly for the first month. Kevin or someone senior plays the client — including tough scenarios: performance is down, client wants to know why spend increased, client questions the strategy. Growth Marketers practice handling it live.", type: "Internal — Recurring" },
+        { item: "Call Playbook", desc: "Document covering: meeting structure, how to open a call, how to present bad news, how to handle common pushback, how to close with clear next steps. Not a script — a framework.", type: "Internal — Kevin Builds" },
+        { item: "Call Reviews", desc: "Record real client calls (with permission). Kevin reviews 1–2 per Growth Marketer per month in 1:1s. Focus on: did they own the room, did they diagnose vs. report, did they handle questions confidently.", type: "Internal — Coaching" },
+        { item: "Escalation Guidelines", desc: "Clear rules on when to loop in Kevin vs. handle independently. Right now the default is 'ask Kevin.' The new default needs to be 'handle it, and here's how.' Escalation is for genuinely high-stakes or novel situations.", type: "Internal — SOP" },
+        { item: "Client Communication Templates", desc: "Templates for common async updates: weekly Slack summary, bad news delivery, scope boundary messaging, timeline updates. Gives Growth Marketers a starting point until they build their own voice.", type: "Internal — Templates" },
+      ],
+    },
+    {
+      id: "analysis",
+      title: "Deep Analysis — From Reporting to Diagnosis",
+      priority: "High",
+      color: "#f59e0b",
+      problem: "Growth Marketers report what happened but don't explain why. They present symptoms, not diagnosis. They give updates, not conclusions. Analysis stays at the surface — metric moved up, metric moved down — without tying it to cause, learning, or next step.",
+      standard: ["1. What happened?", "2. Why did it happen?", "3. What evidence supports that conclusion?", "4. What did we learn?", "5. What are we doing next because of it?"],
+      training: [
+        { item: "5-Question Analysis Framework", desc: "Formalize the 5 questions as the non-negotiable standard for any performance discussion — meetings, Slack, internal reviews. Nothing gets presented without answering all 5.", type: "Internal — Kevin Builds" },
+        { item: "Worked Example Library", desc: "Kevin builds 3–5 real examples from past accounts showing surface-level analysis vs. deep analysis side by side. What bad looks like, what good looks like. Concrete, not abstract.", type: "Internal — Kevin Builds" },
+        { item: "Weekly Analysis Reviews", desc: "Each Growth Marketer picks one account per week and presents their analysis to Kevin using the 5-question framework. Kevin coaches in real time. Not a performance review — a skill-building session.", type: "Internal — Recurring" },
+        { item: "3-Point Analysis Workshops", desc: "Hands-on sessions where Growth Marketers cross-reference three data sources — overall business metrics, ad platform data, and attribution platform data — on a live account. The goal is to find the real story behind the numbers, not just report what each dashboard says. Start as a group exercise, then move to solo with review.", type: "Internal — Workshop" },
+        { item: "AI-Assisted Analysis Templates", desc: "When AI performance reports are built, structure them to surface the 'what' but explicitly leave the 'why' and 'what next' for the Growth Marketer to fill in. Forces the thinking.", type: "Internal — System Design" },
+      ],
+    },
+    {
+      id: "learning",
+      title: "Learning Culture — Staying Current & Contributing Ideas",
+      priority: "High",
+      color: "#f59e0b",
+      problem: "Growth Marketers don't contribute to the team's shared knowledge. They don't post in the industry sharing channel, don't engage with what others post, and don't proactively bring new ideas. If Growth Marketers aren't learning and sharing, their thinking stagnates — and that directly feeds the surface-level analysis problem. Ideas have to come from somewhere. If they don't know who to follow, what to read, or where to look, they can't bring anything to the table.",
+      standard: ["Actively consume industry content and bring takeaways to the team", "Contribute to shared channels with articles, tactics, observations", "Engage with what others share — don't just scroll past", "Bring new ideas to client strategy, not just react to data", "Stay current on platform changes, new features, and industry trends"],
+      training: [
+        { item: "Starter List: Who to Follow & What to Read", desc: "Kevin curates a list of accounts, newsletters, podcasts, and channels that Growth Marketers should be following — Twitter/X accounts, LinkedIn creators, YouTube channels, industry newsletters. Remove the excuse of 'I didn't know where to look.' This is the on-ramp.", type: "Internal — Kevin Builds" },
+        { item: "Weekly Learning Contribution", desc: "Each Growth Marketer posts at least one thing per week in the shared channel — an article, a tactic they saw, a platform update, something they tested. Not optional. Low bar, but the habit matters more than the volume.", type: "Internal — Expectation" },
+        { item: "Bi-Weekly Team Share Session", desc: "15–20 minutes every two weeks where each Growth Marketer shares one thing they learned or found interesting. Could be a competitor tactic, a new platform feature, something from a podcast. Builds the muscle of synthesizing and presenting insights.", type: "Internal — Recurring" },
+        { item: "Innovation Time Block", desc: "Protect 30 minutes per day (or a 2-hour block per week) for R&D, learning, and exploration. Growth Marketers test new features, try new approaches, read, watch, learn. Without protected time, it always gets deprioritized.", type: "Internal — Schedule" },
+        { item: "Platform Update Ownership", desc: "Assign each Growth Marketer a platform to 'own' from a knowledge standpoint. Gabriel owns AppLovin updates. JP owns TikTok. They're responsible for knowing what's new and sharing it with the team.", type: "Internal — Assignment" },
+        { item: "Learning Tied to Client Work", desc: "When Growth Marketers build testing plans or propose new strategies, require them to cite where the idea came from — a competitor, an article, a platform update, their own hypothesis. This connects learning directly to output quality.", type: "Internal — Process" },
+      ],
+    },
+    {
+      id: "channels",
+      title: "Channel Expansion — Beyond Meta",
+      priority: "Medium",
+      color: "#3b82f6",
+      problem: "If Ad Pros is going to differentiate by offering AppLovin, TikTok, and secondary channel management, Growth Marketers need to be credible on those platforms. Right now the team is Meta-first with limited depth elsewhere.",
+      standard: ["Can confidently set up and manage campaigns on AppLovin, TikTok, Microsoft", "Understands attribution nuances per platform", "Can advise clients on channel expansion opportunities"],
+      training: [
+        { item: "Platform-Provided Training (Free)", desc: "AppLovin, TikTok, and other platforms offer free training programs, certifications, and workshops — especially for agencies building a partnership relationship. Leverage the partnerships Nehal is building to get access.", type: "External — Platform Partners" },
+        { item: "External Channel Masterclasses & Courses", desc: "Beyond platform-provided training, research paid masterclasses, info products, or courses from practitioners who specialize in AppLovin, TikTok, or emerging channels. Kevin identifies options and brings recommendations with pricing to Nehal.", type: "External — Source + Purchase" },
+        { item: "AppLovin Playbook", desc: "Internal SOP on account setup, optimization levers, what good looks like, common pitfalls. Gabriel has context from native work — he should help build this.", type: "Internal — SOP" },
+        { item: "TikTok Campaign SOP", desc: "Campaign structure, creative requirements, bidding, attribution challenges (always looks worse than it is), and when to recommend it to clients.", type: "Internal — SOP" },
+        { item: "Microsoft / Bing Quick-Start", desc: "Low complexity platform. Simple guide so any Growth Marketer can set it up and manage it without a learning curve.", type: "Internal — SOP" },
+        { item: "Channel Expansion Decision Framework", desc: "When to recommend a new channel to a client, what spend threshold makes it worth testing, and how to set expectations on attribution and ramp time.", type: "Internal — Framework" },
+      ],
+    },
+  ];
+  return (
+    <div>
+      <Card title="Training Plan" accent="#f59e0b" sub="What Growth Marketers need to level up to operate in the new model">
+        <div style={{ fontSize: 13, color: "#94a3b8" }}>
+          Four training areas ranked by priority. Account management is most urgent because it's client-facing from day one. Deep analysis and learning culture are tightly connected — if Growth Marketers aren't learning, they have nothing to analyze with. Color coding: red = critical, orange = high, blue = medium.
+        </div>
+      </Card>
+      {areas.map((area) => (
+        <div key={area.id} style={{ background: "#1a1a2e", borderRadius: 10, marginBottom: 12, borderLeft: `4px solid ${area.color}`, overflow: "hidden" }}>
+          <div onClick={() => setExpandedArea(expandedArea === area.id ? null : area.id)} style={{ padding: "18px 24px", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ fontSize: 15, fontWeight: 700, color: "#e2e8f0" }}>{area.title}</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Pill color={area.color} label={area.priority} />
+              <span style={{ color: "#64748b", fontSize: 18 }}>{expandedArea === area.id ? "−" : "+"}</span>
+            </div>
+          </div>
+          {expandedArea === area.id && (
+            <div style={{ padding: "0 24px 24px" }}>
+              <div style={{ background: "#0f0f23", borderRadius: 8, padding: "16px 18px", marginBottom: 16 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: area.color, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>The Problem</div>
+                <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.6 }}>{area.problem}</div>
+              </div>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "#e2e8f0", marginBottom: 8 }}>The Standard</div>
+                {area.standard.map((s, i) => (
+                  <div key={i} style={{ fontSize: 13, color: "#cbd5e1", padding: "4px 0", display: "flex", gap: 8 }}>
+                    <span style={{ color: area.color }}>—</span>{s}
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#e2e8f0", marginBottom: 10 }}>Training & Actions</div>
+              {area.training.map((t, i) => (
+                <div key={i} style={{ background: "#0f0f23", borderRadius: 8, padding: "14px 18px", marginBottom: 8 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4, gap: 8, flexWrap: "wrap" }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: "#e2e8f0" }}>{t.item}</span>
+                    <Tag color={area.color}>{t.type}</Tag>
+                  </div>
+                  <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>{t.desc}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <div style={{ height: 16 }} />
+      <Card title="Budget: Internal vs. External" accent="#64748b">
+        <Row left="Account Management" right="External purchase. This is the one area where buying structured training is worth it — builds frameworks and confidence faster than internal coaching alone." />
+        <Row left="Channel Expansion" right="External. Platforms like AppLovin, TikTok often offer free or partner-level training, certifications, and workshops — especially for agencies. Leverage the partnership relationships Nehal is building." />
+        <Row left="Deep Analysis" right="Internal. Kevin builds the frameworks, SOPs, and worked examples. Runs the workshops and coaching sessions. Cost is Kevin's time." />
+        <Row left="Learning Culture" right="Internal. Kevin curates the starter list of who to follow, sets the expectations, and builds the habits. Cost is Kevin's time + Growth Marketer compliance." divider={false} />
+      </Card>
+    </div>
+  );
+}
+
+function PhasedPlan() {
+  const phase1 = [
+    "Automate weekly client presentations — build or configure an AI system that generates slide decks from performance data so Growth Marketers review and customize instead of building from scratch",
+    "Move base-tier clients to bi-weekly calls + Slack updates — base tier means clients spending under $100k/mo on media. Reduces meeting load roughly in half for lower-activity accounts",
+    "Secure dev time commitment from Nehal — the AI system builds listed in the AI Systems tab require dedicated development hours. Kevin needs a confirmed number of hours per week before builds start",
+    "Scope and start builds on the top 4 AI systems: weekly internal performance report, client meeting notes builder, meeting prep builder, and client presentation generator (see AI Systems tab for full specs)",
+    "Finalize client service levels by tier — pricing is set. Lock in call cadence, relationship ownership (Kevin vs. Growth Marketer), and whether deliverables change by tier or stay the same across all media buying clients",
+    "Build the 3-point analysis SOP — a documented framework for how Growth Marketers should cross-reference business-wide metrics vs. ad platform data vs. attribution data to find the real story behind performance changes, with worked examples from real accounts",
+    "Start mock call training with Growth Marketers — weekly role-play sessions where Kevin plays the client in tough scenarios (bad performance, budget questions, strategy pushback) so Growth Marketers practice handling it without backup",
+    "Research external training options for account management and channel expansion — Kevin identifies 2–3 courses/programs with pricing for each area and brings recommendations to Nehal for approval",
+    "Roll out the 5-question analysis framework — every time a Growth Marketer presents performance (meetings, Slack, internal reviews), they must answer: what happened, why, what evidence supports it, what did we learn, what are we doing next",
+    "Build the worked example library — 3–5 real account examples showing surface-level analysis vs. deep analysis side by side, so Growth Marketers can see what good vs. bad looks like concretely",
+    "Set expectation: weekly learning contributions start now — each Growth Marketer posts at least one industry article, tactic, or observation in the shared Slack channel per week. Kevin provides a starter list of who to follow",
+    "Build the Communication Cadence SOP — define exactly what gets sent to clients, when, and in what format per tier. Monday/Wednesday/Friday rhythm for Slack updates, proactive not reactive",
+    "Build the Pre-Launch QA Checklist — mandatory checklist before any campaign goes live: targeting, creative, tracking, landing page, budget all verified. Prevents technical errors that erode trust",
+    "Define the Time-to-First-Win Protocol — for every new client, identify and track the first measurable win. Target: deliver within 21 days. Especially important for CAB-to-Growth conversions",
+    "Resolve Joao's situation — the Growth Strategist role doesn't exist in the new model. Joao needs a clear path (transition to Growth Marketer, new role, or exit). Separate conversation but needs to happen in this window",
+  ];
+  const phase2 = [
+    "Deploy Phase 1 AI systems into daily workflow — performance reports, meeting notes, and meeting prep tools go live. Growth Marketers use them daily, not as optional extras. Adoption is non-negotiable",
+    "Formalize the new Growth Marketer role and responsibilities — communicate the updated job description (see Growth Marketer Role tab) to the team. This is the new standard, not a suggestion",
+    "Run 3-point analysis workshops — hands-on sessions where Growth Marketers cross-reference business-wide, ad platform, and attribution data on a live account. Start together, then Growth Marketers do it solo and bring output to Kevin for review",
+    "Start weekly analysis reviews — each Growth Marketer picks one account per week and presents their analysis using the 5-question framework. Kevin coaches in real-time on depth and diagnosis",
+    "Begin call reviews — record real client calls (with permission) and review 1–2 per Growth Marketer per month in 1:1s. Focus on whether they owned the room and handled questions without escalating",
+    "Launch bi-weekly team share sessions — 15–20 minute sessions every two weeks where each Growth Marketer shares one thing they learned, tested, or found interesting. Builds the habit of contributing thinking",
+    "Assign platform ownership — each Growth Marketer owns a secondary channel from a knowledge standpoint (e.g., Gabriel → AppLovin, JP → TikTok). They stay current and share updates with the team",
+    "Build the AI Performance Analyst system — reads platform exports, flags the biggest performance changes, identifies likely causes, and recommends actions. Growth Marketers verify instead of building analysis from scratch",
+    "Build the Account Audit Tool — automated audits on ad accounts for new client onboarding and quarterly reviews. Standardizes quality checks",
+    "Begin onboarding 1–2 new clients per Growth Marketer — stress-test the new workflows under slightly increased load. Track where things break",
+    "Build the CAB-to-Growth handoff process — standardized onboarding checklist and first 30-day plan template for clients converting from CAB to media buying",
+    "Build the Declining Performance Recovery Protocol — when KPIs drop 2+ consecutive weeks: diagnose root cause within 48 hours, present recovery plan to client within 72 hours, implement within 1 week, review at 2 weeks. Prevents silent decline into churn",
+    "Build the Account Structure Methodology Library — a documented reference of testing structures, scaling frameworks, and account architecture options by business type and spend level. Gives Growth Marketers a playbook instead of reinventing per client",
+    "Build channel expansion SOPs — internal playbooks for AppLovin, TikTok, and Microsoft so Growth Marketers can confidently set up and manage campaigns on secondary channels",
+    "Track where workflows break under increased load — document bottlenecks as they appear so Phase 3 addresses real problems, not theoretical ones",
+  ];
+  const phase3 = [
+    "Push each Growth Marketer toward 6–8 clients — continue controlled onboarding. Monitor quality metrics closely. If quality slips, slow down before it damages client relationships",
+    "Deploy remaining AI tools — Strategy Document Builder turns performance insights into clean strategy docs for client sharing or internal planning",
+    "Run end-of-quarter capacity audit — measure reality vs. plan: actual clients per Growth Marketer, time spent per client, which AI tools are used daily vs. ignored, where bottlenecks remain",
+    "Identify hiring trigger — if pipeline is growing and Growth Marketers are consistently at 7+ clients, start recruiting. Have the Growth Marketer job spec ready before you need it",
+    "Update the Growth Marketer growth track — rewrite the current growth tracks document to reflect the new model (no GS track, revised Growth Marketer responsibilities, Senior Growth Marketer path for advancement)",
+    "Assess training progress — are Growth Marketers diagnosing instead of reporting? Owning calls without escalating? Contributing ideas in the shared channel? Adjust the training plan for Q2 based on what's actually improved vs. what hasn't",
+    "Document what worked and what didn't — capture learnings from the quarter to inform Q2 planning",
+    "Present results and updated roadmap to Nehal — show capacity numbers, revenue impact, AI adoption metrics, and the plan for next quarter",
+  ];
+  const beyond = [
+    "Growth Intelligence Hub — central tool for data upload and automated analysis (longer-term build)",
+    "AppLovin / TikTok partnership programs for client acquisition",
+    "Updated Growth Tracks document reflecting the new model (no GS track, revised Growth Marketer track, Senior Growth Marketer path)",
+    "Ongoing AI system refinement based on Growth Marketer feedback and usage data",
+  ];
+  const renderList = (items, color) => items.map((item, i) => (
+    <div key={i} style={{ display: "flex", gap: 10, padding: "6px 0", fontSize: 13, color: "#cbd5e1" }}>
+      <span style={{ color: color, fontWeight: 700 }}>→</span>{item}
+    </div>
+  ));
+  return (
+    <div>
+      <Card title="Phase 1: Foundation" accent="#22c55e" sub="Weeks 1–4 · Hold at current client load">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 14 }}>Remove the biggest time drains. Make structural decisions. Get AI builds started.</div>
+        {renderList(phase1, "#22c55e")}
+      </Card>
+      <Card title="Phase 2: Integration" accent="#3b82f6" sub="Weeks 5–8 · Begin absorbing new clients">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 14 }}>Deploy AI tools into daily workflows. Start shifting how Growth Marketers spend their time. Controlled client onboarding.</div>
+        {renderList(phase2, "#3b82f6")}
+      </Card>
+      <Card title="Phase 3: Scale" accent="#a855f7" sub="Weeks 9–12 · Push toward capacity, validate the model">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 14 }}>Increase client load. Identify what still breaks. Decide on hiring.</div>
+        {renderList(phase3, "#a855f7")}
+      </Card>
+      <Card title="Beyond Q1" accent="#f59e0b" sub="Ongoing">
+        <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 14 }}>Things that run in the background or start after the quarter.</div>
+        {renderList(beyond, "#f59e0b")}
+      </Card>
+    </div>
+  );
+}
+
+function OpenDecisions() {
+  const decisions = [
+    { q: "Confirm dev time allocation for Growth team AI builds", action: "Kevin and Nehal agree on a specific number of dev hours per week dedicated to Growth team tool builds. Without this, the AI roadmap in this plan doesn't start.", when: "Week 1", color: "#ef4444" },
+    { q: "Lock in client service levels by tier — specifically, who owns top-tier relationships?", action: "Pricing is set. The open question is service level: do top-tier clients ($500k+) get Kevin owning the strategic relationship with the Growth Marketer doing media buying (similar to traditional model), or do Growth Marketers own everything regardless of spend? Also decide: do deliverables change by tier, or does every client get the same deliverables with only pricing and relationship ownership varying?", when: "Week 1", color: "#ef4444" },
+    { q: "Review and sign off on the updated Growth Marketer role and daily workflow", action: "Review the Growth Marketer Role tab and Day in the Life tab. This becomes the standard communicated to the team. If Nehal wants changes to the split between automated vs. Growth Marketer-owned responsibilities, that needs to be decided before rollout.", when: "Week 1–2", color: "#ef4444" },
+    { q: "Resolve Joao's role or transition plan", action: "The Growth Strategist role doesn't exist in the new model. Decide whether Joao transitions to a Growth Marketer role, moves to a different function, or exits. Communicate the decision. Leaving it open is a distraction for Kevin and the team.", when: "Week 1–3", color: "#f59e0b" },
+    { q: "Source and approve external training for account management and channel expansion", action: "Kevin researches specific courses, masterclasses, or programs for account management / client communication training and brings a recommendation with pricing to Nehal. For channel expansion, explore both platform-provided training (free through partnerships) and external masterclasses or info products. Budget approval is needed, but sourcing can start now.", when: "Week 2–3", color: "#f59e0b" },
+    { q: "Define how Growth Marketers maintain creative strategy awareness without pods", action: "In the traditional model, Growth Marketers naturally absorbed creative strategy by working in pods with creatives. In the new model where Growth and Creative can be purchased separately, that exposure disappears. Growth Marketers still need to understand creative performance, brief creatives, and evaluate what's working — but they won't get it through osmosis anymore. How does this get built into their workflow? No clear answer yet — needs discussion.", when: "Week 3–4", color: "#3b82f6" },
+    { q: "Define the Growth Marketer hiring trigger and profile", action: "With 2 Growth Marketers and a target of 8 clients each, capacity maxes at ~16 media buying clients. Agree on when to trigger the next hire (e.g., when both Growth Marketers are at 7+ and pipeline shows continued growth) and what the Growth Marketer profile looks like for the new model.", when: "Week 4–6", color: "#3b82f6" },
+  ];
+  return (
+    <div>
+      <Card title="Action Items for Kevin & Nehal" accent="#f59e0b" sub="Decisions and approvals needed before or during Phase 1">
+        <div style={{ fontSize: 13, color: "#94a3b8" }}>
+          Sorted by urgency. Red = blocking Phase 1 execution. Orange = important within first few weeks. Blue = can wait slightly but should be defined this quarter.
+        </div>
+      </Card>
+      {decisions.map((d, i) => (
+        <div key={i} style={{ background: "#1a1a2e", borderRadius: 10, padding: "16px 20px", marginBottom: 8, borderLeft: `4px solid ${d.color}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#e2e8f0", flex: 1, minWidth: 200 }}>{d.q}</div>
+            <Pill color={d.color} label={d.when} />
+          </div>
+          <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 6 }}>{d.action}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const tabContent = {
+  "Overview": Overview,
+  "Team & Capacity": TeamCapacity,
+  "Growth Marketer Role": GMRole,
+  "Day in the Life": DayInLife,
+  "AI Systems": AISystems,
+  "Training": Training,
+  "Phased Plan": PhasedPlan,
+  "Open Decisions": OpenDecisions,
+};
+
+function GrowthRoadmap() {
+  const [activeTab, setActiveTab] = useState("Overview");
+  const Content = tabContent[activeTab];
+  return (
+    <div style={{ background: "#0f0f23", color: "#e2e8f0", fontFamily: "'DM Sans', system-ui, -apple-system, sans-serif", padding: "32px 28px" }}>
+      <div style={{ display: "flex", gap: 4, overflowX: "auto", padding: "0 0 16px", borderBottom: "1px solid #ffffff0a", marginBottom: 24 }}>
+        {tabs.map((tab) => (
+          <button key={tab} onClick={() => setActiveTab(tab)} style={{ background: activeTab === tab ? "#1a1a2e" : "transparent", color: activeTab === tab ? "#e2e8f0" : "#64748b", border: activeTab === tab ? "1px solid #ffffff15" : "1px solid transparent", borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: activeTab === tab ? 700 : 500, cursor: "pointer", whiteSpace: "nowrap", transition: "all 0.15s", fontFamily: "inherit" }}>
+            {tab}
+          </button>
+        ))}
+      </div>
+      <Content />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("roadmap-root")).render(<GrowthRoadmap />);
+</script>
+</body>
+</html>
