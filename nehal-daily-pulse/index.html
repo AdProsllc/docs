@@ -819,7 +819,10 @@ document.querySelectorAll('[data-add]').forEach(btn => {
 });
 document.getElementById('pulseDate').addEventListener('change', e => { loadDate(e.target.value); });
 document.getElementById('newPulseBtn').addEventListener('click', () => {
-  const d = new Date().toISOString().slice(0,10);
+  // Advance to the next day from the currently displayed date
+  const cur = new Date(current.date + 'T00:00:00');
+  cur.setDate(cur.getDate() + 1);
+  const d = cur.toISOString().slice(0,10);
   loadDate(d);
 });
 document.getElementById('rollBtn').addEventListener('click', () => {
