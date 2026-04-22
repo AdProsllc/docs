@@ -304,6 +304,77 @@
       .big-three { grid-template-columns: 1fr; }
       .footer-summary { grid-template-columns: 1fr; }
     }
+
+    /* ============ PRINT / PDF ============ */
+    @media print {
+      @page { margin: 14mm; }
+      body { background: white !important; color: #111 !important; }
+      .ap-header {
+        background: white !important;
+        border-bottom: 3px solid #F9D900 !important;
+        padding: 14px 20px !important;
+        break-after: avoid;
+      }
+      .ap-header svg text { fill: #040735 !important; }
+      .ap-header-text h1 { color: #040735 !important; }
+      .ap-header-text p { color: #555 !important; }
+      .ap-header-divider { background: #ccc !important; }
+      .ap-header-actions, .quicknav { display: none !important; }
+      .ap-content { padding: 16px 20px !important; max-width: 100% !important; }
+      section {
+        background: white !important;
+        border: 1px solid #ccc !important;
+        color: #111 !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        padding: 14px 16px !important;
+      }
+      section h2 { color: #040735 !important; }
+      section h2 .timer { display: none !important; }
+      section h2.kill-title { color: #b91c1c !important; }
+      .hint { color: #666 !important; }
+      .obj-card, .standard, .footer-summary .block {
+        background: #fafafa !important;
+        color: #111 !important;
+        border: 1px solid #ddd !important;
+      }
+      .obj-card .label, .footer-summary .block h3 { color: #040735 !important; }
+      .obj-card textarea, .footer-summary textarea, .footer-summary input { color: #111 !important; }
+      .status-btn { display: none !important; }
+      .status-btn.active {
+        display: inline-block !important;
+        color: #111 !important;
+        background: #f4f4f4 !important;
+        border: 1px solid #111 !important;
+      }
+      th { color: #333 !important; border-bottom: 1px solid #333 !important; }
+      td { border-bottom: 1px solid #ddd !important; }
+      td input, td textarea, td select {
+        color: #111 !important;
+        background: transparent !important;
+        border: none !important;
+      }
+      .add-row, .row-del { display: none !important; }
+      #ap-gate { display: none !important; }
+      #ap-content { display: block !important; }
+      .history-panel { display: none !important; }
+      .ap-footer {
+        background: white !important;
+        color: #666 !important;
+        border-top: 1px solid #ccc !important;
+        margin: 24px 20px 0 !important;
+      }
+      .ap-footer svg text { fill: #040735 !important; }
+      .ap-footer p { color: #666 !important; }
+      .standard .name, .standard .count, .standard .count .actual { color: #111 !important; }
+      .progress { background: #eee !important; }
+      .progress .bar { background: #040735 !important; }
+      .progress .bar.behind { background: #b45309 !important; }
+      .progress .bar.at-risk { background: #b91c1c !important; }
+      .group-title.biz { color: #1A6FD4 !important; }
+      .group-title.health { color: #16a34a !important; }
+      .group-title.mar { color: #db2777 !important; }
+    }
   </style>
 </head>
 <body>
@@ -377,7 +448,7 @@
     <button id="newPulseBtn">+ New Day</button>
     <button id="rollBtn" title="Copy unfinished items from yesterday">⟲ Roll over</button>
     <button id="historyBtn">History</button>
-    <button id="exportBtn">Export</button>
+    <button id="exportBtn">Export PDF</button>
     <button class="primary" id="saveBtn">Save</button>
     <span class="save-indicator" id="saveIndicator"></span>
   </div>
@@ -844,15 +915,24 @@ document.getElementById('saveBtn').addEventListener('click', () => {
   save(); flashSaved('Archived ✓');
 });
 document.getElementById('exportBtn').addEventListener('click', () => {
-  const blob = new Blob([JSON.stringify(store, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = `nehal-pulse-export-${todayStr()}.json`; a.click();
-  URL.revokeObjectURL(url);
+  // Export as PDF via the browser's Print → Save as PDF dialog.
+  // Temporarily override the title so the default filename is meaningful.
+  const origTitle = document.title;
+  document.title = `Nehal Daily Pulse — ${current.date}`;
+  const restore = () => {
+    document.title = origTitle;
+    window.removeEventListener('afterprint', restore);
+  };
+  window.addEventListener('afterprint', restore);
+  setTimeout(() => window.print(), 50);
 });
 document.getElementById('historyBtn').addEventListener('click', () => {
+  const panel = document.getElementById('historyPanel');
   renderHistory();
-  document.getElementById('historyPanel').classList.toggle('open');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 });
 document.getElementById('closeHistory').addEventListener('click', () => {
   document.getElementById('historyPanel').classList.remove('open');
