@@ -1384,6 +1384,170 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
   .contrib-entry-status{justify-self:flex-end}
 }
 
+/* TAB 7 — NEW SECTIONS (playbook, calendar, small metrics, library toggle) */
+.playbook-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.playbook-block h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3vw,30px);
+  line-height:1.1;letter-spacing:-0.025em;margin-bottom:14px;color:var(--ink);
+}
+.playbook-block h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.playbook-grid{
+  margin-top:24px;display:grid;grid-template-columns:1fr;gap:10px;
+}
+@media(min-width:720px){.playbook-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.playbook-grid{grid-template-columns:repeat(4,1fr)}}
+.playbook-card{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:22px 24px;
+  border-radius:2px;transition:all 0.15s;min-width:0;display:flex;flex-direction:column;gap:8px;
+}
+.playbook-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.playbook-card-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);
+}
+.playbook-card h4{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;
+  letter-spacing:-0.01em;color:var(--ink);line-height:1.2;
+}
+.playbook-card p{font-size:13px;color:var(--ink-2);line-height:1.55}
+.playbook-card strong{color:var(--ink);font-weight:600}
+.playbook-card em{font-style:italic;font-family:'Instrument Serif',serif}
+.playbook-card code{
+  font-family:'JetBrains Mono',monospace;background:var(--navy);
+  padding:2px 6px;font-size:11.5px;color:var(--yellow);border-radius:2px;
+  border:1px solid var(--rule-2);word-break:break-all;
+}
+
+.calendar-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.calendar-block h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3vw,30px);
+  line-height:1.1;letter-spacing:-0.025em;margin-bottom:14px;color:var(--ink);
+}
+.calendar-block h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.calendar-list{
+  margin-top:24px;display:flex;flex-direction:column;gap:2px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+}
+.cal-row{
+  display:grid;grid-template-columns:80px 1fr;gap:14px;
+  padding:18px 22px;background:var(--navy-3);
+  align-items:flex-start;transition:all 0.15s;min-width:0;
+}
+.cal-row:hover{background:var(--navy-4)}
+.cal-week{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);padding-top:3px;
+}
+.cal-body{min-width:0;display:flex;flex-direction:column;gap:4px}
+.cal-title{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;
+  color:var(--ink);letter-spacing:-0.01em;line-height:1.3;
+}
+.cal-desc{font-size:13px;color:var(--ink-2);line-height:1.55}
+.cal-desc em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.cal-desc strong{color:var(--ink);font-weight:600}
+.cal-owner{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  color:var(--ink-3);letter-spacing:0.06em;margin-top:4px;
+}
+
+.metrics-small-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.metrics-small-block h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3vw,30px);
+  line-height:1.1;letter-spacing:-0.025em;margin-bottom:14px;color:var(--ink);
+}
+.metrics-small-block h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.metrics-small-grid{
+  margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+}
+.metric-small{background:var(--navy-3);padding:22px 22px;transition:all 0.2s;min-width:0}
+.metric-small:hover{background:var(--navy-4)}
+.metric-small-num{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,38px);
+  line-height:0.95;letter-spacing:-0.035em;color:var(--yellow);margin-bottom:8px;
+}
+.metric-small-num em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--ink)}
+.metric-small-label{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:-0.005em;color:var(--ink);margin-bottom:4px;
+}
+.metric-small-desc{font-size:12px;color:var(--ink-3);line-height:1.5}
+
+/* Collapsible Library */
+.library-toggle{
+  margin-top:40px;background:var(--navy-2);border:1px solid var(--rule);
+  border-radius:2px;overflow:hidden;
+}
+.library-toggle[open]{border-color:var(--yellow)}
+.library-summary{
+  list-style:none;cursor:pointer;padding:clamp(22px,4vw,32px);
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  transition:background 0.15s;user-select:none;
+}
+.library-summary::-webkit-details-marker{display:none}
+.library-summary:hover{background:var(--navy-3)}
+.library-summary-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);
+  flex-shrink:0;
+}
+.library-summary-title{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(16px,2.5vw,20px);
+  color:var(--ink);letter-spacing:-0.015em;flex:1;min-width:0;
+}
+.library-summary-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.library-summary-chevron{
+  font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--yellow);
+  transition:transform 0.2s;flex-shrink:0;
+}
+.library-toggle[open] .library-summary-chevron{transform:rotate(90deg)}
+.library-content{
+  padding:0 clamp(22px,4vw,32px) clamp(22px,4vw,32px);
+  border-top:1px solid var(--rule);
+}
+.library-intro{
+  font-size:14.5px;color:var(--ink-2);line-height:1.65;margin:24px 0 32px;max-width:920px;
+}
+.library-intro em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.library-intro strong{color:var(--ink);font-weight:600}
+
+.library-cat{
+  margin-bottom:28px;padding:22px 24px;background:var(--navy-3);
+  border:1px solid var(--rule-2);border-radius:2px;
+}
+.library-cat.cautionary{border-color:var(--red);background:rgba(255,85,64,0.04)}
+.library-cat-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;
+}
+.library-cat.cautionary .library-cat-label{color:var(--red)}
+.library-cat-label em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;text-transform:none;letter-spacing:normal;font-size:13px;color:var(--ink-3)}
+.library-list{list-style:decimal;padding-left:24px;color:var(--ink-2)}
+.library-list li{
+  font-size:13.5px;line-height:1.65;margin-bottom:8px;padding-left:4px;
+}
+.library-list li:last-child{margin-bottom:0}
+.library-list strong{color:var(--ink);font-weight:600}
+.library-list em{font-style:italic;font-family:'Instrument Serif',serif}
+
+.library-footnote{
+  margin-top:24px;padding:22px 24px;background:rgba(255,212,0,0.05);
+  border-left:3px solid var(--yellow);border-radius:0 2px 2px 0;
+}
+.library-footnote p{font-size:14px;color:var(--ink-2);line-height:1.65}
+.library-footnote strong{color:var(--ink);font-weight:600}
+.library-footnote em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+
 
 .footer{
   margin-top:64px;padding:32px 0;background:var(--navy-2);
@@ -2777,402 +2941,485 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
 <!-- TAB 7: BUILD YOUR OWN -->
 <div class="panel" data-panel="studio">
-  <div class="panel-kicker">07 · Build Your Own Agent</div>
-  <h2>Any team member → <em>working staging agent</em> in under an hour.</h2>
+  <div class="panel-kicker">07 · Build Your Own</div>
+  <h2>The place where Ad Pros <em>explores, experiments, and gets an edge</em>.</h2>
   <p class="lede">
-    The factory doesn't just build big workflows. It also lets anyone on the team build <em>their own purpose-built agent</em> — for mining Reddit, remixing hooks, tracking creative, automating reports, whatever the job is. <strong>A guided wizard walks you through 7 questions. The factory generates, deploys to staging, and tracks your contribution.</strong>
+    Build Your Own is a <em>creative platform</em> for the whole Ad Pros team — not a compliance system. Open the chat. Prototype an agent. Draft a Skill. Try something wild. <strong>Your sandbox is yours.</strong> If it's worth shipping, it earns its way up. If it isn't, you learned something. <em>No penalty. No attribution pressure. Just the work.</em>
   </p>
 
-  <div class="byo-intro">
-    <h3>The universal pattern: <em>Source → Fetch → Filter → Rank → Dedupe → Transform → Output</em>.</h3>
+  <div class="studio-intro">
+    <h3>The pitch: <em>a Claude-like chat</em> with real API access, owned by you.</h3>
     <p>
-      Every agent a team member wants to build is a special case of the same 7-step pipeline. Mining Reddit for ad angles? <em>Source: subreddit. Filter: flair. Rank: upvotes. Dedupe: thread ID. Transform: LLM synthesize angles. Output: Claude doc.</em> Mining brand reviews? <em>Source: Trustpilot. Filter: rating ≤ 3. Rank: recency. Dedupe: review ID. Transform: LLM extract themes. Output: ClickUp task.</em>
+      You open Build Your Own in your browser. You chat with Claude, wired into Ad Pros' data, tools, and factory agents. You can <em>do almost everything</em> — propose workflows, draft Skills, spin up prototypes, test them against real data. Your sandbox is private by default. Nothing you try affects clients. Nothing you try can break production. <strong>Exploration is the point.</strong>
     </p>
     <p>
-      <strong>Same pipeline, different values.</strong> That's what makes the wizard universal — it asks the same 7 questions every time, and the factory assembles a staging agent from the answers. 10 different agent ideas become 10 different configurations of the same underlying primitive.
+      When you build something that works — measured by evals, not by opinion — it earns its way into production on behalf of Ad Pros. <em>Anything that ships belongs to the ecosystem.</em> That's the deal: you get total freedom in your sandbox, and when your work proves itself, Ad Pros ships it for clients.
     </p>
   </div>
 
-  <!-- 7-STEP PIPELINE -->
-  <div class="pipeline-block">
-    <div class="pipeline-label">◉ The Universal Pipeline</div>
-    <h3>Seven steps. <em>Every agent</em> is a fill-in-the-blanks of this.</h3>
-    <p class="pipeline-lede">
-      The wizard asks about each step in order. Team members don't see the primitive — they see plain-English questions. The factory compiles the answers into working code, Skills, MCP tool-calls, and a staging ClickUp workflow.
-    </p>
-
-    <div class="pipeline-steps">
-      <div class="pipeline-step">
-        <div class="pipeline-step-num">01</div>
-        <h4>Source</h4>
-        <p>Where does the data live? <em>Reddit, Meta ads, BigQuery, Shopify, Amazon, Trustpilot, a sheet.</em></p>
+  <!-- CHAT MOCKUP -->
+  <div class="chat-mock">
+    <div class="chat-mock-head">
+      <div class="chat-mock-avatar">AP</div>
+      <div class="chat-mock-title">Build Your Own · Ad Pros</div>
+      <div class="chat-mock-env">Your Sandbox</div>
+    </div>
+    <div class="chat-mock-body">
+      <div class="chat-msg user">
+        <div class="chat-msg-avatar">M</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Media Buyer · Pod A</div>
+          <div class="chat-msg-text">I have a hunch: Meta ads with UGC-style hooks outperform studio-style hooks for supplement brands, but only after day 7. Can we test this?</div>
+        </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-num">02</div>
-        <h4>Fetch</h4>
-        <p>How often? <em>On-demand, daily, weekly, on-trigger.</em> API or scraper?</p>
+      <div class="chat-msg agent">
+        <div class="chat-msg-avatar">◉</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Build Your Own</div>
+          <div class="chat-msg-text">
+            Interesting hypothesis. Let me pull anonymized ad performance data from 3 supplement clients over the last 6 months and see.
+            <div class="chat-tool-call">
+              <div class="chat-tool-call-label">Tool: bigquery.query (anonymized snapshot)</div>
+              <code>SELECT hook_type, day_index, ctr, cvr FROM ads_anon WHERE vertical = 'supplement'</code>
+            </div>
+            Preliminary pattern: UGC hooks show <strong>+18% CTR</strong> on days 7-21 vs studio hooks. Want me to draft a workflow that flags this for every new creative launch?
+          </div>
+        </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-num">03</div>
-        <h4>Filter</h4>
-        <p>What subset matters? <em>Last 30 days. Rating ≤ 3. Subreddit = r/skincareaddiction.</em></p>
+      <div class="chat-msg user">
+        <div class="chat-msg-avatar">M</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Media Buyer · Pod A</div>
+          <div class="chat-msg-text">Yes. And save this as a draft Skill — <em>"ugc-vs-studio-hook-supplement"</em> — I want to refine it later tonight.</div>
+        </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-num">04</div>
-        <h4>Rank</h4>
-        <p>How to weight? <em>Upvotes × 1 + comments × 2. Recency decay. Performance score.</em></p>
+      <div class="chat-msg agent">
+        <div class="chat-msg-avatar">◉</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Build Your Own</div>
+          <div class="chat-msg-text">
+            Saved to your sandbox drafts. I'll send you a reminder tomorrow at 9am. <em>Take your time — no one else sees this until you share it.</em>
+          </div>
+        </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-num">05</div>
-        <h4>Dedupe</h4>
-        <p>What's the unique key? <em>Thread ID. Review ID. Ad fingerprint. Never-use-twice guarantee.</em></p>
-      </div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-num">06</div>
-        <h4>Transform</h4>
-        <p>What should the LLM do with it? <em>Synthesize. Remix. Extract themes. Narrate. Score.</em></p>
-      </div>
-      <div class="pipeline-step">
-        <div class="pipeline-step-num">07</div>
-        <h4>Output</h4>
-        <p>Where does the result go? <em>ClickUp task. Google Doc. Sheet row. Slack message. Brief.</em></p>
-      </div>
+    </div>
+    <div class="chat-input-mock">
+      <div class="chat-input-fake">Tell me what you want to build...</div>
+      <div class="chat-input-button">Send</div>
     </div>
   </div>
 
-  <!-- THE WIZARD -->
-  <div class="wizard-block">
-    <div class="wizard-head">
-      <div class="wizard-head-avatar">AP</div>
-      <div class="wizard-head-title">Build Your Own Agent · Wizard</div>
-      <div class="wizard-head-env">Sandbox</div>
-    </div>
-    <div class="wizard-body">
-
-      <div class="wizard-step">
-        <div class="wizard-step-header">
-          <div class="wizard-step-num">Step 01</div>
-          <div class="wizard-step-q">What do you want this agent to <em>do</em>?</div>
-        </div>
-        <div class="wizard-step-input">Mine r/skincareaddiction and r/SkincareAddicts for <strong>new ad angles, customer stories, and voiceover ideas</strong> for our supplement skincare client. Never repeat a thread.</div>
-        <div class="wizard-help">One sentence. The wizard parses intent from this and pre-fills everything below.</div>
-      </div>
-
-      <div class="wizard-step">
-        <div class="wizard-step-header">
-          <div class="wizard-step-num">Step 02 · Source</div>
-          <div class="wizard-step-q">Where does the <em>raw data</em> live?</div>
-        </div>
-        <div class="wizard-step-input options">
-          <span class="wizard-chip selected">Reddit</span>
-          <span class="wizard-chip">Meta Ads</span>
-          <span class="wizard-chip">TikTok</span>
-          <span class="wizard-chip">Shopify</span>
-          <span class="wizard-chip">BigQuery</span>
-          <span class="wizard-chip">Google Sheets</span>
-          <span class="wizard-chip">Amazon Reviews</span>
-          <span class="wizard-chip">Trustpilot</span>
-          <span class="wizard-chip">+ Custom</span>
-        </div>
-        <div class="wizard-help">Tap a source. The wizard surfaces source-specific fields next — <em>subreddit list for Reddit, ASIN for Amazon, spreadsheet URL for Sheets.</em></div>
-      </div>
-
-      <div class="wizard-step">
-        <div class="wizard-step-header">
-          <div class="wizard-step-num">Step 03 · Filter</div>
-          <div class="wizard-step-q">What subset <em>matters</em>?</div>
-        </div>
-        <div class="wizard-step-input">Subreddits: <code>r/skincareaddiction</code>, <code>r/SkincareAddicts</code>, <code>r/AsianBeauty</code>. Post age: <strong>last 60 days</strong>. Min comments: <strong>10</strong>. Exclude: sponsored, removed-by-mod.</div>
-        <div class="wizard-help">Natural language works. The wizard translates <em>"last 60 days"</em> into the right API params.</div>
-      </div>
-
-      <div class="wizard-step">
-        <div class="wizard-step-header">
-          <div class="wizard-step-num">Step 04 · Rank</div>
-          <div class="wizard-step-q">How should the agent <em>weight</em> what it finds?</div>
-        </div>
-        <div class="wizard-step-input"><code>score = (upvotes × 1) + (comments × 2) + (awards × 5) − (days_old × 0.1)</code></div>
-        <div class="wizard-help">Or describe it in English — <em>"prioritize posts with lots of comments, penalize old ones"</em> — and the wizard suggests the formula.</div>
-      </div>
-
-      <div class="wizard-step">
-        <div class="wizard-step-header">
-          <div class="wizard-step-num">Step 05 · Dedupe</div>
-          <div class="wizard-step-q">What's the <em>never-use-twice</em> key?</div>
-        </div>
-        <div class="wizard-step-input"><code>thread_id</code> — stored in Supabase <code>used_reddit_threads</code> table. Any thread already processed gets skipped on the next run.</div>
-        <div class="wizard-help">This is the guarantee that makes the agent trustworthy. <em>Same thread never used twice, ever.</em></div>
-      </div>
-
-      <div class="wizard-step">
-        <div class="wizard-step-header">
-          <div class="wizard-step-num">Step 06 · Transform</div>
-          <div class="wizard-step-q">What should the <em>LLM actually do</em> with it?</div>
-        </div>
-        <div class="wizard-step-input">For each qualifying thread, extract: <strong>(1) the emotional pain point</strong> in the OP, <strong>(2) 3 candidate ad angles</strong> using top comments as proof, <strong>(3) 1 customer-voice VO script</strong> paraphrased — never verbatim — with compliance-safe language.</div>
-        <div class="wizard-help">This becomes the agent's system prompt. Wizard runs a compliance evaluator automatically on VO scripts.</div>
-      </div>
-
-      <div class="wizard-step">
-        <div class="wizard-step-header">
-          <div class="wizard-step-num">Step 07 · Output</div>
-          <div class="wizard-step-q">Where should the <em>results go</em>?</div>
-        </div>
-        <div class="wizard-step-input">Create a ClickUp task in <code>Creative · Ad Angles</code> List per thread. Fields: pain point, 3 angles, VO script, source URL, Reddit score, run date. Tag Dani + creative pod.</div>
-        <div class="wizard-help">Output can also be Google Docs, Sheets rows, Slack messages, or a brief template — whatever the team uses downstream.</div>
-      </div>
-
-      <div class="wizard-generate">
-        <div class="wizard-generate-text">
-          <strong>Ready to generate?</strong> The factory will create the agent, deploy to Sandbox with anonymized data, run against 20 sample threads, and show you the output before anything touches real clients.
-        </div>
-        <div class="wizard-generate-button">Generate Agent →</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- EXAMPLES -->
-  <div class="byo-examples-block">
-    <div class="pipeline-label">◉ What the Team is Building</div>
-    <h3>Nine real team agents — <em>same pipeline</em>, different values.</h3>
-    <p class="pipeline-lede">
-      Every one of these is the 7-step pipeline with different inputs. <strong>Open the wizard → answer 7 questions → get a working staging agent.</strong> Team attribution is on every row.
+  <!-- THE 3 TIERS — REFRAMED AS FREEDOM ZONES -->
+  <div class="tiers-block">
+    <div class="tiers-label">◉ Three Freedom Zones</div>
+    <h3>Your sandbox. The pressure test. The live factory. <em>In that order.</em></h3>
+    <p class="tiers-lede">
+      Your Sandbox is <em>yours</em> — private by default. Work moves up only when you decide to share it, and only when evals prove it's ready. <em>Promotion is earned by the work, not granted by rank.</em>
     </p>
 
-    <div class="byo-examples-grid">
-
-      <div class="byo-example">
-        <div class="byo-example-cat creative">Creative</div>
-        <h4>Reddit <em>Ad Angle Miner</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Reddit (3 subs)</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">60 days, 10+ comments</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Upvotes + comments × 2</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>thread_id</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>3 angles + VO script</em></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">ClickUp tasks</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat copy">Copy</div>
-        <h4>Hook <em>Remixer</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Ad library (top 100)</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">CTR &gt; 2%, last 90d</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">ROAS × spend</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val">Hook fingerprint hash</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>5 remixed hooks + scripts</em></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Creative brief doc</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat reporting">Reporting</div>
-        <h4>Creative Tracking <em>Sheet (WPP)</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Meta + TikTok + Northbeam</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Active ads, yesterday</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Spend desc</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>ad_id + date</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val">Normalize + calc metrics</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Google Sheet row</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat research">Research</div>
-        <h4>Brand Review <em>Theme Miner</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Shopify + Trustpilot</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Last 30d, all ratings</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Length + helpfulness</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>review_id</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Theme clusters + quotes</em></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Weekly report doc</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat research">Research</div>
-        <h4>Competitor Review <em>Miner</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Amazon ASINs + competitor sites</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Rating 1–3 stars</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Helpful votes</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>review_id</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Pain points + gap analysis</em></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">ClickUp doc per competitor</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat research">Research</div>
-        <h4>Ad Comment <em>Voice-of-Customer</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Meta ad comments</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Last 14 days, top spenders</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Likes + sentiment score</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>comment_id</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>VOC themes + quotes</em></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Slack digest + sheet</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat reporting">Reporting</div>
-        <h4>Monthly <em>Business Review</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">BigQuery (10 tables)</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Prior month, per-client</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">—</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>client + period</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Narrative + charts + highlights</em></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Google Doc MBR template</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat reporting">Reporting</div>
-        <h4>Daily <em>Sheet Input</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Multiple ad platforms</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Yesterday, per-client</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">—</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>client + date</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val">Aggregate + format</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Sheet row appended</div></div>
-        </div>
-      </div>
-
-      <div class="byo-example">
-        <div class="byo-example-cat reporting">Reporting</div>
-        <h4>Expandify <em>→ Claude Reports</em></h4>
-        <div class="byo-example-pipe">
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Expandify export</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Per-client slice</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">—</div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>run_id</code></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Narrative report</em></div></div>
-          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Branded Claude doc</div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- SAFETY + TIERS -->
-  <div class="byo-safety-block">
-    <div class="pipeline-label">◉ Sandbox → Staging → Production</div>
-    <h3>Every team agent <em>earns its way up</em>.</h3>
-    <p class="pipeline-lede">
-      Day one, any team member has full access to <strong>Sandbox</strong>. Their agent runs with fake data, $5/day Claude budget, zero production API credentials. Agents <em>earn</em> promotion to Staging via peer upvotes + regression evals. Staging → Production requires the 3 human gates. <strong>No management approval for Sandbox → Staging.</strong> Evaluation is the promotion mechanism.
-    </p>
-
-    <div class="tiers-grid-byo">
+    <div class="tiers-grid">
       <div class="tier-card sandbox">
-        <div class="tier-card-tier">Tier 1 · Sandbox</div>
-        <h4>The <em>Playground</em></h4>
-        <p class="tier-card-sub">Where every new agent is born. Fake data, isolated workspace, $5/day budget.</p>
+        <div class="tier-card-tier">Zone 1 · Your Sandbox</div>
+        <h4>Your <em>Playground</em></h4>
+        <p class="tier-card-sub">Private by default. Your drafts, your prototypes, your half-baked ideas. <strong>No one else sees what's here until you decide to share it.</strong></p>
         <div class="tier-rules">
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Build any agent via wizard</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Anonymized data snapshots</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No production credentials</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Chat with Claude + factory agents</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Draft Skills, prototype workflows</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Read anonymized client snapshots</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Save drafts, get reminders</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No production API writes</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No access to other people's sandboxes</span></div>
         </div>
       </div>
 
       <div class="tier-card staging">
-        <div class="tier-card-tier">Tier 2 · Staging</div>
-        <h4>The <em>Pressure Test</em></h4>
-        <p class="tier-card-sub">Real BigQuery, read-only external APIs. Promoted by <strong>3 peer upvotes + eval regression pass</strong>.</p>
+        <div class="tier-card-tier">Zone 2 · Pressure Test</div>
+        <h4>The <em>Shadow Run</em></h4>
+        <p class="tier-card-sub">When you're ready, share your prototype with the Eval Agent. It runs on real data but doesn't ship — a dry run that proves the work holds up.</p>
         <div class="tier-rules">
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Real data, shadow runs</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>External APIs read-only</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No client-facing writes</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Reads real BigQuery data</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>External APIs: read-only</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Eval Agent runs your prototype live</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Results visible to you + reviewer</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>Nothing ships to clients yet</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No writes to external platforms</span></div>
         </div>
       </div>
 
       <div class="tier-card prod">
-        <div class="tier-card-tier">Tier 3 · Production</div>
-        <h4>The <em>Live Factory</em></h4>
-        <p class="tier-card-sub">Deployed for real clients. Requires <strong>Brief + Blueprint + Skills</strong> gates. Idempotent + audit-logged.</p>
+        <div class="tier-card-tier">Zone 3 · The Live Factory</div>
+        <h4>The <em>Real Thing</em></h4>
+        <p class="tier-card-sub">Passed the 3 gates. Running for real clients. <em>Now it belongs to Ad Pros</em> — the Skill lives in the library, the workflow runs in production, your work compounds.</p>
         <div class="tier-rules">
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Full API write access</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>3 human gates mandatory</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Full rollback + audit log</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Full MCP + API write access</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Deploys to client ClickUp workspaces</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>Brief + Blueprint + Skills gates</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Idempotency + cost caps enforced</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Audit log + rollback on everything</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Contribution to the Ad Pros ecosystem</span></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- CONTRIBUTION -->
-  <div class="contrib-block">
-    <div class="pipeline-label">◉ Contribution Tracking</div>
-    <h3>Every agent you build is <em>attributed, versioned, and scored</em>.</h3>
-    <p class="pipeline-lede">
-      Team members see exactly what they've shipped and how it's performing. Attribution is the mechanism that makes opt-in participation real — <em>nobody keeps contributing to a system that treats their work as anonymous</em>.
+  <!-- 4 PARTICIPATION MODES -->
+  <div class="modes-block">
+    <div class="tiers-label">◉ Four Ways In</div>
+    <h3>Pick <em>whichever fits your day</em>.</h3>
+    <p class="tiers-lede">
+      No role requirements. No hierarchy. Media buyers, strategists, account leads, engineers — <em>same rails, same access</em>. Every contribution routes to a specific factory agent.
     </p>
 
-    <div class="contrib-grid">
-      <div class="contrib-stat">
-        <div class="contrib-stat-num">9</div>
-        <h5>Agents Built</h5>
-        <p>Across the team so far</p>
+    <div class="modes-grid">
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">01</div>
+          <h4>Propose a <em>Workflow</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Recommender Agent</strong></div>
+        <p><strong>"Here's a repetitive thing I wish existed as an agent."</strong> Describe it in chat. Studio routes it to the Recommender's backlog. If it sits 7 days with no pickup, a reviewer escalates.</p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> <em>"Every Monday I manually check which clients have ad sets not refreshed in 14+ days."</em> → Recommender scores it, adds to queue.
+        </div>
       </div>
-      <div class="contrib-stat">
-        <div class="contrib-stat-num">6</div>
-        <h5>In Staging</h5>
-        <p>Running on real data, shadow mode</p>
-      </div>
-      <div class="contrib-stat">
-        <div class="contrib-stat-num">3</div>
-        <h5>In Production</h5>
-        <p>Deployed to real clients</p>
-      </div>
-      <div class="contrib-stat">
-        <div class="contrib-stat-num"><em>$</em>47k</div>
-        <h5>Time Saved</h5>
-        <p>Est. manual hours automated</p>
-      </div>
-    </div>
 
-    <div class="contrib-ledger">
-      <div class="contrib-ledger-head">
-        <div class="contrib-ledger-title">Team Agent Ledger · Last 30 days</div>
-        <div class="contrib-ledger-sub">Live view</div>
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">02</div>
+          <h4>Author a <em>Skill</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Skills Curator</strong></div>
+        <p><strong>"I know how to evaluate a winning creative — I just need it written down."</strong> Studio interviews you in chat, structures your answers into SKILL.md, saves as a draft. Come back anytime to finish.</p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> Creative strategist answers 12 structured questions → <code>winning-hook-detection.md</code> draft saved → refine over a week → approved.
+        </div>
       </div>
-      <div class="contrib-entry">
-        <div class="contrib-entry-who">Dani · Creative</div>
-        <div class="contrib-entry-what"><em>"Reddit Ad Angle Miner"</em> — running weekly, 47 angles, 6 shipped to Luhxe</div>
-        <div class="contrib-entry-status live">Production</div>
+
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">03</div>
+          <h4>Prototype an <em>Agent</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Stage Designers</strong></div>
+        <p><strong>"Let me try a draft version before it gets real."</strong> Build stage-level agents in your sandbox — prompts, evaluator rules, MCP tools. Run it on anonymized data. Break it. Fix it. Iterate.</p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> Analyst prototypes "Cohort Quality Scorer" → passes 15/15 evals → joins Stage 3 pattern library → every future workflow can use it.
+        </div>
       </div>
-      <div class="contrib-entry">
-        <div class="contrib-entry-who">Mila · Copy</div>
-        <div class="contrib-entry-what"><em>"Hook Remixer"</em> — daily remix of top 100 ads, feeding creative pod</div>
-        <div class="contrib-entry-status live">Production</div>
-      </div>
-      <div class="contrib-entry">
-        <div class="contrib-entry-who">Jordan · Reporting</div>
-        <div class="contrib-entry-what"><em>"Creative Tracking Sheet (WPP)"</em> — auto-filling daily across 8 clients</div>
-        <div class="contrib-entry-status live">Production</div>
-      </div>
-      <div class="contrib-entry">
-        <div class="contrib-entry-who">Priya · Research</div>
-        <div class="contrib-entry-what"><em>"Brand Review Theme Miner"</em> — weekly Trustpilot + Shopify synthesis</div>
-        <div class="contrib-entry-status review">Staging</div>
-      </div>
-      <div class="contrib-entry">
-        <div class="contrib-entry-who">Alex · Research</div>
-        <div class="contrib-entry-what"><em>"Competitor Review Miner"</em> — Amazon 1–3 star extraction, awaiting eval pass</div>
-        <div class="contrib-entry-status review">Staging</div>
-      </div>
-      <div class="contrib-entry">
-        <div class="contrib-entry-who">Sam · Research</div>
-        <div class="contrib-entry-what"><em>"Ad Comment VOC"</em> — Meta comment mining, sandbox prototype 12/15 evals</div>
-        <div class="contrib-entry-status draft">Sandbox</div>
+
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">04</div>
+          <h4>Stress-Test a <em>Draft</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Eval Agent</strong></div>
+        <p><strong>"Would I actually ship this output to a client?"</strong> When a workflow is in Pressure Test zone, you can review its outputs as a human evaluator. Your yes/no becomes permanent eval cases.</p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> Account lead reviews 10 draft LTV recommendations → rejects 2 as "too aggressive" → those become regression tests for next version.
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- OPERATING PLAYBOOK -->
+  <div class="playbook-block">
+    <div class="tiers-label">◉ Operating Playbook</div>
+    <h3>How Build Your Own <em>actually works</em> at Ad Pros.</h3>
+    <p class="tiers-lede">
+      The rails. Not the rules. These are the questions everyone will ask when they first log in — answered upfront so nobody has to figure it out in real time.
+    </p>
+
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <div class="playbook-card-label">Launch Plan</div>
+        <h4>Official kickoff, pilot first</h4>
+        <p>Week 1: Build Sandbox tier. Week 2-3: pilot cohort of 6-8 volunteers from both pods. Week 4: <strong>all-hands launch event</strong> with live Factory Day — everyone builds something in Studio together. Weekly Build Blocks begin Week 5.</p>
+      </div>
+
+      <div class="playbook-card">
+        <div class="playbook-card-label">Cadence</div>
+        <h4>Protected weekly Build Block</h4>
+        <p><strong>Same day every week, same time</strong> — blocked from client work for everyone who opts in. No meetings, no Slack expectations, just build time. <em>If it gets interrupted by client fires, the whole program loses trust.</em> Protect it ruthlessly.</p>
+      </div>
+
+      <div class="playbook-card">
+        <div class="playbook-card-label">Ownership</div>
+        <h4>Nehal + Dani (to start)</h4>
+        <p>Nehal owns direction + strategy. Dani runs day-to-day — reviews Skill drafts, moderates orphan backlog, manages Factory Day logistics. Estimated 5-10 hrs/week for Dani. <em>A dedicated AI/Factory role likely needed by Month 6 as usage grows.</em></p>
+      </div>
+
+      <div class="playbook-card">
+        <div class="playbook-card-label">Orphan Policy</div>
+        <h4>7-day reviewer escalation</h4>
+        <p>If a proposal sits in backlog with no pickup for 7 days, it routes to a designated reviewer — not archived, not forgotten. Reviewer either activates it, rejects with reason, or promotes for the next Factory Day session. <em>No idea dies silently.</em></p>
+      </div>
+
+      <div class="playbook-card">
+        <div class="playbook-card-label">IP + Departure</div>
+        <h4>Anything in prod = Ad Pros</h4>
+        <p>Contributions to the ecosystem — attribution is not the point. When you leave, your prod contributions stay (running forever), your Studio access ends, your sandbox archives. <em>Terms of use makes this explicit upfront.</em></p>
+      </div>
+
+      <div class="playbook-card">
+        <div class="playbook-card-label">No-Blame Rule</div>
+        <h4>Low-scoring proposals cost nothing</h4>
+        <p>Recommender scores a proposal low? <strong>Nothing happens to you.</strong> No public ledger, no penalty, no reduced access. Trying is free. The only thing that's tracked is your contributions that <em>worked</em> — and even those, for your own dashboard, not a leaderboard.</p>
+      </div>
+
+      <div class="playbook-card">
+        <div class="playbook-card-label">Sharing</div>
+        <h4>Sandboxes private by default</h4>
+        <p>You only see your own sandbox. When you promote work to Pressure Test, it becomes visible to your pod + reviewers. When it ships to Prod, it becomes part of the ecosystem. <em>Cross-pod visibility is coming — but not at launch.</em></p>
+      </div>
+
+      <div class="playbook-card">
+        <div class="playbook-card-label">Celebration</div>
+        <h4>Slack + live Factory Demos</h4>
+        <p>Dedicated <code>#build-your-own</code> Slack channel. Every Friday: a "Factory Demo" live meeting (async Loom alternative) where contributors show what shipped. <em>Celebration is the loop that either runs or doesn't.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6-WEEK LAUNCH CALENDAR -->
+  <div class="calendar-block">
+    <div class="tiers-label">◉ 6-Week Launch Calendar</div>
+    <h3>From <em>decision to kickoff to cadence</em>.</h3>
+    <p class="tiers-lede">
+      The path from "we're doing this" to "this is how we work now." Each week has a specific owner and outcome.
+    </p>
+
+    <div class="calendar-list">
+      <div class="cal-row">
+        <div class="cal-week">Week 1</div>
+        <div class="cal-body">
+          <div class="cal-title">Build Sandbox infrastructure</div>
+          <div class="cal-desc">Stand up auth, chat UI, anonymized BigQuery reads, draft persistence. <em>Pilot-ready, not production-ready.</em></div>
+          <div class="cal-owner">Owner: Nehal + eng</div>
+        </div>
+      </div>
+      <div class="cal-row">
+        <div class="cal-week">Week 2</div>
+        <div class="cal-body">
+          <div class="cal-title">Recruit pilot cohort (6-8)</div>
+          <div class="cal-desc">Across both pods. Mix of roles: media buyers, strategists, account leads. Ideally, skeptics included — if they bite, everyone else will.</div>
+          <div class="cal-owner">Owner: Nehal + Dani</div>
+        </div>
+      </div>
+      <div class="cal-row">
+        <div class="cal-week">Week 3</div>
+        <div class="cal-body">
+          <div class="cal-title">Pilot runs — collect signal</div>
+          <div class="cal-desc">Pilots use Studio daily. Daily standup. Dani logs what works, what breaks, what surprises. Ship fixes nightly.</div>
+          <div class="cal-owner">Owner: Dani</div>
+        </div>
+      </div>
+      <div class="cal-row">
+        <div class="cal-week">Week 4</div>
+        <div class="cal-body">
+          <div class="cal-title">All-hands launch event</div>
+          <div class="cal-desc"><strong>Live Factory Day.</strong> Nehal frames why. Pilot cohort shows what they built. Everyone gets Sandbox access live. Food, energy, the whole team building for 3 hours. <em>This moment either makes Studio real or not.</em></div>
+          <div class="cal-owner">Owner: Nehal</div>
+        </div>
+      </div>
+      <div class="cal-row">
+        <div class="cal-week">Week 5</div>
+        <div class="cal-body">
+          <div class="cal-title">First Build Block</div>
+          <div class="cal-desc">Protected weekly time begins. Same day + block every week. Dani protects it — if it gets interrupted, the program dies.</div>
+          <div class="cal-owner">Owner: Dani</div>
+        </div>
+      </div>
+      <div class="cal-row">
+        <div class="cal-week">Week 6</div>
+        <div class="cal-body">
+          <div class="cal-title">First Factory Demo</div>
+          <div class="cal-desc">Live show-and-tell of what shipped. Slack celebrations for everyone who contributed. <em>Set the loop: build → ship → show → inspire → build again.</em></div>
+          <div class="cal-owner">Owner: Dani</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS METRICS -->
+  <div class="metrics-small-block">
+    <div class="tiers-label">◉ How We Know It's Working (6-Month Check)</div>
+    <h3>A <em>dashboard</em>, not an objective.</h3>
+    <p class="tiers-lede">
+      These get tracked. They don't get gamed. <em>Individual dashboards exist for self-reflection, not ranking</em> — because the objective is expression, not optimization.
+    </p>
+    <div class="metrics-small-grid">
+      <div class="metric-small">
+        <div class="metric-small-num"><em>&ge;60</em>%</div>
+        <div class="metric-small-label">Team adoption</div>
+        <div class="metric-small-desc">At least 16 of 26 contribute at least once by Month 6</div>
+      </div>
+      <div class="metric-small">
+        <div class="metric-small-num">15<em>+</em></div>
+        <div class="metric-small-label">Prod contributions</div>
+        <div class="metric-small-desc">Skills or workflows from Studio running on real clients</div>
+      </div>
+      <div class="metric-small">
+        <div class="metric-small-num"><em>40</em>%</div>
+        <div class="metric-small-label">Retention</div>
+        <div class="metric-small-desc">Contributors still active at Month 3 vs Month 1</div>
+      </div>
+      <div class="metric-small">
+        <div class="metric-small-num">$<em>50</em>k</div>
+        <div class="metric-small-label">Time saved</div>
+        <div class="metric-small-desc">Automated hours × blended rate, first 6 months</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INCENTIVES & CULTURE LIBRARY — COLLAPSIBLE -->
+  <details class="library-toggle">
+    <summary class="library-summary">
+      <span class="library-summary-label">◉ Incentives & Culture Library</span>
+      <span class="library-summary-title">60 ideas across 12 categories — <em>pick what fits</em></span>
+      <span class="library-summary-chevron">▸</span>
+    </summary>
+    <div class="library-content">
+      <p class="library-intro">
+        <em>A menu, not a prescription.</em> These are ideas across every dimension of Studio culture — dedicated time, hackathons, cash, recognition, learning, social, workload, career path, autonomy, competition, and status. <strong>Pick 8-12 to start with. Add more as Studio matures.</strong> The "Cautionary Design Notes" (Category I) are load-bearing — read those even if you skip the rest.
+      </p>
+
+      <div class="library-cat">
+        <div class="library-cat-label">A · Dedicated Work Time</div>
+        <ol class="library-list">
+          <li><strong>Factory Fridays</strong> — every Friday afternoon, blocked from client work</li>
+          <li><strong>Quarterly Factory Day</strong> — full day off client work, team-wide Studio sprint</li>
+          <li><strong>20% time</strong> — one day/week permanent allocation (Google-style)</li>
+          <li><strong>Monthly Build Sprints</strong> — 2-day focused sprints each month</li>
+          <li><strong>New-hire onboarding week</strong> — first week at Ad Pros includes Studio day</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">B · Hackathons & Trip Perks</div>
+        <ol class="library-list" start="6">
+          <li><strong>Ad Pros Hackathon</strong> — 2x/year internal, 48-hour build competition, winners get trips</li>
+          <li><strong>External hackathon sponsorship</strong> — AI Engineer Summit, LangChain events, Anthropic Dev Day</li>
+          <li><strong>Conference budget</strong> — Lenny's Summit, AI Eng, MAICON attendance as earned perk</li>
+          <li><strong>"Field trip" to client HQ</strong> — contributors who build for a client visit them</li>
+          <li><strong>Retreat unlock</strong> — factory milestones unlock team retreats (Medellín, Cartagena, Miami)</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">C · Cash & Equity</div>
+        <ol class="library-list" start="11">
+          <li><strong>Skill Royalties</strong> — $100-500 bonus per Skill used in 3+ client workflows</li>
+          <li><strong>Workflow Bonuses</strong> — % of client revenue generated (0.5-2%)</li>
+          <li><strong>Quarterly Factory Bonus Pool</strong> — pool split across top 10 contributors</li>
+          <li><strong>Phantom equity / carry</strong> — contributors share in Ad Pros upside over time</li>
+          <li><strong>Tool budget</strong> — $500-2K/yr to buy tools to integrate into Studio</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">D · Recognition & Identity</div>
+        <ol class="library-list" start="16">
+          <li><strong>Contributor Dashboard</strong> — personal view of your shipped Skills/workflows (not a public leaderboard)</li>
+          <li><strong>Skill Credits</strong> — SKILL.md files include contributor name in metadata</li>
+          <li><strong>"Founding Contributor" status</strong> — first 10 people to ship earn permanent title</li>
+          <li><strong>Nehal LinkedIn endorsements</strong> — personal endorsement for top contributors</li>
+          <li><strong>Ad Pros Case Study feature</strong> — your workflow written up publicly, with your name (opt-in)</li>
+          <li><strong>Speaker slots</strong> — top contributors represent Ad Pros at conferences/podcasts</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">E · Learning & Growth</div>
+        <ol class="library-list" start="22">
+          <li><strong>Anthropic/Claude training budget</strong> — official courses, certifications paid</li>
+          <li><strong>Personal 1:1 with Nehal</strong> — monthly AI-strategy mentor session for top contributors</li>
+          <li><strong>Pair-builds with external experts</strong> — co-build sessions with DSPy/LangChain contributors</li>
+          <li><strong>Sabbatical weeks</strong> — 1 week paid off to build something ambitious</li>
+          <li><strong>Books/courses stipend</strong> — $200/month learning budget for Studio contributors</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">F · Social / Culture</div>
+        <ol class="library-list" start="27">
+          <li><strong>Merch tier</strong> — Ad Pros Factory hoodies/hats at contribution milestones</li>
+          <li><strong>Contributor dinners</strong> — quarterly dinner (or virtual) with top contributors + Nehal</li>
+          <li><strong>"Workflow of the Month"</strong> — Slack announcement + small gift</li>
+          <li><strong>Factory Demo Day</strong> — monthly show-and-tell, winners picked by peers</li>
+          <li><strong>"Save Hours" tracker</strong> — visible cumulative team hours saved (shared win)</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">G · Workload & Flexibility</div>
+        <ol class="library-list" start="32">
+          <li><strong>Client load reduction</strong> — top contributors get 1 fewer client account</li>
+          <li><strong>Remote work flexibility</strong> — Studio contributors get flexible arrangements</li>
+          <li><strong>"Focus Fridays"</strong> — contributors get Friday meeting-free days</li>
+          <li><strong>Extra PTO</strong> — Factory contributors earn 1 extra PTO day per quarter</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">H · Path & Promotion</div>
+        <ol class="library-list" start="36">
+          <li><strong>"Factory Track" career path</strong> — promotion track tied to Studio contributions</li>
+          <li><strong>AI Lead roles</strong> — dedicated AI/Factory roles for top contributors</li>
+          <li><strong>Skip-level mentorship</strong> — contributors get direct access to leadership</li>
+          <li><strong>Internal teacher</strong> — top contributors teach others, earn "Teaching Credits"</li>
+        </ol>
+      </div>
+
+      <div class="library-cat cautionary">
+        <div class="library-cat-label">I · Cautionary Design Notes — read these</div>
+        <ol class="library-list" start="40">
+          <li><strong>Don't mandate quarterly contributions in reviews</strong> — kills organic motivation faster than anything</li>
+          <li><strong>Don't rank contributors publicly</strong> — creates political dynamics, damages no-blame culture</li>
+          <li><strong>Don't tie bonuses to volume</strong> — incentivizes low-quality prototype spam</li>
+          <li><strong>Do protect dedicated Build Block ruthlessly</strong> — if it gets interrupted for client fires, people stop trusting the system</li>
+          <li><strong>Do celebrate "fails"</strong> — if Recommender rejects a proposal, the person gets recognition for <em>trying</em>, not silence</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">J · Autonomy & Exploration</div>
+        <ol class="library-list" start="45">
+          <li><strong>Skunkworks Grants</strong> — $5K + 2 weeks off client work to chase a Studio idea</li>
+          <li><strong>"Wild Card" proposals</strong> — 1 per quarter per contributor, Studio builds it even if low-score</li>
+          <li><strong>Pod R&D Days</strong> — each pod picks a monthly "explore day" topic, no rules</li>
+          <li><strong>Client Observation Rotations</strong> — top contributors sit in on other pods' client calls</li>
+          <li><strong>Tool Purchase Authority</strong> — contributors can buy any tool under $500 without approval</li>
+          <li><strong>Data Access Upgrades</strong> — earn deeper BigQuery dataset access as contributions compound</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">K · Competitive & Edge-Getting <em>(later, not launch)</em></div>
+        <ol class="library-list" start="51">
+          <li><strong>Pod vs Pod Build-Offs</strong> — monthly, same prompt, different pods, winner ships</li>
+          <li><strong>"First Mover" designations</strong> — first pod to identify a new workflow gap gets naming rights</li>
+          <li><strong>Cross-Pod Raids</strong> — if Pod B builds something Pod A needs, A "buys" it with credits</li>
+          <li><strong>Skill Marketplace</strong> — pods trade Skills for perks/credits internally</li>
+          <li><strong>Solo Challenges</strong> — "build X in 48 hours" with hackathon-style prizes</li>
+        </ol>
+      </div>
+
+      <div class="library-cat">
+        <div class="library-cat-label">L · Status & Mastery</div>
+        <ol class="library-list" start="56">
+          <li><strong>"Factory Fellow" title</strong> — earned after 10+ prod contributions, visible internally forever</li>
+          <li><strong>Public GitHub contributions</strong> — anonymized Skills publishable to Ad Pros public repo</li>
+          <li><strong>Speaker slot pipeline</strong> — sponsored conference speakers (MAICON, Anthropic events)</li>
+          <li><strong>External-facing title upgrade</strong> — LinkedIn/email signature upgrades for contributors</li>
+          <li><strong>Mentorship earning</strong> — top contributors earn the right to mentor junior hires with comp</li>
+        </ol>
+      </div>
+
+      <div class="library-footnote">
+        <p><strong>A note on competition (category K).</strong> You said your team is going through changes and overt competition might be too much right now. Those ideas are here for when the team is ready — probably Year 2. For launch, stick to A (time), B (some hackathons), E (learning), F (social), I (the cautionary rules), and J (autonomy). That's enough to make it real without introducing ranking dynamics that could hurt a team still stabilizing.</p>
+      </div>
+    </div>
+  </details>
 
 </div>
 
