@@ -820,7 +820,234 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .reading-item-why{font-size:12.5px;color:var(--ink-2);line-height:1.55}
 .reading-item-why em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
 
-/* TAB 7 — TEAM STUDIO */
+/* TAB 7 — BUILD YOUR OWN */
+.byo-intro{
+  margin-top:32px;padding:clamp(24px,4vw,44px);
+  background:linear-gradient(135deg,var(--navy-3),var(--navy-4));
+  border:1px solid var(--rule-2);border-radius:2px;position:relative;overflow:hidden;
+}
+.byo-intro::after{
+  content:'';position:absolute;bottom:-40%;right:-15%;width:500px;height:500px;
+  background:radial-gradient(circle,var(--blue) 0%,transparent 60%);
+  opacity:0.1;filter:blur(50px);pointer-events:none;
+}
+.byo-intro h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3.5vw,32px);
+  letter-spacing:-0.025em;line-height:1.15;margin-bottom:16px;color:var(--ink);position:relative;
+}
+.byo-intro h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--blue)}
+.byo-intro p{color:var(--ink-2);font-size:clamp(14px,2vw,16px);line-height:1.65;max-width:920px;position:relative;margin-bottom:12px}
+.byo-intro p:last-child{margin-bottom:0}
+.byo-intro p em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.byo-intro strong{color:var(--ink);font-weight:600}
+
+/* The 7-step pipeline diagram */
+.pipeline-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.pipeline-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;
+}
+.pipeline-block h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3vw,30px);
+  line-height:1.1;letter-spacing:-0.025em;margin-bottom:14px;color:var(--ink);
+}
+.pipeline-block h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.pipeline-lede{color:var(--ink-2);font-size:14.5px;line-height:1.65;max-width:920px;margin-bottom:28px}
+.pipeline-lede em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.pipeline-lede strong{color:var(--ink);font-weight:600}
+
+.pipeline-steps{
+  display:grid;grid-template-columns:1fr;gap:4px;
+}
+@media(min-width:720px){
+  .pipeline-steps{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:960px){
+  .pipeline-steps{grid-template-columns:repeat(7,1fr)}
+}
+.pipeline-step{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:18px 16px;
+  border-radius:2px;transition:all 0.2s;min-width:0;position:relative;
+}
+.pipeline-step:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.pipeline-step-num{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  color:var(--yellow);letter-spacing:0.1em;margin-bottom:8px;
+}
+.pipeline-step h4{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:15px;
+  letter-spacing:-0.015em;color:var(--ink);margin-bottom:6px;line-height:1.1;
+}
+.pipeline-step p{font-size:11.5px;color:var(--ink-3);line-height:1.4}
+.pipeline-step em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink-2)}
+
+/* Wizard form mockup */
+.wizard-block{
+  margin-top:40px;background:var(--navy-2);border:1px solid var(--rule);
+  border-radius:2px;overflow:hidden;
+}
+.wizard-head{
+  padding:20px 24px;background:var(--navy-3);border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.wizard-head-avatar{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--yellow),var(--orange));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:var(--navy);
+}
+.wizard-head-title{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;
+  color:var(--ink);letter-spacing:-0.01em;flex:1;min-width:0;
+}
+.wizard-head-env{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 11px;
+  background:rgba(94,159,255,0.1);border:1px solid rgba(94,159,255,0.3);
+  color:var(--blue);border-radius:100px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.wizard-head-env::before{
+  content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;
+  box-shadow:0 0 6px var(--blue);
+}
+.wizard-body{padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:20px}
+
+.wizard-step{
+  background:var(--navy);border:1px solid var(--rule-2);padding:20px 22px;
+  border-radius:2px;position:relative;
+}
+.wizard-step::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--yellow);border-radius:2px 0 0 2px;
+}
+.wizard-step-header{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap;
+}
+.wizard-step-num{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:0.1em;color:var(--yellow);text-transform:uppercase;
+}
+.wizard-step-q{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:15.5px;
+  letter-spacing:-0.01em;color:var(--ink);line-height:1.3;flex:1;min-width:200px;
+}
+.wizard-step-q em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.wizard-step-input{
+  margin-top:12px;background:var(--navy-3);border:1px solid var(--rule-2);
+  padding:12px 14px;border-radius:3px;font-size:13.5px;color:var(--ink);
+  line-height:1.55;font-family:inherit;
+}
+.wizard-step-input em{
+  font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink-2);
+}
+.wizard-step-input strong{color:var(--ink);font-weight:600}
+.wizard-step-input code{
+  font-family:'JetBrains Mono',monospace;background:var(--navy);
+  padding:2px 6px;font-size:12px;color:var(--yellow);border-radius:2px;
+  border:1px solid var(--rule-2);word-break:break-all;
+}
+.wizard-step-input.options{
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.wizard-chip{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;padding:6px 10px;
+  background:var(--navy);border:1px solid var(--rule-2);color:var(--ink-2);
+  border-radius:2px;white-space:nowrap;
+}
+.wizard-chip.selected{background:var(--yellow);color:var(--navy);border-color:var(--yellow)}
+.wizard-help{
+  margin-top:8px;font-size:12px;color:var(--ink-3);line-height:1.5;
+}
+.wizard-help em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink-2)}
+.wizard-help code{
+  font-family:'JetBrains Mono',monospace;background:var(--navy-3);
+  padding:1px 5px;font-size:11px;color:var(--yellow);border-radius:2px;
+}
+
+.wizard-generate{
+  margin-top:16px;padding:18px 22px;background:rgba(255,212,0,0.06);
+  border:1px solid rgba(255,212,0,0.3);border-radius:3px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+.wizard-generate-text{
+  font-size:13.5px;color:var(--ink-2);line-height:1.5;flex:1;min-width:200px;
+}
+.wizard-generate-text strong{color:var(--ink);font-weight:600}
+.wizard-generate-button{
+  background:var(--yellow);color:var(--navy);padding:11px 20px;border-radius:3px;
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:-0.01em;flex-shrink:0;cursor:pointer;
+}
+
+/* Examples grid */
+.byo-examples-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.byo-examples-grid{
+  margin-top:24px;display:grid;grid-template-columns:1fr;gap:12px;
+}
+@media(min-width:720px){
+  .byo-examples-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:1100px){
+  .byo-examples-grid{grid-template-columns:repeat(3,1fr)}
+}
+.byo-example{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:22px;
+  border-radius:2px;transition:all 0.2s;min-width:0;
+  display:flex;flex-direction:column;
+}
+.byo-example:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.byo-example-cat{
+  display:inline-block;align-self:flex-start;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;
+  border-radius:2px;margin-bottom:10px;
+}
+.byo-example-cat.copy{background:rgba(180,122,255,0.12);color:var(--purple);border:1px solid rgba(180,122,255,0.3)}
+.byo-example-cat.reporting{background:rgba(94,159,255,0.12);color:var(--blue);border:1px solid rgba(94,159,255,0.3)}
+.byo-example-cat.research{background:rgba(48,217,123,0.12);color:var(--green);border:1px solid rgba(48,217,123,0.3)}
+.byo-example-cat.creative{background:rgba(255,106,168,0.12);color:var(--pink);border:1px solid rgba(255,106,168,0.3)}
+.byo-example h4{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;
+  letter-spacing:-0.01em;color:var(--ink);margin-bottom:10px;line-height:1.2;
+}
+.byo-example h4 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.byo-example-pipe{
+  display:flex;flex-direction:column;gap:3px;margin-top:auto;padding-top:12px;
+  border-top:1px dashed var(--rule-2);
+}
+.byo-example-pipe-row{
+  display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:baseline;
+  font-size:11.5px;line-height:1.35;
+}
+.byo-example-pipe-label{
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--yellow);
+}
+.byo-example-pipe-val{color:var(--ink-2)}
+.byo-example-pipe-val em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+
+/* Safety + Tiers combined block */
+.byo-safety-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.tiers-grid-byo{
+  display:grid;grid-template-columns:1fr;gap:10px;margin-top:24px;
+}
+@media(min-width:720px){
+  .tiers-grid-byo{grid-template-columns:repeat(3,1fr)}
+}
+
+/* Contrib block reuse */
+
 .studio-intro{
   margin-top:32px;padding:clamp(22px,4vw,40px);
   background:linear-gradient(135deg,var(--navy-3),var(--navy-4));
@@ -1242,7 +1469,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <span>ad</span>
         <span>pros</span>
       </a>
-      <div class="nav-version">Factory · <strong>Rev 3.3</strong></div>
+      <div class="nav-version">Factory · <strong>Rev 3.4</strong></div>
     </div>
   </div>
   <div class="tabs-wrap">
@@ -1253,7 +1480,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
       <button class="tab" data-tab="sequence" role="tab"><span class="tab-num">04</span>Sequence</button>
       <button class="tab" data-tab="gates" role="tab"><span class="tab-num">05</span>Gates</button>
       <button class="tab" data-tab="foundation" role="tab"><span class="tab-num">06</span>Foundation</button>
-      <button class="tab" data-tab="studio" role="tab"><span class="tab-num">07</span>Team Studio</button>
+      <button class="tab" data-tab="studio" role="tab"><span class="tab-num">07</span>Build Your Own</button>
     </div>
   </div>
 </nav>
@@ -2548,279 +2775,359 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
 </div>
 
-<!-- TAB 7: TEAM STUDIO -->
+<!-- TAB 7: BUILD YOUR OWN -->
 <div class="panel" data-panel="studio">
-  <div class="panel-kicker">07 · Team Studio</div>
-  <h2>Your team builds agents in a <em>safe Claude-like chat</em> — full API access, zero production risk.</h2>
+  <div class="panel-kicker">07 · Build Your Own Agent</div>
+  <h2>Any team member → <em>working staging agent</em> in under an hour.</h2>
   <p class="lede">
-    The factory is only as smart as the expertise feeding it. Ad Pros has 26 people with 10,000+ hours of hard-won knowledge. The Team Studio is how that knowledge enters the factory — through a chat interface where any team member can propose workflows, draft Skills, prototype agents, and stress-test outputs. <strong>Opt-in. Tiered. Tracked. Safe.</strong>
+    The factory doesn't just build big workflows. It also lets anyone on the team build <em>their own purpose-built agent</em> — for mining Reddit, remixing hooks, tracking creative, automating reports, whatever the job is. <strong>A guided wizard walks you through 7 questions. The factory generates, deploys to staging, and tracks your contribution.</strong>
   </p>
 
-  <div class="studio-intro">
-    <h3>The pitch: <em>ChatGPT-for-Ad-Pros</em>, but with rails.</h3>
+  <div class="byo-intro">
+    <h3>The universal pattern: <em>Source → Fetch → Filter → Rank → Dedupe → Transform → Output</em>.</h3>
     <p>
-      Anyone on the team opens the Studio in their browser, chats with a Claude-powered agent, and can <em>do almost everything</em> — invoke the Recommender, draft Skills, spin up prototype workflows, run them against anonymized data, propose factory improvements. Contributions are tracked and attributed. The interface is Claude; the rails are what make it safe for a 26-person agency.
+      Every agent a team member wants to build is a special case of the same 7-step pipeline. Mining Reddit for ad angles? <em>Source: subreddit. Filter: flair. Rank: upvotes. Dedupe: thread ID. Transform: LLM synthesize angles. Output: Claude doc.</em> Mining brand reviews? <em>Source: Trustpilot. Filter: rating ≤ 3. Rank: recency. Dedupe: review ID. Transform: LLM extract themes. Output: ClickUp task.</em>
     </p>
     <p>
-      <strong>Three tiers.</strong> Sandbox is free-for-all ideation with fake data. Staging runs on real data but is read-only for external APIs. Production is the real factory and requires the 3 human gates. <em>A team member's work flows sandbox → staging → prod as it earns trust</em> — not as it is promoted by management.
+      <strong>Same pipeline, different values.</strong> That's what makes the wizard universal — it asks the same 7 questions every time, and the factory assembles a staging agent from the answers. 10 different agent ideas become 10 different configurations of the same underlying primitive.
     </p>
   </div>
 
-  <!-- CHAT MOCKUP -->
-  <div class="chat-mock">
-    <div class="chat-mock-head">
-      <div class="chat-mock-avatar">AP</div>
-      <div class="chat-mock-title">Ad Pros Factory Studio</div>
-      <div class="chat-mock-env">Sandbox</div>
-    </div>
-    <div class="chat-mock-body">
-      <div class="chat-msg user">
-        <div class="chat-msg-avatar">DD</div>
-        <div class="chat-msg-body">
-          <div class="chat-msg-name">Dani · Account Lead</div>
-          <div class="chat-msg-text">I want to build a workflow that detects when a client is about to churn, 90 days out. Can we prototype this?</div>
-        </div>
+  <!-- 7-STEP PIPELINE -->
+  <div class="pipeline-block">
+    <div class="pipeline-label">◉ The Universal Pipeline</div>
+    <h3>Seven steps. <em>Every agent</em> is a fill-in-the-blanks of this.</h3>
+    <p class="pipeline-lede">
+      The wizard asks about each step in order. Team members don't see the primitive — they see plain-English questions. The factory compiles the answers into working code, Skills, MCP tool-calls, and a staging ClickUp workflow.
+    </p>
+
+    <div class="pipeline-steps">
+      <div class="pipeline-step">
+        <div class="pipeline-step-num">01</div>
+        <h4>Source</h4>
+        <p>Where does the data live? <em>Reddit, Meta ads, BigQuery, Shopify, Amazon, Trustpilot, a sheet.</em></p>
       </div>
-      <div class="chat-msg agent">
-        <div class="chat-msg-avatar">◉</div>
-        <div class="chat-msg-body">
-          <div class="chat-msg-name">Factory Studio · Sandbox</div>
-          <div class="chat-msg-text">
-            Good thinking — this is a gap in the library. Let me check the Recommender's current queue and propose this as a new workflow.
-            <div class="chat-tool-call">
-              <div class="chat-tool-call-label">Tool: recommender.propose</div>
-              <code>workflow: "90-day churn prediction"</code><br>
-              <code>author: dani@adpros.com</code><br>
-              <code>shape: Analysis (read-heavy)</code>
-            </div>
-            Proposed as backlog item <strong>#47</strong>. Want me to spin up a sandbox prototype right now? I'll use anonymized data from 3 past-churned clients so you can stress-test the logic.
-          </div>
-        </div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-num">02</div>
+        <h4>Fetch</h4>
+        <p>How often? <em>On-demand, daily, weekly, on-trigger.</em> API or scraper?</p>
       </div>
-      <div class="chat-msg user">
-        <div class="chat-msg-avatar">DD</div>
-        <div class="chat-msg-body">
-          <div class="chat-msg-name">Dani · Account Lead</div>
-          <div class="chat-msg-text">Yes — and draft me a Skill for what churn signals I usually look at. I know it, I just need it written down.</div>
-        </div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-num">03</div>
+        <h4>Filter</h4>
+        <p>What subset matters? <em>Last 30 days. Rating ≤ 3. Subreddit = r/skincareaddiction.</em></p>
       </div>
-      <div class="chat-msg agent">
-        <div class="chat-msg-avatar">◉</div>
-        <div class="chat-msg-body">
-          <div class="chat-msg-name">Factory Studio · Sandbox</div>
-          <div class="chat-msg-text">
-            Perfect — <em>this is exactly how the Skills Library grows</em>. I'll interview you, structure your answers, and draft <code>account-churn-signals.md</code>. Quick Q: when you see MER drop below 1.5 for 2+ consecutive weeks <em>and</em> the client stops replying to weekly reports within 48hr — how confident are you that they're churning?
-          </div>
-        </div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-num">04</div>
+        <h4>Rank</h4>
+        <p>How to weight? <em>Upvotes × 1 + comments × 2. Recency decay. Performance score.</em></p>
       </div>
-    </div>
-    <div class="chat-input-mock">
-      <div class="chat-input-fake">Reply to Factory Studio...</div>
-      <div class="chat-input-button">Send</div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-num">05</div>
+        <h4>Dedupe</h4>
+        <p>What's the unique key? <em>Thread ID. Review ID. Ad fingerprint. Never-use-twice guarantee.</em></p>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-num">06</div>
+        <h4>Transform</h4>
+        <p>What should the LLM do with it? <em>Synthesize. Remix. Extract themes. Narrate. Score.</em></p>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-step-num">07</div>
+        <h4>Output</h4>
+        <p>Where does the result go? <em>ClickUp task. Google Doc. Sheet row. Slack message. Brief.</em></p>
+      </div>
     </div>
   </div>
 
-  <!-- TIERS -->
-  <div class="tiers-block">
-    <div class="tiers-label">◉ The Three-Tier Environment</div>
-    <h3>Sandbox → Staging → Production. <em>Earn trust by shipping, not by rank.</em></h3>
-    <p class="tiers-lede">
-      Every team member gets full access to Sandbox on day one. Work flows upward as it clears evaluation gates — not when Dani or Nehal decides to promote it. <em>This is what makes it genuinely open.</em>
+  <!-- THE WIZARD -->
+  <div class="wizard-block">
+    <div class="wizard-head">
+      <div class="wizard-head-avatar">AP</div>
+      <div class="wizard-head-title">Build Your Own Agent · Wizard</div>
+      <div class="wizard-head-env">Sandbox</div>
+    </div>
+    <div class="wizard-body">
+
+      <div class="wizard-step">
+        <div class="wizard-step-header">
+          <div class="wizard-step-num">Step 01</div>
+          <div class="wizard-step-q">What do you want this agent to <em>do</em>?</div>
+        </div>
+        <div class="wizard-step-input">Mine r/skincareaddiction and r/SkincareAddicts for <strong>new ad angles, customer stories, and voiceover ideas</strong> for our supplement skincare client. Never repeat a thread.</div>
+        <div class="wizard-help">One sentence. The wizard parses intent from this and pre-fills everything below.</div>
+      </div>
+
+      <div class="wizard-step">
+        <div class="wizard-step-header">
+          <div class="wizard-step-num">Step 02 · Source</div>
+          <div class="wizard-step-q">Where does the <em>raw data</em> live?</div>
+        </div>
+        <div class="wizard-step-input options">
+          <span class="wizard-chip selected">Reddit</span>
+          <span class="wizard-chip">Meta Ads</span>
+          <span class="wizard-chip">TikTok</span>
+          <span class="wizard-chip">Shopify</span>
+          <span class="wizard-chip">BigQuery</span>
+          <span class="wizard-chip">Google Sheets</span>
+          <span class="wizard-chip">Amazon Reviews</span>
+          <span class="wizard-chip">Trustpilot</span>
+          <span class="wizard-chip">+ Custom</span>
+        </div>
+        <div class="wizard-help">Tap a source. The wizard surfaces source-specific fields next — <em>subreddit list for Reddit, ASIN for Amazon, spreadsheet URL for Sheets.</em></div>
+      </div>
+
+      <div class="wizard-step">
+        <div class="wizard-step-header">
+          <div class="wizard-step-num">Step 03 · Filter</div>
+          <div class="wizard-step-q">What subset <em>matters</em>?</div>
+        </div>
+        <div class="wizard-step-input">Subreddits: <code>r/skincareaddiction</code>, <code>r/SkincareAddicts</code>, <code>r/AsianBeauty</code>. Post age: <strong>last 60 days</strong>. Min comments: <strong>10</strong>. Exclude: sponsored, removed-by-mod.</div>
+        <div class="wizard-help">Natural language works. The wizard translates <em>"last 60 days"</em> into the right API params.</div>
+      </div>
+
+      <div class="wizard-step">
+        <div class="wizard-step-header">
+          <div class="wizard-step-num">Step 04 · Rank</div>
+          <div class="wizard-step-q">How should the agent <em>weight</em> what it finds?</div>
+        </div>
+        <div class="wizard-step-input"><code>score = (upvotes × 1) + (comments × 2) + (awards × 5) − (days_old × 0.1)</code></div>
+        <div class="wizard-help">Or describe it in English — <em>"prioritize posts with lots of comments, penalize old ones"</em> — and the wizard suggests the formula.</div>
+      </div>
+
+      <div class="wizard-step">
+        <div class="wizard-step-header">
+          <div class="wizard-step-num">Step 05 · Dedupe</div>
+          <div class="wizard-step-q">What's the <em>never-use-twice</em> key?</div>
+        </div>
+        <div class="wizard-step-input"><code>thread_id</code> — stored in Supabase <code>used_reddit_threads</code> table. Any thread already processed gets skipped on the next run.</div>
+        <div class="wizard-help">This is the guarantee that makes the agent trustworthy. <em>Same thread never used twice, ever.</em></div>
+      </div>
+
+      <div class="wizard-step">
+        <div class="wizard-step-header">
+          <div class="wizard-step-num">Step 06 · Transform</div>
+          <div class="wizard-step-q">What should the <em>LLM actually do</em> with it?</div>
+        </div>
+        <div class="wizard-step-input">For each qualifying thread, extract: <strong>(1) the emotional pain point</strong> in the OP, <strong>(2) 3 candidate ad angles</strong> using top comments as proof, <strong>(3) 1 customer-voice VO script</strong> paraphrased — never verbatim — with compliance-safe language.</div>
+        <div class="wizard-help">This becomes the agent's system prompt. Wizard runs a compliance evaluator automatically on VO scripts.</div>
+      </div>
+
+      <div class="wizard-step">
+        <div class="wizard-step-header">
+          <div class="wizard-step-num">Step 07 · Output</div>
+          <div class="wizard-step-q">Where should the <em>results go</em>?</div>
+        </div>
+        <div class="wizard-step-input">Create a ClickUp task in <code>Creative · Ad Angles</code> List per thread. Fields: pain point, 3 angles, VO script, source URL, Reddit score, run date. Tag Dani + creative pod.</div>
+        <div class="wizard-help">Output can also be Google Docs, Sheets rows, Slack messages, or a brief template — whatever the team uses downstream.</div>
+      </div>
+
+      <div class="wizard-generate">
+        <div class="wizard-generate-text">
+          <strong>Ready to generate?</strong> The factory will create the agent, deploy to Sandbox with anonymized data, run against 20 sample threads, and show you the output before anything touches real clients.
+        </div>
+        <div class="wizard-generate-button">Generate Agent →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAMPLES -->
+  <div class="byo-examples-block">
+    <div class="pipeline-label">◉ What the Team is Building</div>
+    <h3>Nine real team agents — <em>same pipeline</em>, different values.</h3>
+    <p class="pipeline-lede">
+      Every one of these is the 7-step pipeline with different inputs. <strong>Open the wizard → answer 7 questions → get a working staging agent.</strong> Team attribution is on every row.
     </p>
 
-    <div class="tiers-grid">
+    <div class="byo-examples-grid">
+
+      <div class="byo-example">
+        <div class="byo-example-cat creative">Creative</div>
+        <h4>Reddit <em>Ad Angle Miner</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Reddit (3 subs)</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">60 days, 10+ comments</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Upvotes + comments × 2</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>thread_id</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>3 angles + VO script</em></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">ClickUp tasks</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat copy">Copy</div>
+        <h4>Hook <em>Remixer</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Ad library (top 100)</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">CTR &gt; 2%, last 90d</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">ROAS × spend</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val">Hook fingerprint hash</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>5 remixed hooks + scripts</em></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Creative brief doc</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat reporting">Reporting</div>
+        <h4>Creative Tracking <em>Sheet (WPP)</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Meta + TikTok + Northbeam</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Active ads, yesterday</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Spend desc</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>ad_id + date</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val">Normalize + calc metrics</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Google Sheet row</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat research">Research</div>
+        <h4>Brand Review <em>Theme Miner</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Shopify + Trustpilot</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Last 30d, all ratings</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Length + helpfulness</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>review_id</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Theme clusters + quotes</em></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Weekly report doc</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat research">Research</div>
+        <h4>Competitor Review <em>Miner</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Amazon ASINs + competitor sites</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Rating 1–3 stars</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Helpful votes</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>review_id</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Pain points + gap analysis</em></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">ClickUp doc per competitor</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat research">Research</div>
+        <h4>Ad Comment <em>Voice-of-Customer</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Meta ad comments</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Last 14 days, top spenders</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">Likes + sentiment score</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>comment_id</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>VOC themes + quotes</em></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Slack digest + sheet</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat reporting">Reporting</div>
+        <h4>Monthly <em>Business Review</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">BigQuery (10 tables)</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Prior month, per-client</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">—</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>client + period</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Narrative + charts + highlights</em></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Google Doc MBR template</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat reporting">Reporting</div>
+        <h4>Daily <em>Sheet Input</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Multiple ad platforms</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Yesterday, per-client</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">—</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>client + date</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val">Aggregate + format</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Sheet row appended</div></div>
+        </div>
+      </div>
+
+      <div class="byo-example">
+        <div class="byo-example-cat reporting">Reporting</div>
+        <h4>Expandify <em>→ Claude Reports</em></h4>
+        <div class="byo-example-pipe">
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Source</div><div class="byo-example-pipe-val">Expandify export</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Filter</div><div class="byo-example-pipe-val">Per-client slice</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Rank</div><div class="byo-example-pipe-val">—</div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Dedupe</div><div class="byo-example-pipe-val"><code>run_id</code></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Transform</div><div class="byo-example-pipe-val"><em>Narrative report</em></div></div>
+          <div class="byo-example-pipe-row"><div class="byo-example-pipe-label">Output</div><div class="byo-example-pipe-val">Branded Claude doc</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SAFETY + TIERS -->
+  <div class="byo-safety-block">
+    <div class="pipeline-label">◉ Sandbox → Staging → Production</div>
+    <h3>Every team agent <em>earns its way up</em>.</h3>
+    <p class="pipeline-lede">
+      Day one, any team member has full access to <strong>Sandbox</strong>. Their agent runs with fake data, $5/day Claude budget, zero production API credentials. Agents <em>earn</em> promotion to Staging via peer upvotes + regression evals. Staging → Production requires the 3 human gates. <strong>No management approval for Sandbox → Staging.</strong> Evaluation is the promotion mechanism.
+    </p>
+
+    <div class="tiers-grid-byo">
       <div class="tier-card sandbox">
         <div class="tier-card-tier">Tier 1 · Sandbox</div>
         <h4>The <em>Playground</em></h4>
-        <p class="tier-card-sub">Free-for-all ideation. Every team member has full access. <strong>Fake data, isolated ClickUp workspace, no production credentials.</strong></p>
+        <p class="tier-card-sub">Where every new agent is born. Fake data, isolated workspace, $5/day budget.</p>
         <div class="tier-rules">
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Invoke any factory agent</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Read anonymized client snapshots</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Draft Skills, prototype workflows</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Deploy to sandbox ClickUp space</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>Zero production API access</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>$5/day Claude budget per user</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Build any agent via wizard</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Anonymized data snapshots</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No production credentials</span></div>
         </div>
       </div>
 
       <div class="tier-card staging">
         <div class="tier-card-tier">Tier 2 · Staging</div>
         <h4>The <em>Pressure Test</em></h4>
-        <p class="tier-card-sub">Real data, rate-limited APIs, shadow mode. Promoted from Sandbox when 3 teammates upvote and the Eval Agent's regression suite passes.</p>
+        <p class="tier-card-sub">Real BigQuery, read-only external APIs. Promoted by <strong>3 peer upvotes + eval regression pass</strong>.</p>
         <div class="tier-rules">
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Reads from production BigQuery</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>External APIs: read-only</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Shadow-runs on real client data</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No writes to Shopify / Meta / Klaviyo</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No client-facing deliverables</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>$25/run Claude budget cap</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Real data, shadow runs</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>External APIs read-only</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No client-facing writes</span></div>
         </div>
       </div>
 
       <div class="tier-card prod">
         <div class="tier-card-tier">Tier 3 · Production</div>
         <h4>The <em>Live Factory</em></h4>
-        <p class="tier-card-sub">Full factory with 3 human gates. Workflows here are run against real clients. Staging prototypes promote here only after passing Brief + Blueprint + Skills gates.</p>
+        <p class="tier-card-sub">Deployed for real clients. Requires <strong>Brief + Blueprint + Skills</strong> gates. Idempotent + audit-logged.</p>
         <div class="tier-rules">
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Full MCP + API write access</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Deploy to client ClickUp workspaces</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Full API write access</span></div>
           <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>3 human gates mandatory</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>Idempotency + cost caps enforced</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Audit log on every action</span></div>
-          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Rollback enabled on all publishes</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Full rollback + audit log</span></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 4 PARTICIPATION MODES -->
-  <div class="modes-block">
-    <div class="tiers-label">◉ Four Ways to Participate</div>
-    <h3>Opt-in at <em>whichever mode fits your day</em>.</h3>
-    <p class="tiers-lede">
-      No role requirements, no hierarchy. A media buyer might only ever propose workflows; a senior strategist might author Skills every week. <em>Every contribution routes to a specific factory agent.</em>
-    </p>
-
-    <div class="modes-grid">
-      <div class="mode-card">
-        <div class="mode-card-head">
-          <div class="mode-card-num">01</div>
-          <h4>Propose a <em>Workflow</em></h4>
-        </div>
-        <div class="mode-card-feeds">Feeds → <strong>Recommender Agent</strong></div>
-        <p><strong>"Here's a repetitive thing I wish existed as an agent."</strong> Any team member describes a workflow in chat. The Studio routes it to the Recommender's backlog with the author's name attached. Queue approval is weekly.</p>
-        <div class="mode-card-example">
-          <strong>Example:</strong> <em>"Every Monday I manually check which clients have ad sets that haven't been refreshed in 14+ days. Can we automate this?"</em> → Recommender scores it, adds to queue #47.
-        </div>
-      </div>
-
-      <div class="mode-card">
-        <div class="mode-card-head">
-          <div class="mode-card-num">02</div>
-          <h4>Author a <em>Skill</em></h4>
-        </div>
-        <div class="mode-card-feeds">Feeds → <strong>Skills Curator</strong></div>
-        <p><strong>"I know how to evaluate a winning creative — I just need it written down."</strong> The Studio interviews you in chat, structures your answers into SKILL.md format, flags for review. <em>This is how 10,000 hours of Ad Pros IP enters the factory.</em></p>
-        <div class="mode-card-example">
-          <strong>Example:</strong> Creative strategist answers 12 structured questions → Studio drafts <code>winning-hook-detection.md</code> → reviewer approves → every future creative workflow can load this Skill.
-        </div>
-      </div>
-
-      <div class="mode-card">
-        <div class="mode-card-head">
-          <div class="mode-card-num">03</div>
-          <h4>Prototype an <em>Agent</em></h4>
-        </div>
-        <div class="mode-card-feeds">Feeds → <strong>Stage Designers</strong></div>
-        <p><strong>"Let me try a draft version before it gets real."</strong> Team members build stage-level agents in sandbox — their own prompt stubs, evaluator rules, MCP tools. If the prototype passes evals, it gets proposed to the Stage Designer's pattern library.</p>
-        <div class="mode-card-example">
-          <strong>Example:</strong> Analyst prototypes a "Cohort Quality Scorer" in sandbox → passes 15/15 test cases → gets proposed as a new Stage 3 pattern → Stage Designers can now use it in future workflows.
-        </div>
-      </div>
-
-      <div class="mode-card">
-        <div class="mode-card-head">
-          <div class="mode-card-num">04</div>
-          <h4>Stress-Test a <em>Draft</em></h4>
-        </div>
-        <div class="mode-card-feeds">Feeds → <strong>Eval Agent</strong></div>
-        <p><strong>"Would I have actually shipped this output to a client?"</strong> When a workflow is in staging, team members act as human evaluators. Their yes/no responses become permanent eval cases the Eval Agent uses for every future version.</p>
-        <div class="mode-card-example">
-          <strong>Example:</strong> Account lead reviews 10 draft LTV recommendations → rejects 2 as "too aggressive on subscription push" → those become regression tests. Next week's workflows can't ship until they pass.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- API ACCESS MATRIX -->
-  <div class="access-block">
-    <div class="tiers-label">◉ The API Access Matrix</div>
-    <h3>What team members <em>can and can't touch</em> per tier.</h3>
-    <p class="tiers-lede">
-      The hard rules. Every API call from the Studio passes through a permission check keyed to the user's current tier + the specific tool. <em>Violations return a rate-limit-style error, not a silent fallback.</em>
-    </p>
-
-    <div class="access-grid">
-      <div class="access-header">
-        <div class="access-cell">Capability</div>
-        <div class="access-cell">Sandbox</div>
-        <div class="access-cell">Staging</div>
-        <div class="access-cell">Production</div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Read anonymized data</div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Read real BigQuery</div>
-        <div class="access-cell"><span class="access-check no">No</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Call Meta/Shopify/Klaviyo APIs</div>
-        <div class="access-cell"><span class="access-check no">No</span></div>
-        <div class="access-cell"><span class="access-check limit">Read</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Write to ClickUp</div>
-        <div class="access-cell"><span class="access-check limit">Sandbox</span></div>
-        <div class="access-cell"><span class="access-check limit">Staging</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Invoke Claude (budget)</div>
-        <div class="access-cell"><span class="access-check limit">$5/day</span></div>
-        <div class="access-cell"><span class="access-check limit">$25/run</span></div>
-        <div class="access-cell"><span class="access-check yes">Unlimited</span></div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Deploy to clients</div>
-        <div class="access-cell"><span class="access-check no">No</span></div>
-        <div class="access-cell"><span class="access-check no">No</span></div>
-        <div class="access-cell"><span class="access-check limit">3 gates</span></div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Propose Skills / Shapes</div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-        <div class="access-cell"><span class="access-check yes">Yes</span></div>
-      </div>
-      <div class="access-row">
-        <div class="access-cell">Modify factory agents</div>
-        <div class="access-cell"><span class="access-check no">No</span></div>
-        <div class="access-cell"><span class="access-check no">No</span></div>
-        <div class="access-cell"><span class="access-check no">Never</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTRIBUTION TRACKING -->
+  <!-- CONTRIBUTION -->
   <div class="contrib-block">
-    <div class="tiers-label">◉ Contribution Tracking</div>
-    <h3>Every contribution is <em>attributed, versioned, and scored</em>.</h3>
-    <p class="tiers-lede">
-      Team members see exactly what they've shipped and how it's performing in production. This isn't just governance — it's <em>how opt-in participation becomes real</em>. Nobody contributes to a system that treats their work as anonymous.
+    <div class="pipeline-label">◉ Contribution Tracking</div>
+    <h3>Every agent you build is <em>attributed, versioned, and scored</em>.</h3>
+    <p class="pipeline-lede">
+      Team members see exactly what they've shipped and how it's performing. Attribution is the mechanism that makes opt-in participation real — <em>nobody keeps contributing to a system that treats their work as anonymous</em>.
     </p>
 
     <div class="contrib-grid">
       <div class="contrib-stat">
-        <div class="contrib-stat-num">14</div>
-        <h5>Your Skills</h5>
-        <p>In production library</p>
+        <div class="contrib-stat-num">9</div>
+        <h5>Agents Built</h5>
+        <p>Across the team so far</p>
       </div>
       <div class="contrib-stat">
         <div class="contrib-stat-num">6</div>
-        <h5>Your Workflows</h5>
-        <p>Deployed to clients</p>
+        <h5>In Staging</h5>
+        <p>Running on real data, shadow mode</p>
       </div>
       <div class="contrib-stat">
-        <div class="contrib-stat-num"><em>92</em>%</div>
-        <h5>Acceptance Rate</h5>
-        <p>Your proposals that clear Gates</p>
+        <div class="contrib-stat-num">3</div>
+        <h5>In Production</h5>
+        <p>Deployed to real clients</p>
       </div>
       <div class="contrib-stat">
         <div class="contrib-stat-num"><em>$</em>47k</div>
@@ -2831,33 +3138,38 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
     <div class="contrib-ledger">
       <div class="contrib-ledger-head">
-        <div class="contrib-ledger-title">Sample Ledger · Dani Devis</div>
-        <div class="contrib-ledger-sub">Last 30 days</div>
+        <div class="contrib-ledger-title">Team Agent Ledger · Last 30 days</div>
+        <div class="contrib-ledger-sub">Live view</div>
       </div>
       <div class="contrib-entry">
-        <div class="contrib-entry-who">Dani · Skill</div>
-        <div class="contrib-entry-what"><em>"account-churn-signals.md"</em> — 6 detection patterns, 3 thresholds, used by 4 workflows</div>
-        <div class="contrib-entry-status live">Live</div>
+        <div class="contrib-entry-who">Dani · Creative</div>
+        <div class="contrib-entry-what"><em>"Reddit Ad Angle Miner"</em> — running weekly, 47 angles, 6 shipped to Luhxe</div>
+        <div class="contrib-entry-status live">Production</div>
       </div>
       <div class="contrib-entry">
-        <div class="contrib-entry-who">Dani · Workflow</div>
-        <div class="contrib-entry-what"><em>"90-Day Churn Prediction"</em> — passed Gates, running on 3 clients, $7k saved</div>
-        <div class="contrib-entry-status live">Live</div>
+        <div class="contrib-entry-who">Mila · Copy</div>
+        <div class="contrib-entry-what"><em>"Hook Remixer"</em> — daily remix of top 100 ads, feeding creative pod</div>
+        <div class="contrib-entry-status live">Production</div>
       </div>
       <div class="contrib-entry">
-        <div class="contrib-entry-who">Dani · Skill</div>
-        <div class="contrib-entry-what"><em>"ad-set-refresh-cadence.md"</em> — Meta-specific fatigue rules, awaiting compliance review</div>
-        <div class="contrib-entry-status review">Review</div>
+        <div class="contrib-entry-who">Jordan · Reporting</div>
+        <div class="contrib-entry-what"><em>"Creative Tracking Sheet (WPP)"</em> — auto-filling daily across 8 clients</div>
+        <div class="contrib-entry-status live">Production</div>
       </div>
       <div class="contrib-entry">
-        <div class="contrib-entry-who">Dani · Workflow</div>
-        <div class="contrib-entry-what"><em>"Weekly Ad Set Freshness Scan"</em> — Blueprint approved, Skills pending Gate 3</div>
-        <div class="contrib-entry-status review">Review</div>
+        <div class="contrib-entry-who">Priya · Research</div>
+        <div class="contrib-entry-what"><em>"Brand Review Theme Miner"</em> — weekly Trustpilot + Shopify synthesis</div>
+        <div class="contrib-entry-status review">Staging</div>
       </div>
       <div class="contrib-entry">
-        <div class="contrib-entry-who">Dani · Prototype</div>
-        <div class="contrib-entry-what"><em>"Cohort Quality Scorer"</em> — sandbox prototype, 12/15 evals passing</div>
-        <div class="contrib-entry-status draft">Draft</div>
+        <div class="contrib-entry-who">Alex · Research</div>
+        <div class="contrib-entry-what"><em>"Competitor Review Miner"</em> — Amazon 1–3 star extraction, awaiting eval pass</div>
+        <div class="contrib-entry-status review">Staging</div>
+      </div>
+      <div class="contrib-entry">
+        <div class="contrib-entry-who">Sam · Research</div>
+        <div class="contrib-entry-what"><em>"Ad Comment VOC"</em> — Meta comment mining, sandbox prototype 12/15 evals</div>
+        <div class="contrib-entry-status draft">Sandbox</div>
       </div>
     </div>
   </div>
@@ -2869,7 +3181,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.3</div>
+    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.4</div>
     <div class="footer-meta">Internal · Apr 2026</div>
   </div>
 </footer>
