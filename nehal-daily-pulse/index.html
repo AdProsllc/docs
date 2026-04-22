@@ -341,7 +341,12 @@
     var g=document.getElementById('ap-gate');if(g)g.style.display='none';
     var c=document.getElementById('ap-content');if(c)c.style.display='';
   }
-  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  try{
+    if(sessionStorage.getItem(K)==='1'){
+      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',reveal);}
+      else{reveal();}
+    }
+  }catch(e){}
   setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
 })();
 </script>
@@ -633,7 +638,7 @@ function render() {
   renderTable('decisions', ['item','since','owner','answer'], [
     {type:'input', ph:'What decision?'},
     {type:'input', ph:'Date asked'},
-    {type:'select', opts:['','Fran','Pedro','Daniela','Board','Vendor','Team','Other']},
+    {type:'select', opts:['','Danna','Daniela','Nehal']},
     {type:'input', ph:'Yes / No / Defer / his words'},
   ]);
   renderTable('blockers', ['item','why','priority','resolution'], [
@@ -644,7 +649,7 @@ function render() {
   ]);
   renderTable('actions', ['action','owner','due','status'], [
     {type:'input', ph:'Action item (verb first)'},
-    {type:'select', opts:['','Danna','Nehal','Fran','Pedro','Daniela','Other']},
+    {type:'select', opts:['','Danna','Daniela','Nehal']},
     {type:'input', ph:'Date'},
     {type:'select', opts:['','Open','Doing','Waiting','Done']},
   ], true);
