@@ -1075,17 +1075,18 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 }
 .chat-mock-head{
   padding:16px 20px;background:var(--navy-3);border-bottom:1px solid var(--rule);
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0;
+}
+.chat-mock-title{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;
+  color:var(--ink);letter-spacing:-0.01em;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 .chat-mock-avatar{
   width:32px;height:32px;border-radius:50%;
   background:linear-gradient(135deg,var(--yellow),var(--orange));
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
   font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:var(--navy);
-}
-.chat-mock-title{
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;
-  color:var(--ink);letter-spacing:-0.01em;
 }
 .chat-mock-meta{
   font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3);
@@ -1096,7 +1097,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
   background:rgba(94,159,255,0.1);border:1px solid rgba(94,159,255,0.3);
   color:var(--blue);border-radius:100px;
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
-  letter-spacing:0.08em;text-transform:uppercase;
+  letter-spacing:0.08em;text-transform:uppercase;flex-shrink:0;white-space:nowrap;
 }
 .chat-mock-env::before{
   content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;
@@ -1176,7 +1177,10 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .tiers-grid{
   display:grid;grid-template-columns:1fr;gap:12px;
 }
-@media(min-width:720px){
+@media(min-width:640px){
+  .tiers-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:1000px){
   .tiers-grid{grid-template-columns:repeat(3,1fr)}
 }
 
@@ -1278,30 +1282,34 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .mode-card-example strong{color:var(--ink);font-weight:600}
 .mode-card-example em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
 
-/* API Access matrix */
+/* Access matrix — responsive: stacked cards on mobile, table on tablet+ */
 .access-block{
   margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
   border:1px solid var(--rule);border-radius:2px;
 }
 .access-grid{
-  margin-top:24px;display:grid;grid-template-columns:1fr;gap:2px;
-  background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+  margin-top:24px;display:flex;flex-direction:column;gap:10px;
 }
-.access-header,.access-row{
-  display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:0;background:var(--navy-2);
+.access-header{display:none}
+.access-row{
+  background:var(--navy-3);border:1px solid var(--rule-2);
+  border-radius:2px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;
+  min-width:0;
 }
-.access-header{background:var(--navy-3)}
-.access-cell{
-  padding:14px 16px;font-size:13px;color:var(--ink-2);line-height:1.4;
-  border-right:1px solid var(--rule);min-width:0;display:flex;align-items:center;
-}
-.access-cell:last-child{border-right:none}
-.access-header .access-cell{
-  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);
+.access-row .access-cell{
+  padding:0;border:none;display:flex;align-items:center;
+  gap:10px;font-size:13px;color:var(--ink-2);line-height:1.4;min-width:0;
 }
 .access-row .access-cell:first-child{
-  font-family:'Archivo',sans-serif;font-weight:600;color:var(--ink);font-size:13.5px;
+  font-family:'Archivo',sans-serif;font-weight:700;color:var(--ink);
+  font-size:14.5px;margin-bottom:4px;padding-bottom:10px;
+  border-bottom:1px dashed var(--rule-2);
+}
+.access-row .access-cell:not(:first-child)::before{
+  content:attr(data-label);
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);
+  flex:0 0 90px;
 }
 .access-check{
   display:inline-flex;align-items:center;gap:6px;
@@ -1311,12 +1319,40 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .access-check.yes{color:var(--green)}
 .access-check.no{color:var(--red)}
 .access-check.limit{color:var(--orange)}
-.access-check::before{
-  font-size:14px;font-weight:800;
-}
+.access-check::before{font-size:14px;font-weight:800}
 .access-check.yes::before{content:'✓'}
 .access-check.no::before{content:'✕'}
 .access-check.limit::before{content:'◐'}
+
+@media(min-width:720px){
+  .access-grid{
+    display:grid;grid-template-columns:1fr;gap:2px;
+    background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+  }
+  .access-header{
+    display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:0;background:var(--navy-3);
+  }
+  .access-row{
+    display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:0;background:var(--navy-2);
+    border:none;border-radius:0;padding:0;flex-direction:row;
+  }
+  .access-cell{
+    padding:14px 16px;font-size:13px;color:var(--ink-2);line-height:1.4;
+    border-right:1px solid var(--rule);min-width:0;display:flex;align-items:center;
+  }
+  .access-cell:last-child{border-right:none}
+  .access-header .access-cell{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+    letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);
+  }
+  .access-row .access-cell{padding:14px 16px;border-right:1px solid var(--rule)}
+  .access-row .access-cell:last-child{border-right:none}
+  .access-row .access-cell:first-child{
+    font-family:'Archivo',sans-serif;font-weight:600;color:var(--ink);
+    font-size:13.5px;margin-bottom:0;padding-bottom:14px;border-bottom:none;
+  }
+  .access-row .access-cell:not(:first-child)::before{display:none}
+}
 
 /* Contribution tracking */
 .contrib-block{
@@ -1491,7 +1527,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .library-toggle[open]{border-color:var(--yellow)}
 .library-summary{
   list-style:none;cursor:pointer;padding:clamp(22px,4vw,32px);
-  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
   transition:background 0.15s;user-select:none;
 }
 .library-summary::-webkit-details-marker{display:none}
@@ -1499,16 +1535,16 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .library-summary-label{
   font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
   letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);
-  flex-shrink:0;
+  grid-column:1;margin-bottom:6px;
 }
 .library-summary-title{
   font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(16px,2.5vw,20px);
-  color:var(--ink);letter-spacing:-0.015em;flex:1;min-width:0;
+  color:var(--ink);letter-spacing:-0.015em;grid-column:1;line-height:1.25;min-width:0;
 }
 .library-summary-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
 .library-summary-chevron{
   font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--yellow);
-  transition:transform 0.2s;flex-shrink:0;
+  transition:transform 0.2s;grid-column:2;grid-row:1/3;align-self:center;
 }
 .library-toggle[open] .library-summary-chevron{transform:rotate(90deg)}
 .library-content{
@@ -1633,7 +1669,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <span>ad</span>
         <span>pros</span>
       </a>
-      <div class="nav-version">Factory · <strong>Rev 3.4</strong></div>
+      <div class="nav-version">Factory · <strong>Rev 3.5</strong></div>
     </div>
   </div>
   <div class="tabs-wrap">
@@ -3144,8 +3180,8 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
       <div class="playbook-card">
         <div class="playbook-card-label">Ownership</div>
-        <h4>Nehal + Dani (to start)</h4>
-        <p>Nehal owns direction + strategy. Dani runs day-to-day — reviews Skill drafts, moderates orphan backlog, manages Factory Day logistics. Estimated 5-10 hrs/week for Dani. <em>A dedicated AI/Factory role likely needed by Month 6 as usage grows.</em></p>
+        <h4>Founder-led, to start</h4>
+        <p>Direction + strategy sits with the founder. A <strong>Studio Lead</strong> runs day-to-day — reviews Skill drafts, moderates the orphan backlog, manages Factory Day logistics. Expect 5–10 hrs/week initially. <em>A dedicated AI/Factory role likely needed by Month 6 as usage grows.</em></p>
       </div>
 
       <div class="playbook-card">
@@ -3194,7 +3230,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <div class="cal-body">
           <div class="cal-title">Build Sandbox infrastructure</div>
           <div class="cal-desc">Stand up auth, chat UI, anonymized BigQuery reads, draft persistence. <em>Pilot-ready, not production-ready.</em></div>
-          <div class="cal-owner">Owner: Nehal + eng</div>
+          <div class="cal-owner">Owner: Founder + eng</div>
         </div>
       </div>
       <div class="cal-row">
@@ -3202,31 +3238,31 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <div class="cal-body">
           <div class="cal-title">Recruit pilot cohort (6-8)</div>
           <div class="cal-desc">Across both pods. Mix of roles: media buyers, strategists, account leads. Ideally, skeptics included — if they bite, everyone else will.</div>
-          <div class="cal-owner">Owner: Nehal + Dani</div>
+          <div class="cal-owner">Owner: Founder + Studio Lead</div>
         </div>
       </div>
       <div class="cal-row">
         <div class="cal-week">Week 3</div>
         <div class="cal-body">
           <div class="cal-title">Pilot runs — collect signal</div>
-          <div class="cal-desc">Pilots use Studio daily. Daily standup. Dani logs what works, what breaks, what surprises. Ship fixes nightly.</div>
-          <div class="cal-owner">Owner: Dani</div>
+          <div class="cal-desc">Pilots use Studio daily. Daily standup. Studio Lead logs what works, what breaks, what surprises. Ship fixes nightly.</div>
+          <div class="cal-owner">Owner: Studio Lead</div>
         </div>
       </div>
       <div class="cal-row">
         <div class="cal-week">Week 4</div>
         <div class="cal-body">
           <div class="cal-title">All-hands launch event</div>
-          <div class="cal-desc"><strong>Live Factory Day.</strong> Nehal frames why. Pilot cohort shows what they built. Everyone gets Sandbox access live. Food, energy, the whole team building for 3 hours. <em>This moment either makes Studio real or not.</em></div>
-          <div class="cal-owner">Owner: Nehal</div>
+          <div class="cal-desc"><strong>Live Factory Day.</strong> Founder frames why. Pilot cohort shows what they built. Everyone gets Sandbox access live. Food, energy, the whole team building for 3 hours. <em>This moment either makes Studio real or not.</em></div>
+          <div class="cal-owner">Owner: Founder</div>
         </div>
       </div>
       <div class="cal-row">
         <div class="cal-week">Week 5</div>
         <div class="cal-body">
           <div class="cal-title">First Build Block</div>
-          <div class="cal-desc">Protected weekly time begins. Same day + block every week. Dani protects it — if it gets interrupted, the program dies.</div>
-          <div class="cal-owner">Owner: Dani</div>
+          <div class="cal-desc">Protected weekly time begins. Same day + block every week. Studio Lead protects it — if it gets interrupted, the program dies.</div>
+          <div class="cal-owner">Owner: Studio Lead</div>
         </div>
       </div>
       <div class="cal-row">
@@ -3234,7 +3270,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <div class="cal-body">
           <div class="cal-title">First Factory Demo</div>
           <div class="cal-desc">Live show-and-tell of what shipped. Slack celebrations for everyone who contributed. <em>Set the loop: build → ship → show → inspire → build again.</em></div>
-          <div class="cal-owner">Owner: Dani</div>
+          <div class="cal-owner">Owner: Studio Lead</div>
         </div>
       </div>
     </div>
@@ -3428,7 +3464,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.4</div>
+    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.5</div>
     <div class="footer-meta">Internal · Apr 2026</div>
   </div>
 </footer>
