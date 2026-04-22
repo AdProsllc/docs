@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>AG1 Brand Intelligence &mdash; Ad Pros</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: #b0b1b6;
+      background: #000212;
+      line-height: 1.5;
+      padding: 40px;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ---- HEADER ---- */
+    .header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding-bottom: 24px;
+    }
+    .header-logo { flex-shrink: 0; }
+    .header-content { flex: 1; }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .header .meta {
+      font-size: 13px;
+      color: #545560;
+    }
+    .header .brand-badge {
+      display: inline-block;
+      background: #F8D908;
+      color: #000212;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ---- TAB NAVIGATION ---- */
+    .tab-nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 1px solid #282932;
+      margin-bottom: 48px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-nav .tab {
+      font-family: 'Inter', 'Geist', -apple-system, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #545560;
+      padding: 14px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .tab-nav .tab:hover { color: #f3f4ff; }
+    .tab-nav .tab.active {
+      color: #f3f4ff;
+      border-bottom-color: #F8D908;
+      font-weight: 600;
+    }
+    .tab-nav .tab-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      padding: 8px 0;
+      flex-shrink: 0;
+    }
+    .btn-export {
+      background: transparent;
+      color: #545560;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      border: 1px solid #282932;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-export:hover { color: #f3f4ff; border-color: #F8D908; }
+
+    /* ---- TAB CONTENT PANELS ---- */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ---- TYPOGRAPHY ---- */
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 48px 0 20px;
+      border-left: 3px solid #F8D908;
+      padding-left: 16px;
+    }
+    .tab-panel h2:first-child { margin-top: 0; }
+    h3 { font-size: 17px; font-weight: 700; color: #f3f4ff; margin: 28px 0 12px; }
+    h4 { font-size: 14px; font-weight: 700; color: #f3f4ff; margin: 12px 0 6px; letter-spacing: 0.02em; text-transform: uppercase; }
+    p { margin: 8px 0; font-size: 15px; line-height: 1.6; }
+    strong { color: #f3f4ff; }
+
+    /* ---- CARDS ---- */
+    .card {
+      background: #0b0d17;
+      border: 1px solid #282932;
+      border-radius: 16px;
+      padding: 28px;
+      margin: 16px 0;
+    }
+    .card-elevated {
+      background: #1a1c2e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 16px 0;
+    }
+    .card-compact { padding: 20px; }
+
+    /* ---- LISTS ---- */
+    ul { margin: 8px 0 8px 20px; color: #f3f4ff; font-size: 14px; }
+    li { margin-bottom: 6px; line-height: 1.5; }
+
+    /* ---- CALLOUTS ---- */
+    .callout {
+      background: rgba(77, 101, 255, 0.08);
+      border-left: 3px solid #4d65ff;
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      color: #f3f4ff;
+      font-size: 14px;
+    }
+    .callout-yellow {
+      background: rgba(248, 217, 8, 0.06);
+      border-left: 3px solid #F8D908;
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      color: #f3f4ff;
+      font-size: 14px;
+    }
+    .callout-red {
+      background: rgba(239, 68, 68, 0.06);
+      border-left: 3px solid #ef4444;
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      color: #f3f4ff;
+      font-size: 14px;
+    }
+
+    /* ---- TABLES ---- */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0; }
+    thead th {
+      color: #545560;
+      font-weight: 600;
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid #282932;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    tbody td {
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #f3f4ff;
+      vertical-align: top;
+    }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+    tr.total td, tfoot td { color: #F8D908; font-weight: 700; border-top: 1px solid #282932; }
+
+    /* ---- BADGES ---- */
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 700; }
+    .badge-green { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+    .badge-amber { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+    .badge-red { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+    .badge-blue { background: rgba(77,101,255,0.15); color: #4d65ff; border: 1px solid rgba(77,101,255,0.3); }
+    .badge-yellow { background: rgba(248,217,8,0.1); color: #F8D908; border: 1px solid rgba(248,217,8,0.25); }
+    .badge-gray { background: rgba(84,85,96,0.15); color: #b0b1b6; border: 1px solid rgba(84,85,96,0.3); }
+
+    /* ---- METRIC CARDS ---- */
+    .metric-value { font-size: 32px; font-weight: 700; color: #F8D908; line-height: 1.2; }
+    .metric-label { font-size: 13px; color: #545560; margin-top: 4px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 20px 0; }
+    .metric-card { background: #0b0d17; border: 1px solid #282932; border-radius: 12px; padding: 20px; }
+
+    /* ---- TAG LIST ---- */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid #282932;
+      color: #b0b1b6;
+      font-size: 12px;
+    }
+    .tag-yellow { background: rgba(248,217,8,0.08); border-color: rgba(248,217,8,0.25); color: #F8D908; }
+
+    /* ---- GRID ---- */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    /* ---- KV ---- */
+    .kv-row { display: grid; grid-template-columns: 200px 1fr; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .kv-row:last-child { border-bottom: none; }
+    .kv-key { color: #545560; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; padding-top: 2px; }
+    .kv-val { color: #f3f4ff; font-size: 14px; }
+
+    /* ---- QUOTE CARD ---- */
+    .quote {
+      background: #0b0d17;
+      border: 1px solid #282932;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 12px 0;
+      font-style: italic;
+      color: #f3f4ff;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .quote .attribution { display: block; font-style: normal; color: #545560; margin-top: 10px; font-size: 12px; }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid #282932;
+      font-size: 12px;
+      color: #545560;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand { font-weight: 700; color: #ffffff; font-size: 14px; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      body { padding: 20px; }
+      .header { flex-direction: column; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .kv-row { grid-template-columns: 1fr; }
+      h1 { font-size: 24px; }
+      h2 { font-size: 18px; }
+      .tab-nav .tab { padding: 12px 14px; font-size: 13px; }
+    }
+
+    /* ---- PRINT STYLES (PDF EXPORT) ---- */
+    @media print {
+      body { background: #000212; padding: 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .tab-nav { display: none; }
+      .tab-panel { display: block !important; page-break-before: always; }
+      .tab-panel:first-of-type { page-break-before: avoid; }
+      .tab-panel::before {
+        content: attr(data-tab-label);
+        display: block;
+        font-size: 18px;
+        font-weight: 700;
+        color: #F8D908;
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #F8D908;
+      }
+      .card, .card-elevated { break-inside: avoid; }
+      .footer { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 40px; }
+    }
+    body.print-single .tab-panel { display: none !important; }
+    body.print-single .tab-panel.print-target { display: block !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-logo">
+        <svg width="48" height="48" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0)">
+            <path d="M45.32 0.58C45.83 0.94 45.77 1.47 45.77 1.98C45.77 10.63 45.67 19.29 45.82 27.94C45.87 31.33 45.7 34.75 46.3 38.12C46.49 39.21 46 39.7 44.85 39.73C43.81 39.75 42.77 39.74 41.74 39.73C40.25 39.73 40.1 39.63 39.66 38.3C39.61 38.16 39.57 38.02 39.54 37.9C39.21 37.85 39.1 38.07 38.96 38.21C37.47 39.68 35.62 40.24 33.53 40.3C31.34 40.37 29.3 40.04 27.51 38.7C25.39 37.12 24.47 34.88 24.04 32.37C23.39 28.57 23.55 24.79 24.83 21.12C26.18 17.26 29.02 15.27 33.02 15.14C35.1 15.07 36.93 15.59 38.46 17.04C38.64 17.21 38.77 17.56 39.15 17.39C39.15 12.3 39.15 7.2 39.15 2.1C39.15 1.56 39.09 0.99 39.55 0.58C41.47 0.58 43.4 0.58 45.32 0.58Z" fill="white"/>
+            <path d="M17.95 15.36C18.82 15.36 19.68 15.39 20.55 15.36C21.84 15.3 22.31 15.77 22.26 17.04C22.17 19.24 22.24 21.44 22.23 23.64C22.23 24.14 22.38 24.74 21.73 25.11C19.56 25.11 17.39 25.11 15.22 25.11C14.78 24.68 14.84 24.14 14.84 23.63C14.84 21.43 14.93 19.22 14.8 17.02C14.73 15.75 15.24 15.29 16.49 15.36C16.98 15.39 17.46 15.36 17.95 15.36Z" fill="white"/>
+            <path d="M0.59 28.2C1.12 27.68 1.8 27.79 2.44 27.79C5.66 27.79 8.88 27.79 12.1 27.79C14.1 27.79 14.84 28.53 14.84 30.54C14.84 33.73 14.84 36.92 14.84 40.11C14.84 40.54 14.92 41.01 14.41 41.32C9.76 41.32 5.11 41.32 0.47 41.32C0.59 36.95 0.59 32.57 0.59 28.2Z" fill="white"/>
+            <path d="M14.84 30.54C14.84 28.53 14.1 27.79 12.1 27.79C8.88 27.79 5.66 27.79 2.44 27.79C1.8 27.79 1.12 27.68 0.59 28.2C0.59 23.83 0.59 19.46 0.59 15.09C0.59 15.09 0.75 15.06 0.83 15.09C4.26 15.55 7.71 15.27 11.14 15.36C13.67 15.43 14.84 16.73 14.84 19.28C14.84 23.03 14.84 26.79 14.84 30.54Z" fill="#F8D908"/>
+          </g>
+          <defs><clipPath id="clip0"><rect width="80.17" height="80.17" fill="white" transform="translate(0.47 0.58)"/></clipPath></defs>
+        </svg>
+      </div>
+      <div class="header-content">
+        <h1>AG1 Brand Intelligence Briefing</h1>
+        <div class="meta">6 of 7 steps complete &bull; Generated Apr 21, 2026 &bull; Strategist: Adrienne</div>
+        <span class="brand-badge">Ad Pros Brand Intelligence</span>
+      </div>
+    </div>
+
+    <!-- TAB NAVIGATION -->
+    <div class="tab-nav">
+      <button class="tab" onclick="showTab('prep')">Prep</button>
+      <button class="tab" onclick="showTab('step1')">1. Brand Profile</button>
+      <button class="tab" onclick="showTab('step2')">2. Market Research</button>
+      <button class="tab" onclick="showTab('step3')">3. Competitor Intel</button>
+      <button class="tab" onclick="showTab('step4')">4. Assessment</button>
+      <button class="tab" onclick="showTab('step5')">5. Decisions</button>
+      <button class="tab active" onclick="showTab('step6')">6. Avatar + Angles</button>
+      <div class="tab-actions">
+        <button class="btn-export" onclick="exportAll()">Export All PDF</button>
+        <button class="btn-export" onclick="exportCurrent()">Export This Step</button>
+      </div>
+    </div>
+
+    <!-- ========== PREP TAB ========== -->
+    <div id="prep" class="tab-panel" data-tab-label="Prep">
+      <h2>Engagement Setup</h2>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Brand</div><div class="kv-val">AG1 (by Athletic Greens)</div></div>
+        <div class="kv-row"><div class="kv-key">URL</div><div class="kv-val"><a href="https://drinkag1.com" style="color:#4d65ff;">https://drinkag1.com</a></div></div>
+        <div class="kv-row"><div class="kv-key">Category</div><div class="kv-val">Daily Health Drink (rejects "greens powder" category)</div></div>
+        <div class="kv-row"><div class="kv-key">Brand Version</div><div class="kv-val">v1 (resumed from prior data, no artifacts previously saved)</div></div>
+        <div class="kv-row"><div class="kv-key">Strategist</div><div class="kv-val">Adrienne &bull; Creative Director, Ad Pros</div></div>
+        <div class="kv-row"><div class="kv-key">Engagement Goal</div><div class="kv-val">Pick up at Step 4 Assessment &rarr; Decisions &rarr; Creative &rarr; Briefs</div></div>
+        <div class="kv-row"><div class="kv-key">Creative Focus</div><div class="kv-val">Both AG1 (core) and AGZ (new sleep product)</div></div>
+      </div>
+
+      <h2>Tool Connectivity</h2>
+      <div class="grid-2">
+        <div class="card card-compact"><h4>Required</h4>
+          <p><span class="badge badge-green">Connected</span> &nbsp; Supabase &mdash; project lteuunalvpsxdjppeoyb</p>
+          <p><span class="badge badge-amber">Fallback</span> &nbsp; Apify &mdash; will use direct scrape / console for heavy runs</p>
+        </div>
+        <div class="card card-compact"><h4>Recommended</h4>
+          <p><span class="badge badge-green">Connected</span> &nbsp; Slack &mdash; ad@adpros.com</p>
+          <p><span class="badge badge-amber">Fallback</span> &nbsp; FireCrawl &mdash; using built-in fetch</p>
+        </div>
+      </div>
+
+      <h2>Inherited Data Summary</h2>
+      <div class="callout">
+        Steps 1&ndash;3 were populated on 2026-03-13 with rich research but never consolidated into a master briefing.
+        Accepting as-is and building forward from Step 4.
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card"><div class="metric-value">7</div><div class="metric-label">Brand metadata blocks</div></div>
+        <div class="metric-card"><div class="metric-value">7</div><div class="metric-label">Market insights</div></div>
+        <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">VOC quotes mined</div></div>
+        <div class="metric-card"><div class="metric-value">6</div><div class="metric-label">Competitors profiled</div></div>
+        <div class="metric-card"><div class="metric-value">8</div><div class="metric-label">White space opportunities</div></div>
+        <div class="metric-card"><div class="metric-value">6</div><div class="metric-label">Creative gaps identified</div></div>
+      </div>
+    </div>
+
+    <!-- ========== STEP 1: BRAND PROFILE ========== -->
+    <div id="step1" class="tab-panel" data-tab-label="Step 1: Brand Profile">
+
+      <h2>Who AG1 Is</h2>
+      <div class="card-elevated">
+        <p><strong>AG1 is a Daily Health Drink</strong> &mdash; 75+ vitamins, minerals, botanicals, and probiotics delivered in a single morning scoop. It positions itself as a <em>complete</em> replacement for an entire supplement stack. Core product is <strong>AG1 Next Gen</strong> (reformulated Jan 2025). New companion product: <strong>AGZ Nightly Sleep Support</strong>.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Positioning</h4>
+          <p>The daily health drink that replaces your entire supplement stack &mdash; backed by clinical research, certified safe for elite athletes, trusted by high performers worldwide.</p>
+        </div>
+        <div class="card">
+          <h4>Tone</h4>
+          <p>Premium, science-backed, aspirational. Anti-fad, pro-ritual. Community-oriented with high-performer credibility.</p>
+        </div>
+      </div>
+
+      <h2>Brand DNA</h2>
+      <div class="card">
+        <h4>Category Positioning</h4>
+        <p>AG1 <strong>rejects</strong> the "greens powder" category and positions itself as a "Daily Health Drink" &mdash; a meaningful semantic distinction used throughout all copy.</p>
+
+        <h4 style="margin-top:24px;">Taglines in Use</h4>
+        <div class="tag-list">
+          <span class="tag tag-yellow">More Than A Greens Powder</span>
+          <span class="tag tag-yellow">Stay One Scoop Ahead</span>
+          <span class="tag tag-yellow">Better Mornings</span>
+          <span class="tag tag-yellow">Feel the Difference or It's On Us</span>
+        </div>
+
+        <div class="grid-2" style="margin-top:24px;">
+          <div>
+            <h4>Words We Use</h4>
+            <div class="tag-list">
+              <span class="tag">ritual</span><span class="tag">morning routine</span><span class="tag">peace of mind</span><span class="tag">non-negotiable</span><span class="tag">daily health drink</span><span class="tag">clinically shown</span><span class="tag">backed by research</span><span class="tag">high performer</span><span class="tag">simple</span><span class="tag">trusted</span><span class="tag">scoop</span>
+            </div>
+          </div>
+          <div>
+            <h4>Words We Avoid</h4>
+            <div class="tag-list">
+              <span class="tag" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">greens powder</span>
+              <span class="tag" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">diet</span>
+              <span class="tag" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">weight loss</span>
+              <span class="tag" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">detox</span>
+              <span class="tag" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">superfood hype</span>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-top:24px;">Positioning Framework</h4>
+        <div class="grid-2">
+          <div>
+            <p style="font-size:12px;color:#545560;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">More Of</p>
+            <p style="font-size:14px;">Clinical credibility &bull; Morning ritual framing &bull; High-performer identity &bull; Simplicity &amp; convenience</p>
+          </div>
+          <div>
+            <p style="font-size:12px;color:#545560;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Less Of</p>
+            <p style="font-size:14px;">Wellness fad language &bull; Weight loss messaging &bull; Detox/cleanse claims &bull; Greens powder category</p>
+          </div>
+        </div>
+
+        <h4 style="margin-top:24px;">Founder Story &amp; Credibility</h4>
+        <p>Developed in 2010. 52 formula iterations. January 2025 major reformulation = AG1 Next Gen. In-house science team. 4 gold-standard clinical trials.</p>
+
+        <h4 style="margin-top:24px;">Art Direction</h4>
+        <p><strong>Mood:</strong> Aspirational yet accessible, science-credible, community-warm. <strong>Colors:</strong> Green-forward, clean white, premium dark backgrounds. <strong>Photography:</strong> Morning light, active lifestyle, athlete performance, intimate ritual moments.</p>
+      </div>
+
+      <h2>Offer Structure</h2>
+      <div class="card">
+        <h4>Hero Offer</h4>
+        <p><strong>AG1 Next Gen Pouch</strong> (30 servings) &mdash; subscription at $79/month. Value anchor: <em>$79/mo vs $225+ buying supplements separately</em>.</p>
+
+        <h4 style="margin-top:20px;">Pricing Ladder</h4>
+        <table>
+          <thead><tr><th>SKU</th><th>Price</th><th>Terms</th></tr></thead>
+          <tbody>
+            <tr><td>AG1 Subscription (single)</td><td class="metric-value" style="font-size:16px;">$79/mo</td><td>Pause, skip, cancel anytime</td></tr>
+            <tr><td>AG1 Subscription (double, 60 servings)</td><td class="metric-value" style="font-size:16px;">$149</td><td>Bulk save</td></tr>
+            <tr><td>AG1 One-Time Purchase</td><td>$99</td><td>No commitment</td></tr>
+            <tr><td>Travel Packs (subscription)</td><td>$89/mo</td><td>3&ndash;5 count</td></tr>
+            <tr><td>Travel Packs (one-time)</td><td>$109</td><td></td></tr>
+            <tr><td>AG1 EU Subscription</td><td>&euro;78.30/mo</td><td>10% off first 3 months</td></tr>
+            <tr><td>AGZ Nightly Sleep Support</td><td>&mdash;</td><td>New: melatonin-free, 3 flavors</td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="margin-top:20px;">Guarantee</h4>
+        <p><span class="badge badge-green">90-day money-back</span> &nbsp; "Feel the Difference or It's On Us"</p>
+
+        <h4 style="margin-top:20px;">First-Order Bonuses</h4>
+        <p>Welcome Kit (shaker + scoop + canister) &bull; Travel Packs (3&ndash;5 ct) &bull; Vitamin D3+K2 (EU)</p>
+
+        <h4 style="margin-top:20px;">Subscription Perks</h4>
+        <p>Pause/skip/cancel anytime &bull; Members-only rewards after 90 days &bull; Referral credits &bull; Exclusive events &bull; Early product access</p>
+      </div>
+
+      <h2>Funnel Structure</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>TOF (Awareness)</h4>
+          <p><strong>Content:</strong> Celebrity/athlete endorsements, educational content, morning ritual messaging.</p>
+          <p><strong>Channels:</strong> Podcast sponsorships (Huberman Lab prominently), social, YouTube, PR (NYT, Forbes, Vogue, Bon Appetit).</p>
+        </div>
+        <div class="card">
+          <h4>MOF (Consideration)</h4>
+          <p><strong>Content:</strong> Clinical trial proof, ingredient deep-dives, FAQs, cost comparison.</p>
+          <p><strong>Channels:</strong> Website content, blog, research/science pages.</p>
+        </div>
+        <div class="card">
+          <h4>BOF (Conversion)</h4>
+          <p><strong>Content:</strong> Welcome Kit offer, 90-day guarantee, risk-reversal.</p>
+          <p><strong>Channels:</strong> Direct website, subscription CTA.</p>
+        </div>
+        <div class="card">
+          <h4>Retention</h4>
+          <p><strong>Content:</strong> Loyalty rewards, referral program, product launches.</p>
+          <p><strong>Channels:</strong> Members program, email (inferred).</p>
+        </div>
+      </div>
+
+      <h2>Social Proof Assets</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Celebrity &amp; Athlete Ambassadors</h4>
+          <table>
+            <tbody>
+              <tr><td><strong>Hugh Jackman</strong></td><td>Actor/Performer</td><td>Since 2021</td></tr>
+              <tr><td><strong>Dr. Andrew Huberman</strong></td><td>Neuroscientist, Huberman Lab</td><td>Since 2012</td></tr>
+              <tr><td><strong>Sir Lewis Hamilton</strong></td><td>7&times; F1 World Champion</td><td>&mdash;</td></tr>
+              <tr><td><strong>Allison Felix</strong></td><td>7&times; Olympic Gold Medalist</td><td>&mdash;</td></tr>
+              <tr><td><strong>Laura Philipp</strong></td><td>2024 Ironman World Champion</td><td>&mdash;</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h4>Media, Reviews &amp; Certifications</h4>
+          <p><strong>Press:</strong> New York Times, Forbes, Vogue, Bon Appetit.</p>
+          <p><strong>Reviews:</strong> 50,000+ verified 5-star reviews.</p>
+          <p style="margin-top:12px;"><strong>Certifications (key moat):</strong></p>
+          <div class="tag-list">
+            <span class="tag tag-yellow">NSF Certified for Sport</span>
+            <span class="tag tag-yellow">Informed Sport</span>
+            <span class="tag tag-yellow">Cologne List</span>
+          </div>
+          <div class="callout-yellow" style="margin-top:16px;">
+            <strong>NSF Certified for Sport is AG1's strongest defensible moat.</strong> Zero major competitors hold it.
+          </div>
+        </div>
+      </div>
+
+      <h2>Copy Catalogue (What's Already in Market)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Hooks in Use</h4>
+          <ul style="padding-left:20px;color:#b0b1b6;font-size:14px;line-height:1.7;">
+            <li>Better Mornings, No Matter Hugh You Are.</li>
+            <li>Stay one scoop ahead of everything the season throws at you</li>
+            <li>Experience the Daily Health Drink for all-in-one nutrition.</li>
+            <li>Clinically-backed formula for optimal results.</li>
+            <li>Start a Fresh Routine This Spring</li>
+            <li>AG1 Next Gen is clinically shown to fill common nutrient gaps even in healthy eaters.</li>
+            <li>75+ quality ingredients optimized for impact</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Headlines</h4>
+          <ul style="padding-left:20px;color:#b0b1b6;font-size:14px;line-height:1.7;">
+            <li>More Than A Greens Powder</li>
+            <li>Over 50,000 Satisfied Customers and Counting</li>
+            <li>Designed to Support Your Busy Lifestyle</li>
+            <li>The Smarter Way to Invest in Your Health</li>
+            <li>Start Your Journey with the AG1 Welcome Kit &amp; Claim Your Free Gifts</li>
+            <li>Feel the Difference or It's On Us</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>CTAs</h4>
+          <div class="tag-list">
+            <span class="tag">Get Started</span><span class="tag">Subscribe Now</span><span class="tag">Upgrade My Health</span><span class="tag">Learn More</span><span class="tag">View All Ingredients</span><span class="tag">See All Reviews</span>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Content Pillars Detected</h4>
+          <div class="tag-list">
+            <span class="tag tag-yellow">Farm to Label</span>
+            <span class="tag tag-yellow">Nutrition &amp; Gut Health</span>
+            <span class="tag tag-yellow">Rest &amp; Restore</span>
+            <span class="tag tag-yellow">Clinical Research</span>
+            <span class="tag tag-yellow">Raising the Standard</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Ambassador Quotes (In Rotation)</h3>
+      <div class="quote">"It is one scoop in water first thing in the morning and you know you are getting what you need for the day. It gives me peace of mind."<span class="attribution">&mdash; Hugh Jackman</span></div>
+      <div class="quote">"It is the simplest, most straightforward way for me to get my bases of important vitamins, minerals, and probiotics."<span class="attribution">&mdash; Dr. Andrew Huberman</span></div>
+      <div class="quote">"I love the simplicity of adding AG1 to my daily routine."<span class="attribution">&mdash; Allison Felix</span></div>
+      <div class="quote">"It has been a non-negotiable in my routine."<span class="attribution">&mdash; Dan Churchill</span></div>
+
+      <h2>Tech Stack</h2>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Frontend</div><div class="kv-val">Next.js (/_next/image confirmed)</div></div>
+        <div class="kv-row"><div class="kv-key">CMS</div><div class="kv-val">Sanity (cdn.sanity.io confirmed)</div></div>
+        <div class="kv-row"><div class="kv-key">CDN</div><div class="kv-val">Vercel (inferred from Next.js) + Sanity CDN</div></div>
+        <div class="kv-row"><div class="kv-key">E-commerce</div><div class="kv-val">Custom headless commerce (Next.js frontend, not standard Shopify storefront)</div></div>
+        <div class="kv-row"><div class="kv-key">Analytics</div><div class="kv-val">GA4 (G-M297QZJSRF) &bull; Google Ads (gclid/_gl confirmed)</div></div>
+        <div class="kv-row"><div class="kv-key">Chat / Support</div><div class="kv-val">Live Chat + Phone (confirmed on contact page)</div></div>
+        <div class="kv-row"><div class="kv-key">Email Platform</div><div class="kv-val"><span class="badge badge-amber">Needs confirmation</span> Likely Klaviyo (DTC standard)</div></div>
+        <div class="kv-row"><div class="kv-key">Attribution</div><div class="kv-val"><span class="badge badge-amber">Needs confirmation</span> Triple Whale / Northbeam likely at this scale</div></div>
+        <div class="kv-row"><div class="kv-key">To Confirm</div><div class="kv-val">Meta/TikTok pixel IDs &bull; CRM / loyalty platform</div></div>
+      </div>
+
+    </div>
+
+    <!-- ========== STEP 2: MARKET RESEARCH ========== -->
+    <div id="step2" class="tab-panel" data-tab-label="Step 2: Market Research">
+
+      <h2>Market Sizing</h2>
+      <div class="metric-grid">
+        <div class="metric-card"><div class="metric-value">$407M</div><div class="metric-label">Green powder TAM (2026)</div></div>
+        <div class="metric-card"><div class="metric-value">$1.26B</div><div class="metric-label">Green powder TAM (2035)</div></div>
+        <div class="metric-card"><div class="metric-value">13.4%</div><div class="metric-label">Green powder CAGR</div></div>
+        <div class="metric-card"><div class="metric-value">~18%</div><div class="metric-label">AG1 global share</div></div>
+        <div class="metric-card"><div class="metric-value">$600M</div><div class="metric-label">AG1 2024 revenue</div></div>
+        <div class="metric-card"><div class="metric-value">$4.29B</div><div class="metric-label">Sleep supp TAM (2024)</div></div>
+        <div class="metric-card"><div class="metric-value">$12.55B</div><div class="metric-label">Sleep supp TAM (2033)</div></div>
+        <div class="metric-card"><div class="metric-value">12.94%</div><div class="metric-label">Sleep supp CAGR</div></div>
+      </div>
+      <div class="callout">
+        Both markets are in growth phase. AGZ enters a sleep market 10&times; the size of greens and growing faster.
+      </div>
+
+      <h2>Regulatory &amp; Category Risk</h2>
+      <div class="callout-red">
+        <strong>CRITICAL.</strong> Active FDA adverse event investigation (~100+ reports, liver enzymes).
+        Founder Chris Ashenden convicted on 43 NZ Fair Trading Act violations.
+        Kat Cole became CEO July 2024.
+        Live It Up competitor recalled Jan 2026 for Salmonella &mdash; 45 illnesses, 12 hospitalizations.
+      </div>
+      <div class="card">
+        <h4>Translation for Creative</h4>
+        <p><strong>NSF Certified for Sport becomes the most timely creative differentiator available.</strong> Post-Live It Up recall, safety certification is a defensible wedge. Currently underutilized in all AG1 creative &mdash; should be leading claim.</p>
+      </div>
+
+      <h2>Jobs-to-Be-Done &amp; Buyer Psychology</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h4>Functional Job</h4>
+          <p>Replace entire supplement stack with a single morning scoop.</p>
+        </div>
+        <div class="card">
+          <h4>Emotional Job</h4>
+          <p>Peace of mind + elite identity. "I take care of myself like the pros do."</p>
+        </div>
+        <div class="card">
+          <h4>Social Job</h4>
+          <p>Belong to the Huberman/Jackman/high-performer community.</p>
+        </div>
+      </div>
+
+      <div class="card-elevated">
+        <h4>Purchase Decision Drivers</h4>
+        <table>
+          <tbody>
+            <tr><td><strong>#1 Purchase Driver</strong></td><td>Price math: $225 (stack) &rarr; $79 (AG1)</td></tr>
+            <tr><td><strong>#1 Objection</strong></td><td>Cost: $79/month feels steep pre-math</td></tr>
+            <tr><td><strong>#1 Trust Signal</strong></td><td>NSF Certified for Sport</td></tr>
+            <tr><td><strong>#1 Skepticism</strong></td><td>No AG1-specific randomized controlled trials (only ingredient-level studies)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Voice of Customer (Review Mining)</h2>
+      <h3>Positive Patterns</h3>
+      <div class="quote">"I don't know exactly why I feel better, but I do. Digestion, energy, even skin. Something in AG1 is working."<span class="attribution">&mdash; Review pattern across testimonial sites &bull; <span class="badge badge-green">5&star;</span></span></div>
+      <div class="quote">"One scoop replaced 10 pills and $200 a month. That math was easy."<span class="attribution">&mdash; AG1 testimonials / review aggregation &bull; <span class="badge badge-green">5&star;</span></span></div>
+      <div class="quote">"More energy throughout the day, no afternoon crash. Whatever is in here is working for my gut."<span class="attribution">&mdash; Energy + digestion benefit theme &bull; <span class="badge badge-green">5&star;</span></span></div>
+      <div class="quote">"I wanted something NSF certified because I'm a competitive athlete. AG1 was the only greens powder that qualified."<span class="attribution">&mdash; NSF-motivated purchaser pattern &bull; <span class="badge badge-green">5&star;</span></span></div>
+
+      <h3>Price-to-Value Conversion Pattern</h3>
+      <div class="quote">"The price scared me. Then I calculated what I was spending on separate supplements and switched."<span class="attribution">&mdash; Price anxiety &rarr; value comparison conversion pattern &bull; <span class="badge badge-amber">4&star;</span></span></div>
+
+      <h3>AGZ / Sleep Category Pain Point</h3>
+      <div class="quote">"I need something melatonin-free because melatonin makes me groggy in the morning. Dependency scares me too."<span class="attribution">&mdash; AGZ category sleep pain point pattern &bull; <span class="badge badge-gray">Neutral</span></span></div>
+
+      <h3>Negative Patterns (Objection Mining)</h3>
+      <div class="quote">"$79/month is a lot. Hard to justify long-term especially when the science is mostly on the individual ingredients, not the blend."<span class="attribution">&mdash; Price objection pattern &bull; <span class="badge badge-red">3&star;</span></span></div>
+      <div class="quote">"No independent studies on AG1 itself. Proprietary blends hide actual dosages. It might be expensive urine."<span class="attribution">&mdash; McGill University / skeptic review pattern &bull; <span class="badge badge-red">2&star;</span></span></div>
+
+      <h2>Segment Hypotheses (Pre-Avatar)</h2>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Segment</th><th>Core Motivation</th><th>Product</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Busy Professional Optimizer (35&ndash;50)</strong></td><td>Podcast-led, Huberman audience. Convenience + clinical credibility.</td><td>AG1</td></tr>
+          <tr><td>2</td><td><strong>NSF-Conscious Athlete</strong></td><td>Drug-tested sport. NSF is non-negotiable.</td><td>AG1</td></tr>
+          <tr><td>3</td><td><strong>GLP-1 User</strong> <span class="badge badge-blue">Fast-growing</span></td><td>Losing muscle/nutrients on semaglutide. Needs dense nutrition. Medical tone.</td><td>AG1</td></tr>
+          <tr><td>4</td><td><strong>Premium Wellness Female (28&ndash;45)</strong></td><td>AG1 Next Gen flavor line (Berry, Citrus, Tropical) opens this door.</td><td>AG1</td></tr>
+          <tr><td>5</td><td><strong>High-Stress Professional</strong></td><td>Cortisol/sleep angle. Primary AGZ avatar.</td><td>AGZ</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Unit Economics</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>CAC &amp; LTV</h4>
+          <table>
+            <tbody>
+              <tr><td>CAC benchmark range (ecom)</td><td class="metric-value" style="font-size:18px;">$10&ndash;$78</td></tr>
+              <tr><td>LTV (12 mo @ $79)</td><td class="metric-value" style="font-size:18px;">$948</td></tr>
+              <tr><td>LTV (18 mo @ $79)</td><td class="metric-value" style="font-size:18px;">$1,422</td></tr>
+              <tr><td>LTV : CAC</td><td class="metric-value" style="font-size:18px;">12&ndash;18&times;</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h4>AG1 + AGZ Bundle Upside</h4>
+          <table>
+            <tbody>
+              <tr><td>Bundled ARPU</td><td class="metric-value" style="font-size:18px;">$129&ndash;139/mo</td></tr>
+              <tr><td>Revenue lift per subscriber</td><td class="metric-value" style="font-size:18px;">+63&ndash;75%</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:12px;font-size:13px;color:#b0b1b6;">Stacking AGZ onto an AG1 subscriber is the single highest-leverage revenue move on the board.</p>
+        </div>
+      </div>
+
+      <h2>Top Strategic Insights</h2>
+      <div class="callout-yellow"><strong>1.</strong> NSF Certified for Sport is AG1's most defensible and most timely moat. Lead with it.</div>
+      <div class="callout-yellow"><strong>2.</strong> AG1 + AGZ 24-hour stack is completely uncontested white space. No competitor can run it.</div>
+      <div class="callout-yellow"><strong>3.</strong> GLP-1 users are an explicit audience AG1 already speaks to on-site &mdash; zero competitor creative targets them.</div>
+      <div class="callout-yellow"><strong>4.</strong> TikTok/Gen Z acquisition is a hole. Bloom dominates; AG1 is absent.</div>
+      <div class="callout-yellow"><strong>5.</strong> Clinical credibility needs an upgrade &mdash; "no AG1-specific RCT" skepticism shows up repeatedly in negative reviews.</div>
+
+    </div>
+
+    <!-- ========== STEP 3: COMPETITOR INTEL ========== -->
+    <div id="step3" class="tab-panel" data-tab-label="Step 3: Competitor Intel">
+
+      <h2>Competitive Landscape</h2>
+      <table>
+        <thead>
+          <tr><th>Competitor</th><th>Type</th><th>Positioning</th><th>Ad Vol</th><th>Spend</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Grüns</strong> <span class="badge badge-red">Direct attacker</span></td>
+            <td>Challenger</td>
+            <td>AG1 is explicit villain. Gummy-vs-powder upgrade. Anti-powder humor. Targets AG1 subscribers directly.</td>
+            <td class="metric-value" style="font-size:18px;">1,917</td>
+            <td>High</td>
+          </tr>
+          <tr>
+            <td><strong>Bloom Nutrition</strong></td>
+            <td>Direct</td>
+            <td>Women's wellness DTC. Brain+body dual benefit. TikTok-native creator ecosystem. 4 ad pillars: Evergreen, UGC, Drive-to-Retail, Urgency.</td>
+            <td class="metric-value" style="font-size:18px;">5</td>
+            <td>$170M rev 2023, 75% on influencers</td>
+          </tr>
+          <tr>
+            <td><strong>Organifi</strong></td>
+            <td>Direct</td>
+            <td>Quality over quantity. Fewer premium ingredients vs AG1's 75. Ancient wisdom + modern science. "Organifam" community.</td>
+            <td>&mdash;</td>
+            <td>High (Meta Ad Library blocked)</td>
+          </tr>
+          <tr>
+            <td><strong>Primal Harvest</strong></td>
+            <td>Direct</td>
+            <td>Quality + transparency + sourcing. GMP certified, USA-made. Quiz-first funnel. Price-accessible AG1 alt.</td>
+            <td>&mdash;</td>
+            <td>Medium (affiliate-led)</td>
+          </tr>
+          <tr>
+            <td><strong>OLLY Sleep</strong></td>
+            <td>AGZ category</td>
+            <td>Mass-market sleep gummies. Melatonin-based. NSF certified. Retail-first. No performance angle. Grogginess unaddressed.</td>
+            <td>&mdash;</td>
+            <td>High (mass retail)</td>
+          </tr>
+          <tr>
+            <td><strong>HUM Dream Team</strong></td>
+            <td>AGZ direct</td>
+            <td>Melatonin-free sleep. Grogginess pain-point lead. UGC-forward influencer ads. Clean Label certified.</td>
+            <td>&mdash;</td>
+            <td>Medium</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout-red">
+        <strong>Urgent competitive signal:</strong> Grüns is running <strong>1,917 active Meta creatives</strong> explicitly targeting AG1's category and customers. AG1 has zero defender/switcher-response creative in market.
+      </div>
+
+      <h2>AG1's Current Ad Creative (Self-Audit)</h2>
+      <p>Only 4 active branded ads on file. Two near-identical routine-building statics, one first-responder discount, one AGZ launch video.</p>
+      <table>
+        <thead>
+          <tr><th>Hook Type</th><th>Format</th><th>Platform</th><th>Emotion</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Routine-building</td><td>Static</td><td>FB/IG</td><td>Confidence</td><td>"Make AG1 Your Daily Routine" &mdash; immune angle. Dec 2025.</td></tr>
+          <tr><td>Athlete aspiration</td><td>Static</td><td>FB/IG</td><td>Confidence</td><td>"Make AG1 Your Morning Routine" &mdash; athlete aspirational. Dec 2025.</td></tr>
+          <tr><td>Niche loyalty / discount</td><td>Static</td><td>FB/IG</td><td>Trust</td><td>25% OFF FOR FIRST RESPONDERS via ID.me. Dec 2025.</td></tr>
+          <tr><td>Product launch</td><td>Video (47s)</td><td>FB/IG</td><td>Hope / Relief</td><td>NEW AGZ: no melatonin, no added sugar, no grogginess. Magnesium, Ashwagandha, L-Theanine, Apigenin, L-Glycine, Chamomile.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>Volume gap:</strong> AGZ has <strong>1 ad</strong> for a new product launch. Without creative volume there is no data to optimize and no scale path.
+      </div>
+
+      <h2>White Space Opportunities</h2>
+      <table>
+        <thead>
+          <tr><th>Opportunity</th><th>Type</th><th>Priority</th><th>Brand Fit</th><th>Rationale</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Morning + Night Stack Narrative (AG1 + AGZ)</strong></td>
+            <td>Messaging</td>
+            <td><span class="badge badge-red">HIGH</span></td>
+            <td>Very High</td>
+            <td>No competitor brands a complete 24-hour wellness protocol. Completely uncontested.</td>
+          </tr>
+          <tr>
+            <td><strong>Elite Athlete Sleep Performance (AGZ)</strong></td>
+            <td>Messaging</td>
+            <td><span class="badge badge-red">HIGH</span></td>
+            <td>Very High</td>
+            <td>No sleep brand uses elite performance sleep science as primary angle. AGZ owns this by default.</td>
+          </tr>
+          <tr>
+            <td><strong>Male-First Creative Series</strong></td>
+            <td>Audience</td>
+            <td><span class="badge badge-red">HIGH</span></td>
+            <td>High</td>
+            <td>Bloom owns women explicitly. No competitor runs high-performance male-first creative. Wide-open lane.</td>
+          </tr>
+          <tr>
+            <td><strong>UGC for a Premium Brand</strong></td>
+            <td>Format</td>
+            <td><span class="badge badge-red">HIGH</span></td>
+            <td>High</td>
+            <td>Every direct competitor runs UGC; AG1 runs zero. Estimated 40&ndash;60% lower CPM vs polished video.</td>
+          </tr>
+          <tr>
+            <td><strong>Short-Form Ingredient Proof Ads (15&ndash;30s)</strong></td>
+            <td>Content</td>
+            <td><span class="badge badge-red">HIGH</span></td>
+            <td>High</td>
+            <td>No brand runs ingredient-level proof in short format. "One ingredient. One peer-reviewed reason."</td>
+          </tr>
+          <tr>
+            <td><strong>Pre-empt Grüns Switcher Attack</strong></td>
+            <td>Defensive</td>
+            <td><span class="badge badge-amber">MED</span></td>
+            <td>High</td>
+            <td>Grüns runs 1,917 ads against AG1 with no response creative from AG1.</td>
+          </tr>
+          <tr>
+            <td><strong>Sport-Specific Hook Series</strong></td>
+            <td>Audience</td>
+            <td><span class="badge badge-amber">MED</span></td>
+            <td>High</td>
+            <td>Runner, CrossFit, cyclist, triathlete, golfer &mdash; higher relevance scores, lower CPCs.</td>
+          </tr>
+          <tr>
+            <td><strong>Subscription Loyalty / Streak Content</strong></td>
+            <td>Retention</td>
+            <td><span class="badge badge-amber">MED</span></td>
+            <td>Medium</td>
+            <td>No competitor runs "365-day streak" habit-reinforcement paid media.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>AG1 Creative Gaps (Diagnostic)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Product Stack Gap</h4>
+          <p><span class="badge badge-red">Very High Impact</span> <span class="badge badge-green">Low Effort</span></p>
+          <p>No AG1 + AGZ stack narrative despite being only brand that can run it.</p>
+          <p style="margin-top:8px;font-size:13px;color:#b0b1b6;"><strong>Fix:</strong> Build 3&ndash;5 "24-hour protocol" creatives. Split-screen morning / night. 2-product household LTV play.</p>
+        </div>
+        <div class="card">
+          <h4>Defensive / Switcher Gap</h4>
+          <p><span class="badge badge-amber">Med-High Impact</span> <span class="badge badge-green">Low Effort</span></p>
+          <p>No price-justification or value-defender creative against Grüns switcher ads.</p>
+          <p style="margin-top:8px;font-size:13px;color:#b0b1b6;"><strong>Fix:</strong> 3&ndash;5 "why the powder matters" ads. Cost-per-nutrient breakdown. Bioavailability comparison.</p>
+        </div>
+        <div class="card">
+          <h4>Audience Gap &mdash; Male-First</h4>
+          <p><span class="badge badge-red">High Impact</span> <span class="badge badge-amber">Med Effort</span></p>
+          <p>No male-first creative despite male being a core AG1 demographic.</p>
+          <p style="margin-top:8px;font-size:13px;color:#b0b1b6;"><strong>Fix:</strong> 5&ndash;8 male-first creatives. Gym / biohacker / executive angles. Performance metrics.</p>
+        </div>
+        <div class="card">
+          <h4>Format Gap &mdash; UGC</h4>
+          <p><span class="badge badge-red">High Impact</span> <span class="badge badge-green">Low Effort</span></p>
+          <p>Zero UGC in creative mix despite every competitor running it.</p>
+          <p style="margin-top:8px;font-size:13px;color:#b0b1b6;"><strong>Fix:</strong> 20&ndash;40 UGC pieces. Day-in-the-life, before/after energy, routine reveals. Batch test with subscribers + athletes.</p>
+        </div>
+        <div class="card">
+          <h4>Content Gap &mdash; Ingredient Proof</h4>
+          <p><span class="badge badge-red">High Impact</span> <span class="badge badge-amber">Med Effort</span></p>
+          <p>No ingredient-level proof ads despite 75-ingredient formula being a key differentiator.</p>
+          <p style="margin-top:8px;font-size:13px;color:#b0b1b6;"><strong>Fix:</strong> Ingredient proof series. 15&ndash;30s per ingredient. Peer-reviewed backing. Top 7 ingredients first.</p>
+        </div>
+        <div class="card">
+          <h4>Volume Gap &mdash; AGZ</h4>
+          <p><span class="badge badge-red">CRITICAL</span> <span class="badge badge-green">Low Effort</span></p>
+          <p>AGZ has only 1 active ad for a new product launch.</p>
+          <p style="margin-top:8px;font-size:13px;color:#b0b1b6;"><strong>Fix:</strong> 10&ndash;15 distinct AGZ angles immediately. Grogginess UGC, athlete sleep performance, ingredient proof, stack narrative, before/after recovery.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========== STEP 4: ASSESSMENT ========== -->
+    <div id="step4" class="tab-panel" data-tab-label="Step 4: Assessment">
+
+      <h2>Growth Assessment Scorecard</h2>
+      <div class="callout">
+        Seven-category traffic-light assessment. Scores pull from everything we've built in Steps 1&ndash;3 plus external DTC benchmarks for a brand at AG1's scale ($600M rev, ~18% category share).
+        <strong>Headline:</strong> The strategy is sound; the <em>creative execution</em> is the bottleneck.
+      </div>
+
+      <h3 style="margin-top:32px;">Scorecard Summary</h3>
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Rating</th><th>Key Issue</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>5. Ad Creative</strong></td>
+            <td><span class="badge badge-red">Failing</span></td>
+            <td>4 active brand ads, zero UGC, zero male-first, zero ingredient proof, AGZ launch with 1 ad</td>
+            <td>Blocks scale; every competitor running volume</td>
+          </tr>
+          <tr>
+            <td><strong>7. Tracking</strong></td>
+            <td><span class="badge badge-red">Failing</span></td>
+            <td>Attribution tool unconfirmed, social pixels unverified, email/CRM platforms unknown</td>
+            <td>Can't diagnose anything downstream with confidence</td>
+          </tr>
+          <tr>
+            <td><strong>1. Offer</strong></td>
+            <td><span class="badge badge-amber">Warning</span></td>
+            <td>AG1 hero solid. AGZ underproduced. No AG1+AGZ bundle creative. No offer testing framework.</td>
+            <td>Leaves 63&ndash;75% per-subscriber revenue lift on the table</td>
+          </tr>
+          <tr>
+            <td><strong>3. Funnel</strong></td>
+            <td><span class="badge badge-amber">Warning</span></td>
+            <td>Huberman Lab = outsized TOF dependency. LP-to-funnel mapping undocumented.</td>
+            <td>Single-point-of-failure on acquisition</td>
+          </tr>
+          <tr>
+            <td><strong>6. Ad Optimization</strong></td>
+            <td><span class="badge badge-amber">Warning</span></td>
+            <td>Not enough creative volume to run scaling/pruning meaningfully. Attribution gates optimization.</td>
+            <td>Downstream of Creative + Tracking; fix those first</td>
+          </tr>
+          <tr>
+            <td><strong>4. Nurturing</strong></td>
+            <td><span class="badge badge-gray">TBD</span></td>
+            <td>Members program + referrals visible. Email/SMS sequence inventory not in our data.</td>
+            <td>Need client input to score</td>
+          </tr>
+          <tr>
+            <td><strong>2. Market Research</strong></td>
+            <td><span class="badge badge-green">Passing</span></td>
+            <td>Comprehensive. TAM, share, 5 segments, JTBD, VOC, regulatory tailwind all documented.</td>
+            <td>Strong foundation for Decisions + Creative</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:48px;">Category Detail</h3>
+
+      <!-- CATEGORY 5: AD CREATIVE -->
+      <div class="card-elevated" style="border-left:4px solid #e85a5a;margin-bottom:24px;">
+        <h3>5. Ad Creative &nbsp; <span class="badge badge-red">Failing</span></h3>
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h4>Findings</h4>
+            <ul>
+              <li>Only <strong>4 active brand ads</strong> observed. Below the 30+/mo benchmark for a $600M-rev DTC.</li>
+              <li><strong>AGZ launched with 1 active ad.</strong> Dangerously low &mdash; no data to optimize, no scale path.</li>
+              <li><strong>Zero UGC.</strong> Every competitor runs it. Est. 40&ndash;60% lower CPM vs. polished video.</li>
+              <li><strong>No male-first series</strong> despite male being a core AG1 demographic.</li>
+              <li><strong>No ingredient proof ads</strong> despite 75 ingredients being the #1 differentiator.</li>
+              <li><strong>No AG1+AGZ stack creative.</strong> Only brand that can credibly run 24-hour protocol.</li>
+              <li><strong>No defensive creative</strong> against Gr&uuml;ns' 1,917-ad switcher attack.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommendations</h4>
+            <ul>
+              <li><strong>UGC Program Launch</strong> &mdash; 20&ndash;40 pieces (Low effort, High impact)</li>
+              <li><strong>Ingredient Proof Series</strong> &mdash; 15&ndash;30s per ingredient, top 7 first</li>
+              <li><strong>Stack Narrative Build</strong> (AG1+AGZ) &mdash; Very High impact, Low effort</li>
+              <li><strong>AGZ Volume Push</strong> &mdash; 10&ndash;15 distinct angles immediately</li>
+              <li><strong>Male-First Series</strong> &mdash; 5&ndash;8 executive/biohacker/gym creatives</li>
+              <li><strong>Defensive Value Creative</strong> &mdash; 3&ndash;5 "why the powder matters" ads</li>
+              <li><strong>Testing Cadence Framework</strong> &mdash; documented 30+/mo concept velocity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 7: TRACKING -->
+      <div class="card-elevated" style="border-left:4px solid #e85a5a;margin-bottom:24px;">
+        <h3>7. Tracking for Decision Making &nbsp; <span class="badge badge-red">Failing</span></h3>
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h4>Findings</h4>
+            <ul>
+              <li>Platform-native confirmed: <strong>GA4 + Google Ads pixel.</strong> Baseline only.</li>
+              <li><strong>Attribution tool unconfirmed.</strong> Triple Whale/Northbeam expected at this scale; no signal in data.</li>
+              <li><strong>Meta/TikTok pixel IDs unverified</strong> &mdash; core to Meta testing velocity.</li>
+              <li><strong>Email platform unknown.</strong> Klaviyo inferred but not confirmed. Blocks nurture diagnostics.</li>
+              <li><strong>CRM/loyalty platform unknown.</strong> Blocks subscriber LTV reporting.</li>
+              <li><strong>Heavy influencer/podcast spend</strong> (Huberman, athletes, PR) requires MMM for proper attribution. No infrastructure signal.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommendations</h4>
+            <ul>
+              <li><strong>Attribution Stack Audit</strong> &mdash; immediate; confirm every tool</li>
+              <li><strong>MTA Setup</strong> &mdash; Triple Whale or Northbeam</li>
+              <li><strong>Pixel Configuration Audit</strong> &mdash; Meta + TikTok + events</li>
+              <li><strong>Data Gap Remediation</strong> &mdash; 4 unknowns before Step 6 creative work</li>
+              <li><strong>Reporting Automation</strong> &mdash; weekly dashboard by channel</li>
+              <li><strong>First-Party Data Implementation</strong> &mdash; iOS/cookie-deprecation resilience</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 1: OFFER -->
+      <div class="card-elevated" style="border-left:4px solid #f5b947;margin-bottom:24px;">
+        <h3>1. Offer &nbsp; <span class="badge badge-amber">Warning</span></h3>
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h4>Findings</h4>
+            <ul>
+              <li><strong>Hero offer is clear:</strong> AG1 Next Gen at $79/mo. Complete matrix across sub, one-time, travel.</li>
+              <li><strong>Risk reversal is excellent:</strong> 90-day money-back + "Feel the Difference or It's On Us."</li>
+              <li><strong>Unit economics are category-leading:</strong> LTV 12mo=$948, LTV:CAC 12&ndash;18x.</li>
+              <li><strong>AGZ (secondary hero) critically underproduced:</strong> 1 active ad at launch.</li>
+              <li><strong>No AG1+AGZ bundle offer</strong> despite bundle = 63&ndash;75% rev lift per subscriber.</li>
+              <li><strong>No documented offer testing framework or promotion calendar.</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommendations</h4>
+            <ul>
+              <li><strong>AG1+AGZ Bundle Offer</strong> &mdash; formalize $129&ndash;139/mo stack as its own SKU</li>
+              <li><strong>AGZ Offer Push</strong> &mdash; creative volume + introductory subscriber incentive</li>
+              <li><strong>Offer Testing Framework</strong> &mdash; documented price/bonus/guarantee test cadence</li>
+              <li><strong>Promotion Calendar</strong> &mdash; evergreen vs. promotional rhythm documented</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 3: FUNNEL -->
+      <div class="card-elevated" style="border-left:4px solid #f5b947;margin-bottom:24px;">
+        <h3>3. Funnel &nbsp; <span class="badge badge-amber">Warning</span></h3>
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h4>Findings</h4>
+            <ul>
+              <li><strong>Architecture is documented:</strong> TOF (podcast+celebrity+PR), MOF (clinical proof), BOF (Welcome Kit), Retention (Members).</li>
+              <li><strong>Entry point concentration risk:</strong> Huberman Lab disproportionately weighted as TOF.</li>
+              <li><strong>BOF conversion assets are strong:</strong> Welcome Kit + 90-day guarantee + referral credits.</li>
+              <li><strong>LP architecture not mapped</strong> to funnel stages in our data.</li>
+              <li><strong>Evergreen vs. promo split undocumented.</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommendations</h4>
+            <ul>
+              <li><strong>Landing Page Audit &amp; Rebuild</strong> &mdash; map every LP to TOF/MOF/BOF</li>
+              <li><strong>Entry Point Diversification</strong> &mdash; reduce Huberman dependency; TikTok/Gen Z channel test</li>
+              <li><strong>Stage-Specific Offer Dev</strong> &mdash; MOF&rarr;BOF bridge for AGZ specifically</li>
+              <li><strong>Evergreen Content Strategy</strong> &mdash; documented split vs. promo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 6: AD OPTIMIZATION -->
+      <div class="card-elevated" style="border-left:4px solid #f5b947;margin-bottom:24px;">
+        <h3>6. Ad Optimization &nbsp; <span class="badge badge-amber">Warning</span></h3>
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h4>Findings</h4>
+            <ul>
+              <li><strong>Not enough volume to optimize:</strong> only 4 active brand ads. Scaling/pruning is moot at this volume.</li>
+              <li><strong>No documented scaling engine or kill criteria.</strong></li>
+              <li><strong>Retargeting isolation status unknown.</strong></li>
+              <li><strong>Attribution gates all optimization work</strong> &mdash; can't trust decisions without MTA.</li>
+              <li><strong>Huberman / PR / athlete spend not stitched to Meta/Google outcomes</strong> &mdash; MMM needed.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommendations</h4>
+            <ul>
+              <li><strong>Sequencing:</strong> Fix Creative (Cat 5) and Tracking (Cat 7) first &mdash; this category unlocks after.</li>
+              <li><strong>Account Restructure</strong> &mdash; rebuild once creative volume is in place</li>
+              <li><strong>Pruning Framework</strong> &mdash; documented kill criteria</li>
+              <li><strong>Retargeting Isolation</strong> &mdash; separate campaign from prospecting</li>
+              <li><strong>Metric Hierarchy Lock</strong> &mdash; primary = blended CAC &amp; sub LTV</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 4: NURTURING -->
+      <div class="card-elevated" style="border-left:4px solid #545560;margin-bottom:24px;">
+        <h3>4. Nurturing &nbsp; <span class="badge badge-gray">TBD</span></h3>
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h4>Findings</h4>
+            <ul>
+              <li><strong>Retention infrastructure exists:</strong> Members program, referral credits, exclusive events, early product access.</li>
+              <li><strong>Subscription perks are strong:</strong> pause/skip/cancel, members-only rewards after 90 days.</li>
+              <li><strong>Email platform unconfirmed</strong> &mdash; Klaviyo inferred.</li>
+              <li><strong>No email sequence inventory</strong> (welcome, post-purchase, winback, abandoned cart) in our data.</li>
+              <li><strong>No SMS program documented.</strong></li>
+              <li><strong>Segmentation status unknown.</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommendations</h4>
+            <ul>
+              <li><strong>Email Sequence Audit</strong> &mdash; client input to score this category properly</li>
+              <li><strong>Platform Confirmation</strong> &mdash; Klaviyo, SMS vendor, CRM</li>
+              <li><strong>List Segmentation Strategy</strong> &mdash; tie to 5 segments from Step 2</li>
+              <li><strong>SMS Launch Assessment</strong> &mdash; standard for a brand at this scale</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 2: MARKET RESEARCH -->
+      <div class="card-elevated" style="border-left:4px solid #4caf7f;margin-bottom:24px;">
+        <h3>2. Market Research &nbsp; <span class="badge badge-green">Passing</span></h3>
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h4>Findings</h4>
+            <ul>
+              <li><strong>TAM deeply quantified:</strong> Green powder $407M&rarr;$1.26B (13.4% CAGR); sleep $4.29B&rarr;$12.55B (12.94% CAGR).</li>
+              <li><strong>AG1 holds ~18% global share</strong>, $600M revenue 2024. Clear category leader.</li>
+              <li><strong>5 distinct buyer segments</strong> with evidence: Busy Professional, NSF-Athlete, GLP-1 User, Premium Wellness Female, High-Stress Professional.</li>
+              <li><strong>JTBD complete:</strong> #1 driver = price math ($225&rarr;$79). #1 objection = cost. #1 trust signal = NSF.</li>
+              <li><strong>Regulatory tailwind identified:</strong> Post-Live It Up recall makes NSF Certified for Sport the most timely defensible moat.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommendations</h4>
+            <ul>
+              <li><strong>Segment Validation Workshop</strong> &mdash; formalize 5 segments into personas (none exist in DB yet)</li>
+              <li><strong>Trend Analysis Refresh</strong> &mdash; quarterly cadence</li>
+              <li><strong>VOC Refresh</strong> &mdash; every 90 days once briefs go live</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:48px;">Media Buying Notes</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Active brand ads observed</div><div class="kv-val">4 (Meta only)</div></div>
+        <div class="kv-row"><div class="kv-key">Format split</div><div class="kv-val">3 static / 1 video &bull; No carousel, no UGC, no 16:9</div></div>
+        <div class="kv-row"><div class="kv-key">Funnel stage split</div><div class="kv-val">3 TOF (awareness) / 1 conversion &bull; No retention creative</div></div>
+        <div class="kv-row"><div class="kv-key">AG1 vs AGZ</div><div class="kv-val">3 AG1 / 1 AGZ &bull; AGZ is a new launch &mdash; should be 10&ndash;15 ads minimum</div></div>
+        <div class="kv-row"><div class="kv-key">Hook diversity</div><div class="kv-val">Routine-building, athlete aspiration, niche loyalty, product launch &bull; narrow</div></div>
+        <div class="kv-row"><div class="kv-key">Top competitor pressure</div><div class="kv-val">Gr&uuml;ns: 1,917 active creatives &bull; AG1 is explicit villain &bull; zero defensive response</div></div>
+        <div class="kv-row"><div class="kv-key">Spend confirmation</div><div class="kv-val">Not verified &mdash; attribution stack unconfirmed; blocks channel-level reporting</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">Priority Stack Rank</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4><span class="badge badge-red">Tier 1 &mdash; Immediate</span></h4>
+          <p style="margin-top:8px;"><strong>Ad Creative</strong> &mdash; volume + format + pillars. Every downstream category depends on this.</p>
+          <p style="margin-top:8px;"><strong>Tracking</strong> &mdash; confirm attribution stack before investing in creative. Otherwise you can't tell what worked.</p>
+        </div>
+        <div class="card">
+          <h4><span class="badge badge-amber">Tier 2 &mdash; Near-term</span></h4>
+          <p style="margin-top:8px;"><strong>Offer (AGZ + bundle)</strong> &mdash; biggest revenue lever right now. Creative plus offer design in parallel.</p>
+          <p style="margin-top:8px;"><strong>Funnel (entry point diversification)</strong> &mdash; reduce Huberman concentration; add TikTok/Gen Z test.</p>
+        </div>
+        <div class="card">
+          <h4><span class="badge badge-gray">Tier 3 &mdash; Diagnostic</span></h4>
+          <p style="margin-top:8px;"><strong>Nurturing</strong> &mdash; needs client data to score; do the audit before Briefs phase so email/SMS CTAs are accurate.</p>
+          <p style="margin-top:8px;"><strong>Optimization</strong> &mdash; unlocks automatically once Creative + Tracking are healthy.</p>
+        </div>
+        <div class="card">
+          <h4><span class="badge badge-green">Tier 4 &mdash; Maintenance</span></h4>
+          <p style="margin-top:8px;"><strong>Market Research</strong> &mdash; strong now. Quarterly refresh. Formalize 5 segments into personas before Step 6.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:48px;">Data Gaps Report</h3>
+      <div class="card">
+        <ul>
+          <li><strong>Attribution tool</strong> &mdash; Triple Whale/Northbeam suspected, not confirmed. Blocks Cat 6 + Cat 7 scoring depth.</li>
+          <li><strong>Email platform</strong> &mdash; Klaviyo suspected. Blocks Cat 4 scoring entirely.</li>
+          <li><strong>Meta + TikTok pixel IDs</strong> &mdash; not verified. Blocks creative testing velocity assumptions.</li>
+          <li><strong>CRM/loyalty platform</strong> &mdash; not verified. Blocks subscriber LTV reporting.</li>
+          <li><strong>Monthly spend by channel</strong> &mdash; not in our data. Needed for ROAS + evergreen/promo split.</li>
+          <li><strong>Top + bottom campaigns</strong> &mdash; not in our data. Needed for Cat 6 (optimization) depth.</li>
+        </ul>
+        <p style="margin-top:12px;color:#b0b1b6;font-size:13px;"><strong>Next step:</strong> Capture these 6 items from the client before Step 7 (Briefs) so creative recommendations have full context. Most can be confirmed in a single 20-minute call.</p>
+      </div>
+
+      <h3 style="margin-top:48px;">The One-Line Read</h3>
+      <div class="callout-yellow">
+        <strong>AG1's brand strategy is A-tier. Its creative execution is C-tier.</strong> The entire growth gap this quarter is closable with one thing: a <em>creative volume engine</em> (UGC + ingredient proof + AG1+AGZ stack + male-first) feeding into a confirmed attribution stack. Every other recommendation compounds on top of those two.
+      </div>
+
+    </div>
+
+    <!-- ========== STEP 5: STRATEGIC DECISIONS ========== -->
+    <div id="step5" class="tab-panel" data-tab-label="Step 5: Decisions">
+
+      <h2>Strategic Decisions &mdash; The Creative Contract</h2>
+      <div class="callout">
+        <strong>Status:</strong> <span class="badge badge-green">LOCKED</span> &nbsp; Signed off by Adrienne on Apr 21, 2026. Constrains all production in Steps 6 (angles + avatars) and 7 (briefs).
+      </div>
+
+      <h3 style="margin-top:32px;">Executive Summary</h3>
+      <div class="card-elevated">
+        <p>This cycle executes a 90-day creative volume sprint (Q2 2026) anchored on three bets: (1) build the <strong>first real AG1+AGZ 24-hour stack narrative</strong> &mdash; the only brand that can credibly run it; (2) launch a <strong>male-first series + UGC engine</strong> to close AG1's biggest creative gaps; (3) lead every claim with <strong>NSF Certified for Sport</strong> to capitalize on the post-Live It Up regulatory tailwind. In parallel, confirm the attribution stack so we can trust what's working. Targets: 20&ndash;30 new concepts/month, LTV:CAC &ge;10x, AGZ established as a second revenue leg.</p>
+      </div>
+
+      <h3 style="margin-top:48px;">1. Product Focus</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Hero (60% spend)</div><div class="kv-val"><strong>AG1 Next Gen</strong> &mdash; $79/mo subscription, $99 one-time. Refresh creative; product itself is mature.</div></div>
+        <div class="kv-row"><div class="kv-key">Hero 2 (25% spend)</div><div class="kv-val"><strong>AGZ Nightly Sleep Support</strong> &mdash; new launch, critically underproduced. 10&ndash;15 new creatives immediately.</div></div>
+        <div class="kv-row"><div class="kv-key">Bundle (15% spend)</div><div class="kv-val"><strong>AG1 + AGZ Stack</strong> &mdash; $129&ndash;139/mo. NEW offer; formalize as its own SKU. 63&ndash;75% rev lift per subscriber.</div></div>
+        <div class="kv-row"><div class="kv-key">New vs. Refresh</div><div class="kv-val">AG1: refresh &bull; AGZ: NEW (scale from 1 ad) &bull; Bundle: NEW (doesn't exist yet)</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">2. Avatar Prioritization</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Primary (60%)</div><div class="kv-val"><strong>Busy Professional Optimizer (35&ndash;50, podcast-led)</strong> &mdash; biggest, most profitable, best existing product-market fit. Aligns with current Huberman/Jackman channel mix.</div></div>
+        <div class="kv-row"><div class="kv-key">Secondary (25%)</div><div class="kv-val"><strong>NSF-Conscious Athlete</strong> &mdash; defensible moat, timely tailwind (post-Live It Up recall). Drug-tested sport angle.</div></div>
+        <div class="kv-row"><div class="kv-key">Secondary (15%)</div><div class="kv-val"><strong>High-Stress Professional (AGZ-primary)</strong> &mdash; cortisol/sleep pain point. Supports AGZ push directly.</div></div>
+        <div class="kv-row"><div class="kv-key">Parked this cycle</div><div class="kv-val">GLP-1 User (emerging, revisit Q3) &bull; Premium Wellness Female (not core male-skew demo this cycle)</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">3. Funnel Stage Focus</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Stage allocation</div><div class="kv-val">TOF 50% &bull; BOF 30% &bull; Retention 20% &bull; MOF de-emphasized (already healthy with clinical proof content)</div></div>
+        <div class="kv-row"><div class="kv-key">Evergreen / Promo split</div><div class="kv-val">65% evergreen / 35% promotional. AG1 is premium &mdash; discount-led creative erodes brand equity.</div></div>
+        <div class="kv-row"><div class="kv-key">Gap priority</div><div class="kv-val">BOF landing page audit + stage-specific AGZ conversion assets + TikTok TOF entry point test</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">4. Creative Direction</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>4a. Angles &amp; Positioning</h4>
+          <p><strong>Primary angle:</strong> "More Than a Greens Powder" &mdash; 75 ingredients, clinically-backed, NSF Certified for Sport.</p>
+          <p><strong>Secondary angles:</strong> Morning ritual aspiration &bull; AG1+AGZ 24-hour protocol &bull; Male-first executive/biohacker</p>
+          <p><strong>Competitive differentiator:</strong> NSF Certified for Sport (lead claim post-Live It Up). Zero major competitors hold it.</p>
+        </div>
+        <div class="card">
+          <h4>4b. Content Pillars</h4>
+          <p><strong>Primary 3 (50% of production):</strong></p>
+          <ul>
+            <li>Ingredient Proof / Scientific Credibility</li>
+            <li>Morning Ritual / Aspirational Identity</li>
+            <li>24-Hour Stack (AG1+AGZ)</li>
+          </ul>
+          <p style="margin-top:8px;"><strong>Secondary 3 (30%):</strong> Athlete / Performance, UGC Day-in-the-Life, Defensive Value / Price Justification</p>
+          <p style="margin-top:8px;"><strong>Testing 3 (20%):</strong> Male-First Executive, GLP-1 Angle, TikTok Gen Z</p>
+        </div>
+        <div class="card">
+          <h4>4c. Format Priorities</h4>
+          <p><strong>Lead format (40%):</strong> 9:16 vertical video (Meta Reels + IG + TikTok)</p>
+          <p><strong>Supporting:</strong> UGC 30% &bull; Static 15% &bull; Carousel 10% &bull; 16:9 for YouTube 5%</p>
+          <p><strong>UGC mix:</strong> 70% creator UGC, 20% AI UGC, 10% branded polished</p>
+          <p><strong>Production:</strong> Blend in-house + creator network + AI UGC pipeline</p>
+        </div>
+        <div class="card">
+          <h4>4d. Platform Priorities</h4>
+          <p><strong>Lead:</strong> Meta (FB + IG) &mdash; where current creative + audience live</p>
+          <p><strong>Supporting:</strong> TikTok (new, Gen Z/Bloom-adjacent test) &bull; YouTube (already strong via Huberman)</p>
+          <p><strong>Creative approach:</strong> Adapted, not unique &mdash; reuse base assets across platforms with aspect-ratio + hook variants</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:48px;">5. Goals &amp; KPIs</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">North-star KPI</div><div class="kv-val">New AG1 or AG1+AGZ subscribers at blended <strong>LTV:CAC &ge; 10x</strong></div></div>
+        <div class="kv-row"><div class="kv-key">Secondary KPIs</div><div class="kv-val">CAC &le; $60 &bull; 12mo sub-LTV &ge; $900 &bull; Creative velocity &ge; 30 new concepts/mo by Week 8</div></div>
+        <div class="kv-row"><div class="kv-key">Testing volume</div><div class="kv-val"><strong>Standard</strong> (20&ndash;30 new concepts/mo) Weeks 1&ndash;6 &rarr; <strong>Aggressive</strong> (30+) Weeks 7&ndash;12</div></div>
+        <div class="kv-row"><div class="kv-key">Cycle duration</div><div class="kv-val">90 days &mdash; Q2 2026 (Apr 22 &ndash; Jul 22)</div></div>
+        <div class="kv-row"><div class="kv-key">Reporting cadence</div><div class="kv-val">Weekly creative review &bull; 30-day milestone checkpoints &bull; End-of-cycle re-assessment</div></div>
+        <div class="kv-row"><div class="kv-key">Success definition</div><div class="kv-val">2x creative volume vs. today &bull; AGZ established as a second revenue leg &bull; Bundle SKU launched &bull; Attribution stack confirmed</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">6. Scorecard Actions</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>This Cycle (Active)</h4>
+          <ul>
+            <li><strong>Cat 5 (Creative) &mdash; ALL 5 gaps:</strong> UGC program, ingredient proof, stack narrative, AGZ volume, male-first</li>
+            <li><strong>Cat 7 (Tracking):</strong> Confirm attribution tool, MTA setup, pixel audit</li>
+            <li><strong>Cat 1 (Offer):</strong> AG1+AGZ bundle SKU, offer testing framework</li>
+            <li><strong>Cat 3 (Funnel):</strong> LP audit + TikTok entry point test</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Parked</h4>
+          <ul>
+            <li><strong>Cat 6 (Optimization):</strong> Auto-unlocks once Cat 5 + Cat 7 are healthy. Re-assess Week 8.</li>
+            <li><strong>Cat 4 (Nurturing):</strong> Needs separate client-data audit. Scope as Q3 engagement.</li>
+          </ul>
+          <p style="margin-top:12px;"><strong>Re-assessment:</strong> End of Q2 2026 (Jul 22)</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:48px;">7. Marketing Calendar (Q2 2026)</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Apr 22 &mdash; Earth Day</div><div class="kv-val">Brand-neutral &mdash; skip heavy promo; evergreen AG1 ritual content only</div></div>
+        <div class="kv-row"><div class="kv-key">May 11 &mdash; Mother's Day</div><div class="kv-val">Low-fit (Premium Wellness Female is parked). Light touch only.</div></div>
+        <div class="kv-row"><div class="kv-key">May 25 &mdash; Memorial Day</div><div class="kv-val"><strong>First Responder 25% discount push</strong> &mdash; amplify existing ID.me ad with 3&ndash;5 UGC variants</div></div>
+        <div class="kv-row"><div class="kv-key">Jun 15 &mdash; Father's Day</div><div class="kv-val"><strong>Male-first series launch</strong> &mdash; 5&ndash;8 executive/biohacker creatives. High fit.</div></div>
+        <div class="kv-row"><div class="kv-key">Jun 21 &mdash; Summer Solstice</div><div class="kv-val">Summer wellness / travel-pack push (Welcome Kit + travel SKU bundle)</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">8. Compliance &amp; Legal</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">Risk tolerance</div><div class="kv-val"><strong>Moderate</strong> &mdash; regulated supplement space with existing FDA adverse event investigation. No aggressive health claims.</div></div>
+        <div class="kv-row"><div class="kv-key">Restricted claims</div><div class="kv-val">No "cures," "treats," disease claims &bull; no specific energy/weight-loss promises &bull; careful with "supplement replacement" framing (use "ritual" / "daily health drink")</div></div>
+        <div class="kv-row"><div class="kv-key">Required disclaimers</div><div class="kv-val">FDA disclaimer on all health claims &bull; subscription fine print (cancel anytime) &bull; testimonial disclaimer ("results may vary")</div></div>
+        <div class="kv-row"><div class="kv-key">Platform watch</div><div class="kv-val">Meta: health claim restrictions + "Special Ad Category" checks &bull; TikTok: supplement restrictions are tighter than Meta &mdash; test with non-claim creative first</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">9. Testing Priorities &amp; Volume</h3>
+      <div class="card">
+        <div class="kv-row"><div class="kv-key">New per month</div><div class="kv-val">20&ndash;30 concepts (Weeks 1&ndash;6) &rarr; 30+ (Weeks 7&ndash;12). Currently effectively 0.</div></div>
+        <div class="kv-row"><div class="kv-key">Iteration per month</div><div class="kv-val">5&ndash;10 from Week 4 onwards (winners from first batch)</div></div>
+        <div class="kv-row"><div class="kv-key">Matrix gaps to close</div><div class="kv-val">Male-first &bull; Ingredient proof &bull; AG1+AGZ stack &bull; UGC (all) &bull; AGZ volume &bull; Defensive vs. Gr&uuml;ns</div></div>
+        <div class="kv-row"><div class="kv-key">Quick wins (Weeks 1&ndash;2)</div><div class="kv-val">AG1+AGZ stack narrative (Very High impact, Low effort) &bull; AGZ volume push &bull; First UGC batch</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">10. Constraints &amp; Enablers</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Constraints</h4>
+          <ul>
+            <li><strong>Budget:</strong> TBD with client &mdash; placeholder $500K&ndash;$2M/mo media based on $600M rev scale</li>
+            <li><strong>Attribution stack:</strong> Unconfirmed; Step 7 briefs require resolution</li>
+            <li><strong>Regulatory:</strong> Active FDA adverse event investigation &mdash; claim caution</li>
+            <li><strong>Gr&uuml;ns switcher attack:</strong> 1,917 ads targeting AG1 subscribers &mdash; live threat</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Enablers</h4>
+          <ul>
+            <li><strong>NSF moat timing:</strong> Post-Live It Up recall makes this the most timely differentiator available</li>
+            <li><strong>Unit economics:</strong> LTV:CAC 12&ndash;18x supports aggressive testing</li>
+            <li><strong>Existing athlete network:</strong> Hamilton, Felix, Philipp available for UGC/ingredient-proof shoots</li>
+            <li><strong>Subscriber base:</strong> 50K+ 5-star reviews = creator network to source UGC</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-top:48px;">Approval &amp; Sign-Off</h3>
+      <div class="card-elevated">
+        <div class="kv-row"><div class="kv-key">Strategist</div><div class="kv-val">Adrienne &bull; Creative Director, Ad Pros</div></div>
+        <div class="kv-row"><div class="kv-key">Drafted</div><div class="kv-val">Apr 21, 2026</div></div>
+        <div class="kv-row"><div class="kv-key">Cycle</div><div class="kv-val">Q2 2026 (Apr 22 &ndash; Jul 22)</div></div>
+        <div class="kv-row"><div class="kv-key">Signed off by</div><div class="kv-val"><strong>Adrienne</strong> &bull; Apr 21, 2026 &bull; <span class="badge badge-green">LOCKED v1</span></div></div>
+      </div>
+
+    </div>
+
+    <!-- STEP 6: CREATIVE STRATEGY & AVATARS -->
+    <div id="step6" class="tab-panel active" data-tab-label="Step 6: Avatar + Angles">
+
+      <h2 class="section-title">Step 6 &middot; Creative Strategy &amp; Avatars</h2>
+      <p class="lede">Primary avatar built from VOC, brand_dna, and segment data. Then the AdPros Creative Matrix was run against the locked decisions (AG1 / AGZ / Bundle, 35&ndash;50 male-skew optimizer, 60/25/15 spend split) to generate 15 scored angles. Scoring uses the 5-factor rubric: White Space 25% &middot; Avatar Fit 20% &middot; Goal Alignment 20% &middot; Feasibility 18% &middot; Historical 17%.</p>
+
+      <div class="callout-yellow">
+        <strong>One-line read:</strong> 1 avatar locked ("Portfolio Paul"). 15 angles scored, 12 in Tier 1 (&ge;8.5), 3 in Tier 2 (7.0&ndash;8.4), 0 in Tier 3. Top 3: 24-Hour Protocol (9.65), Retention Cross-Sell (9.58), &quot;I Cancelled 9 Bottles&quot; UGC (9.33).
+      </div>
+
+      <h3 style="margin-top:40px;">Primary Avatar &middot; Portfolio Paul</h3>
+      <div class="card-elevated">
+        <div class="kv-row"><div class="kv-key">Archetype</div><div class="kv-val"><strong>The Busy Professional Optimizer</strong> &bull; 60&ndash;70% of Q2 spend</div></div>
+        <div class="kv-row"><div class="kv-key">Demographics</div><div class="kv-val">Male-skew 65/35 &bull; Age 35&ndash;50 &bull; HHI $200K&ndash;$500K &bull; Tech / Finance / Law / Medicine exec &bull; Urban or affluent suburban (NYC, SF, Austin, Chicago, Miami)</div></div>
+        <div class="kv-row"><div class="kv-key">Identity</div><div class="kv-val">Sees himself as a high-performer who optimizes inputs. Already owns a Whoop/Oura, tracks HRV, lifts 3&ndash;4x/week, runs or cycles on weekends. Doesn't want another hobby &mdash; wants fewer decisions and faster results.</div></div>
+        <div class="kv-row"><div class="kv-key">Stage of Awareness</div><div class="kv-val">Solution-aware &rarr; Product-aware. Knows greens powders exist and that most taste bad. Has tried Athletic Greens / Huel / homemade blends before. Skeptical of supplement marketing but respects clinical claims.</div></div>
+        <div class="kv-row"><div class="kv-key">Primary Pain Points</div><div class="kv-val">
+          <ul>
+            <li><strong>Decision fatigue</strong> &mdash; too many supplements, wants a single stack that covers 80% of nutrient gaps</li>
+            <li><strong>Afternoon energy crash</strong> at 2&ndash;3pm that kills focus in back-to-back meetings</li>
+            <li><strong>Poor sleep recovery</strong> &mdash; wakes up tired, Whoop strain score stays elevated</li>
+            <li><strong>Quality paranoia</strong> &mdash; worried about heavy metals, adulterants, "who tests this stuff?"</li>
+            <li><strong>Plateau on gym / body comp</strong> despite discipline &mdash; suspects diet/gut health is the bottleneck</li>
+          </ul>
+        </div></div>
+        <div class="kv-row"><div class="kv-key">Desired Outcomes</div><div class="kv-val">
+          <ul>
+            <li>Consistent AM energy without the coffee jitter spike/crash</li>
+            <li>Better recovery scores (HRV up, resting HR down)</li>
+            <li>Confidence that one product is covering the nutritional basics</li>
+            <li>"Tier-1 athlete" style proof that the product is clean and tested</li>
+          </ul>
+        </div></div>
+        <div class="kv-row"><div class="kv-key">Objections</div><div class="kv-val">"$79/month is steep." &bull; "I already take a multi + fish oil, why switch?" &bull; "Aren't all greens powders the same?" &bull; "The flavor was too sweet last time I tried it."</div></div>
+        <div class="kv-row"><div class="kv-key">Trust Triggers</div><div class="kv-val">NSF Certified for Sport &bull; 75 ingredients listed on the label &bull; used by pro athletes (Lebron, Huberman-adjacent) &bull; 60-day money-back &bull; third-party heavy metal testing</div></div>
+        <div class="kv-row"><div class="kv-key">VOC Quotes</div><div class="kv-val">"I stopped buying 9 different bottles." &bull; "It's the only subscription I actually keep." &bull; "I don't love the price but I notice when I skip a week." &bull; "The scoop is the best part of my morning routine."</div></div>
+        <div class="kv-row"><div class="kv-key">Funnel Gap</div><div class="kv-val"><strong>MOF is weakest.</strong> TOF awareness is fine, BOF retargeting converts. The middle &mdash; the math on $79, the ingredient deep-dive, the "why AG1 vs. the next five" &mdash; is under-served. Heavy Q2 investment here.</div></div>
+        <div class="kv-row"><div class="kv-key">Content Preferences</div><div class="kv-val">Long-form YouTube (Huberman, Peter Attia), Twitter/X threads, 60-90s IG Reels, podcast ads. Responds to data, charts, credible voices. Skips pure emotion/lifestyle.</div></div>
+      </div>
+
+      <h3 style="margin-top:48px;">Creative Angle Set &middot; 15 Scored Concepts</h3>
+      <p class="muted" style="margin-bottom:16px;">Ranked by composite score. Tier 1 = ready-to-brief. Tier 2 = test after Tier 1 ships.</p>
+
+      <div class="grid-2" style="gap:16px;">
+
+        <!-- #1 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 9.65</div>
+          <h4 style="margin:0 0 8px 0;">#3 &middot; The 24-Hour Protocol (AG1 + AGZ)</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Bundle-forward. AM scoop of AG1, PM scoop of AGZ. "Your full day handled in 2 scoops." Hits the cross-sell hero decision head-on.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Product Deep-Dive &bull; Ritual</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">MOF &rarr; BOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">60s Reel / YouTube pre-roll / static carousel</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">No competitor owns the AM+PM story. Huel is AM-only. Ka'Chava is meal-replacement.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Decision fatigue + sleep recovery pains both resolved by one brand.</div></div>
+        </div>
+
+        <!-- #2 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 9.58</div>
+          <h4 style="margin:0 0 8px 0;">#12 &middot; Retention Cross-Sell Sequence</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Email + paid retargeting aimed at 90-day AG1 subscribers: "You've built the morning. Now build the evening." Drives AGZ attach.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Lifecycle / Retention</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">BOF / Retention</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">Email series + 9:16 retargeting Reels</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Existing subscriber base is under-monetized. No competitor is stacking their own PM product.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Already bought in. Low friction. Protects LTV and boosts AOV.</div></div>
+        </div>
+
+        <!-- #3 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 9.33</div>
+          <h4 style="margin:0 0 8px 0;">#5 &middot; "I Cancelled 9 Bottles" UGC</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Real customer talking-head opens his empty supplement shelf, counts off the bottles he ditched (multi, greens, fish oil, B-complex, magnesium, D3, zinc, probiotic, adaptogen) &rarr; points to one AG1 pouch.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Social Proof &bull; UGC</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">TOF &rarr; MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">45&ndash;60s UGC Reel / TikTok</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Competitors skew polished-brand or influencer-lifestyle. Raw UGC from a male 35&ndash;50 optimizer is thin in the category.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Directly hits decision fatigue + the "is this actually worth it" math objection.</div></div>
+        </div>
+
+        <!-- #4 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 9.10</div>
+          <h4 style="margin:0 0 8px 0;">#1 &middot; 75-Ingredient Reveal</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Cinematic b-roll of every raw ingredient being measured into the scoop. "75 whole-food inputs. One glass. No guessing." Ends on NSF badge.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Ingredient Deep-Dive</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">30s 1:1 static + 60s 16:9 YouTube</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Competitors hide behind proprietary blends. Ingredient transparency is ownable.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Data + provenance = trust. Directly fights "aren't they all the same?"</div></div>
+        </div>
+
+        <!-- #5 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 9.08</div>
+          <h4 style="margin:0 0 8px 0;">#2 &middot; NSF Certified vs. Recalled Competitors</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Side-by-side news-ticker visual: recent competitor heavy-metal findings vs. AG1's NSF Certified for Sport stamp + third-party test reports.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Trust &amp; Compliance</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">MOF &rarr; BOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">30s video + static comparison carousel</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Nobody is leaning into safety-of-product as a category narrative. Ownable.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Quality paranoia is a top-5 pain. NSF is a precious signal to this avatar.</div></div>
+        </div>
+
+        <!-- #6 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 9.03</div>
+          <h4 style="margin:0 0 8px 0;">#7 &middot; "Is AG1 Worth $79?" Math Video</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Whiteboard-style breakdown: 9 supplements at retail = $142/mo. AG1 subscription = $79/mo. Better absorption + NSF testing. Saves $63 and a shelf.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Value Math &bull; Objection-Crush</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">60&ndash;90s YouTube / long caption static</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Category talks benefits, not economics. Math content is rare and high-converting.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Executive mind loves ROI framing. Crushes the #1 stated objection.</div></div>
+        </div>
+
+        <!-- #7 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 9.03</div>
+          <h4 style="margin:0 0 8px 0;">#10 &middot; Male-First 6AM Ritual</h4>
+          <p class="muted" style="margin:0 0 12px 0;">POV shot, 6AM, still-dark kitchen. Coffee + AG1 scoop, laptop opens to calendar stacked with meetings. "The one thing I don't skip." Strong masculine aesthetic.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Identity / Ritual</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">TOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">30s 9:16 Reel + 15s TikTok</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">AG1 brand has historically skewed female / yoga-mom. Male-coded lifestyle is under-served.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Mirrors his actual morning. Identity hook.</div></div>
+        </div>
+
+        <!-- #8 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 8.78</div>
+          <h4 style="margin:0 0 8px 0;">#11 &middot; AGZ: No Grogginess, No Melatonin Hangover</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Hook against melatonin gummies: "Melatonin knocks you out &mdash; and knocks you sideways till 10AM. AGZ is magnesium, glycine, L-theanine. Wake up clean."</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Product Deep-Dive (AGZ)</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">45s Reel + static ingredient card</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">AGZ awareness is low. Positioning against melatonin (rather than another sleep stack) is differentiated.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Sleep recovery pain. Fear of AM grogginess.</div></div>
+        </div>
+
+        <!-- #9 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 8.76</div>
+          <h4 style="margin:0 0 8px 0;">#8 &middot; The Empty Medicine Cabinet</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Before/after visual of a cluttered supplement shelf &rarr; clean shelf with just AG1 pouch + AGZ. "What optimization actually looks like."</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Simplification / Identity</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">TOF &rarr; MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">15s static carousel + 20s Reel</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Visual "less is more" story. Works across male/female but leans optimizer-male.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Aesthetic simplification = decision fatigue relief.</div></div>
+        </div>
+
+        <!-- #10 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 8.71</div>
+          <h4 style="margin:0 0 8px 0;">#4 &middot; The 90-Second Morning</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Timer overlay: scoop, shake, drink. 90 seconds to cover 75 nutrients. Frames AG1 as a time-saver, not a chore.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Convenience / Ritual</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">TOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">15&ndash;20s 9:16 Reel</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Time-efficiency is an untapped angle in the greens category.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Calendar-dense executive. Time is his scarce resource.</div></div>
+        </div>
+
+        <!-- #11 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 8.66</div>
+          <h4 style="margin:0 0 8px 0;">#13 &middot; Pre-empting Gr&uuml;ns &amp; New Entrants</h4>
+          <p class="muted" style="margin:0 0 12px 0;">"The new greens gummy is 3 grams of fiber. AG1 is 75 whole-food ingredients." Direct comparison chart aimed at TikTok-native challenger brands.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Competitive Positioning</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">Static comparison carousel + 30s Reel</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">AG1 hasn't directly answered the gummy challengers yet. Defensive moat play.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Wants to know he picked the adult option, not the TikTok flavor-of-the-month.</div></div>
+        </div>
+
+        <!-- #12 -->
+        <div class="card-elevated" style="border-left:4px solid #22c55e;">
+          <div class="badge badge-green" style="margin-bottom:8px;">TIER 1 &middot; 8.50</div>
+          <h4 style="margin:0 0 8px 0;">#9 &middot; "I Tried 6 Greens Powders" Review</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Influencer (male, 40s, finance/tech vibe) tastes and scores 6 competitors + AG1 on taste, mix, ingredients, price. Honest, not fawning.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Social Proof / Review</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">TOF &rarr; MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">5&ndash;8min YouTube + 60s cut-downs</div></div>
+          <div class="kv-row"><div class="kv-key">White Space</div><div class="kv-val">Head-to-head reviews are rare because most creators take exclusive deals.</div></div>
+          <div class="kv-row"><div class="kv-key">Why Paul</div><div class="kv-val">Values independent comparison over brand-produced content.</div></div>
+        </div>
+
+        <!-- #13 Tier 2 -->
+        <div class="card-elevated" style="border-left:4px solid #F8D908;">
+          <div class="badge badge-yellow" style="margin-bottom:8px;">TIER 2 &middot; 8.39</div>
+          <h4 style="margin:0 0 8px 0;">#6 &middot; Drug-Tested Athletes Choose AG1</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Pro-sport roster montage (NBA, MLB, PGA). "NSF Certified for Sport is the only thing drug-tested athletes are allowed. AG1 has it. That's the whole pitch."</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Trust / Athlete Proof</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">TOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">30s Reel / pre-roll</div></div>
+          <div class="kv-row"><div class="kv-key">Why Tier 2</div><div class="kv-val">Strong angle but requires talent rights/clearances that take 4&ndash;6 weeks. Parked until Q3.</div></div>
+        </div>
+
+        <!-- #14 Tier 2 -->
+        <div class="card-elevated" style="border-left:4px solid #F8D908;">
+          <div class="badge badge-yellow" style="margin-bottom:8px;">TIER 2 &middot; 8.34</div>
+          <h4 style="margin:0 0 8px 0;">#14 &middot; Huberman-Adjacent Clinical Deep-Dive</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Science-heavy video walking through adaptogen research, nutrient bioavailability, published studies. Credentialed voiceover, no AG1 founder on camera.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Authority / Science</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">MOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">8&ndash;10min YouTube long-form</div></div>
+          <div class="kv-row"><div class="kv-key">Why Tier 2</div><div class="kv-val">Production lift is high (researcher + script review). Better second-half of Q2.</div></div>
+        </div>
+
+        <!-- #15 Tier 2 -->
+        <div class="card-elevated" style="border-left:4px solid #F8D908;">
+          <div class="badge badge-yellow" style="margin-bottom:8px;">TIER 2 &middot; 8.33</div>
+          <h4 style="margin:0 0 8px 0;">#15 &middot; "The Morning Trade" (Finance Angle)</h4>
+          <p class="muted" style="margin:0 0 12px 0;">Finance-coded aesthetic: Bloomberg terminal, pre-market, AG1 scoop next to the espresso. "Every morning trade starts the same way." Industry-specific identity hook.</p>
+          <div class="kv-row"><div class="kv-key">Pillar</div><div class="kv-val">Identity / Niche</div></div>
+          <div class="kv-row"><div class="kv-key">Funnel</div><div class="kv-val">TOF</div></div>
+          <div class="kv-row"><div class="kv-key">Format</div><div class="kv-val">30s 9:16 Reel</div></div>
+          <div class="kv-row"><div class="kv-key">Why Tier 2</div><div class="kv-val">Narrow-audience bet. Hold until Tier 1 saturation, then deploy as segment test.</div></div>
+        </div>
+
+      </div>
+
+      <h3 style="margin-top:48px;">Tier Summary</h3>
+      <div class="grid-3">
+        <div class="card-elevated" style="text-align:center; border-top:3px solid #22c55e;">
+          <div style="font-size:40px; font-weight:700; color:#22c55e;">12</div>
+          <div class="muted">Tier 1 angles (&ge;8.5) &mdash; ready to brief</div>
+        </div>
+        <div class="card-elevated" style="text-align:center; border-top:3px solid #F8D908;">
+          <div style="font-size:40px; font-weight:700; color:#F8D908;">3</div>
+          <div class="muted">Tier 2 angles (7.0&ndash;8.4) &mdash; queue for later in cycle</div>
+        </div>
+        <div class="card-elevated" style="text-align:center; border-top:3px solid #6b7280;">
+          <div style="font-size:40px; font-weight:700; color:#9ca3af;">0</div>
+          <div class="muted">Tier 3 angles (&lt;7.0) &mdash; none generated</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:48px;">Approval &amp; Sign-Off</h3>
+      <div class="card-elevated">
+        <div class="kv-row"><div class="kv-key">Strategist</div><div class="kv-val">Adrienne &bull; Creative Director, Ad Pros</div></div>
+        <div class="kv-row"><div class="kv-key">Avatar locked</div><div class="kv-val">Portfolio Paul &bull; Busy Professional Optimizer 35&ndash;50</div></div>
+        <div class="kv-row"><div class="kv-key">Angles generated</div><div class="kv-val">15 (12 Tier 1, 3 Tier 2)</div></div>
+        <div class="kv-row"><div class="kv-key">Status</div><div class="kv-val"><span class="badge badge-yellow">AWAITING APPROVAL</span></div></div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <span class="footer-brand">Ad Pros</span>
+      <span>Brand Intelligence v4.0.0 &bull; Apr 21, 2026</span>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-nav .tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelectorAll('.tab-nav .tab').forEach(t => {
+        if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + tabId + "'")) {
+          t.classList.add('active');
+        }
+      });
+    }
+    function exportAll() {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('active'));
+      document.body.classList.remove('print-single');
+      setTimeout(() => { window.print(); }, 100);
+      setTimeout(() => {
+        const activeTab = document.querySelector('.tab-nav .tab.active');
+        if (activeTab && activeTab.getAttribute('onclick')) {
+          const match = activeTab.getAttribute('onclick').match(/showTab\('(.+?)'\)/);
+          if (match) showTab(match[1]);
+        }
+      }, 500);
+    }
+    function exportCurrent() {
+      const activePanel = document.querySelector('.tab-panel.active');
+      if (activePanel) {
+        activePanel.classList.add('print-target');
+        document.body.classList.add('print-single');
+        setTimeout(() => { window.print(); }, 100);
+        setTimeout(() => {
+          document.body.classList.remove('print-single');
+          activePanel.classList.remove('print-target');
+        }, 500);
+      }
+    }
+  </script>
+</body>
+</html>
