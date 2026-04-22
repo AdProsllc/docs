@@ -820,7 +820,344 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 .reading-item-why{font-size:12.5px;color:var(--ink-2);line-height:1.55}
 .reading-item-why em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
 
-/* FOOTER */
+/* TAB 7 — TEAM STUDIO */
+.studio-intro{
+  margin-top:32px;padding:clamp(22px,4vw,40px);
+  background:linear-gradient(135deg,var(--navy-3),var(--navy-4));
+  border:1px solid var(--rule-2);border-radius:2px;position:relative;overflow:hidden;
+}
+.studio-intro::after{
+  content:'';position:absolute;bottom:-40%;right:-15%;width:500px;height:500px;
+  background:radial-gradient(circle,var(--blue) 0%,transparent 60%);
+  opacity:0.1;filter:blur(50px);pointer-events:none;
+}
+.studio-intro h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3.5vw,30px);
+  letter-spacing:-0.025em;line-height:1.15;margin-bottom:16px;color:var(--ink);position:relative;
+}
+.studio-intro h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--blue)}
+.studio-intro p{color:var(--ink-2);font-size:clamp(14px,2vw,16px);line-height:1.65;max-width:920px;position:relative;margin-bottom:12px}
+.studio-intro p:last-child{margin-bottom:0}
+.studio-intro p em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.studio-intro strong{color:var(--ink);font-weight:600}
+
+/* Chat mockup */
+.chat-mock{
+  margin-top:32px;background:var(--navy-2);border:1px solid var(--rule);
+  border-radius:2px;overflow:hidden;
+}
+.chat-mock-head{
+  padding:16px 20px;background:var(--navy-3);border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.chat-mock-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--yellow),var(--orange));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:var(--navy);
+}
+.chat-mock-title{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;
+  color:var(--ink);letter-spacing:-0.01em;
+}
+.chat-mock-meta{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-3);
+  letter-spacing:0.08em;text-transform:uppercase;margin-left:auto;
+}
+.chat-mock-env{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;
+  background:rgba(94,159,255,0.1);border:1px solid rgba(94,159,255,0.3);
+  color:var(--blue);border-radius:100px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.chat-mock-env::before{
+  content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;
+  box-shadow:0 0 6px var(--blue);
+}
+.chat-mock-body{padding:20px;display:flex;flex-direction:column;gap:18px}
+.chat-msg{display:flex;gap:12px;align-items:flex-start;min-width:0}
+.chat-msg-avatar{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;
+}
+.chat-msg.user .chat-msg-avatar{background:var(--navy-4);color:var(--ink)}
+.chat-msg.agent .chat-msg-avatar{background:linear-gradient(135deg,var(--yellow),var(--orange));color:var(--navy)}
+.chat-msg-body{flex:1;min-width:0}
+.chat-msg-name{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;
+}
+.chat-msg.user .chat-msg-name{color:var(--ink-2)}
+.chat-msg.agent .chat-msg-name{color:var(--yellow)}
+.chat-msg-text{font-size:14px;color:var(--ink);line-height:1.55}
+.chat-msg-text em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink-2)}
+.chat-msg-text strong{color:var(--ink);font-weight:600}
+.chat-msg-text code{
+  font-family:'JetBrains Mono',monospace;background:var(--navy);
+  padding:2px 6px;font-size:12px;color:var(--yellow);border-radius:2px;
+  border:1px solid var(--rule-2);word-break:break-all;
+}
+
+.chat-tool-call{
+  margin-top:8px;padding:12px 14px;background:var(--navy);
+  border:1px dashed var(--rule-2);border-radius:2px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-2);
+  line-height:1.5;
+}
+.chat-tool-call-label{
+  color:var(--green);font-weight:700;font-size:10px;letter-spacing:0.1em;
+  text-transform:uppercase;margin-bottom:6px;
+}
+.chat-tool-call code{background:transparent;border:none;padding:0;color:var(--yellow)}
+
+.chat-input-mock{
+  padding:16px 20px;border-top:1px solid var(--rule);background:var(--navy-3);
+  display:flex;gap:12px;align-items:center;
+}
+.chat-input-fake{
+  flex:1;min-width:0;background:var(--navy);border:1px solid var(--rule-2);
+  padding:10px 14px;border-radius:4px;color:var(--ink-3);
+  font-size:13px;font-style:italic;font-family:'Instrument Serif',serif;
+}
+.chat-input-button{
+  background:var(--yellow);color:var(--navy);padding:10px 18px;border-radius:4px;
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:-0.01em;flex-shrink:0;
+}
+
+/* Tier diagram */
+.tiers-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);
+  background:var(--navy-2);border:1px solid var(--rule);border-radius:2px;
+}
+.tiers-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;
+}
+.tiers-block h3{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,3vw,30px);
+  line-height:1.1;letter-spacing:-0.025em;margin-bottom:14px;color:var(--ink);
+}
+.tiers-block h3 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.tiers-lede{
+  color:var(--ink-2);font-size:14.5px;line-height:1.65;max-width:920px;margin-bottom:28px;
+}
+.tiers-lede em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+
+.tiers-grid{
+  display:grid;grid-template-columns:1fr;gap:12px;
+}
+@media(min-width:720px){
+  .tiers-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+.tier-card{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:24px;
+  border-radius:2px;position:relative;overflow:hidden;transition:all 0.2s;
+  display:flex;flex-direction:column;
+}
+.tier-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.tier-card.sandbox::before{background:var(--blue)}
+.tier-card.staging::before{background:var(--orange)}
+.tier-card.prod::before{background:var(--green)}
+.tier-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.tier-card.sandbox:hover{border-color:var(--blue)}
+.tier-card.staging:hover{border-color:var(--orange)}
+.tier-card.prod:hover{border-color:var(--green)}
+
+.tier-card-tier{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;
+}
+.tier-card.sandbox .tier-card-tier{color:var(--blue)}
+.tier-card.staging .tier-card-tier{color:var(--orange)}
+.tier-card.prod .tier-card-tier{color:var(--green)}
+
+.tier-card h4{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;
+  letter-spacing:-0.02em;margin-bottom:12px;color:var(--ink);line-height:1.1;
+}
+.tier-card h4 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.tier-card-sub{
+  font-size:13px;color:var(--ink-2);line-height:1.6;margin-bottom:18px;
+}
+.tier-card-sub strong{color:var(--ink);font-weight:600}
+.tier-card-sub em{font-style:italic;font-family:'Instrument Serif',serif}
+
+.tier-rules{
+  margin-top:auto;padding-top:16px;border-top:1px dashed var(--rule-2);
+  display:flex;flex-direction:column;gap:8px;
+}
+.tier-rule{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:12.5px;color:var(--ink-2);line-height:1.5;
+}
+.tier-rule-icon{
+  flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:13px;
+  font-weight:700;width:14px;
+}
+.tier-rule-icon.yes{color:var(--green)}
+.tier-rule-icon.no{color:var(--red)}
+.tier-rule-icon.limit{color:var(--orange)}
+.tier-rule strong{color:var(--ink);font-weight:600}
+
+/* Participation modes */
+.modes-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.modes-grid{
+  display:grid;grid-template-columns:1fr;gap:10px;margin-top:24px;
+}
+@media(min-width:720px){
+  .modes-grid{grid-template-columns:repeat(2,1fr)}
+}
+.mode-card{
+  background:var(--navy-3);border:1px solid var(--rule-2);padding:24px 26px;
+  border-radius:2px;transition:all 0.15s;min-width:0;
+}
+.mode-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.mode-card-head{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap;
+}
+.mode-card-num{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:36px;
+  line-height:0.9;letter-spacing:-0.04em;color:var(--yellow);
+}
+.mode-card h4{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:19px;
+  letter-spacing:-0.01em;color:var(--ink);line-height:1.15;min-width:0;flex:1;
+}
+.mode-card h4 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--yellow)}
+.mode-card-feeds{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);
+  margin-bottom:12px;
+}
+.mode-card-feeds strong{color:var(--yellow);font-weight:600}
+.mode-card p{font-size:14px;color:var(--ink-2);line-height:1.6;margin-bottom:10px}
+.mode-card p:last-child{margin-bottom:0}
+.mode-card strong{color:var(--ink);font-weight:600}
+.mode-card em{font-style:italic;font-family:'Instrument Serif',serif}
+.mode-card-example{
+  margin-top:14px;padding:14px 16px;background:rgba(255,212,0,0.04);
+  border-left:3px solid var(--yellow);border-radius:0 2px 2px 0;
+  font-size:13px;color:var(--ink-2);line-height:1.55;
+}
+.mode-card-example strong{color:var(--ink);font-weight:600}
+.mode-card-example em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+
+/* API Access matrix */
+.access-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.access-grid{
+  margin-top:24px;display:grid;grid-template-columns:1fr;gap:2px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+}
+.access-header,.access-row{
+  display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:0;background:var(--navy-2);
+}
+.access-header{background:var(--navy-3)}
+.access-cell{
+  padding:14px 16px;font-size:13px;color:var(--ink-2);line-height:1.4;
+  border-right:1px solid var(--rule);min-width:0;display:flex;align-items:center;
+}
+.access-cell:last-child{border-right:none}
+.access-header .access-cell{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);
+}
+.access-row .access-cell:first-child{
+  font-family:'Archivo',sans-serif;font-weight:600;color:var(--ink);font-size:13.5px;
+}
+.access-check{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.06em;text-transform:uppercase;
+}
+.access-check.yes{color:var(--green)}
+.access-check.no{color:var(--red)}
+.access-check.limit{color:var(--orange)}
+.access-check::before{
+  font-size:14px;font-weight:800;
+}
+.access-check.yes::before{content:'✓'}
+.access-check.no::before{content:'✕'}
+.access-check.limit::before{content:'◐'}
+
+/* Contribution tracking */
+.contrib-block{
+  margin-top:40px;padding:clamp(22px,4vw,40px);background:var(--navy-2);
+  border:1px solid var(--rule);border-radius:2px;
+}
+.contrib-grid{
+  margin-top:24px;display:grid;grid-template-columns:1fr;gap:2px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+}
+@media(min-width:720px){
+  .contrib-grid{grid-template-columns:repeat(4,1fr)}
+}
+.contrib-stat{background:var(--navy-2);padding:22px 24px;transition:all 0.2s}
+.contrib-stat:hover{background:var(--navy-3)}
+.contrib-stat-num{
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:36px;
+  line-height:0.95;letter-spacing:-0.035em;color:var(--yellow);margin-bottom:8px;
+}
+.contrib-stat-num em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--ink)}
+.contrib-stat h5{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:-0.005em;margin-bottom:4px;color:var(--ink);
+}
+.contrib-stat p{font-size:12px;color:var(--ink-3);line-height:1.5}
+
+.contrib-ledger{
+  margin-top:24px;padding:22px;background:var(--navy-3);border:1px solid var(--rule-2);
+  border-radius:2px;
+}
+.contrib-ledger-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:14px;flex-wrap:wrap;gap:12px;padding-bottom:12px;
+  border-bottom:1px solid var(--rule-2);
+}
+.contrib-ledger-title{
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;color:var(--ink);
+}
+.contrib-ledger-sub{
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.contrib-entry{
+  display:grid;grid-template-columns:1fr;gap:4px;
+  padding:12px 0;border-bottom:1px dashed var(--rule-2);
+}
+.contrib-entry:last-child{border-bottom:none;padding-bottom:0}
+@media(min-width:720px){
+  .contrib-entry{grid-template-columns:120px 1fr auto;gap:14px;align-items:center}
+}
+.contrib-entry-who{
+  font-family:'Archivo',sans-serif;font-weight:600;font-size:13px;color:var(--ink);
+}
+.contrib-entry-what{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.contrib-entry-what em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--ink)}
+.contrib-entry-status{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;
+  white-space:nowrap;justify-self:flex-start;
+}
+.contrib-entry-status.live{background:rgba(48,217,123,0.12);color:var(--green);border:1px solid rgba(48,217,123,0.3)}
+.contrib-entry-status.review{background:rgba(255,145,64,0.12);color:var(--orange);border:1px solid rgba(255,145,64,0.3)}
+.contrib-entry-status.draft{background:rgba(138,143,168,0.12);color:var(--ink-3);border:1px solid var(--rule-2)}
+@media(min-width:720px){
+  .contrib-entry-status{justify-self:flex-end}
+}
+
+
 .footer{
   margin-top:64px;padding:32px 0;background:var(--navy-2);
   border-top:1px solid var(--rule);
@@ -905,7 +1242,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
         <span>ad</span>
         <span>pros</span>
       </a>
-      <div class="nav-version">Factory · <strong>Rev 3.2</strong></div>
+      <div class="nav-version">Factory · <strong>Rev 3.3</strong></div>
     </div>
   </div>
   <div class="tabs-wrap">
@@ -916,6 +1253,7 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
       <button class="tab" data-tab="sequence" role="tab"><span class="tab-num">04</span>Sequence</button>
       <button class="tab" data-tab="gates" role="tab"><span class="tab-num">05</span>Gates</button>
       <button class="tab" data-tab="foundation" role="tab"><span class="tab-num">06</span>Foundation</button>
+      <button class="tab" data-tab="studio" role="tab"><span class="tab-num">07</span>Team Studio</button>
     </div>
   </div>
 </nav>
@@ -2210,12 +2548,328 @@ h2 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;col
 
 </div>
 
+<!-- TAB 7: TEAM STUDIO -->
+<div class="panel" data-panel="studio">
+  <div class="panel-kicker">07 · Team Studio</div>
+  <h2>Your team builds agents in a <em>safe Claude-like chat</em> — full API access, zero production risk.</h2>
+  <p class="lede">
+    The factory is only as smart as the expertise feeding it. Ad Pros has 26 people with 10,000+ hours of hard-won knowledge. The Team Studio is how that knowledge enters the factory — through a chat interface where any team member can propose workflows, draft Skills, prototype agents, and stress-test outputs. <strong>Opt-in. Tiered. Tracked. Safe.</strong>
+  </p>
+
+  <div class="studio-intro">
+    <h3>The pitch: <em>ChatGPT-for-Ad-Pros</em>, but with rails.</h3>
+    <p>
+      Anyone on the team opens the Studio in their browser, chats with a Claude-powered agent, and can <em>do almost everything</em> — invoke the Recommender, draft Skills, spin up prototype workflows, run them against anonymized data, propose factory improvements. Contributions are tracked and attributed. The interface is Claude; the rails are what make it safe for a 26-person agency.
+    </p>
+    <p>
+      <strong>Three tiers.</strong> Sandbox is free-for-all ideation with fake data. Staging runs on real data but is read-only for external APIs. Production is the real factory and requires the 3 human gates. <em>A team member's work flows sandbox → staging → prod as it earns trust</em> — not as it is promoted by management.
+    </p>
+  </div>
+
+  <!-- CHAT MOCKUP -->
+  <div class="chat-mock">
+    <div class="chat-mock-head">
+      <div class="chat-mock-avatar">AP</div>
+      <div class="chat-mock-title">Ad Pros Factory Studio</div>
+      <div class="chat-mock-env">Sandbox</div>
+    </div>
+    <div class="chat-mock-body">
+      <div class="chat-msg user">
+        <div class="chat-msg-avatar">DD</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Dani · Account Lead</div>
+          <div class="chat-msg-text">I want to build a workflow that detects when a client is about to churn, 90 days out. Can we prototype this?</div>
+        </div>
+      </div>
+      <div class="chat-msg agent">
+        <div class="chat-msg-avatar">◉</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Factory Studio · Sandbox</div>
+          <div class="chat-msg-text">
+            Good thinking — this is a gap in the library. Let me check the Recommender's current queue and propose this as a new workflow.
+            <div class="chat-tool-call">
+              <div class="chat-tool-call-label">Tool: recommender.propose</div>
+              <code>workflow: "90-day churn prediction"</code><br>
+              <code>author: dani@adpros.com</code><br>
+              <code>shape: Analysis (read-heavy)</code>
+            </div>
+            Proposed as backlog item <strong>#47</strong>. Want me to spin up a sandbox prototype right now? I'll use anonymized data from 3 past-churned clients so you can stress-test the logic.
+          </div>
+        </div>
+      </div>
+      <div class="chat-msg user">
+        <div class="chat-msg-avatar">DD</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Dani · Account Lead</div>
+          <div class="chat-msg-text">Yes — and draft me a Skill for what churn signals I usually look at. I know it, I just need it written down.</div>
+        </div>
+      </div>
+      <div class="chat-msg agent">
+        <div class="chat-msg-avatar">◉</div>
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">Factory Studio · Sandbox</div>
+          <div class="chat-msg-text">
+            Perfect — <em>this is exactly how the Skills Library grows</em>. I'll interview you, structure your answers, and draft <code>account-churn-signals.md</code>. Quick Q: when you see MER drop below 1.5 for 2+ consecutive weeks <em>and</em> the client stops replying to weekly reports within 48hr — how confident are you that they're churning?
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-mock">
+      <div class="chat-input-fake">Reply to Factory Studio...</div>
+      <div class="chat-input-button">Send</div>
+    </div>
+  </div>
+
+  <!-- TIERS -->
+  <div class="tiers-block">
+    <div class="tiers-label">◉ The Three-Tier Environment</div>
+    <h3>Sandbox → Staging → Production. <em>Earn trust by shipping, not by rank.</em></h3>
+    <p class="tiers-lede">
+      Every team member gets full access to Sandbox on day one. Work flows upward as it clears evaluation gates — not when Dani or Nehal decides to promote it. <em>This is what makes it genuinely open.</em>
+    </p>
+
+    <div class="tiers-grid">
+      <div class="tier-card sandbox">
+        <div class="tier-card-tier">Tier 1 · Sandbox</div>
+        <h4>The <em>Playground</em></h4>
+        <p class="tier-card-sub">Free-for-all ideation. Every team member has full access. <strong>Fake data, isolated ClickUp workspace, no production credentials.</strong></p>
+        <div class="tier-rules">
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Invoke any factory agent</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Read anonymized client snapshots</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Draft Skills, prototype workflows</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Deploy to sandbox ClickUp space</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>Zero production API access</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>$5/day Claude budget per user</span></div>
+        </div>
+      </div>
+
+      <div class="tier-card staging">
+        <div class="tier-card-tier">Tier 2 · Staging</div>
+        <h4>The <em>Pressure Test</em></h4>
+        <p class="tier-card-sub">Real data, rate-limited APIs, shadow mode. Promoted from Sandbox when 3 teammates upvote and the Eval Agent's regression suite passes.</p>
+        <div class="tier-rules">
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Reads from production BigQuery</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>External APIs: read-only</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Shadow-runs on real client data</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No writes to Shopify / Meta / Klaviyo</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon no">✕</span><span>No client-facing deliverables</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>$25/run Claude budget cap</span></div>
+        </div>
+      </div>
+
+      <div class="tier-card prod">
+        <div class="tier-card-tier">Tier 3 · Production</div>
+        <h4>The <em>Live Factory</em></h4>
+        <p class="tier-card-sub">Full factory with 3 human gates. Workflows here are run against real clients. Staging prototypes promote here only after passing Brief + Blueprint + Skills gates.</p>
+        <div class="tier-rules">
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Full MCP + API write access</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Deploy to client ClickUp workspaces</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>3 human gates mandatory</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon limit">◐</span><span>Idempotency + cost caps enforced</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Audit log on every action</span></div>
+          <div class="tier-rule"><span class="tier-rule-icon yes">✓</span><span>Rollback enabled on all publishes</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 PARTICIPATION MODES -->
+  <div class="modes-block">
+    <div class="tiers-label">◉ Four Ways to Participate</div>
+    <h3>Opt-in at <em>whichever mode fits your day</em>.</h3>
+    <p class="tiers-lede">
+      No role requirements, no hierarchy. A media buyer might only ever propose workflows; a senior strategist might author Skills every week. <em>Every contribution routes to a specific factory agent.</em>
+    </p>
+
+    <div class="modes-grid">
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">01</div>
+          <h4>Propose a <em>Workflow</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Recommender Agent</strong></div>
+        <p><strong>"Here's a repetitive thing I wish existed as an agent."</strong> Any team member describes a workflow in chat. The Studio routes it to the Recommender's backlog with the author's name attached. Queue approval is weekly.</p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> <em>"Every Monday I manually check which clients have ad sets that haven't been refreshed in 14+ days. Can we automate this?"</em> → Recommender scores it, adds to queue #47.
+        </div>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">02</div>
+          <h4>Author a <em>Skill</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Skills Curator</strong></div>
+        <p><strong>"I know how to evaluate a winning creative — I just need it written down."</strong> The Studio interviews you in chat, structures your answers into SKILL.md format, flags for review. <em>This is how 10,000 hours of Ad Pros IP enters the factory.</em></p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> Creative strategist answers 12 structured questions → Studio drafts <code>winning-hook-detection.md</code> → reviewer approves → every future creative workflow can load this Skill.
+        </div>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">03</div>
+          <h4>Prototype an <em>Agent</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Stage Designers</strong></div>
+        <p><strong>"Let me try a draft version before it gets real."</strong> Team members build stage-level agents in sandbox — their own prompt stubs, evaluator rules, MCP tools. If the prototype passes evals, it gets proposed to the Stage Designer's pattern library.</p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> Analyst prototypes a "Cohort Quality Scorer" in sandbox → passes 15/15 test cases → gets proposed as a new Stage 3 pattern → Stage Designers can now use it in future workflows.
+        </div>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-head">
+          <div class="mode-card-num">04</div>
+          <h4>Stress-Test a <em>Draft</em></h4>
+        </div>
+        <div class="mode-card-feeds">Feeds → <strong>Eval Agent</strong></div>
+        <p><strong>"Would I have actually shipped this output to a client?"</strong> When a workflow is in staging, team members act as human evaluators. Their yes/no responses become permanent eval cases the Eval Agent uses for every future version.</p>
+        <div class="mode-card-example">
+          <strong>Example:</strong> Account lead reviews 10 draft LTV recommendations → rejects 2 as "too aggressive on subscription push" → those become regression tests. Next week's workflows can't ship until they pass.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API ACCESS MATRIX -->
+  <div class="access-block">
+    <div class="tiers-label">◉ The API Access Matrix</div>
+    <h3>What team members <em>can and can't touch</em> per tier.</h3>
+    <p class="tiers-lede">
+      The hard rules. Every API call from the Studio passes through a permission check keyed to the user's current tier + the specific tool. <em>Violations return a rate-limit-style error, not a silent fallback.</em>
+    </p>
+
+    <div class="access-grid">
+      <div class="access-header">
+        <div class="access-cell">Capability</div>
+        <div class="access-cell">Sandbox</div>
+        <div class="access-cell">Staging</div>
+        <div class="access-cell">Production</div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Read anonymized data</div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Read real BigQuery</div>
+        <div class="access-cell"><span class="access-check no">No</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Call Meta/Shopify/Klaviyo APIs</div>
+        <div class="access-cell"><span class="access-check no">No</span></div>
+        <div class="access-cell"><span class="access-check limit">Read</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Write to ClickUp</div>
+        <div class="access-cell"><span class="access-check limit">Sandbox</span></div>
+        <div class="access-cell"><span class="access-check limit">Staging</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Invoke Claude (budget)</div>
+        <div class="access-cell"><span class="access-check limit">$5/day</span></div>
+        <div class="access-cell"><span class="access-check limit">$25/run</span></div>
+        <div class="access-cell"><span class="access-check yes">Unlimited</span></div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Deploy to clients</div>
+        <div class="access-cell"><span class="access-check no">No</span></div>
+        <div class="access-cell"><span class="access-check no">No</span></div>
+        <div class="access-cell"><span class="access-check limit">3 gates</span></div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Propose Skills / Shapes</div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+        <div class="access-cell"><span class="access-check yes">Yes</span></div>
+      </div>
+      <div class="access-row">
+        <div class="access-cell">Modify factory agents</div>
+        <div class="access-cell"><span class="access-check no">No</span></div>
+        <div class="access-cell"><span class="access-check no">No</span></div>
+        <div class="access-cell"><span class="access-check no">Never</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTRIBUTION TRACKING -->
+  <div class="contrib-block">
+    <div class="tiers-label">◉ Contribution Tracking</div>
+    <h3>Every contribution is <em>attributed, versioned, and scored</em>.</h3>
+    <p class="tiers-lede">
+      Team members see exactly what they've shipped and how it's performing in production. This isn't just governance — it's <em>how opt-in participation becomes real</em>. Nobody contributes to a system that treats their work as anonymous.
+    </p>
+
+    <div class="contrib-grid">
+      <div class="contrib-stat">
+        <div class="contrib-stat-num">14</div>
+        <h5>Your Skills</h5>
+        <p>In production library</p>
+      </div>
+      <div class="contrib-stat">
+        <div class="contrib-stat-num">6</div>
+        <h5>Your Workflows</h5>
+        <p>Deployed to clients</p>
+      </div>
+      <div class="contrib-stat">
+        <div class="contrib-stat-num"><em>92</em>%</div>
+        <h5>Acceptance Rate</h5>
+        <p>Your proposals that clear Gates</p>
+      </div>
+      <div class="contrib-stat">
+        <div class="contrib-stat-num"><em>$</em>47k</div>
+        <h5>Time Saved</h5>
+        <p>Est. manual hours automated</p>
+      </div>
+    </div>
+
+    <div class="contrib-ledger">
+      <div class="contrib-ledger-head">
+        <div class="contrib-ledger-title">Sample Ledger · Dani Devis</div>
+        <div class="contrib-ledger-sub">Last 30 days</div>
+      </div>
+      <div class="contrib-entry">
+        <div class="contrib-entry-who">Dani · Skill</div>
+        <div class="contrib-entry-what"><em>"account-churn-signals.md"</em> — 6 detection patterns, 3 thresholds, used by 4 workflows</div>
+        <div class="contrib-entry-status live">Live</div>
+      </div>
+      <div class="contrib-entry">
+        <div class="contrib-entry-who">Dani · Workflow</div>
+        <div class="contrib-entry-what"><em>"90-Day Churn Prediction"</em> — passed Gates, running on 3 clients, $7k saved</div>
+        <div class="contrib-entry-status live">Live</div>
+      </div>
+      <div class="contrib-entry">
+        <div class="contrib-entry-who">Dani · Skill</div>
+        <div class="contrib-entry-what"><em>"ad-set-refresh-cadence.md"</em> — Meta-specific fatigue rules, awaiting compliance review</div>
+        <div class="contrib-entry-status review">Review</div>
+      </div>
+      <div class="contrib-entry">
+        <div class="contrib-entry-who">Dani · Workflow</div>
+        <div class="contrib-entry-what"><em>"Weekly Ad Set Freshness Scan"</em> — Blueprint approved, Skills pending Gate 3</div>
+        <div class="contrib-entry-status review">Review</div>
+      </div>
+      <div class="contrib-entry">
+        <div class="contrib-entry-who">Dani · Prototype</div>
+        <div class="contrib-entry-what"><em>"Cohort Quality Scorer"</em> — sandbox prototype, 12/15 evals passing</div>
+        <div class="contrib-entry-status draft">Draft</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 </div>
 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.2</div>
+    <div class="footer-brand">ad pros · The Workflow Factory · Rev 3.3</div>
     <div class="footer-meta">Internal · Apr 2026</div>
   </div>
 </footer>
