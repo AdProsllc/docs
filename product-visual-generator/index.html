@@ -6,394 +6,471 @@
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="bingbot" content="noindex, nofollow">
   <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
   <title>Product Visual Generator — Ad Pros</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #000000;
-      --surface: #0a0a0a;
-      --border: #1a1a1a;
+      --navy: #040735;
       --yellow: #F9D900;
       --text: #FFFFFF;
-      --text-muted: #8a8a8a;
-      --text-dim: #5a5a5a;
+      --text-muted: #B0B1B6;
+      --text-dim: #8A8B93;
+      --border: rgba(255, 255, 255, 0.08);
     }
 
     html, body {
-      background: var(--bg);
+      background: var(--navy);
       color: var(--text);
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    body {
-      min-height: 100vh;
-      padding: 80px 24px;
+    body { min-height: 100vh; position: relative; }
+
+    /* Subtle grid texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 80px 80px, 120px 120px;
+      pointer-events: none;
+      opacity: 0.8;
+      z-index: 0;
     }
 
-    .wrapper {
-      max-width: 580px;
-      margin: 0 auto;
+    h1, h2, h3, h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
-    .logo {
-      margin-bottom: 64px;
-    }
-
-    .logo svg { height: 42px; width: auto; }
-
-    .eyebrow {
-      display: inline-flex;
+    /* NAVBAR */
+    .nav {
+      position: relative;
+      z-index: 10;
+      padding: 28px 48px;
+      display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 12px;
-      font-weight: 600;
+      justify-content: space-between;
+    }
+
+    .nav-logo svg { height: 48px; width: auto; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 0.7; }
+
+    .nav-cta {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-decoration: none;
       letter-spacing: 1.5px;
       text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(249, 217, 0, 0.3);
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 80px 0 160px;
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      display: inline-block;
       color: var(--yellow);
+      font-size: 0.9375rem;
+      font-weight: 500;
       margin-bottom: 32px;
     }
 
-    .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--yellow);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
     h1 {
-      font-size: clamp(2rem, 5vw, 3.25rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -1.5px;
-      margin-bottom: 20px;
+      font-size: clamp(2.75rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 32px;
     }
 
-    h1 .accent { color: var(--yellow); }
+    h1 .highlight { color: var(--yellow); }
 
     .subtitle {
-      font-size: 1.05rem;
+      font-size: 1.125rem;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.5;
+      max-width: 580px;
       margin-bottom: 48px;
+    }
+
+    .form-wrap {
       max-width: 520px;
     }
 
-    .form-card { margin-bottom: 64px; }
-
     .form {
       display: flex;
-      flex-direction: column;
       gap: 12px;
+      margin-bottom: 16px;
     }
 
     .input {
-      width: 100%;
-      padding: 18px 20px;
-      background: var(--surface);
+      flex: 1;
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 100px;
       color: var(--text);
-      font-size: 15px;
+      font-size: 0.9375rem;
       font-family: inherit;
-      transition: border-color 0.2s;
+      transition: all 0.2s;
     }
 
     .input:focus {
       outline: none;
-      border-color: var(--text);
+      border-color: rgba(249, 217, 0, 0.5);
+      background: rgba(255, 255, 255, 0.06);
     }
 
     .input::placeholder { color: var(--text-dim); }
 
     .submit {
-      width: 100%;
-      padding: 18px 24px;
+      padding: 18px 32px;
       background: var(--yellow);
-      color: #000;
+      color: var(--navy);
       border: none;
-      border-radius: 12px;
-      font-size: 15px;
+      border-radius: 100px;
+      font-size: 0.75rem;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
-      transition: opacity 0.2s;
-      letter-spacing: 0.3px;
+      transition: all 0.2s;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
-    .submit:hover { opacity: 0.9; }
+    .submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(249, 217, 0, 0.3);
+    }
 
     .form-note {
-      margin-top: 16px;
-      font-size: 13px;
+      font-size: 0.8125rem;
       color: var(--text-dim);
     }
 
-    .success { display: none; padding: 32px 0; }
-    .success.show { display: block; }
-    .form-card.hide { display: none; }
-
-    .success-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      background: rgba(249, 217, 0, 0.1);
-      border: 1px solid rgba(249, 217, 0, 0.3);
-      border-radius: 100px;
-      color: var(--yellow);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
+    .success {
+      display: none;
+      max-width: 520px;
+      padding: 32px 0;
     }
+
+    .success.show { display: block; }
+    .form-wrap.hide { display: none; }
 
     .success h3 {
       font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 12px;
     }
 
     .success p {
       color: var(--text-muted);
-      font-size: 15px;
-      margin-bottom: 24px;
+      font-size: 1rem;
+      margin-bottom: 28px;
     }
 
     .download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      display: inline-block;
       background: var(--yellow);
-      color: #000;
-      padding: 16px 32px;
-      border-radius: 12px;
+      color: var(--navy);
+      padding: 18px 36px;
+      border-radius: 100px;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 0.75rem;
       text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .download-btn:hover { opacity: 0.9; }
-
-    .steps { margin-bottom: 64px; }
-
-    .steps-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
+      transition: all 0.2s;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 16px;
     }
 
-    .steps h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.8px;
-      margin-bottom: 32px;
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(249, 217, 0, 0.3);
     }
 
-    .steps h2 .accent { color: var(--yellow); }
+    /* HOW IT WORKS */
+    .steps-section {
+      max-width: 960px;
+      margin: 0 auto 160px;
+    }
+
+    .section-label {
+      display: block;
+      color: var(--yellow);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .steps-title {
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 80px;
+      max-width: 720px;
+    }
+
+    .steps-title .yellow { color: var(--yellow); }
 
     .steps-list {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 64px 48px;
     }
-
-    .step {
-      display: flex;
-      gap: 24px;
-      padding: 24px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .step:last-child { border-bottom: 1px solid var(--border); }
 
     .step-num {
-      flex-shrink: 0;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-dim);
-      letter-spacing: 0.5px;
-      min-width: 32px;
-      padding-top: 2px;
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--yellow);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
     }
 
-    .step-content h4 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      letter-spacing: -0.2px;
+    .step h4 {
+      font-size: 1.375rem;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 12px;
     }
 
-    .step-content p {
-      font-size: 0.95rem;
+    .step p {
+      font-size: 1rem;
       color: var(--text-muted);
       line-height: 1.5;
     }
 
-    .cta {
-      padding: 48px 0 0;
+    /* CTA SECTION */
+    .cta-section {
+      padding: 80px 0 120px;
       border-top: 1px solid var(--border);
     }
 
-    .cta-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 16px;
-    }
+    .cta-inner { max-width: 720px; }
 
-    .cta h2 {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-
-    .cta h2 .accent { color: var(--yellow); }
-
-    .cta p {
-      color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.6;
+    .cta-inner h2 {
+      font-size: clamp(2.5rem, 5.5vw, 4rem);
+      line-height: 1.05;
+      color: var(--text);
       margin-bottom: 28px;
-      max-width: 520px;
+    }
+
+    .cta-inner h2 .yellow { color: var(--yellow); }
+
+    .cta-inner p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 580px;
+      margin-bottom: 40px;
     }
 
     .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      display: inline-block;
       background: var(--yellow);
-      color: #000;
-      padding: 14px 28px;
+      color: var(--navy);
+      padding: 18px 36px;
       border-radius: 100px;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 0.75rem;
       text-decoration: none;
-      letter-spacing: 0.3px;
-      transition: opacity 0.2s;
+      transition: all 0.2s;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
     }
 
-    .cta-btn:hover { opacity: 0.9; }
-    .cta-arrow { transition: transform 0.2s; }
-    .cta-btn:hover .cta-arrow { transform: translateX(3px); }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(249, 217, 0, 0.3);
+    }
 
-    @media (max-width: 640px) {
-      body { padding: 48px 20px; }
-      .step { gap: 16px; }
+    /* FOOTER */
+    .footer {
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer p {
+      color: var(--text-dim);
+      font-size: 0.8125rem;
+    }
+
+    .footer svg { height: 32px; opacity: 0.6; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .container { padding: 0 24px; }
+      .hero { padding: 40px 0 100px; }
+      .form { flex-direction: column; }
+      .steps-section { margin-bottom: 100px; }
+      .steps-list { grid-template-columns: 1fr; gap: 48px; }
+      .steps-title { margin-bottom: 56px; }
+      .cta-section { padding: 60px 0 80px; }
+      .footer { padding: 32px 24px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
 
-    <div class="logo">
-      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-        <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+  <nav class="nav">
+    <div class="nav-logo">
+      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros">
+        <text x="0" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+        <text x="0" y="58" font-family="Inter, sans-serif" font-weight="700" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
         <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
       </svg>
     </div>
-
-    <div class="eyebrow">
-      <span class="dot"></span>
-      <span>Free Claude Skill</span>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="https://www.adpros.com/service">Services</a>
+        <a href="https://www.adpros.com/platforms">Platforms</a>
+        <a href="https://www.adpros.com/blog">Blog</a>
+        <a href="https://www.adpros.com/contact-us">Contact</a>
+      </div>
+      <a href="https://www.adpros.com/waitlist" class="nav-cta">Join Waitlist</a>
     </div>
+  </nav>
 
-    <h1>Turn your store URL into a <span class="accent">library of on-brand product visuals</span> — in 30 minutes</h1>
+  <div class="container">
 
-    <p class="subtitle">The Claude Skill behind the creative workflow Nehal just broke down. Brand research, style analysis, ad visuals — all automated. Drop your email to get the full setup.</p>
+    <section class="hero">
+      <span class="eyebrow">Free Claude Skill</span>
 
-    <div class="form-card" id="formCard">
-      <form class="form" id="form" action="https://formspree.io/f/xvzdlrjk" method="POST">
-        <input type="email" name="email" class="input" placeholder="Enter your best email" required>
-        <button type="submit" class="submit">Get Instant Access</button>
-      </form>
-      <p class="form-note">No spam. Unsubscribe anytime.</p>
-    </div>
+      <h1>Turn your store URL into a <span class="highlight">library of on-brand product visuals</span> — in 30 minutes</h1>
 
-    <div class="success" id="success">
-      <span class="success-badge">✓ Ready</span>
-      <h3>Your Claude Skill is ready</h3>
-      <p>Click below to download your Product Visual Generator.</p>
-      <a href="https://cdn.prod.website-files.com/6786ccfd099ba21c5987890a/69ebb07edaf75fd8ca2beefd_product-visual-generator-adpros.zip" class="download-btn" download target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-        Download Skill
-      </a>
-    </div>
+      <p class="subtitle">The Claude Skill behind the creative workflow Nehal just broke down. Brand research, style analysis, ad visuals — all automated.</p>
 
-    <div class="steps">
-      <div class="steps-eyebrow">How it works</div>
-      <h2>4 steps to <span class="accent">production-ready visuals</span></h2>
+      <div class="form-wrap" id="formWrap">
+        <form class="form" id="form" action="https://formspree.io/f/xvzdlrjk" method="POST">
+          <input type="email" name="email" class="input" placeholder="Enter your email" required>
+          <button type="submit" class="submit">Get Access</button>
+        </form>
+        <p class="form-note">No spam. Unsubscribe anytime.</p>
+      </div>
+
+      <div class="success" id="success">
+        <h3>Your Claude Skill is ready</h3>
+        <p>Click below to download your Product Visual Generator.</p>
+        <a href="https://cdn.prod.website-files.com/6786ccfd099ba21c5987890a/69ebb07edaf75fd8ca2beefd_product-visual-generator-adpros.zip" class="download-btn" download target="_blank">
+          Download Skill
+        </a>
+      </div>
+    </section>
+
+    <section class="steps-section">
+      <span class="section-label">How it works</span>
+      <h2 class="steps-title">4 steps to <span class="yellow">production-ready visuals</span></h2>
+
       <div class="steps-list">
         <div class="step">
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <h4>Drop your store URL</h4>
-            <p>Claude builds your full Brand DNA automatically.</p>
-          </div>
+          <span class="step-num">01</span>
+          <h4>Drop your store URL</h4>
+          <p>Claude builds your full Brand DNA automatically.</p>
         </div>
         <div class="step">
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <h4>Add style references</h4>
-            <p>Claude locks in the creative direction.</p>
-          </div>
+          <span class="step-num">02</span>
+          <h4>Add style references</h4>
+          <p>Claude locks in the creative direction.</p>
         </div>
         <div class="step">
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <h4>Connect to Gemini</h4>
-            <p>It generates the images.</p>
-          </div>
+          <span class="step-num">03</span>
+          <h4>Connect to Gemini</h4>
+          <p>It generates the images.</p>
         </div>
         <div class="step">
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <h4>Generate</h4>
-            <p>Production-ready visuals, organized by shot.</p>
-          </div>
+          <span class="step-num">04</span>
+          <h4>Generate</h4>
+          <p>Production-ready visuals, organized by shot.</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="cta">
-      <div class="cta-eyebrow">Next Level</div>
-      <h2>Grow Your Ecommerce Empire to <span class="accent">$100+ Million</span></h2>
-      <p>Ad Pros unlocks unreasonable growth for ambitious brands. Discover your next breakthrough with our media buying, creatives, data and strategy.</p>
-      <a href="https://www.adpros.com/waitlist" class="cta-btn" target="_blank">
-        Become an Ad Pros Partner
-        <svg class="cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"/>
-          <polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </a>
-    </div>
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Grow Your Ecommerce Empire to <span class="yellow">$100+ Million</span></h2>
+        <p>Ad Pros unlocks unreasonable growth for ambitious brands. Discover your next breakthrough with our media buying, creatives, data and strategy.</p>
+        <a href="https://www.adpros.com/waitlist" class="cta-btn" target="_blank">Join Waitlist</a>
+      </div>
+    </section>
 
   </div>
+
+  <footer class="footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="700" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="700" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>© 2026 Ad Pros. All rights reserved.</p>
+  </footer>
 
   <script>
     (function() {
@@ -408,7 +485,7 @@
           headers: { 'Accept': 'application/json' }
         }).then(function(response) {
           if (response.ok) {
-            document.getElementById('formCard').classList.add('hide');
+            document.getElementById('formWrap').classList.add('hide');
             document.getElementById('success').classList.add('show');
           } else {
             alert('Oops, something went wrong. Please try again.');
