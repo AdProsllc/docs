@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Creator Commission Model — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --navy-card-2: #0a0f4a;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --grey-100: #D4D5D9;
+      --card-border: #0e1358;
+      --card-border-hover: #1a2080;
+      --teal-light: #5DCAA5;
+      --teal: #1D9E75;
+      --teal-dark: #0F6E56;
+      --purple: #7F77DD;
+      --purple-dark: #534AB7;
+    }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; font-size: 14px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-content { padding: 32px 48px; max-width: 1200px; margin: 0 auto; }
+
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--card-border); margin-bottom: 32px; }
+    .tab { background: transparent; border: none; padding: 12px 20px; font-family: inherit; font-size: 14px; font-weight: 500; color: var(--grey-300); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
+    .tab:hover { color: var(--grey-100); }
+    .tab.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .intro { color: var(--grey-200); margin-bottom: 28px; max-width: 720px; line-height: 1.7; }
+
+    .section-label { font-size: 12px; font-weight: 500; color: var(--grey-300); text-transform: none; letter-spacing: 0.2px; margin-bottom: 10px; }
+
+    .controls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px 24px; margin-bottom: 24px; }
+    .control label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 8px; }
+    .control-row { display: flex; align-items: center; gap: 10px; }
+    .control-prefix { font-size: 13px; color: var(--grey-300); }
+    .control-val { font-size: 14px; font-weight: 600; color: var(--white); min-width: 44px; text-align: right; }
+
+    input[type="range"] { flex: 1; -webkit-appearance: none; appearance: none; background: transparent; height: 20px; cursor: pointer; }
+    input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: var(--card-border); border-radius: 2px; }
+    input[type="range"]::-moz-range-track { height: 4px; background: var(--card-border); border-radius: 2px; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; background: var(--yellow); border-radius: 50%; margin-top: -6px; border: none; }
+    input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; background: var(--yellow); border-radius: 50%; border: none; }
+    input[type="range"]:focus { outline: none; }
+    input[type="range"]:focus::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(249,217,0,0.25); }
+
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .metric { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 18px; }
+    .metric-label { font-size: 12px; color: var(--grey-300); margin-bottom: 6px; }
+    .metric-val { font-size: 24px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
+    .metric-sub { font-size: 12px; color: var(--grey-300); margin-top: 4px; }
+    .metric-val.teal { color: var(--teal-light); }
+    .metric-val.purple { color: var(--purple); }
+    .metric-val.yellow { color: var(--yellow); }
+
+    .stack-bar { display: flex; width: 100%; height: 44px; border-radius: 8px; overflow: hidden; margin-bottom: 10px; background: var(--navy-card); border: 1px solid var(--card-border); }
+    .stack-seg { display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; min-width: 0; overflow: hidden; white-space: nowrap; padding: 0 4px; }
+    .stack-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--grey-300); margin-bottom: 24px; }
+    .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+
+    .card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px 22px; }
+    .card-label { font-size: 12px; color: var(--grey-300); margin-bottom: 14px; }
+    .breakdown-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .breakdown-table td { padding: 6px 0; color: var(--grey-200); }
+    .breakdown-table td:first-child { color: var(--grey-300); }
+    .breakdown-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+    .breakdown-table tr.total td { border-top: 1px solid var(--card-border); padding-top: 10px; font-weight: 600; color: var(--white); }
+    .breakdown-table tr.total.final td { border-top: 1px solid var(--card-border); color: var(--yellow); }
+
+    .milestones { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; margin-bottom: 28px; }
+    .ms-btn { cursor: pointer; padding: 10px 4px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; font-family: inherit; font-size: 12px; font-weight: 600; color: var(--grey-200); text-align: center; transition: all 0.15s; }
+    .ms-btn:hover { border-color: var(--card-border-hover); color: var(--white); }
+    .ms-btn.active { background: var(--yellow); color: var(--navy); border-color: var(--yellow); }
+
+    .assumptions { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; }
+    .assumptions-header { font-size: 12px; color: var(--grey-300); margin-bottom: 14px; }
+    .assumptions-header .hint { color: #5b5c65; margin-left: 8px; }
+    .assumptions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px 24px; font-size: 14px; }
+    .assumption-label { color: var(--grey-300); font-size: 12px; margin-bottom: 4px; }
+    .assumption-val { color: var(--white); font-weight: 600; font-size: 16px; }
+    .edit-val { cursor: pointer; border-bottom: 1px dashed rgba(249,217,0,0.35); padding: 0 2px; border-radius: 2px; transition: background 0.15s; }
+    .edit-val:hover { background: rgba(249,217,0,0.08); color: var(--yellow); }
+    .edit-val.editing { border-bottom-color: var(--yellow); background: rgba(249,217,0,0.12); color: var(--yellow); }
+    .edit-input { font: inherit; color: inherit; background: transparent; border: none; outline: none; width: 70px; padding: 0; text-align: inherit; font-weight: 600; }
+
+    .data-table-wrap { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+    .data-table th { text-align: right; padding: 12px 10px; font-weight: 500; color: var(--grey-300); font-size: 12px; background: var(--navy-card-2); }
+    .data-table th:first-child { text-align: left; padding-left: 18px; }
+    .data-table th:last-child { padding-right: 18px; }
+    .data-table td { padding: 11px 10px; text-align: right; color: var(--grey-200); border-top: 1px solid var(--card-border); font-variant-numeric: tabular-nums; }
+    .data-table td:first-child { text-align: left; padding-left: 18px; font-weight: 600; color: var(--white); }
+    .data-table td:last-child { padding-right: 18px; }
+    .data-table tbody tr { cursor: pointer; transition: background 0.1s; }
+    .data-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .data-table tbody tr.active { background: rgba(249,217,0,0.08); }
+    .data-table tbody tr.active td { color: var(--white); }
+    .data-table tbody tr.active td:first-child { color: var(--yellow); }
+    .cell-adpros { color: #AFA9EC !important; }
+    .cell-levanta { color: var(--grey-300) !important; }
+    .cell-creator { color: var(--teal-light) !important; }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 800px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .milestones { grid-template-columns: repeat(3, 1fr); }
+      .data-table { font-size: 12px; }
+      .data-table th, .data-table td { padding: 8px 6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Creator commission model</h1>
+      <p>Creator Performance Network economics · per-order and at-scale</p>
+    </div>
+  </header>
+  <div class="ap-content">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-panel="single" role="tab">Per-order model</button>
+      <button class="tab" data-panel="volume" role="tab">Volume &amp; milestones</button>
+    </div>
+
+    <section class="panel active" id="panel-single">
+      <p class="intro">Model a single order end-to-end. Adjust the sliders to see how AOV, CPA, and platform fees compose the base affiliate commission, and how brand performance reports and halo organic lift stretch the creator&rsquo;s effective rate.</p>
+
+      <div class="section-label">Inputs</div>
+      <div class="controls-grid">
+        <div class="control">
+          <label>AOV</label>
+          <div class="control-row">
+            <span class="control-prefix">$</span>
+            <input type="range" id="s-aov" min="20" max="80" step="1" value="38">
+            <span class="control-val" id="s-aov-out">38</span>
+          </div>
+        </div>
+        <div class="control">
+          <label>CPA</label>
+          <div class="control-row">
+            <span class="control-prefix">$</span>
+            <input type="range" id="s-cpa" min="10" max="60" step="1" value="30">
+            <span class="control-val" id="s-cpa-out">30</span>
+          </div>
+        </div>
+        <div class="control">
+          <label>Ad Pros fee</label>
+          <div class="control-row">
+            <input type="range" id="s-adpros" min="0" max="20" step="0.5" value="10">
+            <span class="control-val" id="s-adpros-out">10.0%</span>
+          </div>
+        </div>
+        <div class="control">
+          <label>Levanta fee</label>
+          <div class="control-row">
+            <input type="range" id="s-levanta" min="0" max="10" step="0.5" value="3.5">
+            <span class="control-val" id="s-levanta-out">3.5%</span>
+          </div>
+        </div>
+        <div class="control">
+          <label>Brand perf report</label>
+          <div class="control-row">
+            <input type="range" id="s-bpr" min="0" max="20" step="1" value="10">
+            <span class="control-val" id="s-bpr-out">10%</span>
+          </div>
+        </div>
+        <div class="control">
+          <label>Halo organic lift</label>
+          <div class="control-row">
+            <input type="range" id="s-halo" min="0" max="30" step="1" value="15">
+            <span class="control-val" id="s-halo-out">15%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">ROAS</div>
+          <div class="metric-val yellow" id="s-roas">127%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Base commission</div>
+          <div class="metric-val teal" id="s-base-pct">65%</div>
+          <div class="metric-sub" id="s-base-dollar">$24.87/order</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">+ BPR potential</div>
+          <div class="metric-val teal" id="s-bpr-pct">75%</div>
+          <div class="metric-sub" id="s-bpr-dollar">$28.50/order</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">+ halo ceiling</div>
+          <div class="metric-val teal" id="s-halo-pct">90%</div>
+          <div class="metric-sub" id="s-halo-dollar">$34.20/order</div>
+        </div>
+      </div>
+
+      <div class="section-label">Per-order payout stack</div>
+      <div class="stack-bar" id="s-stack"></div>
+      <div class="stack-legend" id="s-stack-legend"></div>
+
+      <div class="card">
+        <div class="card-label">Math breakdown</div>
+        <table class="breakdown-table">
+          <tr><td>CPA</td><td id="br-cpa">$30.00</td></tr>
+          <tr><td>Ad Pros fee (<span id="br-adpros-pct">10%</span> of AOV)</td><td id="br-adpros">&minus;$3.80</td></tr>
+          <tr><td>Levanta fee (<span id="br-levanta-pct">3.5%</span> of AOV)</td><td id="br-levanta">&minus;$1.33</td></tr>
+          <tr class="total"><td>Affiliate commission (base)</td><td id="br-base">$24.87 (65% of AOV)</td></tr>
+          <tr><td>+ BPR lift (<span id="br-bpr-pct">10%</span> of AOV)</td><td id="br-bpr">+$3.80</td></tr>
+          <tr><td>+ halo lift (<span id="br-halo-pct">15%</span> of AOV)</td><td id="br-halo">+$5.70</td></tr>
+          <tr class="total final"><td>Ceiling payout</td><td id="br-ceiling">$34.20 (90% of AOV)</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-volume">
+      <p class="intro">Pick a monthly new-customer revenue milestone to see orders, ad spend, and commissions for every party at that scale. Click any assumption to edit it and the whole table recalculates.</p>
+
+      <div class="section-label">Monthly new customer revenue milestone</div>
+      <div class="milestones" id="v-milestones"></div>
+
+      <div class="assumptions">
+        <div class="assumptions-header">Assumptions <span class="hint">click any value to edit</span></div>
+        <div class="assumptions-grid">
+          <div>
+            <div class="assumption-label">AOV</div>
+            <div class="assumption-val">$<span class="edit-val" data-key="aov" data-type="money">38.00</span></div>
+          </div>
+          <div>
+            <div class="assumption-label">CPA</div>
+            <div class="assumption-val">$<span class="edit-val" data-key="cpa" data-type="money">30.00</span></div>
+          </div>
+          <div>
+            <div class="assumption-label">Ad Pros fee</div>
+            <div class="assumption-val"><span class="edit-val" data-key="adprosPct" data-type="pct">10.0</span>%</div>
+          </div>
+          <div>
+            <div class="assumption-label">Levanta fee</div>
+            <div class="assumption-val"><span class="edit-val" data-key="levantaPct" data-type="pct">3.5</span>%</div>
+          </div>
+          <div>
+            <div class="assumption-label">BPR lift</div>
+            <div class="assumption-val"><span class="edit-val" data-key="bprPct" data-type="pct">10</span>%</div>
+          </div>
+          <div>
+            <div class="assumption-label">Halo lift</div>
+            <div class="assumption-val"><span class="edit-val" data-key="haloPct" data-type="pct">15</span>%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">Orders / mo</div>
+          <div class="metric-val" id="v-orders">—</div>
+          <div class="metric-sub" id="v-orders-day">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Ad spend</div>
+          <div class="metric-val" id="v-adspend">—</div>
+          <div class="metric-sub" id="v-roas">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Ad Pros fee</div>
+          <div class="metric-val purple" id="v-adpros">—</div>
+          <div class="metric-sub" id="v-adpros-pct">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Creator payout (base)</div>
+          <div class="metric-val teal" id="v-creator">—</div>
+          <div class="metric-sub" id="v-creator-pct">—</div>
+        </div>
+      </div>
+
+      <div class="section-label">Full milestone table · click any row to activate</div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:13%">Revenue</th>
+              <th style="width:10%">Orders</th>
+              <th style="width:14%">Ad spend</th>
+              <th style="width:13%">Ad Pros</th>
+              <th style="width:13%">Levanta</th>
+              <th style="width:17%">Creator base</th>
+              <th style="width:20%">Creator ceiling</th>
+            </tr>
+          </thead>
+          <tbody id="v-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      t.classList.add('active');
+      document.getElementById('panel-' + t.dataset.panel).classList.add('active');
+    });
+  });
+})();
+
+(function(){
+  function fmt$(n){ return '$' + n.toFixed(2); }
+  function fmtPct(n){ return n.toFixed(0) + '%'; }
+  function fmtPct1(n){ return n.toFixed(1) + '%'; }
+
+  var inputs = ['aov','cpa','adpros','levanta','bpr','halo'];
+  var out = {};
+  inputs.forEach(function(id){ out[id] = document.getElementById('s-' + id + '-out'); });
+
+  function update(){
+    var aov = +document.getElementById('s-aov').value;
+    var cpa = +document.getElementById('s-cpa').value;
+    var adprosPct = +document.getElementById('s-adpros').value;
+    var levantaPct = +document.getElementById('s-levanta').value;
+    var bprPct = +document.getElementById('s-bpr').value;
+    var haloPct = +document.getElementById('s-halo').value;
+
+    out.aov.textContent = aov;
+    out.cpa.textContent = cpa;
+    out.adpros.textContent = fmtPct1(adprosPct);
+    out.levanta.textContent = fmtPct1(levantaPct);
+    out.bpr.textContent = fmtPct(bprPct);
+    out.halo.textContent = fmtPct(haloPct);
+
+    var roas = aov / cpa * 100;
+    var adprosFee = aov * adprosPct / 100;
+    var levantaFee = aov * levantaPct / 100;
+    var baseAffiliate = cpa - adprosFee - levantaFee;
+    var basePctOfAov = baseAffiliate / aov * 100;
+    var bprLift = aov * bprPct / 100;
+    var haloLift = aov * haloPct / 100;
+    var withBpr = baseAffiliate + bprLift;
+    var withBprPct = withBpr / aov * 100;
+    var ceiling = baseAffiliate + bprLift + haloLift;
+    var ceilingPct = ceiling / aov * 100;
+
+    document.getElementById('s-roas').textContent = fmtPct(roas);
+    document.getElementById('s-base-pct').textContent = fmtPct(basePctOfAov);
+    document.getElementById('s-base-dollar').textContent = fmt$(baseAffiliate) + '/order';
+    document.getElementById('s-bpr-pct').textContent = fmtPct(withBprPct);
+    document.getElementById('s-bpr-dollar').textContent = fmt$(withBpr) + '/order';
+    document.getElementById('s-halo-pct').textContent = fmtPct(ceilingPct);
+    document.getElementById('s-halo-dollar').textContent = fmt$(ceiling) + '/order';
+
+    document.getElementById('br-cpa').textContent = fmt$(cpa);
+    document.getElementById('br-adpros-pct').textContent = fmtPct1(adprosPct);
+    document.getElementById('br-adpros').textContent = '\u2212' + fmt$(adprosFee);
+    document.getElementById('br-levanta-pct').textContent = fmtPct1(levantaPct);
+    document.getElementById('br-levanta').textContent = '\u2212' + fmt$(levantaFee);
+    document.getElementById('br-base').textContent = fmt$(baseAffiliate) + ' (' + fmtPct(basePctOfAov) + ' of AOV)';
+    document.getElementById('br-bpr-pct').textContent = fmtPct(bprPct);
+    document.getElementById('br-bpr').textContent = '+' + fmt$(bprLift);
+    document.getElementById('br-halo-pct').textContent = fmtPct(haloPct);
+    document.getElementById('br-halo').textContent = '+' + fmt$(haloLift);
+    document.getElementById('br-ceiling').textContent = fmt$(ceiling) + ' (' + fmtPct(ceilingPct) + ' of AOV)';
+
+    var total = Math.max(cpa + bprLift + haloLift, 0.01);
+    var segs = [
+      { label: 'Ad Pros', value: adprosFee, color: '#7F77DD' },
+      { label: 'Levanta', value: levantaFee, color: '#8A8B93' },
+      { label: 'Affiliate base', value: Math.max(baseAffiliate, 0), color: '#1D9E75' },
+      { label: 'BPR lift', value: bprLift, color: '#5DCAA5' },
+      { label: 'Halo lift', value: haloLift, color: '#9FE1CB' }
+    ];
+    var stack = document.getElementById('s-stack');
+    var legend = document.getElementById('s-stack-legend');
+    stack.innerHTML = '';
+    legend.innerHTML = '';
+    segs.forEach(function(s){
+      var pct = s.value / total * 100;
+      if (pct > 0) {
+        var d = document.createElement('div');
+        d.className = 'stack-seg';
+        d.style.flex = pct + ' 0 0';
+        d.style.background = s.color;
+        d.style.color = s.color === '#9FE1CB' || s.color === '#5DCAA5' ? '#04342C' : '#fff';
+        d.textContent = pct > 10 ? fmt$(s.value) : '';
+        stack.appendChild(d);
+      }
+      var l = document.createElement('div');
+      l.innerHTML = '<span class="swatch" style="background:' + s.color + '"></span>' + s.label + ' ' + fmt$(s.value);
+      legend.appendChild(l);
+    });
+  }
+
+  inputs.forEach(function(id){
+    document.getElementById('s-' + id).addEventListener('input', update);
+  });
+  update();
+})();
+
+(function(){
+  var milestones = [10000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000];
+  var state = { aov: 38, cpa: 30, adprosPct: 10, levantaPct: 3.5, bprPct: 10, haloPct: 15, active: 4 };
+
+  function fmtMoney(n){
+    if (n >= 1000000) return '$' + (n/1000000).toFixed(n >= 10000000 ? 1 : 2) + 'M';
+    if (n >= 10000) return '$' + Math.round(n/1000) + 'k';
+    if (n >= 1000) return '$' + (n/1000).toFixed(1) + 'k';
+    return '$' + Math.round(n).toLocaleString();
+  }
+  function fmtExact(n){ return '$' + Math.round(n).toLocaleString(); }
+  function fmtPct(n){ return n.toFixed(0) + '%'; }
+  function fmtPct1(n){ return n.toFixed(1) + '%'; }
+  function fmtMilestone(n){
+    if (n >= 1000000) return '$' + (n/1000000) + 'mm';
+    return '$' + (n/1000) + 'k';
+  }
+
+  function calc(revenue){
+    var orders = revenue / state.aov;
+    var adSpend = orders * state.cpa;
+    var adprosFee = orders * state.aov * state.adprosPct / 100;
+    var levantaFee = orders * state.aov * state.levantaPct / 100;
+    var creatorBase = adSpend - adprosFee - levantaFee;
+    var bprLift = orders * state.aov * state.bprPct / 100;
+    var haloLift = orders * state.aov * state.haloPct / 100;
+    var creatorCeiling = creatorBase + bprLift + haloLift;
+    var roas = adSpend > 0 ? (revenue / adSpend * 100) : 0;
+    return { orders: orders, adSpend: adSpend, adprosFee: adprosFee, levantaFee: levantaFee, creatorBase: creatorBase, bprLift: bprLift, haloLift: haloLift, creatorCeiling: creatorCeiling, roas: roas };
+  }
+
+  function renderMilestones(){
+    var c = document.getElementById('v-milestones');
+    c.innerHTML = '';
+    milestones.forEach(function(m, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ms-btn' + (i === state.active ? ' active' : '');
+      b.textContent = fmtMilestone(m);
+      b.addEventListener('click', function(){ state.active = i; render(); });
+      c.appendChild(b);
+    });
+  }
+
+  function renderActive(){
+    var rev = milestones[state.active];
+    var r = calc(rev);
+    document.getElementById('v-orders').textContent = Math.round(r.orders).toLocaleString();
+    document.getElementById('v-orders-day').textContent = Math.round(r.orders/30).toLocaleString() + '/day';
+    document.getElementById('v-adspend').textContent = fmtExact(r.adSpend);
+    document.getElementById('v-roas').textContent = fmtPct(r.roas) + ' ROAS';
+    document.getElementById('v-adpros').textContent = fmtExact(r.adprosFee);
+    document.getElementById('v-adpros-pct').textContent = fmtPct1(state.adprosPct) + ' of revenue';
+    document.getElementById('v-creator').textContent = fmtExact(r.creatorBase);
+    document.getElementById('v-creator-pct').textContent = 'up to ' + fmtExact(r.creatorCeiling) + ' with lift';
+  }
+
+  function renderTable(){
+    var tbody = document.getElementById('v-tbody');
+    tbody.innerHTML = '';
+    milestones.forEach(function(m, i){
+      var r = calc(m);
+      var tr = document.createElement('tr');
+      if (i === state.active) tr.className = 'active';
+      tr.addEventListener('click', function(){ state.active = i; render(); });
+      tr.innerHTML =
+        '<td>' + fmtMilestone(m) + '</td>' +
+        '<td>' + Math.round(r.orders).toLocaleString() + '</td>' +
+        '<td>' + fmtMoney(r.adSpend) + '</td>' +
+        '<td class="cell-adpros">' + fmtMoney(r.adprosFee) + '</td>' +
+        '<td class="cell-levanta">' + fmtMoney(r.levantaFee) + '</td>' +
+        '<td class="cell-creator">' + fmtMoney(r.creatorBase) + '</td>' +
+        '<td class="cell-creator">' + fmtMoney(r.creatorCeiling) + '</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  function render(){
+    renderMilestones();
+    renderActive();
+    renderTable();
+  }
+
+  function formatVal(key, type){
+    var v = state[key];
+    if (type === 'money') return v.toFixed(2);
+    if (type === 'pct') return v % 1 === 0 ? v.toFixed(0) : v.toFixed(1);
+    return v;
+  }
+
+  function makeEditable(span){
+    span.addEventListener('click', function(){
+      if (span.classList.contains('editing')) return;
+      var key = span.dataset.key;
+      var type = span.dataset.type;
+      var current = state[key];
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.inputMode = 'decimal';
+      input.className = 'edit-input';
+      input.value = current;
+      span.classList.add('editing');
+      span.textContent = '';
+      span.appendChild(input);
+      input.focus();
+      input.select();
+
+      var commit = function(){
+        var raw = input.value.replace(/[^\d.]/g, '');
+        var v = parseFloat(raw);
+        if (!isNaN(v) && v >= 0) state[key] = v;
+        span.classList.remove('editing');
+        span.textContent = formatVal(key, type);
+        render();
+      };
+      input.addEventListener('blur', commit);
+      input.addEventListener('keydown', function(e){
+        if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+        if (e.key === 'Escape') { input.value = current; input.blur(); }
+      });
+    });
+  }
+
+  document.querySelectorAll('.edit-val').forEach(makeEditable);
+  render();
+})();
+</script>
+</body>
+</html>
