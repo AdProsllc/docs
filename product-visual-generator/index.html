@@ -6,582 +6,337 @@
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="bingbot" content="noindex, nofollow">
   <meta name="slurp" content="noindex, nofollow">
-  <meta name="duckduckbot" content="noindex, nofollow">
-  <meta name="baiduspider" content="noindex, nofollow">
-  <meta name="yandex" content="noindex, nofollow">
   <title>Product Visual Generator — Ad Pros</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #040735;
-      --navy-deep: #020420;
-      --navy-card: #0a0e4a;
-      --navy-border: #1a1f6b;
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --border: #1a1a1a;
       --yellow: #F9D900;
-      --yellow-soft: rgba(249, 217, 0, 0.08);
-      --yellow-border: rgba(249, 217, 0, 0.25);
-      --white: #FFFFFF;
-      --text-muted: #9da0b5;
-      --text-dim: #6b6f8e;
+      --text: #FFFFFF;
+      --text-muted: #8a8a8a;
+      --text-dim: #5a5a5a;
     }
 
     html, body {
-      background: var(--navy);
-      color: var(--white);
-      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
     }
 
-    body { min-height: 100vh; position: relative; }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: -20%;
-      left: -10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(249, 217, 0, 0.08) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
+    body {
+      min-height: 100vh;
+      padding: 80px 24px;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -20%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(26, 111, 212, 0.1) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .nav {
-      position: relative;
-      z-index: 10;
-      padding: 24px 48px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo svg { height: 42px; width: auto; }
-
-    .nav-link {
-      color: var(--white);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 10px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 100px;
-      transition: all 0.2s;
-    }
-
-    .nav-link:hover {
-      background: var(--yellow);
-      color: var(--navy);
-      border-color: var(--yellow);
-    }
-
-    .main {
-      position: relative;
-      z-index: 1;
-      max-width: 680px;
+    .wrapper {
+      max-width: 580px;
       margin: 0 auto;
-      padding: 80px 24px 60px;
-      text-align: center;
     }
+
+    .logo {
+      margin-bottom: 64px;
+    }
+
+    .logo svg { height: 42px; width: auto; }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 18px;
-      background: var(--yellow-soft);
-      border: 1px solid var(--yellow-border);
-      border-radius: 100px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--yellow);
-      margin-bottom: 40px;
-      animation: fadeInUp 0.6s ease-out;
+      margin-bottom: 32px;
     }
 
-    .eyebrow-dot {
+    .dot {
       width: 6px;
       height: 6px;
       background: var(--yellow);
       border-radius: 50%;
-      box-shadow: 0 0 10px rgba(249, 217, 0, 0.6);
       animation: pulse 2s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.2); }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
     h1 {
-      font-size: clamp(38px, 6vw, 64px);
-      font-weight: 800;
-      line-height: 1.05;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.15;
       letter-spacing: -1.5px;
-      color: var(--white);
-      margin-bottom: 24px;
-      animation: fadeInUp 0.7s ease-out 0.1s backwards;
+      margin-bottom: 20px;
     }
 
-    h1 .highlight {
-      color: var(--yellow);
-      position: relative;
-      display: inline-block;
-    }
-
-    h1 .highlight::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 0;
-      right: 0;
-      height: 12px;
-      background: var(--yellow);
-      opacity: 0.15;
-      z-index: -1;
-      border-radius: 4px;
-    }
+    h1 .accent { color: var(--yellow); }
 
     .subtitle {
-      font-size: 18px;
+      font-size: 1.05rem;
       color: var(--text-muted);
-      line-height: 1.5;
-      max-width: 520px;
-      margin: 0 auto 48px;
-      animation: fadeInUp 0.7s ease-out 0.2s backwards;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .form-card {
-      background: linear-gradient(180deg, var(--navy-card) 0%, #070a3d 100%);
-      border: 1px solid var(--navy-border);
-      border-radius: 20px;
-      padding: 36px;
+      line-height: 1.6;
       margin-bottom: 48px;
-      position: relative;
-      overflow: hidden;
-      animation: fadeInUp 0.7s ease-out 0.3s backwards;
+      max-width: 520px;
     }
 
-    .form-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
-      opacity: 0.5;
-    }
+    .form-card { margin-bottom: 64px; }
 
-    .form { display: flex; flex-direction: column; gap: 14px; }
-
-    .input-wrap { position: relative; }
-
-    .input-icon {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-dim);
-      pointer-events: none;
-      transition: color 0.2s;
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .input {
       width: 100%;
-      padding: 18px 18px 18px 50px;
-      background: var(--navy-deep);
-      border: 1.5px solid var(--navy-border);
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      color: var(--white);
+      color: var(--text);
       font-size: 15px;
       font-family: inherit;
-      font-weight: 500;
-      transition: all 0.2s;
+      transition: border-color 0.2s;
     }
 
     .input:focus {
       outline: none;
-      border-color: var(--yellow);
-      background: #010315;
+      border-color: var(--text);
     }
 
-    .input-wrap:focus-within .input-icon { color: var(--yellow); }
     .input::placeholder { color: var(--text-dim); }
 
     .submit {
       width: 100%;
       padding: 18px 24px;
       background: var(--yellow);
-      color: var(--navy);
+      color: #000;
       border: none;
       border-radius: 12px;
       font-size: 15px;
-      font-weight: 800;
+      font-weight: 700;
       font-family: inherit;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: opacity 0.2s;
       letter-spacing: 0.3px;
-      text-transform: uppercase;
-      position: relative;
-      overflow: hidden;
     }
 
-    .submit::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s;
-    }
-
-    .submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(249, 217, 0, 0.35);
-    }
-
-    .submit:hover::before { left: 100%; }
+    .submit:hover { opacity: 0.9; }
 
     .form-note {
-      margin-top: 20px;
-      font-size: 12px;
+      margin-top: 16px;
+      font-size: 13px;
       color: var(--text-dim);
-      letter-spacing: 0.3px;
     }
 
-    .success { display: none; text-align: center; padding: 20px 0; }
-    .success.show { display: block; animation: fadeInUp 0.5s ease-out; }
+    .success { display: none; padding: 32px 0; }
+    .success.show { display: block; }
     .form-card.hide { display: none; }
 
-    .success-icon {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 20px;
-      background: linear-gradient(135deg, var(--yellow), #FFC700);
-      border-radius: 50%;
-      display: flex;
+    .success-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 30px rgba(249, 217, 0, 0.3);
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(249, 217, 0, 0.1);
+      border: 1px solid rgba(249, 217, 0, 0.3);
+      border-radius: 100px;
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
 
-    .success-icon svg { width: 36px; height: 36px; color: var(--navy); }
-
     .success h3 {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--white);
-      margin-bottom: 10px;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
       letter-spacing: -0.5px;
     }
 
     .success p {
       color: var(--text-muted);
       font-size: 15px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .download-btn {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       background: var(--yellow);
-      color: var(--navy);
-      padding: 18px 40px;
+      color: #000;
+      padding: 16px 32px;
       border-radius: 12px;
-      font-weight: 800;
+      font-weight: 700;
       font-size: 15px;
       text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .download-btn:hover { opacity: 0.9; }
+
+    .steps { margin-bottom: 64px; }
+
+    .steps-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: all 0.25s;
-      box-shadow: 0 8px 24px rgba(249, 217, 0, 0.25);
+      color: var(--text-dim);
+      margin-bottom: 16px;
     }
 
-    .download-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 35px rgba(249, 217, 0, 0.45);
-    }
-
-    .download-btn svg { transition: transform 0.25s; }
-    .download-btn:hover svg { transform: translateY(3px); }
-
-    /* 4 STEPS SECTION */
-    .steps {
-      margin-bottom: 48px;
-      text-align: left;
-      animation: fadeInUp 0.7s ease-out 0.35s backwards;
-    }
-
-    .steps-title {
-      text-align: center;
+    .steps h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.8px;
       margin-bottom: 32px;
     }
 
-    .steps-eyebrow {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 12px;
-    }
+    .steps h2 .accent { color: var(--yellow); }
 
-    .steps-title h2 {
-      font-size: clamp(26px, 4vw, 34px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.8px;
-      color: var(--white);
-      margin: 0;
-    }
-
-    .steps-title h2 .yellow { color: var(--yellow); }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+    .steps-list {
+      display: flex;
+      flex-direction: column;
     }
 
     .step {
-      background: linear-gradient(180deg, var(--navy-card) 0%, #070a3d 100%);
-      border: 1px solid var(--navy-border);
-      border-radius: 16px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.25s, transform 0.25s;
+      display: flex;
+      gap: 24px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
     }
 
-    .step:hover {
-      border-color: rgba(249, 217, 0, 0.3);
-      transform: translateY(-2px);
-    }
+    .step:last-child { border-bottom: 1px solid var(--border); }
 
     .step-num {
-      font-size: 36px;
-      font-weight: 900;
-      color: var(--yellow);
-      line-height: 1;
-      margin-bottom: 12px;
-      letter-spacing: -1.5px;
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      min-width: 32px;
+      padding-top: 2px;
     }
 
-    .step h4 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--white);
-      margin: 0 0 6px;
+    .step-content h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 4px;
       letter-spacing: -0.2px;
     }
 
-    .step p {
-      font-size: 13px;
+    .step-content p {
+      font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.5;
-      margin: 0;
     }
 
-    /* CTA SECTION */
-    .cta-section {
-      background: linear-gradient(135deg, var(--navy-card) 0%, #060934 100%);
-      border: 1px solid var(--navy-border);
-      border-radius: 24px;
-      padding: 48px 40px;
-      position: relative;
-      overflow: hidden;
-      animation: fadeInUp 0.7s ease-out 0.4s backwards;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(249, 217, 0, 0.15) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .cta-section::after {
-      content: '';
-      position: absolute;
-      bottom: -50px;
-      left: -50px;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(26, 111, 212, 0.15) 0%, transparent 60%);
-      pointer-events: none;
+    .cta {
+      padding: 48px 0 0;
+      border-top: 1px solid var(--border);
     }
 
     .cta-eyebrow {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--yellow);
-      margin-bottom: 18px;
-      position: relative;
-    }
-
-    .cta-section h2 {
-      font-size: clamp(28px, 4vw, 38px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.8px;
-      color: var(--white);
       margin-bottom: 16px;
-      position: relative;
     }
 
-    .cta-section h2 .cta-yellow { color: var(--yellow); }
+    .cta h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
 
-    .cta-section p {
+    .cta h2 .accent { color: var(--yellow); }
+
+    .cta p {
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 1rem;
       line-height: 1.6;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       max-width: 520px;
-      position: relative;
     }
 
-    .cta-button {
+    .cta-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       background: var(--yellow);
-      color: var(--navy);
-      padding: 16px 32px;
+      color: #000;
+      padding: 14px 28px;
       border-radius: 100px;
       font-weight: 700;
       font-size: 14px;
       text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      transition: all 0.25s;
-      position: relative;
-      box-shadow: 0 8px 24px rgba(249, 217, 0, 0.2);
-    }
-
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 35px rgba(249, 217, 0, 0.4);
-    }
-
-    .cta-arrow { transition: transform 0.25s; }
-    .cta-button:hover .cta-arrow { transform: translateX(4px); }
-
-    .footer {
-      position: relative;
-      z-index: 1;
-      padding: 40px 48px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 40px;
-    }
-
-    .footer p {
-      color: var(--text-dim);
-      font-size: 12px;
       letter-spacing: 0.3px;
+      transition: opacity 0.2s;
     }
 
-    .footer svg { height: 28px; opacity: 0.5; }
+    .cta-btn:hover { opacity: 0.9; }
+    .cta-arrow { transition: transform 0.2s; }
+    .cta-btn:hover .cta-arrow { transform: translateX(3px); }
 
     @media (max-width: 640px) {
-      .nav { padding: 20px 24px; }
-      .main { padding: 48px 20px 40px; }
-      .form-card { padding: 28px 24px; }
-      .cta-section { padding: 36px 28px; }
-      .footer { padding: 32px 24px; }
-      .steps-grid { grid-template-columns: 1fr; }
+      body { padding: 48px 20px; }
+      .step { gap: 16px; }
     }
   </style>
 </head>
 <body>
+  <div class="wrapper">
 
-  <nav class="nav">
-    <div class="nav-logo">
-      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros">
-        <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="900" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-        <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="900" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+    <div class="logo">
+      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+        <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
         <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
       </svg>
     </div>
-    <a href="https://www.adpros.com" class="nav-link">Back to Ad Pros</a>
-  </nav>
-
-  <main class="main">
 
     <div class="eyebrow">
-      <span class="eyebrow-dot"></span>
+      <span class="dot"></span>
       <span>Free Claude Skill</span>
     </div>
 
-    <h1>Turn your store URL into a <span class="highlight">library of on-brand product visuals</span> — in 30 minutes</h1>
+    <h1>Turn your store URL into a <span class="accent">library of on-brand product visuals</span> — in 30 minutes</h1>
 
     <p class="subtitle">The Claude Skill behind the creative workflow Nehal just broke down. Brand research, style analysis, ad visuals — all automated. Drop your email to get the full setup.</p>
 
     <div class="form-card" id="formCard">
       <form class="form" id="form" action="https://formspree.io/f/xvzdlrjk" method="POST">
-        <div class="input-wrap">
-          <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-          <input type="email" name="email" class="input" placeholder="Enter your best email" required>
-        </div>
+        <input type="email" name="email" class="input" placeholder="Enter your best email" required>
         <button type="submit" class="submit">Get Instant Access</button>
       </form>
       <p class="form-note">No spam. Unsubscribe anytime.</p>
     </div>
 
     <div class="success" id="success">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-      </div>
+      <span class="success-badge">✓ Ready</span>
       <h3>Your Claude Skill is ready</h3>
       <p>Click below to download your Product Visual Generator.</p>
       <a href="https://cdn.prod.website-files.com/6786ccfd099ba21c5987890a/69ebb07edaf75fd8ca2beefd_product-visual-generator-adpros.zip" class="download-btn" download target="_blank">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
           <line x1="12" y1="15" x2="12" y2="3"/>
@@ -590,59 +345,55 @@
       </a>
     </div>
 
-    <!-- 4 STEPS -->
     <div class="steps">
-      <div class="steps-title">
-        <span class="steps-eyebrow">How it works</span>
-        <h2>4 steps to <span class="yellow">production-ready visuals</span></h2>
-      </div>
-      <div class="steps-grid">
+      <div class="steps-eyebrow">How it works</div>
+      <h2>4 steps to <span class="accent">production-ready visuals</span></h2>
+      <div class="steps-list">
         <div class="step">
           <div class="step-num">01</div>
-          <h4>Drop your store URL</h4>
-          <p>Claude builds your full Brand DNA automatically.</p>
+          <div class="step-content">
+            <h4>Drop your store URL</h4>
+            <p>Claude builds your full Brand DNA automatically.</p>
+          </div>
         </div>
         <div class="step">
           <div class="step-num">02</div>
-          <h4>Add style references</h4>
-          <p>Claude locks in the creative direction.</p>
+          <div class="step-content">
+            <h4>Add style references</h4>
+            <p>Claude locks in the creative direction.</p>
+          </div>
         </div>
         <div class="step">
           <div class="step-num">03</div>
-          <h4>Connect to Gemini</h4>
-          <p>It generates the images.</p>
+          <div class="step-content">
+            <h4>Connect to Gemini</h4>
+            <p>It generates the images.</p>
+          </div>
         </div>
         <div class="step">
           <div class="step-num">04</div>
-          <h4>Generate</h4>
-          <p>Production-ready visuals, organized by shot.</p>
+          <div class="step-content">
+            <h4>Generate</h4>
+            <p>Production-ready visuals, organized by shot.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="cta-section">
-      <span class="cta-eyebrow">Next Level</span>
-      <h2>Grow Your Ecommerce Empire to <span class="cta-yellow">$100+ Million</span></h2>
+    <div class="cta">
+      <div class="cta-eyebrow">Next Level</div>
+      <h2>Grow Your Ecommerce Empire to <span class="accent">$100+ Million</span></h2>
       <p>Ad Pros unlocks unreasonable growth for ambitious brands. Discover your next breakthrough with our media buying, creatives, data and strategy.</p>
-      <a href="https://www.adpros.com/waitlist" class="cta-button" target="_blank">
+      <a href="https://www.adpros.com/waitlist" class="cta-btn" target="_blank">
         Become an Ad Pros Partner
-        <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/>
           <polyline points="12 5 19 12 12 19"/>
         </svg>
       </a>
     </div>
 
-  </main>
-
-  <footer class="footer">
-    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
-      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
-      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
-    </svg>
-    <p>© 2026 Ad Pros. All rights reserved.</p>
-  </footer>
+  </div>
 
   <script>
     (function() {
