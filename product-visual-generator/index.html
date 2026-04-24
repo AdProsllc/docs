@@ -420,14 +420,16 @@
     }
 
     .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
       text-align: left;
+      position: relative;
     }
 
     .step {
       position: relative;
+      flex: 1;
       padding: 28px 24px;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -442,19 +444,36 @@
       transform: translateY(-4px);
     }
 
-    .step::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 20%;
-      right: 20%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
+    .step-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 40px;
+      color: var(--accent);
+      opacity: 0.6;
+      position: relative;
     }
 
-    .step:hover::before { opacity: 1; }
+    .step-arrow::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.3), transparent);
+    }
+
+    .step-arrow svg {
+      position: relative;
+      z-index: 1;
+      animation: arrowPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); opacity: 0.6; }
+      50% { transform: translateX(4px); opacity: 1; }
+    }
 
     .step-num {
       font-family: 'JetBrains Mono', monospace;
@@ -707,6 +726,13 @@
           <p>Claude builds your full Brand DNA automatically.</p>
         </div>
 
+        <div class="step-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+
         <div class="step">
           <span class="step-num">02 · DIRECT</span>
           <div class="step-icon">
@@ -720,6 +746,13 @@
           <p>Claude locks in the creative direction.</p>
         </div>
 
+        <div class="step-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+
         <div class="step">
           <span class="step-num">03 · CONNECT</span>
           <div class="step-icon">
@@ -730,6 +763,13 @@
           </div>
           <h4>Connect to Gemini</h4>
           <p>It generates the images.</p>
+        </div>
+
+        <div class="step-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
         </div>
 
         <div class="step">
