@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Product Visual Generator — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+    }
+    body {
+      background: var(--navy);
+      color: var(--grey-200);
+      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .wrapper {
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* LOGO */
+    .logo {
+      margin: 0 auto 40px;
+      display: block;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(249, 217, 0, 0.08);
+      border: 1px solid rgba(249, 217, 0, 0.25);
+      color: var(--yellow);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--yellow);
+      border-radius: 50%;
+    }
+
+    /* HEADLINE */
+    h1 {
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      color: var(--white);
+    }
+    h1 span { color: var(--yellow); }
+
+    .subtitle {
+      font-size: 17px;
+      color: var(--grey-200);
+      margin: 0 auto 40px;
+      max-width: 460px;
+    }
+
+    /* FORM BOX */
+    .form-box {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .input {
+      width: 100%;
+      padding: 16px 18px;
+      background: var(--navy);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .input:focus { outline: none; border-color: var(--yellow); }
+    .input::placeholder { color: var(--grey-300); }
+    .submit {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--yellow);
+      color: var(--navy);
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(249, 217, 0, 0.3);
+    }
+    .form-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--grey-300);
+    }
+
+    /* SUCCESS STATE */
+    .success { display: none; text-align: center; padding: 16px 0; margin-bottom: 40px; }
+    .success.show { display: block; }
+    .form-box.hide { display: none; }
+    .success-icon { font-size: 48px; margin-bottom: 12px; }
+    .success h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--yellow);
+    }
+    .success p {
+      color: var(--grey-200);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 16px 40px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(249, 217, 0, 0.4);
+    }
+
+    /* CTA CARD */
+    .cta-card {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-card) 0%, #050829 100%);
+      border: 1px solid rgba(249, 217, 0, 0.15);
+      border-radius: 18px;
+      padding: 36px 32px;
+      overflow: hidden;
+      text-align: left;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(249, 217, 0, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      opacity: 0.4;
+    }
+    .cta-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .cta-card h3 {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+      color: var(--white);
+      position: relative;
+    }
+    .cta-card h3 span { color: var(--yellow); }
+    .cta-card p {
+      color: var(--grey-200);
+      font-size: 14px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 13px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .cta-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(249, 217, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <svg class="logo" viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+
+    <span class="badge">
+      <span class="badge-dot"></span>
+      Claude Skill · Free
+    </span>
+
+    <h1>You're one step away from your <span>Product Visual Generator</span></h1>
+
+    <p class="subtitle">Drop your email below to unlock instant access.</p>
+
+    <div class="form-box" id="formBox">
+      <form class="form" id="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="email" name="email" class="input" placeholder="your@email.com" required>
+        <button type="submit" class="submit">Get Instant Access</button>
+      </form>
+      <p class="form-note">No spam. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="success" id="success">
+      <div class="success-icon">🎉</div>
+      <h3>Your Claude Skill is ready</h3>
+      <p>Click below to download your file.</p>
+      <a href="#" class="download" download target="_blank" id="downloadBtn">
+        ↓ Download Skill
+      </a>
+    </div>
+
+    <div class="cta-card">
+      <span class="cta-tag">Next Level</span>
+      <h3>Grow Your Ecommerce Empire to <span>$100+ Million</span></h3>
+      <p>Ad Pros unlocks unreasonable growth for ambitious brands. Discover your next breakthrough with our media buying, creatives, data and strategy.</p>
+      <a href="https://adpros.com" class="cta-link" target="_blank">
+        Become an Ad Pros partner →
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      var form = document.getElementById('form');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Demo mode: just show the success state without actually sending
+        // In production, this would POST to Formspree and capture the email
+        document.getElementById('formBox').classList.add('hide');
+        document.getElementById('success').classList.add('show');
+      });
+    })();
+  </script>
+</body>
+</html>
