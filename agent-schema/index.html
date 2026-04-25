@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Agent Schema Design — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+    }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; line-height: 1.6; }
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--card-border); margin-bottom: 32px; flex-wrap: wrap; }
+    .tab-btn {
+      background: transparent; border: none; color: var(--grey-300);
+      padding: 14px 20px; font-size: 14px; font-weight: 600; cursor: pointer;
+      font-family: inherit; border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: var(--white); }
+    .tab-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Typography */
+    h2 { color: var(--white); font-size: 26px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+    h3 { color: var(--white); font-size: 17px; font-weight: 700; margin: 28px 0 12px; letter-spacing: -0.2px; }
+    h3 .count { color: var(--yellow); font-weight: 600; margin-left: 8px; font-size: 14px; }
+    .subtitle { color: var(--grey-300); font-size: 15px; margin-bottom: 24px; }
+    p { margin-bottom: 14px; font-size: 15px; }
+    .intro { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; }
+    .intro p { margin-bottom: 0; font-size: 14px; color: var(--grey-200); }
+    .intro strong { color: var(--white); }
+
+    /* Field list */
+    ol.fields { list-style: none; counter-reset: field; padding: 0; }
+    ol.fields li {
+      counter-increment: field;
+      padding: 10px 14px 10px 52px;
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      position: relative;
+      font-size: 14px;
+      color: var(--grey-200);
+    }
+    ol.fields li::before {
+      content: counter(field);
+      position: absolute;
+      left: 14px; top: 50%; transform: translateY(-50%);
+      background: var(--yellow); color: var(--navy);
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 12px;
+    }
+    ol.fields li strong { color: var(--white); font-weight: 600; }
+    ol.fields li .hint { display: block; color: var(--grey-300); font-size: 12px; margin-top: 3px; }
+
+    /* Adjustment sections */
+    .adj-section { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 22px 26px; margin-bottom: 18px; }
+    .adj-section h3 { margin-top: 0; color: var(--yellow); font-size: 16px; }
+    .adj-section p { font-size: 14px; }
+    .adj-section ul { list-style: none; padding: 0; margin: 10px 0; }
+    .adj-section ul li {
+      padding: 7px 0 7px 20px; position: relative; font-size: 14px; color: var(--grey-200);
+    }
+    .adj-section ul li::before {
+      content: "→"; position: absolute; left: 0; color: var(--yellow); font-weight: 700;
+    }
+    .adj-section .note { color: var(--grey-300); font-size: 13px; font-style: italic; margin-top: 8px; }
+
+    /* Priority list */
+    .priority-box { background: linear-gradient(135deg, var(--navy-card) 0%, #0a1050 100%); border: 1px solid var(--yellow); border-radius: 10px; padding: 22px 26px; margin-top: 24px; }
+    .priority-box h3 { color: var(--yellow); margin-top: 0; }
+    .priority-box ol { padding-left: 24px; }
+    .priority-box ol li { padding: 4px 0; color: var(--white); font-weight: 500; font-size: 14px; }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      ol.fields li { padding-left: 48px; }
+      h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Agent Schema Design</h1>
+      <p>Fields for the Agent Factory intake system</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="original" role="tab">Original Schema (21)</button>
+      <button class="tab-btn" data-tab="general" role="tab">General Fields (100)</button>
+      <button class="tab-btn" data-tab="ecommerce" role="tab">Ecommerce &amp; Growth Adjustments</button>
+    </div>
+
+    <!-- TAB 1: ORIGINAL 21-FIELD SCHEMA -->
+    <section class="tab-content active" id="tab-original">
+      <h2>Original Schema</h2>
+      <p class="subtitle">The 21 fields discussed in the David + Nehal working session on April 24, 2026.</p>
+
+      <div class="intro">
+        <p>Fields captured during the live design of the Agent Factory intake — the structured form that every new AI agent passes through before development. Scope: agency-wide internal library, ClickUp-hosted, feeds downstream design and dev work.</p>
+      </div>
+
+      <ol class="fields">
+        <li><strong>Agent code</strong><span class="hint">Unique identifier for the agent</span></li>
+        <li><strong>Internal name</strong><span class="hint">Name used by the Ad Pros team</span></li>
+        <li><strong>Public name</strong><span class="hint">Name shown to clients / end users</span></li>
+        <li><strong>Category</strong></li>
+        <li><strong>Subcategory</strong></li>
+        <li><strong>Description</strong></li>
+        <li><strong>Objective</strong><span class="hint">What the agent is ultimately trying to do</span></li>
+        <li><strong>Steps</strong><span class="hint">The sequence of actions the agent takes</span></li>
+        <li><strong>Tools</strong><span class="hint">Systems / APIs / MCP servers it uses</span></li>
+        <li><strong>Output template</strong></li>
+        <li><strong>Output example</strong></li>
+        <li><strong>Output destination</strong><span class="hint">Slack, WhatsApp, email, etc.</span></li>
+        <li><strong>Trigger type</strong><span class="hint">Manual vs. automatic</span></li>
+        <li><strong>Frequency</strong><span class="hint">One-time, scheduled hourly / daily / weekly — options vary by agent</span></li>
+        <li><strong>Output length</strong><span class="hint">e.g., &lt;100 words vs. ~500-word deep dive</span></li>
+        <li><strong>Complexity</strong><span class="hint">Beginner / intermediate / advanced — internal, for dev planning</span></li>
+        <li><strong>Expected runtime</strong></li>
+        <li><strong>Status</strong><span class="hint">Designing → development → QA → testing → active / paused</span></li>
+        <li><strong>Date created</strong></li>
+        <li><strong>Date of last optimization / adjustment</strong></li>
+        <li><strong>Success rate</strong><span class="hint">Derived from user feedback</span></li>
+      </ol>
+    </section>
+
+    <!-- TAB 2: 100 GENERAL FIELDS -->
+    <section class="tab-content" id="tab-general">
+      <h2>General Fields</h2>
+      <p class="subtitle">100 fields across every stage of the agent lifecycle — identity, behavior, execution, economics, governance.</p>
+
+      <div class="intro">
+        <p>Expansion of the original 21 fields into a full agent schema suitable for a 100+ agent library. Grouped into 10 categories. Many fields are optional per agent — this is the superset. A real v1 schema would likely adopt ~40 of these and defer the rest.</p>
+      </div>
+
+      <h3>Identity &amp; Naming <span class="count">1–8</span></h3>
+      <ol class="fields">
+        <li><strong>Agent code</strong> (unique ID)</li>
+        <li><strong>Internal name</strong></li>
+        <li><strong>Public name</strong></li>
+        <li><strong>Display emoji / icon</strong></li>
+        <li><strong>Short tagline</strong> (one-liner)</li>
+        <li><strong>Slug</strong> (URL-safe identifier)</li>
+        <li><strong>Version number</strong> (semver)</li>
+        <li><strong>Previous version ID</strong> (for lineage)</li>
+      </ol>
+
+      <h3>Classification &amp; Discovery <span class="count">9–18</span></h3>
+      <ol class="fields" start="9" style="counter-reset: field 8;">
+        <li><strong>Category</strong></li>
+        <li><strong>Subcategory</strong></li>
+        <li><strong>Tags</strong> (free-form)</li>
+        <li><strong>Use case type</strong> (analysis / action / monitoring / generation)</li>
+        <li><strong>Industry vertical</strong> (DTC, ecom, SaaS, etc.)</li>
+        <li><strong>Target user role</strong> (media buyer, CSM, founder, client)</li>
+        <li><strong>Maturity stage</strong> (experimental / beta / GA / legacy)</li>
+        <li><strong>Featured flag</strong> (show in library homepage)</li>
+        <li><strong>Search keywords</strong></li>
+        <li><strong>Related agents</strong> (IDs)</li>
+      </ol>
+
+      <h3>Purpose &amp; Behavior <span class="count">19–28</span></h3>
+      <ol class="fields" style="counter-reset: field 18;">
+        <li><strong>Objective</strong> (1–2 sentences)</li>
+        <li><strong>Description</strong> (long form)</li>
+        <li><strong>Steps / workflow</strong></li>
+        <li><strong>System prompt</strong></li>
+        <li><strong>Persona / voice</strong></li>
+        <li><strong>Example user prompts</strong></li>
+        <li><strong>Non-goals</strong> (what it explicitly won't do)</li>
+        <li><strong>Guardrails / boundaries</strong></li>
+        <li><strong>Failure modes</strong> (known)</li>
+        <li><strong>Escalation path</strong> (when to hand off to human)</li>
+      </ol>
+
+      <h3>Inputs <span class="count">29–36</span></h3>
+      <ol class="fields" style="counter-reset: field 28;">
+        <li><strong>Required input fields</strong></li>
+        <li><strong>Optional input fields</strong></li>
+        <li><strong>Input data types</strong></li>
+        <li><strong>Input validation rules</strong></li>
+        <li><strong>Default input values</strong></li>
+        <li><strong>Accepted file types</strong></li>
+        <li><strong>Max input size / tokens</strong></li>
+        <li><strong>Input source</strong> (user, API, scheduled, upstream agent)</li>
+      </ol>
+
+      <h3>Outputs <span class="count">37–48</span></h3>
+      <ol class="fields" style="counter-reset: field 36;">
+        <li><strong>Output template</strong></li>
+        <li><strong>Output example</strong></li>
+        <li><strong>Output format</strong> (text, JSON, table, chart, widget)</li>
+        <li><strong>Output length target</strong></li>
+        <li><strong>Output tone / style</strong></li>
+        <li><strong>Output destination</strong> (Slack, email, WhatsApp, ClickUp, etc.)</li>
+        <li><strong>Secondary destinations</strong></li>
+        <li><strong>Attachments generated</strong> (PDF, PNG, CSV)</li>
+        <li><strong>Inline widget types used</strong></li>
+        <li><strong>Citation / source format</strong></li>
+        <li><strong>Confidence score included</strong> (y/n)</li>
+        <li><strong>Follow-up suggestions included</strong> (y/n)</li>
+      </ol>
+
+      <h3>Triggers &amp; Scheduling <span class="count">49–57</span></h3>
+      <ol class="fields" style="counter-reset: field 48;">
+        <li><strong>Trigger type</strong> (manual / automatic / scheduled)</li>
+        <li><strong>Trigger event</strong> (what fires it)</li>
+        <li><strong>Frequency options available</strong></li>
+        <li><strong>Default frequency</strong></li>
+        <li><strong>Timezone handling</strong></li>
+        <li><strong>Cron expression</strong></li>
+        <li><strong>Quiet hours / blackout windows</strong></li>
+        <li><strong>Max runs per day</strong></li>
+        <li><strong>Debounce / cooldown window</strong></li>
+      </ol>
+
+      <h3>Tools &amp; Integrations <span class="count">58–67</span></h3>
+      <ol class="fields" style="counter-reset: field 57;">
+        <li><strong>Tools used</strong> (list)</li>
+        <li><strong>MCP servers required</strong></li>
+        <li><strong>API endpoints called</strong></li>
+        <li><strong>Data sources</strong> (BigQuery tables, Supabase, R2, etc.)</li>
+        <li><strong>Model provider</strong> (Claude, OpenAI, etc.)</li>
+        <li><strong>Specific model + version</strong></li>
+        <li><strong>Fallback model</strong></li>
+        <li><strong>Temperature / sampling settings</strong></li>
+        <li><strong>Max tokens per run</strong></li>
+        <li><strong>Embedding model</strong> (if applicable)</li>
+      </ol>
+
+      <h3>Performance &amp; Economics <span class="count">68–77</span></h3>
+      <ol class="fields" style="counter-reset: field 67;">
+        <li><strong>Complexity</strong> (beginner / intermediate / advanced)</li>
+        <li><strong>Expected runtime</strong></li>
+        <li><strong>Max allowed runtime</strong> (timeout)</li>
+        <li><strong>Cost per execution</strong> (internal)</li>
+        <li><strong>Price per execution</strong> (billed)</li>
+        <li><strong>Token budget per run</strong></li>
+        <li><strong>Retry policy</strong></li>
+        <li><strong>Concurrency limit</strong></li>
+        <li><strong>Rate limit</strong></li>
+        <li><strong>SLA / uptime target</strong></li>
+      </ol>
+
+      <h3>Status &amp; Lifecycle <span class="count">78–86</span></h3>
+      <ol class="fields" style="counter-reset: field 77;">
+        <li><strong>Status</strong> (designing / development / QA / testing / active / paused / deprecated)</li>
+        <li><strong>Date created</strong></li>
+        <li><strong>Date of last optimization</strong></li>
+        <li><strong>Date last run</strong></li>
+        <li><strong>Created by</strong> (owner)</li>
+        <li><strong>Current maintainer</strong></li>
+        <li><strong>Contributors list</strong></li>
+        <li><strong>Deprecation date</strong> (planned)</li>
+        <li><strong>Replacement agent ID</strong></li>
+      </ol>
+
+      <h3>Quality &amp; Feedback <span class="count">87–94</span></h3>
+      <ol class="fields" style="counter-reset: field 86;">
+        <li><strong>Success rate</strong> (% from feedback)</li>
+        <li><strong>Thumbs up / down counts</strong></li>
+        <li><strong>User-reported issues count</strong></li>
+        <li><strong>Internal QA score</strong></li>
+        <li><strong>Sample run log link</strong></li>
+        <li><strong>Test cases</strong> (list of input → expected output)</li>
+        <li><strong>Last eval / benchmark date</strong></li>
+        <li><strong>Accuracy / precision metrics</strong> (if measurable)</li>
+      </ol>
+
+      <h3>Governance, Security &amp; Access <span class="count">95–100</span></h3>
+      <ol class="fields" style="counter-reset: field 94;">
+        <li><strong>Visibility</strong> (internal only / client-facing / public)</li>
+        <li><strong>Access control</strong> (roles / users allowed)</li>
+        <li><strong>PII handling</strong> (none / redacted / stored)</li>
+        <li><strong>Data retention policy</strong></li>
+        <li><strong>Audit log enabled</strong> (y/n)</li>
+        <li><strong>Compliance flags</strong> (SOC 2, GDPR, HIPAA where relevant)</li>
+      </ol>
+    </section>
+
+    <!-- TAB 3: ECOMMERCE ADJUSTMENTS -->
+    <section class="tab-content" id="tab-ecommerce">
+      <h2>Ecommerce &amp; Growth Team Adjustments</h2>
+      <p class="subtitle">What the general schema misses for performance marketing — and the fields that turn the library into an ROI-reporting asset.</p>
+
+      <div class="intro">
+        <p>A generic agent schema treats all agents the same. Performance marketing has specific failure modes — bad attribution, premature optimization, compliance blowups, irreversible platform actions — that need to be designed <strong>into</strong> the schema, not discovered in production. These adjustments exist because a client's ad account is production infrastructure, not a sandbox.</p>
+      </div>
+
+      <div class="adj-section">
+        <h3>1. Attribution context must be explicit, not implied</h3>
+        <p>A "ROAS" field is meaningless without knowing whose ROAS. Every agent that reads or reports performance needs:</p>
+        <ul>
+          <li>Attribution source (Meta in-platform, GA4, Triple Whale, Northbeam, Shopify native, MMM)</li>
+          <li>Attribution window (1d click, 7d click, etc.)</li>
+          <li>Blended vs. platform-specific</li>
+          <li>Incrementality-tested (y/n)</li>
+        </ul>
+        <p class="note">Without these, the Daily Client Snapshot says "ROAS is 2.8" and three stakeholders read three different numbers. This is the #1 source of agent-generated distrust.</p>
+      </div>
+
+      <div class="adj-section">
+        <h3>2. Performance guardrails need dollar thresholds, not just logic</h3>
+        <p>A generic "guardrails" field isn't enough. Add:</p>
+        <ul>
+          <li>Max spend change per action ($ and %)</li>
+          <li>Min data threshold before action (spend floor, conversions floor, days floor)</li>
+          <li>Statistical significance required (confidence level)</li>
+          <li>Human approval threshold ($ above which a human signs off)</li>
+          <li>Pause authority (can this agent pause spend autonomously? y/n)</li>
+        </ul>
+        <p class="note">The Underperformer Sniper shouldn't pause a $5K/day ad set after 6 hours of data. That's a schema-level rule, not a prompt-level hope.</p>
+      </div>
+
+      <div class="adj-section">
+        <h3>3. Business context fields the schema needs</h3>
+        <p>Most public schemas assume agents operate on generic data. Growth teams don't:</p>
+        <ul>
+          <li>Client ID / account ID</li>
+          <li>AOV range (changes what "good CPA" means)</li>
+          <li>Margin / contribution margin tier</li>
+          <li>Product category (supplements vs. apparel vs. SaaS — totally different benchmarks)</li>
+          <li>Funnel stage (prospecting / retargeting / retention)</li>
+          <li>Seasonality profile</li>
+          <li>Promo calendar awareness (is BFCM live?)</li>
+          <li>LTV horizon (30d / 90d / 12mo payback expectation)</li>
+        </ul>
+        <p class="note">An agent that flags "CPA is high" without knowing the client targets 90-day payback on a $180 AOV subscription is noise.</p>
+      </div>
+
+      <div class="adj-section">
+        <h3>4. Creative-specific metadata</h3>
+        <p>For creative agents, generic I/O fields aren't enough:</p>
+        <ul>
+          <li>Hook type used (H.E.I.T. / HDFB / POV / problem-solution)</li>
+          <li>Format (UGC / static / motion graphic / founder-led)</li>
+          <li>Persona targeted</li>
+          <li>Funnel stage the creative is built for</li>
+          <li>Language / localization</li>
+          <li>Compliance flags (health claims, before/after, earnings claims, weight loss)</li>
+          <li>Platform-native requirements (TikTok vs. Meta vs. AppLovin have different specs)</li>
+        </ul>
+        <p class="note">The compliance flag alone prevents a telehealth/GLP-1 disaster.</p>
+      </div>
+
+      <div class="adj-section">
+        <h3>5. Learning &amp; benchmark fields</h3>
+        <p>Growth teams compound — an agent that ran last quarter should make this quarter's agent smarter:</p>
+        <ul>
+          <li>Benchmark source (account history / vertical peers / Ad Pros network)</li>
+          <li>Benchmark snapshot date</li>
+          <li>Learning feed (does this agent's output train future runs? y/n)</li>
+          <li>Winner repository reference (link to winning ads/angles it has produced)</li>
+          <li>Pattern library contribution (does output feed the 9 Dimensions library?)</li>
+        </ul>
+      </div>
+
+      <div class="adj-section">
+        <h3>6. Action-level fields (beyond "output")</h3>
+        <p>Media buying agents don't just generate text — they do things. The schema needs:</p>
+        <ul>
+          <li>Reversibility (can this action be undone automatically?)</li>
+          <li>Undo window (how long after action can auto-revert fire?)</li>
+          <li>Change log destination (where the edit is logged for audit)</li>
+          <li>Platform API permissions required</li>
+          <li>Dry-run mode available (y/n)</li>
+          <li>Diff preview shown before execution (y/n)</li>
+        </ul>
+        <p class="note">This is the difference between "agent updated budget" being fine vs. catastrophic.</p>
+      </div>
+
+      <div class="adj-section">
+        <h3>7. Performance outcome tracking — the real one</h3>
+        <p>The current schema has "success rate (% from feedback)." For growth work, feedback ≠ outcome. Feedback is "did the user like it." Outcome is "did the business metric move."</p>
+        <ul>
+          <li>Outcome metric (what KPI this agent is ultimately trying to move)</li>
+          <li>Outcome attribution window (7d / 30d / 90d)</li>
+          <li>Control comparison method (holdout / pre-post / synthetic)</li>
+          <li>Revenue attributed (running $ total)</li>
+          <li>Spend saved (running $ total)</li>
+          <li>Hours saved (running count)</li>
+          <li>Decisions influenced (count)</li>
+        </ul>
+        <p class="note">This turns the library from a tool catalog into an ROI-reporting asset. It's also what unlocks outcome-based pricing — charge based on value delivered, not just execution count.</p>
+      </div>
+
+      <div class="adj-section">
+        <h3>8. Multi-account / multi-client scoping</h3>
+        <p>One field missing from the general schema: <strong>scope</strong>. Is this agent:</p>
+        <ul>
+          <li>Global (runs across all clients)</li>
+          <li>Pod-scoped (Pod A only)</li>
+          <li>Client-scoped (one client)</li>
+          <li>Cohort-scoped (all supplement clients)</li>
+        </ul>
+        <p class="note">Matters for permissions, cost allocation, and benchmarking.</p>
+      </div>
+
+      <div class="priority-box">
+        <h3>⚡ Top 10 highest-leverage additions for Ad Pros</h3>
+        <p style="color: var(--grey-200); margin-bottom: 12px; font-size: 14px;">If limited to 10 new fields beyond the general 100, these turn the Agent Factory from a generic LLM-ops system into something specifically defensible for performance marketing:</p>
+        <ol>
+          <li>Attribution source + window</li>
+          <li>Min data threshold before action</li>
+          <li>Human approval $ threshold</li>
+          <li>Reversibility + undo window</li>
+          <li>Outcome metric + attribution window</li>
+          <li>Revenue attributed / spend saved (running totals)</li>
+          <li>Client scope</li>
+          <li>Compliance flags</li>
+          <li>Funnel stage</li>
+          <li>Platform-native format requirements</li>
+        </ol>
+      </div>
+    </section>
+
+    <footer class="ap-footer">
+      <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+        <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+        <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+        <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+      </svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      var btns = document.querySelectorAll('.tab-btn');
+      var tabs = document.querySelectorAll('.tab-content');
+      btns.forEach(function(b){
+        b.addEventListener('click', function(){
+          var target = b.getAttribute('data-tab');
+          btns.forEach(function(x){ x.classList.remove('active'); });
+          tabs.forEach(function(x){ x.classList.remove('active'); });
+          b.classList.add('active');
+          document.getElementById('tab-' + target).classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
