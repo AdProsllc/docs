@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow" />
+<title>AdPros Website Audit — Full Breakdown & Conversion Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #040735;
+    --navy-card: #070b3d;
+    --navy-2: #0b0f4a;
+    --yellow: #F9D900;
+    --yellow-d: #C7A900;
+    --blue: #1A6FD4;
+    --white: #FFFFFF;
+    --grey-300: #8A8B93;
+    --grey-200: #B0B1B6;
+    --card-border: #0e1358;
+    --red: #ff4757;
+    --orange: #ff7f50;
+    --green: #2ed573;
+    --teal: #1dd1a1;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--grey-200);
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== HEADER ========== */
+  header.top {
+    background: var(--navy);
+    border-bottom: 4px solid var(--yellow);
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+  header.top svg { height: 44px; width: auto; display: block; }
+  .header-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.12); }
+  header.top h1 { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+  header.top p { font-size: 12px; color: var(--grey-300); margin-top: 2px; }
+
+  /* ========== NAV ========== */
+  .toc {
+    background: var(--navy-card);
+    border-bottom: 1px solid var(--card-border);
+    padding: 12px 40px;
+    position: sticky;
+    top: 73px;
+    z-index: 30;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .toc a {
+    display: inline-block;
+    color: var(--grey-300);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    margin-right: 4px;
+  }
+  .toc a:hover { color: var(--yellow); background: rgba(249,217,0,0.06); }
+
+  /* ========== LAYOUT ========== */
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 40px 96px; }
+  section { margin-bottom: 64px; }
+  h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--yellow);
+    margin: 32px 0 12px;
+    letter-spacing: -0.02em;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin: 20px 0 8px;
+  }
+  p { font-size: 15px; line-height: 1.7; margin-bottom: 12px; color: var(--grey-200); }
+  a { color: var(--blue); }
+  ul, ol { margin: 12px 0 12px 20px; font-size: 14px; line-height: 1.7; }
+  li { margin-bottom: 6px; }
+  code {
+    background: var(--navy-2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: "SF Mono", "Fira Code", Menlo, monospace;
+    color: var(--yellow);
+  }
+
+  /* ========== KICKER ========== */
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .kicker .dot { width: 6px; height: 6px; background: var(--yellow); border-radius: 50%; }
+
+  /* ========== HERO SECTION ========== */
+  .hero-card {
+    background: var(--navy-card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: "";
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(249,217,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-card h2 { font-size: 36px; margin-bottom: 12px; }
+  .hero-card p { font-size: 16px; max-width: 70ch; }
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    font-size: 12px;
+    color: var(--grey-300);
+    font-weight: 500;
+  }
+  .hero-meta strong { color: #fff; }
+
+  /* ========== SCORECARDS ========== */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .score-card {
+    background: var(--navy-card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .score-card:hover { border-color: var(--yellow); transform: translateY(-2px); }
+  .score-value {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .score-value.good { color: var(--green); }
+  .score-value.warn { color: var(--orange); }
+  .score-value.bad { color: var(--red); }
+  .score-label { font-size: 12px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ========== ISSUE CARDS ========== */
+  .issue {
+    background: var(--navy-card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+  }
+  .issue:hover { border-color: var(--yellow); }
+  .issue-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .issue-badge {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-critical { background: rgba(255,71,87,0.12); color: var(--red); }
+  .badge-high { background: rgba(255,127,80,0.12); color: var(--orange); }
+  .badge-medium { background: rgba(249,217,0,0.12); color: var(--yellow); }
+  .badge-low { background: rgba(46,213,115,0.12); color: var(--green); }
+  .issue h4 { margin: 0; font-size: 16px; }
+  .issue p { margin: 0; font-size: 14px; color: var(--grey-300); }
+  .issue-fix {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--card-border);
+    font-size: 13px;
+    color: var(--grey-200);
+  }
+  .issue-fix strong { color: var(--teal); }
+
+  /* ========== STRATEGY CARDS ========== */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .strategy-card {
+    background: var(--navy-card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: all 0.2s;
+  }
+  .strategy-card:hover { border-color: var(--yellow); }
+  .strategy-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--yellow);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .strategy-card h4 { margin: 0 0 8px; font-size: 17px; }
+  .strategy-card p { font-size: 14px; color: var(--grey-300); margin: 0; }
+
+  /* ========== COMPARISON TABLE ========== */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .comp-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--navy-2);
+    color: var(--grey-300);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .comp-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--grey-200);
+    vertical-align: top;
+  }
+  .comp-table tr:hover td { background: rgba(249,217,0,0.02); }
+  .status-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .dot-red { background: var(--red); }
+  .dot-orange { background: var(--orange); }
+  .dot-green { background: var(--green); }
+  .dot-yellow { background: var(--yellow); }
+
+  /* ========== BLOCKQUOTE ========== */
+  blockquote {
+    border-left: 3px solid var(--yellow);
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--grey-300);
+    font-size: 15px;
+  }
+
+  /* ========== QUICK WINS BAR ========== */
+  .quick-wins {
+    background: var(--navy-card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 32px 0;
+  }
+  .quick-wins h4 {
+    color: var(--yellow);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+  .win-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .win-item:last-child { border-bottom: none; }
+  .win-check {
+    width: 20px; height: 20px;
+    background: rgba(29,209,161,0.12);
+    color: var(--teal);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .win-text { font-size: 14px; color: var(--grey-200); }
+  .win-text strong { color: #fff; }
+
+  /* ========== FOOTER ========== */
+  .doc-footer {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .doc-footer p { font-size: 12px; color: var(--grey-300); margin: 0; }
+
+  @media (max-width: 768px) {
+    header.top, .wrap, .toc { padding-left: 20px; padding-right: 20px; }
+    .hero-card { padding: 24px; }
+    .hero-card h2 { font-size: 26px; }
+    h2 { font-size: 26px; }
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+    .strategy-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:auto;margin:0 auto 32px;display:block">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-index";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c){c.style.display='';window.dispatchEvent(new Event('ap-unlocked'));}
+  }
+  try{if(sessionStorage.getItem(K)==='1')reveal();}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+
+<div id="ap-content" style="display:none;">
+
+<header class="top">
+  <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+    <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+    <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+  </svg>
+  <div class="header-divider"></div>
+  <div>
+    <h1>Website Audit & Conversion Strategy</h1>
+    <p>adpros.com · April 2026 · By Noor</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#executive">Summary</a>
+  <a href="#technical">Technical</a>
+  <a href="#copy">Copy</a>
+  <a href="#uiux">UI/UX</a>
+  <a href="#conversion">Conversion</a>
+  <a href="#strategy">Strategy</a>
+  <a href="#quickwins">Quick Wins</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+<section id="executive">
+  <div class="hero-card">
+    <div class="kicker"><span class="dot"></span> Executive Summary</div>
+    <h2>adpros.com Is a Solid Foundation With Major Conversion Gaps</h2>
+    <p>The Ad Pros website looks premium, loads fast, and communicates credibility. But it is built like a brochure, not a conversion machine. The singular "Join waitlist" CTA, lack of pricing transparency, missing social proof depth, and absence of direct booking paths leave significant revenue on the table. This audit breaks down what's working, what's broken, and the exact playbook to fix it.</p>
+    <div class="hero-meta">
+      <span><strong>Pages Audited:</strong> 5 (Home, Services, Platforms, Contact, Blog)</span>
+      <span><strong>Test Date:</strong> April 28, 2026</span>
+      <span><strong>Issues Found:</strong> 28</span>
+      <span><strong>Critical:</strong> 4 · High: 8 · Medium: 11 · Low: 5</span>
+    </div>
+  </div>
+
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score-value good">B+</div>
+      <div class="score-label">Technical</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value warn">C+</div>
+      <div class="score-label">Copy & Messaging</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value good">B</div>
+      <div class="score-label">UI / Visual Design</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value bad">D+</div>
+      <div class="score-label">Conversion Rate</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value warn">C</div>
+      <div class="score-label">SEO & Discoverability</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value warn">C+</div>
+      <div class="score-label">Overall Grade</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TECHNICAL ===== -->
+<section id="technical">
+  <div class="kicker"><span class="dot"></span> Section 01</div>
+  <h2>Technical Audit</h2>
+  <p>The site is built on Webflow with solid fundamentals. Load times are acceptable, but there are SEO and accessibility gaps that hurt rankings and user experience.</p>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>23 Images Missing Alt Text</h4>
+    </div>
+    <p>Nearly half the images on the homepage have no alt attributes. This hurts SEO, screen reader accessibility, and image search visibility.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add descriptive alt text to every image. For logos: "Ka'Chava logo". For founder photos: "Nehal Kazim, CEO of Ad Pros".</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>No Structured Data (Schema Markup)</h4>
+    </div>
+    <p>Zero JSON-LD schema on any page. No Organization schema, no LocalBusiness, no Article schema for blog posts. Google is flying blind on what this site represents.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add Organization schema (name, logo, URL, sameAs links), LocalBusiness for the Wyoming address, and Article schema for every blog post.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>Blog Page Loads in 6.6 Seconds</h4>
+    </div>
+    <p>The blog loads 6.6s vs the homepage at 1.4s. 27 scripts are loaded. This is a massive bounce-rate risk.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Defer non-critical scripts, lazy-load images below the fold, audit third-party embeds.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>No XML Sitemap or robots.txt Verification</h4>
+    </div>
+    <p>Could not verify sitemap.xml or confirm robots.txt configuration. Search engines may not be indexing all pages efficiently.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Ensure /sitemap.xml exists and is submitted to Google Search Console. Verify robots.txt allows all important paths.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-low">Low</span>
+      <h4>28 Scripts on Homepage</h4>
+    </div>
+    <p>Excessive scripts increase render-blocking time. Many are likely Webflow boilerplate and analytics.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Audit and remove unused scripts. Move analytics to Google Tag Manager with async loading.</div>
+  </div>
+
+  <h3>Technical Performance Snapshot</h3>
+  <table class="comp-table">
+    <tr><th>Metric</th><th>Homepage</th><th>Blog</th><th>Target</th></tr>
+    <tr><td>Load Time</td><td><span class="status-dot dot-green"></span>1.37s</td><td><span class="status-dot dot-red"></span>6.58s</td><td>&lt;2.5s</td></tr>
+    <tr><td>First Contentful Paint</td><td><span class="status-dot dot-green"></span>840ms</td><td><span class="status-dot dot-green"></span>996ms</td><td>&lt;1.8s</td></tr>
+    <tr><td>Images</td><td>52</td><td>6</td><td>—</td></tr>
+    <tr><td>Scripts</td><td>28</td><td>27</td><td>&lt;15</td></tr>
+    <tr><td>Stylesheets</td><td>8</td><td>5</td><td>&lt;5</td></tr>
+    <tr><td>Images Without Alt</td><td>23</td><td>—</td><td>0</td></tr>
+    <tr><td>Schema Markup</td><td><span class="status-dot dot-red"></span>None</td><td><span class="status-dot dot-red"></span>None</td><td>Required</td></tr>
+  </table>
+</section>
+
+<!-- ===== COPY ===== -->
+<section id="copy">
+  <div class="kicker"><span class="dot"></span> Section 02</div>
+  <h2>Copy & Messaging Audit</h2>
+  <p>The copy is confident and brand-aligned, but it lacks specificity, emotional hooks, and conversion psychology. It reads like an agency that knows what it's doing but forgets to tell visitors exactly what to do next.</p>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-critical">Critical</span>
+      <h4>Only One CTA Across the Entire Site: "Join Waitlist"</h4>
+    </div>
+    <p>Every single page funnels to the same waitlist. There is no "Book a call," "Apply now," "See pricing," or "Talk to our team." This dramatically limits conversion paths for visitors at different intent stages.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add a secondary "Book a Strategy Call" CTA on every page. Create a dedicated /apply or /book page with a Calendly or custom scheduling form. The waitlist is fine for cold traffic, but warm traffic should be able to talk to someone immediately.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-critical">Critical</span>
+      <h4>Typo in Featured Case Study: "$2,0000,000+"</h4>
+    </div>
+    <p>The SupportPets case study shows "$2,0000,000+" — an extra zero. On a site selling precision and performance, this erodes trust instantly.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Correct to "$2,000,000+". Better yet, add specific timeframes ("$2M/month in ad spend as of Q1 2025") for credibility.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>No Pricing, Packages, or Minimums Anywhere</h4>
+    </div>
+    <p>Potential clients have no idea if Ad Pros works with $50K/month brands or $5M/month brands. This creates friction and likely filters out qualified leads who assume it's "too expensive" or "not for us yet."</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add a "Who We Work With" or "Investment" section with minimums (e.g., "We partner with brands spending $100K+/month on ads"). Even ballpark ranges build trust.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>Case Studies Are Just Numbers, Not Stories</h4>
+    </div>
+    <p>"$4M+ per month in profitable ad spend" is impressive, but there's no before/after, no timeline, no challenge/solution narrative, no client quote. It's a stat, not a story.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Build dedicated case study pages: /case-studies/kachava with a narrative arc (Challenge → Approach → Results → Client Quote → Metrics). Add video testimonials if possible.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>"Unreasonable Growth" Is Undefined</h4>
+    </div>
+    <p>The homepage says "unreasonable growth means growing 5-20% of top line monthly." That's buried in copy. It should be a headline or visual stat card.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Turn this into a visual: "We grow brands 5-20% monthly. Here's how." with a mini chart or timeline.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>Founder Section Is Buried at the Bottom</h4>
+    </div>
+    <p>Nehal's bio is the 8th section on the homepage. For a founder-led agency, this should be much higher — ideally in the first 3 sections.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Move the founder section above the fold or immediately after case studies. Add a photo of Nehal (not just the name). People buy from people.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-low">Low</span>
+      <h4>"Certified Business Partners" Section Appears Empty</h4>
+    </div>
+    <p>The homepage has a "Certified Business Partners" label but no visible partner logos in the captured view. If this is an empty state, it looks broken.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add Meta, Google, TikTok, Taboola partner badges. Or remove the section until partner assets are ready.</div>
+  </div>
+</section>
+
+<!-- ===== UI/UX ===== -->
+<section id="uiux">
+  <div class="kicker"><span class="dot"></span> Section 03</div>
+  <h2>UI/UX Audit</h2>
+  <p>The dark-mode aesthetic is premium and consistent. But there are UX friction points that confuse users and reduce engagement.</p>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>Services Tabs Hide Critical Content</h4>
+    </div>
+    <p>The Media Buying / Creatives / Data / Strategy tabs on both the homepage and services page hide 75% of the value proposition behind clicks. Most users will never see Creatives, Data, or Strategy content.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Unroll the tabs into a vertical scrollable section or accordion. Each service deserves its own visual block with an icon, headline, and 2-sentence description — all visible without interaction.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>Waitlist Form Is a Black Box</h4>
+    </div>
+    <p>The waitlist asks only "Are you currently advertising? YES/NO" as Step 1. There's no preview of what comes next, no value proposition for completing it, and no progress indicator. Users don't know if they're signing up for a newsletter or applying for a $50K engagement.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add a progress bar ("Step 1 of 4"). Preview the questions. Add micro-copy: "Tell us about your brand and we'll reach out within 48 hours if it's a fit." Consider a lighter first step: email + monthly ad spend range.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>Contact Form Button Is Disabled by Default</h4>
+    </div>
+    <p>The "Send Message" button on the contact page starts disabled. Users may think the form is broken if they don't realize validation is required. This is a friction point.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Enable the button by default and show validation errors on submit. Or add clear inline validation with green checkmarks.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>Footer Newsletter Button Is Also Disabled</h4>
+    </div>
+    <p>Same pattern: the "Get started" newsletter button is disabled until an email is entered. This is a minor friction but unnecessary.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Enable the button. Validate on submit. Show a success message inline.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>Platform Icons Are Text-Only, Not Visual</h4>
+    </div>
+    <p>The "Your Audience Awaits" section lists 11 platforms as plain text. No icons, no platform colors, no visual recognition. This is a huge missed opportunity for visual trust.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add official platform icons (Facebook, TikTok, Google, etc.) in a horizontal scrollable row or 3x4 grid. Use each platform's brand color on hover.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-low">Low</span>
+      <h4>Map Section on Contact Page Is Invisible</h4>
+    </div>
+    <p>The "International Network" map is extremely dark and blends into the background. It doesn't communicate the global presence effectively.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Use a lighter map style (Mapbox dark theme with brighter dots) or replace with a simple world map graphic with highlighted countries and team headshots.</div>
+  </div>
+</section>
+
+<!-- ===== CONVERSION ===== -->
+<section id="conversion">
+  <div class="kicker"><span class="dot"></span> Section 04</div>
+  <h2>Conversion Audit</h2>
+  <p>This is where the site bleeds the most. A $250M+ agency should have a conversion rate infrastructure that matches its ambition. Right now, it doesn't.</p>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-critical">Critical</span>
+      <h4>No Lead Magnet or Gated Content</h4>
+    </div>
+    <p>There is nothing to download, no free tool, no calculator, no guide. Every visitor who isn't ready to join a waitlist bounces with zero value exchanged. The blog has great content but no email capture on posts.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Create a lead magnet: "The $100M Ad Creative Framework" PDF, "Ecommerce Media Buying Calculator," or "The 11-Channel Growth Scorecard." Gate it behind email. Promote it in the blog sidebar and as a bottom-of-post CTA.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-critical">Critical</span>
+      <h4>No Chat Widget or Live Response Channel</h4>
+    </div>
+    <p>High-intent visitors have no way to ask a quick question. No Intercom, no Drift, no Calendly chat, nothing. They either join a waitlist into the void or leave.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add a chat widget (Intercom, Crisp, or Tidio) with business hours and an away message. Or add a "Questions?" floating button that opens a simple FAQ + contact form.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>No Exit-Intent or Retention Mechanism</h4>
+    </div>
+    <p>When a visitor moves to close the tab, nothing happens. No popup, no "Wait, download our free guide," no discount offer, no newsletter signup prompt. This is the highest-ROI opportunity on the entire site.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Implement an exit-intent modal on the blog and homepage: "Before you go — get our free $100M Creative Framework." Convert 5-15% of abandoning visitors.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-high">High</span>
+      <h4>No Social Proof Beyond 3 Stats and Logos</h4>
+    </div>
+    <p>The site has logo marquees and 3 case study numbers. No video testimonials, no client quotes with faces, no "As seen in" press logos, no Trustpilot/G2 ratings, no "Voted #1 Agency" badges. For a high-ticket service, this is insufficient.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add a testimonials section with client headshots, names, and titles. Embed 2-3 short video testimonials. Add "As Featured In" press logos if applicable. Consider a G2 or Clutch profile with reviews.</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>No Urgency or Scarcity Signals</h4>
+    </div>
+    <p>A waitlist implies exclusivity, but it's not communicated. There's no "Limited to 12 clients per quarter" or "Next intake: June 2026." Without scarcity, there's no reason to act now.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Add scarcity micro-copy: "We partner with 12 brands per quarter. 3 spots remaining for Q3 2026." Or add a deadline: "Applications close May 15."</div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-header">
+      <span class="issue-badge badge-medium">Medium</span>
+      <h4>No Retargeting Pixel Confirmation</h4>
+    </div>
+    <p>While Google Analytics is present, there's no visible Meta Pixel or TikTok Pixel. For an agency that runs ads, not retargeting website visitors is leaving money on the table.</p>
+    <div class="issue-fix"><strong>Fix:</strong> Install Meta Pixel, TikTok Pixel, and Google Ads remarketing tag. Create custom audiences for: all visitors, blog readers, waitlist starters (did not finish), contact page visitors.</div>
+  </div>
+</section>
+
+<!-- ===== STRATEGY ===== -->
+<section id="strategy">
+  <div class="kicker"><span class="dot"></span> Section 05</div>
+  <h2>Strategic Recommendations</h2>
+  <p>Here is the prioritized playbook. These are not just fixes, they're strategic moves that compound.</p>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="strategy-num">01 — PHASE 1 (This Week)</div>
+      <h4>Fix the Typos & Enable Forms</h4>
+      <p>Correct the "$2,0000,000" typo. Enable all disabled form buttons by default. Add inline validation. These are 10-minute fixes with immediate trust impact.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">02 — PHASE 1 (This Week)</div>
+      <h4>Add a "Book a Call" Path</h4>
+      <p>Create a /book or /strategy-call page with Calendly embedded. Add "Book a Free Strategy Call" as a secondary CTA on every page. This unlocks warm traffic immediately.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">03 — PHASE 1 (This Week)</div>
+      <h4>Install Chat + Exit Intent</h4>
+      <p>Add Crisp or Intercom chat. Deploy an exit-intent modal offering the lead magnet (see #06). These two tools alone can 2-3x lead capture.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">04 — PHASE 2 (This Month)</div>
+      <h4>Build Real Case Study Pages</h4>
+      <p>Move beyond stats. Create /case-studies/kachava with a full narrative: the challenge, the Ad Pros approach, creative samples, results with timelines, and a client quote. Link these from the homepage.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">05 — PHASE 2 (This Month)</div>
+      <h4>Unroll the Services Tabs</h4>
+      <p>Replace the hidden tabs with visible service cards. Each card gets an icon, headline, 2-line description, and a "Learn more" link. Show all 4 services without clicks.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">06 — PHASE 2 (This Month)</div>
+      <h4>Create a High-Value Lead Magnet</h4>
+      <p>"The Ecommerce Ad Creative Scorecard" or "11-Channel Media Buying Checklist." Gate it behind email. Promote it in the blog sidebar, footer, and exit-intent modal. Build the email list.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">07 — PHASE 3 (Next Quarter)</div>
+      <h4>Add Video Testimonials & Founder Content</h4>
+      <p>Move Nehal's section up. Add a 60-second founder video to the homepage. Collect 3 video testimonials from Ka'Chava, SupportPets, and Alpha Lion. Video converts 3-5x better than text.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">08 — PHASE 3 (Next Quarter)</div>
+      <h4>Build a "Who We Work With" Filter</h4>
+      <p>Add a section or page that clearly states: minimum ad spend, ideal brand stage, industries served, and what's included. This pre-qualifies leads and reduces unfit inquiries.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">09 — PHASE 3 (Next Quarter)</div>
+      <h4>SEO Content Expansion</h4>
+      <p>The blog has 5 posts. Scale to 2-3 posts per month targeting high-intent keywords: "ecommerce facebook ad agency," "tiktok shop agency," "creative production for dtc brands." Add schema markup to every post.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">10 — PHASE 3 (Next Quarter)</div>
+      <h4>Platform Visual Overhaul</h4>
+      <p>Replace text-only platform lists with official icons in a colorful grid. Add platform-specific mini-pages (/platforms/tiktok, /platforms/meta) with tailored messaging. This captures platform-specific search traffic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUICK WINS ===== -->
+<section id="quickwins">
+  <div class="kicker"><span class="dot"></span> Section 06</div>
+  <h2>Quick Wins Checklist</h2>
+  <p>Do these first. Highest impact, lowest effort.</p>
+
+  <div class="quick-wins">
+    <h4>Week 1 — Do These Immediately</h4>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Fix the $2,0000,000 typo</strong> on the homepage case study section</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Add alt text to all 23 images</strong> on the homepage</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Enable form submit buttons</strong> (Contact page + Footer newsletter)</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Add "Book a Call" CTA</strong> alongside "Join Waitlist" on homepage and services</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Move founder section higher</strong> — above the fold or directly after case studies</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Add Meta Pixel + TikTok Pixel</strong> for retargeting</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Install chat widget</strong> (Crisp, Intercom, or Tidio)</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Deploy exit-intent modal</strong> with a lead magnet offer</div>
+    </div>
+  </div>
+
+  <div class="quick-wins">
+    <h4>Month 1 — High-Impact Moves</h4>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Create a lead magnet PDF</strong> and gate it behind email capture</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Unroll services tabs</strong> into visible cards with icons</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Build 1 detailed case study page</strong> (start with Ka'Chava)</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Add platform icons</strong> to the "Your Audience Awaits" section</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Add Organization schema</strong> and Article schema to blog posts</div>
+    </div>
+    <div class="win-item">
+      <div class="win-check">✓</div>
+      <div class="win-text"><strong>Add testimonials section</strong> with client headshots and quotes</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section>
+  <h2>The Bottom Line</h2>
+  <p>Ad Pros has a visually strong website that communicates credibility. But it operates like a static brochure when it should be a conversion engine. The gap between the brand's $250M+ track record and its current web experience is significant.</p>
+  <p>The good news: every major issue has a clear fix, and many are quick wins. The site doesn't need a redesign. It needs strategic layering: more CTAs, better social proof, faster forms, and active conversion mechanisms.</p>
+  <blockquote>
+    "The best agencies don't just run great ads. They have great funnels. Your website is your first ad. Make it convert."
+  </blockquote>
+  <p style="margin-top:24px;"><strong>Next step:</strong> Pick 3 quick wins from the checklist above and ship them this week. Measure the delta in waitlist signups and contact form submissions. Then layer in the Phase 2 and Phase 3 recommendations.</p>
+</section>
+
+<div class="doc-footer">
+  <p>Ad Pros Website Audit · April 2026 · Prepared by Noor</p>
+  <p>Internal Use Only</p>
+</div>
+
+</div>
+
+</div>
+</body>
+</html>
