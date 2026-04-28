@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>AI Agent Development Pipeline — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --navy-card-2: #0a0f4a;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+
+      --c-ai-fill: #1a1f5c;
+      --c-ai-stroke: #6E78E0;
+      --c-ai-text: #B7BEFA;
+      --c-human-fill: #0a3a3a;
+      --c-human-stroke: #5DCAA5;
+      --c-human-text: #9FE1CB;
+      --c-ok-fill: #243a0f;
+      --c-ok-stroke: #97C459;
+      --c-ok-text: #C6E29A;
+      --c-warn-fill: #4a1717;
+      --c-warn-stroke: #F09595;
+      --c-warn-text: #F7C1C1;
+      --c-auto-fill: #4a3409;
+      --c-auto-stroke: #EF9F27;
+      --c-auto-text: #FAC775;
+      --c-line: #B0B1B6;
+    }
+    html, body { background: var(--navy); }
+    body { color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+
+    .intro-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--yellow);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .intro h2 { font-size: 32px; font-weight: 700; color: var(--white); letter-spacing: -0.02em; margin-bottom: 12px; }
+    .intro p { font-size: 16px; color: var(--grey-200); max-width: 720px; }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-300);
+      margin: 56px 0 16px;
+    }
+
+    .card {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .flow-card { overflow-x: auto; margin-bottom: 16px; }
+    .flow-card svg { display: block; width: 100%; height: auto; min-width: 760px; }
+    .flow-node { cursor: pointer; transition: opacity 0.15s; }
+    .flow-node:hover { opacity: 0.78; }
+    .flow-node text { pointer-events: none; font-family: "Inter", sans-serif; }
+    .flow-node.highlighted rect { stroke-width: 3; }
+
+    .flow-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--grey-300);
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--card-border);
+    }
+    .flow-legend-item { display: flex; align-items: center; gap: 6px; }
+    .swatch { width: 12px; height: 12px; border-radius: 3px; border: 1px solid; }
+
+    .phase-overview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 0 0 24px;
+    }
+    @media (max-width: 700px) { .phase-overview { grid-template-columns: 1fr; } }
+    .phase-card {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: left;
+      font-family: inherit;
+      color: inherit;
+      width: 100%;
+    }
+    .phase-card:hover { border-color: var(--blue); transform: translateY(-1px); }
+    .phase-card.active { border-color: var(--yellow); background: var(--navy-card-2); }
+    .phase-card.active .phase-num { color: var(--yellow); }
+    .phase-card.active .phase-name { color: var(--white); }
+    .phase-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--grey-300);
+      text-transform: uppercase;
+    }
+    .phase-name { font-size: 16px; font-weight: 600; margin: 4px 0 6px; color: var(--grey-200); }
+    .phase-desc { font-size: 13px; color: var(--grey-300); margin: 0; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+    .stages {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 8px;
+    }
+    .stage {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.12s;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      color: inherit;
+      font-family: inherit;
+      margin-bottom: 2px;
+    }
+    .stage:hover { background: rgba(255,255,255,0.03); }
+    .stage.selected { background: var(--navy-card-2); border-left: 2px solid var(--yellow); padding-left: 12px; }
+    .stage.selected .stage-name { color: var(--white); }
+    .stage-num {
+      font-size: 12px;
+      color: var(--grey-300);
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+    .stage-name { font-size: 14px; font-weight: 500; color: var(--grey-200); }
+    .stage-sub { font-size: 12px; color: var(--grey-300); margin-top: 2px; }
+    .pill {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .pill-ai { background: var(--c-ai-fill); color: var(--c-ai-text); border: 1px solid var(--c-ai-stroke); }
+    .pill-human { background: var(--c-human-fill); color: var(--c-human-text); border: 1px solid var(--c-human-stroke); }
+    .pill-auto { background: var(--c-auto-fill); color: var(--c-auto-text); border: 1px solid var(--c-auto-stroke); }
+    .pill-ok { background: var(--c-ok-fill); color: var(--c-ok-text); border: 1px solid var(--c-ok-stroke); }
+    .pill-warn { background: var(--c-warn-fill); color: var(--c-warn-text); border: 1px solid var(--c-warn-stroke); }
+
+    .detail {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      position: sticky;
+      top: 24px;
+    }
+    .detail-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--yellow);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .detail-title { font-size: 22px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; color: var(--white); }
+    .detail-sub { font-size: 14px; color: var(--grey-200); margin: 0 0 20px; }
+    .detail-section { padding: 14px 0; border-top: 1px solid var(--card-border); }
+    .detail-section:first-of-type { border-top: 0; padding-top: 0; }
+    .detail-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--grey-300);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .detail-val { font-size: 14px; color: var(--grey-200); }
+    .next-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--navy-card-2);
+      border: 1px solid var(--card-border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--grey-200);
+      margin-right: 6px;
+      margin-top: 4px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .next-chip:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .next-chip svg { width: 12px; height: 12px; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      margin: 24px 0 0;
+      padding: 16px 20px;
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--grey-300); }
+
+    .nav-controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--card-border);
+    }
+    .nav-btn {
+      flex: 1;
+      padding: 10px 14px;
+      background: var(--navy-card-2);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--grey-200);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .nav-btn:hover:not(:disabled) { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    @media (max-width: 640px) { .ap-header, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; margin-left: 0; margin-right: 0; } }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>AI Agent Development Pipeline</h1>
+      <p>Process documentation · Internal use</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+    <div class="intro">
+      <span class="intro-eyebrow">Internal process</span>
+      <h2>How we ship AI agents to the library</h2>
+      <p>The full process to design, build and operate AI agents that live in the AdPros library template — not in the chat. Three phases, thirteen ClickUp states, two AIs that automate the busywork between request and build.</p>
+    </div>
+
+    <div class="section-title">Full process map</div>
+    <div class="card flow-card">
+      <svg id="flow" viewBox="0 0 1080 580" xmlns="http://www.w3.org/2000/svg" aria-label="Full pipeline flow diagram">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <rect x="20" y="20" width="340" height="540" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="40" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 1 · REQUEST &amp; EVALUATION</text>
+
+        <rect x="380" y="20" width="280" height="540" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="400" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 2 · DEVELOPMENT</text>
+
+        <rect x="680" y="20" width="380" height="540" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="700" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 3 · TESTING &amp; LIVE</text>
+
+        <g class="flow-node" data-stage="0" transform="translate(80, 70)">
+          <rect width="220" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">1. Submitted</text>
+          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">ClickUp form intake</text>
+        </g>
+
+        <g class="flow-node" data-stage="1" transform="translate(80, 156)">
+          <rect width="220" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
+          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">2. AI Evaluation</text>
+          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">Score &amp; classify</text>
+        </g>
+
+        <g class="flow-node" data-stage="3" transform="translate(80, 254)">
+          <rect width="220" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
+          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">4. Needs Clarification</text>
+          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">Bot asks for detail</text>
+        </g>
+
+        <g class="flow-node" data-stage="2" transform="translate(80, 350)">
+          <rect width="220" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">3. Pending Approval</text>
+          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Owner reviews</text>
+        </g>
+
+        <g class="flow-node" data-stage="5" transform="translate(80, 444)">
+          <rect width="100" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
+          <text x="50" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">6. Rejected</text>
+          <text x="50" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">End</text>
+        </g>
+
+        <g class="flow-node" data-stage="4" transform="translate(200, 444)">
+          <rect width="100" height="56" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
+          <text x="50" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">5. Approved</text>
+          <text x="50" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Greenlit</text>
+        </g>
+
+        <g class="flow-node" data-stage="6" transform="translate(420, 156)">
+          <rect width="200" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">7. Queued For Build</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">AI generates subtasks</text>
+        </g>
+
+        <g class="flow-node" data-stage="7" transform="translate(420, 350)">
+          <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">8. Building</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Library template</text>
+        </g>
+
+        <g class="flow-node" data-stage="8" transform="translate(720, 70)">
+          <rect width="200" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">9. QA / Validation</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">AI judge + tests</text>
+        </g>
+
+        <g class="flow-node" data-stage="9" transform="translate(720, 170)">
+          <rect width="200" height="56" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">10. Live</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Published in library</text>
+        </g>
+
+        <g class="flow-node" data-stage="10" transform="translate(720, 270)">
+          <rect width="200" height="56" rx="8" fill="var(--c-auto-fill)" stroke="var(--c-auto-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-auto-text)">11. Live + Optimize</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-auto-text)" opacity="0.85">Telemetry &amp; tuning</text>
+        </g>
+
+        <g class="flow-node" data-stage="11" transform="translate(720, 370)">
+          <rect width="200" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">12. Live + Error</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">Failure threshold</text>
+        </g>
+
+        <g class="flow-node" data-stage="12" transform="translate(720, 470)">
+          <rect width="200" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">13. Paused</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">Hidden from library</text>
+        </g>
+
+        <line x1="190" y1="126" x2="190" y2="151" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="190" y1="212" x2="190" y2="249" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <text x="200" y="234" font-size="10" fill="var(--grey-300)" font-style="italic">low conf.</text>
+
+        <path d="M 305 282 Q 350 282 350 184 L 305 184" fill="none" stroke="var(--c-line)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+        <text x="332" y="232" font-size="10" fill="var(--grey-300)" font-style="italic" text-anchor="middle">re-eval</text>
+
+        <path d="M 305 184 Q 360 184 360 350 L 305 350" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <line x1="135" y1="406" x2="105" y2="441" stroke="var(--c-warn-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="240" y1="406" x2="245" y2="441" stroke="var(--c-ok-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <path d="M 300 472 L 380 472 L 380 184 L 419 184" fill="none" stroke="var(--yellow)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text x="386" y="178" font-size="10" fill="var(--yellow)" font-weight="600">trigger</text>
+
+        <line x1="520" y1="212" x2="520" y2="349" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <path d="M 620 378 L 670 378 L 670 98 L 719 98" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <line x1="820" y1="126" x2="820" y2="169" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="820" y1="226" x2="820" y2="269" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <path d="M 920 298 L 985 298 L 985 98 L 920 98" fill="none" stroke="var(--c-line)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+        <text x="995" y="200" font-size="10" fill="var(--grey-300)" font-style="italic">re-QA</text>
+
+        <line x1="820" y1="326" x2="820" y2="369" stroke="var(--c-warn-stroke)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+        <line x1="820" y1="426" x2="820" y2="469" stroke="var(--c-warn-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <path d="M 720 498 L 670 498 L 670 378 L 619 378" fill="none" stroke="var(--c-warn-stroke)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+        <text x="660" y="492" font-size="10" fill="var(--grey-300)" text-anchor="end" font-style="italic">rebuild</text>
+      </svg>
+
+      <div class="flow-legend">
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-ai-fill); border-color: var(--c-ai-stroke);"></span>AI action</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-human-fill); border-color: var(--c-human-stroke);"></span>Human action</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-auto-fill); border-color: var(--c-auto-stroke);"></span>Continuous monitoring</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-ok-fill); border-color: var(--c-ok-stroke);"></span>Positive state</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-warn-fill); border-color: var(--c-warn-stroke);"></span>Blocked / paused / error</div>
+      </div>
+    </div>
+
+    <div class="section-title">Stage explorer</div>
+    <div class="phase-overview" role="tablist">
+      <button class="phase-card active" data-phase="0" role="tab">
+        <div class="phase-num">Phase 1</div>
+        <div class="phase-name">Request &amp; evaluation</div>
+        <p class="phase-desc">ClickUp form intake, AI evaluation, approval or rejection.</p>
+      </button>
+      <button class="phase-card" data-phase="1" role="tab">
+        <div class="phase-num">Phase 2</div>
+        <div class="phase-name">Development</div>
+        <p class="phase-desc">AI generates subtasks, the team builds the agent in the library.</p>
+      </button>
+      <button class="phase-card" data-phase="2" role="tab">
+        <div class="phase-num">Phase 3</div>
+        <div class="phase-name">Testing &amp; live</div>
+        <p class="phase-desc">QA, publication, continuous monitoring and optimization.</p>
+      </button>
+    </div>
+
+    <div class="layout">
+      <div class="stages" id="stages"></div>
+      <div class="detail" id="detail"></div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="pill pill-ai">AI</span> Executed by an AI agent</div>
+      <div class="legend-item"><span class="pill pill-human">Human</span> Human decision required</div>
+      <div class="legend-item"><span class="pill pill-auto">Auto</span> Passive monitoring</div>
+      <div class="legend-item"><span class="pill pill-ok">OK</span> Positive or resolved state</div>
+      <div class="legend-item"><span class="pill pill-warn">Alert</span> Blocked, paused or error</div>
+    </div>
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+
+<script>
+const stages = [
+  { phase: 0, n: 1, name: "Submitted", sub: "Form submitted in ClickUp", who: "Requester", trigger: "Manual form submission", action: "The requester fills out the ClickUp form with Objective, Description, Steps, Output template, examples and edge cases. The task is created in the pipeline at the Submitted state.", next: ["AI Evaluation"], pill: ["pill-human","Human"] },
+  { phase: 0, n: 2, name: "AI Evaluation", sub: "AI scores feasibility and clarity", who: "AI evaluator agent", trigger: "Status changes to Submitted", action: "The AI reads every form field, scores clarity, feasibility and ROI, classifies the request type, and routes to one of three states based on a confidence threshold.", next: ["Pending Approval","Needs Clarification","Rejected"], pill: ["pill-ai","AI"] },
+  { phase: 0, n: 3, name: "Pending Approval", sub: "Owner reviews AI summary", who: "Product owner", trigger: "AI confidence above threshold", action: "The owner reviews the AI summary, the scope estimate and the recommendation. They approve, reject, or send it back for clarification.", next: ["Approved","Rejected"], pill: ["pill-human","Human"] },
+  { phase: 0, n: 4, name: "Needs Clarification", sub: "Bot asks requester for detail", who: "AI plus requester", trigger: "AI flags missing context", action: "The bot posts a comment listing exactly which fields need more detail, with examples. The requester replies in the task. When the task is updated, it is re-evaluated automatically.", next: ["AI Evaluation (re-run)"], pill: ["pill-warn","Blocked"] },
+  { phase: 0, n: 5, name: "Approved", sub: "Greenlit for build", who: "Product owner", trigger: "Manual approval", action: "Status flips to Approved. This is the trigger for Phase 2: a second AI generates the implementation tasks in ClickUp.", next: ["Queued For Build"], pill: ["pill-ok","Approved"] },
+  { phase: 0, n: 6, name: "Rejected", sub: "Out of scope or duplicate", who: "Product owner", trigger: "Manual rejection", action: "The bot posts the rejection reason and links to similar live agents in the library if any exist. The pipeline ends here.", next: ["End of pipeline"], pill: ["pill-warn","End"] },
+  { phase: 1, n: 7, name: "Queued For Build", sub: "AI generates ClickUp subtasks", who: "AI task generator", trigger: "Status changes to Approved", action: "The AI breaks the agent down into concrete dev subtasks: prompt design, tool and integration setup, output schema, test cases and the library entry. Subtasks are auto-assigned by skill.", next: ["Building"], pill: ["pill-ai","AI"] },
+  { phase: 1, n: 8, name: "Building", sub: "Engineer implements the agent", who: "Builder", trigger: "Subtasks assigned", action: "The engineer builds the agent in the AdPros library template (not the chat). Wires prompts, tools and schemas. Pushes to staging once subtasks are done.", next: ["QA / Validation"], pill: ["pill-human","Human"] },
+  { phase: 2, n: 9, name: "QA / Validation", sub: "Test cases and golden outputs", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Run the test cases from the original request plus auto-generated edge cases. An AI judge compares outputs against the template and flags regressions.", next: ["Live"], pill: ["pill-ai","AI"] },
+  { phase: 2, n: 10, name: "Live", sub: "Published to library template", who: "Pipeline", trigger: "QA passes", action: "The agent is published in the library template and becomes available to be invoked from the AdPros chat. Telemetry hooks are turned on.", next: ["Live + Optimize"], pill: ["pill-ok","Live"] },
+  { phase: 2, n: 11, name: "Live + Optimize", sub: "Monitor and improve", who: "Owner plus AI", trigger: "Telemetry signal", action: "The AI watches usage, success rate and latency. It suggests prompt or tool changes. The owner approves the changes — they re-enter QA before being re-published.", next: ["QA / Validation (loop)"], pill: ["pill-auto","Auto"] },
+  { phase: 2, n: 12, name: "Live + Error", sub: "Failure threshold exceeded", who: "AI monitor", trigger: "Error rate spike", action: "Auto-pages the owner, attaches failing traces and proposes a fix. If the issue is severe, it auto-escalates to Paused.", next: ["Paused","Building"], pill: ["pill-warn","Alert"] },
+  { phase: 2, n: 13, name: "Paused", sub: "Temporarily disabled", who: "Owner", trigger: "Manual or auto-pause", action: "The agent is hidden from the library. The reason is logged on the task. It resumes by being sent back to Building or QA.", next: ["Building","End"], pill: ["pill-warn","Paused"] }
+];
+
+let currentPhase = 0;
+let selectedIdx = 0;
+
+const arrowSvg = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg>';
+
+function findStageByName(name) {
+  const clean = name.replace(/\s*\(.*\)$/, '').trim();
+  return stages.findIndex(s => s.name === clean);
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function render() {
+  const grid = document.getElementById('stages');
+  grid.innerHTML = '';
+  stages.forEach((s, i) => {
+    if (s.phase !== currentPhase) return;
+    const btn = document.createElement('button');
+    btn.className = 'stage' + (i === selectedIdx ? ' selected' : '');
+    btn.appendChild(el('div', 'stage-num', String(s.n)));
+    const mid = el('div');
+    mid.appendChild(el('div', 'stage-name', s.name));
+    mid.appendChild(el('div', 'stage-sub', s.sub));
+    btn.appendChild(mid);
+    btn.appendChild(el('div', 'pill ' + s.pill[0], s.pill[1]));
+    btn.onclick = () => { selectedIdx = i; render(); };
+    grid.appendChild(btn);
+  });
+
+  const s = stages[selectedIdx];
+  const detail = document.getElementById('detail');
+  detail.innerHTML = '';
+
+  const eyebrow = el('div', 'detail-eyebrow', `Stage ${s.n} · Phase ${s.phase + 1}`);
+  detail.appendChild(eyebrow);
+
+  const title = el('h2', 'detail-title', s.name);
+  detail.appendChild(title);
+
+  const sub = el('p', 'detail-sub');
+  sub.appendChild(document.createTextNode(s.sub + ' '));
+  const pill = el('span', 'pill ' + s.pill[0], s.pill[1]);
+  pill.style.marginLeft = '6px';
+  sub.appendChild(pill);
+  detail.appendChild(sub);
+
+  function section(label, content) {
+    const sec = el('div', 'detail-section');
+    sec.appendChild(el('div', 'detail-label', label));
+    const val = el('div', 'detail-val');
+    if (typeof content === 'string') val.textContent = content;
+    else val.appendChild(content);
+    sec.appendChild(val);
+    detail.appendChild(sec);
+  }
+
+  section('Owner', s.who);
+  section('Trigger', s.trigger);
+  section('What happens', s.action);
+
+  const nextWrap = document.createElement('div');
+  s.next.forEach(n => {
+    const idx = findStageByName(n);
+    if (idx >= 0) {
+      const chip = document.createElement('button');
+      chip.className = 'next-chip';
+      chip.innerHTML = arrowSvg;
+      chip.appendChild(document.createTextNode(' ' + n));
+      chip.onclick = () => goTo(idx);
+      nextWrap.appendChild(chip);
+    } else {
+      const chip = document.createElement('span');
+      chip.className = 'next-chip';
+      chip.innerHTML = arrowSvg;
+      chip.appendChild(document.createTextNode(' ' + n));
+      nextWrap.appendChild(chip);
+    }
+  });
+  section('Next state', nextWrap);
+
+  const nav = el('div', 'nav-controls');
+  const prev = document.createElement('button');
+  prev.className = 'nav-btn';
+  prev.textContent = '← Previous';
+  prev.disabled = selectedIdx === 0;
+  prev.onclick = () => navStep(-1);
+  const nxt = document.createElement('button');
+  nxt.className = 'nav-btn';
+  nxt.textContent = 'Next →';
+  nxt.disabled = selectedIdx === stages.length - 1;
+  nxt.onclick = () => navStep(1);
+  nav.appendChild(prev);
+  nav.appendChild(nxt);
+  detail.appendChild(nav);
+
+  document.querySelectorAll('.flow-node').forEach((node) => {
+    const idx = parseInt(node.dataset.stage);
+    node.classList.toggle('highlighted', idx === selectedIdx);
+  });
+}
+
+function goTo(idx) {
+  selectedIdx = idx;
+  currentPhase = stages[idx].phase;
+  document.querySelectorAll('.phase-card').forEach((b, i) => {
+    b.classList.toggle('active', i === currentPhase);
+  });
+  render();
+  const layout = document.querySelector('.layout');
+  if (layout) layout.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function navStep(dir) {
+  const next = selectedIdx + dir;
+  if (next >= 0 && next < stages.length) goTo(next);
+}
+
+document.querySelectorAll('.phase-card').forEach((btn, i) => {
+  btn.onclick = () => {
+    currentPhase = i;
+    document.querySelectorAll('.phase-card').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedIdx = stages.findIndex(s => s.phase === currentPhase);
+    render();
+  };
+});
+
+document.querySelectorAll('.flow-node').forEach((node) => {
+  node.addEventListener('click', () => {
+    const idx = parseInt(node.dataset.stage);
+    goTo(idx);
+  });
+});
+
+render();
+</script>
+</body>
+</html>
