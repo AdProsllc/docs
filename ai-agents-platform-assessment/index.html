@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Block search engines explicitly; allow Anthropic bots so the team can pull this page into Claude chat. -->
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<title>AI Agent Platform Assessment — AdPros Engineering</title>
+<style>
+  :root {
+    --bg-primary: #0a0e1a;
+    --bg-secondary: #111827;
+    --bg-tertiary: #1a2236;
+    --bg-card: #151d2e;
+    --accent: #f5c518;
+    --accent-dim: rgba(245, 197, 24, 0.15);
+    --text-primary: #e8eaed;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --border: #1e293b;
+    --border-light: #2d3a52;
+    --green: #34d399;
+    --green-bg: rgba(52, 211, 153, 0.12);
+    --yellow: #fbbf24;
+    --yellow-bg: rgba(251, 191, 36, 0.12);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.12);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96, 165, 250, 0.12);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.65;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-placeholder {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .logo-mark {
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--bg-primary);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+
+  .doc-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .doc-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .doc-meta {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .doc-meta span {
+    display: inline-block;
+    margin: 0 8px;
+  }
+
+  /* Section */
+  section {
+    margin-bottom: 48px;
+  }
+
+  .section-number {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 14px;
+    margin-top: 28px;
+  }
+
+  h3:first-child {
+    margin-top: 0;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+
+  strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* Summary box */
+  .summary-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+
+  .summary-box p {
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Capability groups */
+  .capability-group {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .capability-group h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cap-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .cap-icon.exec { background: var(--green-bg); color: var(--green); }
+  .cap-icon.sec { background: var(--blue-bg); color: var(--blue); }
+  .cap-icon.audit { background: var(--accent-dim); color: var(--accent); }
+  .cap-icon.fail { background: var(--red-bg); color: var(--red); }
+  .cap-icon.cost { background: var(--yellow-bg); color: var(--yellow); }
+  .cap-icon.ext { background: rgba(167, 139, 250, 0.12); color: #a78bfa; }
+
+  .capability-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .capability-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .capability-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .check {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 13px;
+  }
+
+  .capability-list li code {
+    background: var(--bg-tertiary);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--accent);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  /* Tables */
+  .table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead th {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--border-light);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--bg-card);
+  }
+
+  tbody tr:nth-child(odd) {
+    background: var(--bg-secondary);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .badge.complete {
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+  }
+
+  .badge.partial {
+    background: var(--yellow-bg);
+    color: var(--yellow);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+  }
+
+  .badge.gap {
+    background: var(--red-bg);
+    color: var(--red);
+    border: 1px solid rgba(248, 113, 113, 0.25);
+  }
+
+  .badge.effort {
+    background: var(--blue-bg);
+    color: var(--blue);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+  }
+
+  /* Comparison cards */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .comparison-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+  }
+
+  .comparison-card.build {
+    border-top: 3px solid var(--green);
+  }
+
+  .comparison-card.buy {
+    border-top: 3px solid var(--text-muted);
+  }
+
+  .comparison-card h3 {
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  .comparison-card .card-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .comparison-card h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    margin-top: 16px;
+  }
+
+  .comparison-card h4:first-of-type {
+    margin-top: 0;
+  }
+
+  .comparison-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .comparison-card li {
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .comparison-card li .icon-pro { color: var(--green); flex-shrink: 0; }
+  .comparison-card li .icon-con { color: var(--red); flex-shrink: 0; }
+
+  .risk-label {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .risk-low {
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+  }
+
+  .risk-medium-high {
+    background: var(--red-bg);
+    color: var(--red);
+    border: 1px solid rgba(248, 113, 113, 0.25);
+  }
+
+  /* Recommendation box */
+  .recommendation-box {
+    background: linear-gradient(135deg, rgba(245, 197, 24, 0.06), rgba(245, 197, 24, 0.02));
+    border: 1px solid rgba(245, 197, 24, 0.2);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+
+  .recommendation-box h3 {
+    color: var(--accent);
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  .recommendation-box ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 14px;
+  }
+
+  .recommendation-box li {
+    padding: 5px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .recommendation-box li .bullet {
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Roadmap */
+  .roadmap-week {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .roadmap-week::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .roadmap-week.w1::before { background: var(--accent); }
+  .roadmap-week.w2::before { background: var(--blue); }
+  .roadmap-week.w3::before { background: var(--green); }
+
+  .week-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .week-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .w1 .week-label { color: var(--accent); }
+  .w2 .week-label { color: var(--blue); }
+  .w3 .week-label { color: var(--green); }
+
+  .week-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .roadmap-items {
+    list-style: none;
+    padding: 0;
+  }
+
+  .roadmap-items li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .roadmap-items li .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .w1 .dot { background: var(--accent); }
+  .w2 .dot { background: var(--blue); }
+  .w3 .dot { background: var(--green); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    margin-top: 56px;
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .footer .footer-brand {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .container {
+      padding: 32px 20px 48px;
+    }
+
+    .doc-title {
+      font-size: 24px;
+    }
+
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+
+    table {
+      font-size: 13px;
+    }
+
+    thead th,
+    tbody td {
+      padding: 10px 12px;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    :root {
+      --bg-primary: #fff;
+      --bg-secondary: #f9fafb;
+      --bg-tertiary: #f3f4f6;
+      --bg-card: #f9fafb;
+      --accent: #b8860b;
+      --accent-dim: rgba(184, 134, 11, 0.1);
+      --text-primary: #111827;
+      --text-secondary: #374151;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --border-light: #d1d5db;
+      --green: #059669;
+      --green-bg: rgba(5, 150, 105, 0.08);
+      --yellow: #d97706;
+      --yellow-bg: rgba(217, 119, 6, 0.08);
+      --red: #dc2626;
+      --red-bg: rgba(220, 38, 38, 0.08);
+      --blue: #2563eb;
+      --blue-bg: rgba(37, 99, 235, 0.08);
+    }
+
+    body {
+      font-size: 11pt;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    section {
+      page-break-inside: avoid;
+    }
+
+    .comparison-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .table-wrapper {
+      overflow: visible;
+    }
+
+    .capability-group,
+    .roadmap-week,
+    .comparison-card {
+      break-inside: avoid;
+    }
+
+    .header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+    }
+
+    .logo-mark {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .badge,
+    .risk-label,
+    .roadmap-week::before,
+    .summary-box {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    tbody tr:nth-child(even),
+    tbody tr:nth-child(odd) {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-placeholder">
+      <div class="logo-mark">AP</div>
+      <div class="logo-text">AdPros</div>
+    </div>
+    <h1 class="doc-title">AI Agent Platform Assessment</h1>
+    <p class="doc-subtitle">Internal Engine vs. External Orchestration (Hermes + CMA)</p>
+    <div class="doc-meta">
+      <span>Technical Assessment</span> &middot;
+      <span>April 2026</span> &middot;
+      <span>Internal Distribution</span>
+    </div>
+  </header>
+
+  <!-- 1. Executive Summary -->
+  <section>
+    <div class="section-number">Section 1</div>
+    <h2>Executive Summary</h2>
+    <div class="summary-box">
+      <p>
+        AdPros has a <strong>production-grade AI Agent execution engine</strong> running in production today. The core infrastructure &mdash; atomic scheduling, encrypted credentials, idempotent execution, step-level audit trail, and auto-recovery &mdash; is complete and battle-tested. What is missing is the <strong>visibility and collaboration layer</strong>: dashboards, alerts, and team access controls. These are presentation and notification features that can be built on top of the existing foundation in <strong>2&ndash;3 weeks</strong> without introducing external dependencies or re-architecting the execution pipeline.
+      </p>
+    </div>
+    <p>
+      This document provides a factual assessment of the current engine's capabilities, maps the specific gaps against stakeholder requirements, and compares the cost and risk profile of extending the existing system versus adopting an external orchestration platform.
+    </p>
+  </section>
+
+  <!-- 2. Current Engine Capabilities -->
+  <section>
+    <div class="section-number">Section 2</div>
+    <h2>Current Engine Capabilities</h2>
+    <p>
+      The following capabilities are implemented, deployed, and actively running in production. Each item references the specific mechanism or database artifact that backs it.
+    </p>
+
+    <!-- Execution & Reliability -->
+    <div class="capability-group">
+      <h3><span class="cap-icon exec">&#9654;</span> Execution &amp; Reliability</h3>
+      <ul class="capability-list">
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Atomic workflow claiming via PostgreSQL <code>SELECT...FOR UPDATE</code> &mdash; prevents double-execution when cron overlaps or retries fire</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Cron-based scheduler with a <strong>50-second hard cutoff</strong> and stale run recovery (runs stuck &gt;30 min auto-marked as failed)</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Idempotency keys on all runs &mdash; safe against duplicate webhook deliveries and retry storms</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Serial execution within time budget &mdash; workflows process sequentially, never exceeding the cron window</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Configurable daily run limits per workflow (default 1, max 24) as a guardrail against runaway execution</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Security & Isolation -->
+    <div class="capability-group">
+      <h3><span class="cap-icon sec">&#9670;</span> Security &amp; Isolation</h3>
+      <ul class="capability-list">
+        <li>
+          <span class="check">&#10003;</span>
+          <span><strong>AES-256-GCM</strong> credential encryption at rest via <code>WORKFLOW_ENCRYPTION_KEY</code> &mdash; decryption is server-side only</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span><strong>Row-Level Security (RLS)</strong> on all workflow tables &mdash; strict user-level tenant isolation enforced at the database layer</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Draft confirmation system for side-effecting operations &mdash; create, update, and delete actions require explicit user approval in chat</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>OAuth 2.0 integration flow (Slack) with <strong>HMAC-signed state tokens</strong> preventing CSRF on the callback</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>No plaintext credentials in logs, client state, or API responses &mdash; credentials referenced by encrypted record IDs only</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Audit Trail & Data -->
+    <div class="capability-group">
+      <h3><span class="cap-icon audit">&#9673;</span> Audit Trail &amp; Observability Data</h3>
+      <ul class="capability-list">
+        <li>
+          <span class="check">&#10003;</span>
+          <span><code>workflow_runs</code> table: status, timestamps, trigger source, credits consumed, error codes, delivery status</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span><code>workflow_run_events</code> table: step-level execution log &mdash; <em>load_data &rarr; sync &rarr; compute &rarr; rank &rarr; build_report &rarr; deliver</em></span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span><code>workflow_brand_daily_metrics</code>: per-brand per-run computed metrics (new ads, deactivated, hooks, offers, threat scores)</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span><code>workflow_brand_baselines</code>: baseline tracking for delta computation across consecutive runs</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Full JSONB context on <code>run_input</code>, <code>run_output</code>, and <code>provider_response</code> for every run</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Failure Handling -->
+    <div class="capability-group">
+      <h3><span class="cap-icon fail">&#9888;</span> Failure Handling</h3>
+      <ul class="capability-list">
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Automatic integration pause after <strong>3 consecutive delivery failures</strong> &mdash; prevents noisy retries against broken channels</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Stale run recovery: runs stuck &gt;30 min are auto-marked as failed and the workflow is released for the next scheduled execution</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Structured error categorization: <code>insufficient_credits</code>, <code>integration_not_found</code>, <code>provider_delivery_failed</code>, <code>max_daily_runs_reached</code>, and others</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Failure counter reset on successful delivery &mdash; auto-paused integrations resume after manual re-validation</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Cost & Usage -->
+    <div class="capability-group">
+      <h3><span class="cap-icon cost">&#9733;</span> Cost &amp; Usage Controls</h3>
+      <ul class="capability-list">
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Per-run credit consumption tracking with <code>WORKFLOW_EXECUTION</code> action type attribution</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Usage cost events recorded per execution for billing and analytics</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Daily run limits as guardrails (default 1, max 24) &mdash; enforced at the scheduler level, not just the UI</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Extensibility -->
+    <div class="capability-group">
+      <h3><span class="cap-icon ext">&#9881;</span> Extensibility &amp; Architecture</h3>
+      <ul class="capability-list">
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Provider adapter pattern (<code>WorkflowProviderAdapter</code> interface) &mdash; Slack implemented, additional providers plug in via the same contract</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Template-driven workflow creation with JSON Schema validation &mdash; no open-ended code execution by users</span>
+        </li>
+        <li>
+          <span class="check">&#10003;</span>
+          <span>Chat-as-control-plane: users discover, configure, activate, pause, and monitor workflows from the same chat interface</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Gap Analysis -->
+  <section>
+    <div class="section-number">Section 3</div>
+    <h2>Gap Analysis &mdash; Stakeholder Requirements</h2>
+    <p>
+      The following maps each of Nehal's stated requirements to what currently exists in the system, what is missing, and the estimated effort to close the gap.
+    </p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Requirement</th>
+            <th>Current State</th>
+            <th>Gap</th>
+            <th>Effort</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Visibility</strong></td>
+            <td>
+              Run data is fully captured in the database (<code>workflow_runs</code>, <code>workflow_run_events</code>) with status, timestamps, step traces, and delivery outcomes.
+              <br><span class="badge partial">Data exists, no UI</span>
+            </td>
+            <td>Build a run history dashboard: filterable list view + run detail view with step-by-step timeline.</td>
+            <td><span class="badge effort">2&ndash;3 days</span></td>
+          </tr>
+          <tr>
+            <td><strong>Easy Admin Access</strong></td>
+            <td>
+              Admin API endpoint exists (<code>/api/admin/workflows</code>) returning JSON summaries of all user workflows, runs, and integration health.
+              <br><span class="badge partial">API exists, no dashboard</span>
+            </td>
+            <td>Build admin dashboard UI with filters, search, per-workflow drill-down, and management controls.</td>
+            <td><span class="badge effort">2&ndash;3 days</span></td>
+          </tr>
+          <tr>
+            <td><strong>Easy to Monitor</strong></td>
+            <td>
+              Stale run recovery and auto-pause on consecutive failures are operational in the backend. Health signals are stored but not surfaced.
+              <br><span class="badge partial">Backend monitoring, no alerts</span>
+            </td>
+            <td>Add real-time status indicators, failure alert hooks (Slack/email notification on failed runs), and a health dashboard summary.</td>
+            <td><span class="badge effort">2&ndash;3 days</span></td>
+          </tr>
+          <tr>
+            <td><strong>Easy Error Identification</strong></td>
+            <td>
+              Structured <code>error_summary</code> codes stored per run. Step-level events logged with duration and error payloads in JSONB.
+              <br><span class="badge partial">Structured data, raw format</span>
+            </td>
+            <td>Map error codes to human-readable messages. Build error detail UI showing the step trace with the failure point highlighted.</td>
+            <td><span class="badge effort">1&ndash;2 days</span></td>
+          </tr>
+          <tr>
+            <td><strong>Collaboration</strong></td>
+            <td>
+              Strict single-user isolation via RLS. Each user sees only their own workflows and runs.
+              <br><span class="badge gap">Not supported</span>
+            </td>
+            <td>Add <code>team_id</code> scoping on workflows, shared workflow visibility, and role-based access (viewer, editor, admin).</td>
+            <td><span class="badge effort">3&ndash;5 days</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-box">
+      <p>
+        <strong>Total estimated effort: 2&ndash;3 weeks.</strong> All five requirements are achievable by building a presentation and notification layer on top of the existing data infrastructure. No changes to the execution engine are required.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. Hermes + CMA: Product Deep Dive -->
+  <section>
+    <div class="section-number">Section 4</div>
+    <h2>Hermes + CMA: What Are They, Really?</h2>
+    <p>
+      Before comparing build vs. buy, it is important to understand exactly what these products are, what they cost, and whether they solve the problem we actually have.
+    </p>
+
+    <!-- CMA Card -->
+    <div class="capability-group" style="border-left: 3px solid var(--blue);">
+      <h3 style="margin-top: 0;">
+        <span class="cap-icon sec">C</span>
+        Claude Managed Agents (CMA) &mdash; Anthropic
+      </h3>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+        Launched April 8, 2026 &bull; Public Beta &bull; Early adopters: Notion, Rakuten, Asana
+      </p>
+      <p>
+        CMA is Anthropic's managed infrastructure for running <strong>Claude as an autonomous agent</strong> in sandboxed sessions. It provides secure containers, long-running sessions (minutes to hours), scoped permissions, built-in tools (bash, file ops, web search), credential vaults, and end-to-end session tracing.
+      </p>
+
+      <h4 style="margin-top: 16px; font-size: 13px; color: var(--accent); font-weight: 600;">Monitoring Features</h4>
+      <ul class="capability-list">
+        <li><span class="check">&#10003;</span> Session dashboard with status, model, timestamps</li>
+        <li><span class="check">&#10003;</span> Chronological event tracing per session (tool calls, reasoning, outputs)</li>
+        <li><span class="check">&#10003;</span> Per-session and aggregate cost visibility</li>
+        <li><span class="check">&#10003;</span> Scoped environment/permission management</li>
+        <li><span class="check">&#10003;</span> Encrypted credential vault with audit logs</li>
+      </ul>
+
+      <h4 style="margin-top: 16px; font-size: 13px; color: var(--accent); font-weight: 600;">Pricing</h4>
+      <div class="table-wrapper" style="margin-top: 8px;">
+        <table>
+          <thead><tr><th>Component</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>Session runtime</td><td><strong>$0.08 / session-hour</strong> (billed to the millisecond)</td></tr>
+            <tr><td>Tokens &mdash; Opus 4.6</td><td>$5/MTok input &bull; $25/MTok output</td></tr>
+            <tr><td>Tokens &mdash; Sonnet 4.6</td><td>$3/MTok input &bull; $15/MTok output</td></tr>
+            <tr><td>Tokens &mdash; Haiku 4.5</td><td>$1/MTok input &bull; $5/MTok output</td></tr>
+            <tr><td>Web search (in-session)</td><td>$10 per 1,000 searches</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+        Anthropic example: 1-hour Opus session with 50K input + 15K output tokens = ~$0.71. Batch API discounts do not apply.
+      </p>
+
+      <h4 style="margin-top: 16px; font-size: 13px; color: var(--red); font-weight: 600;">Critical Fit Issue</h4>
+      <div class="summary-box" style="border-left-color: var(--red); margin-top: 8px;">
+        <p>
+          CMA is designed for <strong>autonomous agent sessions</strong> where Claude runs independently with tools for extended periods &mdash; coding tasks, research workflows, multi-step automation. AdPros AI Agents already have a <strong>purpose-built orchestration engine</strong> that handles scheduling, data sync, AI-powered analysis via Claude, and multi-channel delivery (Slack, email, WhatsApp, and more). The execution infrastructure &mdash; atomic claiming, idempotency, failure recovery, credential encryption &mdash; is already solved. CMA&rsquo;s sandboxed container model and session-hour billing are designed for open-ended agent autonomy, not for adding monitoring to an engine that already runs reliably.
+        </p>
+      </div>
+    </div>
+
+    <!-- Hermes Card -->
+    <div class="capability-group" style="border-left: 3px solid #a78bfa; margin-top: 20px;">
+      <h3 style="margin-top: 0;">
+        <span class="cap-icon ext">H</span>
+        Hermes Agent &mdash; Nous Research
+      </h3>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+        Released February 2026 &bull; Open Source (MIT) &bull; 104K+ GitHub stars
+      </p>
+      <p>
+        Hermes is an open-source, self-improving AI agent framework. It provides an agent loop with persistent memory, multi-platform messaging (Slack, Discord, Telegram, WhatsApp, etc.), multi-agent orchestration, and a companion <strong>Mission Control Dashboard</strong> for fleet management.
+      </p>
+
+      <h4 style="margin-top: 16px; font-size: 13px; color: var(--accent); font-weight: 600;">Mission Control Features</h4>
+      <ul class="capability-list">
+        <li><span class="check">&#10003;</span> Kanban task board and real-time activity feeds</li>
+        <li><span class="check">&#10003;</span> Token usage dashboards with per-model cost breakdowns</li>
+        <li><span class="check">&#10003;</span> Security posture scoring (0&ndash;100) and secret detection</li>
+        <li><span class="check">&#10003;</span> Agent fleet management with role-based access (viewer/operator/admin)</li>
+        <li><span class="check">&#10003;</span> Self-hosted on SQLite, zero external dependencies</li>
+      </ul>
+
+      <h4 style="margin-top: 16px; font-size: 13px; color: var(--accent); font-weight: 600;">Pricing</h4>
+      <div class="table-wrapper" style="margin-top: 8px;">
+        <table>
+          <thead><tr><th>Option</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>Self-hosted (MIT license)</td><td><strong>Free</strong> &mdash; you pay hosting + LLM API tokens</td></tr>
+            <tr><td>Budget setup (Hetzner VPS + DeepSeek)</td><td>~$6&ndash;8/month</td></tr>
+            <tr><td>Mid-tier with Claude Haiku</td><td>~$15&ndash;25/month</td></tr>
+            <tr><td>Hermes OS &mdash; Pilot (managed hosting)</td><td>$19/month (2 vCPU, 4GB RAM)</td></tr>
+            <tr><td>Hermes OS &mdash; Command (managed hosting)</td><td>$49/month (8 vCPU, 16GB RAM)</td></tr>
+            <tr><td>MaxHermes (enterprise)</td><td>Custom pricing &mdash; includes observability, auto-scaling, support</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-top: 16px; font-size: 13px; color: var(--red); font-weight: 600;">Critical Fit Issue</h4>
+      <div class="summary-box" style="border-left-color: var(--red); margin-top: 8px;">
+        <p>
+          Hermes is a <strong>conversational agent framework</strong> &mdash; it replaces the agent loop, memory system, and chat interface. AdPros already has a production chat system with its own tool-use architecture, streaming SSE, brand context resolution, and a confirmation-based draft system for side effects. Adopting Hermes would mean <strong>replacing the entire chat and agent configuration layer</strong>, not adding monitoring on top. The Mission Control dashboard is useful, but it monitors Hermes-native agents &mdash; not an independently orchestrated AI Agent system like AdPros.
+        </p>
+      </div>
+    </div>
+
+    <!-- The "Hermes + CMA" Stack -->
+    <div class="summary-box" style="margin-top: 24px; border-left-color: var(--yellow);">
+      <p>
+        <strong>What &ldquo;Hermes + CMA&rdquo; actually means:</strong> Hermes as the agent orchestration framework (defining behaviors, skills, memory) running on CMA as the managed execution infrastructure (sandboxing, tracing, credentials). Together they provide a full-stack agent platform &mdash; but for building <em>new</em> autonomous agents from scratch, not for adding visibility and collaboration to an <em>existing</em> production AI Agent system that already has its own orchestration, security, and audit infrastructure.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5. Build vs. Buy -->
+  <section>
+    <div class="section-number">Section 5</div>
+    <h2>Build vs. Buy Analysis</h2>
+    <p>
+      Now that we understand what these products actually do, here is a balanced comparison.
+    </p>
+
+    <div class="comparison-grid">
+      <!-- Build -->
+      <div class="comparison-card build">
+        <h3 style="color: var(--green);">Build (Extend Current Engine)</h3>
+        <p class="card-subtitle">Add dashboards, alerts, and collaboration on existing infrastructure</p>
+
+        <h4>Advantages</h4>
+        <ul>
+          <li><span class="icon-pro">+</span> Full UX control &mdash; monitoring is part of the product, not a separate tool</li>
+          <li><span class="icon-pro">+</span> No vendor dependency on critical execution infrastructure</li>
+          <li><span class="icon-pro">+</span> Leverages existing schema and audit trail &mdash; zero data migration</li>
+          <li><span class="icon-pro">+</span> Single codebase &mdash; one deployment, one set of credentials</li>
+          <li><span class="icon-pro">+</span> No additional SaaS cost beyond existing Anthropic API usage</li>
+          <li><span class="icon-pro">+</span> Domain-specific features (competitive intel scoring, brand threat analysis) stay first-class</li>
+        </ul>
+
+        <h4>Tradeoffs</h4>
+        <ul>
+          <li><span class="icon-con">&minus;</span> Engineering time: 2&ndash;3 weeks of focused development</li>
+          <li><span class="icon-con">&minus;</span> Ongoing maintenance for dashboard and alerting features</li>
+        </ul>
+
+        <div class="risk-label risk-low">Risk: Low</div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px; margin-bottom: 0;">Building UI and notification hooks on top of stable, battle-tested infrastructure.</p>
+      </div>
+
+      <!-- Buy -->
+      <div class="comparison-card buy">
+        <h3 style="color: var(--text-secondary);">Buy (Hermes + CMA)</h3>
+        <p class="card-subtitle">Replace agent execution with external framework + managed infrastructure</p>
+
+        <h4>Advantages</h4>
+        <ul>
+          <li><span class="icon-pro">+</span> CMA provides session tracing and credential vaults out of the box</li>
+          <li><span class="icon-pro">+</span> Hermes Mission Control gives fleet management and RBAC immediately</li>
+          <li><span class="icon-pro">+</span> Active open-source community (Hermes 104K+ stars) and Anthropic backing (CMA)</li>
+        </ul>
+
+        <h4>Tradeoffs</h4>
+        <ul>
+          <li><span class="icon-con">&minus;</span> <strong>Architecture mismatch:</strong> CMA is for open-ended autonomous agent sessions; AdPros AI Agents use a purpose-built orchestration engine with multi-step execution (data sync &rarr; AI analysis &rarr; report generation &rarr; multi-channel delivery). Migrating to CMA means restructuring a working system into session-based execution, adding complexity with no functional benefit.</li>
+          <li><span class="icon-con">&minus;</span> <strong>Hermes replaces, not augments:</strong> adopting Hermes means replacing the existing chat tool-use system, streaming architecture, and draft confirmation flow &mdash; not layering monitoring on top.</li>
+          <li><span class="icon-con">&minus;</span> <strong>Ongoing cost:</strong> CMA charges $0.08/session-hour + tokens on top of Hermes hosting ($19&ndash;49/month). For 50 daily workflow runs averaging 1 min each, that is ~$2.40/day in session fees alone, plus token costs.</li>
+          <li><span class="icon-con">&minus;</span> <strong>Fragmented UX:</strong> users configure in AdPros chat, but monitoring lives in Hermes Mission Control and/or Anthropic Console &mdash; three surfaces instead of one.</li>
+          <li><span class="icon-con">&minus;</span> <strong>Data split:</strong> run history and metrics would live partly in CMA/Hermes, partly in Supabase. Unified reporting requires cross-system queries.</li>
+          <li><span class="icon-con">&minus;</span> <strong>Beta risk:</strong> CMA launched April 8, 2026 and is in public beta. Features and pricing may change.</li>
+        </ul>
+
+        <div class="risk-label risk-medium-high">Risk: High</div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px; margin-bottom: 0;">These products solve for building new agent infrastructure, not adding visibility to an existing one. Requires re-platforming, not just integration.</p>
+      </div>
+    </div>
+
+    <!-- Key decision factors table -->
+    <h3 style="margin-top: 32px;">Decision Factor Summary</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>Build (Extend)</th>
+            <th>Hermes + CMA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Time to Nehal's 5 requirements</strong></td>
+            <td>2&ndash;3 weeks</td>
+            <td>4&ndash;8 weeks (re-architecture + integration + migration)</td>
+          </tr>
+          <tr>
+            <td><strong>Execution engine changes</strong></td>
+            <td>None &mdash; build on top</td>
+            <td>Major &mdash; rewrite orchestration engine as agent sessions or build adapter layer</td>
+          </tr>
+          <tr>
+            <td><strong>Ongoing cost (at 50 runs/day)</strong></td>
+            <td>Engineering time only (Anthropic API cost unchanged)</td>
+            <td>~$72/month CMA sessions + $19&ndash;49/month Hermes OS + token costs</td>
+          </tr>
+          <tr>
+            <td><strong>UX continuity</strong></td>
+            <td>Unified &mdash; chat + dashboards in one app</td>
+            <td>3 surfaces: AdPros chat, Hermes Mission Control, Anthropic Console</td>
+          </tr>
+          <tr>
+            <td><strong>Data ownership</strong></td>
+            <td>Full &mdash; all data in our Supabase instance</td>
+            <td>Split &mdash; session data in CMA, fleet data in Hermes, business data in Supabase</td>
+          </tr>
+          <tr>
+            <td><strong>Credential security</strong></td>
+            <td>Controlled &mdash; AES-256-GCM, our key rotation</td>
+            <td>Delegated to Anthropic (CMA vault) &mdash; must trust beta-stage infrastructure</td>
+          </tr>
+          <tr>
+            <td><strong>Domain-specific customization</strong></td>
+            <td>Unlimited &mdash; we own the code</td>
+            <td>Constrained &mdash; competitive intel scoring, brand baselines, LP warming must fit their model</td>
+          </tr>
+          <tr>
+            <td><strong>Product maturity</strong></td>
+            <td>Our engine: production since March 2026</td>
+            <td>CMA: public beta since April 8, 2026. Hermes: v1 since February 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. Recommendation -->
+  <section>
+    <div class="section-number">Section 6</div>
+    <h2>Recommendation</h2>
+
+    <div class="recommendation-box">
+      <h3>Build the visibility layer. The hard parts are done.</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 14px;">
+        Hermes + CMA are impressive products &mdash; but they solve a different problem. They are built for autonomous, open-ended agent sessions. AdPros runs <strong>AI-powered agents</strong> that sync competitive data, compute threat metrics, and use Claude to generate intelligent analysis reports &mdash; delivered across Slack, email, WhatsApp, and other channels. Our execution engine already has atomic scheduling, encrypted credentials, idempotent runs, step-level audit trails, and auto-recovery. What&rsquo;s missing is dashboards and notifications &mdash; a presentation layer, not an execution layer.
+      </p>
+      <p style="color: var(--text-secondary); margin-bottom: 14px;">
+        Adopting Hermes + CMA to get monitoring dashboards is like buying a Tesla to use the GPS &mdash; the navigation is great, but you already have a working car and just needed a phone mount.
+      </p>
+      <ul>
+        <li><span class="bullet">&#9654;</span> Delivers all 5 of Nehal&rsquo;s requirements within 2&ndash;3 weeks</li>
+        <li><span class="bullet">&#9654;</span> Keeps the product experience unified &mdash; one app, one login, one place to look</li>
+        <li><span class="bullet">&#9654;</span> Avoids re-platforming risk on beta-stage external infrastructure</li>
+        <li><span class="bullet">&#9654;</span> Preserves full data ownership and credential security under our control</li>
+        <li><span class="bullet">&#9654;</span> Ships faster than integration with Hermes + CMA would (and without the re-architecture)</li>
+      </ul>
+      <p style="color: var(--text-muted); font-size: 13px; margin-top: 16px; margin-bottom: 0;">
+        <strong>Future consideration:</strong> If AdPros later expands into fully autonomous agent workloads (e.g., agents that independently research, create content, and manage ad campaigns end-to-end), CMA becomes a strong candidate for that specific use case. For the current AI Agent system, the execution engine is solved &mdash; we need visibility, not a new engine.
+      </p>
+    </div>
+  </section>
+
+  <!-- 7. Implementation Roadmap -->
+  <section>
+    <div class="section-number">Section 7</div>
+    <h2>Implementation Roadmap</h2>
+    <p>
+      Three focused weeks to close every gap identified in the stakeholder requirements. Each week has a clear deliverable that can be demoed independently.
+    </p>
+
+    <div class="roadmap-week w1">
+      <div class="week-header">
+        <div>
+          <div class="week-label">Week 1</div>
+          <div class="week-title">Visibility + Monitoring</div>
+        </div>
+        <span class="badge partial">Nehal: Visibility, Monitoring</span>
+      </div>
+      <ul class="roadmap-items">
+        <li>
+          <span class="dot"></span>
+          <span><strong>Run history page</strong> &mdash; filterable table (status, date range, workflow name, trigger source) pulling from <code>workflow_runs</code></span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Run detail view</strong> &mdash; step-by-step execution timeline from <code>workflow_run_events</code> with duration, status, and error context per step</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Failure alert hooks</strong> &mdash; Slack notification on failed runs (configurable channel), using the existing provider adapter</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Real-time status indicators</strong> &mdash; workflow health badges (healthy, degraded, paused) based on recent run outcomes</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="roadmap-week w2">
+      <div class="week-header">
+        <div>
+          <div class="week-label">Week 2</div>
+          <div class="week-title">Admin Access + Error UX</div>
+        </div>
+        <span class="badge partial">Nehal: Admin Access, Error Identification</span>
+      </div>
+      <ul class="roadmap-items">
+        <li>
+          <span class="dot"></span>
+          <span><strong>Admin workflow dashboard</strong> &mdash; all users' workflows with health overview, failure trends, and management controls (built on existing <code>/api/admin/workflows</code>)</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Human-readable error messages</strong> &mdash; error code to plain-language mapping for all <code>error_summary</code> values</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Error detail UI</strong> &mdash; click into any failed run to see the exact step that failed, the error payload, and suggested remediation</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Integration health indicators</strong> &mdash; last validated timestamp, consecutive failure count, and active/paused status per integration</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="roadmap-week w3">
+      <div class="week-header">
+        <div>
+          <div class="week-label">Week 3</div>
+          <div class="week-title">Collaboration + Polish</div>
+        </div>
+        <span class="badge partial">Nehal: Collaboration</span>
+      </div>
+      <ul class="roadmap-items">
+        <li>
+          <span class="dot"></span>
+          <span><strong>Team-level workflow sharing</strong> &mdash; add <code>team_id</code> column on workflows, update RLS policies for team-scoped access</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Role-based permissions</strong> &mdash; viewer (read-only dashboard), editor (configure workflows), admin (full management including pause/delete)</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Workflow activity feed</strong> &mdash; audit log of who changed configuration, who activated/paused, with timestamps</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span><strong>Polish and QA</strong> &mdash; loading states, error boundaries, responsive layout, print-friendly views</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p><span class="footer-brand">AdPros Engineering</span> &mdash; April 2026</p>
+    <p style="margin-top: 6px;">Internal document. Not for external distribution.</p>
+  </footer>
+
+</div>
+</body>
+</html>
