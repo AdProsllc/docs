@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<title>The Cinematic Ad Factory — Ad Pros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0a0f2e;
+    --navy-2: #141a45;
+    --navy-3: #1c2456;
+    --yellow: #ffd400;
+    --yellow-dim: #d4ad00;
+    --pink: #ff6aa8;
+    --pink-dim: #d44d85;
+    --cyan: #6affd4;
+    --white: #f5f3ee;
+    --grey: #a4a8c4;
+    --grey-2: #6b6f8a;
+    --line: rgba(255, 212, 0, 0.18);
+    --line-soft: rgba(245, 243, 238, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Archivo', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(255,212,0,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(255,106,168,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,212,0,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,212,0,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ====== HERO ====== */
+  header.hero {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--grey);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-meta .dot {
+    width: 8px; height: 8px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--yellow);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-meta .divider { color: var(--line); }
+
+  h1.hero-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(56px, 9vw, 128px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+
+  h1.hero-title em {
+    color: var(--yellow);
+    font-style: italic;
+  }
+
+  h1.hero-title .pink {
+    color: var(--pink);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(17px, 1.6vw, 22px);
+    max-width: 780px;
+    color: var(--grey);
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .hero-sub strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-top: 48px;
+  }
+
+  .stat {
+    padding: 24px 20px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--grey);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* ====== TABS ====== */
+  nav.tabs {
+    position: sticky;
+    top: 0;
+    background: rgba(10, 15, 46, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+    z-index: 100;
+    margin-top: 64px;
+  }
+
+  .tabs-inner {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .tabs-inner::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 20px 18px;
+    background: none;
+    border: none;
+    color: var(--grey);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .tab .num {
+    color: var(--grey-2);
+    margin-right: 6px;
+  }
+
+  .tab:hover { color: var(--white); }
+  .tab:hover .num { color: var(--yellow); }
+
+  .tab.active {
+    color: var(--white);
+  }
+  .tab.active .num { color: var(--yellow); }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--yellow);
+  }
+
+  /* ====== TAB CONTENT ====== */
+  main {
+    padding: 80px 0 160px;
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadeUp 0.5s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    margin-bottom: 56px;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  h2.section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  h2 em { color: var(--yellow); font-style: italic; }
+  h2 .pink { color: var(--pink); font-style: italic; }
+
+  .section-lead {
+    font-size: 19px;
+    color: var(--grey);
+    max-width: 760px;
+    line-height: 1.5;
+  }
+
+  /* ====== CARDS / BLOCKS ====== */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+    .container { padding: 0 20px; }
+  }
+
+  .card {
+    background: var(--navy-2);
+    border: 1px solid var(--line-soft);
+    padding: 32px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+
+  .card:hover {
+    border-color: var(--line);
+  }
+
+  .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    margin-bottom: 16px;
+    letter-spacing: 0.15em;
+  }
+
+  .card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+
+  .card h3 em { color: var(--yellow); font-style: italic; }
+
+  .card p {
+    color: var(--grey);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .card .meta {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--grey-2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ====== AGENT CARD (Recommender = pink) ====== */
+  .card.agent-recommender {
+    border-color: var(--pink);
+  }
+  .card.agent-recommender .card-num,
+  .card.agent-recommender h3 em {
+    color: var(--pink);
+  }
+
+  /* ====== TABLES ====== */
+  table.spec {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0;
+    font-size: 14px;
+  }
+  table.spec th {
+    text-align: left;
+    padding: 14px 20px;
+    background: var(--navy-2);
+    color: var(--yellow);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line);
+  }
+  table.spec td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  table.spec td.label {
+    color: var(--white);
+    font-weight: 500;
+    width: 28%;
+  }
+  table.spec td.value {
+    color: var(--grey);
+  }
+  table.spec td.code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--cyan);
+  }
+
+  /* ====== FRAMEWORK / FLOW ====== */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+    margin: 40px 0;
+  }
+  @media (max-width: 1024px) {
+    .flow { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .flow { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .flow-step {
+    background: var(--navy-2);
+    border: 1px solid var(--line-soft);
+    padding: 20px 14px;
+    text-align: center;
+    position: relative;
+  }
+  .flow-step .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--yellow);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .flow-step .step-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  /* ====== BEAT TIMELINE ====== */
+  .timeline {
+    position: relative;
+    margin: 48px 0;
+    padding-left: 32px;
+    border-left: 2px solid var(--line);
+  }
+  .beat {
+    position: relative;
+    padding: 20px 0 24px 24px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .beat:last-child { border-bottom: none; }
+  .beat::before {
+    content: '';
+    position: absolute;
+    left: -41px;
+    top: 28px;
+    width: 18px; height: 18px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--navy);
+  }
+  .beat-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .beat-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .beat-desc {
+    color: var(--grey);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .beat-desc strong { color: var(--white); font-weight: 500; }
+
+  /* ====== GENRE PILLS ====== */
+  .genre-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  @media (max-width: 800px) {
+    .genre-grid { grid-template-columns: 1fr; }
+  }
+
+  .genre {
+    background: var(--navy-2);
+    border: 1px solid var(--line-soft);
+    padding: 24px;
+    border-left: 3px solid var(--yellow);
+  }
+  .genre.pink { border-left-color: var(--pink); }
+  .genre.cyan { border-left-color: var(--cyan); }
+  .genre h4 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .genre .ref {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--grey-2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .genre p {
+    color: var(--grey);
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .genre .traits {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ====== PROMPT BLOCKS ====== */
+  pre.prompt {
+    background: #050823;
+    border: 1px solid var(--line);
+    padding: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--white);
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 24px 0;
+    border-radius: 4px;
+    position: relative;
+  }
+  pre.prompt::before {
+    content: 'PROMPT';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 9px;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+  }
+  pre.prompt .var {
+    color: var(--yellow);
+  }
+  pre.prompt .key {
+    color: var(--pink);
+  }
+  pre.prompt .comment {
+    color: var(--grey-2);
+    font-style: italic;
+  }
+
+  /* ====== CALLOUT ====== */
+  .callout {
+    background: linear-gradient(135deg, rgba(255,212,0,0.08), rgba(255,106,168,0.05));
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--yellow);
+    padding: 28px 32px;
+    margin: 40px 0;
+    border-radius: 2px;
+  }
+  .callout-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .callout p {
+    font-size: 17px;
+    color: var(--white);
+    line-height: 1.55;
+  }
+  .callout em { color: var(--yellow); font-style: italic; }
+
+  /* ====== LIST STYLES ====== */
+  ul.bullet {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  ul.bullet li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    color: var(--grey);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  ul.bullet li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+  ul.bullet li strong { color: var(--white); font-weight: 500; }
+
+  /* ====== HUMAN GATE ====== */
+  .gate {
+    background: rgba(255,106,168,0.08);
+    border: 1px dashed var(--pink);
+    padding: 20px 24px;
+    margin: 24px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .gate-icon {
+    width: 32px; height: 32px;
+    border: 1.5px solid var(--pink);
+    color: var(--pink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .gate-content .gate-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--pink);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .gate-content p {
+    color: var(--white);
+    font-size: 14px;
+  }
+
+  /* ====== TIER PRICING ====== */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 40px 0;
+  }
+  @media (max-width: 1024px) {
+    .tiers { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .tiers { grid-template-columns: 1fr; }
+  }
+
+  .tier {
+    background: var(--navy-2);
+    border: 1px solid var(--line-soft);
+    padding: 28px 24px;
+    position: relative;
+  }
+  .tier.featured {
+    border-color: var(--yellow);
+    background: linear-gradient(180deg, rgba(255,212,0,0.06), var(--navy-2));
+  }
+  .tier-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .tier-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  .tier-desc {
+    color: var(--grey);
+    font-size: 13px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .tier-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .tier-list li {
+    font-size: 13px;
+    color: var(--grey);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .tier-list li:last-child { border-bottom: none; }
+  .tier-list li strong { color: var(--white); font-weight: 500; }
+
+  /* ====== FOOTER ====== */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 48px 0;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--grey-2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  footer .yellow { color: var(--yellow); }
+
+  /* spacing helper */
+  .mt-32 { margin-top: 32px; }
+  .mt-48 { margin-top: 48px; }
+  .mt-64 { margin-top: 64px; }
+
+  h3.sub {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin: 56px 0 20px;
+    letter-spacing: -0.01em;
+  }
+  h3.sub em { color: var(--yellow); font-style: italic; }
+
+  h4.label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin: 32px 0 16px;
+  }
+
+  p.body {
+    font-size: 16px;
+    color: var(--grey);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    max-width: 820px;
+  }
+  p.body strong { color: var(--white); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- HERO -->
+<!-- ============================================ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-meta">
+      <span class="dot"></span>
+      <span>Ad Pros · Internal System</span>
+      <span class="divider">/</span>
+      <span>v1.0 · Apr 2026</span>
+      <span class="divider">/</span>
+      <span>docs.adpros.com/cinematic-factory</span>
+    </div>
+
+    <h1 class="hero-title">
+      The <em>Cinematic Ad</em><br />
+      <span class="pink">Factory.</span>
+    </h1>
+
+    <p class="hero-sub">
+      An <strong>autonomous agent system</strong> that transforms any e-commerce brand brief into a 15–30 second cinematic hero spot — engineered for direct response, art-directed for virality. Built on a deconstructed library of 30+ viral references, six genre archetypes, and three narrative structures the system selects per brand fit.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Production Agents</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Genre Archetypes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Narrative Structures</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">72h</div>
+        <div class="stat-label">Brief → Hero Spot</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================ -->
+<!-- TABS -->
+<!-- ============================================ -->
+<nav class="tabs">
+  <div class="container">
+    <div class="tabs-inner">
+      <button class="tab active" data-tab="overview"><span class="num">01</span>Overview</button>
+      <button class="tab" data-tab="frameworks"><span class="num">02</span>Frameworks</button>
+      <button class="tab" data-tab="genres"><span class="num">03</span>Genre Library</button>
+      <button class="tab" data-tab="beats"><span class="num">04</span>Cinematic Beats</button>
+      <button class="tab" data-tab="variables"><span class="num">05</span>Variable Schema</button>
+      <button class="tab" data-tab="agents"><span class="num">06</span>Agent System</button>
+      <button class="tab" data-tab="prompts"><span class="num">07</span>Prompt Stack</button>
+      <button class="tab" data-tab="intake"><span class="num">08</span>Intake Tiers</button>
+      <button class="tab" data-tab="quality"><span class="num">09</span>Quality &amp; DR</button>
+      <button class="tab" data-tab="viral"><span class="num">10</span>Viral Variables</button>
+      <button class="tab" data-tab="sop"><span class="num">11</span>SOP</button>
+      <button class="tab" data-tab="roadmap"><span class="num">12</span>Roadmap</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <!-- ============================================ -->
+    <!-- 01 OVERVIEW -->
+    <!-- ============================================ -->
+    <section class="panel active" id="overview">
+      <div class="section-header">
+        <div class="eyebrow">01 · Overview</div>
+        <h2 class="section-title">Brief in. <em>Cinema</em> out.</h2>
+        <p class="section-lead">
+          Most "AI ads" look like AI ads. The Cinematic Factory exists to do the opposite — to produce single 15–30 second hero spots that feel like they came out of a real production house, but cost a fraction and ship in days. This is the operating manual.
+        </p>
+      </div>
+
+      <h3 class="sub">The <em>core thesis.</em></h3>
+      <p class="body">
+        Cinema is reproducible. Every viral cinematic ad — Apple's "Shot on iPhone," Liquid Death's "Plastic Demon," Nike's hero pieces, Old Spice's surreal sketches — is built from the same finite library of beats, lenses, pacing decisions, and emotional arcs. We've deconstructed that library into a structured variable schema. The Factory takes a brand brief, selects the right genre and structure based on product fit, fills the variables, and runs an 8-agent production pipeline end-to-end.
+      </p>
+
+      <div class="callout">
+        <div class="callout-title">The promise</div>
+        <p>
+          A DTC brand provides a brief. <em>72 hours later</em>, they receive a single 15–30s cinematic hero spot that meets a measurable DR floor (CTR, hook rate, hold rate) and a viral ceiling (saves, shares, watch-through). Same system. Any brand. Any product category.
+        </p>
+      </div>
+
+      <h3 class="sub">What this <em>is not.</em></h3>
+      <ul class="bullet">
+        <li><strong>Not a UGC factory.</strong> UGC has its own pipeline. This is for hero, brand-defining, top-of-funnel cinematic.</li>
+        <li><strong>Not a 30-variant test pack.</strong> One spot per brief. Optimized to be the best single ad they could run, not the most ads they could run.</li>
+        <li><strong>Not generic AI footage stitched together.</strong> Every shot is composed, color-graded, and edited against a structured beat sheet.</li>
+        <li><strong>Not a replacement for live action when live action is the right call.</strong> The system flags when a brief needs hybrid or live action and routes accordingly.</li>
+      </ul>
+
+      <h3 class="sub">How it <em>fits</em> the Ad Pros stack.</h3>
+      <p class="body">
+        The Factory plugs into the existing 8-step intelligence flow — Collect → Organize → Remember → Think → Plan → Assign → Review → Improve — the same backbone that powers Workflow Factory and the Always-On Intelligence Layer. Brand briefs land in <strong>Collect</strong>, get structured into the variable schema in <strong>Organize</strong>, are matched against the reference library in <strong>Remember</strong>, scripted and storyboarded in <strong>Think</strong>, scheduled across the production pipeline in <strong>Plan</strong>, executed by the 8 agents in <strong>Assign</strong>, gated through Eval in <strong>Review</strong>, and fed back into the library in <strong>Improve</strong>.
+      </p>
+
+      <h3 class="sub">Operating <em>tenets.</em></h3>
+      <div class="grid-3 mt-32">
+        <div class="card">
+          <div class="card-num">TENET 01</div>
+          <h3>Cinema is <em>structured</em>.</h3>
+          <p>Every cinematic ad is reducible to a schema: hook archetype, narrative structure, genre, beat sequence, lens grammar, color palette, sound design, payoff type. We treat the schema as the product.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">TENET 02</div>
+          <h3><em>DR floor</em> is non-negotiable.</h3>
+          <p>The spot has to make money. Hook rate, hold rate, CTR, and CAC are measured before any subjective judgment is applied. If it's beautiful but doesn't convert, it's killed.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">TENET 03</div>
+          <h3>Genre is <em>diagnostic</em>, not stylistic.</h3>
+          <p>The Recommender agent picks genre based on category, audience, and product physics — not founder vibes. A supplement brand might map to Liquid Death; an oat milk to A24. Fit beats taste.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">TENET 04</div>
+          <h3>Every shot is <em>load-bearing</em>.</h3>
+          <p>15–30 seconds is brutal. There are no transition shots. Every frame must do narrative, sensory, brand, or DR work — usually two of those at once. The beat sheet enforces this.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">TENET 05</div>
+          <h3>Library compounds.</h3>
+          <p>Every spot we ship gets evaluated, tagged, and added to the reference library — winning patterns get weighted up, losers get weighted down. The Factory gets sharper with every brief.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">TENET 06</div>
+          <h3>Humans gate the <em>three moments</em>.</h3>
+          <p>Brand approval after the brief, creative approval after the storyboard, final approval before deploy. Everything else is automated. Three gates, no more, no less.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 02 FRAMEWORKS -->
+    <!-- ============================================ -->
+    <section class="panel" id="frameworks">
+      <div class="section-header">
+        <div class="eyebrow">02 · Frameworks</div>
+        <h2 class="section-title">Three <em>narrative</em> structures.</h2>
+        <p class="section-lead">
+          Every cinematic spot the Factory produces is built on one of three structural skeletons. The Recommender agent picks based on product type, hero claim, and audience awareness level. These aren't templates — they're load-bearing scaffolds that the genre, beats, and visual grammar hang off of.
+        </p>
+      </div>
+
+      <h3 class="sub">Structure 01 · <em>Hook–Tension–Reveal–CTA</em></h3>
+      <p class="body">
+        The DR-weighted skeleton. Best for products where the buyer needs to be re-educated about a problem they didn't know they had, or a category they thought they understood. <strong>Use when:</strong> product is differentiated by a single sharp claim, audience is cold, conversion is measured in clicks not lift.
+      </p>
+      <div class="flow">
+        <div class="flow-step"><div class="step-num">0–2s</div><div class="step-name">Hook</div></div>
+        <div class="flow-step"><div class="step-num">2–6s</div><div class="step-name">Tension</div></div>
+        <div class="flow-step"><div class="step-num">6–12s</div><div class="step-name">Stakes</div></div>
+        <div class="flow-step"><div class="step-num">12–18s</div><div class="step-name">Reveal</div></div>
+        <div class="flow-step"><div class="step-num">18–22s</div><div class="step-name">Proof</div></div>
+        <div class="flow-step"><div class="step-num">22–26s</div><div class="step-name">Hero Shot</div></div>
+        <div class="flow-step"><div class="step-num">26–28s</div><div class="step-name">CTA</div></div>
+        <div class="flow-step"><div class="step-num">28–30s</div><div class="step-name">Brand</div></div>
+      </div>
+
+      <h3 class="sub">Structure 02 · <em>Cold Open → Transformation → Reveal → Brand</em></h3>
+      <p class="body">
+        The cinema-first skeleton. Best for products where the experience of using the product is itself the story — supplements, beverages, skincare, wearables, anything where there's a felt before/after. <strong>Use when:</strong> the product produces a state change the audience can feel through the screen.
+      </p>
+      <div class="flow">
+        <div class="flow-step"><div class="step-num">0–3s</div><div class="step-name">Cold Open</div></div>
+        <div class="flow-step"><div class="step-num">3–7s</div><div class="step-name">Before State</div></div>
+        <div class="flow-step"><div class="step-num">7–11s</div><div class="step-name">Catalyst</div></div>
+        <div class="flow-step"><div class="step-num">11–17s</div><div class="step-name">Transform</div></div>
+        <div class="flow-step"><div class="step-num">17–22s</div><div class="step-name">After State</div></div>
+        <div class="flow-step"><div class="step-num">22–25s</div><div class="step-name">Product Reveal</div></div>
+        <div class="flow-step"><div class="step-num">25–28s</div><div class="step-name">Brand World</div></div>
+        <div class="flow-step"><div class="step-num">28–30s</div><div class="step-name">CTA Stamp</div></div>
+      </div>
+
+      <h3 class="sub">Structure 03 · <em>Character → Conflict → Product as Resolution</em></h3>
+      <p class="body">
+        The story-first skeleton. Best for brands with a strong founder narrative or where the customer is the hero of the story — coaching, performance gear, niche health tech, anything where buying is identity-aligning. <strong>Use when:</strong> the audience needs to <em>see themselves</em> in the spot before they'll buy.
+      </p>
+      <div class="flow">
+        <div class="flow-step"><div class="step-num">0–3s</div><div class="step-name">Character In</div></div>
+        <div class="flow-step"><div class="step-num">3–8s</div><div class="step-name">World</div></div>
+        <div class="flow-step"><div class="step-num">8–13s</div><div class="step-name">Conflict</div></div>
+        <div class="flow-step"><div class="step-num">13–18s</div><div class="step-name">Crisis</div></div>
+        <div class="flow-step"><div class="step-num">18–22s</div><div class="step-name">Product Enters</div></div>
+        <div class="flow-step"><div class="step-num">22–26s</div><div class="step-name">Resolution</div></div>
+        <div class="flow-step"><div class="step-num">26–28s</div><div class="step-name">New State</div></div>
+        <div class="flow-step"><div class="step-num">28–30s</div><div class="step-name">Brand &amp; CTA</div></div>
+      </div>
+
+      <h3 class="sub">How the Recommender <em>picks.</em></h3>
+      <table class="spec">
+        <thead>
+          <tr><th>Signal</th><th>Hook–Tension–Reveal</th><th>Transformation</th><th>Character–Conflict</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">Audience awareness</td>
+            <td class="value">Cold / problem-unaware</td>
+            <td class="value">Solution-aware</td>
+            <td class="value">Most-aware / loyal</td>
+          </tr>
+          <tr>
+            <td class="label">Product type</td>
+            <td class="value">Sharp single claim</td>
+            <td class="value">State-change product</td>
+            <td class="value">Identity-aligned</td>
+          </tr>
+          <tr>
+            <td class="label">Hero claim format</td>
+            <td class="value">Number / contrast</td>
+            <td class="value">Sensation / outcome</td>
+            <td class="value">Belief / philosophy</td>
+          </tr>
+          <tr>
+            <td class="label">DR weighting</td>
+            <td class="value">Highest</td>
+            <td class="value">Medium</td>
+            <td class="value">Lower (lifetime value)</td>
+          </tr>
+          <tr>
+            <td class="label">Default genre fit</td>
+            <td class="value">Liquid Death · Old Spice</td>
+            <td class="value">Apple · A24</td>
+            <td class="value">Nike · Documentary</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 03 GENRES -->
+    <!-- ============================================ -->
+    <section class="panel" id="genres">
+      <div class="section-header">
+        <div class="eyebrow">03 · Genre Library</div>
+        <h2 class="section-title">Six <em>cinematic</em> archetypes.</h2>
+        <p class="section-lead">
+          Genre is the visual and tonal grammar the Factory dresses the chosen narrative structure in. Each archetype carries its own lens choices, color palette, pacing rules, music genre, and shot library. The Recommender selects one primary and one secondary genre per brief — most spots blend two for differentiation.
+        </p>
+      </div>
+
+      <div class="genre-grid">
+        <div class="genre">
+          <div class="ref">Reference · Apple, Aesop, Loro Piana</div>
+          <h4>Luxury Minimal</h4>
+          <p>Slow, premium, deliberate. Negative space as the loudest design choice. Product as artifact.</p>
+          <div class="traits">85mm · 24fps · macro · cool whites · ambient pad · 8–12 cuts</div>
+        </div>
+        <div class="genre pink">
+          <div class="ref">Reference · Nike, Hoka, Lululemon hero</div>
+          <h4>Athletic Hero</h4>
+          <p>Kinetic, emotional, maximalist. Sweeping movement, voiceover-led, the customer as protagonist.</p>
+          <div class="traits">35mm · 60fps · handheld · warm contrast · cinematic score · 18–24 cuts</div>
+        </div>
+        <div class="genre cyan">
+          <div class="ref">Reference · Liquid Death, Loop Earplugs, Magic Spoon</div>
+          <h4>Disruptor Absurd</h4>
+          <p>Irreverent, attention-hijacking, cinematically over-produced jokes. Treats DTC like indie film.</p>
+          <div class="traits">28mm · 24fps · saturated · synth · whip-pans · 14–20 cuts</div>
+        </div>
+        <div class="genre">
+          <div class="ref">Reference · A24 trailers, Equinox, Mubi</div>
+          <h4>Atmospheric Mood</h4>
+          <p>Moody, character-driven, slow-burn cinema. Often dialogue-light. Product as object in a world.</p>
+          <div class="traits">50mm · 24fps · low-key · grain · ambient drone · 6–10 cuts</div>
+        </div>
+        <div class="genre pink">
+          <div class="ref">Reference · Old Spice, Dr Squatch, Skittles</div>
+          <h4>CGI Maximalist</h4>
+          <p>Surreal, hyper-stylized, joke-as-set-piece. AI-generated worlds where physics negotiates.</p>
+          <div class="traits">wide · 30fps · hyper-saturated · funk · 20+ cuts</div>
+        </div>
+        <div class="genre cyan">
+          <div class="ref">Reference · Patagonia, Allbirds, Athletic Greens founder</div>
+          <h4>Documentary Founder</h4>
+          <p>Authentic, talking-head + b-roll, founder as protagonist. Earned credibility as the hook.</p>
+          <div class="traits">35mm · 24fps · natural light · sync sound · 10–14 cuts</div>
+        </div>
+      </div>
+
+      <h3 class="sub">Genre <em>blending</em> rules.</h3>
+      <p class="body">
+        Most winners aren't pure-genre. The Factory blends a primary (60–70% of the visual grammar) with a secondary (30–40%) to create differentiation. Some proven blends:
+      </p>
+      <ul class="bullet">
+        <li><strong>Luxury Minimal × Disruptor Absurd</strong> → premium product, irreverent voiceover. Magic Spoon, Olipop's best-performing units.</li>
+        <li><strong>Athletic Hero × Documentary Founder</strong> → hero shots intercut with founder testimony. Standard for performance supplements, wearables.</li>
+        <li><strong>Atmospheric Mood × Luxury Minimal</strong> → slow cinema for premium DTC. Skincare, candles, high-AOV apparel.</li>
+        <li><strong>CGI Maximalist × Disruptor Absurd</strong> → highest viral ceiling. Almost always wins on hook rate; needs the sharpest CTA to stick the DR landing.</li>
+        <li><strong>Documentary Founder × Athletic Hero</strong> → founder + customer transformation. Best for category-defining brands.</li>
+      </ul>
+
+      <h3 class="sub">Reference <em>library</em> spec.</h3>
+      <p class="body">
+        Seed library: <strong>30 cinematic ads</strong> (5 per genre), each deconstructed into a structured pattern card with hook archetype, lens grammar, color palette, beat sequence, sound design, and outcome metrics where available. Living library: every spot the Factory ships is added with evaluated performance, weighting future selections toward winning patterns. Stored in BigQuery <code style="color:var(--cyan);font-family:'JetBrains Mono',monospace;">cinematic_library.pattern_cards</code>, embedded into pgvector for semantic retrieval at the Shape stage.
+      </p>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 04 BEATS -->
+    <!-- ============================================ -->
+    <section class="panel" id="beats">
+      <div class="section-header">
+        <div class="eyebrow">04 · Cinematic Beats</div>
+        <h2 class="section-title">The <em>six</em> non-negotiables.</h2>
+        <p class="section-lead">
+          Every spot the Factory ships includes all six beat types. Their <em>order, weight, and duration</em> shifts based on the chosen narrative structure and genre — but skipping one is forbidden. These are the load-bearing moments the entire cinematic experience rests on.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <div class="beat">
+          <div class="beat-time">BEAT 01 · 0–3 SECONDS</div>
+          <div class="beat-title">Pattern Interrupt</div>
+          <div class="beat-desc">An unexpected scene, object, or composition that breaks scrolling. <strong>Function:</strong> forces a stop. Not the hook — the prerequisite to the hook. Common forms: an impossible visual, a cold open at peak action, an extreme close-up of an unexpected texture, a celebrity or character in the wrong context.</div>
+        </div>
+        <div class="beat">
+          <div class="beat-time">BEAT 02 · 1–6 SECONDS (OVERLAPS)</div>
+          <div class="beat-title">Sensory Hijack</div>
+          <div class="beat-desc">A close-up, slow-mo, or ASMR moment that <em>feels</em> through the screen. <strong>Function:</strong> bypass the rational brain. The pour, the bite, the fizz, the stretch, the texture, the sound design. This is what makes a 30-second spot feel like an experience, not a pitch.</div>
+        </div>
+        <div class="beat">
+          <div class="beat-time">BEAT 03 · 6–12 SECONDS</div>
+          <div class="beat-title">Character Emotional Beat</div>
+          <div class="beat-desc">A face, a reaction, a moment of human payoff. <strong>Function:</strong> emotional anchoring — the audience needs someone to feel something through. Even in product-led spots, there is always a face. Even if it's the founder's. Even if it's two seconds.</div>
+        </div>
+        <div class="beat">
+          <div class="beat-time">BEAT 04 · 7–18 SECONDS</div>
+          <div class="beat-title">Transformation Moment</div>
+          <div class="beat-desc">The before/after, the state change, the visual evidence the product does what it claims. <strong>Function:</strong> proves the promise without saying it. Can be physical (skin, energy), behavioral (ritual change), or world-level (the room shifts). Always shown, never told.</div>
+        </div>
+        <div class="beat">
+          <div class="beat-time">BEAT 05 · 18–25 SECONDS</div>
+          <div class="beat-title">Hero Product Shot</div>
+          <div class="beat-desc">A clean, iconic frame of the product — packaging, label, or use-state, perfectly lit and composed. <strong>Function:</strong> burn the SKU into memory. The Apple shot. The Liquid Death can. The frame the audience could draw from memory. Without this, brand recall collapses.</div>
+        </div>
+        <div class="beat">
+          <div class="beat-time">BEAT 06 · 25–30 SECONDS</div>
+          <div class="beat-title">Brand World &amp; CTA</div>
+          <div class="beat-desc">A final frame that places the product in its universe — vibe, location, lifestyle — paired with the direct response stamp (URL, offer, scan). <strong>Function:</strong> tie the cinematic experience back to a measurable click. Not optional. Not subtle. The CTA earns its keep.</div>
+        </div>
+      </div>
+
+      <h3 class="sub">Beat <em>weighting</em> by structure.</h3>
+      <table class="spec">
+        <thead>
+          <tr><th>Beat</th><th>Hook–Tension–Reveal</th><th>Transformation</th><th>Character–Conflict</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="label">Pattern Interrupt</td><td class="value">Heavy (0–3s)</td><td class="value">Medium (cold open)</td><td class="value">Light (character entry)</td></tr>
+          <tr><td class="label">Sensory Hijack</td><td class="value">Medium</td><td class="value">Heavy (the catalyst)</td><td class="value">Medium</td></tr>
+          <tr><td class="label">Character Beat</td><td class="value">Light</td><td class="value">Medium</td><td class="value">Heavy (the spine)</td></tr>
+          <tr><td class="label">Transformation</td><td class="value">Implicit (in reveal)</td><td class="value">Heavy (the spine)</td><td class="value">Heavy (resolution)</td></tr>
+          <tr><td class="label">Hero Shot</td><td class="value">Heavy (22–26s)</td><td class="value">Heavy (22–25s)</td><td class="value">Medium</td></tr>
+          <tr><td class="label">Brand &amp; CTA</td><td class="value">Heavy (sharp DR)</td><td class="value">Medium (vibe-led)</td><td class="value">Medium (philosophy-led)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 05 VARIABLE SCHEMA -->
+    <!-- ============================================ -->
+    <section class="panel" id="variables">
+      <div class="section-header">
+        <div class="eyebrow">05 · Variable Schema</div>
+        <h2 class="section-title">Every brief becomes a <em>structured</em> object.</h2>
+        <p class="section-lead">
+          The Factory does not work on vibes. Every brand brief is parsed into a single typed object — the canonical input the entire agent pipeline reads from. Below is the full schema. This is what makes the system reproducible: any brand, any product, same shape of input.
+        </p>
+      </div>
+
+      <h4 class="label">A · Brand Layer</h4>
+      <table class="spec">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="label">brand.name</td><td class="code">string</td><td class="value">Legal/marketing brand name</td></tr>
+          <tr><td class="label">brand.category</td><td class="code">enum</td><td class="value">supplement · beverage · skincare · wearable · apparel · food · health-tech · other</td></tr>
+          <tr><td class="label">brand.voice</td><td class="code">string[3]</td><td class="value">Three adjectives that describe brand voice (e.g. "irreverent · scientific · warm")</td></tr>
+          <tr><td class="label">brand.world</td><td class="code">string</td><td class="value">Where the brand lives — kitchen / gym / boardroom / nature / surreal-room</td></tr>
+          <tr><td class="label">brand.color_palette</td><td class="code">hex[3-5]</td><td class="value">Primary, secondary, accent colors</td></tr>
+          <tr><td class="label">brand.references</td><td class="code">url[3-5]</td><td class="value">Aspirational visual references — other brands, films, photography</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="label">B · Product Layer</h4>
+      <table class="spec">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="label">product.name</td><td class="code">string</td><td class="value">SKU name as it appears on packaging</td></tr>
+          <tr><td class="label">product.format</td><td class="code">enum</td><td class="value">capsule · powder · liquid · device · cream · bar · sachet</td></tr>
+          <tr><td class="label">product.hero_claim</td><td class="code">string&lt;80c</td><td class="value">The single sharpest claim. Number + outcome preferred.</td></tr>
+          <tr><td class="label">product.proof_points</td><td class="code">string[3]</td><td class="value">Three ranked proof points (study, testimonial, mechanism)</td></tr>
+          <tr><td class="label">product.sensory_signature</td><td class="code">string</td><td class="value">The signature sensation — the fizz, the warmth, the smell, the texture</td></tr>
+          <tr><td class="label">product.use_ritual</td><td class="code">string</td><td class="value">When/where/how the product is used in 1 sentence</td></tr>
+          <tr><td class="label">product.packaging_assets</td><td class="code">url[]</td><td class="value">Product photography, 3D renders, dieline files</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="label">C · Audience &amp; Positioning</h4>
+      <table class="spec">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="label">audience.persona</td><td class="code">string</td><td class="value">Single dominant persona, 1 sentence</td></tr>
+          <tr><td class="label">audience.awareness_level</td><td class="code">enum</td><td class="value">unaware · problem-aware · solution-aware · product-aware · most-aware</td></tr>
+          <tr><td class="label">audience.platform_primary</td><td class="code">enum</td><td class="value">tiktok · meta-reels · meta-feed · youtube · ctv</td></tr>
+          <tr><td class="label">audience.before_state</td><td class="code">string</td><td class="value">What the customer feels/does/believes before the product</td></tr>
+          <tr><td class="label">audience.after_state</td><td class="code">string</td><td class="value">What the customer feels/does/believes after the product</td></tr>
+          <tr><td class="label">audience.cultural_moment</td><td class="code">string?</td><td class="value">Optional cultural hook (trend, season, news)</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="label">D · DR &amp; Performance Targets</h4>
+      <table class="spec">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="label">dr.offer</td><td class="code">string</td><td class="value">The exact offer (free shipping, 25% off, BOGO, bundle)</td></tr>
+          <tr><td class="label">dr.cta</td><td class="code">string&lt;30c</td><td class="value">Verbatim CTA copy</td></tr>
+          <tr><td class="label">dr.target_aov</td><td class="code">number</td><td class="value">Target AOV in USD</td></tr>
+          <tr><td class="label">dr.target_cac</td><td class="code">number</td><td class="value">CAC ceiling for the spot to be considered a winner</td></tr>
+          <tr><td class="label">dr.benchmarks</td><td class="code">object</td><td class="value">hook_rate · hold_rate · ctr · thumbstop targets</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="label">E · System Decisions <span style="color:var(--grey-2);font-weight:400;text-transform:none;letter-spacing:0;">(populated by Recommender, not user)</span></h4>
+      <table class="spec">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="label">system.structure</td><td class="code">enum</td><td class="value">hook-tension-reveal · transformation · character-conflict</td></tr>
+          <tr><td class="label">system.genre_primary</td><td class="code">enum</td><td class="value">luxury-minimal · athletic-hero · disruptor-absurd · atmospheric-mood · cgi-maximalist · documentary-founder</td></tr>
+          <tr><td class="label">system.genre_secondary</td><td class="code">enum?</td><td class="value">Optional blend genre, 30–40% weighting</td></tr>
+          <tr><td class="label">system.duration</td><td class="code">15 | 20 | 30</td><td class="value">Final spot duration</td></tr>
+          <tr><td class="label">system.lens_grammar</td><td class="code">object</td><td class="value">Focal length distribution, framing rules</td></tr>
+          <tr><td class="label">system.beat_sheet</td><td class="code">object[8]</td><td class="value">Per-beat shot, duration, intent, sound</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Why this matters</div>
+        <p>
+          The schema is the contract between the brand brief and the agent pipeline. Once it's populated and approved at Gate 1, every downstream agent — script, storyboard, generation, edit — reads from the same source of truth. <em>This</em> is what makes the Factory reproducible across any brand or category.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 06 AGENT SYSTEM -->
+    <!-- ============================================ -->
+    <section class="panel" id="agents">
+      <div class="section-header">
+        <div class="eyebrow">06 · Agent System</div>
+        <h2 class="section-title">Eight <em>agents</em>. Three gates.</h2>
+        <p class="section-lead">
+          The Factory runs the same 8-agent architecture as Workflow Factory — Recommender, Intake, Shape, parallel Designers, Skills Curator, Eval, Deploy, Improve — adapted for cinematic production. Three human gates: brand approval, creative approval, final approval. Everything else is autonomous.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card agent-recommender">
+          <div class="card-num">AGENT 01 · RECOMMENDER</div>
+          <h3>Genre &amp; <em>structure</em> selection.</h3>
+          <p>Reads the brand brief, maps it against the audience awareness level, product format, and hero claim format. Selects narrative structure (1 of 3) and genre primary + optional secondary (1–2 of 6). Outputs a recommendation with reasoning the human gate can accept or override.</p>
+          <div class="meta">Model · Claude Opus 4.7 · Reads pattern_cards via pgvector</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">AGENT 02 · INTAKE</div>
+          <h3>Brief → <em>schema</em>.</h3>
+          <p>Takes any tier of input — minimal brief, mid-tier brief, full intake — and parses it into the canonical variable schema. Asks clarifying questions only when a required field is missing. Surfaces gaps to the human before they become problems downstream.</p>
+          <div class="meta">Model · Claude Opus 4.7 · Tool · ClickUp form, BigQuery write</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">AGENT 03 · SHAPE</div>
+          <h3>Beat sheet &amp; <em>script</em>.</h3>
+          <p>Given structure + genre + variables, generates the 8-beat sheet with per-beat shot description, duration, lens, voiceover (if any), sound design intent, and on-screen text. Outputs a fully scoped script + beat sheet ready for storyboarding.</p>
+          <div class="meta">Model · Claude Opus 4.7 · Reads pattern_cards · Outputs JSON</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">AGENT 04 · STAGE DESIGNERS ×8</div>
+          <h3>Per-beat <em>generation</em>.</h3>
+          <p>Eight parallel agents, one per beat, each responsible for generating the visual asset for its beat. Each runs an image-gen → motion-gen pipeline (Midjourney/Flux → Veo 3/Sora/Runway), then QAs against the beat brief. Failures retry with adjusted prompts up to 3x.</p>
+          <div class="meta">Models · Image &amp; video gen APIs · Parallel execution</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">AGENT 05 · SKILLS CURATOR</div>
+          <h3>Asset &amp; <em>library</em> management.</h3>
+          <p>Maintains the prompt library, model versions, brand asset packs, and reference pattern cards. Ensures every Stage Designer pulls the most current brand guideline assets and the highest-weighted reference patterns for the chosen genre.</p>
+          <div class="meta">Storage · BigQuery + Supabase pgvector + R2</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">AGENT 06 · EVAL</div>
+          <h3>DR &amp; <em>cinema</em> scoring.</h3>
+          <p>Scores the assembled spot on two axes: DR floor (predicted hook rate, hold rate, CTR clarity, CTA visibility) and cinema ceiling (composition, pacing, color coherence, sound design). Both must pass thresholds. If not, routes back to Shape with structured feedback.</p>
+          <div class="meta">Model · Claude Opus 4.7 · Multimodal scoring</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">AGENT 07 · DEPLOY</div>
+          <h3>Edit, render, <em>handoff</em>.</h3>
+          <p>Assembles the final cut in Remotion: timing, transitions, music sync, color grade, captions, brand stamp, CTA. Outputs platform-specific renders (9:16 TikTok/Reels, 1:1 Feed, 4:5 Story-safe) with proper safe zones. Pushes to Frame.io and ClickUp for final gate.</p>
+          <div class="meta">Tools · Remotion · ElevenLabs · Frame.io · ClickUp</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">AGENT 08 · IMPROVE</div>
+          <h3>Performance → <em>library</em>.</h3>
+          <p>After spot ships, ingests Meta/TikTok/CTV performance back into BigQuery. Tags the spot's pattern card with outcome data. Re-weights the reference library — winning patterns rise, losers sink. Future Recommender calls inherit the sharpened weighting.</p>
+          <div class="meta">Source · BigQuery · Output · Updated pgvector embeddings</div>
+        </div>
+      </div>
+
+      <h3 class="sub">Three <em>human</em> gates.</h3>
+
+      <div class="gate">
+        <div class="gate-icon">G1</div>
+        <div class="gate-content">
+          <div class="gate-label">Gate 01 · Brand Approval</div>
+          <p>After Intake + Recommender complete. Brand approves the variable schema, structure, and genre selection before any production runs. Median time: 24h.</p>
+        </div>
+      </div>
+      <div class="gate">
+        <div class="gate-icon">G2</div>
+        <div class="gate-content">
+          <div class="gate-label">Gate 02 · Creative Approval</div>
+          <p>After Shape outputs script + beat sheet, before Stage Designers fire. Brand reviews the storyboard, voiceover script, beat-by-beat intent. Median time: 24h. Cheapest gate to fail at — re-shape is fast.</p>
+        </div>
+      </div>
+      <div class="gate">
+        <div class="gate-icon">G3</div>
+        <div class="gate-content">
+          <div class="gate-label">Gate 03 · Final Approval</div>
+          <p>After Deploy. Brand reviews the assembled spot, signs off, and authorizes platform handoff. Most expensive gate to fail — re-renders cost compute. Aim for ≤10% rejection rate via stronger Gate 2 work.</p>
+        </div>
+      </div>
+
+      <h3 class="sub">End-to-end <em>flow.</em></h3>
+      <div class="flow">
+        <div class="flow-step"><div class="step-num">STEP 01</div><div class="step-name">Intake</div></div>
+        <div class="flow-step"><div class="step-num">STEP 02</div><div class="step-name">Recommend</div></div>
+        <div class="flow-step"><div class="step-num">GATE 01</div><div class="step-name" style="color:var(--pink)">Brand Sign-off</div></div>
+        <div class="flow-step"><div class="step-num">STEP 03</div><div class="step-name">Shape</div></div>
+        <div class="flow-step"><div class="step-num">GATE 02</div><div class="step-name" style="color:var(--pink)">Creative Sign-off</div></div>
+        <div class="flow-step"><div class="step-num">STEP 04</div><div class="step-name">Generate ×8</div></div>
+        <div class="flow-step"><div class="step-num">STEP 05</div><div class="step-name">Eval &amp; Deploy</div></div>
+        <div class="flow-step"><div class="step-num">GATE 03</div><div class="step-name" style="color:var(--pink)">Final Sign-off</div></div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 07 PROMPT STACK -->
+    <!-- ============================================ -->
+    <section class="panel" id="prompts">
+      <div class="section-header">
+        <div class="eyebrow">07 · Prompt Stack</div>
+        <h2 class="section-title">The <em>system prompts</em>.</h2>
+        <p class="section-lead">
+          The agents are only as good as their prompts. Below is the production prompt skeleton each agent uses. Variables in <span style="color:var(--yellow);font-family:'JetBrains Mono',monospace;">{{ yellow }}</span> are populated from the schema. These are abridged; full versions live in the Skills Curator's pattern library.
+        </p>
+      </div>
+
+      <h4 class="label">Recommender prompt</h4>
+<pre class="prompt"><span class="comment">// Selects structure + genre based on brand fit, not taste</span>
+
+You are the <span class="key">Recommender Agent</span> for the Cinematic Ad Factory.
+
+INPUT: A populated brand variable schema.
+
+YOUR JOB:
+1. Diagnose the brand's audience awareness level and product physics
+2. Select ONE narrative structure: hook-tension-reveal | transformation | character-conflict
+3. Select ONE primary genre and OPTIONALLY one secondary genre (30-40%)
+4. Output reasoning the human can accept or override
+
+DECISION RULES:
+- Cold audiences + sharp single claim → hook-tension-reveal
+- State-change products (drinks, supplements, skincare) → transformation
+- Identity products + warm audience → character-conflict
+- High AOV + premium category → luxury-minimal or atmospheric-mood
+- Disruptor in commodity category → disruptor-absurd or cgi-maximalist
+- Founder-led category-defining brand → documentary-founder
+
+OUTPUT FORMAT: <span class="key">JSON</span> matching system_decisions schema.
+
+Brand: <span class="var">{{ brand.name }}</span>
+Category: <span class="var">{{ brand.category }}</span>
+Hero claim: <span class="var">{{ product.hero_claim }}</span>
+Audience awareness: <span class="var">{{ audience.awareness_level }}</span>
+Persona: <span class="var">{{ audience.persona }}</span>
+DR target CAC: <span class="var">{{ dr.target_cac }}</span>
+</pre>
+
+      <h4 class="label">Shape prompt (script + beat sheet)</h4>
+<pre class="prompt"><span class="comment">// Generates 8-beat sheet from structure + genre + schema</span>
+
+You are the <span class="key">Shape Agent</span>. You produce the script and beat sheet.
+
+You MUST produce all 6 cinematic beats:
+1. Pattern Interrupt
+2. Sensory Hijack
+3. Character Emotional Beat
+4. Transformation Moment
+5. Hero Product Shot
+6. Brand World &amp; CTA
+
+Their order, weight, and duration follow the chosen structure: <span class="var">{{ system.structure }}</span>
+Visual grammar follows the genre: <span class="var">{{ system.genre_primary }}</span> (+ <span class="var">{{ system.genre_secondary }}</span>)
+
+For EACH of 8 timeline slots, output:
+- <span class="key">duration_sec</span>: number
+- <span class="key">beat_type</span>: one of the 6 + "narrative connective"
+- <span class="key">shot_description</span>: 1 paragraph, visual specifics
+- <span class="key">lens</span>: focal length + framing
+- <span class="key">voiceover</span>: text or null
+- <span class="key">on_screen_text</span>: text or null
+- <span class="key">sound_design</span>: 1 sentence
+- <span class="key">stage_designer_prompt</span>: ready-to-send prompt for image+video gen
+
+Hard constraints:
+- Total = <span class="var">{{ system.duration }}</span> seconds, ±0.5s
+- Hero Product Shot must occupy ≥3 seconds
+- Brand &amp; CTA must occupy ≥3 seconds
+- No more than 25% of duration without product on screen
+- Hook (first 3s) must include product OR pattern interrupt
+
+Output: <span class="key">JSON</span>, no preamble.
+</pre>
+
+      <h4 class="label">Stage Designer prompt (per-beat generation)</h4>
+<pre class="prompt"><span class="comment">// Image-gen first, then animate. One agent per beat, parallelized.</span>
+
+You are <span class="key">Stage Designer #{{ beat_num }}</span> of 8.
+
+YOUR BEAT:
+Beat type: <span class="var">{{ beat.beat_type }}</span>
+Duration: <span class="var">{{ beat.duration_sec }}</span>s
+Shot: <span class="var">{{ beat.shot_description }}</span>
+Lens: <span class="var">{{ beat.lens }}</span>
+Genre: <span class="var">{{ system.genre_primary }}</span>
+Brand palette: <span class="var">{{ brand.color_palette }}</span>
+
+PIPELINE:
+1. Generate 4 image candidates via Flux/Midjourney with prompt below
+2. Score each against beat brief: composition, palette match, genre match
+3. Select highest-scoring image
+4. Animate via Veo 3 / Sora with motion brief
+5. QA the 5-second clip:
+   - Does it match the beat?
+   - Does the product/character look correct?
+   - Does it hold up at 1080p × 1920p (9:16)?
+6. If score &lt; 8/10, regenerate (max 3 attempts)
+7. Return final clip URL + metadata
+
+IMAGE PROMPT TEMPLATE:
+"<span class="var">{{ shot_description }}</span>, shot on <span class="var">{{ lens }}</span>,
+ <span class="var">{{ genre_primary }}</span> aesthetic, color palette <span class="var">{{ brand.color_palette }}</span>,
+ cinematic lighting, photorealistic, 9:16 aspect, no text"
+
+MOTION PROMPT TEMPLATE:
+"<span class="var">{{ shot_description }}</span>, <span class="var">{{ camera_movement }}</span>,
+ <span class="var">{{ duration_sec }}</span>s, 24fps, no zoom, no morphing"
+</pre>
+
+      <h4 class="label">Eval prompt (DR + cinema scoring)</h4>
+<pre class="prompt"><span class="comment">// Two-axis scoring. Both must pass to deploy.</span>
+
+You are the <span class="key">Eval Agent</span>. You score the assembled spot on two axes.
+
+DR FLOOR (must score ≥7/10):
+- Hook clarity (0-3s tells the audience what this is about): __ /10
+- Product visibility (product on screen ≥75% of duration): __ /10
+- CTA clarity (last 3s has unambiguous next step): __ /10
+- Claim retention (hero claim appears as VO or text): __ /10
+- Stop probability on TikTok/Reels feed: __ /10
+
+CINEMA CEILING (must score ≥7/10):
+- Composition consistency across beats: __ /10
+- Color coherence to brand palette: __ /10
+- Pacing serves the narrative structure: __ /10
+- Sound design supports visual beats: __ /10
+- Memorability — would you recall this 24h later?: __ /10
+
+If EITHER axis &lt; 7/10, output structured feedback for the Shape Agent
+to revise the beat sheet. Specify which beats failed and why.
+
+If BOTH axes ≥ 7/10, output APPROVED + brief notes for Deploy.
+</pre>
+
+      <div class="callout">
+        <div class="callout-title">Prompt versioning</div>
+        <p>
+          Prompts live in the Skills Curator's pattern library, versioned by date and tagged by performance outcome. When a spot wins (low CAC, high hold rate), its full prompt chain is pinned. When a spot loses, its prompts are tagged for regression analysis. The Factory is <em>literally</em> learning from itself.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 08 INTAKE TIERS -->
+    <!-- ============================================ -->
+    <section class="panel" id="intake">
+      <div class="section-header">
+        <div class="eyebrow">08 · Intake Tiers</div>
+        <h2 class="section-title">Tiered <em>input</em>, tiered output.</h2>
+        <p class="section-lead">
+          The deeper the brand brief, the sharper the spot. Four intake tiers — from a 30-minute form to a full strategic intake — each with a defined output quality and turnaround. Brands self-select based on stakes, budget, and timeline.
+        </p>
+      </div>
+
+      <div class="tiers">
+        <div class="tier">
+          <div class="tier-name">Tier 01 · Spark</div>
+          <div class="tier-title">30-minute form.</div>
+          <div class="tier-desc">Brand name, product, one hero claim, three references. The Intake agent infers everything else.</div>
+          <ul class="tier-list">
+            <li><strong>Turnaround:</strong> 48h</li>
+            <li><strong>Output:</strong> 1 cinematic spot, 15s</li>
+            <li><strong>Genre lock:</strong> System chooses</li>
+            <li><strong>Eval threshold:</strong> 6.5/10 both axes</li>
+            <li><strong>Best for:</strong> Test-and-learn brands, new spend</li>
+          </ul>
+        </div>
+
+        <div class="tier">
+          <div class="tier-name">Tier 02 · Standard</div>
+          <div class="tier-title">90-min intake.</div>
+          <div class="tier-desc">Full schema fields A through D. Brand provides 5 reference ads they love and 2 they hate.</div>
+          <ul class="tier-list">
+            <li><strong>Turnaround:</strong> 72h</li>
+            <li><strong>Output:</strong> 1 cinematic spot, 15 or 30s</li>
+            <li><strong>Genre lock:</strong> Brand can override</li>
+            <li><strong>Eval threshold:</strong> 7/10 both axes</li>
+            <li><strong>Best for:</strong> Established DTC, monthly hero refresh</li>
+          </ul>
+        </div>
+
+        <div class="tier featured">
+          <div class="tier-name">Tier 03 · Premium</div>
+          <div class="tier-title">Strategic intake.</div>
+          <div class="tier-desc">Full A–D schema + audience research + competitive deconstruction + custom reference library build.</div>
+          <ul class="tier-list">
+            <li><strong>Turnaround:</strong> 7 days</li>
+            <li><strong>Output:</strong> 1 hero spot, 30s + cutdowns</li>
+            <li><strong>Genre lock:</strong> Co-decided in workshop</li>
+            <li><strong>Eval threshold:</strong> 8/10 both axes</li>
+            <li><strong>Best for:</strong> Campaign launches, new SKUs, brand refresh</li>
+          </ul>
+        </div>
+
+        <div class="tier">
+          <div class="tier-name">Tier 04 · Bespoke</div>
+          <div class="tier-title">Hybrid live action.</div>
+          <div class="tier-desc">Full Tier 3 + AI flagged that hybrid is required. Live action b-roll directed by Ad Pros, cut into the AI cinematic backbone.</div>
+          <ul class="tier-list">
+            <li><strong>Turnaround:</strong> 14–21 days</li>
+            <li><strong>Output:</strong> 1 hero spot, 30s, broadcast-ready</li>
+            <li><strong>Genre lock:</strong> Co-directed</li>
+            <li><strong>Eval threshold:</strong> 9/10 both axes</li>
+            <li><strong>Best for:</strong> Brand campaigns, CTV, broadcast</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub">When does the system <em>require</em> hybrid live action?</h3>
+      <ul class="bullet">
+        <li><strong>Real product physics that current gen video can't fake</strong> — beverages with carbonation, complex liquid dynamics, foaming, specific clinical hardware.</li>
+        <li><strong>Real founder presence required</strong> — documentary-founder genre with high-trust audience demands a real face, not an avatar.</li>
+        <li><strong>Talent licensing</strong> — when a celebrity, athlete, or known creator is the hook.</li>
+        <li><strong>Regulatory environment</strong> — supplements/health tech where claims must be presented by a real human in a verifiable context.</li>
+        <li><strong>Brand maturity</strong> — when the brand has cultivated visual integrity that AI generation can't yet match.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 09 QUALITY -->
+    <!-- ============================================ -->
+    <section class="panel" id="quality">
+      <div class="section-header">
+        <div class="eyebrow">09 · Quality &amp; DR</div>
+        <h2 class="section-title">How we know it <em>works</em>.</h2>
+        <p class="section-lead">
+          Beauty isn't a metric. The Factory ships against a defined DR floor and a defined cinema ceiling — both quantified, both gated. Below is the scoring rubric Eval applies before any spot leaves the system, and the post-flight measurement that feeds the library back.
+        </p>
+      </div>
+
+      <h3 class="sub">DR floor (<em>must pass</em> to deploy).</h3>
+      <table class="spec">
+        <thead><tr><th>Criterion</th><th>Definition</th><th>Threshold</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Hook clarity</td><td class="value">First 3s telegraphs what the product is or what problem it solves</td><td class="code">≥7/10</td></tr>
+          <tr><td class="label">Product visibility</td><td class="value">Product on screen ≥75% of total duration</td><td class="code">≥75%</td></tr>
+          <tr><td class="label">CTA clarity</td><td class="value">Final 3s contains unambiguous next step (URL, offer, scan)</td><td class="code">PASS/FAIL</td></tr>
+          <tr><td class="label">Claim retention</td><td class="value">Hero claim appears as VO or on-screen text</td><td class="code">PASS/FAIL</td></tr>
+          <tr><td class="label">Predicted hook rate</td><td class="value">Probability viewer holds past 3s on TikTok/Reels feed</td><td class="code">≥30%</td></tr>
+          <tr><td class="label">Predicted hold rate</td><td class="value">Probability viewer holds to second 15</td><td class="code">≥15%</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">Cinema ceiling (<em>differentiator</em>).</h3>
+      <table class="spec">
+        <thead><tr><th>Criterion</th><th>Definition</th><th>Threshold</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Composition consistency</td><td class="value">Framing, rule of thirds, intentional negative space across beats</td><td class="code">≥7/10</td></tr>
+          <tr><td class="label">Color coherence</td><td class="value">Palette adherence to brand_color_palette across all 8 beats</td><td class="code">≥8/10</td></tr>
+          <tr><td class="label">Pacing</td><td class="value">Cut rhythm serves chosen narrative structure</td><td class="code">≥7/10</td></tr>
+          <tr><td class="label">Sound design</td><td class="value">Music + SFX + VO sync to visual beats</td><td class="code">≥7/10</td></tr>
+          <tr><td class="label">Memorability</td><td class="value">Eval predicts 24h recall via single iconic frame</td><td class="code">≥7/10</td></tr>
+          <tr><td class="label">Genre fidelity</td><td class="value">Visual grammar matches selected genre archetype</td><td class="code">≥8/10</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">Post-flight <em>measurement</em>.</h3>
+      <p class="body">
+        Once a spot ships, the Improve agent ingests platform data into BigQuery — Meta, TikTok, CTV — and tags the spot's pattern card with outcomes. Four metrics matter:
+      </p>
+      <ul class="bullet">
+        <li><strong>Hook rate</strong> (3s view / impression) — telegraphs whether the pattern interrupt + sensory hijack landed.</li>
+        <li><strong>Hold rate</strong> (15s view / impression) — telegraphs whether the structure earned the watch.</li>
+        <li><strong>Click-through rate</strong> — telegraphs whether the CTA earned the click.</li>
+        <li><strong>CAC</strong> — the only metric that decides if the spot stays in rotation. Below target = winner. Above target = library de-weighted.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">The compounding effect</div>
+        <p>
+          Every winning spot reinforces its pattern card's weight in the library. After 30 spots, the Recommender's selections are noticeably sharper. After 100, the system has its own defensible point of view about what works for which brand category. <em>This</em> is the moat.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 10 VIRAL VARIABLES -->
+    <!-- ============================================ -->
+    <section class="panel" id="viral">
+      <div class="section-header">
+        <div class="eyebrow">10 · Viral Variables</div>
+        <h2 class="section-title">What actually makes an <em>AI ad</em> go viral.</h2>
+        <p class="section-lead">
+          The Factory optimizes against 24 measurable variables across six layers. Not all matter equally. The four marked <span style="color:var(--yellow);">★ HIGH LEVERAGE</span> below are the variables that, in our deconstruction of 30+ winning cinematic ads, account for the majority of variance in hook rate, hold rate, and CAC. Everything else amplifies these or kills them in QA.
+        </p>
+      </div>
+
+      <h4 class="label">A · Visual &amp; Cinematic Execution</h4>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">V01 · ★ HIGH LEVERAGE</div>
+          <h3>Pattern <em>interrupt</em>.</h3>
+          <p>The first 0.5s before the hook lands. A single unexpected frame, object, or composition that makes the thumb stop. Most AI ads die here — they look like AI ads at frame zero, and the audience scrolls past before the hook even gets a chance.</p>
+          <div class="meta">Owner · Stage Designer #1 · Beat 01</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V02 · ★ HIGH LEVERAGE</div>
+          <h3>Sensory <em>hijack</em>.</h3>
+          <p>The ASMR pour, the macro skin texture, the slo-mo fizz, the bite. Bypasses the rational brain — creates a felt experience through the screen. This is what separates "an ad" from "a moment." First six seconds.</p>
+          <div class="meta">Owner · Stage Designer #2 · Beat 02</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V03</div>
+          <h3>Visual <em>identity</em> lock.</h3>
+          <p>The thing that makes someone screenshot a frame. Color palette, lens choice, lighting signature. Without this, AI ads collapse into "AI ad" sameness. Every frame should look like it could only be from this brand.</p>
+          <div class="meta">Owner · Skills Curator + all Stage Designers</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V04</div>
+          <h3>Pacing &amp; cut <em>rhythm</em>.</h3>
+          <p>Different from edits. Edits are the cuts; pacing is the velocity of cuts mapped to emotional beats. Most AI ads fail because they're either too cut-heavy (TikTok brain) or too slow (broadcast brain). Genre dictates rhythm.</p>
+          <div class="meta">Owner · Deploy agent · genre-specific cut profile</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V05</div>
+          <h3>Camera <em>grammar</em>.</h3>
+          <p>Handheld vs. dolly vs. crane vs. whip-pan vs. static. Each carries genre meaning. AI ads that pick the wrong camera language read as "AI" instantly — a luxury minimal spot can't have whip pans, an athletic hero spot can't be locked off.</p>
+          <div class="meta">Owner · Shape agent · per-beat lens grammar</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V06</div>
+          <h3>Color <em>coherence</em>.</h3>
+          <p>The single biggest tell of unprofessional AI ads. Brand palette adherence across all 8 beats. Every frame must read as the same brand — no accidental color drift between Stage Designers.</p>
+          <div class="meta">Owner · Eval agent · 8/10 threshold</div>
+        </div>
+      </div>
+
+      <h4 class="label">B · Narrative &amp; Structure</h4>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">V07 · ★ HIGH LEVERAGE</div>
+          <h3>Narrative <em>structure</em> fit.</h3>
+          <p>Scripting is the words; structure is the shape. Hook–Tension–Reveal vs. Transformation vs. Character–Conflict. Most failed AI ads have decent lines on the wrong skeleton. The Recommender's #1 job is matching structure to audience awareness.</p>
+          <div class="meta">Owner · Recommender agent · Gate 01</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V08</div>
+          <h3>Tension &amp; <em>stakes</em>.</h3>
+          <p>The "why care" beat. Almost every viral ad has a moment where it's clear this matters before the product enters. Without stakes, the spot is a brochure. Even a 15s spot needs 2-3s of stakes.</p>
+          <div class="meta">Owner · Shape agent · Beat 02-03</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V09</div>
+          <h3>Transformation <em>moment</em>.</h3>
+          <p>The visible before/after. Even non-DTC ads have one — a state change, a felt shift, a world that's different. Without it, claims feel hollow. Always shown, never told.</p>
+          <div class="meta">Owner · Stage Designer #4 · Beat 04</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V10</div>
+          <h3>Payoff /<em>punchline</em>.</h3>
+          <p>The moment of resolution. Comedic, emotional, or visual. The shareability driver — the thing the audience wants to send to a friend. Without a payoff, hold rate craters in the back half.</p>
+          <div class="meta">Owner · Shape agent · Beats 05-06</div>
+        </div>
+      </div>
+
+      <h4 class="label">C · Performance &amp; DR Mechanics</h4>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">V11</div>
+          <h3>CTA <em>architecture</em>.</h3>
+          <p>Not just the words. Where it sits, how long it holds, verbal vs. text vs. both, how it ties to the offer. CTA gets ≥3 seconds and must be unambiguous. The cinematic experience earns the click here or not at all.</p>
+          <div class="meta">Owner · Shape + Deploy agents · Beat 06</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V12</div>
+          <h3>Offer <em>clarity</em>.</h3>
+          <p>The actual deal — free shipping, BOGO, bundle, urgency. Often the difference between a viral ad with no sales and a winner. Unclear offer = unclear conversion path = wasted spend.</p>
+          <div class="meta">Owner · Intake agent · dr.offer field</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V13</div>
+          <h3>Hook ↔ hold <em>tradeoff</em>.</h3>
+          <p>These compete. A pattern interrupt that doesn't earn the watch is a fail. A slow-burn hook with no stop power never gets the hold rate measured. Structure decision determines the trade.</p>
+          <div class="meta">Owner · Recommender + Eval agents</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V14</div>
+          <h3>Platform <em>fit</em>.</h3>
+          <p>Same spot performs differently on TikTok, Reels, Feed, CTV. Aspect ratio, safe zones, sound-on assumptions, expected pacing all differ. v1.5 of the Factory will produce per-platform variants from one hero.</p>
+          <div class="meta">Owner · Deploy agent · v1.5 roadmap</div>
+        </div>
+      </div>
+
+      <h4 class="label">D · Trust &amp; Credibility</h4>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">V15</div>
+          <h3>Proof <em>points</em>.</h3>
+          <p>Testimonial flashes, study citations, before/after evidence, founder appearance. AI ads especially need these because they trigger skepticism. At least one proof point must surface in the spot.</p>
+          <div class="meta">Owner · Shape agent · product.proof_points</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V16</div>
+          <h3>Authenticity <em>signals</em>.</h3>
+          <p>Anti-polish moments. Grain, imperfect handheld, real audio, founder presence. The most effective AI ads include something that looks "real" to anchor trust — counter-intuitive but consistent across winners.</p>
+          <div class="meta">Owner · Stage Designers + Deploy</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V17 · ★ HIGH LEVERAGE</div>
+          <h3>Character / <em>face</em>.</h3>
+          <p>Even product-led spots need a face for emotional anchoring. Eye contact in the first 5 seconds is one of the highest-correlation features with hold rate. If there's no face, brand recall craters.</p>
+          <div class="meta">Owner · Shape + Stage Designer #3</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V18</div>
+          <h3>Risk <em>calibration</em>.</h3>
+          <p>Three types — claim risk (regulatory), taste risk (audience offense), aesthetic risk (style alienation). Bold attempts need explicit risk classification, not just "let's be edgy." Each type has a different mitigation path.</p>
+          <div class="meta">Owner · Eval agent · regulatory check</div>
+        </div>
+      </div>
+
+      <h4 class="label">E · Brand &amp; Memory</h4>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">V19 · ★ HIGH LEVERAGE</div>
+          <h3>Memorability <em>anchor</em>.</h3>
+          <p>The single iconic frame the viewer could draw 24 hours later. If there isn't one, brand recall craters. The hero shot is the candidate; the question is whether it's iconic enough to survive 24 hours of feed.</p>
+          <div class="meta">Owner · Stage Designer #5 · Beat 05</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V20</div>
+          <h3>Brand <em>world</em>.</h3>
+          <p>The recurring visual signature across spots — Liquid Death's gothic absurdism, Apple's white void, Magic Spoon's pastel surreal. Makes ad #5 reinforce ads #1-4. Compounds across a campaign.</p>
+          <div class="meta">Owner · Skills Curator · brand asset pack</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V21</div>
+          <h3>Sonic <em>branding</em>.</h3>
+          <p>Beyond sound effects: a recurring musical motif, jingle, or audio signature. Sonic identity compounds across a campaign and creates instant recognition mid-scroll, even with sound off and just rhythm visible.</p>
+          <div class="meta">Owner · Deploy + Skills Curator</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V22</div>
+          <h3>Cultural <em>timing</em>.</h3>
+          <p>Trend-rides have ceiling but expire fast. Evergreen compounds. Most spots should be evergreen-first with optional trend layer. Trend-only spots are a separate workflow with shorter shelf life.</p>
+          <div class="meta">Owner · Recommender + Improve agents</div>
+        </div>
+      </div>
+
+      <h4 class="label">F · Production Discipline</h4>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">V23</div>
+          <h3>AI artifact <em>QA</em>.</h3>
+          <p>The thing that kills AI ads. Finger weirdness, morphing logos, inconsistent product across cuts, eye drift, hallucinated text. Needs explicit checks at every Stage Designer output and final QA at Eval.</p>
+          <div class="meta">Owner · Stage Designers + Eval agent</div>
+        </div>
+        <div class="card">
+          <div class="card-num">V24</div>
+          <h3>Product <em>fidelity</em>.</h3>
+          <p>The SKU has to look exactly like the SKU. Most AI tools drift on packaging, label text, color, proportions. Hero shot needs explicit verification or hybrid live action — this is the most common reason a spot fails Gate 3.</p>
+          <div class="meta">Owner · Eval agent · pixel-level check vs. brand asset pack</div>
+        </div>
+      </div>
+
+      <h3 class="sub">The <em>five</em> highest leverage variables.</h3>
+      <p class="body">
+        From the 24 variables, five drive the majority of hook rate, hold rate, and CAC variance. These get prioritized in every Eval pass and weighted highest in the library scoring:
+      </p>
+
+      <div class="callout">
+        <div class="callout-title">★ The five</div>
+        <p>
+          <strong>1. Pattern interrupt</strong> in the first 0.5s · <strong>2. Sensory hijack</strong> within 6 seconds · <strong>3. Narrative structure</strong> matched to audience awareness · <strong>4. Character / face</strong> with eye contact in first 5s · <strong>5. Memorability anchor</strong> — the single iconic frame.
+          <br /><br />
+          Everything else either amplifies these or kills them in QA. If a brief is constrained on time or budget, ship the five. The other 19 are differentiators, not foundations.
+        </p>
+      </div>
+
+      <h3 class="sub">Variable → <em>agent ownership</em> map.</h3>
+      <table class="spec">
+        <thead><tr><th>Variable category</th><th>Primary owner</th><th>Secondary owner</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Pattern interrupt, hook</td><td class="value">Stage Designer #1</td><td class="value">Recommender (genre)</td></tr>
+          <tr><td class="label">Sensory hijack</td><td class="value">Stage Designer #2</td><td class="value">Deploy (sound design)</td></tr>
+          <tr><td class="label">Visual identity, color</td><td class="value">Skills Curator</td><td class="value">Eval</td></tr>
+          <tr><td class="label">Narrative structure</td><td class="value">Recommender</td><td class="value">Shape</td></tr>
+          <tr><td class="label">Beat sheet, script</td><td class="value">Shape</td><td class="value">All Stage Designers</td></tr>
+          <tr><td class="label">Per-beat generation</td><td class="value">Stage Designers ×8</td><td class="value">Skills Curator</td></tr>
+          <tr><td class="label">CTA, offer, DR mechanics</td><td class="value">Intake (capture)</td><td class="value">Shape + Deploy</td></tr>
+          <tr><td class="label">Pacing, edit, sound</td><td class="value">Deploy</td><td class="value">Eval</td></tr>
+          <tr><td class="label">Quality, fidelity, artifacts</td><td class="value">Eval</td><td class="value">Stage Designers</td></tr>
+          <tr><td class="label">Library learning, weighting</td><td class="value">Improve</td><td class="value">Skills Curator</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 11 SOP -->
+    <!-- ============================================ -->
+    <section class="panel" id="sop">
+      <div class="section-header">
+        <div class="eyebrow">11 · Standard Operating Procedure</div>
+        <h2 class="section-title">Brief to <em>shipped</em> spot.</h2>
+        <p class="section-lead">
+          The end-to-end procedure the Ad Pros team runs for every Cinematic Factory engagement. Default turnaround is Tier 2 (Standard, 72 hours). Each step lists the owner, action, output, and time budget. Three human gates are non-negotiable — everything else is automated through the agent pipeline.
+        </p>
+      </div>
+
+      <h3 class="sub">Phase 0 · <em>Pre-engagement</em></h3>
+      <p class="body">Before any brief enters the Factory, the brand must clear three qualification gates:</p>
+      <ul class="bullet">
+        <li><strong>Tier selection</strong> — Spark, Standard, Premium, or Bespoke. Sales/account team confirms tier with the brand based on stakes, budget, and timeline.</li>
+        <li><strong>Product category eligibility</strong> — does the brand fall in the Factory's six supported categories (supplement, beverage, skincare, wearable, apparel, food, health-tech)? Edge cases route to a Bespoke conversation.</li>
+        <li><strong>Hybrid live action check</strong> — does the brief trigger one of the five hybrid requirements (real product physics, founder presence, talent licensing, regulatory environment, brand maturity)? If yes, route to Tier 4 immediately.</li>
+      </ul>
+
+      <h3 class="sub">Phase 1 · <em>Intake &amp; Recommendation</em> (Day 1)</h3>
+
+      <table class="spec">
+        <thead><tr><th>Step</th><th>Owner</th><th>Action</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="label">1.1 Form delivery</td>
+            <td class="value">Account team</td>
+            <td class="value">Send brand the tier-appropriate intake form (Spark = ClickUp form; Standard+ = ClickUp form + 90-min call)</td>
+            <td class="code">Intake form sent</td>
+          </tr>
+          <tr>
+            <td class="label">1.2 Asset gather</td>
+            <td class="value">Account team</td>
+            <td class="value">Collect packaging photography, brand guidelines, hero claim approval, current best-performing ads</td>
+            <td class="code">Asset pack in Drive</td>
+          </tr>
+          <tr>
+            <td class="label">1.3 Schema parse</td>
+            <td class="value">Intake agent</td>
+            <td class="value">Auto-parse intake into 5-layer variable schema, flag missing required fields</td>
+            <td class="code">brief_object.json</td>
+          </tr>
+          <tr>
+            <td class="label">1.4 Gap fill</td>
+            <td class="value">Account team</td>
+            <td class="value">Manually fill any gaps the Intake agent flagged. Required fields cannot be inferred — must be explicit.</td>
+            <td class="code">Complete schema</td>
+          </tr>
+          <tr>
+            <td class="label">1.5 Recommendation</td>
+            <td class="value">Recommender agent</td>
+            <td class="value">Select narrative structure + primary genre + optional secondary, with reasoning</td>
+            <td class="code">recommendation.json</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="gate">
+        <div class="gate-icon">G1</div>
+        <div class="gate-content">
+          <div class="gate-label">Gate 01 · Brand Sign-off · 24h SLA</div>
+          <p>Brand reviews the variable schema, narrative structure choice, and genre selection. Approves or requests adjustment. <strong>Do not advance to Phase 2 without written approval in ClickUp.</strong></p>
+        </div>
+      </div>
+
+      <h3 class="sub">Phase 2 · <em>Shape</em> (Day 2)</h3>
+
+      <table class="spec">
+        <thead><tr><th>Step</th><th>Owner</th><th>Action</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="label">2.1 Beat sheet</td>
+            <td class="value">Shape agent</td>
+            <td class="value">Generate 8-beat sheet against approved structure + genre, populate per-beat shot description, lens, voiceover, sound, on-screen text</td>
+            <td class="code">beat_sheet.json</td>
+          </tr>
+          <tr>
+            <td class="label">2.2 Script draft</td>
+            <td class="value">Shape agent</td>
+            <td class="value">Output verbatim voiceover script + on-screen text, timed to beats</td>
+            <td class="code">script.md</td>
+          </tr>
+          <tr>
+            <td class="label">2.3 Storyboard</td>
+            <td class="value">Stage Designers (preview mode)</td>
+            <td class="value">Generate single still frame per beat (image-gen only, no motion) for review</td>
+            <td class="code">storyboard.pdf (8 frames)</td>
+          </tr>
+          <tr>
+            <td class="label">2.4 Internal review</td>
+            <td class="value">Pod lead (Dani / Pod B)</td>
+            <td class="value">Review storyboard against brief — does it land? Flag drift before brand sees it.</td>
+            <td class="code">Review notes</td>
+          </tr>
+          <tr>
+            <td class="label">2.5 Brand package</td>
+            <td class="value">Account team</td>
+            <td class="value">Package script + beat sheet + storyboard for Gate 2 review</td>
+            <td class="code">G2 package in Frame.io</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="gate">
+        <div class="gate-icon">G2</div>
+        <div class="gate-content">
+          <div class="gate-label">Gate 02 · Creative Sign-off · 24h SLA</div>
+          <p>Brand reviews script, beat sheet, and storyboard. This is the cheapest gate to fail at — re-shape is fast, regeneration is expensive. <strong>Push hard for revisions here, not later.</strong></p>
+        </div>
+      </div>
+
+      <h3 class="sub">Phase 3 · <em>Generate</em> (Day 3, morning)</h3>
+
+      <table class="spec">
+        <thead><tr><th>Step</th><th>Owner</th><th>Action</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="label">3.1 Parallel fire</td>
+            <td class="value">8 Stage Designers</td>
+            <td class="value">All 8 fire in parallel — each runs image-gen → motion-gen for its beat</td>
+            <td class="code">8 clips, 5s each</td>
+          </tr>
+          <tr>
+            <td class="label">3.2 Per-beat QA</td>
+            <td class="value">Each Stage Designer</td>
+            <td class="value">Self-score against beat brief. Auto-regenerate up to 3x if score &lt; 8/10.</td>
+            <td class="code">Approved clip per beat</td>
+          </tr>
+          <tr>
+            <td class="label">3.3 Artifact check</td>
+            <td class="value">Eval agent (early pass)</td>
+            <td class="value">Scan each clip for AI artifacts — finger weirdness, label drift, eye morphing, color drift. Reject clips that fail.</td>
+            <td class="code">Pass/fail per clip</td>
+          </tr>
+          <tr>
+            <td class="label">3.4 Skills Curator update</td>
+            <td class="value">Skills Curator</td>
+            <td class="value">Tag clips with prompt versions used, attach to spot's pattern card for future learning</td>
+            <td class="code">Library entry</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">Phase 4 · <em>Assemble &amp; Eval</em> (Day 3, afternoon)</h3>
+
+      <table class="spec">
+        <thead><tr><th>Step</th><th>Owner</th><th>Action</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="label">4.1 Edit assembly</td>
+            <td class="value">Deploy agent</td>
+            <td class="value">Assemble 8 clips in Remotion: timing, transitions, music sync, color grade unification, captions, brand stamp, CTA stamp</td>
+            <td class="code">Cut v1 .mp4</td>
+          </tr>
+          <tr>
+            <td class="label">4.2 Sound design</td>
+            <td class="value">Deploy agent</td>
+            <td class="value">Layer voiceover (ElevenLabs), music bed, SFX. Sync to beat transitions.</td>
+            <td class="code">Cut v1 with audio</td>
+          </tr>
+          <tr>
+            <td class="label">4.3 DR floor scoring</td>
+            <td class="value">Eval agent</td>
+            <td class="value">Score against 6-criterion DR rubric. Hard fail if &lt; threshold on any.</td>
+            <td class="code">DR score card</td>
+          </tr>
+          <tr>
+            <td class="label">4.4 Cinema ceiling scoring</td>
+            <td class="value">Eval agent</td>
+            <td class="value">Score against 6-criterion cinema rubric. Hard fail if &lt; threshold.</td>
+            <td class="code">Cinema score card</td>
+          </tr>
+          <tr>
+            <td class="label">4.5 Loop or proceed</td>
+            <td class="value">Eval agent</td>
+            <td class="value">If either rubric fails: route back to Shape with structured feedback, max 2 loops. If both pass: proceed.</td>
+            <td class="code">Approved cut</td>
+          </tr>
+          <tr>
+            <td class="label">4.6 Platform variants</td>
+            <td class="value">Deploy agent</td>
+            <td class="value">Render 9:16, 1:1, 4:5 (1.5+ feature: cutdowns at 6s, 15s, 30s)</td>
+            <td class="code">3 variants in Frame.io</td>
+          </tr>
+          <tr>
+            <td class="label">4.7 Internal review</td>
+            <td class="value">Pod lead</td>
+            <td class="value">Final pre-brand sanity check. Catch anything Eval missed.</td>
+            <td class="code">Internal sign-off</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="gate">
+        <div class="gate-icon">G3</div>
+        <div class="gate-content">
+          <div class="gate-label">Gate 03 · Final Sign-off · 24h SLA</div>
+          <p>Brand reviews assembled spot in Frame.io. Most expensive gate to fail — re-renders cost compute. Aim for ≤10% rejection rate. <strong>If brand requests changes, scope them precisely. Cosmetic changes in Deploy. Structural changes route back to Phase 2.</strong></p>
+        </div>
+      </div>
+
+      <h3 class="sub">Phase 5 · <em>Deploy &amp; Improve</em> (Day 4 onward)</h3>
+
+      <table class="spec">
+        <thead><tr><th>Step</th><th>Owner</th><th>Action</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="label">5.1 Final renders</td>
+            <td class="value">Deploy agent</td>
+            <td class="value">Push final files to brand's asset library + Ad Pros media library</td>
+            <td class="code">.mp4 in Drive</td>
+          </tr>
+          <tr>
+            <td class="label">5.2 Platform launch</td>
+            <td class="value">Pod media buyer</td>
+            <td class="value">Launch on Meta/TikTok/etc. Tag with cinematic_factory_id for tracking back to library.</td>
+            <td class="code">Live ad sets</td>
+          </tr>
+          <tr>
+            <td class="label">5.3 14-day measurement</td>
+            <td class="value">Improve agent</td>
+            <td class="value">Auto-ingest performance from BigQuery — hook rate, hold rate, CTR, CAC</td>
+            <td class="code">Performance row</td>
+          </tr>
+          <tr>
+            <td class="label">5.4 Library tagging</td>
+            <td class="value">Improve agent</td>
+            <td class="value">Tag the spot's pattern card with outcome metrics. Re-weight library — winners up, losers down.</td>
+            <td class="code">Updated weights</td>
+          </tr>
+          <tr>
+            <td class="label">5.5 Postmortem</td>
+            <td class="value">Pod lead</td>
+            <td class="value">If CAC missed target, identify which variable failed (hook rate? hold rate? CTR?) and add to Improve queue.</td>
+            <td class="code">Postmortem doc</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">Time <em>budget</em>.</h3>
+      <table class="spec">
+        <thead><tr><th>Phase</th><th>Spark (Tier 1)</th><th>Standard (Tier 2)</th><th>Premium (Tier 3)</th><th>Bespoke (Tier 4)</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Phase 0 · Qualification</td><td class="value">Same day</td><td class="value">Same day</td><td class="value">1-2 days</td><td class="value">3-5 days</td></tr>
+          <tr><td class="label">Phase 1 · Intake</td><td class="value">2 hours</td><td class="value">1 day</td><td class="value">2-3 days</td><td class="value">3-5 days</td></tr>
+          <tr><td class="label">Gate 01</td><td class="value">12h SLA</td><td class="value">24h SLA</td><td class="value">48h SLA</td><td class="value">48h SLA</td></tr>
+          <tr><td class="label">Phase 2 · Shape</td><td class="value">4 hours</td><td class="value">1 day</td><td class="value">1-2 days</td><td class="value">2-3 days</td></tr>
+          <tr><td class="label">Gate 02</td><td class="value">12h SLA</td><td class="value">24h SLA</td><td class="value">48h SLA</td><td class="value">48h SLA</td></tr>
+          <tr><td class="label">Phase 3 · Generate</td><td class="value">2 hours</td><td class="value">4 hours</td><td class="value">6 hours</td><td class="value">+live action shoot 5-10 days</td></tr>
+          <tr><td class="label">Phase 4 · Assemble</td><td class="value">2 hours</td><td class="value">4 hours</td><td class="value">1 day</td><td class="value">1-2 days</td></tr>
+          <tr><td class="label">Gate 03</td><td class="value">12h SLA</td><td class="value">24h SLA</td><td class="value">48h SLA</td><td class="value">48h SLA</td></tr>
+          <tr><td class="label"><strong>Total to ship</strong></td><td class="code">48 hours</td><td class="code">72 hours</td><td class="code">7 days</td><td class="code">14-21 days</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">Roles &amp; <em>responsibilities</em>.</h3>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">ROLE 01</div>
+          <h3>Account <em>lead</em>.</h3>
+          <p>Owns the brand relationship end-to-end. Runs Phase 0-1 intake, manages all three gates, scopes change requests, postmortem report. Single point of contact for the brand — never multiple Ad Pros voices in one channel.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">ROLE 02</div>
+          <h3>Pod <em>lead</em>.</h3>
+          <p>Owns delivery quality. Internal review at Phase 2.4 and 4.7. Final sanity check before brand sees anything. Pod A and Pod B share the load by client. Dani reviews internal materials.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">ROLE 03</div>
+          <h3>Cinematic <em>operator</em>.</h3>
+          <p>Runs the agent pipeline. Monitors agent execution, intervenes when an agent fails or loops. Ensures Skills Curator gets prompt updates. New role specific to the Factory — one operator per pod.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">ROLE 04</div>
+          <h3>Pod media <em>buyer</em>.</h3>
+          <p>Phase 5 launch on Meta/TikTok/etc. Tags creative with cinematic_factory_id for performance attribution. Reports performance back to Improve agent within 14 days of launch.</p>
+        </div>
+      </div>
+
+      <h3 class="sub"><em>Failure</em> modes &amp; recovery.</h3>
+      <table class="spec">
+        <thead><tr><th>Failure mode</th><th>Trigger</th><th>Recovery</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Required schema field missing</td><td class="value">Intake agent flags gap</td><td class="value">Account lead fills manually before Recommender fires</td></tr>
+          <tr><td class="label">Brand rejects at Gate 1</td><td class="value">Disagrees with structure or genre</td><td class="value">Recommender re-runs with constraints, max 2 retries</td></tr>
+          <tr><td class="label">Brand rejects at Gate 2</td><td class="value">Storyboard miss</td><td class="value">Shape regenerates with feedback, max 2 retries before Bespoke escalation</td></tr>
+          <tr><td class="label">Stage Designer fails 3x</td><td class="value">Beat can't generate cleanly</td><td class="value">Operator intervenes — adjust prompt, change reference, or escalate to live action b-roll</td></tr>
+          <tr><td class="label">Eval rejects assembled cut</td><td class="value">DR or cinema floor failed</td><td class="value">Auto-loop to Shape with structured feedback, max 2 loops</td></tr>
+          <tr><td class="label">Brand rejects at Gate 3</td><td class="value">Final cut miss</td><td class="value">Scope changes precisely — cosmetic stays in Deploy, structural routes back to Phase 2. Charge change orders if outside scope.</td></tr>
+          <tr><td class="label">CAC missed at Phase 5</td><td class="value">Spot underperforms 14-day window</td><td class="value">Postmortem identifies failed variable. Add to Improve queue. Spot library entry de-weighted.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">SOP discipline</div>
+        <p>
+          The SOP is non-negotiable. The three gates are non-negotiable. The retry caps are non-negotiable. <em>The whole point</em> of the Factory is reproducibility — and reproducibility comes from the procedure, not the prompts. If the procedure breaks, the agents start producing inconsistent output, and the library learning loop poisons itself. Run the SOP. Every time. Without exception.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 12 ROADMAP -->
+    <!-- ============================================ -->
+    <section class="panel" id="roadmap">
+      <div class="section-header">
+        <div class="eyebrow">12 · Roadmap</div>
+        <h2 class="section-title">From <em>v1.0</em> to v2.0.</h2>
+        <p class="section-lead">
+          v1.0 ships the 8-agent pipeline against the 30-spot seed library, four intake tiers, and three narrative structures. v1.x adds modular cutdowns and platform-specific re-edits. v2.0 introduces autonomous library expansion and predictive performance modeling.
+        </p>
+      </div>
+
+      <h3 class="sub">Phase 01 · v1.0 — <em>Ship the spine</em></h3>
+      <ul class="bullet">
+        <li><strong>Library seed:</strong> deconstruct 30 reference cinematic ads into pattern cards (5 per genre).</li>
+        <li><strong>Schema lock:</strong> finalize the 5-layer variable schema in BigQuery + Supabase.</li>
+        <li><strong>Agent build-out:</strong> ship Recommender, Intake, Shape, 8 Stage Designers, Skills Curator, Eval, Deploy, Improve.</li>
+        <li><strong>Three gates wired into ClickUp:</strong> Brand approval (G1), Creative approval (G2), Final approval (G3).</li>
+        <li><strong>First five live spots</strong> across at least 3 product categories — supplement, beverage, health-tech.</li>
+      </ul>
+
+      <h3 class="sub">Phase 02 · v1.5 — <em>Cutdowns &amp; platforms</em></h3>
+      <ul class="bullet">
+        <li><strong>Modular re-edit pipeline:</strong> auto-generate 6s, 10s, 15s cutdowns from the 30s hero against per-platform safe zones.</li>
+        <li><strong>Aspect ratio variants:</strong> 9:16, 1:1, 4:5, 16:9 with per-aspect framing rules.</li>
+        <li><strong>Per-platform Eval:</strong> separate scoring rubrics for TikTok, Meta Reels, Meta Feed, YouTube Shorts, CTV.</li>
+        <li><strong>A/B variant generator:</strong> hook-only, CTA-only, and music-only variants from a single hero.</li>
+      </ul>
+
+      <h3 class="sub">Phase 03 · v2.0 — <em>The flywheel</em></h3>
+      <ul class="bullet">
+        <li><strong>Autonomous library expansion:</strong> the system scrapes Meta Ad Library + TikTok Top Ads daily, deconstructs new winners, adds to pattern cards without human intervention.</li>
+        <li><strong>Predictive CAC modeling:</strong> Eval predicts CAC range pre-launch based on pattern card performance history. Brands see expected DR floor before approving.</li>
+        <li><strong>Self-tuning prompts:</strong> Skills Curator runs nightly regression — winning prompts get pinned, losing prompts get retired.</li>
+        <li><strong>Cross-brand pattern transfer:</strong> a winning beat sequence from a beverage brand becomes a recommendable structure for a supplement brand.</li>
+      </ul>
+
+      <h3 class="sub">Open <em>questions</em>.</h3>
+      <p class="body">These are the architectural decisions that need a Nehal call before v1.0 build:</p>
+      <ul class="bullet">
+        <li><strong>Library priority:</strong> which 5 brands per genre form the seed? (proposed list lives in ClickUp doc <code style="color:var(--cyan);font-family:'JetBrains Mono',monospace;">cinematic_factory.seed_library</code>)</li>
+        <li><strong>Eval thresholds per tier:</strong> are 7/7 (Standard) and 8/8 (Premium) the right gates, or should Premium be 8.5/8?</li>
+        <li><strong>Gate 3 fail policy:</strong> if a brand rejects at G3, do we eat the re-render cost or charge against retainer?</li>
+        <li><strong>External rollout:</strong> does this become an Ad Pros service tier, or is it productized as a standalone SaaS?</li>
+        <li><strong>Pricing:</strong> Tier 1 → Tier 4 — at what spread does this make economic sense given compute + retainer math?</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Recommended next step</div>
+        <p>
+          Schedule a 90-minute build session to lock the seed library (which 30 reference ads), the Eval thresholds per tier, and the pricing spread. Once those three decisions are made, v1.0 build is a <em>straight line</em> through the Workflow Factory architecture.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============================================ -->
+<!-- FOOTER -->
+<!-- ============================================ -->
+<footer>
+  <div class="container">
+    <div>The <span class="yellow">Cinematic Ad Factory</span> · Ad Pros Internal · v1.0 · April 2026</div>
+    <div style="margin-top: 8px;">docs.adpros.com/cinematic-factory</div>
+  </div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: document.querySelector('nav.tabs').offsetTop - 1, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
