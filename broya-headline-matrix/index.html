@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Broya Living — Headline Matrix — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+    }
+    body {
+      background: var(--navy);
+      color: var(--grey-200);
+      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
+      min-height: 100vh;
+    }
+    .ap-header {
+      background: var(--navy);
+      border-bottom: 4px solid var(--yellow);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1300px; margin: 0 auto; }
+
+    /* Stat row */
+    .stat-row {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .stat-pill {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: var(--grey-200);
+      font-weight: 600;
+    }
+    .stat-pill span {
+      font-weight: 800;
+      color: var(--yellow);
+      font-size: 14px;
+      margin-right: 4px;
+    }
+
+    /* Alert banner */
+    .alert-banner {
+      background: rgba(192, 57, 43, 0.15);
+      border: 1px solid rgba(192, 57, 43, 0.4);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 12px;
+      color: #ff8a80;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    /* Filter bars */
+    .filter-section { margin-bottom: 8px; }
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px;
+    }
+    .filter-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--grey-300);
+      margin-right: 4px; min-width: 55px;
+    }
+    .filter-btn {
+      border: 1px solid var(--card-border);
+      background: var(--navy-card);
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--grey-200);
+      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
+      letter-spacing: 0.2px;
+    }
+    .filter-btn:hover { border-color: rgba(249,217,0,0.4); color: #fff; }
+    .filter-btn.active { background: var(--yellow); color: var(--navy); border-color: var(--yellow); font-weight: 700; }
+    .filter-btn[data-prod="beef"].active  { background: #c0622a; border-color: #c0622a; color: #fff; }
+    .filter-btn[data-prod="chicken"].active { background: #4a7a1a; border-color: #4a7a1a; color: #fff; }
+    .filter-btn[data-prod="variety"].active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+    /* Results bar */
+    .results-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+      font-size: 12px; color: var(--grey-300);
+    }
+    .results-bar strong { color: var(--yellow); }
+    .clear-btn {
+      background: none; border: none;
+      font-size: 11px; color: var(--grey-300);
+      cursor: pointer; text-decoration: underline; padding: 0;
+      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
+    }
+    .clear-btn:hover { color: #fff; }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .card:hover {
+      border-color: rgba(249,217,0,0.25);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .card-top {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+    }
+    .angle-tag {
+      font-size: 9px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .angle-protein    { background: rgba(230,81,0,0.2);   color: #ff8a50; }
+    .angle-collagen   { background: rgba(136,14,79,0.2);  color: #f48fb1; }
+    .angle-canadian   { background: rgba(27,94,32,0.2);   color: #69f0ae; }
+    .angle-price      { background: rgba(13,71,161,0.2);  color: #82b1ff; }
+    .angle-glp1       { background: rgba(74,20,140,0.2);  color: #ce93d8; }
+    .angle-menopause  { background: rgba(191,54,12,0.2);  color: #ffab91; }
+    .angle-fasting    { background: rgba(0,96,100,0.2);   color: #80deea; }
+    .angle-gut        { background: rgba(106,27,154,0.2); color: #e040fb; }
+    .angle-convenience { background: rgba(51,105,30,0.2); color: #aed581; }
+    .angle-halal      { background: rgba(26,35,126,0.2);  color: #9fa8da; }
+    .angle-taste      { background: rgba(245,127,23,0.2); color: #ffd54f; }
+
+    .card-num { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.2); flex-shrink: 0; font-variant-numeric: tabular-nums; }
+
+    .headline { font-size: 14px; font-weight: 700; line-height: 1.45; color: #fff; letter-spacing: -0.2px; }
+
+    .card-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; flex-wrap: wrap; margin-top: auto;
+    }
+    .product-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+    .prod-tag {
+      font-size: 9px; font-weight: 700; padding: 2px 7px;
+      border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .prod-beef    { background: rgba(192,98,42,0.2); color: #e08050; border: 1px solid rgba(192,98,42,0.3); }
+    .prod-chicken { background: rgba(74,122,26,0.2); color: #90c060; border: 1px solid rgba(74,122,26,0.3); }
+    .prod-variety { background: rgba(26,111,212,0.2); color: #70a8e8; border: 1px solid rgba(26,111,212,0.3); }
+
+    .format-hint { font-size: 9px; color: rgba(255,255,255,0.2); font-style: italic; text-align: right; }
+
+    .empty-state {
+      grid-column: 1/-1;
+      text-align: center; padding: 60px 20px;
+      color: var(--grey-300); font-size: 14px; display: none;
+    }
+
+    .ap-footer {
+      margin: 64px 48px 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .ap-footer { margin-left: 20px; margin-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Broya Living — Headline &amp; Hook Matrix</h1>
+      <p>Classic Beef · Classic Chicken · Variety Pack · April 2026</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <div class="alert-banner">
+      <span>&#9888;</span>
+      PIVOT BRIEF — Chocolate bone broth spend paused. All creative to focus on Classic Beef, Classic Chicken, and Variety Pack until further notice.
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-pill"><span id="totalCount">—</span> total headlines</div>
+      <div class="stat-pill"><span>11</span> angles covered</div>
+      <div class="stat-pill"><span>3</span> products</div>
+      <div class="stat-pill"><span>100%</span> Canadian grass-fed</div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-bar">
+        <span class="filter-label">Angle</span>
+        <button class="filter-btn active" data-type="angle" data-val="all">All</button>
+        <button class="filter-btn" data-type="angle" data-val="protein">Protein</button>
+        <button class="filter-btn" data-type="angle" data-val="collagen">Collagen</button>
+        <button class="filter-btn" data-type="angle" data-val="canadian">Canadian</button>
+        <button class="filter-btn" data-type="angle" data-val="price">Price</button>
+        <button class="filter-btn" data-type="angle" data-val="glp1">GLP-1</button>
+        <button class="filter-btn" data-type="angle" data-val="menopause">Menopause</button>
+        <button class="filter-btn" data-type="angle" data-val="fasting">Fasting</button>
+        <button class="filter-btn" data-type="angle" data-val="gut">Gut Health</button>
+        <button class="filter-btn" data-type="angle" data-val="convenience">Convenience</button>
+        <button class="filter-btn" data-type="angle" data-val="halal">Halal</button>
+        <button class="filter-btn" data-type="angle" data-val="taste">Taste</button>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">Product</span>
+        <button class="filter-btn active" data-type="prod" data-val="all">All Products</button>
+        <button class="filter-btn" data-type="prod" data-prod="beef" data-val="beef">Classic Beef</button>
+        <button class="filter-btn" data-type="prod" data-prod="chicken" data-val="chicken">Classic Chicken</button>
+        <button class="filter-btn" data-type="prod" data-prod="variety" data-val="variety">Variety Pack</button>
+      </div>
+    </div>
+
+    <div class="results-bar">
+      <div><strong id="visibleCount">—</strong> headlines shown</div>
+      <button class="clear-btn" onclick="resetFilters()">Reset filters</button>
+    </div>
+
+    <div class="grid" id="grid">
+      <div class="empty-state" id="emptyState">No headlines match this combination.</div>
+    </div>
+
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.4">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use Only</p>
+  </footer>
+
+  <script>
+  var headlines = [
+    // PROTEIN
+    { angle:"protein", headline:"More protein than 3 eggs. In a mug.", products:["beef","chicken","variety"], format:"Static · Video hook" },
+    { angle:"protein", headline:"21 grams of protein. Zero prep. Just heat and drink.", products:["beef","chicken"], format:"Static · Feed ad" },
+    { angle:"protein", headline:"Ditch the powder. This is real protein from real bones.", products:["beef","chicken"], format:"UGC · Static" },
+    { angle:"protein", headline:"High protein doesn't have to mean another shake.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"protein", headline:"Your daily protein target just got a lot easier to hit.", products:["beef","chicken","variety"], format:"Static · Video" },
+    { angle:"protein", headline:"The protein source your gut actually absorbs.", products:["beef","chicken"], format:"Static · UGC" },
+    { angle:"protein", headline:"100% grass-fed. 21g protein. One carton.", products:["beef","chicken"], format:"Static" },
+    { angle:"protein", headline:"What if hitting protein goals felt this easy?", products:["variety"], format:"Video hook · UGC" },
+    { angle:"protein", headline:"Real protein. From real animals. Raised in Canada.", products:["beef","chicken"], format:"Static · Brand" },
+    // COLLAGEN
+    { angle:"collagen", headline:"Your skin is drinking this too.", products:["beef","chicken","variety"], format:"Static · Short video" },
+    { angle:"collagen", headline:"The collagen supplement you eat instead of swallow.", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"collagen", headline:"Collagen pills can't do what real bone broth does.", products:["beef","chicken"], format:"Static · UGC" },
+    { angle:"collagen", headline:"Built-in collagen. No pills. No powder.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"collagen", headline:"Hair. Skin. Nails. Joints. One mug a day.", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"collagen", headline:"Real collagen from real bones — not a capsule.", products:["beef","chicken"], format:"Static · Video" },
+    { angle:"collagen", headline:"The collagen your grandmother didn't need a supplement for.", products:["beef","chicken"], format:"UGC · Static" },
+    { angle:"collagen", headline:"What if your morning ritual made your skin look younger?", products:["beef","chicken","variety"], format:"Video hook" },
+    { angle:"collagen", headline:"Bioavailable collagen that starts in the gut, shows on your face.", products:["beef","chicken"], format:"Static · Carousel" },
+    // CANADIAN
+    { angle:"canadian", headline:"Made from 100% Canadian grass-fed bones. Nothing else.", products:["beef","chicken","variety"], format:"Static · Brand" },
+    { angle:"canadian", headline:"You know where every bone comes from.", products:["beef","chicken"], format:"Static · UGC" },
+    { angle:"canadian", headline:"Canadian farms. Canadian standards. Your table.", products:["beef","chicken","variety"], format:"Static · Video" },
+    { angle:"canadian", headline:"We know the farmers. You know the product.", products:["beef","chicken"], format:"Static · Brand" },
+    { angle:"canadian", headline:"The only bone broth that's 100% Canadian from farm to carton.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"canadian", headline:"Traceable. Grass-fed. Canadian. No shortcuts.", products:["beef","chicken"], format:"Static" },
+    { angle:"canadian", headline:"Born on a Canadian farm. Built for your health goals.", products:["beef","chicken","variety"], format:"Video · Static" },
+    { angle:"canadian", headline:"Your bone broth has a postal code.", products:["beef","chicken"], format:"Static · UGC" },
+    { angle:"canadian", headline:"Raised right here. Simmered right. Shipped to you.", products:["beef","chicken","variety"], format:"Static · Brand" },
+    { angle:"canadian", headline:"Halal certified. 100% Canadian. Nothing to hide.", products:["beef","chicken"], format:"Static" },
+    // PRICE
+    { angle:"price", headline:"Less than your daily coffee. More than your daily vitamin.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"price", headline:"The most nutrient-dense $5 you'll spend today.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"price", headline:"Compare it to your supplement stack. We'll wait.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"price", headline:"Cancel one supplement. Drink this instead.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"price", headline:"Real food nutrition at a fraction of the supplement price.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"price", headline:"What are you paying per gram of collagen right now?", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"price", headline:"Protein. Collagen. Minerals. One product. One price.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"price", headline:"Your gut health doesn't have to cost a fortune.", products:["beef","chicken","variety"], format:"UGC · Static" },
+    { angle:"price", headline:"Cheaper than physio. Tastier than supplements.", products:["beef","chicken"], format:"Static · UGC" },
+    // GLP-1
+    { angle:"glp1", headline:"On a GLP-1? This is how you protect your muscle.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"glp1", headline:"Ozempic shrinks your appetite. Don't let it shrink your muscle.", products:["beef","chicken"], format:"Static · UGC" },
+    { angle:"glp1", headline:"GLP-1 users: the protein you're probably not getting.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"glp1", headline:"Losing weight fast? Make sure you're not losing muscle too.", products:["beef","chicken","variety"], format:"Static · Video" },
+    { angle:"glp1", headline:"Small appetite. High protein. That's the whole strategy.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"glp1", headline:"The easiest way to hit protein when you're never hungry.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"glp1", headline:"21g of protein in something you actually want to drink.", products:["beef","chicken","variety"], format:"Static · Video" },
+    { angle:"glp1", headline:"Your GLP-1 is doing the heavy lifting. Give it the right fuel.", products:["beef","chicken"], format:"Static" },
+    { angle:"glp1", headline:"Semaglutide users: bone broth is the muscle-sparing protocol.", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"glp1", headline:"What to eat when you barely want to eat anything.", products:["variety"], format:"Video hook · Static" },
+    // MENOPAUSE
+    { angle:"menopause", headline:"Your bones need more than ever right now.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"menopause", headline:"Perimenopause takes from your bones. Bone broth gives back.", products:["beef","chicken"], format:"Static · UGC" },
+    { angle:"menopause", headline:"Strong bones at 50 start with what you do at 40.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"menopause", headline:"What your body needs after 40 that nobody talks about.", products:["beef","chicken","variety"], format:"Video hook · UGC" },
+    { angle:"menopause", headline:"Muscle loss accelerates in perimenopause. This helps slow it.", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"menopause", headline:"Collagen, protein, and joint support — in one mug.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"menopause", headline:"The daily ritual for women who know what their body actually needs.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"menopause", headline:"Your joints are asking for this.", products:["beef","chicken","variety"], format:"Static · Short video" },
+    { angle:"menopause", headline:"Bone density, collagen, and muscle protein — midlife's trifecta.", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"menopause", headline:"The mineral-dense ritual for women in midlife.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"menopause", headline:"Hot flash or hot broth? One of these actually helps.", products:["beef","chicken","variety"], format:"UGC · Video hook" },
+    // FASTING
+    { angle:"fasting", headline:"Breaks your fast the right way.", products:["beef","chicken","variety"], format:"Static · Short video" },
+    { angle:"fasting", headline:"Zero sugar. No insulin spike. 21g of protein.", products:["beef","chicken"], format:"Static" },
+    { angle:"fasting", headline:"IF-friendly. High protein. Actually satisfying.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"fasting", headline:"Intermittent fasting just got a secret weapon.", products:["beef","chicken","variety"], format:"UGC · Static" },
+    { angle:"fasting", headline:"Fast longer. Recover smarter.", products:["beef","chicken"], format:"Static" },
+    { angle:"fasting", headline:"What to eat when you're trying to eat less but still recover.", products:["beef","chicken","variety"], format:"Static · Video hook" },
+    { angle:"fasting", headline:"The fasting community's best kept secret.", products:["variety"], format:"UGC · Video hook" },
+    { angle:"fasting", headline:"Nourishes without spiking. Made for fasting windows.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"fasting", headline:"Keeping your calories low doesn't mean keeping your protein low.", products:["beef","chicken"], format:"Static" },
+    { angle:"fasting", headline:"The cleanest thing you'll put in your body all day.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    // GUT
+    { angle:"gut", headline:"Heal the lining. Feel the difference.", products:["beef","chicken","variety"], format:"Static · Short video" },
+    { angle:"gut", headline:"Leaky gut has a protocol. This is it.", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"gut", headline:"Gelatin, glycine, and gut-healing minerals. One mug.", products:["beef","chicken"], format:"Static · Carousel" },
+    { angle:"gut", headline:"The gut-healing ritual you can actually stick to.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"gut", headline:"Real food for real gut healing.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"gut", headline:"Your gut runs the show. Give it what it needs.", products:["beef","chicken","variety"], format:"Static · Video hook" },
+    { angle:"gut", headline:"What functional medicine practitioners drink every morning.", products:["beef","chicken"], format:"UGC · Static" },
+    { angle:"gut", headline:"Everything starts in the gut. Start here.", products:["beef","chicken","variety"], format:"Static" },
+    // CONVENIENCE
+    { angle:"convenience", headline:"Heat it. Drink it. That's the whole routine.", products:["beef","chicken","variety"], format:"Static · Short video" },
+    { angle:"convenience", headline:"Ready in 60 seconds. Packed with protein.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"convenience", headline:"Bone broth without the 24-hour simmer.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"convenience", headline:"What your ancestors ate. Now in a carton.", products:["beef","chicken"], format:"Static · UGC" },
+    { angle:"convenience", headline:"No prep. No mess. 21g protein.", products:["beef","chicken"], format:"Static" },
+    { angle:"convenience", headline:"Take the nutrition. Skip the hours of cooking.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"convenience", headline:"Pour it into anything. Sip it on its own. Either way — it wins.", products:["variety"], format:"Static · Video" },
+    // HALAL
+    { angle:"halal", headline:"100% Halal certified. 100% Canadian. 21g protein.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    { angle:"halal", headline:"Clean. Halal. High protein. No compromise.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"halal", headline:"The bone broth your whole family can drink.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"halal", headline:"Halal certified from Canadian farms. Verified clean.", products:["beef","chicken"], format:"Static · Brand" },
+    { angle:"halal", headline:"Finally: a high-protein bone broth that's Halal certified.", products:["beef","chicken","variety"], format:"Static" },
+    { angle:"halal", headline:"Grass-fed. Canadian. Halal. Everything you care about — checked.", products:["beef","chicken","variety"], format:"Static · Carousel" },
+    // TASTE
+    { angle:"taste", headline:"The bone broth that actually tastes like something.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"taste", headline:"Finally — a broth you want to drink, not force down.", products:["variety"], format:"UGC · Video hook" },
+    { angle:"taste", headline:"Rich, slow-simmered flavour. Ready in 60 seconds.", products:["beef","chicken"], format:"Static" },
+    { angle:"taste", headline:"Five flavours. One protocol. Find your favourite.", products:["variety"], format:"Static · Carousel" },
+    { angle:"taste", headline:"Sip it like tea. Use it like stock. Just don't skip it.", products:["beef","chicken","variety"], format:"Static · UGC" },
+    { angle:"taste", headline:"Not what you expected bone broth to taste like.", products:["beef","chicken","variety"], format:"Video hook · Static" },
+    { angle:"taste", headline:"We fixed the part everyone hated about bone broth.", products:["variety"], format:"UGC · Video hook" }
+  ];
+
+  var angleLabels = {
+    protein:"Protein", collagen:"Collagen", canadian:"Canadian",
+    price:"Price", glp1:"GLP-1", menopause:"Menopause / Peri",
+    fasting:"Fasting", gut:"Gut Health", convenience:"Convenience",
+    halal:"Halal", taste:"Taste"
+  };
+  var prodLabels = { beef:"Classic Beef", chicken:"Classic Chicken", variety:"Variety Pack" };
+
+  var activeAngle = "all";
+  var activeProd = "all";
+
+  function escHtml(s) {
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function render() {
+    var grid = document.getElementById("grid");
+    var empty = document.getElementById("emptyState");
+    var visible = 0;
+    var html = "";
+    for (var i = 0; i < headlines.length; i++) {
+      var h = headlines[i];
+      var aMatch = activeAngle === "all" || h.angle === activeAngle;
+      var pMatch = activeProd === "all" || h.products.indexOf(activeProd) !== -1;
+      if (!aMatch || !pMatch) continue;
+      visible++;
+      var prodTagsHtml = "";
+      for (var j = 0; j < h.products.length; j++) {
+        var p = h.products[j];
+        prodTagsHtml += '<span class="prod-tag prod-' + p + '">' + escHtml(prodLabels[p]) + '</span>';
+      }
+      html += '<div class="card">'
+        + '<div class="card-top">'
+        + '<span class="angle-tag angle-' + h.angle + '">' + escHtml(angleLabels[h.angle]) + '</span>'
+        + '<span class="card-num">' + String(i+1).padStart(3,"0") + '</span>'
+        + '</div>'
+        + '<div class="headline">' + escHtml(h.headline) + '</div>'
+        + '<div class="card-bottom">'
+        + '<div class="product-tags">' + prodTagsHtml + '</div>'
+        + '<div class="format-hint">' + escHtml(h.format) + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+    grid.innerHTML = html;
+    empty.style.display = visible === 0 ? "block" : "none";
+    document.getElementById("visibleCount").textContent = visible;
+    document.getElementById("totalCount").textContent = headlines.length;
+  }
+
+  document.addEventListener("click", function(e) {
+    var btn = e.target.closest(".filter-btn");
+    if (!btn) return;
+    var type = btn.getAttribute("data-type");
+    var val = btn.getAttribute("data-val");
+    if (type === "angle") {
+      activeAngle = val;
+      document.querySelectorAll('[data-type="angle"]').forEach(function(b){ b.classList.remove("active"); });
+    } else {
+      activeProd = val;
+      document.querySelectorAll('[data-type="prod"]').forEach(function(b){ b.classList.remove("active"); });
+    }
+    btn.classList.add("active");
+    render();
+  });
+
+  function resetFilters() {
+    activeAngle = "all"; activeProd = "all";
+    document.querySelectorAll(".filter-btn").forEach(function(b){
+      b.classList.toggle("active", b.getAttribute("data-val") === "all");
+    });
+    render();
+  }
+
+  render();
+  </script>
+</body>
+</html>
