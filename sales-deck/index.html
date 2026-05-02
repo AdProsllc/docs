@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Ad Pros — Content Infrastructure for $1M+ Founders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --pink: #ff6aa8;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+    }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Archivo', "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    .font-serif { font-family: 'Instrument Serif', serif; font-weight: 400; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .number-stat { font-family: 'JetBrains Mono', monospace; font-weight: 700; letter-spacing: -0.04em; }
+
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; opacity: 0.03; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Frame: max-width container that simulates phone-style use everywhere */
+    .frame {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      background: var(--navy);
+    }
+
+    /* Sticky top */
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(4, 7, 53, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .topbar-row1 {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; }
+    .topbar-logo {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--navy); font-weight: 900; font-size: 11px;
+    }
+    .topbar-brand-text { line-height: 1; }
+    .topbar-brand-text .name { font-weight: 700; font-size: 12px; letter-spacing: -0.01em; }
+    .topbar-brand-text .sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+    .topbar-pageno { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); }
+
+    .tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs-inner {
+      display: flex; gap: 6px;
+      padding: 10px 16px;
+      min-width: max-content;
+    }
+    .tab-pill {
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+      font-family: inherit;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.55);
+    }
+    .tab-pill.active {
+      background: var(--yellow);
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .tab-pill:not(.active):hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); }
+
+    /* Content */
+    .content {
+      position: relative; z-index: 10;
+      padding: 20px 16px 100px;
+    }
+    .panel { display: none; animation: slideUp 0.4s ease-out forwards; }
+    .panel.active { display: block; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bottom nav */
+    .bottombar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+      background: rgba(4, 7, 53, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      display: flex; align-items: center; gap: 10px;
+      max-width: 480px; margin: 0 auto;
+    }
+    .nav-btn {
+      flex: 1; padding: 12px;
+      border-radius: 12px;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.1s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent; color: rgba(255,255,255,0.6);
+    }
+    .nav-btn:active { transform: scale(0.98); }
+    .nav-btn.primary {
+      flex: 1.5;
+      background: var(--yellow);
+      color: var(--navy);
+      border: none;
+      font-weight: 700;
+    }
+    .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* Common patterns */
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+    .eyebrow.pink { color: var(--pink); }
+    .eyebrow.muted { color: rgba(255,255,255,0.4); }
+
+    h1.display, h2.display {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: 44px;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    h1.display.lg { font-size: 48px; }
+    .italic { font-style: italic; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p.lead {
+      color: rgba(255,255,255,0.65);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .card {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card-pink-left {
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border-left: 2px solid var(--pink);
+      display: flex;
+      gap: 12px;
+    }
+    .card-pink {
+      padding: 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,106,168,0.1) 0%, transparent 100%);
+      border: 1px solid rgba(255,106,168,0.3);
+    }
+    .card-yellow {
+      padding: 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(249,217,0,0.1) 0%, transparent 100%);
+      border: 1px solid rgba(249,217,0,0.3);
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(249, 217, 0, 0.25); }
+      50% { box-shadow: 0 0 40px rgba(249, 217, 0, 0.5); }
+    }
+    .pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+
+    /* Mock screenshot styling */
+    .ig-mock {
+      border-radius: 16px;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .ig-header { padding: 12px 14px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ig-avatar { width: 44px; height: 44px; border-radius: 9999px; background: linear-gradient(135deg, var(--yellow), var(--pink), var(--yellow)); padding: 2px; }
+    .ig-avatar-inner { width: 100%; height: 100%; border-radius: 9999px; background: #000; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .ig-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ig-stats-row > div { padding: 12px; text-align: center; border-right: 1px solid rgba(255,255,255,0.04); }
+    .ig-stats-row > div:last-child { border-right: none; }
+    .ig-bio { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.45; }
+    .ig-views { padding: 12px 16px; background: linear-gradient(to right, rgba(249,217,0,0.15), transparent); display: flex; align-items: center; gap: 8px; }
+
+    .ig-post {
+      border-radius: 16px; background: #000;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .ig-post-head { padding: 8px 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ig-post-avatar { width: 28px; height: 28px; border-radius: 9999px; background: linear-gradient(135deg, var(--yellow), var(--pink)); }
+    .ig-post-body { padding: 14px; }
+    .ig-post-img {
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy) 0%, #0a0f4a 100%);
+      padding: 22px 16px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-top: 12px;
+    }
+    .ig-post-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      padding: 8px 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      gap: 4px;
+      text-align: center;
+    }
+
+    /* Pricing */
+    .price-tier {
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .price-tier.popular { background: linear-gradient(135deg, rgba(249,217,0,0.1) 0%, transparent 100%); border-color: rgba(249,217,0,0.3); }
+    .price-tier.value { background: linear-gradient(135deg, rgba(255,106,168,0.1) 0%, transparent 100%); border-color: rgba(255,106,168,0.3); }
+    .price-tier.max { background: linear-gradient(135deg, rgba(249,217,0,0.15) 0%, rgba(255,106,168,0.05) 50%, transparent 100%); border-color: rgba(249,217,0,0.3); }
+
+    .price-badge {
+      position: absolute; top: 16px; right: 16px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    /* Tier toggle */
+    .tier-select-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .tier-select-btn {
+      padding: 8px 4px;
+      border-radius: 8px;
+      font-size: 10px; font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .tier-select-btn.active { background: var(--yellow); color: var(--navy); border-color: var(--yellow); }
+
+    .view-toggle {
+      display: flex; gap: 6px;
+      padding: 4px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .view-btn {
+      flex: 1; padding: 10px;
+      border-radius: 8px;
+      font-size: 12px; font-weight: 600;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .view-btn.active { background: var(--yellow); color: var(--navy); }
+
+    /* FAQ */
+    .faq-item {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      transition: all 0.15s ease;
+    }
+    .faq-item.open { background: rgba(255,255,255,0.05); border-color: rgba(249,217,0,0.3); }
+    .faq-q-btn {
+      width: 100%;
+      padding: 14px;
+      display: flex; align-items: flex-start; gap: 10px;
+      text-align: left;
+      background: transparent; border: none; cursor: pointer;
+      font-family: inherit; color: inherit;
+    }
+    .faq-q-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--yellow); padding-top: 4px; flex-shrink: 0; }
+    .faq-q-text { flex: 1; font-size: 14px; font-weight: 600; line-height: 1.3; padding-right: 4px; }
+    .faq-toggle { color: var(--yellow); font-size: 18px; line-height: 1; flex-shrink: 0; transition: transform 0.2s ease; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+    .faq-a {
+      padding: 0 14px 14px 38px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; animation: slideUp 0.3s ease-out; }
+
+    /* CTA buttons */
+    .cta-primary {
+      display: block; width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--yellow);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 15px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: transform 0.1s ease;
+    }
+    .cta-primary:active { transform: scale(0.98); }
+    .cta-secondary {
+      display: block; width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .cta-secondary:active { transform: scale(0.98); }
+
+    /* Step circle */
+    .step-circle {
+      width: 28px; height: 28px;
+      border-radius: 9999px;
+      background: var(--yellow);
+      color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* Mobile width — but already set max-width: 480px on .frame, so this is fine */
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="frame">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="topbar-row1">
+        <div class="topbar-brand">
+          <div class="topbar-logo">AP</div>
+          <div class="topbar-brand-text">
+            <div class="name">AD PROS</div>
+            <div class="sub">CONTENT INFRASTRUCTURE</div>
+          </div>
+        </div>
+        <div class="topbar-pageno"><span id="page-no">01</span>/09</div>
+      </div>
+      <div class="tabs">
+        <div class="tabs-inner" id="tabs-inner"></div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+
+      <!-- TAB 0: OPEN -->
+      <div class="panel active" data-panel="0">
+        <div style="padding-top: 24px;">
+          <div class="eyebrow muted">AD PROS / SALES OS</div>
+          <h1 class="display lg">You build the</h1>
+          <h1 class="display lg"><span class="italic gradient-text">business.</span></h1>
+          <h1 class="display lg" style="margin-top: 12px;">We build the</h1>
+          <h1 class="display lg" style="margin-bottom: 28px;"><span class="italic gradient-text">audience.</span></h1>
+
+          <p class="lead" style="margin-bottom: 32px;">
+            Done-for-you content infrastructure for $1M+ founders. Strategy, scripts, AI avatar production, distribution, and paid amplification — under one team.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 32px;">
+            <div class="card" style="text-align: center; padding: 12px;">
+              <div style="font-size: 24px; margin-bottom: 4px;">🎬</div>
+              <div style="font-size: 11px; font-weight: 600;">Record once</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 12px;">
+              <div style="font-size: 24px; margin-bottom: 4px;">⚙️</div>
+              <div style="font-size: 11px; font-weight: 600;">We run it</div>
+            </div>
+            <div class="card" style="text-align: center; padding: 12px;">
+              <div style="font-size: 24px; margin-bottom: 4px;">📈</div>
+              <div style="font-size: 11px; font-weight: 600;">It compounds</div>
+            </div>
+          </div>
+
+          <button class="cta-primary pulse-glow" onclick="goTab(1)">Let's get into it →</button>
+
+          <div style="text-align: center; margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em;">
+            TAP TABS ABOVE TO JUMP AROUND
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 1: PROBLEM -->
+      <div class="panel" data-panel="1">
+        <div class="eyebrow pink">01 / THE PROBLEM</div>
+        <h2 class="display">Content is</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic">a full-time job</span></h2>
+        <p class="lead" style="margin-bottom: 28px;">
+          You know it works. You've watched it work for everyone else in your space. But every time you sit down to do it yourself, the same things stop you.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+          <div class="card-pink-left">
+            <div class="number-stat" style="font-size: 11px; color: var(--pink); padding-top: 2px;">01</div>
+            <div>
+              <div style="font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 2px;">Recording feels unnatural</div>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4;">Two takes in, you're second-guessing every word.</div>
+            </div>
+          </div>
+          <div class="card-pink-left">
+            <div class="number-stat" style="font-size: 11px; color: var(--pink); padding-top: 2px;">02</div>
+            <div>
+              <div style="font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 2px;">You can't think of what to say</div>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4;">Blank screen, blinking cursor, hour gone.</div>
+            </div>
+          </div>
+          <div class="card-pink-left">
+            <div class="number-stat" style="font-size: 11px; color: var(--pink); padding-top: 2px;">03</div>
+            <div>
+              <div style="font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 2px;">Strategy keeps changing</div>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4;">Every guru contradicts the last one.</div>
+            </div>
+          </div>
+          <div class="card-pink-left">
+            <div class="number-stat" style="font-size: 11px; color: var(--pink); padding-top: 2px;">04</div>
+            <div>
+              <div style="font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 2px;">Managing a team eats your week</div>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4;">Briefs, revisions, follow-ups, repeat.</div>
+            </div>
+          </div>
+          <div class="card-pink-left">
+            <div class="number-stat" style="font-size: 11px; color: var(--pink); padding-top: 2px;">05</div>
+            <div>
+              <div style="font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 2px;">Edits never quite land</div>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4;">Three rounds of feedback and it still feels off.</div>
+            </div>
+          </div>
+          <div class="card-pink-left">
+            <div class="number-stat" style="font-size: 11px; color: var(--pink); padding-top: 2px;">06</div>
+            <div>
+              <div style="font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 2px;">Posting consistently is impossible</div>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4;">You miss a week and the algorithm punishes you.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-pink">
+          <div class="eyebrow pink" style="margin-bottom: 8px;">THE COMPOUND COST</div>
+          <p class="font-serif italic" style="font-size: 22px; line-height: 1.2;">
+            Every month you don't show up, your competitors compound. And paid CAC keeps climbing.
+          </p>
+        </div>
+      </div>
+
+      <!-- TAB 2: PROOF -->
+      <div class="panel" data-panel="2">
+        <div class="eyebrow">02 / PROOF</div>
+        <h2 class="display">I built it on</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic gradient-text">myself first.</span></h2>
+        <p class="lead" style="margin-bottom: 28px;">
+          Same system. Same studio day. Same scripts. Same distribution. Here's what 30 days looked like on @nehalkazim.
+        </p>
+
+        <!-- Profile Mockup -->
+        <div class="ig-mock" style="margin-bottom: 20px;">
+          <div class="ig-header">
+            <div class="ig-avatar">
+              <div class="ig-avatar-inner">👤</div>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <div style="font-weight: 700; font-size: 15px;">nehalkazim</div>
+                <span style="color: var(--blue); font-size: 14px;">●</span>
+              </div>
+              <div style="font-size: 11px; color: rgba(255,255,255,0.5);">Founder · Ad Pros</div>
+            </div>
+          </div>
+          <div class="ig-stats-row">
+            <div>
+              <div class="number-stat" style="font-size: 18px;">363</div>
+              <div style="font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em;">posts</div>
+            </div>
+            <div>
+              <div class="number-stat" style="font-size: 18px; color: var(--yellow);">5,430</div>
+              <div style="font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em;">followers</div>
+            </div>
+            <div>
+              <div class="number-stat" style="font-size: 18px;">4,325</div>
+              <div style="font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em;">following</div>
+            </div>
+          </div>
+          <div class="ig-bio">
+            💰 <span style="font-weight: 600;">Adding $1M/Month in Revenue With Ads</span><br/>
+            🙋 Founder Of Ad Pros<br/>
+            📩 DM "AI" To Learn How To Scale With AI
+          </div>
+          <div class="ig-views">
+            <span style="color: var(--yellow); font-size: 14px;">↗</span>
+            <div class="number-stat" style="font-size: 20px; color: var(--yellow);">241,000</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.6);">views in last 30 days</div>
+          </div>
+        </div>
+
+        <div class="eyebrow muted" style="margin-bottom: 12px;">TWO RECENT POSTS</div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
+          <!-- Post 1 -->
+          <div class="ig-post">
+            <div class="ig-post-head">
+              <div class="ig-post-avatar"></div>
+              <div style="font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                nehalkazim <span style="color: var(--blue);">●</span>
+              </div>
+              <div style="margin-left: auto; font-size: 9px; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono', monospace;">APR 21</div>
+            </div>
+            <div class="ig-post-body">
+              <p style="font-size: 14px; line-height: 1.4;">
+                <span style="font-weight: 600;">Claude just changed the game for paid ads.</span><br/>
+                <span style="color: rgba(255,255,255,0.7);">This free tool shows you exactly where your funnel is leaking.</span>
+              </p>
+              <div class="ig-post-img">
+                <div class="font-serif" style="font-size: 22px; letter-spacing: -0.02em;">✦ Claude  +  ▲ Clarity</div>
+                <div style="font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 4px; font-family: 'JetBrains Mono', monospace;">by Microsoft</div>
+              </div>
+            </div>
+            <div class="ig-post-stats">
+              <div>
+                <div class="number-stat" style="font-size: 15px; color: var(--yellow);">82.5K</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">views</div>
+              </div>
+              <div>
+                <div class="number-stat" style="font-size: 15px;">3,003</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">likes</div>
+              </div>
+              <div>
+                <div class="number-stat" style="font-size: 15px;">5,092</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">comments</div>
+              </div>
+              <div>
+                <div class="number-stat" style="font-size: 15px;">7,705</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">shares</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Post 2 -->
+          <div class="ig-post">
+            <div class="ig-post-head">
+              <div class="ig-post-avatar"></div>
+              <div style="font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                nehalkazim <span style="color: var(--blue);">●</span>
+              </div>
+              <div style="margin-left: auto; font-size: 9px; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono', monospace;">APR 30</div>
+            </div>
+            <div class="ig-post-body">
+              <p style="font-size: 14px; line-height: 1.4;">
+                <span style="font-weight: 600;">Now you can manage Meta Ads directly from Claude and ChatGPT.</span><br/>
+                <span style="color: rgba(255,255,255,0.7);">Because Meta just released an official MCP.</span>
+              </p>
+              <div class="ig-post-img">
+                <div class="font-serif" style="font-size: 22px; letter-spacing: -0.02em;">✦ Claude  +  ∞ Meta</div>
+              </div>
+            </div>
+            <div class="ig-post-stats">
+              <div>
+                <div class="number-stat" style="font-size: 15px; color: var(--yellow);">25.7K</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">views</div>
+              </div>
+              <div>
+                <div class="number-stat" style="font-size: 15px;">1,100</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">likes</div>
+              </div>
+              <div>
+                <div class="number-stat" style="font-size: 15px;">1,600</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">comments</div>
+              </div>
+              <div>
+                <div class="number-stat" style="font-size: 15px;">2,900</div>
+                <div style="font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase;">shares</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-yellow">
+          <div class="font-serif italic" style="font-size: 20px; line-height: 1.2;">
+            That's not a one-off. That's the system running.
+          </div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 8px;">
+            Same playbook running on your profile. Different numbers — same compound curve.
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: HOW IT WORKS -->
+      <div class="panel" data-panel="3">
+        <div class="eyebrow">03 / HOW IT WORKS</div>
+        <h2 class="display">Record once.</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic gradient-text">Produce forever.</span></h2>
+        <p class="lead" style="margin-bottom: 28px;">
+          One studio session. We capture 8 versions of your AI avatar plus your voice clone. From that day forward, every video is generated from your trained models. You never need to record again.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
+          <div class="card" style="position: relative; padding: 20px;">
+            <div style="position: absolute; top: -10px; left: 16px; padding: 2px 8px; border-radius: 9999px; background: var(--yellow); color: var(--navy); font-size: 9px; font-weight: 700; letter-spacing: 0.1em;">ONE TIME · 2 HOURS</div>
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-top: 6px;">
+              <div style="font-size: 24px;">🎥</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">Studio Day</div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5;">
+                  4 scenarios × 2 outfits = 8 unique avatars. Voice clone trained from the same session.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; color: var(--yellow); font-size: 20px;">↓</div>
+
+          <div class="card" style="position: relative; padding: 20px;">
+            <div style="position: absolute; top: -10px; left: 16px; padding: 2px 8px; border-radius: 9999px; background: var(--pink); color: white; font-size: 9px; font-weight: 700; letter-spacing: 0.1em;">CONTINUOUS</div>
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-top: 6px;">
+              <div style="font-size: 24px;">🤖</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">AI Production</div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5;">
+                  Scripts written from research → audio generated from your voice → video rendered with your avatar. You approve, we ship.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; color: var(--yellow); font-size: 20px;">↓</div>
+
+          <div class="card-yellow" style="position: relative;">
+            <div style="position: absolute; top: -10px; left: 16px; padding: 2px 8px; border-radius: 9999px; background: var(--yellow); color: var(--navy); font-size: 9px; font-weight: 700; letter-spacing: 0.1em;">EVERY MONTH</div>
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-top: 6px;">
+              <div style="font-size: 24px;">📤</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">Distributed</div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5;">
+                  Up to 90 videos/month. Cross-platform. TOFU, MOFU, BOFU mix calibrated to your goals.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-yellow">
+          <div class="font-serif italic" style="font-size: 22px; line-height: 1.2; margin-bottom: 8px;">
+            Your face. Your voice. Your message. Without your time.
+          </div>
+          <div class="font-mono" style="font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.1em;">
+            THE TRADE: 2 HOURS → INFINITE VIDEOS
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: DELIVERABLES -->
+      <div class="panel" data-panel="4">
+        <div class="eyebrow">04 / WHAT YOU GET</div>
+        <h2 class="display">7 deliverables.</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic gradient-text">One team.</span></h2>
+        <p class="lead" style="margin-bottom: 24px;">
+          Most agencies do one thing. We're the full content stack: production through distribution through paid amplification.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;" id="deliv-list"></div>
+
+        <div class="card-pink">
+          <div class="eyebrow pink" style="margin-bottom: 8px;">WHY THE FULL STACK</div>
+          <p style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85);">
+            Videos drive traffic. Traffic feeds the funnel. Funnel grows the newsletter. Newsletter warms paid ads. Paid scales the machine. <span style="color: var(--pink); font-weight: 700;">Each layer makes the next one work harder.</span> That's why pure content shops plateau and we don't.
+          </p>
+        </div>
+      </div>
+
+      <!-- TAB 5: PRICING -->
+      <div class="panel" data-panel="5">
+        <div class="eyebrow">05 / INVESTMENT</div>
+        <h2 class="display">Five tiers.</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic gradient-text">One that fits.</span></h2>
+        <p class="lead" style="margin-bottom: 20px;">
+          Most clients enter at $5K and scale up as the system proves itself. Pick the tier that matches your appetite.
+        </p>
+
+        <div class="view-toggle" style="margin-bottom: 20px;">
+          <button class="view-btn active" id="view-recommended" onclick="setView('recommended')">Recommended</button>
+          <button class="view-btn" id="view-all" onclick="setView('all')">All Tiers</button>
+        </div>
+
+        <div id="tier-selector" class="card" style="padding: 12px; margin-bottom: 20px;">
+          <div class="font-mono" style="font-size: 9px; color: rgba(255,255,255,0.4); margin-bottom: 8px; letter-spacing: 0.1em;">SELECT TIER</div>
+          <div class="tier-select-grid" id="tier-select-grid"></div>
+        </div>
+
+        <div id="tier-cards" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px;"></div>
+
+        <div class="card-yellow">
+          <div class="font-serif italic" style="font-size: 20px; line-height: 1.2; margin-bottom: 8px;">
+            A year of this costs less than one month of an in-house team that can't do half of it.
+          </div>
+          <div class="font-mono" style="font-size: 10px; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; margin-top: 8px;">
+            IN-HOUSE EQUIVALENT · $35K–$80K/MO LOADED
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: ABOUT -->
+      <div class="panel" data-panel="6">
+        <div class="eyebrow">06 / ABOUT AD PROS</div>
+        <h2 class="display">We're not</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic gradient-text">a content shop.</span></h2>
+        <p class="lead" style="margin-bottom: 28px;">
+          Ad Pros is a performance marketing agency running $2M/month in paid spend for DTC and ecommerce brands. The content offer is built on top of that infrastructure — which is why our content actually moves pipeline.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px;">
+          <div class="card">
+            <div class="number-stat" style="font-size: 26px; color: var(--yellow); margin-bottom: 2px;">$2M</div>
+            <div style="font-size: 10px; color: rgba(255,255,255,0.5); line-height: 1.2;">ad spend managed / month</div>
+          </div>
+          <div class="card">
+            <div class="number-stat" style="font-size: 26px; color: var(--yellow); margin-bottom: 2px;">26</div>
+            <div style="font-size: 10px; color: rgba(255,255,255,0.5); line-height: 1.2;">person team</div>
+          </div>
+          <div class="card">
+            <div class="number-stat" style="font-size: 26px; color: var(--yellow); margin-bottom: 2px;">4</div>
+            <div style="font-size: 10px; color: rgba(255,255,255,0.5); line-height: 1.2;">service lines</div>
+          </div>
+          <div class="card">
+            <div class="number-stat" style="font-size: 26px; color: var(--yellow); margin-bottom: 2px;">5+</div>
+            <div style="font-size: 10px; color: rgba(255,255,255,0.5); line-height: 1.2;">years building this</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="eyebrow pink" style="margin-bottom: 12px;">THE 4 SERVICE LINES</div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 6px; height: 6px; border-radius: 9999px; background: var(--yellow); margin-top: 8px; flex-shrink: 0;"></div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.2;">Creative Advisory Board</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.4; margin-top: 2px;">Strategic creative leadership for portfolio brands</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 6px; height: 6px; border-radius: 9999px; background: var(--yellow); margin-top: 8px; flex-shrink: 0;"></div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.2;">Media Buying</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.4; margin-top: 2px;">$2M/mo across Meta, Google, TikTok</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 6px; height: 6px; border-radius: 9999px; background: var(--yellow); margin-top: 8px; flex-shrink: 0;"></div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.2;">Creative Production</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.4; margin-top: 2px;">Where this offer lives</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 6px; height: 6px; border-radius: 9999px; background: var(--yellow); margin-top: 8px; flex-shrink: 0;"></div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.2;">Creator Network</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.4; margin-top: 2px;">UGC + partnership pipeline at scale</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-yellow">
+          <div class="font-serif italic" style="font-size: 19px; line-height: 1.2; margin-bottom: 8px;">
+            We see what content actually performs because we run $2M/month in paid traffic and watch the real numbers.
+          </div>
+          <p style="font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5;">
+            That feedback loop — organic informed by paid performance data — is the unfair advantage no pure content agency has.
+          </p>
+        </div>
+      </div>
+
+      <!-- TAB 7: FAQ -->
+      <div class="panel" data-panel="7">
+        <div class="eyebrow">07 / COMMON QUESTIONS</div>
+        <h2 class="display">What people</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic gradient-text">actually ask.</span></h2>
+        <p class="lead" style="margin-bottom: 24px;">
+          Tap to expand. These are the eight that come up before every signed contract.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;" id="faq-list"></div>
+      </div>
+
+      <!-- TAB 8: CLOSE -->
+      <div class="panel" data-panel="8">
+        <div class="eyebrow">08 / LET'S START</div>
+        <h2 class="display">Ready to make</h2>
+        <h2 class="display" style="margin-bottom: 24px;"><span class="italic gradient-text">the leap?</span></h2>
+        <p class="lead" style="margin-bottom: 24px;">
+          Two steps. Book the kickoff call. Lock the tier with payment. We start building the day after.
+        </p>
+
+        <div class="card-yellow" style="padding: 16px; margin-bottom: 20px;">
+          <div class="font-mono" style="font-size: 9px; color: var(--yellow); letter-spacing: 0.2em; margin-bottom: 6px;">YOUR SELECTED TIER</div>
+          <div class="font-serif" id="close-tier-label" style="font-size: 26px; margin-bottom: 2px;">$5K · Foundation</div>
+          <div class="font-mono" style="font-size: 11px; color: rgba(255,255,255,0.5);">Adjustable on the call</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+          <div class="card" style="padding: 16px;">
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+              <div class="step-circle">1</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 14px; margin-bottom: 2px;">Book the Kickoff Call</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.5;">30 minutes. Finalize tier, scope, studio date, anything outstanding.</div>
+              </div>
+            </div>
+            <a href="https://calendly.com/nehalkazim/kickoff" target="_blank" rel="noopener noreferrer" class="cta-secondary">📅 Book Call</a>
+          </div>
+
+          <div class="card-yellow pulse-glow" style="padding: 16px;">
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+              <div class="step-circle">2</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 14px; margin-bottom: 2px;">Lock It In</div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.5;">Pay the first month. We start the day after kickoff.</div>
+              </div>
+            </div>
+            <a href="https://adpros.com/checkout" target="_blank" rel="noopener noreferrer" class="cta-primary">💳 Pay & Start →</a>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 16px; margin-bottom: 24px;">
+          <div class="eyebrow pink" style="margin-bottom: 10px;">RISK REVERSAL</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12px;">
+            <div style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--yellow);">●</span><span style="color: rgba(255,255,255,0.8);">You own the avatar, voice clone, and content forever.</span></div>
+            <div style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--yellow);">●</span><span style="color: rgba(255,255,255,0.8);">Quarterly initial term, month-to-month after.</span></div>
+            <div style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--yellow);">●</span><span style="color: rgba(255,255,255,0.8);">Direct line to founder for first 60 days.</span></div>
+          </div>
+        </div>
+
+        <div style="text-align: center; padding: 12px 0 16px;">
+          <div class="font-serif italic" style="font-size: 22px; line-height: 1.2; margin-bottom: 4px;">Your competitors started 6 months ago.</div>
+          <div class="font-serif italic gradient-text" style="font-size: 22px; line-height: 1.2; margin-bottom: 20px;">Today is your day one.</div>
+          <div class="font-mono" style="font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em;">AD PROS · BUILT IN MEDELLÍN</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottombar">
+      <button class="nav-btn" id="nav-back" onclick="goPrev()">Back</button>
+      <button class="nav-btn primary" id="nav-next" onclick="goNext()">Next</button>
+    </div>
+
+  </div>
+
+  <script>
+    // === Data ===
+    var TABS = [
+      { id: 0, short: 'Open' },
+      { id: 1, short: 'Problem' },
+      { id: 2, short: 'Proof' },
+      { id: 3, short: 'How' },
+      { id: 4, short: 'Deliverables' },
+      { id: 5, short: 'Pricing' },
+      { id: 6, short: 'About' },
+      { id: 7, short: 'FAQ' },
+      { id: 8, short: 'Start' }
+    ];
+    var TOTAL = TABS.length;
+
+    var DELIVERABLES = [
+      { icon: '🎬', name: 'Short-Form Videos', desc: 'AI avatar shorts for IG, TikTok, LinkedIn, YT Shorts', tier: 'All plans' },
+      { icon: '🎠', name: 'Carousel Ads', desc: 'Static and animated carousels for paid + organic', tier: '$10K+' },
+      { icon: '📘', name: 'Lead Magnet Production', desc: 'Guides, templates, mini-courses your audience converts on', tier: '$2.5K+' },
+      { icon: '🪝', name: 'Lead Magnet Funnel', desc: 'Landing → opt-in → email sequence → CTA', tier: '$5K+' },
+      { icon: '🔧', name: 'Tech Integration', desc: 'GoHighLevel, ManyChat, ESP, automations wired up', tier: '$5K+' },
+      { icon: '✉️', name: 'Newsletter', desc: 'Weekly+ written content that nurtures and sells', tier: '$10K+' },
+      { icon: '🎯', name: 'Paid Ads Management', desc: "Creative + media buying. Ad Pros' core competency.", tier: '$20K' }
+    ];
+
+    var TIERS = [
+      { id: '1k', price: '$1K', name: 'Starter', tagline: 'Toe in the water.', videos: '12', videosLabel: 'videos / month',
+        features: ['AI avatar setup (one-time studio day)', '3 short-form videos / week', 'Instagram only', 'Monthly content strategy'],
+        missing: ['No lead magnets', 'No funnel', 'No newsletter', 'No paid ads'],
+        bestFor: 'Founders testing the format before committing.', cls: '' },
+      { id: '2.5k', price: '$2.5K', name: 'Growth', tagline: 'More volume + first lead magnet.', videos: '20', videosLabel: 'videos / month',
+        features: ['Everything in Starter', '5 short-form videos / week', 'IG + LinkedIn', '1 lead magnet / month', 'Monthly performance review'],
+        missing: ['No funnel', 'No tech integration', 'No newsletter', 'No paid ads'],
+        bestFor: 'Founders ramping consistency without the full system.', cls: '' },
+      { id: '5k', price: '$5K', name: 'Foundation', tagline: 'The full system, focused scope.', videos: '30', videosLabel: 'videos / month',
+        features: ['30 videos / month (TOFU + MOFU + BOFU)', 'IG + LinkedIn', '1 lead magnet / month', 'Lead magnet funnel (landing + opt-in + sequence)', 'Tech integration (CRM, automations)', 'Monthly strategy + performance review'],
+        missing: ['No newsletter', 'No paid ads', 'Limited platforms'],
+        bestFor: 'Where most $1M+ founders enter. Full machine, manageable scope.', cls: 'popular', badge: 'POPULAR' },
+      { id: '10k', price: '$10K', name: 'Growth Engine', tagline: 'Compound effect kicks in.', videos: '60', videosLabel: 'videos / month',
+        features: ['60 videos / month', 'IG + LinkedIn + TikTok + YouTube Shorts', '2 lead magnets / month', 'Carousel ads (organic + paid creative)', 'Weekly newsletter', 'Full funnel + email nurture', 'Bi-weekly strategy calls'],
+        missing: ['Paid ads management not included'],
+        bestFor: 'Founders ready to dominate multiple platforms in parallel.', cls: 'value', badge: 'BEST VALUE' },
+      { id: '20k', price: '$20K', name: 'Empire', tagline: 'Full stack, white-glove.', videos: '90', videosLabel: 'videos / month',
+        features: ['90 videos / month', 'All platforms + cross-post automation', '4 lead magnets / month', 'Carousel ads + paid ads management', 'Bi-weekly+ newsletter', 'Full funnel + retargeting + nurture', 'Dedicated content strategist', 'Weekly strategy calls', 'Priority access to founder'],
+        missing: [],
+        bestFor: 'Founders making content the moat. Top of every feed.', cls: 'max', badge: 'MAXIMUM' }
+    ];
+
+    var FAQS = [
+      { q: 'What if the AI avatar looks fake?', a: "You approve every avatar variation before production starts. If anything feels off, we re-shoot. Most clients tell us the avatar reads more \"on\" than they do live — because we cut the bad takes." },
+      { q: 'How much of my time does this actually take?', a: 'After the 2-hour studio day: 30-60 minutes per week for review and direction. We handle strategy, scripts, production, edits, and distribution.' },
+      { q: "What if I don't like the script direction?", a: 'You approve every script before audio or video is generated. The research machine is calibrated to your voice in onboarding, then refined monthly. By month two most clients approve 90%+ as-written.' },
+      { q: 'Why trust an agency with my personal brand?', a: 'Three reasons. One: I built it on my own profile first — 241K views/month is the proof. Two: Ad Pros has run paid traffic for $1M+ businesses for years; we know what content moves pipeline. Three: you own the avatar, voice clone, and every asset. Part ways tomorrow, you keep everything.' },
+      { q: 'How long until results?', a: 'Reach in 30-60 days. Lead flow in 60-90. Compounding revenue effect in 4-6 months. Built for compounding, not spiking.' },
+      { q: 'Lock-in?', a: 'Quarterly initial term so the system has room to compound, then month-to-month. The first 90 days is foundation work that needs to run.' },
+      { q: 'Will this work for my industry?', a: 'The avatar is you. The voice is you. The scripts are built from research on your business, your audience, your offer. Run for ecommerce, B2B SaaS, agencies, coaches, consultants. The system adapts.' },
+      { q: 'Why not hire in-house?', a: 'A loaded content team — strategist, scriptwriter, editor, producer, paid media — runs $35K-$80K/month. Plus management overhead, ramp time, and turnover risk. Our $20K tier ships more than a 5-person internal team because the avatar removes the bottleneck.' }
+    ];
+
+    // === State ===
+    var state = {
+      tab: 0,
+      tier: '5k',
+      view: 'recommended',
+      faqOpen: 0
+    };
+
+    // === Init ===
+    function init() {
+      renderTabs();
+      renderDeliverables();
+      renderTierSelector();
+      renderTiers();
+      renderFAQs();
+      updateUI();
+    }
+
+    function renderTabs() {
+      var html = '';
+      TABS.forEach(function(t, i) {
+        html += '<button class="tab-pill' + (i === 0 ? ' active' : '') + '" onclick="goTab(' + i + ')" data-tab="' + i + '">' + t.short + '</button>';
+      });
+      document.getElementById('tabs-inner').innerHTML = html;
+    }
+
+    function renderDeliverables() {
+      var html = '';
+      DELIVERABLES.forEach(function(d) {
+        html += '<div class="card" style="padding: 14px;">' +
+          '<div style="display: flex; align-items: flex-start; gap: 12px;">' +
+            '<div style="font-size: 22px; flex-shrink: 0;">' + d.icon + '</div>' +
+            '<div style="flex: 1; min-width: 0;">' +
+              '<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 2px;">' +
+                '<div style="font-weight: 700; font-size: 15px;">' + d.name + '</div>' +
+                '<div class="font-mono" style="padding: 2px 8px; border-radius: 6px; background: rgba(249,217,0,0.15); color: var(--yellow); font-size: 9px; font-weight: 700; white-space: nowrap;">' + d.tier + '</div>' +
+              '</div>' +
+              '<div style="font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5;">' + d.desc + '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      });
+      document.getElementById('deliv-list').innerHTML = html;
+    }
+
+    function renderTierSelector() {
+      var html = '';
+      TIERS.forEach(function(t) {
+        html += '<button class="tier-select-btn' + (t.id === state.tier ? ' active' : '') + '" data-tier-btn="' + t.id + '" onclick="setTier(\'' + t.id + '\')">' + t.price + '</button>';
+      });
+      document.getElementById('tier-select-grid').innerHTML = html;
+    }
+
+    function renderTiers() {
+      var html = '';
+      var toShow = state.view === 'recommended' ? TIERS.filter(function(t) { return t.id === state.tier; }) : TIERS;
+
+      toShow.forEach(function(t) {
+        var color = t.id === '5k' ? 'var(--yellow)' :
+                    t.id === '10k' ? 'var(--pink)' :
+                    t.id === '20k' ? 'var(--yellow)' : 'white';
+        var badgeBg = t.id === '10k' ? 'var(--pink)' : 'var(--yellow)';
+        var badgeFg = t.id === '10k' ? 'white' : 'var(--navy)';
+
+        html += '<div class="price-tier' + (t.cls ? ' ' + t.cls : '') + '">';
+        if (t.badge) {
+          html += '<div class="price-badge" style="background: ' + badgeBg + '; color: ' + badgeFg + ';">' + t.badge + '</div>';
+        }
+        html += '<div class="font-mono" style="font-size: 10px; letter-spacing: 0.2em; margin-bottom: 8px; color: ' + color + ';">' + t.name.toUpperCase() + '</div>';
+        html += '<div style="display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px;">';
+        html += '<div class="number-stat" style="font-size: 42px; line-height: 1; color: ' + color + ';">' + t.price + '</div>';
+        html += '<div class="font-mono" style="font-size: 12px; color: rgba(255,255,255,0.4);">/month</div>';
+        html += '</div>';
+        html += '<p class="font-serif italic" style="font-size: 18px; margin-bottom: 16px; color: rgba(255,255,255,0.8); line-height: 1.2;">' + t.tagline + '</p>';
+        html += '<div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.3);">';
+        html += '<div class="number-stat" style="font-size: 28px; color: ' + color + ';">' + t.videos + '</div>';
+        html += '<div style="font-size: 11px; color: rgba(255,255,255,0.55);">' + t.videosLabel + '</div>';
+        html += '</div>';
+        html += '<div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;">';
+        t.features.forEach(function(f) {
+          html += '<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 13px;"><span style="color: var(--yellow); margin-top: 2px; font-size: 10px;">●</span><span style="color: rgba(255,255,255,0.85); line-height: 1.4;">' + f + '</span></div>';
+        });
+        html += '</div>';
+        if (t.missing.length > 0) {
+          html += '<div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.3);">';
+          html += '<div class="font-mono" style="font-size: 9px; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-bottom: 4px;">NOT INCLUDED</div>';
+          t.missing.forEach(function(m) {
+            html += '<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 11px; color: rgba(255,255,255,0.4);"><span style="margin-top: 2px;">×</span><span>' + m + '</span></div>';
+          });
+          html += '</div>';
+        }
+        html += '<div style="padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">';
+        html += '<div class="font-mono" style="font-size: 9px; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 4px;">BEST FOR</div>';
+        html += '<div class="italic" style="font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.4;">' + t.bestFor + '</div>';
+        html += '</div>';
+        html += '</div>';
+      });
+
+      document.getElementById('tier-cards').innerHTML = html;
+    }
+
+    function renderFAQs() {
+      var html = '';
+      FAQS.forEach(function(f, i) {
+        var pad = String(i + 1).padStart(2, '0');
+        html += '<div class="faq-item' + (i === state.faqOpen ? ' open' : '') + '" data-faq="' + i + '">';
+        html += '<button class="faq-q-btn" onclick="toggleFaq(' + i + ')">';
+        html += '<div class="faq-q-num">' + pad + '</div>';
+        html += '<div class="faq-q-text">' + f.q + '</div>';
+        html += '<div class="faq-toggle">+</div>';
+        html += '</button>';
+        html += '<div class="faq-a">' + f.a + '</div>';
+        html += '</div>';
+      });
+      document.getElementById('faq-list').innerHTML = html;
+    }
+
+    function updateUI() {
+      // Tabs
+      var pills = document.querySelectorAll('.tab-pill');
+      pills.forEach(function(p) {
+        var idx = parseInt(p.getAttribute('data-tab'), 10);
+        p.classList.toggle('active', idx === state.tab);
+      });
+
+      // Panels
+      var panels = document.querySelectorAll('.panel');
+      panels.forEach(function(p) {
+        var idx = parseInt(p.getAttribute('data-panel'), 10);
+        p.classList.toggle('active', idx === state.tab);
+      });
+
+      // Page no
+      document.getElementById('page-no').textContent = String(state.tab + 1).padStart(2, '0');
+
+      // Nav buttons
+      var back = document.getElementById('nav-back');
+      var next = document.getElementById('nav-next');
+      back.disabled = state.tab === 0;
+      next.disabled = state.tab === TOTAL - 1;
+      next.textContent = state.tab === TOTAL - 1 ? 'End' : 'Next';
+
+      // Close tier label
+      var labels = { '1k': '$1K · Starter', '2.5k': '$2.5K · Growth', '5k': '$5K · Foundation', '10k': '$10K · Growth Engine', '20k': '$20K · Empire' };
+      document.getElementById('close-tier-label').textContent = labels[state.tier] || labels['5k'];
+
+      // Tier selector visibility
+      document.getElementById('tier-selector').style.display = state.view === 'recommended' ? 'block' : 'none';
+
+      // View toggle
+      document.getElementById('view-recommended').classList.toggle('active', state.view === 'recommended');
+      document.getElementById('view-all').classList.toggle('active', state.view === 'all');
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function goTab(i) {
+      state.tab = Math.max(0, Math.min(TOTAL - 1, i));
+      updateUI();
+    }
+    function goPrev() { goTab(state.tab - 1); }
+    function goNext() { goTab(state.tab + 1); }
+
+    function setTier(id) {
+      state.tier = id;
+      renderTierSelector();
+      renderTiers();
+      updateUI();
+    }
+
+    function setView(v) {
+      state.view = v;
+      renderTiers();
+      updateUI();
+    }
+
+    function toggleFaq(i) {
+      state.faqOpen = state.faqOpen === i ? -1 : i;
+      var items = document.querySelectorAll('.faq-item');
+      items.forEach(function(it) {
+        var idx = parseInt(it.getAttribute('data-faq'), 10);
+        it.classList.toggle('open', idx === state.faqOpen);
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
