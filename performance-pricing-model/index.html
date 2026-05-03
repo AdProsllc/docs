@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Performance Pricing Model — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+      --green: #34d399;
+      --red: #f87171;
+    }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; line-height: 1.5; }
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-content { padding: 40px 48px 0; max-width: 1100px; margin: 0 auto; }
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    @media (max-width: 640px) { .ap-header, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; margin-left: 20px; margin-right: 20px; } .ap-content { margin: 0 auto; padding: 24px 20px 0; } .ap-footer { margin: 48px 20px 24px; } }
+
+    /* Hero */
+    .hero { padding: 24px 0 48px; }
+    .eyebrow { color: var(--yellow); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; }
+    .hero h2 { font-size: 56px; font-weight: 800; color: var(--white); letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 20px; }
+    .hero h2 em { font-style: normal; color: var(--yellow); }
+    .hero p { font-size: 17px; color: var(--grey-200); max-width: 640px; }
+    @media (max-width: 640px) { .hero h2 { font-size: 38px; letter-spacing: -1px; } .hero p { font-size: 15px; } }
+
+    /* Baseline card */
+    .baseline {
+      background: linear-gradient(135deg, var(--navy-card) 0%, #0a0f4d 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+    .baseline-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
+    .baseline h3 { font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 8px; letter-spacing: -0.4px; }
+    .baseline-sub { font-size: 14px; color: var(--grey-300); }
+    .baseline-stats { display: flex; gap: 32px; padding-left: 32px; border-left: 1px solid var(--card-border); }
+    .stat .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-300); margin-bottom: 6px; }
+    .stat .stat-value { font-size: 28px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
+    @media (max-width: 720px) {
+      .baseline { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+      .baseline-stats { padding-left: 0; border-left: none; padding-top: 20px; border-top: 1px solid var(--card-border); }
+      .stat .stat-value { font-size: 22px; }
+    }
+
+    /* Section heading */
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .section-head h3 { font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
+    .section-head .hint { font-size: 13px; color: var(--grey-300); }
+
+    /* Scenarios */
+    .scenarios { display: grid; gap: 12px; margin-bottom: 56px; }
+    .scenario {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 90px 1fr 220px 140px;
+      gap: 24px;
+      align-items: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .scenario:hover { border-color: rgba(249, 217, 0, 0.25); }
+    .scenario.target { border-color: var(--yellow); background: linear-gradient(135deg, var(--navy-card) 0%, #0c1158 100%); }
+    .scenario.win { border-left: 3px solid var(--green); }
+    .scenario.loss { border-left: 3px solid var(--red); }
+
+    .scen-cpa-block { display: flex; flex-direction: column; }
+    .scen-cpa-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey-300); margin-bottom: 4px; }
+    .scen-cpa { font-size: 32px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; line-height: 1; }
+    .scenario.win .scen-cpa { color: var(--green); }
+    .scenario.loss .scen-cpa { color: var(--red); }
+    .scenario.target .scen-cpa { color: var(--yellow); }
+
+    .scen-status { display: flex; flex-direction: column; gap: 4px; }
+    .scen-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    .scen-tag.win { color: var(--green); }
+    .scen-tag.target { color: var(--yellow); }
+    .scen-tag.loss { color: var(--red); }
+    .scen-desc { font-size: 13px; color: var(--grey-200); }
+
+    .scen-breakdown { font-size: 12px; color: var(--grey-300); display: flex; flex-direction: column; gap: 3px; font-variant-numeric: tabular-nums; }
+    .scen-breakdown span { display: flex; justify-content: space-between; }
+    .scen-breakdown .label { color: var(--grey-300); }
+    .scen-breakdown .val { color: var(--white); font-weight: 500; }
+
+    .scen-total { text-align: right; }
+    .scen-total-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey-300); margin-bottom: 4px; }
+    .scen-total-value { font-size: 28px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; line-height: 1; font-variant-numeric: tabular-nums; }
+    .scen-total-delta { font-size: 12px; font-weight: 600; margin-top: 6px; font-variant-numeric: tabular-nums; }
+    .scen-total-delta.win { color: var(--green); }
+    .scen-total-delta.loss { color: var(--red); }
+    .scen-total-delta.neutral { color: var(--grey-300); }
+
+    @media (max-width: 820px) {
+      .scenario { grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px; }
+      .scen-cpa-block { grid-column: 1; grid-row: 1; }
+      .scen-total { grid-column: 2; grid-row: 1; }
+      .scen-status { grid-column: 1 / -1; grid-row: 2; }
+      .scen-breakdown { grid-column: 1 / -1; grid-row: 3; padding-top: 12px; border-top: 1px solid var(--card-border); }
+      .scen-cpa { font-size: 28px; }
+      .scen-total-value { font-size: 24px; }
+    }
+
+    /* Mechanics */
+    .mechanics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .mech-card {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .mech-num { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; color: var(--yellow); margin-bottom: 12px; }
+    .mech-card h4 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 12px; letter-spacing: -0.2px; }
+    .mech-card p { font-size: 13px; color: var(--grey-200); margin-bottom: 14px; }
+    .mech-detail { font-size: 12px; color: var(--grey-300); display: flex; flex-direction: column; gap: 4px; font-variant-numeric: tabular-nums; }
+    .mech-detail span { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed rgba(255,255,255,0.06); }
+    .mech-detail span:last-child { border-bottom: none; }
+    .mech-detail .v { color: var(--white); font-weight: 600; }
+
+    @media (max-width: 760px) { .mechanics { grid-template-columns: 1fr; } }
+
+    /* Note */
+    .note {
+      background: rgba(249, 217, 0, 0.04);
+      border: 1px solid rgba(249, 217, 0, 0.18);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .note-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--yellow); color: var(--navy); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
+    .note p { font-size: 13px; color: var(--grey-200); }
+    .note p strong { color: var(--white); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Performance Pricing Model</h1>
+      <p>Proposal 3 — Pay for results</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <section class="hero">
+      <div class="eyebrow">Pricing Proposal · v1</div>
+      <h2>Hit <em>$60 CPA</em>,<br>we win together.</h2>
+      <p>A flat $10,000 base retainer plus a variable media buying fee, both scaled by how well we hit the $60 CPA target. When we beat $60, we earn an additional spend bonus. When we miss, our fee shrinks to share the pain.</p>
+    </section>
+
+    <div class="baseline">
+      <div>
+        <div class="baseline-label">Baseline Scenario</div>
+        <h3>$300,000/month spend at $60 CPA</h3>
+        <div class="baseline-sub">~5,000 conversions/month at target efficiency.</div>
+      </div>
+      <div class="baseline-stats">
+        <div class="stat">
+          <div class="stat-label">Total Fee</div>
+          <div class="stat-value">$20,250</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">% of Spend</div>
+          <div class="stat-value">6.75%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h3>Better CPA → we earn more</h3>
+      <span class="hint">Lower CPA increases the fee multiplier and unlocks the spend bonus.</span>
+    </div>
+
+    <div class="scenarios">
+
+      <!-- $50 CPA -->
+      <div class="scenario win">
+        <div class="scen-cpa-block">
+          <div class="scen-cpa-label">CPA</div>
+          <div class="scen-cpa">$50</div>
+        </div>
+        <div class="scen-status">
+          <div class="scen-tag win">↗ Crushing it</div>
+          <div class="scen-desc">$10 below target. 1.17× multiplier + 0.42% spend bonus.</div>
+        </div>
+        <div class="scen-breakdown">
+          <span><span class="label">Base × 1.17</span><span class="val">$11,667</span></span>
+          <span><span class="label">Variable × 1.17</span><span class="val">$11,083</span></span>
+          <span><span class="label">Spend bonus</span><span class="val">$1,250</span></span>
+        </div>
+        <div class="scen-total">
+          <div class="scen-total-label">Total</div>
+          <div class="scen-total-value">$24,000</div>
+          <div class="scen-total-delta win">+$3,750 vs $60</div>
+        </div>
+      </div>
+
+      <!-- $55 CPA -->
+      <div class="scenario win">
+        <div class="scen-cpa-block">
+          <div class="scen-cpa-label">CPA</div>
+          <div class="scen-cpa">$55</div>
+        </div>
+        <div class="scen-status">
+          <div class="scen-tag win">↗ Beating target</div>
+          <div class="scen-desc">$5 below target. 1.08× multiplier + 0.33% spend bonus.</div>
+        </div>
+        <div class="scen-breakdown">
+          <span><span class="label">Base × 1.08</span><span class="val">$10,833</span></span>
+          <span><span class="label">Variable × 1.08</span><span class="val">$10,292</span></span>
+          <span><span class="label">Spend bonus</span><span class="val">$1,000</span></span>
+        </div>
+        <div class="scen-total">
+          <div class="scen-total-label">Total</div>
+          <div class="scen-total-value">$22,125</div>
+          <div class="scen-total-delta win">+$1,875 vs $60</div>
+        </div>
+      </div>
+
+      <!-- $60 CPA - target -->
+      <div class="scenario target">
+        <div class="scen-cpa-block">
+          <div class="scen-cpa-label">CPA</div>
+          <div class="scen-cpa">$60</div>
+        </div>
+        <div class="scen-status">
+          <div class="scen-tag target">★ Target</div>
+          <div class="scen-desc">At target. 1.00× multiplier + minimum 0.25% spend bonus unlocks.</div>
+        </div>
+        <div class="scen-breakdown">
+          <span><span class="label">Base × 1.00</span><span class="val">$10,000</span></span>
+          <span><span class="label">Variable × 1.00</span><span class="val">$9,500</span></span>
+          <span><span class="label">Spend bonus</span><span class="val">$750</span></span>
+        </div>
+        <div class="scen-total">
+          <div class="scen-total-label">Total</div>
+          <div class="scen-total-value">$20,250</div>
+          <div class="scen-total-delta neutral">Baseline</div>
+        </div>
+      </div>
+
+      <!-- $65 CPA -->
+      <div class="scenario loss">
+        <div class="scen-cpa-block">
+          <div class="scen-cpa-label">CPA</div>
+          <div class="scen-cpa">$65</div>
+        </div>
+        <div class="scen-status">
+          <div class="scen-tag loss">↘ Above target</div>
+          <div class="scen-desc">$5 over. 0.95× multiplier. Spend bonus locked.</div>
+        </div>
+        <div class="scen-breakdown">
+          <span><span class="label">Base × 0.95</span><span class="val">$9,500</span></span>
+          <span><span class="label">Variable × 0.95</span><span class="val">$9,025</span></span>
+          <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
+        </div>
+        <div class="scen-total">
+          <div class="scen-total-label">Total</div>
+          <div class="scen-total-value">$18,525</div>
+          <div class="scen-total-delta loss">−$1,725 vs $60</div>
+        </div>
+      </div>
+
+      <!-- $70 CPA -->
+      <div class="scenario loss">
+        <div class="scen-cpa-block">
+          <div class="scen-cpa-label">CPA</div>
+          <div class="scen-cpa">$70</div>
+        </div>
+        <div class="scen-status">
+          <div class="scen-tag loss">↘ Underperforming</div>
+          <div class="scen-desc">$10 over. 0.90× multiplier. Spend bonus locked.</div>
+        </div>
+        <div class="scen-breakdown">
+          <span><span class="label">Base × 0.90</span><span class="val">$9,000</span></span>
+          <span><span class="label">Variable × 0.90</span><span class="val">$8,550</span></span>
+          <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
+        </div>
+        <div class="scen-total">
+          <div class="scen-total-label">Total</div>
+          <div class="scen-total-value">$17,550</div>
+          <div class="scen-total-delta loss">−$2,700 vs $60</div>
+        </div>
+      </div>
+
+      <!-- $75 CPA -->
+      <div class="scenario loss">
+        <div class="scen-cpa-block">
+          <div class="scen-cpa-label">CPA</div>
+          <div class="scen-cpa">$75</div>
+        </div>
+        <div class="scen-status">
+          <div class="scen-tag loss">↘ Missing target</div>
+          <div class="scen-desc">$15 over. 0.85× multiplier. Spend bonus locked.</div>
+        </div>
+        <div class="scen-breakdown">
+          <span><span class="label">Base × 0.85</span><span class="val">$8,500</span></span>
+          <span><span class="label">Variable × 0.85</span><span class="val">$8,075</span></span>
+          <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
+        </div>
+        <div class="scen-total">
+          <div class="scen-total-label">Total</div>
+          <div class="scen-total-value">$16,575</div>
+          <div class="scen-total-delta loss">−$3,675 vs $60</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-head">
+      <h3>How the model works</h3>
+      <span class="hint">Three components stack to align fees with results.</span>
+    </div>
+
+    <div class="mechanics">
+
+      <div class="mech-card">
+        <div class="mech-num">01 — FOUNDATION</div>
+        <h4>Base + Variable Fee</h4>
+        <p>$10,000 flat retainer plus a tiered media buying fee on spend (4% on $62.5K–$500K, 3% on $500K–$1M, declining at scale).</p>
+        <div class="mech-detail">
+          <span><span>Base retainer</span><span class="v">$10,000</span></span>
+          <span><span>Variable @ $300K</span><span class="v">$9,500</span></span>
+          <span><span>Pre-multiplier total</span><span class="v">$19,500</span></span>
+        </div>
+      </div>
+
+      <div class="mech-card">
+        <div class="mech-num">02 — MULTIPLIER</div>
+        <h4>CPA Performance</h4>
+        <p>Both base and variable fees scale by a multiplier driven by actual CPA vs. the $60 target. Capped at 1.50× (great), floored at 0.70× (poor).</p>
+        <div class="mech-detail">
+          <span><span>$30 CPA</span><span class="v">1.50×</span></span>
+          <span><span>$60 CPA (target)</span><span class="v">1.00×</span></span>
+          <span><span>$90 CPA</span><span class="v">0.70×</span></span>
+        </div>
+      </div>
+
+      <div class="mech-card">
+        <div class="mech-num">03 — UNLOCK</div>
+        <h4>Spend Bonus</h4>
+        <p>An additional % of monthly spend, but only if CPA is at or below $60. Rewards scaling efficiently — bigger budgets at target = bigger bonus.</p>
+        <div class="mech-detail">
+          <span><span>$60 CPA</span><span class="v">0.25% of spend</span></span>
+          <span><span>$45 CPA</span><span class="v">0.50% of spend</span></span>
+          <span><span>$30 CPA</span><span class="v">0.75% of spend</span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <div class="note-icon">!</div>
+      <p><strong>Why this works for both sides.</strong> At target, the total fee is $20,250 — only modestly higher than the original $13,860 flat-fee proposal at this spend level. The upside ($24K at $50 CPA) and downside ($16.6K at $75 CPA) put real money on the line in both directions, which signals confidence and creates aligned incentives. The deeper upside compared to downside reflects that hitting $60 CPA at scale is genuine value created, not just operational throughput.</p>
+    </div>
+
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+</body>
+</html>
