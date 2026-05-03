@@ -30,29 +30,113 @@
     }
     html { -webkit-text-size-adjust: 100%; }
     body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; line-height: 1.5; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
     .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 24px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: nowrap; }
     .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
     .ap-header-text { min-width: 0; }
     .ap-header-text h1 { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
     .ap-header-text p { font-size: 12px; color: var(--grey-300); margin-top: 3px; }
+
+    /* Tab navigation */
+    .tabs-nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--card-border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--grey-300);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 20px 24px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      letter-spacing: -0.1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tab-btn:hover { color: var(--white); }
+    .tab-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+    .tab-btn .tab-num { font-size: 10px; font-weight: 800; color: var(--yellow); opacity: 0.6; letter-spacing: 0.1em; }
+    .tab-btn.active .tab-num { opacity: 1; }
+
     .ap-content { padding: 32px 32px 0; max-width: 1100px; margin: 0 auto; }
-    .hero { padding: 16px 0 40px; }
+    .tab-panel { display: none; animation: fadeIn 0.25s ease-out; }
+    .tab-panel.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero */
+    .hero { padding: 16px 0 32px; }
     .eyebrow { color: var(--yellow); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
-    .hero h2 { font-size: 52px; font-weight: 800; color: var(--white); letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 18px; }
+    .hero h2 { font-size: 48px; font-weight: 800; color: var(--white); letter-spacing: -1.3px; line-height: 1.05; margin-bottom: 16px; }
     .hero h2 em { font-style: normal; color: var(--yellow); }
     .hero p { font-size: 16px; color: var(--grey-200); max-width: 640px; }
-    .baseline { background: linear-gradient(135deg, var(--navy-card) 0%, #0a0f4d 100%); border: 1px solid var(--card-border); border-radius: 16px; padding: 28px; margin-bottom: 48px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
+
+    /* Baseline card */
+    .baseline {
+      background: linear-gradient(135deg, var(--navy-card) 0%, #0a0f4d 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: center;
+    }
     .baseline-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
     .baseline h3 { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 6px; letter-spacing: -0.4px; }
     .baseline-sub { font-size: 13px; color: var(--grey-300); }
     .baseline-stats { display: flex; gap: 28px; padding-left: 28px; border-left: 1px solid var(--card-border); }
     .stat .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-300); margin-bottom: 6px; }
     .stat .stat-value { font-size: 26px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
+
+    /* Section heading */
     .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
     .section-head h3 { font-size: 21px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
     .section-head .hint { font-size: 13px; color: var(--grey-300); }
-    .scenarios { display: grid; gap: 12px; margin-bottom: 48px; }
-    .scenario { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px 24px; display: grid; grid-template-columns: 90px 1fr 220px 140px; gap: 24px; align-items: center; transition: border-color 0.2s, transform 0.2s; }
+
+    /* Mechanics row at the bottom of tab 1 */
+    .mechanics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+    .mech-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 22px; }
+    .mech-num { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; color: var(--yellow); margin-bottom: 10px; }
+    .mech-card h4 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; letter-spacing: -0.2px; }
+    .mech-card p { font-size: 13px; color: var(--grey-200); margin-bottom: 14px; }
+    .mech-detail { font-size: 12px; color: var(--grey-300); display: flex; flex-direction: column; font-variant-numeric: tabular-nums; }
+    .mech-detail span { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px dashed rgba(255,255,255,0.06); }
+    .mech-detail span:last-child { border-bottom: none; }
+    .mech-detail .v { color: var(--white); font-weight: 600; }
+
+    /* Scenarios (Tab 2) */
+    .scenarios { display: grid; gap: 12px; margin-bottom: 32px; }
+    .scenario {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 90px 1fr 220px 140px;
+      gap: 24px;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
     .scenario:hover { border-color: rgba(249, 217, 0, 0.25); }
     .scenario.target { border-color: var(--yellow); background: linear-gradient(135deg, var(--navy-card) 0%, #0c1158 100%); }
     .scenario.win { border-left: 3px solid var(--green); }
@@ -80,90 +164,87 @@
     .scen-total-delta.win { color: var(--green); }
     .scen-total-delta.loss { color: var(--red); }
     .scen-total-delta.neutral { color: var(--grey-300); }
-    .mechanics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 24px; }
-    .mech-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 22px; }
-    .mech-num { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; color: var(--yellow); margin-bottom: 10px; }
-    .mech-card h4 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; letter-spacing: -0.2px; }
-    .mech-card p { font-size: 13px; color: var(--grey-200); margin-bottom: 14px; }
-    .mech-detail { font-size: 12px; color: var(--grey-300); display: flex; flex-direction: column; gap: 0; font-variant-numeric: tabular-nums; }
-    .mech-detail span { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px dashed rgba(255,255,255,0.06); }
-    .mech-detail span:last-child { border-bottom: none; }
-    .mech-detail .v { color: var(--white); font-weight: 600; }
-    .note { background: rgba(249, 217, 0, 0.04); border: 1px solid rgba(249, 217, 0, 0.18); border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; display: flex; gap: 14px; align-items: flex-start; }
-    .note-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--yellow); color: var(--navy); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
-    .note p { font-size: 13px; color: var(--grey-200); }
-    .note p strong { color: var(--white); font-weight: 600; }
-    .ap-footer { margin: 56px 32px 24px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1100px; margin-left: auto; margin-right: auto; padding-left: 32px; padding-right: 32px; }
-    .ap-footer p { font-size: 12px; color: var(--grey-300); }
 
-    @media (max-width: 820px) {
-      .scenario { grid-template-columns: auto 1fr; grid-template-rows: auto auto auto; gap: 12px 16px; padding: 18px; }
-      .scen-cpa-block { grid-column: 1; grid-row: 1; }
-      .scen-total { grid-column: 2; grid-row: 1; }
-      .scen-status { grid-column: 1 / -1; grid-row: 2; }
-      .scen-breakdown { grid-column: 1 / -1; grid-row: 3; padding-top: 12px; border-top: 1px solid var(--card-border); }
-      .scen-cpa { font-size: 28px; }
-      .scen-total-value { font-size: 22px; }
+    /* Scale table (Tab 3) */
+    .scale-intro {
+      padding: 16px 20px;
+      background: rgba(249, 217, 0, 0.04);
+      border: 1px solid rgba(249, 217, 0, 0.18);
+      border-radius: 10px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--grey-200);
     }
-    @media (max-width: 760px) { .mechanics { grid-template-columns: 1fr; gap: 12px; } }
-    @media (max-width: 720px) {
-      .baseline { grid-template-columns: 1fr; gap: 18px; padding: 22px; }
-      .baseline-stats { padding-left: 0; border-left: none; padding-top: 18px; border-top: 1px solid var(--card-border); gap: 20px; justify-content: space-between; }
-      .baseline h3 { font-size: 19px; }
-      .stat .stat-value { font-size: 22px; }
-    }
-    @media (max-width: 640px) {
-      .ap-header { padding: 18px 18px; gap: 12px; }
-      .ap-header-text h1 { font-size: 17px; line-height: 1.2; }
-      .ap-header-text p { font-size: 11px; margin-top: 2px; }
-      .ap-header-divider { height: 32px; }
-      .ap-header svg { height: 36px !important; }
-      .ap-content { padding: 20px 18px 0; }
-      .ap-footer { margin: 40px 18px 24px; padding-left: 18px; padding-right: 18px; }
-      .ap-footer p { font-size: 11px; }
-      .ap-footer svg { height: 26px !important; }
-      .hero { padding: 8px 0 28px; }
-      .hero h2 { font-size: 34px; letter-spacing: -1px; line-height: 1.1; }
-      .hero p { font-size: 14px; }
-      .eyebrow { font-size: 10px; }
-      .baseline { padding: 18px; margin-bottom: 36px; border-radius: 14px; }
-      .baseline h3 { font-size: 17px; line-height: 1.25; }
-      .baseline-sub { font-size: 12px; }
-      .stat .stat-label { font-size: 9px; }
-      .stat .stat-value { font-size: 20px; }
-      .section-head { margin-bottom: 16px; }
-      .section-head h3 { font-size: 18px; }
-      .section-head .hint { font-size: 12px; }
-      .scenarios { gap: 10px; margin-bottom: 36px; }
-      .scenario { padding: 16px; border-radius: 10px; gap: 10px 14px; }
-      .scen-cpa { font-size: 26px; }
-      .scen-cpa-label { font-size: 9px; }
-      .scen-tag { font-size: 10px; }
-      .scen-desc { font-size: 12px; }
-      .scen-breakdown { font-size: 11px; padding-top: 10px; }
-      .scen-total-label { font-size: 9px; }
-      .scen-total-value { font-size: 21px; }
-      .scen-total-delta { font-size: 11px; margin-top: 4px; }
-      .mech-card { padding: 18px; border-radius: 10px; }
-      .mech-num { font-size: 10px; }
-      .mech-card h4 { font-size: 15px; }
-      .mech-card p { font-size: 12px; }
-      .mech-detail { font-size: 11px; }
-      .note { padding: 16px 18px; border-radius: 10px; gap: 12px; }
-      .note p { font-size: 12px; line-height: 1.55; }
-      .note-icon { width: 22px; height: 22px; font-size: 12px; }
-    }
-    @media (max-width: 380px) {
-      .hero h2 { font-size: 30px; }
-      .scenario { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; }
-      .scen-cpa-block { grid-column: 1; grid-row: 1; flex-direction: row; align-items: baseline; gap: 10px; }
-      .scen-total { grid-column: 1; grid-row: 2; text-align: left; }
-      .scen-status { grid-column: 1; grid-row: 3; }
-      .scen-breakdown { grid-column: 1; grid-row: 4; }
-    }
+    .scale-intro strong { color: var(--white); }
 
-    /* CALCULATOR */
-    .calc-wrap { background: linear-gradient(135deg, var(--navy-card) 0%, #0a0f4d 100%); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+    .scale-table {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .scale-table-header {
+      display: grid;
+      grid-template-columns: 110px 1fr 1fr 1fr 1fr 120px;
+      padding: 14px 20px;
+      background: rgba(0,0,0,0.2);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey-300);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .scale-table-header span:nth-child(n+2) { text-align: right; }
+    .scale-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 1fr 1fr 1fr 120px;
+      padding: 16px 20px;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      font-variant-numeric: tabular-nums;
+      transition: background 0.15s;
+    }
+    .scale-row:last-child { border-bottom: none; }
+    .scale-row:hover { background: rgba(249, 217, 0, 0.03); }
+    .scale-row.featured { background: rgba(249, 217, 0, 0.05); border-left: 3px solid var(--yellow); }
+    .scale-row .scale-spend { font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
+    .scale-row .scale-cell { text-align: right; font-size: 14px; color: var(--grey-200); }
+    .scale-row .scale-cell .scale-cell-sub { font-size: 11px; color: var(--grey-300); margin-top: 2px; }
+    .scale-row .scale-total { text-align: right; font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
+    .scale-row .scale-total .scale-pct { font-size: 11px; color: var(--grey-300); font-weight: 500; margin-top: 2px; }
+
+    /* Scale CPA matrix card */
+    .matrix {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .matrix-title { padding: 16px 20px; border-bottom: 1px solid var(--card-border); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yellow); }
+    .matrix-table { width: 100%; border-collapse: collapse; }
+    .matrix-table th { padding: 12px 16px; text-align: right; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey-300); background: rgba(0,0,0,0.15); border-bottom: 1px solid var(--card-border); }
+    .matrix-table th:first-child { text-align: left; }
+    .matrix-table td { padding: 14px 16px; text-align: right; font-size: 14px; font-variant-numeric: tabular-nums; border-bottom: 1px solid var(--card-border); color: var(--grey-200); }
+    .matrix-table td:first-child { text-align: left; font-weight: 700; color: var(--white); }
+    .matrix-table tr:last-child td { border-bottom: none; }
+    .matrix-table .win-cell { color: var(--green); font-weight: 600; }
+    .matrix-table .target-cell { color: var(--yellow); font-weight: 700; }
+    .matrix-table .loss-cell { color: var(--red); font-weight: 600; }
+
+    /* Calculator */
+    .calc-wrap {
+      background: linear-gradient(135deg, var(--navy-card) 0%, #0a0f4d 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
     .calc-controls { display: flex; flex-direction: column; gap: 28px; }
     .calc-control { display: flex; flex-direction: column; gap: 12px; }
     .calc-control-head { display: flex; align-items: baseline; justify-content: space-between; }
@@ -173,10 +254,10 @@
     .calc-value.target { color: var(--yellow); }
     .calc-value.loss { color: var(--red); }
     .calc-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; outline: none; cursor: pointer; }
-    .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; background: var(--yellow); border-radius: 50%; cursor: pointer; box-shadow: 0 0 0 4px rgba(249, 217, 0, 0.18); transition: transform 0.15s, box-shadow 0.15s; }
+    .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: var(--yellow); border-radius: 50%; cursor: pointer; box-shadow: 0 0 0 4px rgba(249, 217, 0, 0.18); transition: transform 0.15s, box-shadow 0.15s; }
     .calc-slider::-webkit-slider-thumb:hover { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(249, 217, 0, 0.22); }
     .calc-slider::-webkit-slider-thumb:active { transform: scale(1.15); }
-    .calc-slider::-moz-range-thumb { width: 22px; height: 22px; background: var(--yellow); border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 0 0 4px rgba(249, 217, 0, 0.18); }
+    .calc-slider::-moz-range-thumb { width: 24px; height: 24px; background: var(--yellow); border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 0 0 4px rgba(249, 217, 0, 0.18); }
     .calc-ticks { display: flex; justify-content: space-between; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; color: var(--grey-300); text-transform: uppercase; font-variant-numeric: tabular-nums; }
     .calc-ticks .target-tick { color: var(--yellow); }
     .calc-status { padding: 14px 16px; border-radius: 10px; font-size: 13px; line-height: 1.45; border: 1px solid; display: flex; gap: 10px; align-items: flex-start; }
@@ -201,14 +282,129 @@
     .calc-delta.win { color: var(--green); }
     .calc-delta.loss { color: var(--red); }
     .calc-delta.neutral { color: var(--grey-300); }
-    @media (max-width: 820px) { .calc-wrap { grid-template-columns: 1fr; gap: 24px; padding: 22px; } }
+
+    .ap-footer { margin: 56px auto 24px; padding: 24px 32px 0; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1100px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    /* ============= MOBILE OPTIMIZATION ============= */
+    @media (max-width: 820px) {
+      .calc-wrap { grid-template-columns: 1fr; gap: 24px; padding: 22px; }
+      .scenario {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 12px 16px;
+        padding: 18px;
+      }
+      .scen-cpa-block { grid-column: 1; grid-row: 1; }
+      .scen-total { grid-column: 2; grid-row: 1; }
+      .scen-status { grid-column: 1 / -1; grid-row: 2; }
+      .scen-breakdown { grid-column: 1 / -1; grid-row: 3; padding-top: 12px; border-top: 1px solid var(--card-border); }
+      .scen-cpa { font-size: 28px; }
+      .scen-total-value { font-size: 22px; }
+
+      .scale-table-header { grid-template-columns: 80px 1fr 1fr 110px; padding: 12px 16px; }
+      .scale-table-header span:nth-child(2),
+      .scale-table-header span:nth-child(3) { display: none; }
+      .scale-row { grid-template-columns: 80px 1fr 1fr 110px; padding: 14px 16px; }
+      .scale-row .scale-cell:nth-child(2),
+      .scale-row .scale-cell:nth-child(3) { display: none; }
+      .scale-row .scale-spend { font-size: 16px; }
+      .scale-row .scale-cell { font-size: 13px; }
+      .scale-row .scale-total { font-size: 16px; }
+    }
+
+    @media (max-width: 760px) { .mechanics { grid-template-columns: 1fr; gap: 12px; } }
+
+    @media (max-width: 720px) {
+      .baseline { grid-template-columns: 1fr; gap: 18px; padding: 22px; }
+      .baseline-stats { padding-left: 0; border-left: none; padding-top: 18px; border-top: 1px solid var(--card-border); gap: 20px; justify-content: space-between; }
+      .baseline h3 { font-size: 19px; }
+      .stat .stat-value { font-size: 22px; }
+    }
+
     @media (max-width: 640px) {
-      .calc-wrap { padding: 18px; border-radius: 12px; }
+      .ap-header { padding: 16px; gap: 12px; }
+      .ap-header-text h1 { font-size: 16px; line-height: 1.2; }
+      .ap-header-text p { font-size: 11px; margin-top: 2px; }
+      .ap-header-divider { height: 32px; }
+      .ap-header svg { height: 36px !important; }
+
+      .tabs-nav { padding: 0 16px; }
+      .tab-btn { padding: 14px 14px; font-size: 13px; gap: 6px; }
+      .tab-btn .tab-num { font-size: 9px; }
+
+      .ap-content { padding: 20px 16px 0; }
+      .ap-footer { margin: 40px auto 24px; padding: 20px 16px 0; }
+      .ap-footer p { font-size: 11px; }
+      .ap-footer svg { height: 26px !important; }
+
+      .hero { padding: 8px 0 24px; }
+      .hero h2 { font-size: 32px; letter-spacing: -1px; line-height: 1.1; margin-bottom: 12px; }
+      .hero p { font-size: 14px; }
+      .eyebrow { font-size: 10px; margin-bottom: 10px; }
+
+      .baseline { padding: 18px; margin-bottom: 24px; border-radius: 12px; }
+      .baseline h3 { font-size: 17px; line-height: 1.25; }
+      .baseline-sub { font-size: 12px; }
+      .stat .stat-label { font-size: 9px; }
+      .stat .stat-value { font-size: 20px; }
+
+      .section-head { margin-bottom: 14px; }
+      .section-head h3 { font-size: 17px; }
+      .section-head .hint { font-size: 11px; }
+
+      .scenarios { gap: 10px; margin-bottom: 24px; }
+      .scenario { padding: 14px; border-radius: 10px; gap: 10px 12px; }
+      .scen-cpa { font-size: 24px; }
+      .scen-cpa-label { font-size: 9px; }
+      .scen-tag { font-size: 10px; }
+      .scen-desc { font-size: 12px; }
+      .scen-breakdown { font-size: 11px; padding-top: 10px; }
+      .scen-total-label { font-size: 9px; }
+      .scen-total-value { font-size: 20px; }
+      .scen-total-delta { font-size: 11px; margin-top: 4px; }
+
+      .calc-wrap { padding: 16px; border-radius: 12px; gap: 18px; margin-bottom: 24px; }
       .calc-controls { gap: 22px; }
-      .calc-value { font-size: 26px; }
-      .calc-output { padding: 18px; }
-      .calc-total-value { font-size: 30px; }
+      .calc-value { font-size: 24px; }
+      .calc-output { padding: 16px; gap: 12px; }
+      .calc-total-value { font-size: 28px; }
       .calc-status { font-size: 12px; padding: 12px 14px; }
+      .calc-row { font-size: 12px; }
+
+      .mech-card { padding: 16px; border-radius: 10px; }
+      .mech-num { font-size: 10px; margin-bottom: 8px; }
+      .mech-card h4 { font-size: 14px; margin-bottom: 8px; }
+      .mech-card p { font-size: 12px; margin-bottom: 12px; }
+      .mech-detail { font-size: 11px; }
+
+      .scale-intro { font-size: 12px; padding: 12px 14px; margin-bottom: 16px; }
+      .scale-table-header { grid-template-columns: 70px 1fr 100px; padding: 10px 14px; font-size: 9px; }
+      .scale-table-header span:nth-child(2),
+      .scale-table-header span:nth-child(3),
+      .scale-table-header span:nth-child(4) { display: none; }
+      .scale-row { grid-template-columns: 70px 1fr 100px; padding: 14px; }
+      .scale-row .scale-cell:nth-child(2),
+      .scale-row .scale-cell:nth-child(3),
+      .scale-row .scale-cell:nth-child(4) { display: none; }
+      .scale-row .scale-spend { font-size: 14px; }
+      .scale-row .scale-cell { font-size: 12px; }
+      .scale-row .scale-cell .scale-cell-sub { font-size: 10px; }
+      .scale-row .scale-total { font-size: 15px; }
+      .scale-row .scale-total .scale-pct { font-size: 10px; }
+
+      .matrix-title { padding: 12px 14px; font-size: 10px; }
+      .matrix-table th { padding: 10px 10px; font-size: 9px; }
+      .matrix-table td { padding: 12px 10px; font-size: 12px; }
+    }
+
+    @media (max-width: 380px) {
+      .hero h2 { font-size: 28px; }
+      .scenario { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; }
+      .scen-cpa-block { grid-column: 1; grid-row: 1; flex-direction: row; align-items: baseline; gap: 10px; }
+      .scen-total { grid-column: 1; grid-row: 2; text-align: left; }
+      .scen-status { grid-column: 1; grid-row: 3; }
+      .scen-breakdown { grid-column: 1; grid-row: 4; }
     }
   </style>
 </head>
@@ -226,297 +422,461 @@
     </div>
   </header>
 
+  <nav class="tabs-nav" role="tablist">
+    <button class="tab-btn active" role="tab" aria-selected="true" data-tab="overview"><span class="tab-num">01</span><span>Overview</span></button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="scenarios"><span class="tab-num">02</span><span>CPA Scenarios</span></button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="scale"><span class="tab-num">03</span><span>Scale</span></button>
+  </nav>
+
   <div class="ap-content">
 
-    <section class="hero">
-      <div class="eyebrow">Pricing Proposal · v3</div>
-      <h2>Hit <em>$60 CPA</em>,<br>we win together.</h2>
-      <p>$60 CPA is the target. Hit it and we earn our full fee plus a spend bonus. Beat it and our fee scales up. Miss it and our fee scales down. The only way the agency earns more is by delivering more.</p>
+    <!-- TAB 1: OVERVIEW -->
+    <section class="tab-panel active" id="tab-overview" role="tabpanel">
+
+      <div class="hero">
+        <div class="eyebrow">Proposal 3 · Pay for results</div>
+        <h2>Hit <em>$60 CPA</em>,<br>we win together.</h2>
+        <p>$60 CPA is the target. Hit it and we earn our full fee plus a spend bonus. Beat it and our fee scales up. Miss it and our fee scales down. The only way the agency earns more is by delivering more.</p>
+      </div>
+
+      <div class="baseline">
+        <div>
+          <div class="baseline-label">Baseline Scenario</div>
+          <h3>$300,000/month spend at $60 CPA</h3>
+          <div class="baseline-sub">~5,000 conversions/month — matches Proposal 2 total investment.</div>
+        </div>
+        <div class="baseline-stats">
+          <div class="stat">
+            <div class="stat-label">Total Fee</div>
+            <div class="stat-value">$21,560</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">% of Spend</div>
+            <div class="stat-value">7.19%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h3>Try it yourself</h3>
+        <span class="hint">Drag to model any spend and CPA combination.</span>
+      </div>
+
+      <div class="calc-wrap">
+        <div class="calc-controls">
+          <div class="calc-control">
+            <div class="calc-control-head">
+              <span class="calc-label">Monthly Spend</span>
+              <span class="calc-value" id="calc-spend-display">$300,000</span>
+            </div>
+            <input type="range" min="100000" max="2000000" step="25000" value="300000" id="calc-spend" class="calc-slider" aria-label="Monthly spend">
+            <div class="calc-ticks">
+              <span>$100K</span>
+              <span>$1M</span>
+              <span>$2M</span>
+            </div>
+          </div>
+
+          <div class="calc-control">
+            <div class="calc-control-head">
+              <span class="calc-label">Actual CPA</span>
+              <span class="calc-value target" id="calc-cpa-display">$60</span>
+            </div>
+            <input type="range" min="20" max="100" step="1" value="60" id="calc-cpa" class="calc-slider" aria-label="Actual CPA">
+            <div class="calc-ticks">
+              <span>$20</span>
+              <span class="target-tick">$60 TARGET</span>
+              <span>$100</span>
+            </div>
+          </div>
+
+          <div class="calc-status target" id="calc-status">
+            <span class="calc-status-icon" id="calc-status-icon">★</span>
+            <span id="calc-status-text">At target. Multiplier 1.00× plus spend bonus unlocks.</span>
+          </div>
+        </div>
+
+        <div class="calc-output">
+          <div class="calc-output-head">
+            <span class="calc-label">Monthly Invoice</span>
+            <span class="calc-mult" id="calc-mult">CPA Multiplier: 1.00×</span>
+          </div>
+
+          <div class="calc-row">
+            <div>
+              <div class="calc-row-label">Base Retainer</div>
+              <div class="calc-row-sub" id="calc-base-sub">$11,310 × 1.00</div>
+            </div>
+            <div class="calc-row-val" id="calc-base-val">$11,310</div>
+          </div>
+
+          <div class="calc-row">
+            <div>
+              <div class="calc-row-label">Variable Media Fee</div>
+              <div class="calc-row-sub" id="calc-var-sub">$9,500 × 1.00</div>
+            </div>
+            <div class="calc-row-val" id="calc-var-val">$9,500</div>
+          </div>
+
+          <div class="calc-row" id="calc-bonus-row">
+            <div>
+              <div class="calc-row-label">Spend Bonus</div>
+              <div class="calc-row-sub" id="calc-bonus-sub">Unlocked — 0.25% of spend</div>
+            </div>
+            <div class="calc-row-val" id="calc-bonus-val">$750</div>
+          </div>
+
+          <div class="calc-total">
+            <div>
+              <div class="calc-total-label">Total Monthly</div>
+              <div class="calc-total-meta" id="calc-total-meta">7.19% of spend · ~5,000 conversions</div>
+            </div>
+            <div style="text-align:right">
+              <div class="calc-total-value" id="calc-total-val">$21,560</div>
+              <div class="calc-delta neutral" id="calc-delta">Baseline</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h3>How the model works</h3>
+        <span class="hint">Three components stack to align fees with results.</span>
+      </div>
+
+      <div class="mechanics">
+        <div class="mech-card">
+          <div class="mech-num">01 — FOUNDATION</div>
+          <h4>Base + Variable Fee</h4>
+          <p>$11,310 flat retainer (bundles creative strategy, creative production, and media buying base) plus a tiered media buying fee.</p>
+          <div class="mech-detail">
+            <span><span>Base retainer</span><span class="v">$11,310</span></span>
+            <span><span>Variable @ $300K</span><span class="v">$9,500</span></span>
+            <span><span>Pre-multiplier total</span><span class="v">$20,810</span></span>
+          </div>
+        </div>
+
+        <div class="mech-card">
+          <div class="mech-num">02 — MULTIPLIER</div>
+          <h4>CPA Performance</h4>
+          <p>Both fees scale by a multiplier driven by actual CPA vs. the $60 target. Capped at 1.50× (great), floored at 0.70× (poor).</p>
+          <div class="mech-detail">
+            <span><span>$30 CPA</span><span class="v">1.50×</span></span>
+            <span><span>$60 CPA (target)</span><span class="v">1.00×</span></span>
+            <span><span>$90 CPA</span><span class="v">0.70×</span></span>
+          </div>
+        </div>
+
+        <div class="mech-card">
+          <div class="mech-num">03 — UNLOCK</div>
+          <h4>Spend Bonus</h4>
+          <p>Additional % of spend that unlocks at target ($60 CPA or better) and grows with efficiency.</p>
+          <div class="mech-detail">
+            <span><span>$60 CPA (target)</span><span class="v">0.25% of spend</span></span>
+            <span><span>$45 CPA</span><span class="v">0.50% of spend</span></span>
+            <span><span>$30 CPA</span><span class="v">0.75% of spend</span></span>
+          </div>
+        </div>
+      </div>
+
     </section>
 
-    <div class="baseline">
-      <div>
-        <div class="baseline-label">Baseline Scenario</div>
-        <h3>$300,000/month spend at $60 CPA</h3>
-        <div class="baseline-sub">~5,000 conversions/month at the target efficiency.</div>
-      </div>
-      <div class="baseline-stats">
-        <div class="stat">
-          <div class="stat-label">Total Fee</div>
-          <div class="stat-value">$21,560</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">% of Spend</div>
-          <div class="stat-value">7.19%</div>
-        </div>
-      </div>
-    </div>
+    <!-- TAB 2: SCENARIOS -->
+    <section class="tab-panel" id="tab-scenarios" role="tabpanel">
 
-    <div class="section-head">
-      <h3>Scenarios</h3>
-      <span class="hint">$300K spend, varying CPA performance.</span>
-    </div>
-
-    <div class="scenarios">
-
-      <div class="scenario win">
-        <div class="scen-cpa-block">
-          <div class="scen-cpa-label">CPA</div>
-          <div class="scen-cpa">$50</div>
-        </div>
-        <div class="scen-status">
-          <div class="scen-tag win">↗ Crushing it</div>
-          <div class="scen-desc">$10 below target. 1.167× multiplier + 0.42% spend bonus.</div>
-        </div>
-        <div class="scen-breakdown">
-          <span><span class="label">Base × 1.167</span><span class="val">$13,195</span></span>
-          <span><span class="label">Variable × 1.167</span><span class="val">$11,083</span></span>
-          <span><span class="label">Spend bonus</span><span class="val">$1,250</span></span>
-        </div>
-        <div class="scen-total">
-          <div class="scen-total-label">Total</div>
-          <div class="scen-total-value">$25,528</div>
-          <div class="scen-total-delta win">+$3,968</div>
-        </div>
+      <div class="hero">
+        <div class="eyebrow">Tab 02 · CPA Scenarios</div>
+        <h2>Six CPA outcomes<br>at <em>$300K spend</em>.</h2>
+        <p>How the monthly fee changes as CPA performance varies, holding spend constant. The multiplier scales both base and variable fees; the spend bonus only unlocks at $60 CPA or better.</p>
       </div>
 
-      <div class="scenario win">
-        <div class="scen-cpa-block">
-          <div class="scen-cpa-label">CPA</div>
-          <div class="scen-cpa">$55</div>
-        </div>
-        <div class="scen-status">
-          <div class="scen-tag win">↗ Beating target</div>
-          <div class="scen-desc">$5 below target. 1.083× multiplier + 0.33% spend bonus.</div>
-        </div>
-        <div class="scen-breakdown">
-          <span><span class="label">Base × 1.083</span><span class="val">$12,253</span></span>
-          <span><span class="label">Variable × 1.083</span><span class="val">$10,292</span></span>
-          <span><span class="label">Spend bonus</span><span class="val">$1,000</span></span>
-        </div>
-        <div class="scen-total">
-          <div class="scen-total-label">Total</div>
-          <div class="scen-total-value">$23,544</div>
-          <div class="scen-total-delta win">+$1,984</div>
-        </div>
+      <div class="section-head">
+        <h3>Scenarios</h3>
+        <span class="hint">$300K spend, varying CPA.</span>
       </div>
 
-      <div class="scenario target">
-        <div class="scen-cpa-block">
-          <div class="scen-cpa-label">CPA</div>
-          <div class="scen-cpa">$60</div>
-        </div>
-        <div class="scen-status">
-          <div class="scen-tag target">★ Target hit</div>
-          <div class="scen-desc">At target. 1.00× multiplier + 0.25% spend bonus unlocks.</div>
-        </div>
-        <div class="scen-breakdown">
-          <span><span class="label">Base × 1.00</span><span class="val">$11,310</span></span>
-          <span><span class="label">Variable × 1.00</span><span class="val">$9,500</span></span>
-          <span><span class="label">Spend bonus</span><span class="val">$750</span></span>
-        </div>
-        <div class="scen-total">
-          <div class="scen-total-label">Total</div>
-          <div class="scen-total-value">$21,560</div>
-          <div class="scen-total-delta neutral">Baseline</div>
-        </div>
-      </div>
-
-      <div class="scenario loss">
-        <div class="scen-cpa-block">
-          <div class="scen-cpa-label">CPA</div>
-          <div class="scen-cpa">$65</div>
-        </div>
-        <div class="scen-status">
-          <div class="scen-tag loss">↘ Above target</div>
-          <div class="scen-desc">$5 over. 0.95× multiplier. Spend bonus locked.</div>
-        </div>
-        <div class="scen-breakdown">
-          <span><span class="label">Base × 0.95</span><span class="val">$10,745</span></span>
-          <span><span class="label">Variable × 0.95</span><span class="val">$9,025</span></span>
-          <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
-        </div>
-        <div class="scen-total">
-          <div class="scen-total-label">Total</div>
-          <div class="scen-total-value">$19,770</div>
-          <div class="scen-total-delta loss">−$1,790</div>
-        </div>
-      </div>
-
-      <div class="scenario loss">
-        <div class="scen-cpa-block">
-          <div class="scen-cpa-label">CPA</div>
-          <div class="scen-cpa">$70</div>
-        </div>
-        <div class="scen-status">
-          <div class="scen-tag loss">↘ Underperforming</div>
-          <div class="scen-desc">$10 over. 0.90× multiplier. Spend bonus locked.</div>
-        </div>
-        <div class="scen-breakdown">
-          <span><span class="label">Base × 0.90</span><span class="val">$10,179</span></span>
-          <span><span class="label">Variable × 0.90</span><span class="val">$8,550</span></span>
-          <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
-        </div>
-        <div class="scen-total">
-          <div class="scen-total-label">Total</div>
-          <div class="scen-total-value">$18,729</div>
-          <div class="scen-total-delta loss">−$2,831</div>
-        </div>
-      </div>
-
-      <div class="scenario loss">
-        <div class="scen-cpa-block">
-          <div class="scen-cpa-label">CPA</div>
-          <div class="scen-cpa">$75</div>
-        </div>
-        <div class="scen-status">
-          <div class="scen-tag loss">↘ Missing target</div>
-          <div class="scen-desc">$15 over. 0.85× multiplier. Spend bonus locked.</div>
-        </div>
-        <div class="scen-breakdown">
-          <span><span class="label">Base × 0.85</span><span class="val">$9,614</span></span>
-          <span><span class="label">Variable × 0.85</span><span class="val">$8,075</span></span>
-          <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
-        </div>
-        <div class="scen-total">
-          <div class="scen-total-label">Total</div>
-          <div class="scen-total-value">$17,689</div>
-          <div class="scen-total-delta loss">−$3,871</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="section-head">
-      <h3>Try it yourself</h3>
-      <span class="hint">Drag to model any spend and CPA combination.</span>
-    </div>
-
-    <div class="calc-wrap">
-      <div class="calc-controls">
-
-        <div class="calc-control">
-          <div class="calc-control-head">
-            <span class="calc-label">Monthly Spend</span>
-            <span class="calc-value" id="calc-spend-display">$300,000</span>
+      <div class="scenarios">
+        <!-- $50 CPA -->
+        <div class="scenario win">
+          <div class="scen-cpa-block">
+            <div class="scen-cpa-label">CPA</div>
+            <div class="scen-cpa">$50</div>
           </div>
-          <input type="range" min="100000" max="2000000" step="25000" value="300000" id="calc-spend" class="calc-slider" aria-label="Monthly spend">
-          <div class="calc-ticks">
-            <span>$100K</span>
-            <span>$1M</span>
-            <span>$2M</span>
+          <div class="scen-status">
+            <div class="scen-tag win">↗ Crushing it</div>
+            <div class="scen-desc">$10 below target. 1.167× multiplier + 0.42% spend bonus.</div>
+          </div>
+          <div class="scen-breakdown">
+            <span><span class="label">Base × 1.167</span><span class="val">$13,195</span></span>
+            <span><span class="label">Variable × 1.167</span><span class="val">$11,083</span></span>
+            <span><span class="label">Spend bonus</span><span class="val">$1,250</span></span>
+          </div>
+          <div class="scen-total">
+            <div class="scen-total-label">Total</div>
+            <div class="scen-total-value">$25,528</div>
+            <div class="scen-total-delta win">+$3,968</div>
           </div>
         </div>
 
-        <div class="calc-control">
-          <div class="calc-control-head">
-            <span class="calc-label">Actual CPA</span>
-            <span class="calc-value target" id="calc-cpa-display">$60</span>
+        <!-- $55 CPA -->
+        <div class="scenario win">
+          <div class="scen-cpa-block">
+            <div class="scen-cpa-label">CPA</div>
+            <div class="scen-cpa">$55</div>
           </div>
-          <input type="range" min="20" max="100" step="1" value="60" id="calc-cpa" class="calc-slider" aria-label="Actual CPA">
-          <div class="calc-ticks">
-            <span>$20</span>
-            <span class="target-tick">$60 TARGET</span>
-            <span>$100</span>
+          <div class="scen-status">
+            <div class="scen-tag win">↗ Beating target</div>
+            <div class="scen-desc">$5 below target. 1.083× multiplier + 0.33% spend bonus.</div>
+          </div>
+          <div class="scen-breakdown">
+            <span><span class="label">Base × 1.083</span><span class="val">$12,253</span></span>
+            <span><span class="label">Variable × 1.083</span><span class="val">$10,292</span></span>
+            <span><span class="label">Spend bonus</span><span class="val">$1,000</span></span>
+          </div>
+          <div class="scen-total">
+            <div class="scen-total-label">Total</div>
+            <div class="scen-total-value">$23,544</div>
+            <div class="scen-total-delta win">+$1,984</div>
           </div>
         </div>
 
-        <div class="calc-status target" id="calc-status">
-          <span class="calc-status-icon" id="calc-status-icon">★</span>
-          <span id="calc-status-text">At target. Multiplier 1.00× plus spend bonus unlocks.</span>
+        <!-- $60 CPA -->
+        <div class="scenario target">
+          <div class="scen-cpa-block">
+            <div class="scen-cpa-label">CPA</div>
+            <div class="scen-cpa">$60</div>
+          </div>
+          <div class="scen-status">
+            <div class="scen-tag target">★ Target hit</div>
+            <div class="scen-desc">At target. 1.00× multiplier + 0.25% spend bonus unlocks.</div>
+          </div>
+          <div class="scen-breakdown">
+            <span><span class="label">Base × 1.00</span><span class="val">$11,310</span></span>
+            <span><span class="label">Variable × 1.00</span><span class="val">$9,500</span></span>
+            <span><span class="label">Spend bonus</span><span class="val">$750</span></span>
+          </div>
+          <div class="scen-total">
+            <div class="scen-total-label">Total</div>
+            <div class="scen-total-value">$21,560</div>
+            <div class="scen-total-delta neutral">Baseline</div>
+          </div>
         </div>
 
+        <!-- $65 CPA -->
+        <div class="scenario loss">
+          <div class="scen-cpa-block">
+            <div class="scen-cpa-label">CPA</div>
+            <div class="scen-cpa">$65</div>
+          </div>
+          <div class="scen-status">
+            <div class="scen-tag loss">↘ Above target</div>
+            <div class="scen-desc">$5 over. 0.95× multiplier. Spend bonus locked.</div>
+          </div>
+          <div class="scen-breakdown">
+            <span><span class="label">Base × 0.95</span><span class="val">$10,745</span></span>
+            <span><span class="label">Variable × 0.95</span><span class="val">$9,025</span></span>
+            <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
+          </div>
+          <div class="scen-total">
+            <div class="scen-total-label">Total</div>
+            <div class="scen-total-value">$19,770</div>
+            <div class="scen-total-delta loss">−$1,790</div>
+          </div>
+        </div>
+
+        <!-- $70 CPA -->
+        <div class="scenario loss">
+          <div class="scen-cpa-block">
+            <div class="scen-cpa-label">CPA</div>
+            <div class="scen-cpa">$70</div>
+          </div>
+          <div class="scen-status">
+            <div class="scen-tag loss">↘ Underperforming</div>
+            <div class="scen-desc">$10 over. 0.90× multiplier. Spend bonus locked.</div>
+          </div>
+          <div class="scen-breakdown">
+            <span><span class="label">Base × 0.90</span><span class="val">$10,179</span></span>
+            <span><span class="label">Variable × 0.90</span><span class="val">$8,550</span></span>
+            <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
+          </div>
+          <div class="scen-total">
+            <div class="scen-total-label">Total</div>
+            <div class="scen-total-value">$18,729</div>
+            <div class="scen-total-delta loss">−$2,831</div>
+          </div>
+        </div>
+
+        <!-- $75 CPA -->
+        <div class="scenario loss">
+          <div class="scen-cpa-block">
+            <div class="scen-cpa-label">CPA</div>
+            <div class="scen-cpa">$75</div>
+          </div>
+          <div class="scen-status">
+            <div class="scen-tag loss">↘ Missing target</div>
+            <div class="scen-desc">$15 over. 0.85× multiplier. Spend bonus locked.</div>
+          </div>
+          <div class="scen-breakdown">
+            <span><span class="label">Base × 0.85</span><span class="val">$9,614</span></span>
+            <span><span class="label">Variable × 0.85</span><span class="val">$8,075</span></span>
+            <span><span class="label">Spend bonus</span><span class="val">$0</span></span>
+          </div>
+          <div class="scen-total">
+            <div class="scen-total-label">Total</div>
+            <div class="scen-total-value">$17,689</div>
+            <div class="scen-total-delta loss">−$3,871</div>
+          </div>
+        </div>
       </div>
 
-      <div class="calc-output">
-        <div class="calc-output-head">
-          <span class="calc-label">Monthly Invoice</span>
-          <span class="calc-mult" id="calc-mult">CPA Multiplier: 1.00×</span>
-        </div>
+    </section>
 
-        <div class="calc-row">
-          <div>
-            <div class="calc-row-label">Base Retainer</div>
-            <div class="calc-row-sub" id="calc-base-sub">$11,310 × 1.00</div>
-          </div>
-          <div class="calc-row-val" id="calc-base-val">$11,310</div>
-        </div>
+    <!-- TAB 3: SCALE -->
+    <section class="tab-panel" id="tab-scale" role="tabpanel">
 
-        <div class="calc-row">
-          <div>
-            <div class="calc-row-label">Variable Media Fee</div>
-            <div class="calc-row-sub" id="calc-var-sub">$9,500 × 1.00</div>
-          </div>
-          <div class="calc-row-val" id="calc-var-val">$9,500</div>
-        </div>
-
-        <div class="calc-row" id="calc-bonus-row">
-          <div>
-            <div class="calc-row-label">Spend Bonus</div>
-            <div class="calc-row-sub" id="calc-bonus-sub">Unlocked — 0.25% of spend</div>
-          </div>
-          <div class="calc-row-val" id="calc-bonus-val">$750</div>
-        </div>
-
-        <div class="calc-total">
-          <div>
-            <div class="calc-total-label">Total Monthly</div>
-            <div class="calc-total-meta" id="calc-total-meta">7.19% of spend · ~5,000 conversions</div>
-          </div>
-          <div style="text-align:right">
-            <div class="calc-total-value" id="calc-total-val">$21,560</div>
-            <div class="calc-delta neutral" id="calc-delta">Baseline</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-head">
-      <h3>How the model works</h3>
-      <span class="hint">Three components stack to align fees with results.</span>
-    </div>
-
-    <div class="mechanics">
-
-      <div class="mech-card">
-        <div class="mech-num">01 — FOUNDATION</div>
-        <h4>Base + Variable Fee</h4>
-        <p>$11,310 flat retainer (bundles creative strategy, creative production, and media buying base) plus a tiered media buying fee (4% on $62.5K–$500K, 3% on $500K–$1M, scaling down at higher volume).</p>
-        <div class="mech-detail">
-          <span><span>Base retainer</span><span class="v">$11,310</span></span>
-          <span><span>Variable @ $300K</span><span class="v">$9,500</span></span>
-          <span><span>Pre-multiplier total</span><span class="v">$20,810</span></span>
-        </div>
+      <div class="hero">
+        <div class="eyebrow">Tab 03 · Scale</div>
+        <h2>Pricing scales<br>with <em>spend</em>.</h2>
+        <p>How the agency fee evolves as monthly spend grows from $100K to $1M, holding CPA at the $60 target. Notice how the effective rate (% of spend) drops as you scale — bigger spend earns volume efficiency.</p>
       </div>
 
-      <div class="mech-card">
-        <div class="mech-num">02 — MULTIPLIER</div>
-        <h4>CPA Performance</h4>
-        <p>Both fees scale by a multiplier driven by actual CPA vs. the $60 target. Capped at 1.50× (great), floored at 0.70× (poor).</p>
-        <div class="mech-detail">
-          <span><span>$30 CPA</span><span class="v">1.50×</span></span>
-          <span><span>$60 CPA (target)</span><span class="v">1.00×</span></span>
-          <span><span>$90 CPA</span><span class="v">0.70×</span></span>
+      <div class="scale-intro">
+        <strong>Reading this table:</strong> all rows assume $60 CPA (target hit). Spend bonus is active throughout. Variable fee tier drops from 4% to 3% above $500K, which is why the effective rate flattens. To see how miss/beat affects each spend level, see the matrix below.
+      </div>
+
+      <div class="section-head">
+        <h3>Spend ladder at $60 CPA</h3>
+        <span class="hint">$100K increments. $300K row highlighted as the baseline reference.</span>
+      </div>
+
+      <div class="scale-table">
+        <div class="scale-table-header">
+          <span>Spend</span>
+          <span>Conversions</span>
+          <span>Variable Fee</span>
+          <span>Spend Bonus</span>
+          <span>Variable +Bonus</span>
+          <span>Total</span>
+        </div>
+        <!-- $100K -->
+        <div class="scale-row">
+          <div class="scale-spend">$100K</div>
+          <div class="scale-cell">1,666</div>
+          <div class="scale-cell">$1,500</div>
+          <div class="scale-cell">$250</div>
+          <div class="scale-cell">$1,750</div>
+          <div class="scale-total">$13,060<div class="scale-pct">13.06% of spend</div></div>
+        </div>
+        <!-- $200K -->
+        <div class="scale-row">
+          <div class="scale-spend">$200K</div>
+          <div class="scale-cell">3,333</div>
+          <div class="scale-cell">$5,500</div>
+          <div class="scale-cell">$500</div>
+          <div class="scale-cell">$6,000</div>
+          <div class="scale-total">$17,310<div class="scale-pct">8.65% of spend</div></div>
+        </div>
+        <!-- $300K (featured baseline) -->
+        <div class="scale-row featured">
+          <div class="scale-spend">$300K</div>
+          <div class="scale-cell">5,000</div>
+          <div class="scale-cell">$9,500</div>
+          <div class="scale-cell">$750</div>
+          <div class="scale-cell">$10,250</div>
+          <div class="scale-total">$21,560<div class="scale-pct">7.19% · baseline</div></div>
+        </div>
+        <!-- $400K -->
+        <div class="scale-row">
+          <div class="scale-spend">$400K</div>
+          <div class="scale-cell">6,666</div>
+          <div class="scale-cell">$13,500</div>
+          <div class="scale-cell">$1,000</div>
+          <div class="scale-cell">$14,500</div>
+          <div class="scale-total">$25,810<div class="scale-pct">6.45% of spend</div></div>
+        </div>
+        <!-- $500K -->
+        <div class="scale-row">
+          <div class="scale-spend">$500K</div>
+          <div class="scale-cell">8,333</div>
+          <div class="scale-cell">$17,500</div>
+          <div class="scale-cell">$1,250</div>
+          <div class="scale-cell">$18,750</div>
+          <div class="scale-total">$30,060<div class="scale-pct">6.01% of spend</div></div>
+        </div>
+        <!-- $600K -->
+        <div class="scale-row">
+          <div class="scale-spend">$600K</div>
+          <div class="scale-cell">10,000</div>
+          <div class="scale-cell">$20,500</div>
+          <div class="scale-cell">$1,500</div>
+          <div class="scale-cell">$22,000</div>
+          <div class="scale-total">$33,310<div class="scale-pct">5.55% of spend</div></div>
+        </div>
+        <!-- $700K -->
+        <div class="scale-row">
+          <div class="scale-spend">$700K</div>
+          <div class="scale-cell">11,666</div>
+          <div class="scale-cell">$23,500</div>
+          <div class="scale-cell">$1,750</div>
+          <div class="scale-cell">$25,250</div>
+          <div class="scale-total">$36,560<div class="scale-pct">5.22% of spend</div></div>
+        </div>
+        <!-- $800K -->
+        <div class="scale-row">
+          <div class="scale-spend">$800K</div>
+          <div class="scale-cell">13,333</div>
+          <div class="scale-cell">$26,500</div>
+          <div class="scale-cell">$2,000</div>
+          <div class="scale-cell">$28,500</div>
+          <div class="scale-total">$39,810<div class="scale-pct">4.98% of spend</div></div>
+        </div>
+        <!-- $900K -->
+        <div class="scale-row">
+          <div class="scale-spend">$900K</div>
+          <div class="scale-cell">15,000</div>
+          <div class="scale-cell">$29,500</div>
+          <div class="scale-cell">$2,250</div>
+          <div class="scale-cell">$31,750</div>
+          <div class="scale-total">$43,060<div class="scale-pct">4.78% of spend</div></div>
+        </div>
+        <!-- $1M -->
+        <div class="scale-row">
+          <div class="scale-spend">$1M</div>
+          <div class="scale-cell">16,666</div>
+          <div class="scale-cell">$32,500</div>
+          <div class="scale-cell">$2,500</div>
+          <div class="scale-cell">$35,000</div>
+          <div class="scale-total">$46,310<div class="scale-pct">4.63% of spend</div></div>
         </div>
       </div>
 
-      <div class="mech-card">
-        <div class="mech-num">03 — UNLOCK</div>
-        <h4>Spend Bonus</h4>
-        <p>An additional % of monthly spend that unlocks at target ($60 CPA or better) and grows with efficiency. Rewards scaling spend at high efficiency.</p>
-        <div class="mech-detail">
-          <span><span>$60 CPA (target)</span><span class="v">0.25% of spend</span></span>
-          <span><span>$45 CPA</span><span class="v">0.50% of spend</span></span>
-          <span><span>$30 CPA</span><span class="v">0.75% of spend</span></span>
-        </div>
+      <div class="section-head">
+        <h3>Scale × CPA matrix</h3>
+        <span class="hint">Total fee at varied spend and CPA performance.</span>
       </div>
 
-    </div>
+      <div class="matrix">
+        <div class="matrix-title">Total monthly fee by spend × CPA</div>
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Spend</th>
+              <th>$50 CPA</th>
+              <th>$60 CPA</th>
+              <th>$70 CPA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>$200K</td><td class="win-cell">$20,445</td><td class="target-cell">$17,310</td><td class="loss-cell">$15,129</td></tr>
+            <tr><td>$400K</td><td class="win-cell">$30,612</td><td class="target-cell">$25,810</td><td class="loss-cell">$22,329</td></tr>
+            <tr><td>$600K</td><td class="win-cell">$39,612</td><td class="target-cell">$33,310</td><td class="loss-cell">$28,629</td></tr>
+            <tr><td>$800K</td><td class="win-cell">$47,445</td><td class="target-cell">$39,810</td><td class="loss-cell">$34,029</td></tr>
+            <tr><td>$1M</td><td class="win-cell">$55,278</td><td class="target-cell">$46,310</td><td class="loss-cell">$39,429</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div class="note">
-      <div class="note-icon">!</div>
-      <p><strong>How the incentives stack up.</strong> At $60 CPA the agency earns $21,560 — matching the original Proposal 2 investment level (the new $11,310 base bundles what was previously creative strategy, creative production, and media buying base). The upside (~$25.5K at $50 CPA) and downside (~$17.7K at $75 CPA) put real money on the line in both directions, which signals confidence and creates aligned incentives. The floor multiplier of 0.70× at $90+ CPA means the agency still earns enough to cover team time, but with a clear signal that something needs to change.</p>
-    </div>
+    </section>
 
   </div>
 
@@ -530,6 +890,33 @@
   </footer>
 
   <script>
+    // ============= TAB SWITCHING =============
+    (function() {
+      var tabs = document.querySelectorAll('.tab-btn');
+      var panels = document.querySelectorAll('.tab-panel');
+
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var target = tab.getAttribute('data-tab');
+
+          tabs.forEach(function(t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach(function(p) { p.classList.remove('active'); });
+
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById('tab-' + target);
+          if (panel) panel.classList.add('active');
+
+          // Scroll to top of content area on tab switch
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    })();
+
+    // ============= CALCULATOR =============
     (function() {
       var BASE = 11310;
       var TARGET_CPA = 60;
@@ -628,10 +1015,10 @@
           deltaEl.textContent = 'Baseline';
           deltaEl.classList.add('neutral');
         } else if (delta > 0) {
-          deltaEl.textContent = '+' + fmtMoney(delta) + ' vs $60 baseline';
+          deltaEl.textContent = '+' + fmtMoney(delta) + ' vs $300K @ $60';
           deltaEl.classList.add('win');
         } else {
-          deltaEl.textContent = '−' + fmtMoney(Math.abs(delta)) + ' vs $60 baseline';
+          deltaEl.textContent = '−' + fmtMoney(Math.abs(delta)) + ' vs $300K @ $60';
           deltaEl.classList.add('loss');
         }
 
