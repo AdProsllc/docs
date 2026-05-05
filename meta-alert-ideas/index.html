@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Meta Alert Ideas — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+    }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; line-height: 1.5; }
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+
+    .intro { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px 28px; margin-bottom: 32px; }
+    .intro h2 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.2px; }
+    .intro p { font-size: 14px; color: var(--grey-200); margin-bottom: 10px; }
+    .intro p:last-child { margin-bottom: 0; }
+    .intro strong { color: #fff; font-weight: 600; }
+
+    .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+    .stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 20px; flex: 1; min-width: 140px; }
+    .stat-num { font-size: 28px; font-weight: 800; color: var(--yellow); letter-spacing: -0.5px; line-height: 1; }
+    .stat-label { font-size: 12px; color: var(--grey-300); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .category { margin-bottom: 36px; }
+    .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--card-border); }
+    .category-name { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
+    .category-count { background: var(--yellow); color: var(--navy); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; letter-spacing: 0.3px; }
+
+    .alert-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; }
+    .alert-table th { background: rgba(26,111,212,0.12); color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--card-border); }
+    .alert-table td { padding: 14px 16px; font-size: 13px; border-bottom: 1px solid var(--card-border); vertical-align: top; }
+    .alert-table tr:last-child td { border-bottom: none; }
+    .alert-table tr:hover td { background: rgba(26,111,212,0.04); }
+    .col-num { width: 36px; color: var(--grey-300); font-weight: 600; }
+    .col-name { width: 22%; color: #fff; font-weight: 600; }
+    .col-trigger { width: 35%; }
+    .col-action { width: 33%; }
+    .col-freq { width: 110px; }
+    .freq-pill { display: inline-block; background: rgba(249,217,0,0.12); color: var(--yellow); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 10px; letter-spacing: 0.3px; white-space: nowrap; }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 900px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .alert-table thead { display: none; }
+      .alert-table, .alert-table tbody, .alert-table tr, .alert-table td { display: block; width: 100%; }
+      .alert-table tr { padding: 16px; border-bottom: 1px solid var(--card-border); }
+      .alert-table tr:last-child { border-bottom: none; }
+      .alert-table td { border-bottom: none; padding: 4px 0; }
+      .alert-table td.col-num { display: none; }
+      .alert-table td.col-name { font-size: 14px; margin-bottom: 6px; }
+      .alert-table td.col-trigger::before { content: "Trigger: "; color: var(--grey-300); font-weight: 600; }
+      .alert-table td.col-action::before { content: "Action: "; color: var(--grey-300); font-weight: 600; }
+      .alert-table td.col-freq { margin-top: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Meta Alert Ideas for Ecommerce Media Buyers</h1>
+      <p>50 alert concepts across 11 categories — input list for the Workflow Factory</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <div class="intro">
+      <h2>Context</h2>
+      <p>Working list of automated alert ideas for the growth team — Meta only, lean spec. Triggered by the Win Pro weekly report thread (Apr 27 wk) where Kevin pushed back on the campaign performance table and said the more useful direction is <strong>"automated reports that tie campaign performance trends to actions taken."</strong></p>
+      <p>Each alert is a candidate for the master menu Nehal proposed: media buyers and creative team subscribe to the alerts they actually want to see. Thresholds left soft — per-brand config (Win Pro, 47skin, Broya Halal, Luhxe etc.) plugs in at deployment.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-num">50</div><div class="stat-label">Total alerts</div></div>
+      <div class="stat"><div class="stat-num">11</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num">Meta</div><div class="stat-label">Channel scope</div></div>
+      <div class="stat"><div class="stat-num">v0.1</div><div class="stat-label">Iteration</div></div>
+    </div>
+
+    <!-- CATEGORY: Spend & Pacing -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Spend &amp; Pacing</div>
+        <div class="category-count">6 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">1</td><td class="col-name">Daily spend cap breach</td><td class="col-trigger">Account daily spend exceeds defined cap by &gt;10%</td><td class="col-action">Notify media buyer to investigate runaway spend; pause offending campaigns if blown &gt;25%</td><td class="col-freq"><span class="freq-pill">Hourly</span></td></tr>
+          <tr><td class="col-num">2</td><td class="col-name">Spend pacing — under</td><td class="col-trigger">Account MTD spend pacing &lt;85% of monthly target by day 7+</td><td class="col-action">Flag for buyer to scale winners or launch new tests</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">3</td><td class="col-name">Spend pacing — over</td><td class="col-trigger">Account MTD spend pacing &gt;115% of monthly target</td><td class="col-action">Flag for buyer to throttle or reallocate before overshoot</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">4</td><td class="col-name">Zero-spend campaign</td><td class="col-trigger">Active campaign spent $0 in last 24hrs despite enabled status</td><td class="col-action">Notify buyer — likely delivery issue (budget, audience, rejected ad)</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">5</td><td class="col-name">Sudden spend spike</td><td class="col-trigger">Campaign daily spend &gt;2x its trailing 7-day average</td><td class="col-action">Notify buyer to confirm intentional scale or auto-pause if unintended</td><td class="col-freq"><span class="freq-pill">Hourly</span></td></tr>
+          <tr><td class="col-num">6</td><td class="col-name">Underspending campaign</td><td class="col-trigger">Campaign delivered &lt;50% of its daily budget for 2+ consecutive days</td><td class="col-action">Flag for buyer — likely fatigue, low bid, or audience saturation</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: ROAS & Efficiency -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">ROAS &amp; Efficiency</div>
+        <div class="category-count">6 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">7</td><td class="col-name">Account ROAS drop</td><td class="col-trigger">Account 7d ROAS drops &gt;20% WoW</td><td class="col-action">Notify growth lead — investigate channel/campaign mix shift</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">8</td><td class="col-name">Campaign ROAS below floor</td><td class="col-trigger">Campaign 3d ROAS below account-defined floor (e.g., 1.5)</td><td class="col-action">Flag for buyer — pause, restructure, or shift budget</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">9</td><td class="col-name">Campaign ROAS spike</td><td class="col-trigger">Campaign 3d ROAS &gt;150% of trailing 14d average</td><td class="col-action">Notify buyer — opportunity to scale</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">10</td><td class="col-name">CPA breach</td><td class="col-trigger">Campaign 3d CPA &gt;130% of target CPA</td><td class="col-action">Flag for buyer — diagnose creative, audience, or LP</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">11</td><td class="col-name">Cost per click anomaly</td><td class="col-trigger">Ad set CPC &gt;2x trailing 14d average</td><td class="col-action">Notify buyer — auction pressure or creative issue</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">12</td><td class="col-name">CPM spike</td><td class="col-trigger">Account CPM up &gt;30% WoW</td><td class="col-action">Notify buyer — investigate audience, creative, or seasonality</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Creative Performance -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Creative Performance</div>
+        <div class="category-count">9 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">13</td><td class="col-name">Hook rate decay</td><td class="col-trigger">Ad 3s view rate drops &gt;25% vs first 3 days of life</td><td class="col-action">Notify creative team — fatigue setting in</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">14</td><td class="col-name">Thumbstop winner</td><td class="col-trigger">New ad hook rate &gt;150% of account average in first 24hrs</td><td class="col-action">Notify creative + buyer — promote to scale &amp; build iterations</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">15</td><td class="col-name">CTR collapse</td><td class="col-trigger">Ad CTR drops &gt;40% vs its first-week baseline</td><td class="col-action">Flag for refresh or rotation</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">16</td><td class="col-name">Breakthrough ad</td><td class="col-trigger">New ad hits &gt;$X spend with ROAS &gt;150% of account avg</td><td class="col-action">Notify buyer + creative — scale and brief iterations</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">17</td><td class="col-name">False breakthrough</td><td class="col-trigger">Ad ROAS strong day 1-2 but drops below floor by day 5</td><td class="col-action">Notify buyer — stop scaling, requeue for analysis</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">18</td><td class="col-name">Creative fatigue — frequency</td><td class="col-trigger">Ad frequency &gt;3.5 with declining CTR over 7 days</td><td class="col-action">Notify creative team — refresh queue</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">19</td><td class="col-name">Zero-delivery new ad</td><td class="col-trigger">New ad &lt;$50 spend after 48hrs of being live</td><td class="col-action">Notify buyer — likely audience, bid, or learning issue</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">20</td><td class="col-name">Top creative leaderboard</td><td class="col-trigger">Weekly ranking of top 10 ads by spend, ROAS, and CTR</td><td class="col-action">Share with creative team for brief generation</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">21</td><td class="col-name">Creative concept winner</td><td class="col-trigger">Concept tag (e.g., UGC-testimonial) avg ROAS &gt;120% of account avg over 7d</td><td class="col-action">Notify creative — double down on concept</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Audience & Targeting -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Audience &amp; Targeting</div>
+        <div class="category-count">3 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">22</td><td class="col-name">Audience saturation</td><td class="col-trigger">Ad set frequency &gt;4 with rising CPM and falling ROAS</td><td class="col-action">Flag for buyer — refresh audience or creative</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">23</td><td class="col-name">Lookalike performance</td><td class="col-trigger">LAL ad set ROAS drops below broad ad set ROAS for 7d</td><td class="col-action">Notify buyer — reconsider audience strategy</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">24</td><td class="col-name">New vs returning mix shift</td><td class="col-trigger">New customer % drops below 40% of revenue WoW</td><td class="col-action">Notify growth lead — top-of-funnel weakening</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Learning & Delivery -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Learning &amp; Delivery</div>
+        <div class="category-count">5 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">25</td><td class="col-name">Stuck in learning</td><td class="col-trigger">Ad set in learning &gt;7 days without exiting</td><td class="col-action">Notify buyer — restructure, consolidate, or kill</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">26</td><td class="col-name">Learning limited</td><td class="col-trigger">Ad set flagged 'Learning Limited' by Meta</td><td class="col-action">Notify buyer — consolidate ad sets or raise budget</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">27</td><td class="col-name">Ad rejected / disapproved</td><td class="col-trigger">Any ad disapproved by Meta</td><td class="col-action">Notify buyer + creative — fix and resubmit</td><td class="col-freq"><span class="freq-pill">Hourly</span></td></tr>
+          <tr><td class="col-num">28</td><td class="col-name">Account at risk / restricted</td><td class="col-trigger">Ad account flagged with restriction or policy issue</td><td class="col-action">Notify buyer + ops lead immediately</td><td class="col-freq"><span class="freq-pill">Hourly</span></td></tr>
+          <tr><td class="col-num">29</td><td class="col-name">Pixel / CAPI event drop</td><td class="col-trigger">Purchase events drop &gt;30% vs trailing 7d average</td><td class="col-action">Notify buyer + dev — likely tracking break</td><td class="col-freq"><span class="freq-pill">Hourly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Attribution -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Attribution</div>
+        <div class="category-count">3 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">30</td><td class="col-name">7DC vs 1DV divergence</td><td class="col-trigger">7DC ROAS &gt;2x 1DV ROAS for a campaign</td><td class="col-action">Flag for buyer — attribution model dependency, validate incrementality</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">31</td><td class="col-name">Incremental ROAS gap</td><td class="col-trigger">Campaign reported ROAS &gt;2x measured incremental ROAS</td><td class="col-action">Notify growth lead — possible cannibalization</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">32</td><td class="col-name">Brand vs non-brand split</td><td class="col-trigger">Branded search/social spend % rising while blended ROAS holds</td><td class="col-action">Flag for review — possible non-brand inefficiency</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Budget & Structure -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Budget &amp; Structure</div>
+        <div class="category-count">4 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">33</td><td class="col-name">Budget concentration risk</td><td class="col-trigger">Single ad &gt;40% of campaign spend</td><td class="col-action">Notify buyer — diversify or accept concentration risk</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">34</td><td class="col-name">Budget vs performance mismatch</td><td class="col-trigger">Top 3 ROAS campaigns receive &lt;50% of account budget</td><td class="col-action">Flag for buyer — reallocation opportunity</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">35</td><td class="col-name">Stale ad set</td><td class="col-trigger">Ad set live &gt;60 days without budget or creative change</td><td class="col-action">Flag for buyer — refresh or retire</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">36</td><td class="col-name">Duplicate audience overlap</td><td class="col-trigger">Two active ad sets with &gt;30% audience overlap</td><td class="col-action">Notify buyer — consolidate to reduce auction self-competition</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Action Impact -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Action Impact <span style="color:var(--yellow);font-size:13px;font-weight:500;letter-spacing:0;">★ directly addresses Kevin's "tie performance to actions taken" ask</span></div>
+        <div class="category-count">4 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">37</td><td class="col-name">Budget change impact</td><td class="col-trigger">Track 7d performance of any campaign budget change &gt;20%</td><td class="col-action">Auto-report ROAS / spend / CPA delta vs pre-change baseline</td><td class="col-freq"><span class="freq-pill">7d post-change</span></td></tr>
+          <tr><td class="col-num">38</td><td class="col-name">Bid strategy change impact</td><td class="col-trigger">Track 7d performance after bid cap / cost cap / target change</td><td class="col-action">Auto-report delta vs baseline</td><td class="col-freq"><span class="freq-pill">7d post-change</span></td></tr>
+          <tr><td class="col-num">39</td><td class="col-name">New campaign launch report</td><td class="col-trigger">Any new campaign reaches $1K spend</td><td class="col-action">Auto-report performance vs benchmark</td><td class="col-freq"><span class="freq-pill">Triggered</span></td></tr>
+          <tr><td class="col-num">40</td><td class="col-name">Pause / kill outcome</td><td class="col-trigger">Track account ROAS 7 days after pausing a campaign</td><td class="col-action">Auto-report whether kill helped or hurt blended performance</td><td class="col-freq"><span class="freq-pill">7d post-pause</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Offer & Funnel -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Offer &amp; Funnel</div>
+        <div class="category-count">3 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">41</td><td class="col-name">Landing page conversion drop</td><td class="col-trigger">LP CVR drops &gt;25% WoW with stable traffic</td><td class="col-action">Notify buyer + LP owner — investigate page, offer, or tracking</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">42</td><td class="col-name">AOV shift</td><td class="col-trigger">Account AOV moves &gt;15% WoW</td><td class="col-action">Notify growth + creative — offer/promo or audience mix change</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">43</td><td class="col-name">Offer fatigue</td><td class="col-trigger">Promo-tagged ads ROAS drops &gt;20% WoW</td><td class="col-action">Notify creative — refresh offer angle</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Competitive -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Competitive</div>
+        <div class="category-count">3 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">44</td><td class="col-name">Competitor new ad surge</td><td class="col-trigger">Tracked competitor launches &gt;5 new ads in 7 days</td><td class="col-action">Notify creative team — review for inspiration / counter</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">45</td><td class="col-name">Competitor offer change</td><td class="col-trigger">Tracked competitor changes pricing or promo on key SKU</td><td class="col-action">Notify growth + brand — assess offer competitiveness</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">46</td><td class="col-name">Ads library scrape — new angles</td><td class="col-trigger">New creative angles from top advertisers in our category</td><td class="col-action">Notify creative — concept inspiration feed</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORY: Summary -->
+    <div class="category">
+      <div class="category-header">
+        <div class="category-name">Summary &amp; Cadence</div>
+        <div class="category-count">4 alerts</div>
+      </div>
+      <table class="alert-table">
+        <thead><tr><th class="col-num">#</th><th>Alert</th><th>Trigger</th><th>Action</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">47</td><td class="col-name">Daily pulse</td><td class="col-trigger">Account-level snapshot: spend, revenue, ROAS, CPA, txns vs yesterday &amp; 7d avg</td><td class="col-action">Posted to Slack channel for growth team</td><td class="col-freq"><span class="freq-pill">Daily</span></td></tr>
+          <tr><td class="col-num">48</td><td class="col-name">Weekly trends</td><td class="col-trigger">Spend / ROAS / new vs returning / channel mix WoW</td><td class="col-action">Posted to Slack for growth + leadership</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">49</td><td class="col-name">Creative trends weekly</td><td class="col-trigger">Top winners, top losers, fatigue watchlist, refresh queue</td><td class="col-action">Posted to Slack for creative team</td><td class="col-freq"><span class="freq-pill">Weekly</span></td></tr>
+          <tr><td class="col-num">50</td><td class="col-name">Brand-specific deep dive</td><td class="col-trigger">Per-brand custom report (e.g., 47skin GTV, Broya Halal)</td><td class="col-action">Posted to brand-specific Slack channel</td><td class="col-freq"><span class="freq-pill">Daily / Weekly</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+</body>
+</html>
