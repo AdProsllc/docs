@@ -364,9 +364,9 @@
 
         <!-- PHASE 2 -->
         <g class="flow-node" data-stage="6" transform="translate(420, 156)">
-          <rect width="200" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">7. Queued For Build</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">AI generates subtasks</text>
+          <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">7. Queued For Build</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Ready to start build</text>
         </g>
 
         <g class="flow-node" data-stage="7" transform="translate(420, 254)">
@@ -529,7 +529,7 @@ const stages = [
   { phase: 0, n: 4, name: "Needs Clarification", sub: "Bot asks requester for detail", who: "AI plus requester", trigger: "AI flags missing context", action: "The bot posts a comment listing exactly which fields need more detail, with examples. The requester replies in the task. When the task is updated, it is re-evaluated automatically.", next: ["AI Evaluation (re-run)"], pill: ["pill-warn","Blocked"] },
   { phase: 0, n: 5, name: "Approved", sub: "Greenlit for build", who: "Product owner", trigger: "Manual approval", action: "Status flips to Approved. This is the trigger for Phase 2: a second AI generates the implementation tasks in ClickUp.", next: ["Queued For Build"], pill: ["pill-ok","Approved"] },
   { phase: 0, n: 6, name: "Rejected", sub: "Out of scope or duplicate", who: "Product owner", trigger: "Manual rejection", action: "The bot posts the rejection reason and links to similar live agents in the library if any exist. The pipeline ends here.", next: ["End of pipeline"], pill: ["pill-warn","End"] },
-  { phase: 1, n: 7, name: "Queued For Build", sub: "AI generates ClickUp subtasks", who: "AI task generator", trigger: "Status changes to Approved", action: "The AI breaks the agent down into concrete dev subtasks: prompt design, tool and integration setup, output schema, test cases and the library entry. Subtasks are auto-assigned by skill.", next: ["Building"], pill: ["pill-ai","AI"] },
+  { phase: 1, n: 7, name: "Queued For Build", sub: "Ready to start build", who: "Builder", trigger: "Status changes to Approved", action: "The approved request is queued for the builder to pick up. The builder reviews the original form (Objective, Description, Steps, Output template, examples and edge cases) and plans the implementation before moving to Building.", next: ["Building"], pill: ["pill-human","Human"] },
   { phase: 1, n: 8, name: "Building", sub: "Engineer implements the agent", who: "Builder", trigger: "Subtasks assigned", action: "The engineer builds the agent in the AdPros library template (not the chat). Wires prompts, tools and schemas. Pushes to staging once subtasks are done.", next: ["QA / Validation"], pill: ["pill-human","Human"] },
   { phase: 1, n: 9, name: "QA / Validation", sub: "Test cases and golden outputs", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Run the test cases from the original request plus auto-generated edge cases. An AI judge compares outputs against the template and flags regressions.", next: ["Live (V1)"], pill: ["pill-ai","AI"] },
   { phase: 1, n: 10, name: "Live (V1)", sub: "First version published", who: "Pipeline", trigger: "QA passes", action: "The agent is published in the library template as version 1 and becomes available to be invoked from the AdPros chat. From here it enters the iteration loop in Phase 3.", next: ["Output Sent"], pill: ["pill-ok","V1"] },
