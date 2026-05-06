@@ -50,7 +50,7 @@
     .ap-header-text h1 { font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
     .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
 
-    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-content { padding: 40px 48px; max-width: 1280px; margin: 0 auto; }
 
     .intro-eyebrow {
       display: inline-block;
@@ -65,7 +65,7 @@
       margin-bottom: 16px;
     }
     .intro h2 { font-size: 32px; font-weight: 700; color: var(--white); letter-spacing: -0.02em; margin-bottom: 12px; }
-    .intro p { font-size: 16px; color: var(--grey-200); max-width: 720px; }
+    .intro p { font-size: 16px; color: var(--grey-200); max-width: 760px; }
 
     .section-title {
       font-size: 11px;
@@ -84,7 +84,7 @@
     }
 
     .flow-card { overflow-x: auto; margin-bottom: 16px; }
-    .flow-card svg { display: block; width: 100%; height: auto; min-width: 760px; }
+    .flow-card svg { display: block; width: 100%; height: auto; min-width: 1100px; }
     .flow-node { cursor: pointer; transition: opacity 0.15s; }
     .flow-node:hover { opacity: 0.78; }
     .flow-node text { pointer-events: none; font-family: "Inter", sans-serif; }
@@ -105,11 +105,12 @@
 
     .phase-overview {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin: 0 0 24px;
     }
-    @media (max-width: 700px) { .phase-overview { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .phase-overview { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .phase-overview { grid-template-columns: 1fr; } }
     .phase-card {
       background: var(--navy-card);
       border: 1px solid var(--card-border);
@@ -133,8 +134,8 @@
       color: var(--grey-300);
       text-transform: uppercase;
     }
-    .phase-name { font-size: 16px; font-weight: 600; margin: 4px 0 6px; color: var(--grey-200); }
-    .phase-desc { font-size: 13px; color: var(--grey-300); margin: 0; }
+    .phase-name { font-size: 15px; font-weight: 600; margin: 4px 0 6px; color: var(--grey-200); }
+    .phase-desc { font-size: 12px; color: var(--grey-300); margin: 0; }
 
     .layout {
       display: grid;
@@ -283,15 +284,10 @@
 </head>
 <body>
   <header class="ap-header">
-    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:48px;display:block">
-      <rect width="81" height="81" fill="#040735"/>
-      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
-      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
-      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
-      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
-      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
-      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
-      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
     </svg>
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
@@ -303,173 +299,238 @@
   <div class="ap-content">
     <div class="intro">
       <span class="intro-eyebrow">Internal process</span>
-      <h2>How we ship AI agents to the library</h2>
-      <p>The full process to design, build and iterate AI agents that live in the AdPros library template — not in the chat. Three phases: request &amp; evaluation, development, and a structured V1 → V5 iteration loop until the agent is final.</p>
+      <h2>How we ship and evolve AI agents</h2>
+      <p>Four phases that take an agent from a raw idea to a continuously-optimized product. The first three phases get the agent to V5 with internal feedback. Phase 4 is the post-launch loop where real users drive every new version.</p>
     </div>
 
     <div class="section-title">Full process map</div>
     <div class="card flow-card">
-      <svg id="flow" viewBox="0 0 1080 580" xmlns="http://www.w3.org/2000/svg" aria-label="Full pipeline flow diagram">
+      <svg id="flow" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" aria-label="Full pipeline flow diagram">
         <defs>
           <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
         </defs>
 
-        <rect x="20" y="20" width="340" height="540" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
-        <text x="40" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 1 · REQUEST &amp; EVALUATION</text>
+        <!-- PHASE CONTAINERS -->
+        <rect x="20" y="20" width="260" height="560" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="34" y="46" font-size="10" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 1 · ZERO TO DESIGN</text>
 
-        <rect x="380" y="20" width="280" height="540" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
-        <text x="400" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 2 · DEVELOPMENT</text>
+        <rect x="300" y="20" width="240" height="560" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="314" y="46" font-size="10" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 2 · DESIGN TO PROTOTYPE (V1)</text>
 
-        <rect x="680" y="20" width="380" height="540" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
-        <text x="700" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 3 · ITERATION LOOP (V1 → V5)</text>
+        <rect x="560" y="20" width="420" height="560" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="574" y="46" font-size="10" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 3 · PROTOTYPE (V1) TO LAUNCH (V5)</text>
+
+        <rect x="1000" y="20" width="420" height="560" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="1014" y="46" font-size="10" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 4 · LAUNCH (V5) TO OPTIMIZATION (V∞)</text>
 
         <!-- PHASE 1 -->
-        <g class="flow-node" data-stage="0" transform="translate(80, 70)">
-          <rect width="220" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
-          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">1. Submitted</text>
-          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">ClickUp form intake</text>
+        <g class="flow-node" data-stage="0" transform="translate(50, 70)">
+          <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">1. Submitted</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">ClickUp form intake</text>
         </g>
 
-        <g class="flow-node" data-stage="1" transform="translate(80, 156)">
-          <rect width="220" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
-          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">2. AI Evaluation</text>
-          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">Score &amp; classify</text>
+        <g class="flow-node" data-stage="1" transform="translate(50, 150)">
+          <rect width="200" height="50" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">2. AI Evaluation</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">Score &amp; classify</text>
         </g>
 
-        <g class="flow-node" data-stage="3" transform="translate(80, 254)">
-          <rect width="220" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
-          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">4. Needs Clarification</text>
-          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">Bot asks for detail</text>
+        <g class="flow-node" data-stage="3" transform="translate(50, 240)">
+          <rect width="200" height="50" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">4. Needs Clarification</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">Bot asks for detail</text>
         </g>
 
-        <g class="flow-node" data-stage="2" transform="translate(80, 350)">
-          <rect width="220" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
-          <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">3. Pending Approval</text>
-          <text x="110" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Owner reviews</text>
+        <g class="flow-node" data-stage="2" transform="translate(50, 330)">
+          <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">3. Pending Approval</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Owner reviews</text>
         </g>
 
-        <g class="flow-node" data-stage="5" transform="translate(80, 444)">
-          <rect width="100" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
-          <text x="50" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">6. Rejected</text>
-          <text x="50" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">End</text>
+        <g class="flow-node" data-stage="5" transform="translate(50, 420)">
+          <rect width="95" height="50" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
+          <text x="47" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">6. Rejected</text>
+          <text x="47" y="40" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">End</text>
         </g>
 
-        <g class="flow-node" data-stage="4" transform="translate(200, 444)">
-          <rect width="100" height="56" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
-          <text x="50" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">5. Approved</text>
-          <text x="50" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Greenlit</text>
+        <g class="flow-node" data-stage="4" transform="translate(155, 420)">
+          <rect width="95" height="50" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
+          <text x="47" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">5. Approved</text>
+          <text x="47" y="40" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Greenlit</text>
         </g>
 
         <!-- PHASE 2 -->
-        <g class="flow-node" data-stage="6" transform="translate(420, 156)">
-          <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">7. Queued For Build</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Ready to start build</text>
+        <g class="flow-node" data-stage="6" transform="translate(320, 150)">
+          <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">7. Queued For Build</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Ready to start build</text>
         </g>
 
-        <g class="flow-node" data-stage="7" transform="translate(420, 254)">
-          <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">8. Building</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Library template</text>
+        <g class="flow-node" data-stage="7" transform="translate(320, 240)">
+          <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">8. Building</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Library template</text>
         </g>
 
-        <g class="flow-node" data-stage="8" transform="translate(420, 350)">
-          <rect width="200" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">9. QA / Validation</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">AI judge + tests</text>
+        <g class="flow-node" data-stage="8" transform="translate(320, 330)">
+          <rect width="200" height="50" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">9. QA / Validation</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">AI judge + tests</text>
         </g>
 
-        <g class="flow-node" data-stage="9" transform="translate(420, 444)">
-          <rect width="200" height="56" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">10. Live (V1)</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">First version published</text>
+        <g class="flow-node" data-stage="9" transform="translate(320, 420)">
+          <rect width="200" height="50" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">10. Prototype (V1)</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">First version live</text>
         </g>
 
-        <!-- PHASE 3 - V1 to V5 loop -->
-        <g class="flow-node" data-stage="10" transform="translate(720, 70)">
+        <!-- PHASE 3 -->
+        <g class="flow-node" data-stage="10" transform="translate(580, 70)">
           <rect width="200" height="50" rx="8" fill="var(--c-loop-fill)" stroke="var(--c-loop-stroke)" stroke-width="1"/>
-          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-loop-text)">11. Output Sent</text>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-loop-text)">11. Agent Announcement</text>
           <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-loop-text)" opacity="0.85">Loom + output + objective</text>
         </g>
 
-        <g class="flow-node" data-stage="11" transform="translate(720, 150)">
-          <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
-          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">12. Team Gives Feedback</text>
-          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Collect from team</text>
+        <g class="flow-node" data-stage="11" transform="translate(580, 150)">
+          <rect width="200" height="60" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">12. Ad Pros Feedback</text>
+          <text x="100" y="36" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Team feedback, interviews,</text>
+          <text x="100" y="50" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">team meetings</text>
         </g>
 
-        <g class="flow-node" data-stage="12" transform="translate(720, 230)">
+        <g class="flow-node" data-stage="12" transform="translate(580, 240)">
           <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
-          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">13. Nehal Reviews</text>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">13. Review Gate (Nehal)</text>
           <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Approve / discard feedback</text>
         </g>
 
-        <g class="flow-node" data-stage="13" transform="translate(720, 310)">
-          <rect width="200" height="60" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1" stroke-dasharray="4 3"/>
-          <text x="100" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">14. End User Call</text>
-          <text x="100" y="36" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Iterate with end user</text>
-          <text x="100" y="50" text-anchor="middle" font-size="9" fill="var(--c-human-text)" opacity="0.7" font-style="italic">only after V2</text>
-        </g>
-
-        <g class="flow-node" data-stage="14" transform="translate(720, 400)">
+        <g class="flow-node" data-stage="13" transform="translate(580, 320)">
           <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
-          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">15. Team Meeting</text>
-          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Show progress to team</text>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">14. Develop</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Apply approved changes</text>
         </g>
 
-        <g class="flow-node" data-stage="15" transform="translate(720, 480)">
-          <rect width="200" height="50" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
-          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">16. V5 — Final</text>
-          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Loop ends, agent locked</text>
+        <g class="flow-node" data-stage="14" transform="translate(580, 400)">
+          <rect width="200" height="50" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">15. QA</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">Re-validate before publish</text>
         </g>
+
+        <g class="flow-node" data-stage="15" transform="translate(580, 480)">
+          <rect width="200" height="50" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">16. New Version Live</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">V2 → V5</text>
+        </g>
+
+        <!-- External feedback note for Phase 3 (V3-V5) -->
+        <g transform="translate(800, 165)">
+          <rect width="160" height="44" rx="6" fill="none" stroke="var(--c-loop-stroke)" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+          <text x="80" y="18" text-anchor="middle" font-size="10" font-weight="600" fill="var(--c-loop-text)" opacity="0.9">+ external feedback</text>
+          <text x="80" y="32" text-anchor="middle" font-size="9" fill="var(--c-loop-text)" opacity="0.7" font-style="italic">added during V3, V4, V5</text>
+        </g>
+        <line x1="780" y1="180" x2="800" y2="180" stroke="var(--c-loop-stroke)" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <!-- PHASE 4 -->
+        <g class="flow-node" data-stage="16" transform="translate(1020, 70)">
+          <rect width="200" height="50" rx="8" fill="var(--c-loop-fill)" stroke="var(--c-loop-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-loop-text)">17. Agent Announcement</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-loop-text)" opacity="0.85">To external users</text>
+        </g>
+
+        <g class="flow-node" data-stage="17" transform="translate(1020, 150)">
+          <rect width="200" height="60" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">18. User Feedback</text>
+          <text x="100" y="36" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Forms, support tickets,</text>
+          <text x="100" y="50" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">interviews, sales meetings</text>
+        </g>
+
+        <g class="flow-node" data-stage="18" transform="translate(1020, 240)">
+          <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">19. Review Gate (Nehal)</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Approve / discard feedback</text>
+        </g>
+
+        <g class="flow-node" data-stage="19" transform="translate(1020, 320)">
+          <rect width="200" height="50" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">20. Develop</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Apply approved changes</text>
+        </g>
+
+        <g class="flow-node" data-stage="20" transform="translate(1020, 400)">
+          <rect width="200" height="50" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">21. QA</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">Re-validate before publish</text>
+        </g>
+
+        <g class="flow-node" data-stage="21" transform="translate(1020, 480)">
+          <rect width="200" height="50" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">22. New Version Live</text>
+          <text x="100" y="40" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">V6, V7, V8 ...</text>
+        </g>
+
+        <!-- ========== ARROWS ========== -->
 
         <!-- Phase 1 arrows -->
-        <line x1="190" y1="126" x2="190" y2="151" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="190" y1="212" x2="190" y2="249" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <text x="200" y="234" font-size="10" fill="var(--grey-300)" font-style="italic">low conf.</text>
+        <line x1="150" y1="120" x2="150" y2="145" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="150" y1="200" x2="150" y2="235" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <text x="160" y="220" font-size="10" fill="var(--grey-300)" font-style="italic">low conf.</text>
 
-        <path d="M 305 282 Q 350 282 350 184 L 305 184" fill="none" stroke="var(--c-line)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
-        <text x="332" y="232" font-size="10" fill="var(--grey-300)" font-style="italic" text-anchor="middle">re-eval</text>
+        <path d="M 255 265 Q 285 265 285 175 L 255 175" fill="none" stroke="var(--c-line)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+        <text x="270" y="220" font-size="10" fill="var(--grey-300)" font-style="italic" text-anchor="middle">re-eval</text>
 
-        <path d="M 305 184 Q 360 184 360 350 L 305 350" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <path d="M 255 175 Q 285 175 285 355 L 255 355" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
-        <line x1="135" y1="406" x2="105" y2="441" stroke="var(--c-warn-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="240" y1="406" x2="245" y2="441" stroke="var(--c-ok-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="105" y1="380" x2="80" y2="415" stroke="var(--c-warn-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="195" y1="380" x2="200" y2="415" stroke="var(--c-ok-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
         <!-- Phase 1 -> 2 trigger -->
-        <path d="M 300 472 L 380 472 L 380 184 L 419 184" fill="none" stroke="var(--yellow)" stroke-width="1.5" marker-end="url(#arrow)"/>
-        <text x="386" y="178" font-size="10" fill="var(--yellow)" font-weight="600">trigger</text>
+        <path d="M 250 445 L 285 445 L 285 175 L 319 175" fill="none" stroke="var(--yellow)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text x="297" y="168" font-size="10" fill="var(--yellow)" font-weight="600">trigger</text>
 
         <!-- Phase 2 internal arrows -->
-        <line x1="520" y1="212" x2="520" y2="253" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="520" y1="310" x2="520" y2="349" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="520" y1="406" x2="520" y2="443" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="420" y1="200" x2="420" y2="235" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="420" y1="290" x2="420" y2="325" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="420" y1="380" x2="420" y2="415" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
         <!-- Phase 2 -> 3 -->
-        <path d="M 620 472 L 670 472 L 670 95 L 719 95" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <path d="M 520 445 L 545 445 L 545 95 L 579 95" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
-        <!-- Phase 3 internal arrows (V1->V5 loop) -->
-        <line x1="820" y1="120" x2="820" y2="149" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="820" y1="200" x2="820" y2="229" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="820" y1="280" x2="820" y2="309" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="820" y1="370" x2="820" y2="399" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <!-- Phase 3 internal arrows (V2->V5 loop) -->
+        <line x1="680" y1="120" x2="680" y2="145" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="680" y1="210" x2="680" y2="235" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="680" y1="290" x2="680" y2="315" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="680" y1="370" x2="680" y2="395" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="680" y1="450" x2="680" y2="475" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
-        <!-- Loop arrow: Team Meeting back to Output Sent (V2, V3, V4) -->
-        <path d="M 920 425 L 985 425 L 985 95 L 920 95" fill="none" stroke="var(--c-loop-stroke)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
-        <text x="995" y="265" font-size="10" fill="var(--c-loop-text)" font-style="italic" font-weight="600">loop V2-V4</text>
+        <!-- Phase 3 loop V2-V5 -->
+        <path d="M 780 505 L 800 505 L 800 540 L 470 540 L 470 95 L 579 95" fill="none" stroke="var(--c-loop-stroke)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+        <text x="640" y="555" font-size="10" fill="var(--c-loop-text)" font-style="italic" font-weight="600" text-anchor="middle">loop until V5</text>
 
-        <!-- Final arrow to V5 -->
-        <line x1="820" y1="450" x2="820" y2="479" stroke="var(--c-ok-stroke)" stroke-width="1.5" marker-end="url(#arrow)"/>
-        <text x="828" y="468" font-size="10" fill="var(--c-ok-text)" font-style="italic">at V5</text>
+        <!-- Phase 3 -> 4 (after V5) -->
+        <path d="M 780 505 L 990 505 L 990 95 L 1019 95" fill="none" stroke="var(--yellow)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text x="900" y="498" font-size="10" fill="var(--yellow)" font-weight="600" text-anchor="middle">at V5 → launch</text>
+
+        <!-- Phase 4 internal arrows -->
+        <line x1="1120" y1="120" x2="1120" y2="145" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="1120" y1="210" x2="1120" y2="235" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="1120" y1="290" x2="1120" y2="315" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="1120" y1="370" x2="1120" y2="395" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="1120" y1="450" x2="1120" y2="475" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <!-- Phase 4 infinite loop -->
+        <path d="M 1220 505 L 1240 505 L 1240 540 L 990 540 L 990 95 L 1019 95" fill="none" stroke="var(--c-loop-stroke)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+        <text x="1100" y="555" font-size="10" fill="var(--c-loop-text)" font-style="italic" font-weight="600" text-anchor="middle">infinite loop · V6, V7, V8 …</text>
+
       </svg>
 
       <div class="flow-legend">
         <div class="flow-legend-item"><span class="swatch" style="background: var(--c-ai-fill); border-color: var(--c-ai-stroke);"></span>AI action</div>
         <div class="flow-legend-item"><span class="swatch" style="background: var(--c-human-fill); border-color: var(--c-human-stroke);"></span>Human action</div>
-        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-loop-fill); border-color: var(--c-loop-stroke);"></span>Iteration step</div>
-        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-ok-fill); border-color: var(--c-ok-stroke);"></span>Positive state</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-loop-fill); border-color: var(--c-loop-stroke);"></span>Loop / iteration entry</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-ok-fill); border-color: var(--c-ok-stroke);"></span>Positive / version released</div>
         <div class="flow-legend-item"><span class="swatch" style="background: var(--c-warn-fill); border-color: var(--c-warn-stroke);"></span>Blocked / rejected</div>
       </div>
     </div>
@@ -478,18 +539,23 @@
     <div class="phase-overview" role="tablist">
       <button class="phase-card active" data-phase="0" role="tab">
         <div class="phase-num">Phase 1</div>
-        <div class="phase-name">Request &amp; evaluation</div>
-        <p class="phase-desc">ClickUp form intake, AI evaluation, approval or rejection.</p>
+        <div class="phase-name">Zero to Design</div>
+        <p class="phase-desc">Form intake, AI evaluation, approval or rejection.</p>
       </button>
       <button class="phase-card" data-phase="1" role="tab">
         <div class="phase-num">Phase 2</div>
-        <div class="phase-name">Development</div>
-        <p class="phase-desc">AI generates subtasks, the team builds, QA validates, V1 ships.</p>
+        <div class="phase-name">Design to Prototype (V1)</div>
+        <p class="phase-desc">Build the first version, validate it, push V1 live.</p>
       </button>
       <button class="phase-card" data-phase="2" role="tab">
         <div class="phase-num">Phase 3</div>
-        <div class="phase-name">Iteration loop (V1 → V5)</div>
-        <p class="phase-desc">Structured feedback rounds with Nehal, end user and team until V5.</p>
+        <div class="phase-name">Prototype (V1) to Launch (V5)</div>
+        <p class="phase-desc">Internal feedback loop until V5. External feedback joins from V3 onward.</p>
+      </button>
+      <button class="phase-card" data-phase="3" role="tab">
+        <div class="phase-num">Phase 4</div>
+        <div class="phase-name">Launch (V5) to Optimization (V∞)</div>
+        <p class="phase-desc">Post-launch loop driven by real users. No version cap.</p>
       </button>
     </div>
 
@@ -502,43 +568,51 @@
       <div class="legend-item"><span class="pill pill-ai">AI</span> Executed by an AI agent</div>
       <div class="legend-item"><span class="pill pill-human">Human</span> Human decision required</div>
       <div class="legend-item"><span class="pill pill-loop">Loop</span> Repeats per version</div>
-      <div class="legend-item"><span class="pill pill-ok">OK</span> Positive or final state</div>
+      <div class="legend-item"><span class="pill pill-ok">OK</span> Version released</div>
       <div class="legend-item"><span class="pill pill-warn">Alert</span> Blocked or rejected</div>
     </div>
   </div>
 
   <footer class="ap-footer">
-    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:32px;opacity:0.5">
-      <rect width="81" height="81" fill="#040735"/>
-      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
-      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
-      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
-      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
-      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
-      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
-      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
     </svg>
     <p>Ad Pros &mdash; Internal Use</p>
   </footer>
 
 <script>
 const stages = [
+  // Phase 1 - Zero to Design
   { phase: 0, n: 1, name: "Submitted", sub: "Form submitted in ClickUp", who: "Requester", trigger: "Manual form submission", action: "The requester fills out the ClickUp form with Objective, Description, Steps, Output template, examples and edge cases. The task is created in the pipeline at the Submitted state.", next: ["AI Evaluation"], pill: ["pill-human","Human"] },
   { phase: 0, n: 2, name: "AI Evaluation", sub: "AI scores feasibility and clarity", who: "AI evaluator agent", trigger: "Status changes to Submitted", action: "The AI reads every form field, scores clarity, feasibility and ROI, classifies the request type, and routes to one of three states based on a confidence threshold.", next: ["Pending Approval","Needs Clarification","Rejected"], pill: ["pill-ai","AI"] },
   { phase: 0, n: 3, name: "Pending Approval", sub: "Owner reviews AI summary", who: "Product owner", trigger: "AI confidence above threshold", action: "The owner reviews the AI summary, the scope estimate and the recommendation. They approve, reject, or send it back for clarification.", next: ["Approved","Rejected"], pill: ["pill-human","Human"] },
   { phase: 0, n: 4, name: "Needs Clarification", sub: "Bot asks requester for detail", who: "AI plus requester", trigger: "AI flags missing context", action: "The bot posts a comment listing exactly which fields need more detail, with examples. The requester replies in the task. When the task is updated, it is re-evaluated automatically.", next: ["AI Evaluation (re-run)"], pill: ["pill-warn","Blocked"] },
-  { phase: 0, n: 5, name: "Approved", sub: "Greenlit for build", who: "Product owner", trigger: "Manual approval", action: "Status flips to Approved. This is the trigger for Phase 2: a second AI generates the implementation tasks in ClickUp.", next: ["Queued For Build"], pill: ["pill-ok","Approved"] },
+  { phase: 0, n: 5, name: "Approved", sub: "Greenlit for build", who: "Product owner", trigger: "Manual approval", action: "Status flips to Approved. This is the trigger for Phase 2: the request enters the build queue.", next: ["Queued For Build"], pill: ["pill-ok","Approved"] },
   { phase: 0, n: 6, name: "Rejected", sub: "Out of scope or duplicate", who: "Product owner", trigger: "Manual rejection", action: "The bot posts the rejection reason and links to similar live agents in the library if any exist. The pipeline ends here.", next: ["End of pipeline"], pill: ["pill-warn","End"] },
+
+  // Phase 2 - Design to Prototype (V1)
   { phase: 1, n: 7, name: "Queued For Build", sub: "Ready to start build", who: "Builder", trigger: "Status changes to Approved", action: "The approved request is queued for the builder to pick up. The builder reviews the original form (Objective, Description, Steps, Output template, examples and edge cases) and plans the implementation before moving to Building.", next: ["Building"], pill: ["pill-human","Human"] },
-  { phase: 1, n: 8, name: "Building", sub: "Engineer implements the agent", who: "Builder", trigger: "Subtasks assigned", action: "The engineer builds the agent in the AdPros library template (not the chat). Wires prompts, tools and schemas. Pushes to staging once subtasks are done.", next: ["QA / Validation"], pill: ["pill-human","Human"] },
-  { phase: 1, n: 9, name: "QA / Validation", sub: "Test cases and golden outputs", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Run the test cases from the original request plus auto-generated edge cases. An AI judge compares outputs against the template and flags regressions.", next: ["Live (V1)"], pill: ["pill-ai","AI"] },
-  { phase: 1, n: 10, name: "Live (V1)", sub: "First version published", who: "Pipeline", trigger: "QA passes", action: "The agent is published in the library template as version 1 and becomes available to be invoked from the AdPros chat. From here it enters the iteration loop in Phase 3.", next: ["Output Sent"], pill: ["pill-ok","V1"] },
-  { phase: 2, n: 11, name: "Output Sent", sub: "Loom + output + objective", who: "Builder or owner", trigger: "Version is live and ready for review", action: "Send a structured feedback package to the team containing: a Loom walkthrough of the agent, a sample output, and the original objective for context. This is how every iteration round (V1 to V4) starts.", next: ["Team Gives Feedback"], pill: ["pill-loop","Loop"] },
-  { phase: 2, n: 12, name: "Team Gives Feedback", sub: "Collect feedback from team", who: "Team", trigger: "Output package received", action: "The team reviews the Loom, the output and the objective, and submits feedback on what is working and what needs to change. All feedback is collected before going to Nehal for triage.", next: ["Nehal Reviews"], pill: ["pill-human","Human"] },
-  { phase: 2, n: 13, name: "Nehal Reviews", sub: "Approve or discard feedback", who: "Nehal", trigger: "Team feedback collected", action: "Nehal reviews the feedback the team submitted. He decides which items to act on and which to discard, so the team only iterates on what actually matters.", next: ["End User Call","Team Meeting"], pill: ["pill-human","Human"] },
-  { phase: 2, n: 14, name: "End User Call", sub: "Iterate with end user (only after V2)", who: "Owner plus end user", trigger: "After Nehal reviews V2 feedback (skipped on V1)", action: "Once the agent has been refined to V2, schedule a call with the end user to iterate directly on real use cases. This step does NOT happen between V1 and V2 — V2 is built only on team and Nehal feedback. From V2 onward, every iteration round includes the end user.", next: ["Team Meeting"], pill: ["pill-human","Human"] },
-  { phase: 2, n: 15, name: "Team Meeting", sub: "Show progress to team", who: "Owner", trigger: "Iteration round complete", action: "The last team meeting of the round shows the team the progress on the agent — what changed, what feedback was applied, and the next version. After this step, if the agent is at V4 or earlier, the loop restarts at Output Sent for the next version. If it just shipped V5, the loop ends.", next: ["Output Sent (next version)","V5 — Final"], pill: ["pill-loop","Loop"] },
-  { phase: 2, n: 16, name: "V5 — Final", sub: "Loop ends, agent locked", who: "Pipeline", trigger: "Team meeting after V5 ships", action: "After five versions, the agent is considered final. It stays in the library at V5 and the iteration loop ends.", next: ["End of pipeline"], pill: ["pill-ok","Final"] }
+  { phase: 1, n: 8, name: "Building", sub: "Engineer implements the agent", who: "Builder", trigger: "Builder picks it up", action: "The engineer builds the agent in the AdPros library template (not the chat). Wires prompts, tools and schemas. Pushes to staging once subtasks are done.", next: ["QA / Validation"], pill: ["pill-human","Human"] },
+  { phase: 1, n: 9, name: "QA / Validation", sub: "Test cases and golden outputs", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Run the test cases from the original request plus auto-generated edge cases. An AI judge compares outputs against the template and flags regressions before V1 ships.", next: ["Prototype (V1)"], pill: ["pill-ai","AI"] },
+  { phase: 1, n: 10, name: "Prototype (V1)", sub: "First version live", who: "Pipeline", trigger: "QA passes", action: "The agent is published as V1 and becomes available in the AdPros library template. From here it enters the iteration loop in Phase 3.", next: ["Agent Announcement (Phase 3)"], pill: ["pill-ok","V1"] },
+
+  // Phase 3 - Prototype (V1) to Launch (V5)
+  { phase: 2, n: 11, name: "Agent Announcement (Phase 3)", sub: "Internal launch announcement", who: "Builder or owner", trigger: "Version is live and ready for review", action: "Send a structured announcement to the team containing: a Loom walkthrough of the agent, a sample output, and the original objective for context. This is how every iteration round of Phase 3 (V2 → V5) starts.", next: ["Ad Pros Feedback"], pill: ["pill-loop","Loop"] },
+  { phase: 2, n: 12, name: "Ad Pros Feedback", sub: "Team feedback, interviews, team meetings", who: "Ad Pros team", trigger: "Announcement posted", action: "The team submits feedback through three channels: written feedback on the announcement, internal team interviews where someone walks through the agent live with another team member, and team meetings where progress is presented and discussed. From V3 onward this also includes lightweight external feedback (early users, design partners) layered on top.", next: ["Review Gate (Phase 3)"], pill: ["pill-human","Human"] },
+  { phase: 2, n: 13, name: "Review Gate (Phase 3)", sub: "Nehal approves or discards feedback", who: "Nehal", trigger: "Feedback collected", action: "Nehal reviews every piece of feedback the team submitted. He decides which items become work for the next version and which get discarded, so the team only iterates on what actually matters.", next: ["Develop (Phase 3)"], pill: ["pill-human","Human"] },
+  { phase: 2, n: 14, name: "Develop (Phase 3)", sub: "Apply approved changes", who: "Builder", trigger: "Review gate cleared", action: "The builder implements the approved changes in the library template. Same place as Phase 2 Building, but now the work is scoped strictly to the feedback Nehal greenlit.", next: ["QA (Phase 3)"], pill: ["pill-human","Human"] },
+  { phase: 2, n: 15, name: "QA (Phase 3)", sub: "Re-validate before publish", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Re-run the original test cases plus any new ones from this round of feedback. Catches regressions introduced by the changes before the new version is published.", next: ["New Version Live (Phase 3)"], pill: ["pill-ai","AI"] },
+  { phase: 2, n: 16, name: "New Version Live (Phase 3)", sub: "V2, V3, V4 or V5 published", who: "Pipeline", trigger: "QA passes", action: "The new version (V2, V3, V4 or V5) is published to the library. If it is V2/V3/V4, the loop restarts at Agent Announcement for the next round. When V5 ships, Phase 3 ends and Phase 4 begins.", next: ["Agent Announcement (Phase 3) [if < V5]","Agent Announcement (Phase 4) [at V5]"], pill: ["pill-ok","Live"] },
+
+  // Phase 4 - Launch (V5) to Optimization
+  { phase: 3, n: 17, name: "Agent Announcement (Phase 4)", sub: "External launch announcement", who: "Builder or owner", trigger: "V5 ships, or new optimization round starts", action: "Announce the agent (or its newest version) to external users. Same structure as Phase 3 announcement — Loom + output + objective — but the audience is now real customers, not the internal team.", next: ["User Feedback"], pill: ["pill-loop","Loop"] },
+  { phase: 3, n: 18, name: "User Feedback", sub: "Forms, support tickets, interviews, sales meetings", who: "End users", trigger: "Announcement posted", action: "Feedback flows in from four channels: form submissions tied to the agent, customer support tickets that mention it, scheduled user interviews with active customers, and sales meetings where prospects react to the demo. All of it is collected before going to the review gate.", next: ["Review Gate (Phase 4)"], pill: ["pill-human","Human"] },
+  { phase: 3, n: 19, name: "Review Gate (Phase 4)", sub: "Nehal approves or discards feedback", who: "Nehal", trigger: "User feedback collected", action: "Same gate as Phase 3 but applied to external feedback. Nehal decides what becomes work for the next optimization version and what gets discarded, keeping the loop focused on changes that move the metric.", next: ["Develop (Phase 4)"], pill: ["pill-human","Human"] },
+  { phase: 3, n: 20, name: "Develop (Phase 4)", sub: "Apply approved changes", who: "Builder", trigger: "Review gate cleared", action: "Builder implements the approved changes in the library template. Same flow as Phase 3 Develop, but the input is user feedback instead of team feedback.", next: ["QA (Phase 4)"], pill: ["pill-human","Human"] },
+  { phase: 3, n: 21, name: "QA (Phase 4)", sub: "Re-validate before publish", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Re-run the test suite and add cases derived from the user feedback (real edge cases users hit). Prevents regressions from shipping to a customer base that already trusts the agent.", next: ["New Version Live (Phase 4)"], pill: ["pill-ai","AI"] },
+  { phase: 3, n: 22, name: "New Version Live (Phase 4)", sub: "V6, V7, V8 ... infinite", who: "Pipeline", trigger: "QA passes", action: "A new optimization version ships (V6, V7, V8 and on). The loop restarts at Agent Announcement (Phase 4) and continues indefinitely as long as the agent is in production. There is no version cap in Phase 4.", next: ["Agent Announcement (Phase 4)"], pill: ["pill-ok","Live"] }
 ];
 
 let currentPhase = 0;
@@ -547,8 +621,16 @@ let selectedIdx = 0;
 const arrowSvg = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg>';
 
 function findStageByName(name) {
-  const clean = name.replace(/\s*\(.*\)$/, '').trim();
-  return stages.findIndex(s => s.name === clean);
+  const clean = name.replace(/\s*(\(.*\)|\[.*\])\s*$/, '').trim();
+  // Try exact match first
+  let idx = stages.findIndex(s => s.name === name);
+  if (idx >= 0) return idx;
+  // Then try cleaned name
+  idx = stages.findIndex(s => s.name === clean);
+  if (idx >= 0) return idx;
+  // Then try partial match for "Agent Announcement (Phase X)" style
+  idx = stages.findIndex(s => s.name.startsWith(clean));
+  return idx;
 }
 
 function el(tag, cls, text) {
