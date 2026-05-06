@@ -293,9 +293,9 @@
       border-radius: 4px;
       margin-right: 6px;
     }
-    .tier-red { background: rgba(255,107,107,0.12); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
-    .tier-amber { background: rgba(249,217,0,0.12); color: var(--yellow); border: 1px solid rgba(249,217,0,0.3); }
-    .tier-grey { background: rgba(176,177,182,0.1); color: var(--grey-100); border: 1px solid rgba(176,177,182,0.25); }
+    .tier-high { background: rgba(255,107,107,0.12); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+    .tier-med { background: rgba(249,217,0,0.12); color: var(--yellow); border: 1px solid rgba(249,217,0,0.3); }
+    .tier-low { background: rgba(176,177,182,0.1); color: var(--grey-100); border: 1px solid rgba(176,177,182,0.25); }
 
     /* Footer */
     .ap-footer {
@@ -368,7 +368,7 @@
 
     <section class="section" id="input">
       <h2><span class="section-num">2</span>Input contract</h2>
-      <p>The agent receives a JSON payload each morning with this structure per tracked brand. Required fields per brand: <code>name</code>, <code>status</code>, <code>vitals</code>. All other dimensions optional — if absent, agent treats as "no signal." Blocked or no-data brands appear in the QUIET section with a single-line status only.</p>
+      <p>The agent receives a JSON payload each morning with this structure per tracked brand. Required fields per brand: <code>name</code>, <code>status</code>, <code>vitals</code>. All other dimensions optional — if absent, agent treats as "no signal." Blocked or no-data brands appear in the LOW section with a single-line status only.</p>
       <pre><code>{
   "report_date": "YYYY-MM-DD",
   "tracked_brands": ["Obvi", "Anouk", "Bloom Nutrition", "Ritual", "FC Racing"],
@@ -453,27 +453,27 @@
 
     <section class="section" id="tiering">
       <h2><span class="section-num">3</span>Tiering rules</h2>
-      <p>Assign each brand to one of three tiers. Maximum two brands in <span class="tier tier-red">🔴 Active push</span>. If three or more qualify, demote the lowest threat × aggressiveness score to 🟡.</p>
+      <p>Assign each brand to one of three tiers based on <strong style="color:#fff;">how many new ads they launched in the last 24h</strong>. Volume is the primary signal — everything else (offers, messaging, whitelisting) is detail layered on top.</p>
       <div class="ap-table-wrap">
         <table>
           <thead>
             <tr>
               <th style="width: 28%;">Tier</th>
-              <th>Qualifies if ≥1 of these triggers fires</th>
+              <th>Threshold (new ads launched in 24h)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="tier tier-red">🔴 Active push</span></td>
-              <td>New ads ≥5 in 24h · New LP launched · Scaling event (cadence ≥2x) · Winners being killed (≥1 ad with 30d+ active turned off) · Discount depth increased ≥15 points · New market/language entered with ≥3 ads</td>
+              <td><span class="tier tier-high">🔴 High</span></td>
+              <td>10+ new ads launched</td>
             </tr>
             <tr>
-              <td><span class="tier tier-amber">🟡 Watching</span></td>
-              <td>New ads 2–4 · New whitelisted partner detected · Messaging theme shift in top 3 · Direct competitor callout · Cadence 1.5–2x normal · New offer mechanic · Format pivot >10 points</td>
+              <td><span class="tier tier-med">🟡 Medium</span></td>
+              <td>5–10 new ads launched</td>
             </tr>
             <tr>
-              <td><span class="tier tier-grey">⚪ Quiet</span></td>
-              <td>No triggers above. Includes blocked and no-data brands.</td>
+              <td><span class="tier tier-low">⚪ Low</span></td>
+              <td>&lt;5 new ads launched. Includes blocked and no-data brands.</td>
             </tr>
           </tbody>
         </table>
@@ -558,8 +558,8 @@
     </section>
 
     <section class="section" id="escalation">
-      <h2><span class="section-num">6</span>Escalation triggers (🟡 brands only)</h2>
-      <p>Every 🟡 brand block ends with <code>→ Escalate if:</code> listing 2–3 binary, observable conditions that would bump them to 🔴 tomorrow. Triggers must be specific and measurable.</p>
+      <h2><span class="section-num">6</span>Escalation triggers (🟡 Medium brands only)</h2>
+      <p>Every 🟡 Medium brand block ends with <code>→ Escalate if:</code> listing 2–3 binary, observable conditions that would bump them to 🔴 High tomorrow. Triggers must be specific and measurable.</p>
       <div class="card">
         <p style="color:#4ade80;margin-bottom:6px;"><strong>✓ Good</strong></p>
         <p style="margin-bottom:14px;">"3+ whitelisted partners" · "any ad crosses 14d active" · "callout expands to 3+ ads"</p>
@@ -574,7 +574,7 @@
 Tracking: [Brand list]
 
 ═══════════════════════════════════════════════
-[BRAND] — 🔴 Active push
+[BRAND] — 🔴 High
 ═══════════════════════════════════════════════
 New ads: [N] | Off: [N] | Running: [N] ([↑/↓ from N])
 [Cadence line — only if triggered]
@@ -588,14 +588,14 @@ What happened:
 Hooks, Headlines, Landing pages, Whitelisting, Direct callouts, Language]
 
 ═══════════════════════════════════════════════
-[BRAND] — 🟡 Watching
+[BRAND] — 🟡 Medium
 ═══════════════════════════════════════════════
 [Same structure as above]
 
 → Escalate if: [Trigger 1], [Trigger 2], [Trigger 3]
 
 ═══════════════════════════════════════════════
-QUIET
+LOW
 ═══════════════════════════════════════════════
 [Brand] — [N new], [N off], [N running]
 [Brand] — Blocked, no data</code></pre>
@@ -607,10 +607,10 @@ QUIET
 Tracking: Obvi, Anouk, Bloom Nutrition, Ritual, FC Racing
 
 ═══════════════════════════════════════════════
-OBVI — <span class="tok-red">🔴 Active push</span>
+OBVI — <span class="tok-red">🔴 High</span> (12 new ads)
 ═══════════════════════════════════════════════
-New ads: 5 | Off: 12 | Running: 47 (<span class="tok-down">↓ from 54</span>)
-Cadence: 5 launches vs. 1.8/day avg — 2.8x normal velocity
+New ads: 12 | Off: 12 | Running: 47 (<span class="tok-down">↓ from 47</span>)
+Cadence: 12 launches vs. 1.8/day avg — 6.7x normal velocity
 Days-active signal: 4 ads with 14-30d active turned off — killing maturing
 creatives, not just tests. Strategy shift, not normal optimization.
 Format shift: Static 45% → 22%, Video 50% → 73% — major pivot to UGC video.
@@ -625,10 +625,23 @@ What happened:
 • Landing pages: Existing Collagenic Burn LP added countdown timer
 
 ═══════════════════════════════════════════════
-ANOUK — <span class="tok-amber">🟡 Watching</span>
+BLOOM NUTRITION — <span class="tok-amber">🟡 Medium</span> (7 new ads)
 ═══════════════════════════════════════════════
-New ads: 2 | Off: 0 | Running: 11 (<span class="tok-up">↑ from 9</span>)
-Cadence: 2 launches vs. 0.4/day avg — 5x velocity off small base
+New ads: 7 | Off: 1 | Running: 68 (<span class="tok-up">↑ from 62</span>)
+
+What happened:
+• Messaging shift: Functional/taste angle enters top 3
+  (replaces nutrition-density as dominant theme)
+• Direct callouts: <span class="tok-flag">🚨</span> AG1 named directly in 2 ads — "$39 vs $79, same nutrients".
+  First callout in 90d.
+
+→ Escalate if: AG1 callout expands to 3+ ads, or new offer mechanic launched
+
+═══════════════════════════════════════════════
+ANOUK — <span class="tok-amber">🟡 Medium</span> (5 new ads)
+═══════════════════════════════════════════════
+New ads: 5 | Off: 0 | Running: 14 (<span class="tok-up">↑ from 9</span>)
+Cadence: 5 launches vs. 0.4/day avg — 12.5x velocity off small base
 
 What happened:
 • Messaging shift: Aspirational/identity angle enters top 3
@@ -642,22 +655,9 @@ What happened:
   crosses 14d active
 
 ═══════════════════════════════════════════════
-BLOOM NUTRITION — <span class="tok-amber">🟡 Watching</span>
+LOW
 ═══════════════════════════════════════════════
-New ads: 3 | Off: 1 | Running: 62 (<span class="tok-up">↑ from 60</span>)
-
-What happened:
-• Messaging shift: Functional/taste angle enters top 3
-  (replaces nutrition-density as dominant theme)
-• Direct callouts: <span class="tok-flag">🚨</span> AG1 named directly — "$39 vs $79, same nutrients".
-  First callout in 90d.
-
-→ Escalate if: AG1 callout expands to 3+ ads, or new offer mechanic launched
-
-═══════════════════════════════════════════════
-QUIET
-═══════════════════════════════════════════════
-Ritual — 0 new, 0 off, 38 running
+Ritual — 2 new, 0 off, 38 running
 FC Racing — Blocked, no data</code></pre>
     </section>
 
@@ -667,20 +667,20 @@ FC Racing — Blocked, no data</code></pre>
 Tracking: Obvi, Anouk, Bloom Nutrition, Ritual, FC Racing
 
 ═══════════════════════════════════════════════
-OBVI — <span class="tok-amber">🟡 Watching</span>
+OBVI — <span class="tok-amber">🟡 Medium</span> (6 new ads)
 ═══════════════════════════════════════════════
-New ads: 2 | Off: 1 | Running: 48 (<span class="tok-up">↑ from 47</span>)
+New ads: 6 | Off: 1 | Running: 52 (<span class="tok-up">↑ from 47</span>)
 
 What happened:
 • Hooks: 1 new variant on existing scarcity theme
 
-→ Escalate if: cadence returns to 2x+ normal, or new offer launched
+→ Escalate if: cadence returns to 10+/day, or new offer launched
 
 ═══════════════════════════════════════════════
-QUIET
+LOW
 ═══════════════════════════════════════════════
-Anouk — 0 new, 0 off, 11 running
-Bloom Nutrition — 1 new, 2 off, 61 running
+Anouk — 0 new, 0 off, 14 running
+Bloom Nutrition — 1 new, 2 off, 67 running
 Ritual — 0 new, 0 off, 38 running
 FC Racing — Blocked, no data</code></pre>
     </section>
