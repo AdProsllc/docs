@@ -37,9 +37,9 @@
       --c-warn-fill: #4a1717;
       --c-warn-stroke: #F09595;
       --c-warn-text: #F7C1C1;
-      --c-auto-fill: #4a3409;
-      --c-auto-stroke: #EF9F27;
-      --c-auto-text: #FAC775;
+      --c-loop-fill: #4a3409;
+      --c-loop-stroke: #EF9F27;
+      --c-loop-text: #FAC775;
       --c-line: #B0B1B6;
     }
     html, body { background: var(--navy); }
@@ -88,7 +88,7 @@
     .flow-node { cursor: pointer; transition: opacity 0.15s; }
     .flow-node:hover { opacity: 0.78; }
     .flow-node text { pointer-events: none; font-family: "Inter", sans-serif; }
-    .flow-node.highlighted rect { stroke-width: 3; }
+    .flow-node.highlighted rect, .flow-node.highlighted circle { stroke-width: 3; }
 
     .flow-legend {
       display: flex;
@@ -189,7 +189,7 @@
     }
     .pill-ai { background: var(--c-ai-fill); color: var(--c-ai-text); border: 1px solid var(--c-ai-stroke); }
     .pill-human { background: var(--c-human-fill); color: var(--c-human-text); border: 1px solid var(--c-human-stroke); }
-    .pill-auto { background: var(--c-auto-fill); color: var(--c-auto-text); border: 1px solid var(--c-auto-stroke); }
+    .pill-loop { background: var(--c-loop-fill); color: var(--c-loop-text); border: 1px solid var(--c-loop-stroke); }
     .pill-ok { background: var(--c-ok-fill); color: var(--c-ok-text); border: 1px solid var(--c-ok-stroke); }
     .pill-warn { background: var(--c-warn-fill); color: var(--c-warn-text); border: 1px solid var(--c-warn-stroke); }
 
@@ -222,6 +222,8 @@
       margin-bottom: 6px;
     }
     .detail-val { font-size: 14px; color: var(--grey-200); }
+    .detail-val ul { padding-left: 20px; margin-top: 4px; }
+    .detail-val li { margin-bottom: 4px; }
     .next-chip {
       display: inline-flex;
       align-items: center;
@@ -302,7 +304,7 @@
     <div class="intro">
       <span class="intro-eyebrow">Internal process</span>
       <h2>How we ship AI agents to the library</h2>
-      <p>The full process to design, build and operate AI agents that live in the AdPros library template — not in the chat. Three phases, thirteen ClickUp states, two AIs that automate the busywork between request and build.</p>
+      <p>The full process to design, build and iterate AI agents that live in the AdPros library template — not in the chat. Three phases: request &amp; evaluation, development, and a structured V1 → V5 iteration loop until the agent is final.</p>
     </div>
 
     <div class="section-title">Full process map</div>
@@ -321,8 +323,9 @@
         <text x="400" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 2 · DEVELOPMENT</text>
 
         <rect x="680" y="20" width="380" height="540" rx="14" fill="none" stroke="var(--card-border)" stroke-width="1" stroke-dasharray="4 4"/>
-        <text x="700" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 3 · TESTING &amp; LIVE</text>
+        <text x="700" y="46" font-size="11" font-weight="600" fill="var(--grey-300)" letter-spacing="1">PHASE 3 · ITERATION LOOP (V1 → V5)</text>
 
+        <!-- PHASE 1 -->
         <g class="flow-node" data-stage="0" transform="translate(80, 70)">
           <rect width="220" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
           <text x="110" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">1. Submitted</text>
@@ -359,48 +362,64 @@
           <text x="50" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Greenlit</text>
         </g>
 
+        <!-- PHASE 2 -->
         <g class="flow-node" data-stage="6" transform="translate(420, 156)">
           <rect width="200" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
           <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">7. Queued For Build</text>
           <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">AI generates subtasks</text>
         </g>
 
-        <g class="flow-node" data-stage="7" transform="translate(420, 350)">
+        <g class="flow-node" data-stage="7" transform="translate(420, 254)">
           <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
           <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">8. Building</text>
           <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Library template</text>
         </g>
 
-        <g class="flow-node" data-stage="8" transform="translate(720, 70)">
+        <g class="flow-node" data-stage="8" transform="translate(420, 350)">
           <rect width="200" height="56" rx="8" fill="var(--c-ai-fill)" stroke="var(--c-ai-stroke)" stroke-width="1"/>
           <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ai-text)">9. QA / Validation</text>
           <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ai-text)" opacity="0.85">AI judge + tests</text>
         </g>
 
-        <g class="flow-node" data-stage="9" transform="translate(720, 170)">
+        <g class="flow-node" data-stage="9" transform="translate(420, 444)">
           <rect width="200" height="56" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">10. Live</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Published in library</text>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">10. Live (V1)</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">First version published</text>
         </g>
 
-        <g class="flow-node" data-stage="10" transform="translate(720, 270)">
-          <rect width="200" height="56" rx="8" fill="var(--c-auto-fill)" stroke="var(--c-auto-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-auto-text)">11. Live + Optimize</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-auto-text)" opacity="0.85">Telemetry &amp; tuning</text>
+        <!-- PHASE 3 - V1 to V5 loop -->
+        <g class="flow-node" data-stage="10" transform="translate(720, 90)">
+          <rect width="200" height="56" rx="8" fill="var(--c-loop-fill)" stroke="var(--c-loop-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-loop-text)">11. Output Sent</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-loop-text)" opacity="0.85">Loom + output + objective</text>
         </g>
 
-        <g class="flow-node" data-stage="11" transform="translate(720, 370)">
-          <rect width="200" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">12. Live + Error</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">Failure threshold</text>
+        <g class="flow-node" data-stage="11" transform="translate(720, 184)">
+          <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">12. Nehal Reviews</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Approve / discard feedback</text>
         </g>
 
-        <g class="flow-node" data-stage="12" transform="translate(720, 470)">
-          <rect width="200" height="56" rx="8" fill="var(--c-warn-fill)" stroke="var(--c-warn-stroke)" stroke-width="1"/>
-          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-warn-text)">13. Paused</text>
-          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-warn-text)" opacity="0.85">Hidden from library</text>
+        <g class="flow-node" data-stage="12" transform="translate(720, 278)">
+          <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1" stroke-dasharray="4 3"/>
+          <text x="100" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">13. End User Call</text>
+          <text x="100" y="38" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Iterate with end user</text>
+          <text x="100" y="50" text-anchor="middle" font-size="9" fill="var(--c-human-text)" opacity="0.7" font-style="italic">only after V2</text>
         </g>
 
+        <g class="flow-node" data-stage="13" transform="translate(720, 372)">
+          <rect width="200" height="56" rx="8" fill="var(--c-human-fill)" stroke="var(--c-human-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-human-text)">14. Team Meeting</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-human-text)" opacity="0.85">Show progress to team</text>
+        </g>
+
+        <g class="flow-node" data-stage="14" transform="translate(720, 466)">
+          <rect width="200" height="56" rx="8" fill="var(--c-ok-fill)" stroke="var(--c-ok-stroke)" stroke-width="1"/>
+          <text x="100" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="var(--c-ok-text)">15. V5 — Final</text>
+          <text x="100" y="44" text-anchor="middle" font-size="11" fill="var(--c-ok-text)" opacity="0.85">Loop ends, agent locked</text>
+        </g>
+
+        <!-- Phase 1 arrows -->
         <line x1="190" y1="126" x2="190" y2="151" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
         <line x1="190" y1="212" x2="190" y2="249" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
         <text x="200" y="234" font-size="10" fill="var(--grey-300)" font-style="italic">low conf.</text>
@@ -413,32 +432,38 @@
         <line x1="135" y1="406" x2="105" y2="441" stroke="var(--c-warn-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
         <line x1="240" y1="406" x2="245" y2="441" stroke="var(--c-ok-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
+        <!-- Phase 1 -> 2 trigger -->
         <path d="M 300 472 L 380 472 L 380 184 L 419 184" fill="none" stroke="var(--yellow)" stroke-width="1.5" marker-end="url(#arrow)"/>
         <text x="386" y="178" font-size="10" fill="var(--yellow)" font-weight="600">trigger</text>
 
-        <line x1="520" y1="212" x2="520" y2="349" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <!-- Phase 2 internal arrows -->
+        <line x1="520" y1="212" x2="520" y2="253" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="520" y1="310" x2="520" y2="349" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="520" y1="406" x2="520" y2="443" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
-        <path d="M 620 378 L 670 378 L 670 98 L 719 98" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <!-- Phase 2 -> 3 -->
+        <path d="M 620 472 L 670 472 L 670 118 L 719 118" fill="none" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
-        <line x1="820" y1="126" x2="820" y2="169" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
-        <line x1="820" y1="226" x2="820" y2="269" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <!-- Phase 3 internal arrows (V1->V5 loop) -->
+        <line x1="820" y1="146" x2="820" y2="183" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="820" y1="240" x2="820" y2="277" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="820" y1="334" x2="820" y2="371" stroke="var(--c-line)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
-        <path d="M 920 298 L 985 298 L 985 98 L 920 98" fill="none" stroke="var(--c-line)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
-        <text x="995" y="200" font-size="10" fill="var(--grey-300)" font-style="italic">re-QA</text>
+        <!-- Loop arrow: Team Meeting back to Output Sent (V2, V3, V4) -->
+        <path d="M 920 400 L 985 400 L 985 118 L 920 118" fill="none" stroke="var(--c-loop-stroke)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+        <text x="995" y="262" font-size="10" fill="var(--c-loop-text)" font-style="italic" font-weight="600">loop V2-V4</text>
 
-        <line x1="820" y1="326" x2="820" y2="369" stroke="var(--c-warn-stroke)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
-        <line x1="820" y1="426" x2="820" y2="469" stroke="var(--c-warn-stroke)" stroke-width="1.2" marker-end="url(#arrow)"/>
-
-        <path d="M 720 498 L 670 498 L 670 378 L 619 378" fill="none" stroke="var(--c-warn-stroke)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
-        <text x="660" y="492" font-size="10" fill="var(--grey-300)" text-anchor="end" font-style="italic">rebuild</text>
+        <!-- Final arrow to V5 -->
+        <line x1="820" y1="428" x2="820" y2="465" stroke="var(--c-ok-stroke)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text x="828" y="450" font-size="10" fill="var(--c-ok-text)" font-style="italic">at V5</text>
       </svg>
 
       <div class="flow-legend">
         <div class="flow-legend-item"><span class="swatch" style="background: var(--c-ai-fill); border-color: var(--c-ai-stroke);"></span>AI action</div>
         <div class="flow-legend-item"><span class="swatch" style="background: var(--c-human-fill); border-color: var(--c-human-stroke);"></span>Human action</div>
-        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-auto-fill); border-color: var(--c-auto-stroke);"></span>Continuous monitoring</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-loop-fill); border-color: var(--c-loop-stroke);"></span>Iteration step</div>
         <div class="flow-legend-item"><span class="swatch" style="background: var(--c-ok-fill); border-color: var(--c-ok-stroke);"></span>Positive state</div>
-        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-warn-fill); border-color: var(--c-warn-stroke);"></span>Blocked / paused / error</div>
+        <div class="flow-legend-item"><span class="swatch" style="background: var(--c-warn-fill); border-color: var(--c-warn-stroke);"></span>Blocked / rejected</div>
       </div>
     </div>
 
@@ -452,12 +477,12 @@
       <button class="phase-card" data-phase="1" role="tab">
         <div class="phase-num">Phase 2</div>
         <div class="phase-name">Development</div>
-        <p class="phase-desc">AI generates subtasks, the team builds the agent in the library.</p>
+        <p class="phase-desc">AI generates subtasks, the team builds, QA validates, V1 ships.</p>
       </button>
       <button class="phase-card" data-phase="2" role="tab">
         <div class="phase-num">Phase 3</div>
-        <div class="phase-name">Testing &amp; live</div>
-        <p class="phase-desc">QA, publication, continuous monitoring and optimization.</p>
+        <div class="phase-name">Iteration loop (V1 → V5)</div>
+        <p class="phase-desc">Structured feedback rounds with Nehal, end user and team until V5.</p>
       </button>
     </div>
 
@@ -469,9 +494,9 @@
     <div class="legend">
       <div class="legend-item"><span class="pill pill-ai">AI</span> Executed by an AI agent</div>
       <div class="legend-item"><span class="pill pill-human">Human</span> Human decision required</div>
-      <div class="legend-item"><span class="pill pill-auto">Auto</span> Passive monitoring</div>
-      <div class="legend-item"><span class="pill pill-ok">OK</span> Positive or resolved state</div>
-      <div class="legend-item"><span class="pill pill-warn">Alert</span> Blocked, paused or error</div>
+      <div class="legend-item"><span class="pill pill-loop">Loop</span> Repeats per version</div>
+      <div class="legend-item"><span class="pill pill-ok">OK</span> Positive or final state</div>
+      <div class="legend-item"><span class="pill pill-warn">Alert</span> Blocked or rejected</div>
     </div>
   </div>
 
@@ -499,11 +524,13 @@ const stages = [
   { phase: 0, n: 6, name: "Rejected", sub: "Out of scope or duplicate", who: "Product owner", trigger: "Manual rejection", action: "The bot posts the rejection reason and links to similar live agents in the library if any exist. The pipeline ends here.", next: ["End of pipeline"], pill: ["pill-warn","End"] },
   { phase: 1, n: 7, name: "Queued For Build", sub: "AI generates ClickUp subtasks", who: "AI task generator", trigger: "Status changes to Approved", action: "The AI breaks the agent down into concrete dev subtasks: prompt design, tool and integration setup, output schema, test cases and the library entry. Subtasks are auto-assigned by skill.", next: ["Building"], pill: ["pill-ai","AI"] },
   { phase: 1, n: 8, name: "Building", sub: "Engineer implements the agent", who: "Builder", trigger: "Subtasks assigned", action: "The engineer builds the agent in the AdPros library template (not the chat). Wires prompts, tools and schemas. Pushes to staging once subtasks are done.", next: ["QA / Validation"], pill: ["pill-human","Human"] },
-  { phase: 2, n: 9, name: "QA / Validation", sub: "Test cases and golden outputs", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Run the test cases from the original request plus auto-generated edge cases. An AI judge compares outputs against the template and flags regressions.", next: ["Live"], pill: ["pill-ai","AI"] },
-  { phase: 2, n: 10, name: "Live", sub: "Published to library template", who: "Pipeline", trigger: "QA passes", action: "The agent is published in the library template and becomes available to be invoked from the AdPros chat. Telemetry hooks are turned on.", next: ["Live + Optimize"], pill: ["pill-ok","Live"] },
-  { phase: 2, n: 11, name: "Live + Optimize", sub: "Monitor and improve", who: "Owner plus AI", trigger: "Telemetry signal", action: "The AI watches usage, success rate and latency. It suggests prompt or tool changes. The owner approves the changes — they re-enter QA before being re-published.", next: ["QA / Validation (loop)"], pill: ["pill-auto","Auto"] },
-  { phase: 2, n: 12, name: "Live + Error", sub: "Failure threshold exceeded", who: "AI monitor", trigger: "Error rate spike", action: "Auto-pages the owner, attaches failing traces and proposes a fix. If the issue is severe, it auto-escalates to Paused.", next: ["Paused","Building"], pill: ["pill-warn","Alert"] },
-  { phase: 2, n: 13, name: "Paused", sub: "Temporarily disabled", who: "Owner", trigger: "Manual or auto-pause", action: "The agent is hidden from the library. The reason is logged on the task. It resumes by being sent back to Building or QA.", next: ["Building","End"], pill: ["pill-warn","Paused"] }
+  { phase: 1, n: 9, name: "QA / Validation", sub: "Test cases and golden outputs", who: "QA plus AI judge", trigger: "Builder marks ready", action: "Run the test cases from the original request plus auto-generated edge cases. An AI judge compares outputs against the template and flags regressions.", next: ["Live (V1)"], pill: ["pill-ai","AI"] },
+  { phase: 1, n: 10, name: "Live (V1)", sub: "First version published", who: "Pipeline", trigger: "QA passes", action: "The agent is published in the library template as version 1 and becomes available to be invoked from the AdPros chat. From here it enters the iteration loop in Phase 3.", next: ["Output Sent"], pill: ["pill-ok","V1"] },
+  { phase: 2, n: 11, name: "Output Sent", sub: "Loom + output + objective", who: "Builder or owner", trigger: "Version is live and ready for review", action: "Send a structured feedback package to Nehal containing: a Loom walkthrough of the agent, a sample output, and the original objective for context. This is how every iteration round (V1 to V4) starts.", next: ["Nehal Reviews"], pill: ["pill-loop","Loop"] },
+  { phase: 2, n: 12, name: "Nehal Reviews", sub: "Approve or discard feedback", who: "Nehal", trigger: "Output package received", action: "Nehal reviews the output and the feedback collected. He decides which feedback items to act on and which to discard, so the team only iterates on what actually matters.", next: ["End User Call","Team Meeting"], pill: ["pill-human","Human"] },
+  { phase: 2, n: 13, name: "End User Call", sub: "Iterate with end user (only after V2)", who: "Owner plus end user", trigger: "After Nehal reviews V2 feedback (skipped on V1)", action: "Once the agent has been refined to V2, schedule a call with the end user to iterate directly on real use cases. This step does NOT happen between V1 and V2 — V2 is built only on Nehal's feedback. From V2 onward, every iteration round includes the end user.", next: ["Team Meeting"], pill: ["pill-human","Human"] },
+  { phase: 2, n: 14, name: "Team Meeting", sub: "Show progress to team", who: "Owner", trigger: "Iteration round complete", action: "The last team meeting of the round shows the team the progress on the agent — what changed, what feedback was applied, and the next version. After this step, if the agent is at V4 or earlier, the loop restarts at Output Sent for the next version. If it just shipped V5, the loop ends.", next: ["Output Sent (next version)","V5 — Final"], pill: ["pill-loop","Loop"] },
+  { phase: 2, n: 15, name: "V5 — Final", sub: "Loop ends, agent locked", who: "Pipeline", trigger: "Team meeting after V5 ships", action: "After five versions, the agent is considered final. It stays in the library at V5 and the iteration loop ends.", next: ["End of pipeline"], pill: ["pill-ok","Final"] }
 ];
 
 let currentPhase = 0;
@@ -544,11 +571,8 @@ function render() {
   const detail = document.getElementById('detail');
   detail.innerHTML = '';
 
-  const eyebrow = el('div', 'detail-eyebrow', `Stage ${s.n} · Phase ${s.phase + 1}`);
-  detail.appendChild(eyebrow);
-
-  const title = el('h2', 'detail-title', s.name);
-  detail.appendChild(title);
+  detail.appendChild(el('div', 'detail-eyebrow', `Stage ${s.n} · Phase ${s.phase + 1}`));
+  detail.appendChild(el('h2', 'detail-title', s.name));
 
   const sub = el('p', 'detail-sub');
   sub.appendChild(document.createTextNode(s.sub + ' '));
