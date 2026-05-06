@@ -303,7 +303,7 @@
 <script>
 (function(){
   var API = 'https://api.github.com/repos/AdProsllc/docs';
-  var CACHE_KEY = 'ap-pages-v4';
+  var CACHE_KEY = 'ap-pages-v5';
   var CACHE_TTL = 5 * 60 * 1000;
 
   var allPages = [];
@@ -464,50 +464,62 @@
     showLoading();
     refreshEl.classList.add('spinning');
 
+    // Primary: read the static manifest (one request, never rate-limited).
+    // The /publish skill regenerates pages.json on every publish so this is
+    // always current. Fall back to the GitHub API only if the manifest is
+    // missing or unreadable (e.g. during the brief moment after a clean repo
+    // is set up but before the first publish).
     try {
-      var res = await fetch(API + '/contents/');
-      if (!res.ok) throw new Error('API ' + res.status);
-      var items = await res.json();
+      var res = await fetch('/pages.json?_=' + Date.now());
+      if (res.ok) {
+        var data = await res.json();
+        var pages = (data && data.pages) || [];
+        allPages = pages;
+        setCache(pages);
+        render();
+        refreshEl.classList.remove('spinning');
+        return;
+      }
+      // Non-OK — fall through to API fallback.
+    } catch (e) { /* fall through */ }
 
+    // Fallback: GitHub API (subject to anonymous 60 req/hour limit).
+    try {
+      var res2 = await fetch(API + '/contents/');
+      if (!res2.ok) throw new Error('API ' + res2.status);
+      var items = await res2.json();
       var dirs = items.filter(function(it) {
         return it.type === 'dir' && it.name.charAt(0) !== '.';
       });
-
       if (dirs.length === 0) {
         allPages = [];
         render();
         refreshEl.classList.remove('spinning');
         return;
       }
-
-      var pages = await Promise.all(dirs.map(function(dir) {
-        // Fetch up to 100 commits for this page; the LAST entry (oldest) is the
-        // original publish commit. Using the most recent commit would mis-attribute
-        // every page to whoever last did a bulk update (e.g. logo sweep).
-        return fetch(API + '/commits?path=' + encodeURIComponent(dir.name) + '/index.html&per_page=100')
+      // Use per_page=1 here for the fallback; we'd rather have the most-recent-edit
+      // attribution than burn through the rate limit. The manifest path above is the
+      // accurate one; this is only for resilience.
+      var fallbackPages = await Promise.all(dirs.map(function(dir) {
+        return fetch(API + '/commits?path=' + encodeURIComponent(dir.name) + '/index.html&per_page=1')
           .then(function(r) { return r.ok ? r.json() : []; })
           .then(function(commits) {
-            if (!commits.length) {
-              return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: null, author: null };
-            }
-            var first = commits[commits.length - 1];
+            var c = commits[0];
             return {
               slug: dir.name,
               title: titleize(dir.name),
               url: '/' + dir.name + '/',
-              date: first.commit.author.date,
-              author: first.commit.author.name
+              date: c ? c.commit.author.date : null,
+              author: c ? c.commit.author.name : null
             };
           })
           .catch(function() {
             return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: null, author: null };
           });
       }));
-
-      allPages = pages;
-      setCache(pages);
+      allPages = fallbackPages;
+      setCache(fallbackPages);
       render();
-
     } catch(e) {
       showError(e.message);
     }
