@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>Daily Competitor Analysis Agent — SOP — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --navy-deep: #02041f;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --pink: #ff6aa8;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --grey-100: #D4D5D9;
+      --card-border: #0e1358;
+      --red: #ff4d4d;
+      --amber: #F9D900;
+      --green: #4ade80;
+    }
+    body {
+      background: var(--navy);
+      color: var(--grey-200);
+      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .ap-header {
+      background: var(--navy);
+      border-bottom: 4px solid var(--yellow);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-content { padding: 40px 48px; max-width: 980px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      padding: 16px 0 32px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 40px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      background: rgba(249,217,0,0.08);
+      border: 1px solid rgba(249,217,0,0.3);
+      padding: 5px 11px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .hero .lede {
+      font-size: 16px;
+      color: var(--grey-100);
+      max-width: 720px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--yellow);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 13px;
+      border-radius: 6px;
+      margin-right: 12px;
+    }
+    .section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.4px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .section h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+    .section p {
+      font-size: 14.5px;
+      color: var(--grey-100);
+      margin-bottom: 12px;
+    }
+    .section em {
+      color: var(--yellow);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-bottom: 16px;
+    }
+    .card-tight { padding: 16px 22px; }
+
+    /* Code blocks */
+    pre {
+      background: var(--navy-deep);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      overflow-x: auto;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: #d4d5d9;
+      margin: 14px 0 18px;
+    }
+    code {
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      background: rgba(255,255,255,0.06);
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: #fff;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    /* Token highlights for sample output */
+    .tok-red { color: #ff6b6b; }
+    .tok-amber { color: var(--yellow); }
+    .tok-grey { color: var(--grey-300); }
+    .tok-flag { color: var(--pink); font-weight: 600; }
+    .tok-up { color: #4ade80; }
+    .tok-down { color: #ff8787; }
+
+    /* Table */
+    .ap-table-wrap {
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 16px 0 18px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    th {
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--navy-deep);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    td {
+      padding: 12px 16px;
+      color: var(--grey-100);
+      border-bottom: 1px solid var(--card-border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    td:first-child {
+      font-weight: 600;
+      color: #fff;
+      width: 32%;
+    }
+
+    /* Lists */
+    ul, ol {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+    li {
+      font-size: 14.5px;
+      color: var(--grey-100);
+      margin-bottom: 6px;
+    }
+    li::marker { color: var(--yellow); }
+
+    /* Callout */
+    .callout {
+      background: rgba(249,217,0,0.06);
+      border-left: 3px solid var(--yellow);
+      padding: 14px 18px;
+      border-radius: 6px;
+      margin: 14px 0 18px;
+      font-size: 14px;
+      color: var(--grey-100);
+    }
+    .callout strong { color: var(--yellow); }
+
+    /* TOC */
+    .toc {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px 26px;
+      margin-bottom: 40px;
+    }
+    .toc-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--grey-300);
+      margin-bottom: 12px;
+    }
+    .toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 24px;
+      list-style: none;
+      padding: 0;
+    }
+    .toc-list li { margin: 0; }
+    .toc-list a {
+      color: var(--grey-100);
+      text-decoration: none;
+      font-size: 13.5px;
+      display: block;
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .toc-list a:hover {
+      color: var(--yellow);
+      border-bottom-color: rgba(249,217,0,0.3);
+    }
+    .toc-list .toc-num {
+      color: var(--yellow);
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* Tier badges */
+    .tier {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+    .tier-red { background: rgba(255,107,107,0.12); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+    .tier-amber { background: rgba(249,217,0,0.12); color: var(--yellow); border: 1px solid rgba(249,217,0,0.3); }
+    .tier-grey { background: rgba(176,177,182,0.1); color: var(--grey-100); border: 1px solid rgba(176,177,182,0.25); }
+
+    /* Footer */
+    .ap-footer {
+      margin: 64px 48px 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 760px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .ap-footer { margin-left: 20px; margin-right: 20px; }
+      .hero h1 { font-size: 28px; }
+      .toc-list { grid-template-columns: 1fr; }
+      td:first-child { width: 38%; }
+      pre { font-size: 11.5px; padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:auto;display:block">
+      <text x="0" y="30" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Daily Competitor Analysis Agent — SOP</h1>
+      <p>Input contract, processing rules, and output template</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <div class="hero">
+      <span class="hero-tag">Internal SOP · v1</span>
+      <h1>Daily Competitor Analysis Agent</h1>
+      <p class="lede">A standard operating procedure for the daily competitive intelligence brief. Surfaces only meaningful changes from competitor ad library activity in the last 24 hours. Read on mobile in 60 seconds. Every line passes the test: <em>would a reader know something they couldn't have guessed?</em></p>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#purpose"><span class="toc-num">1.</span>Purpose</a></li>
+        <li><a href="#input"><span class="toc-num">2.</span>Input contract</a></li>
+        <li><a href="#tiering"><span class="toc-num">3.</span>Tiering rules</a></li>
+        <li><a href="#suppression"><span class="toc-num">4.</span>Suppression rules</a></li>
+        <li><a href="#phrasing"><span class="toc-num">5.</span>Phrasing rules</a></li>
+        <li><a href="#escalation"><span class="toc-num">6.</span>Escalation triggers</a></li>
+        <li><a href="#template"><span class="toc-num">7.</span>Output template</a></li>
+        <li><a href="#sample-active"><span class="toc-num">8.</span>Sample — active day</a></li>
+        <li><a href="#sample-quiet"><span class="toc-num">9.</span>Sample — quiet day</a></li>
+        <li><a href="#tone"><span class="toc-num">10.</span>Tone rules</a></li>
+      </ul>
+    </div>
+
+    <section class="section" id="purpose">
+      <h2><span class="section-num">1</span>Purpose</h2>
+      <p>Produce a daily competitive intelligence brief for Ad Pros leadership that surfaces only meaningful changes from competitor ad activity in the last 24 hours. The brief is read on mobile in 60 seconds.</p>
+      <div class="callout">
+        <strong>The test:</strong> every line in the output must pass — would a reader know something they couldn't have guessed? If not, omit the line. Never write "stable," "no changes," "none," or similar non-statements.
+      </div>
+    </section>
+
+    <section class="section" id="input">
+      <h2><span class="section-num">2</span>Input contract</h2>
+      <p>The agent receives a JSON payload each morning with this structure per tracked brand. Required fields per brand: <code>name</code>, <code>status</code>, <code>vitals</code>. All other dimensions optional — if absent, agent treats as "no signal." Blocked or no-data brands appear in the QUIET section with a single-line status only.</p>
+      <pre><code>{
+  "report_date": "YYYY-MM-DD",
+  "tracked_brands": ["Obvi", "Anouk", "Bloom Nutrition", "Ritual", "FC Racing"],
+  "ad_pros_creator_network": ["@handle1", "@handle2", ...],
+  "brands": [
+    {
+      "name": "Obvi",
+      "status": "active",  // "active" | "blocked" | "no_data"
+
+      "vitals": {
+        "new_ads_24h": 5,
+        "ads_off_24h": 12,
+        "total_running": 47,
+        "total_running_yesterday": 54
+      },
+
+      "days_active": {
+        "buckets": { "lt_7d": 18, "d7_14": 14, "d14_30": 9, "d30_plus": 6 },
+        "ads_off_by_bucket": { "lt_7d": 8, "d7_14": 0, "d14_30": 4, "d30_plus": 0 },
+        "days_since_last_winner": 3,
+        "top5_impression_share": 0.62,
+        "top5_impression_share_last_week": 0.45
+      },
+
+      "format_mix": {
+        "current": { "static": 0.22, "video": 0.73, "carousel": 0.05 },
+        "last_week": { "static": 0.45, "video": 0.50, "carousel": 0.05 }
+      },
+
+      "cadence": {
+        "launches_today": 5,
+        "rolling_7d_avg": 1.8
+      },
+
+      "offers": {
+        "new_offers": [{ "offer": "Buy 2 Get 1 Free", "product": "Collagenic Burn", "ad_count": 3 }],
+        "discontinued_offers": [{ "offer": "25% off site-wide" }],
+        "discount_depth_change": null
+      },
+
+      "creative": {
+        "new_hooks": ["Selling out fast", "Back in stock — 48hrs only", ...],
+        "new_headlines": ["Lose the bloat, not the muscle"],
+        "new_descriptions": [...]
+      },
+
+      "messaging_themes": {
+        "current_top3": ["scarcity", "transformation", "social_proof"],
+        "previous_top3": ["social_proof", "transformation", "ingredient_education"],
+        "entered_top3": ["scarcity"],
+        "dropped_from_top3": ["ingredient_education"]
+      },
+
+      "landing_pages": {
+        "new_lps": [],
+        "modified_lps": [{ "url": "...", "change": "added countdown timer" }]
+      },
+
+      "whitelisting": {
+        "new_partners": [
+          { "handle": "@ferrari_lifestyle_mx", "followers": 1200000, "tier": "macro" }
+        ],
+        "removed_partners": [],
+        "ad_pros_network_overlap": []
+      },
+
+      "language": {
+        "current_distribution": { "en": 1.0 },
+        "yesterday_distribution": { "en": 1.0 },
+        "new_languages": []
+      },
+
+      "competitor_callouts": {
+        "brands_named": ["AG1"],
+        "ad_count": 1,
+        "days_since_last_callout": 90
+      }
+    }
+  ]
+}</code></pre>
+    </section>
+
+    <section class="section" id="tiering">
+      <h2><span class="section-num">3</span>Tiering rules</h2>
+      <p>Assign each brand to one of three tiers. Maximum two brands in <span class="tier tier-red">🔴 Active push</span>. If three or more qualify, demote the lowest threat × aggressiveness score to 🟡.</p>
+      <div class="ap-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 28%;">Tier</th>
+              <th>Qualifies if ≥1 of these triggers fires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tier tier-red">🔴 Active push</span></td>
+              <td>New ads ≥5 in 24h · New LP launched · Scaling event (cadence ≥2x) · Winners being killed (≥1 ad with 30d+ active turned off) · Discount depth increased ≥15 points · New market/language entered with ≥3 ads</td>
+            </tr>
+            <tr>
+              <td><span class="tier tier-amber">🟡 Watching</span></td>
+              <td>New ads 2–4 · New whitelisted partner detected · Messaging theme shift in top 3 · Direct competitor callout · Cadence 1.5–2x normal · New offer mechanic · Format pivot >10 points</td>
+            </tr>
+            <tr>
+              <td><span class="tier tier-grey">⚪ Quiet</span></td>
+              <td>No triggers above. Includes blocked and no-data brands.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="suppression">
+      <h2><span class="section-num">4</span>Suppression rules per dimension</h2>
+      <p>Each dimension is shown <em>only</em> if its trigger fires. Otherwise omit the line entirely.</p>
+      <div class="ap-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>Show when</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vitals row</td>
+              <td>Always — this is the pulse check</td>
+            </tr>
+            <tr>
+              <td>Cadence</td>
+              <td>>2x or &lt;0.3x of 7-day rolling avg</td>
+            </tr>
+            <tr>
+              <td>Days-active signal</td>
+              <td>≥1 ad with 30d+ active turned off, OR >50% of library is &lt;7d old, OR >14 days since last ad crossed 14d active, OR top-5 impression share shifted >15 points week-over-week</td>
+            </tr>
+            <tr>
+              <td>Format shift</td>
+              <td>Any single format moved >10 points week-over-week</td>
+            </tr>
+            <tr>
+              <td>Offers</td>
+              <td>New offer launched, OR discount depth changed ≥10 points, OR new discount mechanic</td>
+            </tr>
+            <tr>
+              <td>Messaging shift</td>
+              <td>New theme entered top 3, OR existing theme dropped from top 3</td>
+            </tr>
+            <tr>
+              <td>Hooks</td>
+              <td>≥3 new hooks, OR new hook represents thematic shift</td>
+            </tr>
+            <tr>
+              <td>Headlines</td>
+              <td>Net-new positioning angle (not a variation)</td>
+            </tr>
+            <tr>
+              <td>Landing pages</td>
+              <td>Any new LP, OR existing LP materially modified</td>
+            </tr>
+            <tr>
+              <td>Whitelisting</td>
+              <td>🚨 Any newly detected partner. Always flag Ad Pros Creator Network overlaps.</td>
+            </tr>
+            <tr>
+              <td>Language</td>
+              <td>New language detected, OR distribution shifted >20 points</td>
+            </tr>
+            <tr>
+              <td>Direct callouts</td>
+              <td>🚨 Always shown when present. Note ad count and days since last callout.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="phrasing">
+      <h2><span class="section-num">5</span>Phrasing rules for surfaced dimensions</h2>
+      <ul>
+        <li><strong style="color:#fff;">Days-active signals</strong> — plain-language observations, not bucket counts. Example: <em>"4 ads with 14-30d active turned off — killing maturing creatives, not just tests."</em></li>
+        <li><strong style="color:#fff;">Format shifts</strong> — include before → after percentages. Example: <em>"Static 45% → 22%, Video 50% → 73%."</em></li>
+        <li><strong style="color:#fff;">Cadence</strong> — include the multiplier vs. avg. Example: <em>"5 launches vs. 1.8/day avg — 2.8x normal velocity."</em></li>
+        <li><strong style="color:#fff;">Messaging shifts</strong> — say what replaced what. Example: <em>"Scarcity replaces social proof as dominant angle."</em></li>
+        <li><strong style="color:#fff;">Whitelisting</strong> — include follower tier (micro &lt;100k / mid 100k–1M / macro 1M+). Flag Ad Pros Creator Network overlap with 🚨🚨.</li>
+        <li><strong style="color:#fff;">Direct callouts</strong> — name the competitor and frequency context. Example: <em>"AG1 named directly in 1 ad — first callout in 90d."</em></li>
+      </ul>
+    </section>
+
+    <section class="section" id="escalation">
+      <h2><span class="section-num">6</span>Escalation triggers (🟡 brands only)</h2>
+      <p>Every 🟡 brand block ends with <code>→ Escalate if:</code> listing 2–3 binary, observable conditions that would bump them to 🔴 tomorrow. Triggers must be specific and measurable.</p>
+      <div class="card">
+        <p style="color:#4ade80;margin-bottom:6px;"><strong>✓ Good</strong></p>
+        <p style="margin-bottom:14px;">"3+ whitelisted partners" · "any ad crosses 14d active" · "callout expands to 3+ ads"</p>
+        <p style="color:#ff6b6b;margin-bottom:6px;"><strong>✗ Bad</strong></p>
+        <p>"they get more aggressive" · "if things change" · "continue monitoring"</p>
+      </div>
+    </section>
+
+    <section class="section" id="template">
+      <h2><span class="section-num">7</span>Output template</h2>
+      <pre><code>Daily Competitor Read — [Date]
+Tracking: [Brand list]
+
+═══════════════════════════════════════════════
+[BRAND] — 🔴 Active push
+═══════════════════════════════════════════════
+New ads: [N] | Off: [N] | Running: [N] ([↑/↓ from N])
+[Cadence line — only if triggered]
+[Days-active signal line — only if triggered]
+[Format shift line — only if triggered]
+
+What happened:
+• [Dimension]: [Specific observation]
+• [Dimension]: [Specific observation]
+[...only dimensions that triggered, in this order: Offer, Messaging shift,
+Hooks, Headlines, Landing pages, Whitelisting, Direct callouts, Language]
+
+═══════════════════════════════════════════════
+[BRAND] — 🟡 Watching
+═══════════════════════════════════════════════
+[Same structure as above]
+
+→ Escalate if: [Trigger 1], [Trigger 2], [Trigger 3]
+
+═══════════════════════════════════════════════
+QUIET
+═══════════════════════════════════════════════
+[Brand] — [N new], [N off], [N running]
+[Brand] — Blocked, no data</code></pre>
+    </section>
+
+    <section class="section" id="sample-active">
+      <h2><span class="section-num">8</span>Sample output — active day</h2>
+      <pre><code>Daily Competitor Read — May 6, 2026
+Tracking: Obvi, Anouk, Bloom Nutrition, Ritual, FC Racing
+
+═══════════════════════════════════════════════
+OBVI — <span class="tok-red">🔴 Active push</span>
+═══════════════════════════════════════════════
+New ads: 5 | Off: 12 | Running: 47 (<span class="tok-down">↓ from 54</span>)
+Cadence: 5 launches vs. 1.8/day avg — 2.8x normal velocity
+Days-active signal: 4 ads with 14-30d active turned off — killing maturing
+creatives, not just tests. Strategy shift, not normal optimization.
+Format shift: Static 45% → 22%, Video 50% → 73% — major pivot to UGC video.
+
+What happened:
+• Offer: New "Buy 2 Get 1 Free" on Collagenic Burn (replaces 25% off site-wide)
+• Messaging shift: Scarcity replaces social proof as dominant angle
+  (first time in 30d)
+• Hooks: 3 new scarcity variants — "Selling out fast", "Back in stock —
+  48hrs only", "Last batch before reformulation"
+• Headlines: "Lose the bloat, not the muscle" — net new positioning
+• Landing pages: Existing Collagenic Burn LP added countdown timer
+
+═══════════════════════════════════════════════
+ANOUK — <span class="tok-amber">🟡 Watching</span>
+═══════════════════════════════════════════════
+New ads: 2 | Off: 0 | Running: 11 (<span class="tok-up">↑ from 9</span>)
+Cadence: 2 launches vs. 0.4/day avg — 5x velocity off small base
+
+What happened:
+• Messaging shift: Aspirational/identity angle enters top 3
+  (replaces product-focused positioning)
+• Hooks: 4 new Spanish-language scripts
+• Headlines: "Vístete como conduces" (Dress how you drive) — luxury positioning
+• Whitelisting: <span class="tok-flag">🚨 NEW</span> — @ferrari_lifestyle_mx (1.2M followers, macro tier).
+  First partnership detected.
+
+→ Escalate if: 3rd language appears, 3+ whitelisted partners, or any ad
+  crosses 14d active
+
+═══════════════════════════════════════════════
+BLOOM NUTRITION — <span class="tok-amber">🟡 Watching</span>
+═══════════════════════════════════════════════
+New ads: 3 | Off: 1 | Running: 62 (<span class="tok-up">↑ from 60</span>)
+
+What happened:
+• Messaging shift: Functional/taste angle enters top 3
+  (replaces nutrition-density as dominant theme)
+• Direct callouts: <span class="tok-flag">🚨</span> AG1 named directly — "$39 vs $79, same nutrients".
+  First callout in 90d.
+
+→ Escalate if: AG1 callout expands to 3+ ads, or new offer mechanic launched
+
+═══════════════════════════════════════════════
+QUIET
+═══════════════════════════════════════════════
+Ritual — 0 new, 0 off, 38 running
+FC Racing — Blocked, no data</code></pre>
+    </section>
+
+    <section class="section" id="sample-quiet">
+      <h2><span class="section-num">9</span>Sample output — quiet day</h2>
+      <pre><code>Daily Competitor Read — May 7, 2026
+Tracking: Obvi, Anouk, Bloom Nutrition, Ritual, FC Racing
+
+═══════════════════════════════════════════════
+OBVI — <span class="tok-amber">🟡 Watching</span>
+═══════════════════════════════════════════════
+New ads: 2 | Off: 1 | Running: 48 (<span class="tok-up">↑ from 47</span>)
+
+What happened:
+• Hooks: 1 new variant on existing scarcity theme
+
+→ Escalate if: cadence returns to 2x+ normal, or new offer launched
+
+═══════════════════════════════════════════════
+QUIET
+═══════════════════════════════════════════════
+Anouk — 0 new, 0 off, 11 running
+Bloom Nutrition — 1 new, 2 off, 61 running
+Ritual — 0 new, 0 off, 38 running
+FC Racing — Blocked, no data</code></pre>
+    </section>
+
+    <section class="section" id="tone">
+      <h2><span class="section-num">10</span>Tone rules</h2>
+      <ul>
+        <li><strong style="color:#fff;">Terse.</strong> Read on mobile in 60 seconds.</li>
+        <li>No hedging — no <code>appears to be</code>, <code>indicating</code>, <code>suggests</code>. State what's happening.</li>
+        <li>Every observation must be specific and observable. No <code>monitor</code> or <code>track</code> or <code>keep an eye on</code> language.</li>
+        <li>No executive summary. No "watch next" speculation. The tier structure already ranks importance.</li>
+        <li>Use 🚨 sparingly — only for whitelisting detections, Creator Network overlaps, and direct competitor callouts.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;opacity:0.5">
+      <text x="0" y="30" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">ad</text>
+      <text x="0" y="58" font-family="Inter,sans-serif" font-weight="800" font-size="30" fill="white" letter-spacing="-0.5">pros</text>
+      <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+</body>
+</html>
