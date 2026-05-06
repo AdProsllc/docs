@@ -119,6 +119,8 @@
     .page-card-info { flex: 1; min-width: 0; }
     .page-card-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .page-card-url { font-size: 12px; color: var(--grey-300); font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .page-card-author { font-size: 11px; color: var(--grey-400, #54556A); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .page-card-author-name { color: var(--grey-300); font-weight: 500; }
     .page-card-date { width: 140px; text-align: right; flex-shrink: 0; font-size: 14px; font-weight: 500; color: var(--grey-200); white-space: nowrap; }
     .page-card-date-none { color: var(--grey-300); font-style: italic; font-weight: 400; font-size: 13px; }
     .page-card-arrow { width: 32px; text-align: center; flex-shrink: 0; color: var(--grey-300); font-size: 18px; transition: color 0.2s; line-height: 1; }
@@ -301,7 +303,7 @@
 <script>
 (function(){
   var API = 'https://api.github.com/repos/AdProsllc/docs';
-  var CACHE_KEY = 'ap-pages-v2';
+  var CACHE_KEY = 'ap-pages-v3';
   var CACHE_TTL = 5 * 60 * 1000;
 
   var allPages = [];
@@ -416,10 +418,17 @@
 
   /* Build a single page card */
   function buildCard(page) {
-    var info = el('div', { className: 'page-card-info' }, [
+    var infoChildren = [
       el('div', { className: 'page-card-title', textContent: page.title }),
       el('div', { className: 'page-card-url', textContent: 'docs.adpros.com' + page.url })
-    ]);
+    ];
+    if (page.author) {
+      infoChildren.push(el('div', { className: 'page-card-author' }, [
+        document.createTextNode('by '),
+        el('span', { className: 'page-card-author-name', textContent: page.author })
+      ]));
+    }
+    var info = el('div', { className: 'page-card-info' }, infoChildren);
 
     var dateEl;
     if (page.date) {
@@ -476,10 +485,11 @@
           .then(function(r) { return r.ok ? r.json() : []; })
           .then(function(commits) {
             var date = commits.length ? commits[0].commit.author.date : null;
-            return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: date };
+            var author = commits.length ? commits[0].commit.author.name : null;
+            return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: date, author: author };
           })
           .catch(function() {
-            return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: null };
+            return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: null, author: null };
           });
       }));
 
@@ -498,11 +508,13 @@
   function render() {
     var filtered = allPages.slice();
 
-    /* Text search */
+    /* Text search — matches title, slug, or author */
     if (searchTerm) {
       var q = searchTerm.toLowerCase();
       filtered = filtered.filter(function(p) {
-        return p.title.toLowerCase().indexOf(q) !== -1 || p.slug.indexOf(q) !== -1;
+        return p.title.toLowerCase().indexOf(q) !== -1
+          || p.slug.indexOf(q) !== -1
+          || (p.author && p.author.toLowerCase().indexOf(q) !== -1);
       });
     }
 
