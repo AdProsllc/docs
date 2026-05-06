@@ -303,7 +303,7 @@
 <script>
 (function(){
   var API = 'https://api.github.com/repos/AdProsllc/docs';
-  var CACHE_KEY = 'ap-pages-v3';
+  var CACHE_KEY = 'ap-pages-v4';
   var CACHE_TTL = 5 * 60 * 1000;
 
   var allPages = [];
@@ -481,12 +481,23 @@
       }
 
       var pages = await Promise.all(dirs.map(function(dir) {
-        return fetch(API + '/commits?path=' + encodeURIComponent(dir.name) + '/index.html&per_page=1')
+        // Fetch up to 100 commits for this page; the LAST entry (oldest) is the
+        // original publish commit. Using the most recent commit would mis-attribute
+        // every page to whoever last did a bulk update (e.g. logo sweep).
+        return fetch(API + '/commits?path=' + encodeURIComponent(dir.name) + '/index.html&per_page=100')
           .then(function(r) { return r.ok ? r.json() : []; })
           .then(function(commits) {
-            var date = commits.length ? commits[0].commit.author.date : null;
-            var author = commits.length ? commits[0].commit.author.name : null;
-            return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: date, author: author };
+            if (!commits.length) {
+              return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: null, author: null };
+            }
+            var first = commits[commits.length - 1];
+            return {
+              slug: dir.name,
+              title: titleize(dir.name),
+              url: '/' + dir.name + '/',
+              date: first.commit.author.date,
+              author: first.commit.author.name
+            };
           })
           .catch(function() {
             return { slug: dir.name, title: titleize(dir.name), url: '/' + dir.name + '/', date: null, author: null };
