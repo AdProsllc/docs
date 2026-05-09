@@ -197,16 +197,17 @@ a:hover { color: var(--yellow); }
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
       <h1>Alternatives to Claude Managed Agents</h1>
-      <p>Infrastructure decision brief · v2 · adds Cloudflare</p>
+      <p>Infrastructure decision brief · v3 · full landscape</p>
     </div>
   </header>
 <nav class="tabs-nav" role="tablist">
   <button class="tab-btn active" role="tab" aria-selected="true" data-tab="summary"><span class="num">01</span>Executive Summary</button>
   <button class="tab-btn" role="tab" aria-selected="false" data-tab="recommendations"><span class="num">02</span>For Ad Pros</button>
-  <button class="tab-btn" role="tab" aria-selected="false" data-tab="features"><span class="num">03</span>Feature Breakdown</button>
-  <button class="tab-btn" role="tab" aria-selected="false" data-tab="questions"><span class="num">04</span>42 Decision Questions</button>
-  <button class="tab-btn" role="tab" aria-selected="false" data-tab="cost"><span class="num">05</span>Cost Modeling</button>
-  <button class="tab-btn" role="tab" aria-selected="false" data-tab="migration"><span class="num">06</span>Migration Risk</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="landscape"><span class="num">03</span>Full Landscape</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="features"><span class="num">04</span>Feature Breakdown</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="questions"><span class="num">05</span>42 Decision Questions</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="cost"><span class="num">06</span>Cost Modeling</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="migration"><span class="num">07</span>Migration Risk</button>
 </nav>
 <div class="ap-content">
 <div class="tab-panel active" id="tab-summary" role="tabpanel">
@@ -222,26 +223,37 @@ a:hover { color: var(--yellow); }
       If your moat is memory and learning loops, own the harness. If your moat is the agent's task quality and you want to ship fast, let Anthropic run it.
     </div>
 
-    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:20px;">The four buckets</h3>
+    <div class="ap-card" style="margin-top:24px;background:var(--navy-deep);border-color:var(--card-border-strong);">
+      <div class="ap-kicker" style="color:var(--blue-light);">MENTAL MODEL · THREE LAYERS</div>
+      <p class="ap-p" style="margin-bottom:8px;">Most agent stacks have three distinct layers. Conflating them is how teams end up paying three vendors for one problem:</p>
+      <ul style="list-style:none;padding:0;margin-top:8px;">
+        <li style="padding:6px 0;border-bottom:1px solid var(--card-border);"><strong style="color:var(--yellow);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.2px;">LOOP</strong> — the agent code itself: prompts, tools, control flow. <span style="color:var(--grey-300);">Mastra · Vercel AI SDK · Claude Agent SDK · OpenAI Agents SDK · LangGraph · CrewAI</span></li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--card-border);"><strong style="color:var(--yellow);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.2px;">RUNTIME</strong> — durable execution: scheduling, retries, surviving disconnects. <span style="color:var(--grey-300);">CMA · Cloudflare Agents · Inngest · Temporal · Trigger.dev · Vercel Workflows</span></li>
+        <li style="padding:6px 0;"><strong style="color:var(--yellow);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.2px;">SANDBOX</strong> — code execution isolation: where agent-written code actually runs. <span style="color:var(--grey-300);">E2B · Modal · Daytona · Blaxel · Vercel Sandbox · Cloudflare Sandbox</span></li>
+      </ul>
+      <p class="ap-p-sm" style="margin-top:12px;color:var(--grey-300);">Hosted platforms (CMA, Cloudflare Agents, Bedrock AgentCore) bundle all three. SDKs let you mix and match. Choose based on which layer you actually need to control.</p>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:20px;">The five buckets</h3>
     <div class="ap-value">
       <div class="ap-value-num">A</div>
       <div class="ap-value-body">
-        <h4>Hosted, Claude-native</h4>
-        <p>CMA. Fastest to ship, deepest Claude tuning, highest lock-in. Best when speed beats flexibility and Claude is already the default.</p>
+        <h4>Hosted, model-locked</h4>
+        <p>CMA (Claude), Salesforce Agentforce (CRM-locked). Fastest to ship, deepest tuning, highest lock-in.</p>
       </div>
     </div>
     <div class="ap-value">
       <div class="ap-value-num">B</div>
       <div class="ap-value-body">
         <h4>Hosted, model-agnostic</h4>
-        <p>Cloudflare Agents (Think), Bedrock AgentCore, Deep Agents Deploy, DigitalOcean Gradient. Someone else runs the infra, models stay swappable. Cloudflare's hibernation pricing (free when idle) is the breakthrough.</p>
+        <p>Cloudflare Agents (Think), Bedrock AgentCore, Microsoft Foundry, Google Vertex AI Agent Builder, OpenAI Agents SDK. Someone else runs the infra, models stay swappable. Cloudflare's hibernation pricing (free when idle) is the breakthrough.</p>
       </div>
     </div>
     <div class="ap-value">
       <div class="ap-value-num">C</div>
       <div class="ap-value-body">
         <h4>SDK / library, you deploy</h4>
-        <p>Claude Agent SDK, LangGraph, CrewAI. Full control over deployment. Engineering cost but no per-session platform fee.</p>
+        <p>Claude Agent SDK, Mastra (TS), Vercel AI SDK, LangGraph, CrewAI, AutoGen. Full control over deployment. Engineering cost but no per-session platform fee. Mastra is the rising TypeScript-native option.</p>
       </div>
     </div>
     <div class="ap-value">
@@ -249,6 +261,13 @@ a:hover { color: var(--yellow); }
       <div class="ap-value-body">
         <h4>Self-hosted OSS</h4>
         <p>OpenClaw, Multica, Cabinet, Eigent. Maximum control, zero lock-in, full ops cost on your team.</p>
+      </div>
+    </div>
+    <div class="ap-value">
+      <div class="ap-value-num">E</div>
+      <div class="ap-value-body">
+        <h4>Workflow / no-code</h4>
+        <p>n8n, Dust, Relevance AI, Decagon. Visual builder, business-team-friendly, less custom logic but faster to deploy for standard workflows.</p>
       </div>
     </div>
 
@@ -263,8 +282,8 @@ a:hover { color: var(--yellow); }
         <p class="ap-p">One agent for an hour is a rounding error. 500 agents running concurrently is $40/hr just for the harness, on top of tokens.</p>
       </div>
       <div class="ap-card">
-        <div class="ap-kicker">iii. Infra is solved</div>
-        <p class="ap-p">The hard part isn't the harness — it's wiring agents into real data sources cleanly. That work is the same on every platform.</p>
+        <div class="ap-kicker">iii. Infra is consolidating</div>
+        <p class="ap-p">OpenAI, Anthropic, and Cloudflare are all bundling sandbox + memory + harness. Standalone primitives (E2B, Pinecone) are commoditizing fast.</p>
       </div>
     </div>
 
@@ -276,19 +295,27 @@ a:hover { color: var(--yellow); }
       </div>
       <div class="ap-card ap-card-hover">
         <div class="ap-kicker">MULTI-MODEL FLEXIBILITY</div>
-        <h4 class="ap-h4">Cloudflare Agents / Deep Agents Deploy</h4>
+        <h4 class="ap-h4">Cloudflare Agents / Mastra / OpenAI Agents SDK</h4>
       </div>
       <div class="ap-card ap-card-hover">
         <div class="ap-kicker">COST AT SCALE / IDLE-HEAVY</div>
         <h4 class="ap-h4">Cloudflare Agents · pay only when active</h4>
       </div>
       <div class="ap-card ap-card-hover">
+        <div class="ap-kicker">TYPESCRIPT-FIRST TEAM</div>
+        <h4 class="ap-h4">Mastra (batteries-included) or Vercel AI SDK (minimal)</h4>
+      </div>
+      <div class="ap-card ap-card-hover">
         <div class="ap-kicker">ZERO LOCK-IN / DATA RESIDENCY</div>
         <h4 class="ap-h4">OpenClaw or Multica</h4>
       </div>
       <div class="ap-card ap-card-hover">
-        <div class="ap-kicker">ALREADY ON AWS</div>
-        <h4 class="ap-h4">Bedrock AgentCore</h4>
+        <div class="ap-kicker">ALREADY ON AWS / AZURE / GCP</div>
+        <h4 class="ap-h4">Bedrock AgentCore / Foundry / Vertex</h4>
+      </div>
+      <div class="ap-card ap-card-hover">
+        <div class="ap-kicker">CRM-CENTRIC WORKFLOWS</div>
+        <h4 class="ap-h4">Salesforce Agentforce</h4>
       </div>
       <div class="ap-card" style="background:var(--yellow);border-color:var(--yellow);">
         <div class="ap-kicker" style="color:var(--navy);">YOUR STACK TODAY</div>
@@ -389,11 +416,304 @@ a:hover { color: var(--yellow); }
   </section>
 </div>
 
+<div class="tab-panel" id="tab-landscape" role="tabpanel">
+  <section class="ap-section">
+    <span class="ap-kicker">03 · Full Landscape</span>
+    <h2 class="ap-h2">Every major player, by category</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">
+      The agent infrastructure space is bigger than CMA vs. its direct competitors. There are three layers — <em style="color:var(--yellow);font-style:normal;">loop</em>, <em style="color:var(--yellow);font-style:normal;">runtime</em>, and <em style="color:var(--yellow);font-style:normal;">sandbox</em> — and choosing across all three matters more than which single bundled platform wins.
+    </p>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:8px;">Layer 1 · Hosted Agent Platforms</h3>
+    <p class="ap-p" style="color:var(--grey-300);margin-bottom:20px;">Bundled solutions: harness + runtime + sandbox + memory in one product.</p>
+    <div class="ap-grid-2">
+      <div class="ap-card">
+        <div class="ap-kicker">ANTHROPIC</div>
+        <h4 class="ap-h4">Claude Managed Agents</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Claude-native, sessions, memory, dreaming preview. $0.08/sess-hr.</p>
+      </div>
+      <div class="ap-card" style="border-left:3px solid #f6821f;">
+        <div class="ap-kicker" style="color:#f6821f;">CLOUDFLARE</div>
+        <h4 class="ap-h4">Cloudflare Agents (Think)</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Durable Objects, hibernation pricing, model-agnostic, 14+ providers via AI Gateway.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">AWS</div>
+        <h4 class="ap-h4">Bedrock AgentCore</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Modular: Runtime, Memory, Identity, Gateway as separate services. VPC + PrivateLink.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">MICROSOFT</div>
+        <h4 class="ap-h4">Microsoft Foundry (formerly Azure AI Foundry)</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Multi-model including Claude. Foundry IQ unified data layer. Deep M365 integration.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">GOOGLE</div>
+        <h4 class="ap-h4">Vertex AI Agent Builder</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Gemini-first, ADK + A2A protocol, observability dashboards. Strong RAG.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">SALESFORCE</div>
+        <h4 class="ap-h4">Agentforce</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">CRM-native, customer support / sales / service workflows. High lock-in to Salesforce.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">OPENAI</div>
+        <h4 class="ap-h4">OpenAI Agents SDK</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">SDK + native sandbox via Blaxel/Cloudflare/Daytona/E2B/Modal/Runloop/Vercel. Manifest abstraction for portability.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">DIGITALOCEAN</div>
+        <h4 class="ap-h4">Gradient Platform</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Multi-model managed agents with Anthropic, OpenAI, Meta, Mistral, DeepSeek.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">IBM</div>
+        <h4 class="ap-h4">watsonx Orchestrate</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Enterprise governance and audit-first. Strong in regulated industries.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">UIPATH</div>
+        <h4 class="ap-h4">Maestro</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">RPA + agents in one control plane. Bridge from existing UiPath investments.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:8px;">Layer 2 · Frameworks & SDKs (the LOOP)</h3>
+    <p class="ap-p" style="color:var(--grey-300);margin-bottom:20px;">Libraries you import into your code. You own deployment, ops, and infra.</p>
+    <div class="ap-grid-2">
+      <div class="ap-card">
+        <div class="ap-kicker">PYTHON · CLAUDE-NATIVE</div>
+        <h4 class="ap-h4">Claude Agent SDK</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Anthropic's harness as a library. Same primitives as CMA, you own the deployment.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">PYTHON · OPENAI-NATIVE</div>
+        <h4 class="ap-h4">OpenAI Agents SDK</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Production-grade after April 2026 update. Native sandbox primitives, Manifest spec.</p>
+      </div>
+      <div class="ap-card" style="border-left:3px solid var(--blue-light);">
+        <div class="ap-kicker" style="color:var(--blue-light);">TYPESCRIPT · BATTERIES-INCLUDED</div>
+        <h4 class="ap-h4">Mastra</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Built by Gatsby team. 22K+ stars, $13M seed. Memory + workflows + evals + observability bundled. 3,300+ models via Model Router.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">TYPESCRIPT · MINIMAL</div>
+        <h4 class="ap-h4">Vercel AI SDK</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Lightweight. Unified provider abstraction. Best for adding agent features to existing Next.js apps.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">PYTHON · GRAPH-FIRST</div>
+        <h4 class="ap-h4">LangGraph + LangSmith</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">State machine model. Best for complex branching workflows with checkpointing. LangSmith for tracing.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">PYTHON · ROLE-BASED</div>
+        <h4 class="ap-h4">CrewAI</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Multi-agent role/goal/backstory paradigm. Used by Deloitte, Oracle, KPMG, Accenture.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">PYTHON · MICROSOFT</div>
+        <h4 class="ap-h4">AutoGen</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Microsoft Research. Multi-agent conversations, AutoGen Studio for visual.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">PYTHON · TYPED</div>
+        <h4 class="ap-h4">Pydantic AI</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Strong typing on agent inputs/outputs. Best for well-scoped agent tasks where schema correctness matters.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:8px;">Layer 3 · Runtime / Durable Execution</h3>
+    <p class="ap-p" style="color:var(--grey-300);margin-bottom:20px;">Where the loop runs and survives disconnects. Often paired with a separate framework.</p>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr><th>Platform</th><th>Description</th><th>Languages</th><th>Pricing</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+      <tr>
+        <td>Inngest</td>
+        <td>Durable execution · webhook + cron</td>
+        <td>TS/Python</td>
+        <td><span class="mono">Free tier + per-step</span></td>
+        <td>Most popular for agent runtimes</td>
+      </tr>
+      <tr>
+        <td>Temporal</td>
+        <td>Workflow engine · battle-tested</td>
+        <td>Many</td>
+        <td><span class="mono">Cloud or self-host</span></td>
+        <td>Enterprise standard</td>
+      </tr>
+      <tr>
+        <td>Trigger.dev</td>
+        <td>TS-native durable workflows</td>
+        <td>TypeScript</td>
+        <td><span class="mono">Free + per-run</span></td>
+        <td>Vercel-friendly</td>
+      </tr>
+      <tr>
+        <td>Vercel Workflows</td>
+        <td>Native to Vercel platform</td>
+        <td>TypeScript</td>
+        <td><span class="mono">Vercel pricing</span></td>
+        <td>Native if you're on Vercel</td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:8px;">Layer 4 · Sandboxes (code execution isolation)</h3>
+    <p class="ap-p" style="color:var(--grey-300);margin-bottom:20px;">Where agent-generated code actually runs. Often used by other harnesses, not standalone.</p>
+    <div class="cmp-table-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr><th>Platform</th><th>Description</th><th>Cold start</th><th>Pricing</th><th>Deployment</th></tr>
+        </thead>
+        <tbody>
+      <tr>
+        <td>E2B</td>
+        <td>Firecracker microVM · Fortune 100 favorite</td>
+        <td><span class="mono">~150ms cold start</span></td>
+        <td><span class="mono">$150/mo + per-second compute</span></td>
+        <td>BYO cloud (enterprise)</td>
+      </tr>
+      <tr>
+        <td>Modal</td>
+        <td>gVisor + Python-native serverless</td>
+        <td><span class="mono">Sub-second</span></td>
+        <td><span class="mono">Per-second CPU + GB-hr; GPU available</span></td>
+        <td>Managed only</td>
+      </tr>
+      <tr>
+        <td>Daytona</td>
+        <td>Docker · fastest provisioning</td>
+        <td><span class="mono">27-90ms</span></td>
+        <td><span class="mono">Per-second pay-as-you-go</span></td>
+        <td>Managed</td>
+      </tr>
+      <tr>
+        <td>Blaxel</td>
+        <td>Microagent-optimized</td>
+        <td><span class="mono">25ms cold start</span></td>
+        <td><span class="mono">Per-second</span></td>
+        <td>Managed</td>
+      </tr>
+      <tr>
+        <td>Vercel Sandbox</td>
+        <td>Built into Vercel platform</td>
+        <td><span class="mono">Sub-second</span></td>
+        <td><span class="mono">Vercel pricing</span></td>
+        <td>Managed</td>
+      </tr>
+      <tr>
+        <td>Cloudflare Sandbox</td>
+        <td>Dynamic Workers · isolate-based</td>
+        <td><span class="mono">Milliseconds</span></td>
+        <td><span class="mono">CPU-time only</span></td>
+        <td>Cloudflare network</td>
+      </tr>
+      <tr>
+        <td>Northflank</td>
+        <td>Kata + Firecracker + gVisor · BYOC</td>
+        <td><span class="mono">Sub-second</span></td>
+        <td><span class="mono">Per-second</span></td>
+        <td>Managed or BYOC</td>
+      </tr>
+      <tr>
+        <td>Runloop</td>
+        <td>Persistent dev environments</td>
+        <td><span class="mono">~150ms</span></td>
+        <td><span class="mono">Per-second</span></td>
+        <td>Managed</td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:8px;">Production agent products (vertical)</h3>
+    <p class="ap-p" style="color:var(--grey-300);margin-bottom:20px;">Pre-built for specific use cases. Faster to deploy, less custom logic.</p>
+    <div class="ap-grid-3">
+      <div class="ap-card">
+        <div class="ap-kicker">CUSTOMER SUPPORT</div>
+        <h4 class="ap-h4">Decagon</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">3-6 week deployments. Voice + chat + email + SMS. Mid-market focus.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">CONVERSATIONAL · ENTERPRISE</div>
+        <h4 class="ap-h4">Rasa</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Self-hosted, regulated industries. $35K/yr starting. Used by Deutsche Telekom, Autodesk.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">VOICE</div>
+        <h4 class="ap-h4">Cognigy</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">High-volume voice automation, contact center.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">DEVELOPER · LLM-AGNOSTIC</div>
+        <h4 class="ap-h4">Botpress</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Visual builder, 1M+ bots deployed. $495/mo team plan.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">WORKSPACE-WIDE</div>
+        <h4 class="ap-h4">Dust</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Cross-department agents with 50+ integrations. $29/user/mo.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">SALES + MARKETING</div>
+        <h4 class="ap-h4">Relevance AI</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">SDR / outbound / research workflows.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">EMPLOYEE SUPPORT</div>
+        <h4 class="ap-h4">Moveworks</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">IT + HR automation in Slack/Teams.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">M365-CENTRIC</div>
+        <h4 class="ap-h4">Microsoft Copilot Studio</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">$30/user/mo. Internal agents in Teams/SharePoint/Office.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">ENTERPRISE FRAMEWORK</div>
+        <h4 class="ap-h4">xpander.ai</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Chat-driven Studio + native on-prem / air-gapped deployment.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:8px;">Workflow / no-code</h3>
+    <p class="ap-p" style="color:var(--grey-300);margin-bottom:20px;">Visual builders for teams without dedicated agent engineers.</p>
+    <div class="ap-grid-3">
+      <div class="ap-card">
+        <div class="ap-kicker">VISUAL WORKFLOWS</div>
+        <h4 class="ap-h4">n8n</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Self-host or cloud. Strong AI agent nodes. Developer-friendly.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">DEV-FRIENDLY OSS</div>
+        <h4 class="ap-h4">Dify</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Open-source self-host or ~£47/mo cloud. Engineering-team-friendly.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">CONTROL LAYER</div>
+        <h4 class="ap-h4">Kore.ai</h4>
+        <p class="ap-p-sm" style="margin-top:8px;">Multi-agent orchestration, 250+ pre-built connectors, 300+ templates.</p>
+      </div>
+    </div>
+
+    <div class="ap-callout" style="margin-top:48px;">
+      <strong>What this landscape tells you</strong>
+      The agent infrastructure space is consolidating fast. OpenAI, Anthropic, and Cloudflare are all bundling sandbox + runtime + memory into single products. Standalone primitives (E2B for sandbox, Pinecone for memory) are getting absorbed. The strategic question isn't "which platform?" — it's "which layer do I want to control?" For Ad Pros: control the loop (your prompts, tools, agent definitions), let vendors handle runtime + sandbox unless you have specific reasons not to.
+    </div>
+  </section>
+</div>
+
 <div class="tab-panel" id="tab-features" role="tabpanel">
   <section class="ap-section">
-    <span class="ap-kicker">03 · Feature Breakdown</span>
+    <span class="ap-kicker">04 · Feature Breakdown</span>
     <h2 class="ap-h2">Direct comparison</h2>
-    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Eight platforms most relevant to the decision. Scroll horizontally on mobile.</p>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">17 platforms across hosted, framework, OSS, and workflow categories. Scroll horizontally on mobile.</p>
 
     <div class="cmp-table-wrap" style="margin-top:32px;">
       <table class="cmp-table">
@@ -413,7 +733,7 @@ a:hover { color: var(--yellow); }
         <tbody>
       <tr>
         <td>Claude Managed Agents</td>
-        <td>Hosted</td>
+        <td>Hosted · Claude-native</td>
         <td>Claude only</td>
         <td><span class="mono">$0.08/sess-hr + tokens</span></td>
         <td>None</td>
@@ -424,9 +744,9 @@ a:hover { color: var(--yellow); }
       </tr>
       <tr>
         <td>Cloudflare Agents (Think)</td>
-        <td>Hosted (Durable Objects)</td>
-        <td>Any (14+ providers via AI Gateway)</td>
-        <td><span class="mono">Free when idle · pay CPU-time only</span></td>
+        <td>Hosted · Durable Objects</td>
+        <td>Any (14+ via AI Gateway)</td>
+        <td><span class="mono">Free when idle · CPU-time only</span></td>
         <td>None</td>
         <td>SQLite per agent + Vectorize</td>
         <td>Dynamic Workers + Sandbox SDK</td>
@@ -435,7 +755,7 @@ a:hover { color: var(--yellow); }
       </tr>
       <tr>
         <td>Bedrock AgentCore</td>
-        <td>Hosted (modular)</td>
+        <td>Hosted · modular AWS</td>
         <td>Multi (Claude, Llama, Nova)</td>
         <td><span class="mono">$0.0895/vCPU-hr + GB-hr</span></td>
         <td>AWS-managed</td>
@@ -443,6 +763,50 @@ a:hover { color: var(--yellow); }
         <td>Yes</td>
         <td>Yes</td>
         <td><span class="pill pill-warn">Medium-High</span></td>
+      </tr>
+      <tr>
+        <td>Microsoft Foundry</td>
+        <td>Hosted · Azure</td>
+        <td>Claude + Azure-native</td>
+        <td><span class="mono">Azure AI pricing</span></td>
+        <td>Azure-managed</td>
+        <td>Foundry IQ</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><span class="pill pill-warn">Medium-High</span></td>
+      </tr>
+      <tr>
+        <td>Google Vertex AI Agent Builder</td>
+        <td>Hosted · GCP</td>
+        <td>Gemini + others</td>
+        <td><span class="mono">Vertex AI pricing</span></td>
+        <td>GCP-managed</td>
+        <td>Built-in</td>
+        <td>Yes</td>
+        <td>ADK + A2A</td>
+        <td><span class="pill pill-warn">Medium-High</span></td>
+      </tr>
+      <tr>
+        <td>Salesforce Agentforce</td>
+        <td>Hosted · CRM-native</td>
+        <td>Multiple</td>
+        <td><span class="mono">Per-conversation pricing</span></td>
+        <td>Salesforce-managed</td>
+        <td>CRM data + Data Cloud</td>
+        <td>Yes</td>
+        <td>Some</td>
+        <td><span class="pill pill-bad">High (CRM-locked)</span></td>
+      </tr>
+      <tr>
+        <td>OpenAI Agents SDK</td>
+        <td>SDK + 7 sandbox providers</td>
+        <td>OpenAI primarily (any via adapter)</td>
+        <td><span class="mono">Tokens + sandbox provider</span></td>
+        <td>Hybrid (BYO sandbox)</td>
+        <td>Configurable</td>
+        <td>Native via Blaxel/E2B/Modal/Vercel/Cloudflare</td>
+        <td>Native</td>
+        <td><span class="pill pill-good">Low-Medium</span></td>
       </tr>
       <tr>
         <td>Deep Agents Deploy</td>
@@ -457,7 +821,7 @@ a:hover { color: var(--yellow); }
       </tr>
       <tr>
         <td>Claude Agent SDK</td>
-        <td>Library</td>
+        <td>Library (Python/TS)</td>
         <td>Claude only</td>
         <td><span class="mono">Tokens + your infra</span></td>
         <td>You own</td>
@@ -465,6 +829,61 @@ a:hover { color: var(--yellow); }
         <td>You build</td>
         <td>Native</td>
         <td><span class="pill pill-warn">Medium</span></td>
+      </tr>
+      <tr>
+        <td>Mastra (TypeScript)</td>
+        <td>Library · TS-native</td>
+        <td>Any (3,300+ models, 94 providers)</td>
+        <td><span class="mono">Free + your infra</span></td>
+        <td>You own</td>
+        <td>First-class memory API</td>
+        <td>Via Vercel/Cloudflare/Netlify</td>
+        <td>Via adapters</td>
+        <td><span class="pill pill-good">Low</span></td>
+      </tr>
+      <tr>
+        <td>Vercel AI SDK</td>
+        <td>Library · TS-minimal</td>
+        <td>Any (unified provider abstraction)</td>
+        <td><span class="mono">Free + your infra</span></td>
+        <td>You own</td>
+        <td>You build</td>
+        <td>Via Vercel Sandbox</td>
+        <td>Via adapters</td>
+        <td><span class="pill pill-good">Low</span></td>
+      </tr>
+      <tr>
+        <td>LangGraph + LangSmith</td>
+        <td>Library (Py/TS) + SaaS</td>
+        <td>Any</td>
+        <td><span class="mono">LangSmith tier + infra</span></td>
+        <td>You own</td>
+        <td>Checkpointing built in</td>
+        <td>You build</td>
+        <td>Via adapters</td>
+        <td><span class="pill pill-good">Low-Medium</span></td>
+      </tr>
+      <tr>
+        <td>CrewAI</td>
+        <td>Library · multi-agent</td>
+        <td>Any</td>
+        <td><span class="mono">Free + your infra</span></td>
+        <td>You own</td>
+        <td>Plugin-based</td>
+        <td>You build</td>
+        <td>Via adapters</td>
+        <td><span class="pill pill-good">Low</span></td>
+      </tr>
+      <tr>
+        <td>AutoGen (Microsoft)</td>
+        <td>Library · multi-agent</td>
+        <td>Any</td>
+        <td><span class="mono">Free + your infra</span></td>
+        <td>You own</td>
+        <td>You build</td>
+        <td>You build</td>
+        <td>Via adapters</td>
+        <td><span class="pill pill-good">Low</span></td>
       </tr>
       <tr>
         <td>OpenClaw / Multica</td>
@@ -478,30 +897,8 @@ a:hover { color: var(--yellow); }
         <td><span class="pill pill-good">None</span></td>
       </tr>
       <tr>
-        <td>LangGraph + LangSmith</td>
-        <td>Library + SaaS</td>
-        <td>Any</td>
-        <td><span class="mono">LangSmith tier + infra</span></td>
-        <td>You own</td>
-        <td>You build</td>
-        <td>You build</td>
-        <td>Via adapters</td>
-        <td><span class="pill pill-good">Low-Medium</span></td>
-      </tr>
-      <tr>
-        <td>CrewAI</td>
-        <td>Library</td>
-        <td>Any</td>
-        <td><span class="mono">Free + your infra</span></td>
-        <td>You own</td>
-        <td>Plugin-based</td>
-        <td>You build</td>
-        <td>Via adapters</td>
-        <td><span class="pill pill-good">Low</span></td>
-      </tr>
-      <tr>
         <td>n8n</td>
-        <td>Hosted or self</td>
+        <td>Hosted or self · visual</td>
         <td>Any (via nodes)</td>
         <td><span class="mono">$20-50/mo or self-host</span></td>
         <td>Optional managed</td>
@@ -509,6 +906,17 @@ a:hover { color: var(--yellow); }
         <td>Limited</td>
         <td>Some</td>
         <td><span class="pill pill-good">Low</span></td>
+      </tr>
+      <tr>
+        <td>Dust</td>
+        <td>Hosted · workspace</td>
+        <td>Multi (50+ integrations)</td>
+        <td><span class="mono">$29/user/mo</span></td>
+        <td>None</td>
+        <td>Per-workspace</td>
+        <td>Limited</td>
+        <td>Yes</td>
+        <td><span class="pill pill-warn">Medium</span></td>
       </tr>
         </tbody>
       </table>
@@ -551,7 +959,7 @@ a:hover { color: var(--yellow); }
 
 <div class="tab-panel" id="tab-questions" role="tabpanel">
   <section class="ap-section">
-    <span class="ap-kicker">04 · Decision Questions</span>
+    <span class="ap-kicker">05 · Decision Questions</span>
     <h2 class="ap-h2">42 questions, 8 categories</h2>
     <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Work through these in order. Categories A–C eliminate most options; D–H refine the choice. Each question includes the reasoning behind why it matters.</p>
     <div style="margin-top:32px;">
@@ -937,7 +1345,7 @@ a:hover { color: var(--yellow); }
 
 <div class="tab-panel" id="tab-cost" role="tabpanel">
   <section class="ap-section">
-    <span class="ap-kicker">05 · Cost Modeling</span>
+    <span class="ap-kicker">06 · Cost Modeling</span>
     <h2 class="ap-h2">Three scenarios, real numbers</h2>
     <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Token costs are equivalent across platforms — what differs is the harness premium.</p>
 
@@ -1051,7 +1459,7 @@ a:hover { color: var(--yellow); }
 
 <div class="tab-panel" id="tab-migration" role="tabpanel">
   <section class="ap-section">
-    <span class="ap-kicker">06 · Migration Risk</span>
+    <span class="ap-kicker">07 · Migration Risk</span>
     <h2 class="ap-h2">If you're wrong, how hard to switch?</h2>
     <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Bias toward reversible decisions.</p>
 
