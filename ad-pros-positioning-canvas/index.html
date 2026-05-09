@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal Kazim">
+  <title>Ad Pros Positioning Canvas — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.65; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    .ap-display    { font-size: clamp(36px, 5.5vw, 50px); font-weight: 800; line-height: 1.1; letter-spacing: -1.2px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 36px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 30px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 22px; font-weight: 700; line-height: 1.25; color: #fff; }
+    .ap-h4         { font-size: 17px; font-weight: 700; line-height: 1.3; color: #fff; }
+    .ap-p-lg       { font-size: 17px; line-height: 1.65; color: var(--grey-100); }
+    .ap-p          { font-size: 15px; line-height: 1.7; color: var(--grey-200); }
+    .ap-p + .ap-p  { margin-top: 14px; }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 24px; }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1000px; margin: 0 auto; }
+    .ap-section { padding: 64px 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; padding-top: 32px; }
+    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: 12px; letter-spacing: 0.5px; }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+
+    .ap-component { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 32px; margin-bottom: 20px; position: relative; overflow: hidden; }
+    .ap-component::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--yellow); }
+    .ap-component .step-tag { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--yellow); margin-bottom: 14px; letter-spacing: 0.8px; text-transform: uppercase; }
+    .ap-component .step-tag .num { background: var(--yellow); color: var(--navy); width: 24px; height: 24px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
+    .ap-component h3 { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .ap-component .question { font-style: italic; color: var(--grey-300); font-size: 15px; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--card-border); }
+
+    .ap-answer-block { margin-top: 18px; }
+    .ap-answer-block h4 { font-size: 13px; color: var(--yellow); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+
+    .ap-cluster { background: rgba(7,11,61,0.6); border: 1px solid var(--card-border); border-radius: 8px; padding: 18px 20px; margin-bottom: 10px; }
+    .ap-cluster .cluster-name { display: block; font-weight: 700; color: #fff; font-size: 15px; margin-bottom: 6px; }
+    .ap-cluster .cluster-desc { font-size: 13.5px; color: var(--grey-200); line-height: 1.55; }
+    .ap-cluster .cluster-defeat { font-size: 12.5px; color: var(--grey-300); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--card-border); }
+    .ap-cluster .cluster-defeat strong { color: var(--yellow); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; margin-right: 6px; }
+
+    .ap-cap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--card-border); }
+    .ap-cap-row:last-child { border-bottom: none; }
+    .ap-cap-row .cap { }
+    .ap-cap-row .cap-name { font-weight: 700; color: #fff; font-size: 14.5px; margin-bottom: 4px; }
+    .ap-cap-row .cap-desc { font-size: 13px; color: var(--grey-200); line-height: 1.5; }
+    .ap-cap-row .val { }
+    .ap-cap-row .val::before { content: "→"; color: var(--yellow); margin-right: 8px; font-weight: 700; }
+    .ap-cap-row .val-text { font-size: 13.5px; color: var(--grey-100); line-height: 1.55; display: inline; }
+    @media (max-width: 700px) { .ap-cap-row { grid-template-columns: 1fr; gap: 8px; } }
+
+    .ap-icp-card { background: rgba(7,11,61,0.6); border: 1px solid var(--card-border); border-radius: 8px; padding: 20px; margin-bottom: 12px; }
+    .ap-icp-card h5 { font-size: 12px; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; font-weight: 600; }
+    .ap-icp-card .traits { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ap-icp-card .trait { background: rgba(249,217,0,0.08); border: 1px solid rgba(249,217,0,0.25); color: var(--grey-100); padding: 5px 11px; font-size: 12.5px; border-radius: 14px; font-weight: 500; }
+    .ap-icp-card .trait.muted { background: transparent; border-color: var(--card-border-strong); color: var(--grey-300); }
+    .ap-icp-card p { font-size: 13.5px; color: var(--grey-200); line-height: 1.55; margin-top: 12px; }
+
+    .ap-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13.5px; }
+    .ap-table th { background: var(--navy-card); color: var(--yellow); font-weight: 600; text-align: left; padding: 12px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; border: 1px solid var(--card-border); }
+    .ap-table td { padding: 12px 14px; border: 1px solid var(--card-border); color: var(--grey-100); vertical-align: top; line-height: 1.55; }
+    .ap-table tr:nth-child(even) td { background: rgba(7,11,61,0.4); }
+
+    .ap-pullquote { background: var(--navy-card); border: 1px solid var(--card-border); border-left: 3px solid var(--yellow); padding: 24px 28px; border-radius: var(--radius); margin: 28px 0; }
+    .ap-pullquote p { font-size: 19px; line-height: 1.45; color: #fff; font-weight: 600; letter-spacing: -0.2px; }
+    .ap-pullquote .source { font-size: 11px; color: var(--grey-300); margin-top: 12px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); margin: 24px 0; }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+    .ap-callout.warn { background: rgba(249,217,0,0.06); border-color: rgba(249,217,0,0.4); border-left-color: var(--yellow); }
+
+    .ap-content ul.bullets { list-style: none; padding: 0; }
+    .ap-content ul.bullets li { font-size: 14.5px; color: var(--grey-100); padding: 7px 0 7px 22px; position: relative; line-height: 1.6; }
+    .ap-content ul.bullets li::before { content: "→"; position: absolute; left: 0; color: var(--yellow); font-weight: 700; }
+
+    .ap-deliverable { background: rgba(15,151,61,0.08); border: 1px solid rgba(15,151,61,0.3); border-left: 3px solid var(--success); padding: 16px 20px; border-radius: 8px; margin-top: 18px; }
+    .ap-deliverable strong { color: var(--success); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 6px; }
+    .ap-deliverable p { font-size: 14px; color: var(--grey-100); line-height: 1.6; }
+    .ap-deliverable code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; color: var(--yellow); font-size: 12.5px; }
+
+    .ap-summary-box { background: linear-gradient(180deg, var(--navy-card) 0%, var(--navy-deep) 100%); border: 1px solid var(--yellow); border-radius: var(--radius); padding: 36px 40px; margin: 32px 0; }
+    .ap-summary-box .label { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--yellow); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 14px; }
+    .ap-summary-box h3 { font-size: 26px; color: #fff; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 18px; line-height: 1.25; }
+    .ap-summary-box .row { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--card-border); align-items: start; }
+    .ap-summary-box .row:last-child { border-bottom: none; }
+    .ap-summary-box .row .k { font-size: 11px; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.7px; font-weight: 600; padding-top: 2px; }
+    .ap-summary-box .row .v { font-size: 14.5px; color: var(--grey-100); line-height: 1.55; }
+    @media (max-width: 700px) { .ap-summary-box .row { grid-template-columns: 1fr; gap: 4px; } .ap-summary-box { padding: 24px 22px; } }
+
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .ap-footer { margin-left: 20px; margin-right: 20px; }
+      .ap-h1 { font-size: 28px; } .ap-h2 { font-size: 24px; }
+      .ap-component { padding: 22px 20px; }
+      .ap-component h3 { font-size: 22px; }
+      .ap-pullquote p { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:48px;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Ad Pros Positioning Canvas</h1>
+      <p>Dunford's 5 components, run end-to-end. Source of truth for everything downstream.</p>
+    </div>
+  </header>
+  <div class="ap-content">
+
+    <section class="ap-section">
+      <div class="ap-kicker">Source of Truth</div>
+      <h1 class="ap-display">Ad Pros, run through<br>the <em>5 components</em>.</h1>
+      <p class="ap-p-lg" style="margin-top:24px;max-width:820px;">This is the document the website hero, the sales deck, the discovery script, the recruiting page, and the partner outreach all derive from. Not five answers. Five components in sequence — each one constrains the next. Skip a step or do them out of order and the positioning sounds plausible but doesn't win deals.</p>
+
+      <div class="ap-callout">
+        <strong>How to use this document</strong>
+        Treat each component as a working draft, not a final claim. Pressure-test against three current clients and three target prospects before locking. Update quarterly — competitive alternatives shift, capabilities deepen, the best-fit definition tightens. The frame stays; the answers evolve.
+      </div>
+    </section>
+
+    <section class="ap-section">
+
+      <!-- COMPONENT 1 -->
+      <div class="ap-component">
+        <div class="step-tag"><span class="num">1</span> Component One</div>
+        <h3>Competitive alternatives</h3>
+        <p class="question">If Ad Pros didn't exist, what would the 8-figure operator do instead?</p>
+
+        <p class="ap-p">The biggest mistake here is naming other agencies first. Other agencies are an alternative — but they aren't the alternative we lose to most often. The alternative we actually lose to is the operator deciding to keep doing what they're already doing. The status quo is always the largest competitor in B2B services.</p>
+
+        <p class="ap-p">Five clusters of alternatives, ranked by how often they actually beat us in deals:</p>
+
+        <div class="ap-answer-block">
+          <h4>Cluster 1 — In-house team (the biggest competitor)</h4>
+          <div class="ap-cluster">
+            <span class="cluster-name">"We'll just hire a senior media buyer."</span>
+            <span class="cluster-desc">The most common alternative. Operator has scaled past $10M, feels they've outgrown agencies, and decides to build internal capability. Hires one or two senior buyers, maybe a creative lead. Saves on retainer, gains control, loses agency talent depth and creative throughput.</span>
+            <div class="cluster-defeat"><strong>How we beat it</strong> Senior buyer salary + benefits + tools + creative production cost ≈ $35-50K/month all-in for a fraction of the throughput. Ad Pros' fee structure scales with results; a salary doesn't. The in-house buyer is one person; we're a team with infrastructure.</div>
+          </div>
+        </div>
+
+        <div class="ap-answer-block">
+          <h4>Cluster 2 — Generic performance agency</h4>
+          <div class="ap-cluster">
+            <span class="cluster-name">"We'll go with a 'top-rated' agency on flat retainer."</span>
+            <span class="cluster-desc">Operator hires another performance agency on $15-30K/month flat retainer. Most agencies look identical from the outside — same case studies, same channels, same promises. The operator picks based on referral, sales chemistry, or price. Six months later they're shopping again.</span>
+            <div class="cluster-defeat"><strong>How we beat it</strong> Flat retainer is structurally indifferent to outcomes. Our performance kicker means our fee moves with their CPA. The other agency promises ROAS; we put fees on the line behind it. The structural difference is felt in negotiation, not described in pitches.</div>
+          </div>
+        </div>
+
+        <div class="ap-answer-block">
+          <h4>Cluster 3 — Fractional CMO / freelance media buyer</h4>
+          <div class="ap-cluster">
+            <span class="cluster-name">"We'll bring on a fractional or freelancer for 20 hrs/week."</span>
+            <span class="cluster-desc">Cheaper than agency, more strategic than a junior hire. Common at $5-10M brands trying to act bigger. Works fine for a quarter or two, then the freelancer hits capacity, takes another client, or leaves. The brand is back to the same problem.</span>
+            <div class="cluster-defeat"><strong>How we beat it</strong> A fractional is one brain on a clock. Ad Pros is a team with redundancy, infrastructure, creative output, and continuity. The fractional can't run an 8-channel test program; we can. The fractional can't anchor a Creator Network; we can.</div>
+          </div>
+        </div>
+
+        <div class="ap-answer-block">
+          <h4>Cluster 4 — Do nothing / current setup</h4>
+          <div class="ap-cluster">
+            <span class="cluster-name">"We'll just keep doing what we're doing."</span>
+            <span class="cluster-desc">Underrated alternative. Operator is mediocrely happy with current results. Numbers are okay. Switching feels risky. The pain isn't acute enough to overcome inertia. They'll revisit "in 6 months."</span>
+            <div class="cluster-defeat"><strong>How we beat it</strong> Quantify the cost of standing still. If their CPA is $300 and best-in-class is $180, the gap is $120 × monthly conversions × 12 months = a number large enough to make inertia look expensive. Don't sell against another agency; sell against the math of doing nothing.</div>
+          </div>
+        </div>
+
+        <div class="ap-answer-block">
+          <h4>Cluster 5 — Tier-1 holding-company agency</h4>
+          <div class="ap-cluster">
+            <span class="cluster-name">"We'll graduate to a 'real' agency now that we're at scale."</span>
+            <span class="cluster-desc">Less common but high-stakes. Operator at $30M+ revenue gets recruited by a tier-1 agency promising integrated media, prestige, and bigger thinking. Ad Pros risks losing them on perceived brand authority, not capability.</span>
+            <div class="cluster-defeat"><strong>How we beat it</strong> Tier-1 agencies pitch on prestige; we pitch on alignment. Holding companies bill hours; we bet on outcomes. The operator who graduates upward is choosing comfort and slower iteration; the operator who stays with us is choosing performance economics.</div>
+          </div>
+        </div>
+
+        <div class="ap-deliverable">
+          <strong>Working insight</strong>
+          <p>The two alternatives we lose to most are <code>in-house team</code> and <code>do nothing</code>. The Ad Pros sales motion should systematically arm reps to defeat these two before pitching against any other agency. The math arguments — fully-loaded internal cost, cost of inaction — are more important than the case studies.</p>
+        </div>
+      </div>
+
+      <!-- COMPONENT 2 -->
+      <div class="ap-component">
+        <div class="step-tag"><span class="num">2</span> Component Two</div>
+        <h3>Differentiated capabilities</h3>
+        <p class="question">What does Ad Pros have that the alternatives — in-house teams, generic agencies, fractionals, holdcos — do not?</p>
+
+        <p class="ap-p">Capabilities are not features. They are real, observable things Ad Pros can do that the listed alternatives structurally cannot. Stay on what we <em>do</em>, not what it <em>means</em> for the buyer (that's value, the next component).</p>
+
+        <p class="ap-p">Five capabilities, mapped against which alternatives they beat:</p>
+
+        <table class="ap-table">
+          <thead>
+            <tr><th>Capability</th><th>Beats which alternative</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Performance-linked fee structure</strong> — base retainer + variable fee scaled by CPA performance multiplier (the kicker model documented at docs.adpros.com/performance-pricing-model-v2)</td>
+              <td>Generic agency (flat retainer, indifferent to outcomes), holdco (hours-billed), fractional (rate × time)</td>
+            </tr>
+            <tr>
+              <td><strong>Creator Performance Network</strong> — $5K retainer + 10% of ad spend on creator content, 7% kept, 3% to creators. Equity-like exposure for creators, performance creative pipeline for brands.</td>
+              <td>All alternatives. No one else has aligned creator economics; flat per-asset fees are the norm.</td>
+            </tr>
+            <tr>
+              <td><strong>AI ops infrastructure (Noor)</strong> — 8-agent ClickUp workflow, BigQuery + Supabase, Claude API automation, ~5,000 ads/day intelligence pipeline</td>
+              <td>In-house team (no one builds this internally for one brand), generic agency (no AI infra), fractional (impossible at one-person scale), holdco (legacy systems)</td>
+            </tr>
+            <tr>
+              <td><strong>Senior team density</strong> — strategy/QA, account leadership, creative production, studio recording, all in-house. ~26 operators serving DTC + ecommerce.</td>
+              <td>Fractional (one person), generic agency (junior staffing), in-house (cost-prohibitive at this density)</td>
+            </tr>
+            <tr>
+              <td><strong>11-channel media buying capability</strong> — Meta, Google, TikTok, AppLovin, plus integrated tracking + attribution</td>
+              <td>In-house team (typically masters 1-2 channels), fractional (channel-limited), generic agency (often single-channel deep)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="ap-callout warn">
+          <strong>Honest pressure-test</strong>
+          For each capability, ask: would a sharp competitor say "we have that too"? If yes, it's not differentiated — it's table stakes. The five above survive that test. "We're data-driven" or "we have great creatives" do not. Skip them.
+        </div>
+      </div>
+
+      <!-- COMPONENT 3 -->
+      <div class="ap-component">
+        <div class="step-tag"><span class="num">3</span> Component Three</div>
+        <h3>Differentiated value</h3>
+        <p class="question">What does each capability translate to in operator-relevant outcomes — outcomes a CFO would put on a slide?</p>
+
+        <p class="ap-p">Value is the capability translated into the language of P&amp;L impact. The translation discipline matters: a feature like "performance-linked fees" is not value. The value is "your agency cost moves with your CPA, so you don't pay full price during a soft month." That's a sentence the operator can take to their board.</p>
+
+        <div class="ap-answer-block">
+          <h4>Capability → Value mapping</h4>
+
+          <div class="ap-cap-row">
+            <div class="cap">
+              <div class="cap-name">Performance-linked fee structure</div>
+              <div class="cap-desc">Base retainer + variable fee scaled by CPA multiplier</div>
+            </div>
+            <div class="val">
+              <span class="val-text">Lower variance in agency cost during weak months. Predictable upside for the agency creates real alignment, which means real seniority on the account. The operator stops paying full freight when results dip — and the agency only earns the kicker when results justify it.</span>
+            </div>
+          </div>
+
+          <div class="ap-cap-row">
+            <div class="cap">
+              <div class="cap-name">Creator Performance Network</div>
+              <div class="cap-desc">$5K + 10% of creator-content spend; 7/3 split with creators</div>
+            </div>
+            <div class="val">
+              <span class="val-text">Continuous creative throughput at performance-aligned cost. Creators have skin in the game, so they iterate. The brand stops paying $5-10K per static asset and starts paying for creative that converts. New asset velocity rises 3-5×; CAC on creator-driven creative drops because the supply is built around what works.</span>
+            </div>
+          </div>
+
+          <div class="ap-cap-row">
+            <div class="cap">
+              <div class="cap-name">AI ops infrastructure (Noor)</div>
+              <div class="cap-desc">8-agent ClickUp pipeline, BigQuery + Supabase, ~5K ads/day intelligence</div>
+            </div>
+            <div class="val">
+              <span class="val-text">Decisions made on data the in-house team can't process at this scale. The intelligence layer surfaces what's working and what's mediocre across thousands of ads, so the operator's portfolio gets reallocated faster than competitors using dashboards or human review. Faster reallocation = compounding ROAS advantage.</span>
+            </div>
+          </div>
+
+          <div class="ap-cap-row">
+            <div class="cap">
+              <div class="cap-name">Senior team density</div>
+              <div class="cap-desc">~26 operators, in-house strategy/QA/creative/account</div>
+            </div>
+            <div class="val">
+              <span class="val-text">No "junior account manager" tax. The operator's account is run by people who could be running it in-house — but with the leverage of a full team behind them. Trust gets built fast, decisions get made fast, errors get caught before they ship.</span>
+            </div>
+          </div>
+
+          <div class="ap-cap-row">
+            <div class="cap">
+              <div class="cap-name">11-channel media buying</div>
+              <div class="cap-desc">Meta, Google, TikTok, AppLovin, plus full attribution stack</div>
+            </div>
+            <div class="val">
+              <span class="val-text">Channel diversification without channel dilution. As one channel saturates or platform changes hit (iOS, ad costs, algorithm shifts), the spend shifts to where ROAS is currently strongest — without hiring 11 specialists. The operator gets a hedged portfolio, not a single-channel bet.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-deliverable">
+          <strong>The compound value claim</strong>
+          <p>Lower variance in agency cost. Higher creative throughput. Faster reallocation. Senior decision-making. Channel-hedged spend. Together: a performance partnership that lowers CPA over time and stabilizes cost during downturns. That's not five claims — it's one operating model with five inputs.</p>
+        </div>
+      </div>
+
+      <!-- COMPONENT 4 -->
+      <div class="ap-component">
+        <div class="step-tag"><span class="num">4</span> Component Four</div>
+        <h3>Best-fit customers</h3>
+        <p class="question">Who values these capabilities so much they'll pay performance-linked fees, refer their peers, and stay 3+ years?</p>
+
+        <p class="ap-p">"8-figure operator" is the headline. But Dunford's discipline says best-fit must be narrow enough to fit on a single page. The version below is what to actually use in outbound, partner conversations, and ICP filtering — the more specific the better.</p>
+
+        <div class="ap-icp-card">
+          <h5>Tier 1 — Core Best-Fit (the Superconsumer)</h5>
+          <div class="traits">
+            <span class="trait">$10-50M annual revenue</span>
+            <span class="trait">$300K+ monthly ad spend</span>
+            <span class="trait">DTC ecommerce</span>
+            <span class="trait">Founder-led / founder-CEO</span>
+            <span class="trait">Has tried 2+ agencies</span>
+            <span class="trait">Treats ad spend as P&amp;L line</span>
+            <span class="trait">Wants to scale beyond $50M</span>
+            <span class="trait">Owns gross margin reporting</span>
+          </div>
+          <p>This is the operator who closes fastest, retains longest, and refers the most. They've been burned by flat-retainer agencies, they understand CPA mechanics intuitively, and they're sophisticated enough to reward alignment with loyalty. They are the case-study fountain — every story we publish should feature one of them.</p>
+        </div>
+
+        <div class="ap-icp-card">
+          <h5>Tier 2 — Adjacent Fit (high-fit upgrade path)</h5>
+          <div class="traits">
+            <span class="trait">$5-10M revenue, scaling fast</span>
+            <span class="trait">$150-300K monthly spend</span>
+            <span class="trait">DTC with clear unit economics</span>
+            <span class="trait">Ambitious founder, 2-3 yrs in</span>
+            <span class="trait">Open to performance pricing</span>
+          </div>
+          <p>The aspirational tier. They want to think like an 8-figure operator before they're one. Closing them earlier and growing them inside the agency is a long-arc bet — but the ones who make it become Tier 1 Superconsumers in 18-24 months. Worth a calibrated number of these in the book of business.</p>
+        </div>
+
+        <div class="ap-icp-card">
+          <h5>Tier 3 — Acceptable Fit (selectively)</h5>
+          <div class="traits">
+            <span class="trait">$50M+ revenue brands</span>
+            <span class="trait">CFO/CMO buyer (not founder)</span>
+            <span class="trait">More operationally complex</span>
+          </div>
+          <p>Larger brands where the buyer is no longer the founder. Higher-revenue accounts, but slower decisions, more procurement friction, and weaker alignment to performance pricing. Worth taking selectively when fit is strong; not the engine of the book.</p>
+        </div>
+
+        <div class="ap-icp-card" style="border-color:rgba(212,38,32,0.3);background:rgba(212,38,32,0.05);">
+          <h5 style="color:#ff8a85;">Not-Fit (explicitly disqualify)</h5>
+          <div class="traits">
+            <span class="trait muted">Sub-$5M revenue</span>
+            <span class="trait muted">Sub-$100K monthly spend</span>
+            <span class="trait muted">B2B SaaS / lead-gen primary</span>
+            <span class="trait muted">Service businesses</span>
+            <span class="trait muted">Brand-first, ROAS-skeptical</span>
+            <span class="trait muted">Procurement-led buying</span>
+          </div>
+          <p>Naming who we're not for is as important as naming who we are for. These accounts close slowly, churn fast, eat senior time, and don't generate referrals into our actual ICP. Sales reps should be empowered to disqualify — not because the brand is bad, but because the fit isn't there.</p>
+        </div>
+      </div>
+
+      <!-- COMPONENT 5 -->
+      <div class="ap-component">
+        <div class="step-tag"><span class="num">5</span> Component Five</div>
+        <h3>Market category</h3>
+        <p class="question">In which market category does Ad Pros' differentiated value pop most clearly to the best-fit operator?</p>
+
+        <p class="ap-p">Dunford is firm here: don't create a new category unless you're at $200M+ revenue with the budget to educate a whole market. We aren't. So the question is which existing category to position inside — and that choice changes everything downstream.</p>
+
+        <div class="ap-answer-block">
+          <h4>The four candidate categories</h4>
+        </div>
+
+        <table class="ap-table">
+          <thead>
+            <tr><th>Category</th><th>If we pick this</th><th>Verdict</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Performance marketing agency</strong></td>
+              <td>Get compared to Common Thread, Pilothouse, Disruptive. The default category. We win on partnership model and AI infra.</td>
+              <td style="color:var(--yellow);">Default — but generic.</td>
+            </tr>
+            <tr>
+              <td><strong>Growth partner / Fractional CMO firm</strong></td>
+              <td>Get compared to Bonfire, GrowthBook, NoGood. Buyer expects strategy + execution. Pricing pressure rises.</td>
+              <td style="color:var(--grey-300);">Wrong — we're not strategy-only.</td>
+            </tr>
+            <tr>
+              <td><strong>Media buying firm</strong></td>
+              <td>Get compared to MuteSix, Tinuiti. Single-channel-deep, often executional. Commodity pricing dynamics.</td>
+              <td style="color:var(--grey-300);">Wrong — too transactional.</td>
+            </tr>
+            <tr>
+              <td><strong>Performance partner</strong> (the lane we're claiming)</td>
+              <td>Almost no one credibly occupies it. Implies shared outcome, equity-like alignment, infrastructure-grade ops. We define the comparison set.</td>
+              <td style="color:var(--success);">Correct — uncontested at agency level.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="ap-callout">
+          <strong>The hybrid move</strong>
+          We position publicly as "performance partner" (the lane Ad Pros claims), but we anchor the SEO and category-search context inside "performance marketing agency" so buyers searching the existing category find us. The line — "performance partner for 8-figure operators" — does both jobs at once. Publicly differentiated, search-discoverable.
+        </div>
+
+        <p class="ap-p">Why this works: "performance partner" is not a new category — it's a sharper position inside the agency category. It borrows the credibility of the existing category (operators know what an agency is) while distancing us from the commodity pricing dynamics of "agency" alone. Nine words doing the work of an entire repositioning brief.</p>
+      </div>
+
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">06</span> Synthesis</div>
+      <h2 class="ap-h2">The positioning, in one breath.</h2>
+      <p class="ap-p-lg" style="margin-top:14px;max-width:820px;">All five components collapsed into a single working positioning statement. Use this internally for alignment, not externally as copy — the public version is the nine-word headline.</p>
+
+      <div class="ap-summary-box">
+        <div class="label">Internal Positioning Statement</div>
+        <h3>Ad Pros is the performance partner for 8-figure DTC operators who treat ad spend as a P&amp;L line.</h3>
+
+        <div class="row">
+          <div class="k">For</div>
+          <div class="v">Founder-led DTC ecommerce brands at $10-50M revenue and $300K+ monthly ad spend who have tried agencies before.</div>
+        </div>
+        <div class="row">
+          <div class="k">Who are</div>
+          <div class="v">Frustrated by flat-retainer agencies that don't share outcomes, hesitant to build a full in-house team, and looking to scale beyond $50M without losing creative throughput or channel diversification.</div>
+        </div>
+        <div class="row">
+          <div class="k">Ad Pros is</div>
+          <div class="v">A performance partner — not a vendor, not an agency in the traditional sense — that puts its fee on the line behind their CPA.</div>
+        </div>
+        <div class="row">
+          <div class="k">That</div>
+          <div class="v">Combines performance-linked pricing, the Creator Performance Network, AI-grade ops infrastructure (Noor), senior team density, and 11-channel media capability into a single operating model.</div>
+        </div>
+        <div class="row">
+          <div class="k">Unlike</div>
+          <div class="v">Generic performance agencies (flat fees, no skin in the game), in-house teams (high cost, low throughput), fractional CMOs (one brain on a clock), and tier-1 holdcos (prestige over alignment).</div>
+        </div>
+        <div class="row">
+          <div class="k">Our product</div>
+          <div class="v">Lowers CPA variance during downturns, raises creative velocity during scaling, and compounds ROAS advantage through faster reallocation than any alternative can match.</div>
+        </div>
+      </div>
+
+      <div class="ap-pullquote">
+        <p>This canvas is not the deliverable. It's the source for the deliverables — the website hero, the deck cover, the discovery script, the recruiting page, the partner outreach, the manifesto. Lock the canvas, then derive the artifacts.</p>
+        <div class="source">How to read this document</div>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">07</span> What this unlocks next</div>
+      <h2 class="ap-h2">The downstream chain.</h2>
+      <p class="ap-p-lg" style="margin-top:14px;max-width:820px;">With the canvas locked, the next four artifacts derive from it directly. Each one points back to a specific component of this document; if a component shifts, the artifact shifts with it.</p>
+
+      <ul class="bullets" style="margin-top:18px;">
+        <li><strong>POV manifesto</strong> — frames the problem in operator language using Component 1 (alternatives), positions Ad Pros as the inevitable answer using Components 2-3 (capabilities → value). 2,000-4,000 words. Published at <code>docs.adpros.com</code>.</li>
+        <li><strong>Discovery call script</strong> — opens by surfacing the operator's status quo (Component 1), maps their pain to our capabilities (Component 2), and quantifies the gap as P&amp;L impact (Component 3). Written so any sales rep can run it cold.</li>
+        <li><strong>Disqualification rubric</strong> — derived directly from the Tier 1/2/3/Not-Fit segmentation in Component 4. Lets reps protect their pipeline by passing on accounts that won't close or won't stay.</li>
+        <li><strong>Languaging audit</strong> — every public artifact (site, deck, IG, LinkedIn, email signatures, contracts) checked against Component 5's "performance partner" frame. Generic "agency" language gets replaced with the named position.</li>
+      </ul>
+
+      <div class="ap-callout">
+        <strong>Cadence</strong>
+        Re-run this canvas quarterly. Competitive alternatives shift as in-house tools mature and new agencies enter. Capabilities deepen as Noor and the Creator Network expand. Best-fit definitions tighten as we learn more about who actually closes and stays. The frame is permanent; the answers are seasonal.
+      </div>
+    </section>
+
+  </div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:36px;opacity:0.5;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal Kazim &middot; May 9, 2026</p>
+  </footer>
+</body>
+</html>
