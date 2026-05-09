@@ -40,6 +40,7 @@
     .ap-h2 { font-size: 26px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
     .ap-h3 { font-size: 19px; font-weight: 700; line-height: 1.25; color: #fff; }
     .ap-h4 { font-size: 16px; font-weight: 700; line-height: 1.3; color: #fff; }
+    .ap-h5 { font-size: 14px; font-weight: 700; line-height: 1.3; color: #fff; }
     .ap-p-lg { font-size: 16px; line-height: 1.65; color: var(--grey-100); }
     .ap-p { font-size: 15px; line-height: 1.7; color: var(--grey-200); }
     .ap-p + .ap-p { margin-top: 12px; }
@@ -52,7 +53,6 @@
     .ap-header-text p { font-size: 12.5px; color: var(--grey-300); margin-top: 2px; }
 
     .ap-content { padding: 32px 40px 60px; max-width: 920px; margin: 0 auto; }
-
     .ap-hero { padding-bottom: 28px; border-bottom: 1px solid var(--card-border); margin-bottom: 28px; }
 
     .tabs { position: sticky; top: 0; z-index: 10; background: var(--navy); padding-top: 4px; border-bottom: 1px solid var(--card-border); margin: 0 -40px 28px; padding-left: 40px; padding-right: 40px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -84,57 +84,47 @@
     .ap-table td { padding: 12px 14px; border: 1px solid var(--card-border); color: var(--grey-100); vertical-align: top; }
     .ap-table tr:nth-child(even) td { background: rgba(7,11,61,0.4); }
 
-    /* Component card: question + Ad Pros answer */
-    .qa-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 22px 26px; border-left: 3px solid var(--yellow); }
-    .qa-card .q { display: block; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--yellow); letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 6px; }
-    .qa-card h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
-    .qa-card .answer { font-size: 15px; color: var(--grey-100); line-height: 1.65; }
-    .qa-card .answer + .answer { margin-top: 12px; }
+    /* === Working playbook structure === */
+    .play-block { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 22px 26px; }
+    .play-block.purpose { border-left: 3px solid var(--blue); }
+    .play-block.do { border-left: 3px solid var(--yellow); }
+    .play-block.output { border-left: 3px solid var(--success); }
+    .play-block.cadence { border-left: 3px solid var(--blue-light); }
+    .play-block.changes { border-left: 3px solid var(--yellow-dim); }
+    .play-block.failure { border-left: 3px solid var(--error); }
+    .play-block .block-tag { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+    .play-block.purpose .block-tag { color: var(--blue-light); }
+    .play-block.output .block-tag { color: #5fdb88; }
+    .play-block.failure .block-tag { color: #ff8a87; }
+    .play-block h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+    .play-block p { font-size: 14.5px; color: var(--grey-100); line-height: 1.65; }
+    .play-block p + p { margin-top: 10px; }
 
-    /* Ranked list (for SuperC, alternatives) */
-    .rank-list { list-style: none; padding: 0; }
-    .rank-list li { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
-    .rank-list li .rank { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; border-radius: 6px; width: 36px; height: 36px; }
-    .rank-list li .rank.muted { background: var(--card-border-strong); color: var(--grey-200); }
-    .rank-list li h5 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .rank-list li p { font-size: 13.5px; color: var(--grey-200); line-height: 1.55; }
+    /* Step rows for "what to actually do" */
+    .step-row { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px dashed var(--card-border); }
+    .step-row:first-of-type { padding-top: 6px; }
+    .step-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+    .step-row .step-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; border-radius: 6px; width: 36px; height: 36px; }
+    .step-row h5 { color: #fff; font-size: 14.5px; font-weight: 700; margin-bottom: 3px; }
+    .step-row .meta { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--grey-300); margin-top: 4px; }
+    .step-row p { font-size: 13.5px; color: var(--grey-200); line-height: 1.55; }
 
-    /* POV stack (for Play Bigger 4-part argument) */
-    .pov-stack { display: grid; gap: 12px; }
-    .pov-step { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; padding: 18px 22px; }
-    .pov-step .label { display: block; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--yellow); letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase; }
-    .pov-step h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-    .pov-step p { font-size: 14.5px; color: var(--grey-100); line-height: 1.6; }
+    /* Trigger / Action / Reinforce row pattern (for daily-use frameworks) */
+    .tar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    @media (max-width: 760px) { .tar-grid { grid-template-columns: 1fr; } }
+    .tar-cell { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px 16px; }
+    .tar-cell .lbl { display: block; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 6px; }
+    .tar-cell h5 { color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .tar-cell p { font-size: 13px; color: var(--grey-100); line-height: 1.55; }
 
-    /* Triangle visual (Magic Triangle) */
-    .triangle-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-    @media (max-width: 760px) { .triangle-grid { grid-template-columns: 1fr; } }
-    .tri-side { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 18px 20px; border-top: 3px solid var(--yellow); }
-    .tri-side .tag { display: block; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.6px; margin-bottom: 6px; text-transform: uppercase; }
-    .tri-side h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .tri-side p { font-size: 13px; color: var(--grey-100); line-height: 1.55; }
-    .tri-side ul { margin-top: 8px; list-style: none; padding: 0; }
-    .tri-side ul li { font-size: 12.5px; color: var(--grey-200); padding: 4px 0 4px 14px; position: relative; line-height: 1.5; }
-    .tri-side ul li::before { content: "•"; position: absolute; left: 0; color: var(--yellow); }
-
-    /* Languaging FNC */
-    .fnc { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-    @media (max-width: 760px) { .fnc { grid-template-columns: 1fr; } }
-    .fnc-step { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 18px 20px; }
-    .fnc-step .step-tag { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--navy); background: var(--yellow); padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px; margin-bottom: 10px; font-weight: 700; }
-    .fnc-step h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .fnc-step p { font-size: 13px; color: var(--grey-100); line-height: 1.55; }
-
-    /* Phase strip (Define-Develop-Dominate) */
-    .phase-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 14px 0; }
-    @media (max-width: 760px) { .phase-strip { grid-template-columns: 1fr; } }
-    .phase { padding: 18px 20px; border-radius: var(--radius); border: 1px solid var(--card-border); }
-    .phase.active { background: var(--navy-card); border: 1px solid var(--yellow); border-top: 3px solid var(--yellow); }
-    .phase.muted { background: rgba(7,11,61,0.4); border: 1px solid var(--card-border); }
-    .phase .num { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--grey-300); }
-    .phase.active .num { color: var(--yellow); }
-    .phase h5 { color: #fff; font-size: 14px; font-weight: 700; margin-top: 4px; margin-bottom: 8px; }
-    .phase p { font-size: 12.5px; color: var(--grey-200); line-height: 1.55; }
+    /* Outline summary cards */
+    .outline-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px 22px; }
+    .outline-card h3 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .outline-card .label { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--yellow); letter-spacing: 0.6px; }
+    .outline-card dl { margin-top: 10px; display: grid; grid-template-columns: 130px 1fr; gap: 8px 14px; }
+    @media (max-width: 600px) { .outline-card dl { grid-template-columns: 1fr; gap: 4px 0; } .outline-card dt { margin-top: 8px; } }
+    .outline-card dt { font-size: 12px; color: var(--yellow); font-family: "JetBrains Mono", monospace; letter-spacing: 0.5px; text-transform: uppercase; padding-top: 2px; }
+    .outline-card dd { font-size: 13.5px; color: var(--grey-100); line-height: 1.55; }
 
     .panel-content ul.bullets { list-style: none; padding: 0; }
     .panel-content ul.bullets li { font-size: 14.5px; color: var(--grey-100); padding: 7px 0 7px 22px; position: relative; line-height: 1.55; }
@@ -156,7 +146,7 @@
       .ap-h2 { font-size: 22px; } .ap-h3 { font-size: 17px; }
       .ap-table { font-size: 12.5px; } .ap-table th, .ap-table td { padding: 9px 10px; }
       .ap-pullquote { padding: 16px 18px; } .ap-pullquote p { font-size: 16px; }
-      .qa-card { padding: 18px 18px; }
+      .play-block { padding: 18px 20px; }
     }
   </style>
 </head>
@@ -175,15 +165,16 @@
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
       <h1>Ad Pros Frameworks — Completed</h1>
-      <p>Each major category-design framework filled in with Ad Pros' specific answers</p>
+      <p>Working playbooks: how each framework operates at Ad Pros</p>
     </div>
   </header>
   <div class="ap-content">
 
     <div class="ap-hero">
-      <div class="ap-kicker">Working Document</div>
-      <h1 class="ap-display">Each framework, <em>filled in</em>.</h1>
-      <p class="ap-p-lg" style="margin-top:18px;max-width:740px;">Eight frameworks completed with Ad Pros' specific answers. Position: <strong style="color:#fff;">"performance partner for 8-figure operators."</strong> Best-fit: Dream Client per the deck — $3M+/mo revenue, $1M+/mo spend, $50-150 AOV, 30%+ repeat. Final tab combines all frameworks into one outline.</p>
+      <div class="ap-kicker">Working Playbooks</div>
+      <h1 class="ap-display">Each framework, <em>in operation</em>.</h1>
+      <p class="ap-p-lg" style="margin-top:18px;max-width:740px;">Eight frameworks turned into working playbooks for Ad Pros — what each one is for, what to do with it Monday morning, who runs it, what artifact it produces, what cadence it runs on, and what it changes downstream. The final tab combines all of them into a single operating system.</p>
+      <p class="ap-p" style="margin-top:14px;max-width:740px;color:var(--grey-300);">Position: <strong style="color:#fff;">"performance partner for 8-figure operators."</strong> Best-fit anchor: Dream Client per the 2026 deck — $3M+/mo revenue, $1M+/mo spend, $50-150 AOV, 30%+ repeat.</p>
     </div>
 
     <div class="tabs" role="tablist">
@@ -194,591 +185,688 @@
         <button class="tab-btn" data-tab="languaging"><span class="num">04</span>Languaging</button>
         <button class="tab-btn" data-tab="superconsumers"><span class="num">05</span>Superconsumers</button>
         <button class="tab-btn" data-tab="lifecycle"><span class="num">06</span>Lifecycle</button>
-        <button class="tab-btn" data-tab="laws"><span class="num">07</span>22 Laws</button>
+        <button class="tab-btn" data-tab="laws"><span class="num">07</span>5 Laws</button>
         <button class="tab-btn" data-tab="strike"><span class="num">08</span>Lightning Strike</button>
-        <button class="tab-btn" data-tab="outline"><span class="num">09</span>Outline All</button>
+        <button class="tab-btn" data-tab="outline"><span class="num">09</span>Operating System</button>
       </div>
     </div>
 
+    <!-- ============================================================ -->
     <!-- TAB 01: DUNFORD -->
+    <!-- ============================================================ -->
     <section class="tab-panel active" id="tab-dunford">
       <div class="panel-content">
-        <h2 class="ap-h2">Dunford's 5-component positioning, completed.</h2>
-        <p class="ap-p-lg">Walked end-to-end in the order Dunford prescribes. Each component constrains the next.</p>
+        <h2 class="ap-h2">Dunford → the discovery and qualification engine.</h2>
+        <p class="ap-p-lg">Dunford's framework isn't a brand exercise — it's the spine of how Ad Pros qualifies, pitches, and closes deals. Used right, it answers the only question that matters in a sales conversation: <em>why pick us over what you'd otherwise do?</em></p>
 
-        <div class="qa-card">
-          <span class="q">Component 01 — Competitive Alternatives</span>
-          <h4>If Ad Pros didn't exist, what would the operator do instead?</h4>
-          <ul class="rank-list" style="margin-top:14px;">
-            <li><span class="rank">1</span><div>
-              <h5>Run media in-house with a junior buyer</h5>
-              <p>The most common alternative. Operator promotes a marketing manager into a buying role. Cheaper on paper. Loses on creative volume, channel breadth, and senior judgment when accounts get sideways.</p>
-            </div></li>
-            <li><span class="rank">2</span><div>
-              <h5>A generalist agency on a flat retainer</h5>
-              <p>Common $5-15K/mo retainer with no kicker, mid-tier strategist, and limited creative output. Indifferent to outcomes. Operator churns out within 9-12 months when growth stalls.</p>
-            </div></li>
-            <li><span class="rank">3</span><div>
-              <h5>A boutique creative shop plus a freelance media buyer</h5>
-              <p>Two-vendor stack. Creative shop produces. Buyer runs platforms. No closed loop between what's tested and what's spent. Operator coordinates the gaps.</p>
-            </div></li>
-            <li><span class="rank">4</span><div>
-              <h5>A fractional CMO or growth advisor</h5>
-              <p>Senior strategy without execution. $8-20K/mo for advisory, no production capacity, no media operations. Useful but doesn't solve the volume problem.</p>
-            </div></li>
-            <li><span class="rank">5</span><div>
-              <h5>A rival performance agency (Pilothouse, Common Thread, Disruptive)</h5>
-              <p>The named-competitor alternatives. Comparable creative + media capability. Mostly flat retainers without true performance kickers. Less proprietary AI infrastructure.</p>
-            </div></li>
-          </ul>
-          <p class="answer" style="margin-top:14px;"><strong style="color:#fff;">Status quo to beat:</strong> "in-house with a junior buyer" — alternative 1 is the dominant default. Most lost deals lose to this, not to another agency.</p>
+        <div class="play-block purpose">
+          <span class="block-tag">What it's for</span>
+          <h4>Replacing pitch-by-features with pitch-by-alternatives</h4>
+          <p>Most agency pitches lead with services and case studies. Dunford forces a different sequence: name what the prospect would do without you (the alternative), name the capability gap that beats it, name the value the gap creates, name why this prospect specifically cares, name the category the conversation lives in. Every pitch surface — discovery script, deck, proposal, follow-up email — gets rewritten in this order.</p>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Component 02 — Differentiated Capabilities</span>
-          <h4>What does Ad Pros have that the alternatives don't?</h4>
-          <div class="answer">Capabilities tested against the five alternatives above. Each one must be absent or weaker in alternatives to count as differentiated.</div>
-          <ul class="bullets" style="margin-top:10px;">
-            <li><strong style="color:#fff;">CPA-linked variable fee structure</strong> at scale (4% down to 1.5% across $125K-$5M tiers, all channels included). In-house and freelance can't price this way; rival agencies mostly don't.</li>
-            <li><strong style="color:#fff;">Creator Performance Network with 7/3 economics</strong> — only model where agency, brand, and creator share spend-based upside. No competitor offers this structurally.</li>
-            <li><strong style="color:#fff;">Proprietary AI intelligence stack</strong> — competitive intelligence platform processing 5K+ Meta ads/day, 8-agent ClickUp workflow system, BigQuery + Supabase + Claude API infrastructure. Most agencies have none of this.</li>
-            <li><strong style="color:#fff;">9 Creative Dimensions + Creative Matrix + Breakthrough classification</strong> — named scoring system for creative diversity and performance tagging. Most competitors don't have a system; they have opinions.</li>
-            <li><strong style="color:#fff;">Multi-channel breadth at scale</strong> — Meta, Google, YouTube, AppLovin, TikTok + Shop, Native (Taboola/Outbrain), Snap, Pinterest, CTV, Bing, LinkedIn, Reddit. Proven across 12 platforms with named-client case studies.</li>
-            <li><strong style="color:#fff;">26-person team across 7 countries</strong> with senior operators leading accounts, not account managers. Headcount and seniority that in-house teams and small agencies can't match.</li>
-            <li><strong style="color:#fff;">Named-client proof at 8-figure scale</strong> — AG1, Kachava ($4M/mo managed), Canada Goose, Support Pets ($2M/mo, 10x'd revenue), Audien Hearing ($2M/mo), Infiniwell ($1M+/mo, 60% retention). Reference set most competitors can't match.</li>
-          </ul>
+        <div class="play-block do">
+          <span class="block-tag">How to actually use it</span>
+          <h4>Run the framework once internally, then bake it into every sales artifact</h4>
+
+          <div class="step-row"><div class="step-num">1</div><div>
+            <h5>Half-day workshop, leadership only</h5>
+            <p>Nehal + Katherine + Dani + sales lead. Block 4 hours. Walk the 5-component sequence on a whiteboard for Ad Pros. Output: one canonical positioning page in Notion or docs.adpros.com. Reference document for everything downstream.</p>
+            <p class="meta">OWNER: Nehal · TIME: 4 hours one-time</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">2</div><div>
+            <h5>Rewrite the discovery script around competitive alternatives</h5>
+            <p>Open every discovery call with "what are you doing today for media buying?" and "if you weren't talking to us, what would you do?" — not "tell us about your business." The sales rep listens for which of the five alternatives the prospect names, then matches their pitch to the differentiator that beats <em>that specific alternative</em>.</p>
+            <p class="meta">OWNER: sales lead · TIME: 1 day to rewrite, ongoing in every call</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">3</div><div>
+            <h5>Build a four-version deck, one per alternative</h5>
+            <p>Same deck skeleton, four variants. The "vs. in-house" version leads with operational depth and senior-team comparison. The "vs. generalist agency" version leads with the kicker structure and CPN. The "vs. boutique + freelance" version leads with closed-loop integration. The "vs. fractional CMO" version leads with execution capacity. Sales picks the version after discovery.</p>
+            <p class="meta">OWNER: Nehal + design · TIME: 1 week to build, deployed once</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">4</div><div>
+            <h5>Add the "best-fit gate" to the lead form</h5>
+            <p>Three qualifying questions on adpros.com inquiry form: monthly revenue, monthly spend, repeat-customer rate. Anything below thresholds gets a different intake flow, not the partnership-pitch flow. The gate enforces the best-fit definition before sales time gets spent.</p>
+            <p class="meta">OWNER: web + sales ops · TIME: 1 day to build</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">5</div><div>
+            <h5>Audit every existing sales artifact against the framework</h5>
+            <p>Sales deck, proposal template, contract preamble, follow-up email sequences, case studies. Each one gets a Dunford pass: does it lead with the alternative, name the capability gap, translate to value, address best-fit, anchor in category? Where it doesn't, rewrite.</p>
+            <p class="meta">OWNER: Nehal + Katherine · TIME: 2-3 days</p>
+          </div></div>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Component 03 — Differentiated Value</span>
-          <h4>What value does each capability deliver to the operator?</h4>
-          <table class="ap-table" style="margin-top:14px;">
-            <thead><tr><th>Capability</th><th>Value to operator</th></tr></thead>
-            <tbody>
-              <tr><td>CPA-linked fees</td><td>Spend more confidently — agency cost falls if performance falls. Variance protection for the operator's P&amp;L.</td></tr>
-              <tr><td>CPN 7/3 economics</td><td>Creator content with built-in performance accountability. Creators earn more on hits, brand pays only on actual spend.</td></tr>
-              <tr><td>AI intelligence stack</td><td>See the market 30 days ahead of competitors. Brief decisions backed by 5K+ ad signals/day instead of one team's gut.</td></tr>
-              <tr><td>9 Dimensions + Matrix</td><td>Stop relying on creative luck. Diversified test plans engineer breakthroughs at 1+/month at scale.</td></tr>
-              <tr><td>Multi-channel breadth</td><td>Diversify away from Meta dependency. Find the next 7 figures of spend on a channel competitors haven't cracked.</td></tr>
-              <tr><td>Senior-operator team</td><td>Calls get answered by people who've spent eight figures on the same problem before. Account doesn't get parked with a junior on Friday afternoon.</td></tr>
-              <tr><td>Named-client proof</td><td>De-risk the decision. The CFO has a reference set for justifying the engagement to the board.</td></tr>
-            </tbody>
-          </table>
+        <div class="play-block output">
+          <span class="block-tag">What it produces</span>
+          <h4>One positioning page + four-variant pitch deck + qualifying gate</h4>
+          <p>The canonical positioning page becomes the source of truth for messaging across the company — anyone writing copy, recording video, or pitching reads from it. The four-variant deck lets sales tailor the pitch in real-time based on what the prospect surfaces in discovery. The qualifying gate stops Ad Pros from wasting sales time on sub-Dream-Client prospects.</p>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Component 04 — Best-Fit Customers</span>
-          <h4>Who cares most about the differentiated value?</h4>
-          <p class="answer">The Dream Client filter from the 2026 deck, sharpened with three additional signals from Yoon's Superconsumers framework:</p>
-          <ul class="bullets" style="margin-top:10px;">
-            <li><strong style="color:#fff;">Revenue:</strong> $3M+/mo ($250K minimum)</li>
-            <li><strong style="color:#fff;">Spend:</strong> $1M+/mo ($100K minimum, but partnership pricing requires $250K+)</li>
-            <li><strong style="color:#fff;">AOV:</strong> $50-150 (mass-market range where performance media compounds)</li>
-            <li><strong style="color:#fff;">Repeat revenue:</strong> 30%+ — proves LTV economics support premium fees</li>
-            <li><strong style="color:#fff;">Offer:</strong> mass-market with clear avatar, proven scaling history</li>
-            <li><strong style="color:#fff;">Founder profile:</strong> founder-led or founder-adjacent decision-maker who treats spend as a P&amp;L line, not a marketing expense</li>
-            <li><strong style="color:#fff;">Prior agency history:</strong> tried 2+ agencies before — knows what bad looks like, can recognize different</li>
-            <li><strong style="color:#fff;">Decision speed:</strong> can sign within 30 days of a qualified discovery call, not a 6-month enterprise procurement cycle</li>
-          </ul>
-          <p class="answer" style="margin-top:12px;"><strong style="color:#fff;">In one sentence:</strong> founder-led DTC ecommerce brands at $3M+/mo revenue with $250K+/mo paid spend, 30%+ repeat economics, who have already failed with one or two prior agencies and know they need a partner, not a vendor.</p>
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>Built once. Audited quarterly. Rewritten when reality shifts.</h4>
+          <p>The framework gets a one-time build. The artifacts that come from it run for a year minimum. Quarterly: review which alternative is winning the most lost deals, sharpen the pitch against it. When a new product launches (Intelligence Stack), when the economy shifts, or when a new competitor enters — rerun the framework end-to-end.</p>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Component 05 — Market Category</span>
-          <h4>What category puts the differentiated value in the right context?</h4>
-          <div class="answer">Three plausible categories. The right one is the one that makes the differentiated value obvious to the best-fit customer.</div>
-          <ul class="rank-list" style="margin-top:14px;">
-            <li><span class="rank">1</span><div>
-              <h5>Performance partner (recommended)</h5>
-              <p>Implies shared economics, peer-level relationship, outcome accountability. Filters in operators who think in P&amp;L, filters out brands shopping for cheapest retainer. Protects the kicker pricing structure.</p>
-            </div></li>
-            <li><span class="rank muted">2</span><div>
-              <h5>Performance agency</h5>
-              <p>Closer to incumbent. Fits the kicker model but doesn't differentiate on relationship structure. Default category most rivals already claim.</p>
-            </div></li>
-            <li><span class="rank muted">3</span><div>
-              <h5>Growth partner / fractional CMO</h5>
-              <p>Better relationship signal than "agency" but loses the operational depth Ad Pros actually delivers. Wrong fit for a 26-person execution team.</p>
-            </div></li>
-          </ul>
-          <div class="ap-callout" style="margin-top:16px;">
-            <strong>Final positioning sentence</strong>
-            <span style="font-size:16px;color:#fff;font-weight:600;">Performance partner for 8-figure operators.</span>
-          </div>
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Discovery questions, proposal language, win-rate diagnostics</h4>
+          <p>Once Dunford is baked in, sales conversations get measurably shorter. Prospects who don't fit the best-fit profile drop off earlier. Proposals stop reading like service menus and start reading like deal structures. Lost-deal post-mortems become useful — instead of "they went cheaper," sales can name which alternative beat Ad Pros and on which dimension. That insight feeds the next quarterly audit.</p>
+        </div>
+
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Treating the framework as a brand exercise</h4>
+          <p>The most common mistake: completing the framework, publishing it as a positioning doc, then leaving sales to keep pitching the way they always did. The framework only works if it changes <em>what gets said in real conversations</em>. If Nehal completes the components but Dani's discovery calls still open with "tell us about your business," Dunford stays a document, not an operating system.</p>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- TAB 02: POV -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-pov">
       <div class="panel-content">
-        <h2 class="ap-h2">Play Bigger's POV, completed.</h2>
-        <p class="ap-p-lg">A POV is not a tagline — it's a four-part argument. Frame the problem, name the cost, describe the future, place the company. This is the manifesto skeleton.</p>
+        <h2 class="ap-h2">POV → the manifesto Ad Pros references everywhere.</h2>
+        <p class="ap-p-lg">The Point of View isn't marketing copy. It's the foundational argument every other communication points back to. Once published, it becomes the citation Nehal references on podcasts, the article sales sends pre-call, the document the team reads on day one of onboarding.</p>
 
-        <div class="pov-stack">
-          <div class="pov-step">
-            <span class="label">01 — Frame the problem</span>
-            <h4>The agency model is structurally misaligned with the operators it serves.</h4>
-            <p>Most performance agencies bill flat retainers regardless of outcome. Their economics reward keeping the account, not winning for the account. When media performance dips, the agency invoice doesn't. When the creative is mediocre, the agency still gets paid. When a brand needs to scale or pivot, the agency optimizes for retention, not transformation. The operator sees an inverted incentive — the agency's worst month is still a profitable month, while the operator's worst month threatens the business. Vendors thrive on misalignment. Operators starve from it.</p>
-          </div>
-          <div class="pov-step">
-            <span class="label">02 — Name the cost of inaction</span>
-            <h4>The cost of vendor relationships is paid in variance, not fees.</h4>
-            <p>Operators who run misaligned agency relationships don't lose money on the fees themselves. They lose it on the variance the relationship produces — wasted spend on under-tested creative, channel concentration that breaks when the algorithm shifts, retention costs from missed onboarding flows, and the opportunity cost of a year spent rebuilding what should have been built right the first time. A $5M brand running with a flat-retainer agency loses $300K-$800K/year to variance the agency has no economic reason to fix. Multiply that across years. Multiply that across the brands that fold before reaching 9 figures because their growth partner had nothing on the line.</p>
-          </div>
-          <div class="pov-step">
-            <span class="label">03 — Describe the future</span>
-            <h4>Performance partnerships replace vendor relationships.</h4>
-            <p>The next decade of growth marketing belongs to agencies that price like operators — fees that scale with performance, kickers that compound with spend, and creative networks where everyone in the value chain shares upside. The agency floor becomes minimal; the variable component dominates. Creators stop earning per-asset fees and start earning a share of spend. Brands stop buying retainers and start buying outcomes. The agency that lives this model attracts the operators who think this way, and the operators it attracts make the agency stronger. The flywheel stops being about deliverables and starts being about results.</p>
-          </div>
-          <div class="pov-step">
-            <span class="label">04 — Place Ad Pros</span>
-            <h4>Ad Pros is the performance partner for 8-figure operators.</h4>
-            <p>Ad Pros runs the structure other agencies have always promised but never built. Variable fees scale with the operator's CPA. The Creator Performance Network shares spend economics with creators. The proprietary intelligence stack — Noor — sees the market 30 days ahead of competitors. The team is built from senior operators, not account managers. The pricing protects the operator on the downside and rewards Ad Pros on the upside. Every part of the model exists to deliver one thing: the next million per month, with shared accountability for whether it lands.</p>
-          </div>
+        <div class="play-block purpose">
+          <span class="block-tag">What it's for</span>
+          <h4>One canonical argument that explains why Ad Pros exists</h4>
+          <p>Most agencies have a tagline and a services page. Neither answers "why does this company need to exist?" The POV answers it in 2,500-3,000 words. Once it exists, every shorter communication — IG post, podcast clip, sales pitch, recruiting message — becomes a referenced excerpt of the larger argument. That referencing creates consistency at scale that no individual artifact can.</p>
         </div>
 
-        <div class="ap-callout" style="margin-top:18px;">
-          <strong>How to use this</strong>
-          This is the spine of the manifesto. Expand each section to 400-700 words. Total target: 2,000-3,000 word document published at docs.adpros.com. Reference it from every sales conversation, podcast, and recruiting call. The POV is the substrate everything else gets built on.
+        <div class="play-block do">
+          <span class="block-tag">How to actually use it</span>
+          <h4>Write it once, then point everything to it</h4>
+
+          <div class="step-row"><div class="step-num">1</div><div>
+            <h5>Draft the manifesto using the four-part skeleton</h5>
+            <p>Frame the problem (agencies are misaligned with operators), name the cost ($300K-$800K per $5M brand annually lost to variance), describe the future (performance partnerships replace vendor relationships), place Ad Pros (the structure other agencies promised but never built). Each section 600-800 words. Total 2,500-3,000.</p>
+            <p class="meta">OWNER: Nehal · TIME: 8-12 hours of writing</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">2</div><div>
+            <h5>Publish at docs.adpros.com</h5>
+            <p>Permanent URL. Versioned. Referenced from sales emails, podcast bios, the website footer, recruiting pages, and the deck appendix. Every Ad Pros employee reads it on day one. Every prospect receives it before discovery.</p>
+            <p class="meta">OWNER: Nehal + comms · TIME: 1 day to publish</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">3</div><div>
+            <h5>Create five derivatives within 30 days of publishing</h5>
+            <p>One Twitter/X thread (12 posts), one LinkedIn long-form post, one IG carousel (10 slides), one 10-minute podcast monologue, one short loom for the deck appendix. Each derivative is a different format of the same argument — no new claims, just compression.</p>
+            <p class="meta">OWNER: comms + Nehal · TIME: 1 week</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">4</div><div>
+            <h5>Wire it into the discovery flow</h5>
+            <p>Every prospect who books a discovery call receives an email with the manifesto link two days before. Sales opens the call with "did you read the manifesto?" — if yes, the conversation jumps ahead by 20 minutes. If no, sales spends the first 5 minutes summarizing the four-part argument before getting into the prospect's situation.</p>
+            <p class="meta">OWNER: sales + ops · TIME: 1 day to set up automation</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">5</div><div>
+            <h5>Update once a year</h5>
+            <p>The manifesto is not static. Annual review. New examples replace dated ones. New case studies promoted into the argument. New industry shifts addressed. Versioned (v1, v2) so historical references still work but the current canonical is always current.</p>
+            <p class="meta">OWNER: Nehal · TIME: 1 day annually</p>
+          </div></div>
+        </div>
+
+        <div class="play-block output">
+          <span class="block-tag">What it produces</span>
+          <h4>A 3,000-word document everything points back to</h4>
+          <p>Output is a long-form argument with a stable URL. Cited from podcast bios, sales emails, the website footer, IG bios, recruiting pages. The artifact's value compounds over time — each new derivative reinforces the original, each citation drives traffic back to the canonical. After a year, the manifesto becomes the most-read page on docs.adpros.com.</p>
+        </div>
+
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>Written once. Referenced daily. Updated annually.</h4>
+          <p>The POV is not a content channel. It's a foundational document. Daily activity references it (every IG post, every sales email). Quarterly activity tests it (does the argument still hold against new market data?). Annually it gets a refresh. The compound effect comes from the reference frequency, not the rewrite frequency.</p>
+        </div>
+
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Sales velocity, content cadence, recruiting conversion</h4>
+          <p>Pre-read prospects close in 30-50% fewer calls because they walk in agreeing with the premise. Content production gets faster — every post, video, or deck slide can be sourced from the manifesto rather than generated from scratch. Recruiting improves because senior operators self-select; people who agree with the POV are the people Ad Pros wants to hire, and the manifesto tells them whether they fit before they apply.</p>
+        </div>
+
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Writing it and forgetting it</h4>
+          <p>The failure mode is treating the POV as a publishing event rather than an operating system. Manifestos that sit on a website without being referenced lose authority within 6 months. The discipline is to make the POV the most-cited internal document in the company — referenced in every Slack debate about positioning, every sales objection-handling guide, every onboarding doc. If Ad Pros employees can't quote three sentences from it after 60 days, the manifesto failed to operationalize.</p>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- TAB 03: MAGIC TRIANGLE -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-triangle">
       <div class="panel-content">
-        <h2 class="ap-h2">The Magic Triangle, completed.</h2>
-        <p class="ap-p-lg">Three sides — product design, company design, category design — must reinforce each other. Filled in for Ad Pros below.</p>
+        <h2 class="ap-h2">Magic Triangle → the consistency check before any decision.</h2>
+        <p class="ap-p-lg">The Magic Triangle isn't an exercise — it's a decision filter. Every meaningful Ad Pros decision (new pricing, new hire, new service, new client) gets evaluated against three questions: does this fit the position, does it fit the product offering, does it fit the company. Decisions that fail on any side weaken the position over time even when they look profitable in isolation.</p>
 
-        <div class="triangle-grid">
-          <div class="tri-side">
-            <span class="tag">Side 01</span>
-            <h4>Product Design</h4>
-            <p>The services and how they're priced. Goal: product/category fit — every offering reinforces "performance partnership."</p>
-            <ul>
-              <li>CPA kicker pricing across all media buying tiers</li>
-              <li>CPN 7/3 split (live with N brands, not "coming soon")</li>
-              <li>Creative system (9 Dimensions + Matrix) bundled with production, not sold standalone</li>
-              <li>Intelligence Stack as named platform, not three "coming soon" line items</li>
-              <li>Tier floors aligned with Dream Client filter ($250K+ spend minimum)</li>
-            </ul>
-          </div>
-          <div class="tri-side">
-            <span class="tag">Side 02</span>
-            <h4>Company Design</h4>
-            <p>The team, structure, and operations. Goal: company/category fit — the company runs the way the category requires.</p>
-            <ul>
-              <li>26 senior operators across 7 countries — no junior account managers</li>
-              <li>BigQuery + Supabase + Claude API stack — operator infrastructure, not agency stack</li>
-              <li>Founder-led (Nehal) with named team leads (Katherine, Pedro, Chino, Dani) — partner-level engagement</li>
-              <li>Compensation tied to client outcomes where structurally possible</li>
-              <li>Internal AI agents (Noor) handling ops Anthropic-grade workflow most agencies don't run</li>
-            </ul>
-          </div>
-          <div class="tri-side">
-            <span class="tag">Side 03</span>
-            <h4>Category Design</h4>
-            <p>The category Ad Pros claims and how it's named. Goal: own "performance partner" in the operator's mind.</p>
-            <ul>
-              <li>Position: "Performance partner for 8-figure operators"</li>
-              <li>Audience: 8-figure operator (replaces "founder," "brand")</li>
-              <li>Asset claim: Creator Performance Network — only network with 7/3 economics</li>
-              <li>Languaging audit across all surfaces (website, deck, IG, email)</li>
-              <li>Lightning Strike planned for Q3 to anchor the position publicly</li>
-            </ul>
-          </div>
+        <div class="play-block purpose">
+          <span class="block-tag">What it's for</span>
+          <h4>Catching position-eroding decisions before they ship</h4>
+          <p>Ad Pros makes 50+ meaningful business decisions per quarter — pricing tweaks, new service offerings, hiring choices, client acceptance, partnership proposals, content angles. Without a filter, each decision optimizes locally and the position drifts globally. The triangle is the filter: it forces every decision through three questions before approval. Decisions that strengthen all three sides get fast-tracked. Decisions that weaken any side need explicit justification.</p>
         </div>
 
-        <div class="ap-callout warn" style="margin-top:20px;">
-          <strong>Where the triangle currently breaks</strong>
-          Product side is the weakest. The 2026 deck still prices $24K monthly with only 37% variable share — this is a vendor proposal in partnership clothing. Company and category sides are stronger and more defensible. Fixing product-side pricing brings all three into alignment.
+        <div class="play-block do">
+          <span class="block-tag">How to actually use it</span>
+          <h4>Three questions, asked in order, on every meaningful decision</h4>
+
+          <div class="step-row"><div class="step-num">Q1</div><div>
+            <h5>Does it fit the category? (Position-fit)</h5>
+            <p>Does this decision reinforce "performance partner for 8-figure operators" — or weaken it? A new pricing tier that targets $50K/mo brands fails position-fit even if revenue-positive. A senior hire who's only worked at agencies passes position-fit if they bring partnership experience.</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">Q2</div><div>
+            <h5>Does it fit the product? (Product-category fit)</h5>
+            <p>Does this decision reinforce or contradict the existing service architecture? Adding "agency-level SEO" services would fail because it's not a performance-partnership service. Adding "AI breakthrough scoring" passes because it sharpens the existing creative system.</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">Q3</div><div>
+            <h5>Does it fit the company? (Company-category fit)</h5>
+            <p>Does this decision require capabilities the current team doesn't have, infrastructure that doesn't exist, or operating models that contradict the current structure? Taking on a $200K/mo retainer client fails if the team can't deliver senior-operator service at that floor. Adding a fractional CMO offering fails if no one on the team has the credibility for it.</p>
+          </div></div>
         </div>
 
-        <div class="ap-pullquote" style="margin-top:14px;">
-          <p>"Category design is the single point of failure. You can have great product and company design and still lose if the category is wrong, miscommunicated, or undefended."</p>
-          <div class="source">Category Pirates</div>
+        <div class="play-block output">
+          <span class="block-tag">What it produces</span>
+          <h4>A simple yes/no/needs-work answer on every decision</h4>
+          <p>Decisions that pass all three sides: ship without further debate. Decisions that fail one side: explicitly accept the cost or redesign the decision until it passes. Decisions that fail two or more sides: reject. The triangle isn't bureaucracy — it's a 90-second mental check that prevents 90% of position-eroding moves before they happen.</p>
+        </div>
+
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>Applied to every meaningful decision in real-time</h4>
+          <p>Not a quarterly review. Not a strategic planning session. A real-time filter applied in the moment a decision surfaces. Used in: leadership 1:1s ("does this hire pass the triangle?"), pricing discussions ("does this discount break product-fit?"), client-acceptance conversations ("is this client worth the position drag?"), partnership pitches ("does this co-marketing arrangement reinforce the category?"). The triangle's value comes from frequency of use, not depth of analysis.</p>
+        </div>
+
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Strategic discipline replaces revenue opportunism</h4>
+          <p>Once the triangle is the standard, Ad Pros stops taking on position-eroding revenue. Sub-Dream-Client deals get politely declined. Service expansions outside the partnership category get rejected. Hires that don't fit the senior-operator profile get filtered out. Each individual "no" looks like a missed opportunity. Compounded across a year, the "no's" are what protect the position from drift.</p>
+        </div>
+
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Skipping the filter when the revenue is tempting</h4>
+          <p>The first $50K/mo proposal from a $1M/year brand will tempt the team to skip the filter "just this once." So will the first request to add a service the team has capacity for. The triangle only works as a filter if it's applied <em>especially</em> to the tempting cases — those are the decisions that drift the position over time. The discipline is to apply it more rigidly when the revenue argument is strongest.</p>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- TAB 04: LANGUAGING -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-languaging">
       <div class="panel-content">
-        <h2 class="ap-h2">Languaging — Frame It, Name It, Claim It.</h2>
-        <p class="ap-p-lg">Three operations applied to Ad Pros. The strategic use of language to change how the market thinks about the agency.</p>
+        <h2 class="ap-h2">Languaging → the ongoing word audit.</h2>
+        <p class="ap-p-lg">Languaging is not a one-time rename. It's a continuous discipline of replacing vendor language with partner language across every artifact, every communication, every piece of internal copy — and catching drift when it sneaks back in.</p>
 
-        <div class="fnc">
-          <div class="fnc-step">
-            <span class="step-tag">Frame It</span>
-            <h4>The problem language</h4>
-            <p>Define the problem the market doesn't yet have words for. "Vendor agencies are misaligned with operators." "Flat retainers reward retention, not results." "Creators get paid per asset, not per outcome." "Performance media is run on opinions, not data signal." Each frame puts the existing model on the wrong side of the argument before naming the alternative.</p>
-          </div>
-          <div class="fnc-step">
-            <span class="step-tag">Name It</span>
-            <h4>The category language</h4>
-            <p>Three names to install everywhere. <strong style="color:#fff;">Performance partner</strong> (replaces agency, vendor, shop). <strong style="color:#fff;">8-figure operator</strong> (replaces founder, brand, DTC company). <strong style="color:#fff;">Creator Performance Network</strong> (replaces UGC management, creator program). Each name is bookable, defensible, memorable, and structurally tied to the differentiated capability.</p>
-          </div>
-          <div class="fnc-step">
-            <span class="step-tag">Claim It</span>
-            <h4>The saturation language</h4>
-            <p>Saturation across surfaces in one week, not six months. Website hero, IG bios (Nehal + Ad Pros), LinkedIn company tagline, email signatures, deck cover, contract preambles, Slack channel descriptions, podcast bios, podcast intros. Same three names, same frame, same POV. Languaging only works at saturation — the market needs to hear the same words from multiple directions before it accepts the category.</p>
-          </div>
+        <div class="play-block purpose">
+          <span class="block-tag">What it's for</span>
+          <h4>Saturating the market with three names until they become category</h4>
+          <p>The market doesn't believe a positioning until it hears the same words from multiple directions repeatedly. Ad Pros has three names to install: <strong style="color:#fff;">"performance partner"</strong> (what Ad Pros is), <strong style="color:#fff;">"8-figure operator"</strong> (who Ad Pros serves), <strong style="color:#fff;">"Creator Performance Network"</strong> (the category-claim asset). Languaging is the discipline of getting these three names into every public surface, every contract, every podcast appearance, every internal Slack channel — until the market starts using them back.</p>
         </div>
 
-        <h3 class="ap-h3" style="margin-top:24px;">Vendor language → Partner language audit</h3>
-        <table class="ap-table">
-          <thead><tr><th>Retire</th><th>Why</th><th>Install</th></tr></thead>
-          <tbody>
-            <tr><td>"Total investment: $24,060/month"</td><td>Vendors sell investments. Partners share economics.</td><td>"Partnership economics: $X floor + Y% of spend"</td></tr>
-            <tr><td>"Creative Strategy" / "Creative Production"</td><td>Generic agency nouns.</td><td>"The Breakthrough System" / "Creative Operations"</td></tr>
-            <tr><td>"Coming Soon"</td><td>Signals side project — wrong frame for category-claim assets.</td><td>"Live with N brands" or "Now in market"</td></tr>
-            <tr><td>"Add Your Next Million A Month"</td><td>Generic growth-shop tagline.</td><td>"Performance partner for 8-figure operators"</td></tr>
-            <tr><td>"Dream Client"</td><td>Implies the agency is dreaming. Inverts the partnership.</td><td>"Best-fit operator" or "Partnership-grade operator"</td></tr>
-            <tr><td>"Channels included"</td><td>Channel inventory is a vendor trait.</td><td>"All channels covered. We pick where your spend wins."</td></tr>
-            <tr><td>"Clients: AG1, Kachava..."</td><td>Logo dump.</td><td>"Operators we partner with."</td></tr>
-            <tr><td>"$2,500 / month" tier headers</td><td>Reads as a price comparison shelf.</td><td>"Foundation tier — for operators committing $X+ in monthly spend"</td></tr>
-          </tbody>
-        </table>
+        <div class="play-block do">
+          <span class="block-tag">How to actually use it</span>
+          <h4>One-week saturation sprint, then ongoing word policing</h4>
 
-        <div class="ap-pullquote" style="margin-top:18px;">
-          <p>Henry Ford called the first car a "horseless carriage" — not a faster horse. Sara Blakely invented Spanx — not better shapewear. You "Google" something, you don't search-engine it. The words you choose shape the category.</p>
-          <div class="source">Languaging Law — Category Pirates</div>
+          <div class="step-row"><div class="step-num">1</div><div>
+            <h5>Run the one-week saturation sprint</h5>
+            <p>Block one full week. Audit and replace across every public surface: adpros.com homepage, sales deck, proposal template, contract preamble, IG bios (Nehal + Ad Pros), LinkedIn company page, email signatures (entire team), Slack channel descriptions, podcast bios, internal job titles. Don't stretch this over months — saturation is the point.</p>
+            <p class="meta">OWNER: Nehal + comms + ops · TIME: 1 week, full team</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">2</div><div>
+            <h5>Build the language-replacement reference card</h5>
+            <p>One Notion page or printable card with the retire/install pairs: "investment" → "partnership economics", "Creative Strategy" → "The Breakthrough System", "coming soon" → "live with N brands", "Dream Client" → "best-fit operator", "channels included" → "all channels covered", "we help brands grow" → "we partner with operators". Every team member has it pinned in Slack and on their desk.</p>
+            <p class="meta">OWNER: Nehal · TIME: 2 hours</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">3</div><div>
+            <h5>Add the language pass to every content workflow</h5>
+            <p>Every external artifact — IG post, LinkedIn post, podcast script, blog draft, sales email, deck slide — gets a language pass before publishing. The pass takes 60 seconds: scan for retired terms, check for the three names, fix and ship. This becomes a checkbox in every content review process.</p>
+            <p class="meta">OWNER: anyone publishing externally · TIME: 60 seconds per artifact</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">4</div><div>
+            <h5>Train the sales team to use the language live</h5>
+            <p>Sales calls are where the language either propagates or dies. Roleplay the discovery script with the new vocabulary. Record three calls per week, audit them for vendor-language drift, share findings with the team. Within 90 days, every sales rep speaks the new language naturally; the old language sounds wrong even on internal calls.</p>
+            <p class="meta">OWNER: Dani + sales lead · TIME: 1 hour weekly for 12 weeks</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">5</div><div>
+            <h5>Catch market echo and amplify it</h5>
+            <p>When prospects, clients, or peers start using the new language back ("we want a performance partner, not another agency") — capture it. Screenshot the message. Share it internally. Use it as proof in future sales conversations. Market echo is the leading indicator that languaging is working.</p>
+            <p class="meta">OWNER: comms · TIME: ongoing</p>
+          </div></div>
+        </div>
+
+        <div class="play-block output">
+          <span class="block-tag">What it produces</span>
+          <h4>Consistent language across every Ad Pros surface</h4>
+          <p>After 90 days: zero vendor-language artifacts public-facing. Every team member uses the three names without prompting. Sales calls open with "performance partner" within the first sentence. Contracts begin with partnership-economics language. The website, the deck, the IG, the podcast bios all reinforce the same three names. Market echo begins appearing in inbound discovery calls.</p>
+        </div>
+
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>One-week sprint, then continuous policing</h4>
+          <p>Initial sprint compresses the work into one week. After that, languaging becomes a 60-second checkbox on every external artifact and a weekly call audit for sales. Quarterly: full audit of public surfaces to catch drift. Languaging is never "done" — it's a permanent operating discipline like deployment hygiene in engineering.</p>
+        </div>
+
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Brand recall, market echo, recruit conversion</h4>
+          <p>Within 60 days: prospects reference Ad Pros by the new language in inbound emails. Within 90 days: peer agencies start mimicking the language (validation). Within 6 months: the three names appear in industry articles and podcast intros without Ad Pros prompting them. Recruiting conversion improves because the language attracts senior operators who want to work for a partner-model company, not a vendor agency.</p>
+        </div>
+
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Inconsistent application across surfaces</h4>
+          <p>The most common failure: the website gets updated, the IG bios get updated, but the sales deck still says "Total Investment: $24,060/month" and the contract still says "agency services agreement." The market doesn't process partial updates as repositioning — it processes them as marketing language inconsistency. If 80% of surfaces use the new language and 20% don't, market echo never starts. Saturation requires 100%.</p>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- TAB 05: SUPERCONSUMERS -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-superconsumers">
       <div class="panel-content">
-        <h2 class="ap-h2">Yoon's Superconsumers, mapped to Ad Pros.</h2>
-        <p class="ap-p-lg">In every category Yoon studied, ~10% of customers drive 30-70% of profit. Identifying Ad Pros' Superconsumer profile is the single highest-leverage exercise in the framework set.</p>
+        <h2 class="ap-h2">Superconsumers → the targeting loop that compounds.</h2>
+        <p class="ap-p-lg">Superconsumers isn't a customer-segmentation exercise — it's a closed loop. Identify Ad Pros' top 10% of clients by composite score. Reverse-engineer their commonality. Filter outbound to that profile only. Watch the next cohort of clients match the profile. Tighten the profile again. Repeat.</p>
 
-        <h3 class="ap-h3">The scoring inputs</h3>
-        <p class="ap-p">A client is scored on the four signals below. Top 10% by composite score are Superconsumers.</p>
-        <ul class="bullets">
-          <li><strong style="color:#fff;">Tenure (months)</strong> — longer is better; loyalty signals fit</li>
-          <li><strong style="color:#fff;">Monthly spend ($)</strong> — higher signals capacity and trust</li>
-          <li><strong style="color:#fff;">NPS / qualitative satisfaction</strong> — willingness to evangelize</li>
-          <li><strong style="color:#fff;">Referrals generated (count)</strong> — most important signal; Superconsumers recruit other Superconsumers</li>
-        </ul>
+        <div class="play-block purpose">
+          <span class="block-tag">What it's for</span>
+          <h4>Stop chasing the wrong fit; double down on the right one</h4>
+          <p>Most agency growth bottlenecks aren't about lead volume — they're about lead-quality variance. Ad Pros likely closes 1 in 10 of inbound and outbound combined. The 9 that don't close cost as much sales time as the 1 that does. Superconsumers is the framework that says: stop targeting all 10, target the profile of the 1 that closed best, retained longest, and referred most. The loop tightens over time as data gets clearer.</p>
+        </div>
 
-        <h3 class="ap-h3" style="margin-top:24px;">The Superconsumer profile (hypothesized from named clients)</h3>
-        <p class="ap-p">Based on the case-study set in the 2026 deck (AG1, Kachava, Canada Goose, Support Pets, Audien Hearing, Infiniwell), the common profile is:</p>
-        <ul class="rank-list">
-          <li><span class="rank">1</span><div>
-            <h5>Vertical: Health, supplements, pet, or premium DTC tech</h5>
-            <p>All current named-client wins cluster in these verticals. AG1 (health), Kachava (health), Support Pets (pet), Infiniwell (health), Audien (tech). Suggests product fit for high-AOV recurring-purchase categories with strong story potential.</p>
-          </div></li>
-          <li><span class="rank">2</span><div>
-            <h5>Spend: $1M+/mo within 6 months of engagement</h5>
-            <p>Operators willing to scale spend aggressively when the unit economics work. Kachava scaled to $4M/mo managed. Support Pets scaled to $2M/mo. Audien to $2M/mo. Brands that ramp this fast self-select into partnership pricing.</p>
-          </div></li>
-          <li><span class="rank">3</span><div>
-            <h5>Repeat revenue: 30-60%+</h5>
-            <p>Infiniwell sustained 60%+ retention at scale. The repeat economics are what make performance media compound. Brands without retention shouldn't be Ad Pros clients — the math doesn't work for either side.</p>
-          </div></li>
-          <li><span class="rank">4</span><div>
-            <h5>Founder profile: Operator-CFO, not creative founder</h5>
-            <p>Decision-makers who think in CAC, LTV, payback, and channel mix. Sign quickly when the math works. Reject pitches built on brand vibes. Want forecasts and cohort data, not mood boards.</p>
-          </div></li>
-          <li><span class="rank">5</span><div>
-            <h5>Channel mix: Multi-platform expansion mindset</h5>
-            <p>Willing to expand beyond Meta. Kachava expanded to Native (Taboola/Outbrain), TikTok, Pinterest. Audien scaled AppLovin and TikTok Shop. Brands that view channel diversification as a competitive advantage match Ad Pros' capability stack.</p>
-          </div></li>
-          <li><span class="rank">6</span><div>
-            <h5>Prior agency history: Tried 1-2 before</h5>
-            <p>They've felt vendor misalignment firsthand. They know what bad looks like. They're predisposed to recognize partnership economics as different. Hardest to convince when they haven't tried anyone before — easiest when they've fired someone.</p>
-          </div></li>
-        </ul>
+        <div class="play-block do">
+          <span class="block-tag">How to actually use it</span>
+          <h4>Quarterly scoring exercise that updates outbound targeting</h4>
 
-        <h3 class="ap-h3" style="margin-top:24px;">The exercise to actually run</h3>
-        <p class="ap-p">3-4 hours of work. Pull last 12 months of clients. Score on the four inputs. Identify top 10%. Compare against the hypothesized profile above. Where the data confirms, sharpen the ICP. Where the data contradicts, the hypothesis updates. The output is the new outbound target list and the qualifying questions for every inbound discovery call.</p>
+          <div class="step-row"><div class="step-num">1</div><div>
+            <h5>Pull the client roster and score it</h5>
+            <p>Every active and recently-churned client. Score on four signals: tenure (months active), monthly spend ($), satisfaction/NPS (1-10), referrals generated (count). Composite score = weighted average. Identify the top 10% by composite score. These are the Superconsumers.</p>
+            <p class="meta">OWNER: Nehal + ops · TIME: 3-4 hours quarterly</p>
+          </div></div>
 
-        <div class="ap-callout">
-          <strong>Why this matters more than any other exercise</strong>
-          The current outbound likely targets a wider net than the Superconsumer profile. Most agency growth is bottlenecked by chasing the wrong fit. Three-quarters of new client acquisition cost goes to deals that don't close or don't retain. Tightening the ICP to the Superconsumer profile compounds: better deals close faster, retain longer, refer more, and pay more.
+          <div class="step-row"><div class="step-num">2</div><div>
+            <h5>Profile the Superconsumers</h5>
+            <p>Document common attributes across the top 10%: vertical (health, supplements, pet, tech?), monthly spend tier, repeat rate, founder type (CFO-operator vs creative founder), prior agency history (1, 2, 3+ before Ad Pros), channel mix (Meta-only vs multi-channel), AOV range. Output: a one-page Superconsumer profile that's testable on any new prospect.</p>
+            <p class="meta">OWNER: Nehal · TIME: 2 hours quarterly</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">3</div><div>
+            <h5>Update outbound targeting to the profile</h5>
+            <p>Rebuild outbound prospecting around the Superconsumer profile. Apollo lists, LinkedIn searches, partner referral asks, podcast guest pitches — all filtered to brands that match the profile. Sub-profile prospects either get a different (more transactional) intake flow or get declined.</p>
+            <p class="meta">OWNER: sales lead + ops · TIME: 1 day to rebuild</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">4</div><div>
+            <h5>Add the profile to inbound qualification</h5>
+            <p>Sales discovery calls include 2-3 questions designed to test profile fit: "what's your repeat rate?" "what does your channel mix look like?" "have you worked with agencies before?" Sales scores fit during the call. Above-threshold prospects get the partnership pitch. Below-threshold get a different conversation.</p>
+            <p class="meta">OWNER: sales · TIME: ongoing in every call</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">5</div><div>
+            <h5>Run the scoring loop again next quarter</h5>
+            <p>90 days later: rerun the scoring on the new client roster. Did the new clients match the profile? Did the profile predict retention? Did Superconsumers refer? Tighten the profile based on the new data. Repeat indefinitely.</p>
+            <p class="meta">OWNER: Nehal + ops · TIME: 3-4 hours quarterly</p>
+          </div></div>
+        </div>
+
+        <div class="play-block output">
+          <span class="block-tag">What it produces</span>
+          <h4>A one-page Superconsumer profile + sharper outbound + faster qualification</h4>
+          <p>Tangible artifact: the one-page profile (vertical, spend tier, repeat rate, founder type, prior history, channel mix). Operational outputs: an outbound list filtered to the profile, a qualifying script that tests fit in 5 minutes, a quarterly report comparing actual closed clients against the profile to validate or update it.</p>
+        </div>
+
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>Quarterly scoring, continuous targeting, annual profile reset</h4>
+          <p>Quarterly: rescore the roster, refresh the profile, update outbound targeting. Continuous: every new lead gets scored against the profile during qualification. Annually: zoom out — does the Superconsumer profile from a year ago still hold, or has the market shifted? Treat the profile as a living document, not a static ICP definition.</p>
+        </div>
+
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Close rates climb. CAC falls. Retention improves. Referrals compound.</h4>
+          <p>Targeted outbound to a Superconsumer profile typically 2-3x's close rates within two quarters. Sales-cycle length drops 30-50% because qualifying mismatches happens earlier. Retention improves because new clients match the profile of clients who already retained well. Referrals compound because Superconsumers refer Superconsumers — the loop self-reinforces. Combined effect: revenue per sales hour roughly doubles.</p>
+        </div>
+
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Sentimentality keeping non-Superconsumers in the funnel</h4>
+          <p>The hardest part isn't the analysis — it's the discipline of <em>declining</em> non-Superconsumer revenue. Founders feel guilty turning down a $1.5M/year brand that's a poor profile fit because the revenue is real. The framework only works if Ad Pros says no to non-fit clients. Each "yes" to a non-Superconsumer client is a quarter of dragged-down retention metrics, diluted case-study fit, and team morale slippage. The loop only tightens if the discipline holds.</p>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- TAB 06: LIFECYCLE -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-lifecycle">
       <div class="panel-content">
-        <h2 class="ap-h2">Define-Develop-Dominate, applied.</h2>
-        <p class="ap-p-lg">Play Bigger's category lifecycle. Three phases. Knowing which phase determines strategy. The category Ad Pros plays in — performance marketing agencies — is in a different phase than the sub-category Ad Pros wants to claim.</p>
+        <h2 class="ap-h2">Lifecycle → the strategic clock.</h2>
+        <p class="ap-p-lg">Define-Develop-Dominate isn't a model to admire — it's a clock. Knowing which phase a category is in tells Ad Pros what to do, what not to do, and how fast to move. The performance-partnership sub-category is in Define right now, and the window is closing.</p>
 
-        <h3 class="ap-h3">Two parallel lifecycles to track</h3>
-
-        <h4 class="ap-h4" style="margin-top:18px;">Lifecycle A: Performance marketing agencies (the broad category)</h4>
-        <div class="phase-strip">
-          <div class="phase muted">
-            <span class="num">PHASE 1</span>
-            <h5>Define</h5>
-            <p>Many companies swarm a problem. No clear king. Era of "growth hacking" 2010-2015.</p>
-          </div>
-          <div class="phase muted">
-            <span class="num">PHASE 2</span>
-            <h5>Develop</h5>
-            <p>Major players emerge: Common Thread Collective, Pilothouse, Disruptive, Trend. 2016-2022.</p>
-          </div>
-          <div class="phase active">
-            <span class="num">PHASE 3 — current</span>
-            <h5>Dominate</h5>
-            <p>Mature category with established incumbents and known economics. Hard to enter as a new general-purpose performance agency.</p>
-          </div>
+        <div class="play-block purpose">
+          <span class="block-tag">What it's for</span>
+          <h4>Knowing whether to move fast or build slowly</h4>
+          <p>The phase determines strategy. In Define phase, the goal is to anchor — claim the language, publish the manifesto, mobilize a Lightning Strike before competitors do. In Develop phase, the goal is to defend — protect the position from challengers, expand the moat, lock in customer relationships. In Dominate phase, the goal is to extend — leverage the king position into adjacent categories. Mistaking the phase wastes a year. Ad Pros' broader category (performance agencies) is in Dominate; the sub-category Ad Pros wants (performance-partnership agencies) is in Define. Strategy must serve the sub-category clock, not the broad-category clock.</p>
         </div>
-        <p class="ap-p">Implication: Ad Pros cannot win by being a better generalist performance agency in a Dominate-phase market. The economics reward incumbents. The strategy is sub-category creation — claim a specific lane within performance agencies that incumbents haven't owned.</p>
 
-        <h4 class="ap-h4" style="margin-top:24px;">Lifecycle B: Performance partnership agencies (the sub-category)</h4>
-        <div class="phase-strip">
-          <div class="phase active">
-            <span class="num">PHASE 1 — current</span>
-            <h5>Define</h5>
-            <p>Many agencies talk about "partnership" loosely. None have systematized CPA-linked variable fees + creator economics + AI ops infrastructure as a coherent category. Ad Pros can anchor the problem.</p>
-          </div>
-          <div class="phase muted">
-            <span class="num">PHASE 2</span>
-            <h5>Develop</h5>
-            <p>Within 3-5 years: 2-4 named players will fight for the partnership-agency category. Ad Pros' window to be the king is now.</p>
-          </div>
-          <div class="phase muted">
-            <span class="num">PHASE 3</span>
-            <h5>Dominate</h5>
-            <p>Eventual category king takes ~76% of category economics. Followers compete on price.</p>
-          </div>
+        <div class="play-block do">
+          <span class="block-tag">How to actually use it</span>
+          <h4>Quarterly phase check, then strategy adjustment</h4>
+
+          <div class="step-row"><div class="step-num">1</div><div>
+            <h5>Quarterly: name the current phase</h5>
+            <p>One-page review every quarter. Where is the broad performance-agency category? Where is the performance-partnership sub-category? What evidence supports the phase call (number of named competitors, market awareness, search volume on the language)? Phase calls update the strategic posture for the next 90 days.</p>
+            <p class="meta">OWNER: Nehal · TIME: 1 hour quarterly</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">2</div><div>
+            <h5>Match strategy to phase</h5>
+            <p>Define phase (current): mobilize, anchor language, publish manifestos, run Lightning Strikes, claim the term. Develop phase: defend the term, expand the moat, lock in client relationships, build ecosystem partnerships. Dominate phase: extend into adjacent categories (e.g., Ad Pros could eventually extend "performance partner" from media buying into adjacent operator services).</p>
+            <p class="meta">OWNER: Nehal · TIME: ongoing</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">3</div><div>
+            <h5>Watch for competitor phase shifts</h5>
+            <p>If a rival agency starts publishing manifestos using "performance partner" language, the sub-category just moved from Define toward Develop. The window narrows. Ad Pros must accelerate. Watching competitor signals — their language, their content, their case studies — is part of phase monitoring.</p>
+            <p class="meta">OWNER: comms + Nehal · TIME: ongoing monitoring</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">4</div><div>
+            <h5>Set phase-specific milestones</h5>
+            <p>Define-phase milestones (next 12 months): publish the manifesto, run the Q3 Lightning Strike, secure 5+ named clients explicitly using "performance partner" language in their contracts, get the term mentioned in 10+ external publications without prompting. Develop-phase milestones (months 12-24): defend the term against challengers, expand to a second use case, build partner ecosystem. Each milestone is a phase-transition signal.</p>
+            <p class="meta">OWNER: Nehal · TIME: 1 hour to set, ongoing to track</p>
+          </div></div>
         </div>
-        <p class="ap-p"><strong style="color:#fff;">Implication:</strong> Ad Pros is in Define for partnership agencies. The window to anchor the category in operators' minds is open but won't stay open. The Lightning Strike (Tab 08) is the move that converts Define-phase opportunity into Develop-phase positioning.</p>
 
-        <div class="ap-callout">
-          <strong>The strategic decision</strong>
-          Don't compete in the broad category (you'll lose to incumbents). Define and own the sub-category (where the economics still favor early movers). "Performance partner" is the sub-category claim. The next 18 months determine whether Ad Pros becomes the king of it or one of three competitors fighting for it.
+        <div class="play-block output">
+          <span class="block-tag">What it produces</span>
+          <h4>A current-phase call + matched strategic posture + transition milestones</h4>
+          <p>Quarterly artifact: a one-page phase report with the current phase call, supporting evidence, strategic implications, and milestones for transition. Used in leadership planning to determine what the next 90 days should prioritize. Prevents the company from defending a position that hasn't been claimed yet (premature Develop) or anchoring a category that's already saturated (delayed Define).</p>
+        </div>
+
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>Quarterly check, with continuous monitoring of competitor moves</h4>
+          <p>The phase doesn't shift weekly. Quarterly review is enough for the call. But competitor monitoring is continuous — any month a rival publishes positioning content using overlapping language, the phase clock might tick forward. Treat it like watching weather: most days nothing changes, but the days something shifts demand fast response.</p>
+        </div>
+
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Resource allocation, content cadence, partnership strategy</h4>
+          <p>In Define phase: heavy investment in content, manifestos, podcast tours, public-facing thought leadership. Less investment in formal partnerships or ecosystem-building (premature). In Develop phase: cut content cadence, increase partnership and ecosystem investment, focus on lock-in. The phase determines where the marketing budget goes, what the content team prioritizes, and what types of strategic relationships Ad Pros pursues.</p>
+        </div>
+
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Treating the broad category and sub-category clocks as the same</h4>
+          <p>Most agencies look at the broad category, see Dominate, and conclude there's no opportunity. They miss the sub-category in Define. Or they look at the sub-category, see Define, and conclude they have years to act. They miss that the sub-category window typically closes in 18-36 months once a credible challenger anchors language. The discipline is to track both clocks separately and let the sub-category clock drive Ad Pros' near-term strategy.</p>
         </div>
       </div>
     </section>
 
-    <!-- TAB 07: 22 LAWS -->
+    <!-- ============================================================ -->
+    <!-- TAB 07: 5 LAWS -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-laws">
       <div class="panel-content">
-        <h2 class="ap-h2">The 22 Laws — applied selection.</h2>
-        <p class="ap-p-lg">The Pirates' 22 Laws of Category Design are dense and uneven. Five laws apply directly to Ad Pros. The rest are interesting but secondary. Each below is completed with the Ad Pros-specific answer.</p>
+        <h2 class="ap-h2">The 5 Laws → the daily decision tests.</h2>
+        <p class="ap-p-lg">Of the 22 Laws of Category Design, five apply directly to Ad Pros. Each one is a test, not a rule — applied to small decisions every day, not just to strategic ones. The compounding effect of consistent test application is what builds category authority over months.</p>
 
-        <div class="qa-card">
-          <span class="q">Law 01 — The Different Law</span>
-          <h4>Don't compete on better. Win on different.</h4>
-          <p class="answer"><strong style="color:#fff;">Ad Pros' "different":</strong> CPA-linked variable fees as the dominant pricing component. CPN with 7/3 economics. Proprietary AI intelligence stack. Senior-only team. Multi-channel breadth at 12 platforms. None of these is "better creative" or "better media buying" — those are benchmark arguments. The differentiation is structural: how the agency is paid, who the agency is staffed with, and what infrastructure the agency runs on.</p>
-          <p class="answer"><strong style="color:#fff;">The trap to avoid:</strong> any deck slide or pitch that says "we do X better than other agencies." Replace with "we do X differently — here's the structural reason."</p>
+        <div class="play-block purpose">
+          <span class="block-tag">What they're for</span>
+          <h4>Five tests that prevent slow position drift</h4>
+          <p>The Magic Triangle catches major decisions before they ship. The 5 Laws catch micro-decisions — the IG post tone, the email signature copy, the proposal phrasing, the case-study angle. Individually each micro-decision feels too small to test. Compounded over a year, the micro-decisions either reinforce or erode the position. The 5 Laws are quick mental checks that keep the micro-decisions aligned.</p>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Law 02 — The Niche Down Law</span>
-          <h4>Become known for one thing before you expand.</h4>
-          <p class="answer"><strong style="color:#fff;">Ad Pros' niche:</strong> 8-figure DTC operators in health, supplements, pet, and premium tech — running $1M+/mo paid spend, 30%+ repeat economics, multi-channel willingness. The entire team, infrastructure, and case studies are tuned for this profile. Brands outside this profile are routed to alternative engagements or declined.</p>
-          <p class="answer"><strong style="color:#fff;">The expansion trap:</strong> the urge to take on B2B SaaS, sub-$1M brands, or non-DTC ecommerce because the revenue is real. Each non-fit client dilutes the case-study set, distracts the team, and weakens the position. Discipline now, expand later.</p>
+        <div class="play-block do">
+          <span class="block-tag">How to actually use them</span>
+          <h4>Five tests, applied to copy, content, and conversations</h4>
+
+          <div class="tar-grid" style="margin-top:14px;">
+            <div class="tar-cell">
+              <span class="lbl">Law 01</span>
+              <h5>Different Law</h5>
+              <p><strong>Test:</strong> Does this copy/pitch/post claim "better than" or "different from"? If "better than," rewrite. Better is a benchmark argument that puts Ad Pros on a treadmill. Different is structural — kicker pricing, CPN economics, AI infrastructure.</p>
+            </div>
+            <div class="tar-cell">
+              <span class="lbl">Law 02</span>
+              <h5>Niche Down Law</h5>
+              <p><strong>Test:</strong> Does this decision broaden Ad Pros' service offering or sharpen its niche? Broadening fails. Sharpening passes. New B2B service expansion → fails. Better health/supplement creative tooling → passes.</p>
+            </div>
+            <div class="tar-cell">
+              <span class="lbl">Law 03</span>
+              <h5>Languaging Law</h5>
+              <p><strong>Test:</strong> Does this use the three names (performance partner, 8-figure operator, CPN)? If not, why not? If using vendor language, rewrite. Every external artifact gets this 60-second check.</p>
+            </div>
+            <div class="tar-cell">
+              <span class="lbl">Law 04</span>
+              <h5>Damming Demand Law</h5>
+              <p><strong>Test:</strong> Does this artifact reframe the prospect's question (from "agency-shopping" to "partner-shopping")? Or does it just answer the question they already had? The first reinforces category. The second feeds the broad category.</p>
+            </div>
+            <div class="tar-cell">
+              <span class="lbl">Law 05</span>
+              <h5>6-10 Law (compressed)</h5>
+              <p><strong>Test:</strong> Does this decision treat the timeline as 18-36 months (sub-category) or 6-10 years (full category)? Long-timeline thinking excuses slow execution. Short-timeline thinking forces urgency. Default to short.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Law 03 — The Languaging Law</span>
-          <h4>The words you choose shape the category.</h4>
-          <p class="answer"><strong style="color:#fff;">Ad Pros' language priorities:</strong> install "performance partner," "8-figure operator," and "Creator Performance Network" everywhere. Retire "agency," "investment," "Dream Client," "coming soon," "channels included." Every public artifact gets audited and updated within one week — saturation is the point.</p>
-          <p class="answer"><strong style="color:#fff;">The structural follow-through:</strong> contracts, MSAs, internal Slack channels, and team job titles also adopt the new language. "Account Manager" becomes "Operator Lead." "Client Success" becomes "Partnership Operations." Languaging works inside the company before it works outside.</p>
+        <div class="play-block output">
+          <span class="block-tag">What they produce</span>
+          <h4>Consistent micro-decisions that compound into category authority</h4>
+          <p>No single law application produces visible output. The compound effect is the artifact: after 6 months of consistent law application across every IG post, every email, every deck slide, every internal Slack message, every podcast appearance — the position becomes consistent across surfaces in a way that no single decision could have produced. Market echo follows.</p>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Law 04 — The Damming Demand Law</span>
-          <h4>Dam existing demand. Redirect it to your category.</h4>
-          <p class="answer"><strong style="color:#fff;">Existing demand to dam:</strong> operators currently shopping for "performance agency" or "growth agency" or "media buying agency." That's the demand pool. Redirect it by reframing the search — every Ad Pros artifact, ad, and pitch should reframe the category from "agency" to "partner" within the first sentence.</p>
-          <p class="answer"><strong style="color:#fff;">Dam mechanism:</strong> publish content explaining why agency-shopping is the wrong question. "The agency you're considering hiring isn't the right question. The right question is: who's going to share economic accountability with you for the next million per month?" Articles, podcasts, IG content, sales scripts. All redirect the same way.</p>
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>Applied to every external artifact and every meaningful internal decision</h4>
+          <p>Daily, in micro. The team writes copy → applies the Different Law and the Languaging Law. Sales pitches a prospect → applies the Damming Demand Law and the 6-10 Law. Leadership debates a service expansion → applies the Niche Down Law. The laws don't slow decisions — applied at speed, they take 30 seconds each. The discipline is making them habitual.</p>
         </div>
 
-        <div class="qa-card">
-          <span class="q">Law 05 — The 6-10 Law</span>
-          <h4>It takes 6-10 years to design and dominate a category.</h4>
-          <p class="answer"><strong style="color:#fff;">Ad Pros' clock:</strong> the 6-10 year horizon applies to category creation from scratch. Ad Pros isn't creating a category — it's claiming a sub-category in a market that already exists. The horizon for sub-category dominance is 18-36 months, not 6-10 years. Don't let the long timeline excuse slow execution.</p>
-          <p class="answer"><strong style="color:#fff;">The compressed timeline:</strong> 90 days to anchor the position publicly (Lightning Strike). 9 months of steady drip after. 18 months total to be the named "performance partner" in the operator's mind. 36 months to be the default.</p>
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Tone consistency, decision speed, team alignment</h4>
+          <p>Within 90 days of applying the laws consistently: every public artifact has the same tone and language. Sales pitches sound coherent across reps. Internal debates resolve faster because the team has shared decision criteria. New hires absorb the laws within their first month and apply them naturally — making the laws scale beyond Nehal's individual oversight.</p>
         </div>
 
-        <h3 class="ap-h3" style="margin-top:24px;">The other 17 laws</h3>
-        <p class="ap-p">Worth reading if interested, but secondary for Ad Pros' current move. They include laws on POV, lightning strikes, ecosystem building, category violence, missionary teams, and No Ocean Strategy. Most are sub-points of the five above or apply more directly to category creation than to sub-category claiming.</p>
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Treating the laws as theory rather than tests</h4>
+          <p>Reading the laws and not applying them. Most teams nod at "be different, not better" and then go right back to writing "the best agency for performance marketing" copy. The laws only work if they become reflex — applied without thinking, in the moment of writing or deciding. The discipline is to operationalize them as 30-second mental checks, not as strategic principles to revisit quarterly.</p>
+        </div>
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- TAB 08: LIGHTNING STRIKE -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-strike">
       <div class="panel-content">
-        <h2 class="ap-h2">The Q3 Lightning Strike, planned.</h2>
-        <p class="ap-p-lg">A coordinated, time-boxed mobilization that anchors "performance partner for 8-figure operators" in the market in a single 2-3 week window. Without one anchor moment, the new positioning reads as a tagline change, not a category claim.</p>
+        <h2 class="ap-h2">Lightning Strike → the quarterly mobilization.</h2>
+        <p class="ap-p-lg">A Lightning Strike is not a launch event. It's a project-management discipline that compresses 12 months of market education into a single 2-3 week window. Ad Pros runs one in Q3 to anchor "performance partner for 8-figure operators" — and then runs smaller versions every 2-3 quarters to maintain momentum.</p>
 
-        <h3 class="ap-h3">The strike anchor</h3>
-        <p class="ap-p"><strong style="color:#fff;">Asset:</strong> public launch of "The Ad Pros Intelligence Stack" — bundling AI Ads Library, Intel, and Agentic Workflows into one named platform with a published manifesto, public demo, named-client testimonials, and roadmap. The Intelligence Stack is the strongest concrete proof that Ad Pros runs on operator infrastructure, not agency infrastructure.</p>
+        <div class="play-block purpose">
+          <span class="block-tag">What it's for</span>
+          <h4>Concentrating market attention into a window the market can't ignore</h4>
+          <p>Steady-drip content takes 12-18 months to build market recognition. Most repositioning efforts fail because they drip without ever spiking. The Lightning Strike fixes this by concentrating outputs — manifesto, demo, case studies, podcast tour, partner amplification — into a single window where every signal hits the same operators in the same week. The market processes a strike as "this is real," whereas it processes a drip as "this is marketing."</p>
+        </div>
 
-        <h3 class="ap-h3" style="margin-top:24px;">The coordinated mobilization</h3>
-        <p class="ap-p">All channels fire within the same 2-3 week window:</p>
+        <div class="play-block do">
+          <span class="block-tag">How to actually use it</span>
+          <h4>One major strike per year, supported by mini-strikes quarterly</h4>
 
-        <ul class="rank-list">
-          <li><span class="rank">1</span><div>
-            <h5>The Manifesto</h5>
-            <p>2,000-3,000 word document published at docs.adpros.com. The full POV from Tab 02 expanded. The substrate everything else references. Published Day 1 of the strike window.</p>
-          </div></li>
-          <li><span class="rank">2</span><div>
-            <h5>The Intelligence Stack landing page</h5>
-            <p>Public page on adpros.com explaining the platform — capabilities, screenshots, named clients, ROI examples, technical architecture. Live Day 1.</p>
-          </div></li>
-          <li><span class="rank">3</span><div>
-            <h5>Podcast tour (5-7 appearances)</h5>
-            <p>Tier 1: DTC Pod, Limited Supply, Marketing Powerups, ECommerce Fuel, Operators (RBC). Pre-recorded ahead of the window, released within it. Each appearance reinforces the same POV and language.</p>
-          </div></li>
-          <li><span class="rank">4</span><div>
-            <h5>3-5 named-client case studies</h5>
-            <p>Long-form: Kachava, Support Pets, Audien, Infiniwell expanded to full case-study format. Named numbers, named operators, structural lessons. Published across the strike window.</p>
-          </div></li>
-          <li><span class="rank">5</span><div>
-            <h5>IG / LinkedIn personal channel mobilization</h5>
-            <p>Nehal posts daily during the strike window. Each post pulls from the manifesto and reinforces the three names: performance partner, 8-figure operator, CPN. Saturation across both platforms.</p>
-          </div></li>
-          <li><span class="rank">6</span><div>
-            <h5>Sales / outbound activation</h5>
-            <p>Outbound sales sequence updated to reference the manifesto, the Intelligence Stack, and the named case studies. Every prospect engaged during the strike window receives the new positioning consistently.</p>
-          </div></li>
-          <li><span class="rank">7</span><div>
-            <h5>Partner / referral activation</h5>
-            <p>Existing client referrals, peer agencies, technology partners (Klaviyo, Triple Whale, Northbeam) notified ahead of the strike. They amplify within their networks within the strike window.</p>
-          </div></li>
-        </ul>
+          <div class="step-row"><div class="step-num">1</div><div>
+            <h5>Pick the anchor and the window</h5>
+            <p>Annual major strike: one big anchor (this year: public launch of "The Ad Pros Intelligence Stack") in a specific 2-3 week window (Q3, July). Pick early. Lock the window. Build everything against that date.</p>
+            <p class="meta">OWNER: Nehal · TIME: 1 day decision</p>
+          </div></div>
 
-        <h3 class="ap-h3" style="margin-top:24px;">The strike calendar</h3>
-        <table class="ap-table">
-          <thead><tr><th>Window</th><th>Activity</th><th>Owner</th></tr></thead>
-          <tbody>
-            <tr><td>Q2 (May-Jun)</td><td>Draft manifesto. Build Intelligence Stack landing page. Pre-record podcasts. Prepare case studies.</td><td>Nehal + Katherine + design</td></tr>
-            <tr><td>Late Q2 (Jun)</td><td>Brief team. Confirm partner activations. Sales script update. Languaging audit complete across all surfaces.</td><td>Full team</td></tr>
-            <tr><td>Q3 Week 1 (Jul)</td><td>Launch: manifesto, Intelligence Stack page, first 2 case studies, first 3 podcast drops, daily IG/LinkedIn cadence begins.</td><td>Nehal + comms</td></tr>
-            <tr><td>Q3 Week 2-3 (Jul)</td><td>Remaining podcast drops, remaining case studies, partner amplification, outbound sales activation.</td><td>Full team</td></tr>
-            <tr><td>Q3 Week 4+ (Aug)</td><td>Steady-drip cadence resumes. Each subsequent month references and reinforces the strike content.</td><td>Comms + sales</td></tr>
-          </tbody>
-        </table>
+          <div class="step-row"><div class="step-num">2</div><div>
+            <h5>Build the asset stack 8-12 weeks before the window</h5>
+            <p>Manifesto draft, Intelligence Stack landing page, 5-7 podcast pre-records, 3-5 expanded case studies, IG/LinkedIn content plan, sales script update, partner activation list. Everything ready to publish, none of it published yet. The hardest part is resisting the urge to launch pieces early as they're completed.</p>
+            <p class="meta">OWNER: comms + Nehal · TIME: 8-12 weeks of build</p>
+          </div></div>
 
-        <div class="ap-callout warn" style="margin-top:18px;">
-          <strong>What kills a Lightning Strike</strong>
-          Spreading it. If the manifesto launches in May, the Intelligence Stack in June, the podcasts in August, and the case studies in October — there's no strike. There's a slow drip the market doesn't notice. The whole point is concentrated visibility in a single window. Pick the window. Hold the launches until then. Fire everything at once.
+          <div class="step-row"><div class="step-num">3</div><div>
+            <h5>Pre-brief the network 1-2 weeks before</h5>
+            <p>Existing clients, peer agencies, technology partners, podcast hosts, press contacts. Tell them the strike is coming, when it lands, what they'll see. Ask for amplification on launch day. The pre-brief turns passive observers into active amplifiers when the window opens.</p>
+            <p class="meta">OWNER: Nehal + comms · TIME: 1-2 weeks of outreach</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">4</div><div>
+            <h5>Open the window: launch everything in the first 5 days</h5>
+            <p>Day 1: manifesto + Intelligence Stack landing page live. Day 2: first podcast drops + first case study published. Day 3-5: remaining podcast drops, remaining case studies, partner amplification, daily IG/LinkedIn cadence at maximum frequency. The first week is the highest-density signal window of the year for Ad Pros.</p>
+            <p class="meta">OWNER: full team · TIME: 5 high-intensity days</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">5</div><div>
+            <h5>Ride the wave for week 2-3, then resume steady drip</h5>
+            <p>Week 2-3: respond to inbound, amplify market echo, publish second-wave content (rebuttals, follow-ups, expanded analysis). End of week 3: window closes. Resume the steady-drip cadence. The strike isn't permanent — it's a 21-day burst that resets the market's perception of Ad Pros and gives the steady-drip work something to anchor against.</p>
+            <p class="meta">OWNER: comms · TIME: 2 weeks of sustained activation</p>
+          </div></div>
+
+          <div class="step-row"><div class="step-num">6</div><div>
+            <h5>Run mini-strikes quarterly</h5>
+            <p>Smaller versions every quarter — a major case study with named numbers, a notable client win, a new feature in the Intelligence Stack, a podcast tour around a single theme. Mini-strikes maintain momentum between annual strikes. Same project-management discipline at smaller scale.</p>
+            <p class="meta">OWNER: Nehal + comms · TIME: 1 week per mini-strike</p>
+          </div></div>
+        </div>
+
+        <div class="play-block output">
+          <span class="block-tag">What it produces</span>
+          <h4>Concentrated market attention + measurable category claim</h4>
+          <p>Tangible artifacts during the window: manifesto live, Intelligence Stack landing page, 5+ podcast appearances, 3+ named-client case studies, daily social cadence, partner amplification posts. Measurable outcomes within 60 days: inbound discovery calls referencing "performance partner" language, market echo from peers and prospects, recruit pipeline filling with senior operators, named press mentions of the new positioning.</p>
+        </div>
+
+        <div class="play-block cadence">
+          <span class="block-tag">Cadence</span>
+          <h4>One major strike per year, mini-strikes quarterly between</h4>
+          <p>The annual cadence is what builds long-term category authority. The quarterly mini-strikes prevent decay between annual events. Year 1: major strike anchors the position (Q3 2026). Year 2: major strike defends and expands (Q3 2027). Year 3+: major strike extends into adjacent positioning. Mini-strikes fill the gaps with smaller, theme-driven mobilizations.</p>
+        </div>
+
+        <div class="play-block changes">
+          <span class="block-tag">What changes downstream</span>
+          <h4>Inbound velocity, recruit conversion, peer perception</h4>
+          <p>Within 60 days of a major strike: inbound discovery call volume typically spikes 2-4x for 8-12 weeks before normalizing at a new baseline. Recruit pipeline fills with people who saw the strike content. Peer-agency perception shifts — from "another performance agency" to "the performance-partner agency." The strike doesn't permanently fix any of these; it resets the baseline at a higher level, which the steady-drip work then maintains.</p>
+        </div>
+
+        <div class="play-block failure">
+          <span class="block-tag">How this fails</span>
+          <h4>Spreading the launches across months instead of compressing into weeks</h4>
+          <p>The most common failure: the manifesto launches in May, the Intelligence Stack in June, the podcast tour in August, the case studies in October. There's no strike — there's a slow drip the market doesn't notice. Compression is the entire mechanism. If the team isn't disciplined about holding completed assets until the window opens, the strike becomes a non-event. The discipline is to delay individual launches even when the work is ready, in service of the concentrated impact.</p>
         </div>
       </div>
     </section>
 
-    <!-- TAB 09: OUTLINE ALL -->
+    <!-- ============================================================ -->
+    <!-- TAB 09: OPERATING SYSTEM -->
+    <!-- ============================================================ -->
     <section class="tab-panel" id="tab-outline">
       <div class="panel-content">
-        <h2 class="ap-h2">All frameworks, in outline.</h2>
-        <p class="ap-p-lg">Every framework above, condensed. Use this tab as the working reference. One scroll covers the entire system.</p>
+        <h2 class="ap-h2">The complete operating system.</h2>
+        <p class="ap-p-lg">Eight frameworks become one operating model when you stack them. Each one runs on its own cadence; together they form a continuous repositioning engine. This is what the system does in a typical year.</p>
 
         <div class="ap-pullquote">
           <p>Position: <em style="color:var(--yellow);font-style:normal;">Performance partner for 8-figure operators.</em></p>
-          <div class="source">The line everything reinforces</div>
+          <div class="source">The line every framework reinforces</div>
         </div>
 
-        <!-- DUNFORD -->
-        <div class="ap-card">
-          <h3 class="ap-h3">01 — Dunford's 5 Components</h3>
-          <table class="ap-table" style="margin-top:10px;">
-            <tbody>
-              <tr><td style="width:32%;"><strong>Competitive alternative</strong></td><td>In-house with junior buyer (status quo to beat). Then generalist agency, boutique creative + freelance buyer, fractional CMO, rival performance agency.</td></tr>
-              <tr><td><strong>Differentiated capabilities</strong></td><td>CPA kicker pricing • CPN 7/3 economics • Proprietary AI intelligence stack (Noor) • 9 Dimensions + Matrix scoring • 12-platform multi-channel breadth • 26 senior operators across 7 countries • Named-client proof at 8-figure scale.</td></tr>
-              <tr><td><strong>Differentiated value</strong></td><td>Spend more confidently with variance protection • Creator content with built-in performance accountability • See market 30 days ahead • Engineer 1+ breakthroughs/month at scale • Diversify away from Meta dependency • Senior calls on senior problems • De-risked decision with reference set.</td></tr>
-              <tr><td><strong>Best-fit customer</strong></td><td>Founder-led DTC ecommerce, $3M+/mo revenue, $250K+/mo paid spend, $50-150 AOV, 30%+ repeat, mass-market offer, has tried 1-2 prior agencies, 30-day decision capable.</td></tr>
-              <tr><td><strong>Market category</strong></td><td>Performance partner — implies shared economics, peer relationship, outcome accountability.</td></tr>
-            </tbody>
-          </table>
+        <h3 class="ap-h3" style="margin-top:18px;">The cadence map</h3>
+        <p class="ap-p">When each framework runs, who runs it, what it produces.</p>
+        <table class="ap-table" style="margin-top:10px;">
+          <thead><tr><th>Framework</th><th>Cadence</th><th>Owner</th><th>Output</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Dunford</strong></td><td>Annual full rebuild, quarterly audit</td><td>Nehal + sales lead</td><td>Positioning page, 4-variant deck, qualifying gate</td></tr>
+            <tr><td><strong>POV</strong></td><td>Written once, referenced daily, refreshed annually</td><td>Nehal</td><td>3,000-word manifesto + 5 derivatives</td></tr>
+            <tr><td><strong>Magic Triangle</strong></td><td>Real-time filter on every meaningful decision</td><td>Leadership</td><td>Yes/no/needs-work calls in &lt;90 seconds</td></tr>
+            <tr><td><strong>Languaging</strong></td><td>One-week sprint, then 60-second pre-publish check</td><td>Anyone publishing</td><td>Saturated language across all surfaces</td></tr>
+            <tr><td><strong>Superconsumers</strong></td><td>Quarterly scoring, continuous targeting</td><td>Nehal + ops</td><td>One-page profile + tightened outbound</td></tr>
+            <tr><td><strong>Lifecycle</strong></td><td>Quarterly phase check, continuous monitoring</td><td>Nehal</td><td>Phase report, matched strategic posture</td></tr>
+            <tr><td><strong>5 Laws</strong></td><td>Daily, applied to micro-decisions</td><td>Whole team</td><td>Compound consistency across surfaces</td></tr>
+            <tr><td><strong>Lightning Strike</strong></td><td>1 major/year + mini-strikes quarterly</td><td>Nehal + comms</td><td>2-3 week mobilization windows</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="ap-h3" style="margin-top:24px;">The annual rhythm</h3>
+        <p class="ap-p">A typical year of running the system:</p>
+
+        <div class="outline-card">
+          <span class="label">Q1 — Foundation</span>
+          <h3>Build / rebuild the spine</h3>
+          <dl>
+            <dt>Dunford</dt><dd>Annual rebuild of the 5 components. Update positioning page. Refresh the 4-variant deck.</dd>
+            <dt>POV</dt><dd>Year-1: write the manifesto. Year-2+: review and refresh.</dd>
+            <dt>Languaging</dt><dd>Year-1: run the saturation sprint. Year-2+: quarterly drift audit.</dd>
+            <dt>Superconsumers</dt><dd>Score the roster. Update the profile. Reset outbound targeting.</dd>
+            <dt>Lifecycle</dt><dd>Q1 phase check. Set milestones for the year.</dd>
+          </dl>
         </div>
 
-        <!-- POV -->
-        <div class="ap-card">
-          <h3 class="ap-h3">02 — Play Bigger POV</h3>
-          <ul class="bullets" style="margin-top:8px;">
-            <li><strong style="color:#fff;">Frame:</strong> the agency model is structurally misaligned with the operators it serves.</li>
-            <li><strong style="color:#fff;">Cost of inaction:</strong> $300K-$800K/year per $5M brand lost to variance the agency has no economic reason to fix.</li>
-            <li><strong style="color:#fff;">Future:</strong> performance partnerships replace vendor relationships. Variable fees dominate. Creator economics shared. Brands buy outcomes, not retainers.</li>
-            <li><strong style="color:#fff;">Place Ad Pros:</strong> the performance partner for 8-figure operators — the structure other agencies have always promised but never built.</li>
-          </ul>
+        <div class="outline-card">
+          <span class="label">Q2 — Build for the strike</span>
+          <h3>Asset stack assembly</h3>
+          <dl>
+            <dt>Lightning Strike</dt><dd>Build the asset stack: manifesto, landing pages, podcast pre-records, case studies. Hold until window opens.</dd>
+            <dt>Magic Triangle</dt><dd>Apply to every Q2 decision — especially around strike asset choices.</dd>
+            <dt>5 Laws</dt><dd>Daily application — especially Different Law and Languaging Law on strike content.</dd>
+            <dt>Superconsumers</dt><dd>Q2 scoring update. Sharpen outbound for the strike.</dd>
+            <dt>Lifecycle</dt><dd>Q2 phase check. Watch competitor moves before the strike opens.</dd>
+          </dl>
         </div>
 
-        <!-- TRIANGLE -->
-        <div class="ap-card">
-          <h3 class="ap-h3">03 — Magic Triangle</h3>
-          <ul class="bullets" style="margin-top:8px;">
-            <li><strong style="color:#fff;">Product/category fit:</strong> CPA kickers + CPN 7/3 + bundled creative system + Intelligence Stack + Dream-Client tier floors.</li>
-            <li><strong style="color:#fff;">Company/category fit:</strong> 26 senior operators • BigQuery + Supabase + Claude API • founder-led named team • outcome-tied compensation • internal AI agents (Noor).</li>
-            <li><strong style="color:#fff;">Category design:</strong> "Performance partner for 8-figure operators" • CPN as category-claim asset • languaging saturation • Q3 Lightning Strike.</li>
-            <li><strong style="color:#fff;">Weakest side:</strong> product (proposal pricing only 37% variable). Fix to bring all three into alignment.</li>
-          </ul>
+        <div class="outline-card">
+          <span class="label">Q3 — The strike window</span>
+          <h3>Mobilize</h3>
+          <dl>
+            <dt>Lightning Strike</dt><dd>Open the window. Launch everything in 5 days. Sustain through weeks 2-3.</dd>
+            <dt>POV</dt><dd>Manifesto goes live as the substrate of every strike communication.</dd>
+            <dt>Languaging</dt><dd>Maximum saturation. Every strike artifact reinforces the three names.</dd>
+            <dt>Magic Triangle</dt><dd>Real-time filter on every strike decision — what to amplify, what to skip.</dd>
+            <dt>Dunford</dt><dd>Sales surge: every inbound prospect gets the 4-variant deck after discovery.</dd>
+          </dl>
         </div>
 
-        <!-- LANGUAGING -->
-        <div class="ap-card">
-          <h3 class="ap-h3">04 — Languaging</h3>
-          <ul class="bullets" style="margin-top:8px;">
-            <li><strong style="color:#fff;">Frame It:</strong> "Vendor agencies are misaligned with operators." "Flat retainers reward retention, not results." "Creators get paid per asset, not per outcome."</li>
-            <li><strong style="color:#fff;">Name It:</strong> Performance partner • 8-figure operator • Creator Performance Network.</li>
-            <li><strong style="color:#fff;">Claim It:</strong> Saturate within one week across website, IG, LinkedIn, deck, signatures, contracts, Slack, podcast bios.</li>
-            <li><strong style="color:#fff;">Retire:</strong> "Total investment," "Coming Soon," "Dream Client," "Add Your Next Million," generic "Creative Strategy / Production / Media Buying" labels.</li>
-          </ul>
+        <div class="outline-card">
+          <span class="label">Q4 — Defend and compound</span>
+          <h3>Steady drip + mini-strikes</h3>
+          <dl>
+            <dt>Lightning Strike</dt><dd>Q4 mini-strike: a major case study, a notable client win, or a new Intelligence Stack feature.</dd>
+            <dt>Superconsumers</dt><dd>Year-end scoring. Compare actual closed clients against the profile. Update.</dd>
+            <dt>Lifecycle</dt><dd>Year-end phase call. Has the sub-category moved from Define toward Develop?</dd>
+            <dt>Magic Triangle</dt><dd>Annual review of decisions made. Did the filter hold? Where did it break?</dd>
+            <dt>Dunford</dt><dd>Year-end audit. What changed in the competitive alternatives? What should rebuild in Q1?</dd>
+          </dl>
         </div>
 
-        <!-- SUPERCONSUMERS -->
-        <div class="ap-card">
-          <h3 class="ap-h3">05 — Superconsumers</h3>
-          <ul class="bullets" style="margin-top:8px;">
-            <li><strong style="color:#fff;">Profile:</strong> health/supplement/pet/premium-tech DTC • $1M+/mo spend within 6 months • 30-60% repeat • operator-CFO founder type • multi-channel mindset • prior agency history.</li>
-            <li><strong style="color:#fff;">Scoring inputs:</strong> tenure × spend × NPS × referrals.</li>
-            <li><strong style="color:#fff;">Exercise:</strong> 3-4 hours. Score last 12 months of clients. Identify top 10%. Compare against profile. Sharpen ICP.</li>
-            <li><strong style="color:#fff;">Yield:</strong> outbound focused on the top 10% profile compounds — better deals close faster, retain longer, refer more.</li>
-          </ul>
-        </div>
+        <h3 class="ap-h3" style="margin-top:24px;">The compounding effect</h3>
+        <p class="ap-p">Each framework operating in isolation produces marginal improvement. Stacked together, they compound. Year 1 builds the spine. Year 2 reinforces it. Year 3 the market starts using Ad Pros' language back unprompted — that's the leading indicator that "performance partner" has shifted from positioning claim to market reality.</p>
 
-        <!-- LIFECYCLE -->
-        <div class="ap-card">
-          <h3 class="ap-h3">06 — Define-Develop-Dominate</h3>
-          <ul class="bullets" style="margin-top:8px;">
-            <li><strong style="color:#fff;">Broad category (performance agencies):</strong> Dominate phase. Incumbents own it. Don't enter as a generalist — losing position.</li>
-            <li><strong style="color:#fff;">Sub-category (performance partnership agencies):</strong> Define phase. No clear king yet. Window open for ~18 months.</li>
-            <li><strong style="color:#fff;">Strategic move:</strong> claim the sub-category now. Use the Lightning Strike to compress Define into Develop.</li>
-            <li><strong style="color:#fff;">Horizon:</strong> 18-36 months to dominate the sub-category. Not 6-10 years.</li>
-          </ul>
-        </div>
-
-        <!-- 22 LAWS -->
-        <div class="ap-card">
-          <h3 class="ap-h3">07 — The Five Laws That Apply</h3>
-          <ul class="bullets" style="margin-top:8px;">
-            <li><strong style="color:#fff;">Different Law:</strong> structural differentiation (kicker pricing, CPN, AI stack, senior-only team), not "better creative."</li>
-            <li><strong style="color:#fff;">Niche Down Law:</strong> hold the niche — health/supplement/pet/tech DTC at $3M+/mo. Decline non-fit revenue.</li>
-            <li><strong style="color:#fff;">Languaging Law:</strong> install three names everywhere within one week.</li>
-            <li><strong style="color:#fff;">Damming Demand Law:</strong> redirect agency-shopping demand to partner-shopping. Reframe in every artifact's first sentence.</li>
-            <li><strong style="color:#fff;">6-10 Law (compressed):</strong> 18-36 months for sub-category, not 6-10 years for full category.</li>
-          </ul>
-        </div>
-
-        <!-- LIGHTNING STRIKE -->
-        <div class="ap-card">
-          <h3 class="ap-h3">08 — Lightning Strike (Q3)</h3>
-          <ul class="bullets" style="margin-top:8px;">
-            <li><strong style="color:#fff;">Anchor:</strong> public launch of "The Ad Pros Intelligence Stack."</li>
-            <li><strong style="color:#fff;">Mobilization:</strong> manifesto + Intelligence Stack landing page + 5-7 podcast appearances + 3-5 named case studies + daily Nehal IG/LinkedIn + outbound sales activation + partner amplification — all firing in a single 2-3 week window.</li>
-            <li><strong style="color:#fff;">Calendar:</strong> Q2 prep (draft, build, pre-record) → late Q2 alignment → Q3 Week 1 launch → Q3 Weeks 2-3 sustained activation → Q3 Week 4+ steady-drip resumes.</li>
-            <li><strong style="color:#fff;">Failure mode:</strong> spreading the launches. Single window or no strike at all.</li>
-          </ul>
-        </div>
-
-        <!-- BOTTOM LINE -->
-        <div class="ap-pullquote" style="margin-top:24px;">
-          <p>Eight frameworks. One position. The position is correct. The architecture is mostly built. The work is repositioning what already exists, naming it deliberately, and anchoring it publicly in a single Q3 window. Then nine months of steady drip until the new position becomes reputation.</p>
+        <div class="ap-pullquote" style="margin-top:18px;">
+          <p>Eight frameworks. One position. The frameworks aren't theory — they're the operating system that turns "performance partner for 8-figure operators" from a tagline into a defensible category claim. The work is daily. The compounding is annual. The result is a category Ad Pros owns.</p>
           <div class="source">The complete system in one paragraph</div>
         </div>
 
-        <div class="ap-callout">
+        <div class="ap-callout" style="margin-top:14px;">
           <strong>Companion documents</strong>
-          <a href="https://docs.adpros.com/performance-partner-positioning/">Performance Partner Positioning</a> — the executive summary on the positioning line itself.<br>
-          <a href="https://docs.adpros.com/category-design-frameworks-analysis/">Category Design Frameworks Analysis</a> — the deep analysis of each framework with school-by-school breakdown.<br>
-          <a href="https://docs.adpros.com/framework-service-recommendations/">Framework Service Recommendations</a> — service-by-service implications of the position for the 2026 deck.
+          <a href="https://docs.adpros.com/performance-partner-positioning/">Performance Partner Positioning</a> — the executive summary on the line itself.<br>
+          <a href="https://docs.adpros.com/category-design-frameworks-analysis/">Category Design Frameworks Analysis</a> — deep school-by-school breakdown.<br>
+          <a href="https://docs.adpros.com/framework-service-recommendations/">Framework Service Recommendations</a> — service-by-service implications for the 2026 deck.
         </div>
       </div>
     </section>
