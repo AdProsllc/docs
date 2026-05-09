@@ -116,10 +116,15 @@ a:hover { color: var(--yellow); }
 .pill-neutral { background: rgba(255,255,255,0.06); color: var(--grey-200); border: 1px solid var(--card-border-strong); }
 
 /* QUESTIONS */
+.q-category { margin-top: 40px; margin-bottom: 16px; padding: 16px 22px; background: var(--navy-deep); border-left: 3px solid var(--yellow); border-radius: var(--radius); }
+.q-category-num { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--yellow); letter-spacing: 1.5px; font-weight: 600; }
+.q-category-title { color:#fff; font-size: 22px; font-weight: 700; margin-top: 4px; line-height: 1.2; }
+.q-category-desc { color: var(--grey-200); font-size: 14px; margin-top: 8px; line-height: 1.5; }
 .q-row { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--card-border); }
 .q-num { font-family: "JetBrains Mono", monospace; font-size: 28px; font-weight: 700; color: var(--yellow); line-height: 1; }
 .q-text h4 { color:#fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
 .q-text p { font-size: 14.5px; color: var(--grey-200); line-height: 1.55; }
+.q-text .why { display: block; margin-top: 6px; font-size: 13px; color: var(--grey-300); font-style: italic; }
 
 /* SCENARIO CARD */
 .scenario { border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
@@ -192,14 +197,14 @@ a:hover { color: var(--yellow); }
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
       <h1>Alternatives to Claude Managed Agents</h1>
-      <p>Infrastructure decision brief · v1</p>
+      <p>Infrastructure decision brief · v2 · adds Cloudflare</p>
     </div>
   </header>
 <nav class="tabs-nav" role="tablist">
   <button class="tab-btn active" role="tab" aria-selected="true" data-tab="summary"><span class="num">01</span>Executive Summary</button>
   <button class="tab-btn" role="tab" aria-selected="false" data-tab="recommendations"><span class="num">02</span>For Ad Pros</button>
   <button class="tab-btn" role="tab" aria-selected="false" data-tab="features"><span class="num">03</span>Feature Breakdown</button>
-  <button class="tab-btn" role="tab" aria-selected="false" data-tab="questions"><span class="num">04</span>Decision Questions</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="questions"><span class="num">04</span>42 Decision Questions</button>
   <button class="tab-btn" role="tab" aria-selected="false" data-tab="cost"><span class="num">05</span>Cost Modeling</button>
   <button class="tab-btn" role="tab" aria-selected="false" data-tab="migration"><span class="num">06</span>Migration Risk</button>
 </nav>
@@ -229,7 +234,7 @@ a:hover { color: var(--yellow); }
       <div class="ap-value-num">B</div>
       <div class="ap-value-body">
         <h4>Hosted, model-agnostic</h4>
-        <p>Bedrock AgentCore, Deep Agents Deploy, DigitalOcean Gradient. Someone else runs the infra, models stay swappable.</p>
+        <p>Cloudflare Agents (Think), Bedrock AgentCore, Deep Agents Deploy, DigitalOcean Gradient. Someone else runs the infra, models stay swappable. Cloudflare's hibernation pricing (free when idle) is the breakthrough.</p>
       </div>
     </div>
     <div class="ap-value">
@@ -271,11 +276,11 @@ a:hover { color: var(--yellow); }
       </div>
       <div class="ap-card ap-card-hover">
         <div class="ap-kicker">MULTI-MODEL FLEXIBILITY</div>
-        <h4 class="ap-h4">Deep Agents Deploy / Bedrock AgentCore</h4>
+        <h4 class="ap-h4">Cloudflare Agents / Deep Agents Deploy</h4>
       </div>
       <div class="ap-card ap-card-hover">
-        <div class="ap-kicker">COST AT SCALE</div>
-        <h4 class="ap-h4">Claude Agent SDK (self-deployed)</h4>
+        <div class="ap-kicker">COST AT SCALE / IDLE-HEAVY</div>
+        <h4 class="ap-h4">Cloudflare Agents · pay only when active</h4>
       </div>
       <div class="ap-card ap-card-hover">
         <div class="ap-kicker">ZERO LOCK-IN / DATA RESIDENCY</div>
@@ -325,6 +330,13 @@ a:hover { color: var(--yellow); }
         <h4 class="ap-h4">Claude Managed Agents</h4>
         <p class="ap-p" style="margin-top:8px;">If Noor ever gets productized for clients (white-label agent infra for DTC brands), CMA's sandboxing, scoped permissions, and identity isolation are exactly what would otherwise take 3 months to build. Single-tenant per-client agents with session-hour pricing maps cleanly to client billing.</p>
         <p class="ap-p-sm" style="margin-top:12px;color:var(--grey-300);"><strong style="color:#fff;">Why:</strong> multi-tenant security is the hardest part to build correctly.</p>
+      </div>
+
+      <div class="ap-card" style="border-left:3px solid #f6821f;">
+        <div class="ap-kicker" style="color:#f6821f;">STRONG CONTENDER · MULTI-AGENT WORKLOADS</div>
+        <h4 class="ap-h4">Cloudflare Agents (Think)</h4>
+        <p class="ap-p" style="margin-top:8px;">The most interesting alternative for your stack. Each agent is a Durable Object with its own SQLite — millions of agents possible, free when idle (hibernation), pay only for CPU time when active. Model-agnostic via AI Gateway (14+ providers including Anthropic). Sandbox SDK + Dynamic Workers handle code execution. If you ever need 1 agent per client × 5 clients × 20 agents running mostly idle, this pricing model crushes CMA's session-hour fee.</p>
+        <p class="ap-p-sm" style="margin-top:12px;color:var(--grey-300);"><strong style="color:#fff;">Trade-off:</strong> TypeScript-first, requires Cloudflare Workers mental model. Best if a team member already knows the platform.</p>
       </div>
 
       <div class="ap-card">
@@ -409,6 +421,17 @@ a:hover { color: var(--yellow); }
         <td>Yes</td>
         <td>Native</td>
         <td><span class="pill pill-bad">High</span></td>
+      </tr>
+      <tr>
+        <td>Cloudflare Agents (Think)</td>
+        <td>Hosted (Durable Objects)</td>
+        <td>Any (14+ providers via AI Gateway)</td>
+        <td><span class="mono">Free when idle · pay CPU-time only</span></td>
+        <td>None</td>
+        <td>SQLite per agent + Vectorize</td>
+        <td>Dynamic Workers + Sandbox SDK</td>
+        <td>Native + OAuth</td>
+        <td><span class="pill pill-good">Low-Medium</span></td>
       </tr>
       <tr>
         <td>Bedrock AgentCore</td>
@@ -529,91 +552,383 @@ a:hover { color: var(--yellow); }
 <div class="tab-panel" id="tab-questions" role="tabpanel">
   <section class="ap-section">
     <span class="ap-kicker">04 · Decision Questions</span>
-    <h2 class="ap-h2">Questions to ask before choosing</h2>
-    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Work through these in order. The first three eliminate most options; the rest refine the choice.</p>
+    <h2 class="ap-h2">42 questions, 8 categories</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Work through these in order. Categories A–C eliminate most options; D–H refine the choice. Each question includes the reasoning behind why it matters.</p>
     <div style="margin-top:32px;">
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY A</div>
+        <div class="q-category-title">Workload fit</div>
+        <div class="q-category-desc">Before anything else, figure out if you even need an agent harness. Most so-called 'agents' are actually workflows or one-shot LLM calls dressed up.</div>
+      </div>
       <div class="q-row">
         <div class="q-num">01</div>
         <div class="q-text">
           <h4>Does this agent actually need a long-running session?</h4>
-          <p>If the work is one-shot or batch-classifiable, an agent harness isn't needed at all — use Messages API or Batch API. CMA shines for tasks that run minutes to hours with stateful memory.</p>
+          <p>If the work is one-shot or batch-classifiable, you don't need an agent harness — use Messages API or Batch API. Agent harnesses shine for tasks that run minutes to hours with stateful memory.</p>
+          <span class="why">→ CMA, Cloudflare, and Bedrock all charge for the harness. Pay only when you need it.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">02</div>
         <div class="q-text">
-          <h4>Where does the agent's memory live, and who owns it?</h4>
-          <p>This is the lock-in question. If memory is the moat (agents accumulating client-specific context over months), keep memory in your own database (Supabase) regardless of harness. If memory is ephemeral, vendor-managed is fine.</p>
+          <h4>Is the task synchronous or async?</h4>
+          <p>Sync (user is waiting): hosted is fine, latency matters less. Async (background, hours-long): hibernation pricing (Cloudflare) or session-hour pricing (CMA) matters a lot.</p>
+          <span class="why">→ Long async work is exactly where Cloudflare's free-when-idle model dominates.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">03</div>
         <div class="q-text">
-          <h4>How many agents will run concurrently at peak?</h4>
-          <p>1–10: hosted is fine. 50+: model the session-hour cost carefully — at $0.08/hr × 50 agents × 730 hr/mo = $2,920/mo just for the harness, before tokens. At that point self-deployed Agent SDK pays for itself.</p>
+          <h4>How does the agent receive input — chat, webhook, schedule, event?</h4>
+          <p>Chat: any platform works. Cron/scheduled: Cloudflare's built-in scheduler is best. Event-driven (Slack, email, webhooks): all platforms support it but Cloudflare is most native.</p>
+          <span class="why">→ If you're already running cron jobs in n8n or Supabase, that's a sign the harness should support scheduling.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">04</div>
         <div class="q-text">
-          <h4>Do you need multi-model flexibility now or in the future?</h4>
-          <p>If committed to Claude (you are), CMA is fine. If a specific agent benefits from Gemini's long context, GPT-5's reasoning, or a local model for privacy, choose model-agnostic upfront — retrofitting is painful.</p>
+          <h4>What's the expected concurrency at peak?</h4>
+          <p>1–10: hosted is fine. 50+: model the harness fee carefully. 1000+ (one per user/client): only Cloudflare's hibernation model handles this economically.</p>
+          <span class="why">→ At 100+ idle agents, CMA costs ~$240/mo just for the harness. Cloudflare costs ~$15.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">05</div>
         <div class="q-text">
-          <h4>Who handles security, identity, and tenant isolation?</h4>
-          <p>Internal agents: anything works. Client-facing or multi-tenant: hosted platforms (CMA, AgentCore) save 2–3 months of security work. This is where managed pricing usually pays off.</p>
+          <h4>Will the agent need to coordinate with other agents (multi-agent)?</h4>
+          <p>Single agent: anything works. Multi-agent: CMA has it in research preview, Cloudflare has sub-agents shipping, LangGraph has it as a primitive.</p>
+          <span class="why">→ Don't bet on research-preview features for production roadmaps.</span>
         </div>
+      </div>
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY B</div>
+        <div class="q-category-title">Memory & state</div>
+        <div class="q-category-desc">Where memory lives is where lock-in lives. This category determines how reversible your decision is.</div>
       </div>
       <div class="q-row">
         <div class="q-num">06</div>
         <div class="q-text">
-          <h4>What's the team's ops capacity?</h4>
-          <p>Self-hosting OpenClaw means someone owns Kubernetes, sandbox security, observability, on-call. Without a platform engineer dedicated to this, hosted wins by default.</p>
+          <h4>Where does the agent's memory live, and who owns it?</h4>
+          <p>Memory in vendor stores (CMA's Memory beta, Bedrock Memory) creates real lock-in. Memory in your own database (Supabase, Postgres) is portable. Memory in Durable Objects (Cloudflare) is somewhere between — yours but tied to Cloudflare's runtime.</p>
+          <span class="why">→ Rule: never put memory you can't export into a proprietary store.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">07</div>
         <div class="q-text">
-          <h4>How fast does this need to ship?</h4>
-          <p>CMA: days to prototype, days to production. Agent SDK: weeks. Self-hosted OSS: months. The fastest path to 'agent in production' is almost always hosted.</p>
+          <h4>Does memory need to be shared across agents or per-agent?</h4>
+          <p>Per-agent: any platform. Shared workspace memory: CMA Memory, Cloudflare Vectorize + R2, or your own Supabase. Cross-tenant shared: build it yourself.</p>
+          <span class="why">→ Cloudflare's per-Durable-Object SQLite is naturally per-agent. Sharing requires Vectorize or D1.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">08</div>
         <div class="q-text">
-          <h4>What's the data residency / compliance requirement?</h4>
-          <p>If client contracts require data stays in specific regions or never touches Anthropic servers, only self-hosted works. For most DTC ecommerce work this isn't a constraint.</p>
+          <h4>Do you need cross-session memory persistence?</h4>
+          <p>Most teams say yes, then realize their agents don't actually need it. If the agent is one-shot or stateless within a task, skip memory entirely.</p>
+          <span class="why">→ Memory is the second-most over-engineered thing in agent stacks (after multi-agent orchestration).</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">09</div>
         <div class="q-text">
-          <h4>What does failure look like, and who handles it at 2am?</h4>
-          <p>Hosted: Anthropic's on-call handles infra, you handle prompt/logic. Self-hosted: it's all you. Factor incident response cost into the comparison.</p>
+          <h4>Do you need vector / semantic search?</h4>
+          <p>If yes: Cloudflare has Vectorize built in, CMA doesn't (you'd add Pinecone/Supabase pgvector), Bedrock has Knowledge Bases. Plan this upfront.</p>
+          <span class="why">→ Vectorize being in the same platform is a real Cloudflare advantage for RAG-heavy agents.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">10</div>
         <div class="q-text">
-          <h4>How will agent quality get measured, and does the platform help?</h4>
-          <p>CMA Console gives tracing for free. LangSmith does this on top of LangGraph. Self-hosted means building evals and observability yourself. Eval velocity is often the real bottleneck.</p>
+          <h4>How will you audit / replay agent decisions?</h4>
+          <p>Memory + tracing together. CMA Console gives this for free. Cloudflare gives logs + AI Gateway. LangSmith does this on top of LangGraph. Self-hosted means building it.</p>
+          <span class="why">→ Without replay, debugging production agents is impossible.</span>
         </div>
+      </div>
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY C</div>
+        <div class="q-category-title">Models & lock-in</div>
+        <div class="q-category-desc">Models are easy to swap. Harnesses, memory, and tool integrations are the actual switching cost.</div>
       </div>
       <div class="q-row">
         <div class="q-num">11</div>
         <div class="q-text">
-          <h4>What's the migration path if you're wrong?</h4>
-          <p>See the Migration Risk tab. Bias toward decisions that are reversible in weeks, not quarters.</p>
+          <h4>Are you committed to one model family, or do you need flexibility?</h4>
+          <p>If only Claude: CMA + Agent SDK are fine. If you want any of GPT, Gemini, Llama, or local: choose Cloudflare (14+ providers via AI Gateway), Deep Agents, or LangGraph.</p>
+          <span class="why">→ Multi-model isn't theoretical — Gemini's long context, GPT-5's reasoning, and local privacy are real use cases.</span>
         </div>
       </div>
       <div class="q-row">
         <div class="q-num">12</div>
         <div class="q-text">
+          <h4>Do you need to A/B test models across the same agent task?</h4>
+          <p>Cloudflare AI Gateway has this natively (one-line model swap). LangSmith has it via tracing. CMA doesn't really.</p>
+          <span class="why">→ If model performance matters to your business case, you'll want this.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">13</div>
+        <div class="q-text">
+          <h4>What's your fallback plan if the primary model goes down?</h4>
+          <p>Cloudflare AI Gateway has automatic fallback. CMA doesn't. Self-built: you wire it yourself.</p>
+          <span class="why">→ Anthropic has had outages. So has every other provider.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">14</div>
+        <div class="q-text">
+          <h4>How locked-in are you willing to be on the harness?</h4>
+          <p>High lock-in (CMA): fastest to ship, hardest to leave. Low lock-in (Cloudflare, OSS): more setup, easier to leave. Decide explicitly.</p>
+          <span class="why">→ Lock-in cost = (engineering days to migrate) × (probability you'll need to migrate).</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">15</div>
+        <div class="q-text">
+          <h4>Can you export your agent definitions and memory?</h4>
+          <p>If you can't export to JSON/markdown, treat that as a red flag. CMA exports memory as files. Cloudflare's DO state is queryable. Bedrock's is more opaque.</p>
+          <span class="why">→ Export-ability is the cheapest insurance policy.</span>
+        </div>
+      </div>
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY D</div>
+        <div class="q-category-title">Cost & scale</div>
+        <div class="q-category-desc">Three different pricing models — session-hour, CPU-time, and your own infra. Each wins at different scales.</div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">16</div>
+        <div class="q-text">
+          <h4>What's your peak concurrent agent count?</h4>
+          <p>1–10 active concurrently: any platform fine. 50–500: pricing model matters. 500+: Cloudflare's hibernation model is structurally cheapest.</p>
+          <span class="why">→ Model 12-month worst-case before committing.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">17</div>
+        <div class="q-text">
+          <h4>What's the active vs. idle ratio?</h4>
+          <p>Mostly active (8 hr/day): CMA, SDK, Bedrock all comparable. Mostly idle (1 hr/day): Cloudflare wins by 10×.</p>
+          <span class="why">→ Calculate this honestly. Most agents are idle 95% of the time.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">18</div>
+        <div class="q-text">
+          <h4>Are you scaling linearly with clients, users, or tasks?</h4>
+          <p>Linear with clients: per-tenant pricing matters (CMA's session billing, Cloudflare's per-DO pricing). Linear with tasks: token cost dominates, harness is rounding error.</p>
+          <span class="why">→ If 1 client = 10 agents, you'll want a pricing model that doesn't punish you for adding clients.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">19</div>
+        <div class="q-text">
+          <h4>Is the cost passable to clients?</h4>
+          <p>CMA's $0.08/session-hour is a clean line item to bill clients. Cloudflare's CPU-time pricing is harder to translate. Self-hosted is opaque.</p>
+          <span class="why">→ Performance pricing models like yours benefit from billable line items.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">20</div>
+        <div class="q-text">
+          <h4>What's the infrastructure cost beyond tokens?</h4>
+          <p>Tokens are equal across platforms. Harness premium ranges from $0/mo (SDK self-deploy) to ~$700+/mo (CMA at scale) for the same workload.</p>
+          <span class="why">→ Total cost = tokens + harness + ops time. Don't ignore the third.</span>
+        </div>
+      </div>
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY E</div>
+        <div class="q-category-title">Security & multi-tenancy</div>
+        <div class="q-category-desc">If clients ever touch your agents, this category becomes the most expensive part of the build.</div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">21</div>
+        <div class="q-text">
+          <h4>Will agents touch client data, or only internal data?</h4>
+          <p>Internal only: any platform. Client data: hosted (CMA, Cloudflare, Bedrock) saves 2–3 months of security work.</p>
+          <span class="why">→ Multi-tenant security is the single most underestimated cost in agent infra.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">22</div>
+        <div class="q-text">
+          <h4>Do you need per-client tenant isolation?</h4>
+          <p>CMA does this with scoped permissions + identity. Cloudflare does this naturally (one Durable Object per client). Self-hosted: you build it.</p>
+          <span class="why">→ If you ever productize this, isolation must be airtight on day 1.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">23</div>
+        <div class="q-text">
+          <h4>What's the secrets/credentials story?</h4>
+          <p>CMA has built-in credential management (creds never reach the sandbox). Cloudflare has Workers Secrets + Outbound Workers. Self-hosted: Vault or roll-your-own.</p>
+          <span class="why">→ Leaked credentials in an agent prompt is a top-3 incident pattern.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">24</div>
+        <div class="q-text">
+          <h4>Does the agent need network access, and if so, where?</h4>
+          <p>All hosted platforms support allowlist-style network rules. Cloudflare's Outbound Workers + Mesh are most granular.</p>
+          <span class="why">→ Default-deny network access is the right starting posture.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">25</div>
+        <div class="q-text">
+          <h4>What's the data residency requirement?</h4>
+          <p>If client contracts require EU/specific-region data: only self-hosted or AWS Bedrock (with region pinning) work cleanly. CMA and Cloudflare are global by default.</p>
+          <span class="why">→ Most DTC ecommerce contracts don't require this. Enterprise clients sometimes do.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">26</div>
+        <div class="q-text">
+          <h4>What happens if a prompt injection succeeds?</h4>
+          <p>Sandboxing limits blast radius. CMA, Cloudflare, and Bedrock all sandbox. Self-deployed Agent SDK requires you to sandbox yourself.</p>
+          <span class="why">→ Assume prompt injection will happen. Design for it.</span>
+        </div>
+      </div>
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY F</div>
+        <div class="q-category-title">Team & operations</div>
+        <div class="q-category-desc">The platform that fits your team's skills and ops capacity will win, regardless of theoretical merit.</div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">27</div>
+        <div class="q-text">
+          <h4>Who runs this in production at 2am?</h4>
+          <p>Hosted (CMA, Cloudflare, Bedrock): vendor on-call handles infra. Self-hosted: it's your team.</p>
+          <span class="why">→ Factor incident response cost. One bad weekend > a year of hosted fees.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">28</div>
+        <div class="q-text">
+          <h4>Does your team know TypeScript or Python better?</h4>
+          <p>Cloudflare is TypeScript-native. CMA + Agent SDK have Python and TypeScript. CrewAI/LangGraph are Python-first.</p>
+          <span class="why">→ Don't fight your team's existing stack.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">29</div>
+        <div class="q-text">
+          <h4>How fast does this need to ship?</h4>
+          <p>CMA: days. Agent SDK + Supabase: weeks. Cloudflare Agents: weeks (faster if team knows Workers). Self-hosted OSS: months.</p>
+          <span class="why">→ Fastest path to production-ready almost always wins for first iteration.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">30</div>
+        <div class="q-text">
+          <h4>Who maintains this 12 months from now?</h4>
+          <p>If it's a single dev's pet project, maintainability is a real risk. Hosted platforms reduce maintenance burden. OSS platforms put it on your team.</p>
+          <span class="why">→ Bus factor of 1 is a critical risk for production agents.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">31</div>
+        <div class="q-text">
+          <h4>How will you measure agent quality?</h4>
+          <p>CMA Console: free tracing. Cloudflare AI Gateway: per-call observability. LangSmith: built for this. Self-hosted: you build evals.</p>
+          <span class="why">→ Eval velocity is often the real bottleneck, not infra.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">32</div>
+        <div class="q-text">
+          <h4>How will you ship breaking changes safely?</h4>
+          <p>All platforms support versioning agents. CMA has agent IDs. Cloudflare has Workers versioning. Plan a staging environment from day 1.</p>
+          <span class="why">→ Production agents that update without canary testing will eventually break a client.</span>
+        </div>
+      </div>
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY G</div>
+        <div class="q-category-title">Migration & reversibility</div>
+        <div class="q-category-desc">If you're wrong, how hard is it to switch? Bias toward decisions that are reversible in weeks, not quarters.</div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">33</div>
+        <div class="q-text">
+          <h4>What's the migration path off this platform?</h4>
+          <p>CMA → Agent SDK: 2–4 weeks. CMA → Cloudflare: 5–8 weeks. Cloudflare → CMA: 4–7 weeks. Plan the exit before you commit.</p>
+          <span class="why">→ Migration cost > expected migration probability × migration cost. If switching is easy, lock-in matters less.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">34</div>
+        <div class="q-text">
+          <h4>Are agent definitions portable?</h4>
+          <p>If you write agents in your own markdown/YAML spec and translate to the platform's API, switching costs drop dramatically. If you write directly against the platform's API, you're locked in.</p>
+          <span class="why">→ 1 week of upfront abstraction work saves 6 weeks of migration later.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">35</div>
+        <div class="q-text">
+          <h4>Are tool integrations portable?</h4>
+          <p>MCP-based tools port cleanly across all platforms (CMA, Cloudflare, Agent SDK all support MCP). Custom tools written against a specific platform's API don't.</p>
+          <span class="why">→ Default to MCP for tool definitions when possible.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">36</div>
+        <div class="q-text">
+          <h4>Can you run two platforms in parallel during transition?</h4>
+          <p>Yes for everything. The friction is shared memory + shared tooling. Plan a 2–4 week parallel-run window for any major migration.</p>
+          <span class="why">→ Parallel running de-risks the cutover.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">37</div>
+        <div class="q-text">
+          <h4>What's your fallback if the vendor pivots, raises prices, or shuts down?</h4>
+          <p>Hosted platforms can change pricing or sunset features unilaterally. OSS platforms can't. Hybrid (Cloudflare + own DB) is a reasonable middle.</p>
+          <span class="why">→ Ask: 'If this vendor 5x'd prices tomorrow, what would I do?' If the answer is 'panic,' rethink.</span>
+        </div>
+      </div>
+      <div class="q-category">
+        <div class="q-category-num">CATEGORY H</div>
+        <div class="q-category-title">Strategic fit</div>
+        <div class="q-category-desc">Beyond the technical questions, does this decision serve where the business is going?</div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">38</div>
+        <div class="q-text">
+          <h4>Does this fit the existing stack?</h4>
+          <p>Ad Pros runs Supabase + ClickUp + BigQuery + Cloudflare R2. Cloudflare Agents fits naturally (R2 already there). CMA + Supabase memory fits. Bedrock requires a second cloud.</p>
+          <span class="why">→ Stack coherence reduces ops surface area.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">39</div>
+        <div class="q-text">
+          <h4>Will this support productization to clients later?</h4>
+          <p>If Noor gets white-labeled for clients, multi-tenancy + per-client billing matter. CMA's session-hour pricing is billable. Cloudflare's per-DO scaling is billable. Self-hosted requires building this.</p>
+          <span class="why">→ Build for the product you'll have in 18 months, not just today.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">40</div>
+        <div class="q-text">
+          <h4>Does the platform's roadmap align with where you're going?</h4>
+          <p>CMA roadmap: deeper Claude integration, multi-agent, dreaming. Cloudflare roadmap: agents-as-customers, durable execution at scale. Both align with autonomous agents.</p>
+          <span class="why">→ Vendor roadmap = where you'll be locked in next year.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">41</div>
+        <div class="q-text">
           <h4>Are you optimizing the right thing?</h4>
-          <p>Most teams overweight infrastructure choice and underweight prompt quality, tool design, and data plumbing. The harness rarely determines whether the agent works.</p>
+          <p>Most teams overweight infra choice and underweight prompt quality, tool design, and data plumbing. The harness rarely determines whether the agent works.</p>
+          <span class="why">→ Spend 20% of your time on infra, 80% on prompts/tools/evals.</span>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">42</div>
+        <div class="q-text">
+          <h4>What's the single biggest risk you're not pricing in?</h4>
+          <p>For Ad Pros: probably memory lock-in if you bet on CMA Memory before it's GA. Or under-investing in evals. Or ops debt from running Cloudflare without TypeScript depth on the team.</p>
+          <span class="why">→ Name the biggest risk explicitly. Then mitigate it before it bites.</span>
         </div>
       </div>
     </div>
@@ -663,14 +978,41 @@ a:hover { color: var(--yellow); }
             <div class="note">20 × 8 × 30 × $0.08 = $384/mo harness fee</div>
           </div>
           <div class="scenario-cell">
+            <div class="label">Cloudflare Agents</div>
+            <div class="num">~$30</div>
+            <div class="note">Free when idle, pay CPU-time only when active. Workers paid plan + minimal DO usage.</div>
+          </div>
+          <div class="scenario-cell">
             <div class="label">Agent SDK + Supabase</div>
             <div class="num">~$50</div>
             <div class="note">Marginal compute on existing infrastructure</div>
           </div>
+        </div>
+        <div style="padding:14px 22px;background:var(--navy-deep);font-size:13px;color:var(--grey-200);border-top:1px solid var(--card-border);">
+          <strong style="color:var(--yellow);">Verdict:</strong> Cloudflare wins on raw cost. SDK wins on simplicity if Supabase is already the source of truth. CMA's premium buys hands-off ops + native Claude tuning.
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-head">
+          <h3>Scenario B-2 · The "many idle agents" pattern</h3>
+          <span class="meta">100 client-specific agents · ~1 hr/day active each · 30 days</span>
+        </div>
+        <div class="scenario-grid">
+          <div class="scenario-cell">
+            <div class="label">CMA</div>
+            <div class="num">$240</div>
+            <div class="note">100 × 1 × 30 × $0.08 = $240/mo (free 50 hr/day cushion eaten quickly)</div>
+          </div>
+          <div class="scenario-cell">
+            <div class="label">Cloudflare Agents</div>
+            <div class="num">~$15</div>
+            <div class="note">Hibernation = $0 for the 23 idle hrs. Massive cost advantage at this scale.</div>
+          </div>
           <div class="scenario-cell">
             <div class="label">Verdict</div>
-            <div class="verdict">Tie / lean SDK</div>
-            <div class="note">$334/mo savings vs. ops overhead — depends on team capacity</div>
+            <div class="verdict">Cloudflare wins big</div>
+            <div class="note">If your roadmap involves 1 agent per client/user, Cloudflare's pricing is structurally better.</div>
           </div>
         </div>
       </div>
@@ -724,6 +1066,14 @@ a:hover { color: var(--yellow); }
       </div>
       <div class="mig-row">
         <div class="mig-fromto">
+          <span class="lbl">FROM</span>CMA<br><span class="lbl">TO</span>Cloudflare Agents
+        </div>
+        <div><span class="pill pill-bad">Hard</span></div>
+        <div class="mig-time">5-8 weeks</div>
+        <div class="mig-note">Different runtime paradigm (Durable Objects), TypeScript-first, but Sandbox SDK + Workflows fill most CMA primitives.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
           <span class="lbl">FROM</span>CMA<br><span class="lbl">TO</span>Bedrock AgentCore
         </div>
         <div><span class="pill pill-bad">Hard</span></div>
@@ -748,11 +1098,27 @@ a:hover { color: var(--yellow); }
       </div>
       <div class="mig-row">
         <div class="mig-fromto">
+          <span class="lbl">FROM</span>Agent SDK<br><span class="lbl">TO</span>Cloudflare Agents
+        </div>
+        <div><span class="pill pill-warn">Medium</span></div>
+        <div class="mig-time">3-5 weeks</div>
+        <div class="mig-note">Port Python tool definitions to TypeScript. Durable Object pattern is different but cleaner.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
           <span class="lbl">FROM</span>Agent SDK<br><span class="lbl">TO</span>Other harness
         </div>
         <div><span class="pill pill-warn">Medium</span></div>
         <div class="mig-time">3-5 weeks</div>
         <div class="mig-note">Tool definitions and prompts port cleanly; agent loop logic needs rewriting.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>Cloudflare Agents<br><span class="lbl">TO</span>CMA or other
+        </div>
+        <div><span class="pill pill-warn">Medium-Hard</span></div>
+        <div class="mig-time">4-7 weeks</div>
+        <div class="mig-note">Durable Objects state model is unique. Memory mostly portable; agent class structure needs rewriting.</div>
       </div>
       <div class="mig-row">
         <div class="mig-fromto">
@@ -764,11 +1130,11 @@ a:hover { color: var(--yellow); }
       </div>
       <div class="mig-row">
         <div class="mig-fromto">
-          <span class="lbl">FROM</span>Claude API direct<br><span class="lbl">TO</span>CMA
+          <span class="lbl">FROM</span>Claude API direct<br><span class="lbl">TO</span>CMA or Cloudflare
         </div>
         <div><span class="pill pill-good">Easy</span></div>
-        <div class="mig-time">1 week</div>
-        <div class="mig-note">Layer CMA on top, gradually move workflows over.</div>
+        <div class="mig-time">1-2 weeks</div>
+        <div class="mig-note">Layer the harness on top, gradually move workflows over.</div>
       </div>
       <div class="mig-row">
         <div class="mig-fromto">
@@ -776,7 +1142,7 @@ a:hover { color: var(--yellow); }
         </div>
         <div><span class="pill pill-bad">Hard if locked</span></div>
         <div class="mig-time">8-12 weeks</div>
-        <div class="mig-note">Why model-agnostic harnesses matter as insurance.</div>
+        <div class="mig-note">Why model-agnostic harnesses (Cloudflare, LangChain) matter as insurance.</div>
       </div>
     </div>
 
