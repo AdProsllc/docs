@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal Kazim">
+  <meta name="theme-color" content="#040735">
+  <title>Alternatives to Claude Managed Agents — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:#040735; --navy-deep:#02041f; --navy-card:#070b3d; --navy-card-hover:#0a1050;
+  --yellow:#F9D900; --yellow-dim:#DFC200;
+  --blue:#1A6FD4; --blue-light:#3BA9F9;
+  --white:#FFFFFF;
+  --grey-400:#54556A; --grey-300:#8A8B93; --grey-200:#B0B1B6; --grey-100:#E6E6E7;
+  --card-border:#0e1358; --card-border-strong:#1a2375;
+  --success:#0F973D; --error:#D42620;
+  --radius:10px;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+  --space-12:48px; --space-16:64px; --space-20:80px;
+}
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--navy); color: var(--grey-200);
+  font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px; line-height: 1.6; min-height: 100vh;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+/* TYPE */
+.ap-display { font-size: clamp(32px, 5.5vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color:#fff; }
+.ap-display em { font-style: normal; color: var(--yellow); }
+.ap-h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color:#fff; }
+.ap-h2 { font-size: clamp(24px, 3.5vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color:#fff; }
+.ap-h3 { font-size: clamp(20px, 2.5vw, 24px); font-weight: 600; line-height: 1.25; color:#fff; }
+.ap-h4 { font-size: 18px; font-weight: 600; line-height: 1.3; color:#fff; }
+.ap-h5 { font-size: 16px; font-weight: 600; line-height: 1.4; color:#fff; }
+.ap-p-lg { font-size: clamp(16px, 1.5vw, 18px); line-height: 1.6; color: var(--grey-200); }
+.ap-p { font-size: 15px; line-height: 1.6; color: var(--grey-200); }
+.ap-p-sm { font-size: 13.5px; line-height: 1.55; color: var(--grey-200); }
+.ap-caption { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+.ap-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-4); }
+.ap-kicker::before { content:""; width: 18px; height: 2px; background: var(--yellow); }
+
+/* HEADER */
+.ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 24px 32px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+.ap-header-text h1 { font-size: clamp(18px, 2.2vw, 22px); font-weight: 700; color:#fff; letter-spacing: -0.3px; }
+.ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+/* LAYOUT */
+.ap-content { padding: 32px; max-width: 1200px; margin: 0 auto; }
+.ap-section { padding: var(--space-10) 0; }
+.ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+.ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+
+/* CARDS */
+.ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+.ap-card-hover { transition: background .15s, border-color .15s; }
+.ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
+
+/* VALUE ROW */
+.ap-value { display: grid; grid-template-columns: 64px 1fr; gap: 0; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+.ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; }
+.ap-value-body { padding: 18px 22px; }
+.ap-value-body h4 { color:#fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.ap-value-body p { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+
+/* CALLOUT */
+.ap-callout { background: rgba(249,217,0,0.08); border: 1px solid rgba(249,217,0,0.4); border-left: 3px solid var(--yellow); padding: 18px 22px; border-radius: 8px; font-size: 16px; color: var(--grey-100); line-height: 1.5; }
+.ap-callout strong { color: var(--yellow); display: block; margin-bottom: 6px; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 700; }
+
+/* LINKS */
+a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--yellow); }
+
+/* TABS */
+.tabs-nav { display: flex; gap: 4px; overflow-x: auto; padding: 8px 32px 0; background: var(--navy); border-bottom: 1px solid var(--card-border-strong); position: sticky; top: 0; z-index: 50; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tabs-nav::-webkit-scrollbar { display: none; }
+.tab-btn { background: transparent; color: var(--grey-300); border: none; border-bottom: 3px solid transparent; padding: 14px 16px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: color .15s, border-color .15s; letter-spacing: 0.2px; }
+.tab-btn:hover { color:#fff; }
+.tab-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+.tab-btn .num { font-family: "JetBrains Mono", monospace; font-size: 10px; opacity: 0.6; margin-right: 6px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* TABLE */
+.cmp-table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--card-border); -webkit-overflow-scrolling: touch; }
+.cmp-table { width: 100%; min-width: 880px; border-collapse: collapse; font-size: 13px; background: var(--navy-card); }
+.cmp-table thead { background: var(--navy-deep); }
+.cmp-table th { text-align: left; padding: 14px 12px; font-family: "JetBrains Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--grey-300); font-weight: 600; border-bottom: 1px solid var(--card-border-strong); white-space: nowrap; }
+.cmp-table td { padding: 14px 12px; border-top: 1px solid var(--card-border); color: var(--grey-200); vertical-align: top; }
+.cmp-table td:first-child { color:#fff; font-weight: 600; }
+.cmp-table tbody tr:hover { background: var(--navy-card-hover); }
+
+/* PILL */
+.pill { display: inline-block; padding: 3px 10px; font-size: 10px; font-family: "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: 1.2px; border-radius: 999px; font-weight: 600; }
+.pill-good { background: rgba(15,151,61,0.15); color:#7be0a0; border: 1px solid rgba(15,151,61,0.4); }
+.pill-warn { background: rgba(249,217,0,0.12); color:#ffe57d; border: 1px solid rgba(249,217,0,0.4); }
+.pill-bad { background: rgba(212,38,32,0.12); color:#ffb3b0; border: 1px solid rgba(212,38,32,0.4); }
+.pill-accent { background: var(--yellow); color: var(--navy); border: 1px solid var(--yellow); }
+.pill-neutral { background: rgba(255,255,255,0.06); color: var(--grey-200); border: 1px solid var(--card-border-strong); }
+
+/* QUESTIONS */
+.q-row { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--card-border); }
+.q-num { font-family: "JetBrains Mono", monospace; font-size: 28px; font-weight: 700; color: var(--yellow); line-height: 1; }
+.q-text h4 { color:#fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.q-text p { font-size: 14.5px; color: var(--grey-200); line-height: 1.55; }
+
+/* SCENARIO CARD */
+.scenario { border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
+.scenario-head { background: var(--navy-deep); padding: 16px 22px; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid var(--card-border-strong); }
+.scenario-head h3 { color:#fff; font-size: 18px; font-weight: 700; }
+.scenario-head .meta { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--grey-300); }
+.scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.scenario-cell { padding: 22px; border-right: 1px solid var(--card-border); background: var(--navy-card); }
+.scenario-cell:last-child { border-right: none; }
+.scenario-cell .label { font-family: "JetBrains Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--grey-300); margin-bottom: 8px; }
+.scenario-cell .num { font-size: 32px; font-weight: 800; color: var(--yellow); letter-spacing: -1px; line-height: 1; margin-bottom: 8px; }
+.scenario-cell .verdict { font-size: 17px; font-weight: 700; color:#fff; margin-bottom: 8px; }
+.scenario-cell .note { font-size: 12.5px; color: var(--grey-200); line-height: 1.5; }
+
+/* MIGRATION ROW */
+.mig-row { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 12px; display: grid; grid-template-columns: 1.4fr 0.7fr 0.6fr 1.8fr; gap: 16px; align-items: center; }
+.mig-fromto { color:#fff; font-size: 14px; line-height: 1.5; }
+.mig-fromto .lbl { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--grey-300); margin-right: 4px; }
+.mig-time { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--grey-200); }
+.mig-note { font-size: 13.5px; color: var(--grey-200); line-height: 1.5; }
+
+/* FOOTER */
+.ap-footer { margin: 64px 32px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.ap-footer-left { display: flex; align-items: center; gap: 14px; }
+.ap-footer p { font-size: 12px; color: var(--grey-300); }
+.ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .ap-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .ap-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .scenario-cell { border-right: none; border-bottom: 1px solid var(--card-border); }
+  .scenario-cell:last-child { border-bottom: none; }
+  .mig-row { grid-template-columns: 1fr; gap: 8px; }
+}
+@media (max-width: 640px) {
+  .ap-header { padding: 18px 20px; gap: 12px; }
+  .ap-header-divider { display: none; }
+  .ap-content { padding: 24px 20px; }
+  .ap-section { padding: 24px 0; }
+  .ap-grid-2, .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; }
+  .tabs-nav { padding: 6px 16px 0; }
+  .tab-btn { padding: 12px 12px; font-size: 12.5px; }
+  .ap-footer { margin: 40px 20px 24px; flex-direction: column; align-items: flex-start; }
+  .ap-value { grid-template-columns: 52px 1fr; }
+  .ap-value-num { font-size: 18px; }
+  .ap-value-body { padding: 14px 16px; }
+  .q-row { grid-template-columns: 40px 1fr; gap: 12px; }
+  .q-num { font-size: 22px; }
+  .scenario-head { padding: 14px 18px; }
+  .scenario-head .meta { font-size: 11px; }
+  .ap-card { padding: 18px; }
+  .ap-callout { padding: 14px 18px; font-size: 14.5px; }
+}
+</style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:48px;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Alternatives to Claude Managed Agents</h1>
+      <p>Infrastructure decision brief · v1</p>
+    </div>
+  </header>
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn active" role="tab" aria-selected="true" data-tab="summary"><span class="num">01</span>Executive Summary</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="recommendations"><span class="num">02</span>For Ad Pros</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="features"><span class="num">03</span>Feature Breakdown</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="questions"><span class="num">04</span>Decision Questions</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="cost"><span class="num">05</span>Cost Modeling</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="migration"><span class="num">06</span>Migration Risk</button>
+</nav>
+<div class="ap-content">
+<div class="tab-panel active" id="tab-summary" role="tabpanel">
+  <section class="ap-section">
+    <span class="ap-kicker">01 · Executive Summary</span>
+    <h2 class="ap-h2">How to choose</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">
+      Claude Managed Agents (CMA) is a hosted agent harness — sandboxing, sessions, memory, tool execution, and tracing, all run by Anthropic for $0.08/session-hour plus tokens. The alternatives split along two axes: <em style="color:var(--yellow);font-style:normal;">who runs the infrastructure</em>, and <em style="color:var(--yellow);font-style:normal;">which models you can use</em>. The right choice depends on lock-in tolerance, scale, and how much of the moat lives inside the agent's memory.
+    </p>
+
+    <div class="ap-callout" style="margin-top:32px;max-width:900px;">
+      <strong>The decision in one sentence</strong>
+      If your moat is memory and learning loops, own the harness. If your moat is the agent's task quality and you want to ship fast, let Anthropic run it.
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:20px;">The four buckets</h3>
+    <div class="ap-value">
+      <div class="ap-value-num">A</div>
+      <div class="ap-value-body">
+        <h4>Hosted, Claude-native</h4>
+        <p>CMA. Fastest to ship, deepest Claude tuning, highest lock-in. Best when speed beats flexibility and Claude is already the default.</p>
+      </div>
+    </div>
+    <div class="ap-value">
+      <div class="ap-value-num">B</div>
+      <div class="ap-value-body">
+        <h4>Hosted, model-agnostic</h4>
+        <p>Bedrock AgentCore, Deep Agents Deploy, DigitalOcean Gradient. Someone else runs the infra, models stay swappable.</p>
+      </div>
+    </div>
+    <div class="ap-value">
+      <div class="ap-value-num">C</div>
+      <div class="ap-value-body">
+        <h4>SDK / library, you deploy</h4>
+        <p>Claude Agent SDK, LangGraph, CrewAI. Full control over deployment. Engineering cost but no per-session platform fee.</p>
+      </div>
+    </div>
+    <div class="ap-value">
+      <div class="ap-value-num">D</div>
+      <div class="ap-value-body">
+        <h4>Self-hosted OSS</h4>
+        <p>OpenClaw, Multica, Cabinet, Eigent. Maximum control, zero lock-in, full ops cost on your team.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:20px;">Three things people miss</h3>
+    <div class="ap-grid-3">
+      <div class="ap-card">
+        <div class="ap-kicker">i. Memory = lock-in</div>
+        <p class="ap-p">Models are easy to swap. Once agents have written months of memory into a proprietary store, switching costs explode.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">ii. $0.08/hr scales</div>
+        <p class="ap-p">One agent for an hour is a rounding error. 500 agents running concurrently is $40/hr just for the harness, on top of tokens.</p>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">iii. Infra is solved</div>
+        <p class="ap-p">The hard part isn't the harness — it's wiring agents into real data sources cleanly. That work is the same on every platform.</p>
+      </div>
+    </div>
+
+    <h3 class="ap-h3" style="margin-top:48px;margin-bottom:20px;">Pick by primary constraint</h3>
+    <div class="ap-grid-2">
+      <div class="ap-card ap-card-hover">
+        <div class="ap-kicker">SPEED TO PRODUCTION</div>
+        <h4 class="ap-h4">Claude Managed Agents</h4>
+      </div>
+      <div class="ap-card ap-card-hover">
+        <div class="ap-kicker">MULTI-MODEL FLEXIBILITY</div>
+        <h4 class="ap-h4">Deep Agents Deploy / Bedrock AgentCore</h4>
+      </div>
+      <div class="ap-card ap-card-hover">
+        <div class="ap-kicker">COST AT SCALE</div>
+        <h4 class="ap-h4">Claude Agent SDK (self-deployed)</h4>
+      </div>
+      <div class="ap-card ap-card-hover">
+        <div class="ap-kicker">ZERO LOCK-IN / DATA RESIDENCY</div>
+        <h4 class="ap-h4">OpenClaw or Multica</h4>
+      </div>
+      <div class="ap-card ap-card-hover">
+        <div class="ap-kicker">ALREADY ON AWS</div>
+        <h4 class="ap-h4">Bedrock AgentCore</h4>
+      </div>
+      <div class="ap-card" style="background:var(--yellow);border-color:var(--yellow);">
+        <div class="ap-kicker" style="color:var(--navy);">YOUR STACK TODAY</div>
+        <h4 class="ap-h4" style="color:var(--navy);">Claude Agent SDK + Supabase</h4>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-panel" id="tab-recommendations" role="tabpanel">
+  <section class="ap-section">
+    <span class="ap-kicker">02 · Recommendations for Ad Pros</span>
+    <h2 class="ap-h2">Mapped to what you're actually building</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">
+      Based on the current Ad Pros AI stack — Noor (ClickUp + BigQuery + Supabase + Claude API), the 8-agent Workflow Factory, the Media Intelligence Pipeline processing ~5K Meta ads/day, and the AI twin video pipeline — here's how the alternatives map to specific projects.
+    </p>
+
+    <div class="ap-card" style="margin-top:32px;border-left:3px solid var(--yellow);">
+      <div class="ap-kicker">RECOMMENDED PRIMARY · NOOR / WORKFLOW FACTORY</div>
+      <h3 class="ap-h3">Claude Agent SDK + your existing stack</h3>
+      <p class="ap-p" style="margin-top:12px;">Noor is already built on ClickUp, BigQuery, Supabase, and the Claude API. The Agent SDK formalizes what you have — agent loop, tool execution, context compaction — without forcing you onto Anthropic's hosted runtime. Keep Supabase as the memory store, BigQuery as the data layer, and skip session-hour fees on agents that run constantly.</p>
+      <div class="ap-grid-3" style="margin-top:18px;gap:14px;">
+        <div><span style="color:var(--yellow);font-weight:600;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;">Why</span><p class="ap-p-sm" style="margin-top:4px;">Your moat is the data layer + workflow logic, not the harness</p></div>
+        <div><span style="color:var(--yellow);font-weight:600;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;">Cost vs CMA</span><p class="ap-p-sm" style="margin-top:4px;">Save ~$60/mo per agent running 24/7 ($0.08 × 730 hr)</p></div>
+        <div><span style="color:var(--yellow);font-weight:600;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;">Risk</span><p class="ap-p-sm" style="margin-top:4px;">You own ops, but you're already running prod infra</p></div>
+      </div>
+    </div>
+
+    <div class="ap-grid-2" style="margin-top:16px;">
+      <div class="ap-card">
+        <div class="ap-kicker" style="color:var(--blue-light);">USE FOR · MEDIA INTELLIGENCE PIPELINE</div>
+        <h4 class="ap-h4">Stay on Anthropic Batch API</h4>
+        <p class="ap-p" style="margin-top:8px;">Don't move the ~5K ads/day pipeline to CMA. Batch API is 50% cheaper for high-volume async work, and you're not running a long-horizon agent — it's a stateless classification pipeline at scale. CMA's value is sessions and memory; you don't need either here.</p>
+        <p class="ap-p-sm" style="margin-top:12px;color:var(--grey-300);"><strong style="color:#fff;">Use CMA only for:</strong> the QA audit agent that reasons across full classification output.</p>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-kicker" style="color:var(--blue-light);">WORTH PILOTING · CLIENT-FACING (FUTURE)</div>
+        <h4 class="ap-h4">Claude Managed Agents</h4>
+        <p class="ap-p" style="margin-top:8px;">If Noor ever gets productized for clients (white-label agent infra for DTC brands), CMA's sandboxing, scoped permissions, and identity isolation are exactly what would otherwise take 3 months to build. Single-tenant per-client agents with session-hour pricing maps cleanly to client billing.</p>
+        <p class="ap-p-sm" style="margin-top:12px;color:var(--grey-300);"><strong style="color:#fff;">Why:</strong> multi-tenant security is the hardest part to build correctly.</p>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-kicker" style="color:var(--grey-300);">WATCH, DON'T ADOPT · MULTI-MODEL</div>
+        <h4 class="ap-h4">Deep Agents Deploy (LangChain)</h4>
+        <p class="ap-p" style="margin-top:8px;">Useful insurance against Anthropic pricing or capability shifts, but not needed today — Claude is the default and it's working. Re-evaluate if a specific agent ever benefits from Gemini's long context or a local model for cost/privacy.</p>
+        <p class="ap-p-sm" style="margin-top:12px;color:var(--grey-300);"><strong style="color:#fff;">Trigger to revisit:</strong> Claude pricing increase, or vertical where Gemini's context window matters.</p>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-kicker" style="color:#ffb3b0;">SKIP · NOT YOUR STACK</div>
+        <h4 class="ap-h4">Bedrock AgentCore</h4>
+        <p class="ap-p" style="margin-top:8px;">Only makes sense if you were already on AWS. Adds vCPU-hour + GB-hour pricing complexity, AWS IAM overhead, and a second cloud to manage. You're on Supabase + Cloudflare R2 — staying there is correct.</p>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-kicker" style="color:#ffb3b0;">SKIP · TEAM SIZE</div>
+        <h4 class="ap-h4">Self-hosted OpenClaw / Multica</h4>
+        <p class="ap-p" style="margin-top:8px;">Right answer for a 200-person org with a platform team. At ~26 people with most engineering effort going into the products themselves, the ops burden of self-hosting an agent runtime is a tax you don't need to pay yet.</p>
+      </div>
+
+      <div class="ap-card" style="background:var(--navy-deep);border-color:var(--card-border-strong);">
+        <div class="ap-kicker">SUMMARY</div>
+        <h4 class="ap-h4">Three patterns, not eight</h4>
+        <p class="ap-p" style="margin-top:8px;">Document the harness boundary clearly: which agents call CMA, which call the Agent SDK directly, which use Batch API. Three patterns is fine; eight is chaos.</p>
+      </div>
+    </div>
+
+    <div class="ap-card" style="margin-top:32px;background:var(--navy-deep);border:1px solid var(--yellow);">
+      <div class="ap-kicker">SUGGESTED NEXT 30 DAYS</div>
+      <ol style="list-style:none;padding:0;">
+        <li style="display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--card-border);">
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--yellow);font-weight:700;min-width:32px;">01.</span>
+          <span class="ap-p">Audit current Noor agents → which actually need long-running sessions vs. one-shot calls? Most don't.</span>
+        </li>
+        <li style="display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--card-border);">
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--yellow);font-weight:700;min-width:32px;">02.</span>
+          <span class="ap-p">Pick <em style="color:var(--yellow);font-style:normal;">one</em> agent to pilot on CMA. The QA audit pipeline or a competitive intel deep-research agent are good candidates.</span>
+        </li>
+        <li style="display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--card-border);">
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--yellow);font-weight:700;min-width:32px;">03.</span>
+          <span class="ap-p">Keep Supabase as the source-of-truth memory store regardless of harness. Don't let agent memory get trapped in any vendor.</span>
+        </li>
+        <li style="display:flex;gap:14px;padding:10px 0;">
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--yellow);font-weight:700;min-width:32px;">04.</span>
+          <span class="ap-p">Document the harness boundary so the team knows when to reach for CMA vs. SDK vs. Batch API.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<div class="tab-panel" id="tab-features" role="tabpanel">
+  <section class="ap-section">
+    <span class="ap-kicker">03 · Feature Breakdown</span>
+    <h2 class="ap-h2">Direct comparison</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Eight platforms most relevant to the decision. Scroll horizontally on mobile.</p>
+
+    <div class="cmp-table-wrap" style="margin-top:32px;">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Type</th>
+            <th>Models</th>
+            <th>Cost</th>
+            <th>Infra burden</th>
+            <th>Memory</th>
+            <th>Sandbox</th>
+            <th>MCP</th>
+            <th>Lock-in</th>
+          </tr>
+        </thead>
+        <tbody>
+      <tr>
+        <td>Claude Managed Agents</td>
+        <td>Hosted</td>
+        <td>Claude only</td>
+        <td><span class="mono">$0.08/sess-hr + tokens</span></td>
+        <td>None</td>
+        <td>Built-in (beta)</td>
+        <td>Yes</td>
+        <td>Native</td>
+        <td><span class="pill pill-bad">High</span></td>
+      </tr>
+      <tr>
+        <td>Bedrock AgentCore</td>
+        <td>Hosted (modular)</td>
+        <td>Multi (Claude, Llama, Nova)</td>
+        <td><span class="mono">$0.0895/vCPU-hr + GB-hr</span></td>
+        <td>AWS-managed</td>
+        <td>Separate service</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><span class="pill pill-warn">Medium-High</span></td>
+      </tr>
+      <tr>
+        <td>Deep Agents Deploy</td>
+        <td>Hosted OSS</td>
+        <td>Any (OpenAI, Anthropic, Google, Bedrock, Ollama)</td>
+        <td><span class="mono">Compute + tokens</span></td>
+        <td>Deployed for you</td>
+        <td>Open, portable</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td><span class="pill pill-good">Low</span></td>
+      </tr>
+      <tr>
+        <td>Claude Agent SDK</td>
+        <td>Library</td>
+        <td>Claude only</td>
+        <td><span class="mono">Tokens + your infra</span></td>
+        <td>You own</td>
+        <td>You build</td>
+        <td>You build</td>
+        <td>Native</td>
+        <td><span class="pill pill-warn">Medium</span></td>
+      </tr>
+      <tr>
+        <td>OpenClaw / Multica</td>
+        <td>Self-hosted OSS</td>
+        <td>Any</td>
+        <td><span class="mono">Your infra + tokens</span></td>
+        <td>You own</td>
+        <td>Full control</td>
+        <td>You build</td>
+        <td>Yes</td>
+        <td><span class="pill pill-good">None</span></td>
+      </tr>
+      <tr>
+        <td>LangGraph + LangSmith</td>
+        <td>Library + SaaS</td>
+        <td>Any</td>
+        <td><span class="mono">LangSmith tier + infra</span></td>
+        <td>You own</td>
+        <td>You build</td>
+        <td>You build</td>
+        <td>Via adapters</td>
+        <td><span class="pill pill-good">Low-Medium</span></td>
+      </tr>
+      <tr>
+        <td>CrewAI</td>
+        <td>Library</td>
+        <td>Any</td>
+        <td><span class="mono">Free + your infra</span></td>
+        <td>You own</td>
+        <td>Plugin-based</td>
+        <td>You build</td>
+        <td>Via adapters</td>
+        <td><span class="pill pill-good">Low</span></td>
+      </tr>
+      <tr>
+        <td>n8n</td>
+        <td>Hosted or self</td>
+        <td>Any (via nodes)</td>
+        <td><span class="mono">$20-50/mo or self-host</span></td>
+        <td>Optional managed</td>
+        <td>Workflow state</td>
+        <td>Limited</td>
+        <td>Some</td>
+        <td><span class="pill pill-good">Low</span></td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ap-grid-3" style="margin-top:32px;">
+      <div class="ap-card">
+        <div class="ap-kicker">CMA STRENGTHS</div>
+        <ul style="list-style:disc;padding-left:18px;color:var(--grey-200);font-size:14px;line-height:1.7;">
+          <li>Native MCP integration</li>
+          <li>Built-in prompt caching + context compaction tuned for Claude</li>
+          <li>Sessions survive disconnections</li>
+          <li>Memory + dreaming + multiagent orchestration roadmap</li>
+          <li>Zero infrastructure work</li>
+        </ul>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">CMA WEAKNESSES</div>
+        <ul style="list-style:disc;padding-left:18px;color:var(--grey-200);font-size:14px;line-height:1.7;">
+          <li>Claude-only (no GPT, Gemini, local)</li>
+          <li>$0.08/session-hour on top of tokens</li>
+          <li>Memory in proprietary store creates switching cost</li>
+          <li>Outcomes + multiagent + dreaming still research preview</li>
+          <li>No local execution</li>
+        </ul>
+      </div>
+      <div class="ap-card">
+        <div class="ap-kicker">ONLY IN CMA</div>
+        <ul style="list-style:disc;padding-left:18px;color:var(--grey-200);font-size:14px;line-height:1.7;">
+          <li>Anthropic-tuned harness (caching, compaction)</li>
+          <li>"Dreaming" memory curation (preview)</li>
+          <li>Native Skills system</li>
+          <li>Built-in Console tracing for Claude</li>
+          <li>First 50 session-hours/day free per org</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-panel" id="tab-questions" role="tabpanel">
+  <section class="ap-section">
+    <span class="ap-kicker">04 · Decision Questions</span>
+    <h2 class="ap-h2">Questions to ask before choosing</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Work through these in order. The first three eliminate most options; the rest refine the choice.</p>
+    <div style="margin-top:32px;">
+      <div class="q-row">
+        <div class="q-num">01</div>
+        <div class="q-text">
+          <h4>Does this agent actually need a long-running session?</h4>
+          <p>If the work is one-shot or batch-classifiable, an agent harness isn't needed at all — use Messages API or Batch API. CMA shines for tasks that run minutes to hours with stateful memory.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">02</div>
+        <div class="q-text">
+          <h4>Where does the agent's memory live, and who owns it?</h4>
+          <p>This is the lock-in question. If memory is the moat (agents accumulating client-specific context over months), keep memory in your own database (Supabase) regardless of harness. If memory is ephemeral, vendor-managed is fine.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">03</div>
+        <div class="q-text">
+          <h4>How many agents will run concurrently at peak?</h4>
+          <p>1–10: hosted is fine. 50+: model the session-hour cost carefully — at $0.08/hr × 50 agents × 730 hr/mo = $2,920/mo just for the harness, before tokens. At that point self-deployed Agent SDK pays for itself.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">04</div>
+        <div class="q-text">
+          <h4>Do you need multi-model flexibility now or in the future?</h4>
+          <p>If committed to Claude (you are), CMA is fine. If a specific agent benefits from Gemini's long context, GPT-5's reasoning, or a local model for privacy, choose model-agnostic upfront — retrofitting is painful.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">05</div>
+        <div class="q-text">
+          <h4>Who handles security, identity, and tenant isolation?</h4>
+          <p>Internal agents: anything works. Client-facing or multi-tenant: hosted platforms (CMA, AgentCore) save 2–3 months of security work. This is where managed pricing usually pays off.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">06</div>
+        <div class="q-text">
+          <h4>What's the team's ops capacity?</h4>
+          <p>Self-hosting OpenClaw means someone owns Kubernetes, sandbox security, observability, on-call. Without a platform engineer dedicated to this, hosted wins by default.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">07</div>
+        <div class="q-text">
+          <h4>How fast does this need to ship?</h4>
+          <p>CMA: days to prototype, days to production. Agent SDK: weeks. Self-hosted OSS: months. The fastest path to 'agent in production' is almost always hosted.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">08</div>
+        <div class="q-text">
+          <h4>What's the data residency / compliance requirement?</h4>
+          <p>If client contracts require data stays in specific regions or never touches Anthropic servers, only self-hosted works. For most DTC ecommerce work this isn't a constraint.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">09</div>
+        <div class="q-text">
+          <h4>What does failure look like, and who handles it at 2am?</h4>
+          <p>Hosted: Anthropic's on-call handles infra, you handle prompt/logic. Self-hosted: it's all you. Factor incident response cost into the comparison.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">10</div>
+        <div class="q-text">
+          <h4>How will agent quality get measured, and does the platform help?</h4>
+          <p>CMA Console gives tracing for free. LangSmith does this on top of LangGraph. Self-hosted means building evals and observability yourself. Eval velocity is often the real bottleneck.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">11</div>
+        <div class="q-text">
+          <h4>What's the migration path if you're wrong?</h4>
+          <p>See the Migration Risk tab. Bias toward decisions that are reversible in weeks, not quarters.</p>
+        </div>
+      </div>
+      <div class="q-row">
+        <div class="q-num">12</div>
+        <div class="q-text">
+          <h4>Are you optimizing the right thing?</h4>
+          <p>Most teams overweight infrastructure choice and underweight prompt quality, tool design, and data plumbing. The harness rarely determines whether the agent works.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-panel" id="tab-cost" role="tabpanel">
+  <section class="ap-section">
+    <span class="ap-kicker">05 · Cost Modeling</span>
+    <h2 class="ap-h2">Three scenarios, real numbers</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Token costs are equivalent across platforms — what differs is the harness premium.</p>
+
+    <div style="margin-top:32px;">
+      <div class="scenario">
+        <div class="scenario-head">
+          <h3>Scenario A · Internal pilot</h3>
+          <span class="meta">5 agents · 4 hrs/day · 30 days</span>
+        </div>
+        <div class="scenario-grid">
+          <div class="scenario-cell">
+            <div class="label">CMA</div>
+            <div class="num">$48</div>
+            <div class="note">5 × 4 × 30 × $0.08 = $48/mo harness fee + tokens</div>
+          </div>
+          <div class="scenario-cell">
+            <div class="label">Agent SDK (self-deploy)</div>
+            <div class="num">$0</div>
+            <div class="note">Tokens only + existing infra cost (already running)</div>
+          </div>
+          <div class="scenario-cell">
+            <div class="label">Verdict</div>
+            <div class="verdict">CMA wins</div>
+            <div class="note">$48 to skip 2-3 weeks of infra work is trivially good</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-head">
+          <h3>Scenario B · Production at Ad Pros scale</h3>
+          <span class="meta">20 agents · 8 hrs/day · 30 days</span>
+        </div>
+        <div class="scenario-grid">
+          <div class="scenario-cell">
+            <div class="label">CMA</div>
+            <div class="num">$384</div>
+            <div class="note">20 × 8 × 30 × $0.08 = $384/mo harness fee</div>
+          </div>
+          <div class="scenario-cell">
+            <div class="label">Agent SDK + Supabase</div>
+            <div class="num">~$50</div>
+            <div class="note">Marginal compute on existing infrastructure</div>
+          </div>
+          <div class="scenario-cell">
+            <div class="label">Verdict</div>
+            <div class="verdict">Tie / lean SDK</div>
+            <div class="note">$334/mo savings vs. ops overhead — depends on team capacity</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-head">
+          <h3>Scenario C · Multi-tenant client product</h3>
+          <span class="meta">10 clients × 5 agents × 6 hrs/day · 30 days</span>
+        </div>
+        <div class="scenario-grid">
+          <div class="scenario-cell">
+            <div class="label">CMA</div>
+            <div class="num">$720</div>
+            <div class="note">300 client-agent-days × 6 hrs × $0.08 with fully isolated tenants</div>
+          </div>
+          <div class="scenario-cell">
+            <div class="label">Self-hosted</div>
+            <div class="num">$2-4K</div>
+            <div class="note">Platform engineer + security + tenant isolation infra</div>
+          </div>
+          <div class="scenario-cell">
+            <div class="label">Verdict</div>
+            <div class="verdict">CMA wins clearly</div>
+            <div class="note">Multi-tenant security is exactly what hosted sells</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ap-callout" style="margin-top:32px;">
+        <strong>The pattern</strong>
+        Hosted wins at the extremes — early prototype (small) and multi-tenant production (where security work dominates). Self-deployed wins in the middle band where you have ops capacity and high concurrent usage but a single tenant.
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-panel" id="tab-migration" role="tabpanel">
+  <section class="ap-section">
+    <span class="ap-kicker">06 · Migration Risk</span>
+    <h2 class="ap-h2">If you're wrong, how hard to switch?</h2>
+    <p class="ap-p-lg" style="margin-top:16px;max-width:780px;">Bias toward reversible decisions.</p>
+
+    <div style="margin-top:32px;">
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>CMA<br><span class="lbl">TO</span>Agent SDK (self-deploy)
+        </div>
+        <div><span class="pill pill-warn">Medium</span></div>
+        <div class="mig-time">2-4 weeks</div>
+        <div class="mig-note">Agent definitions translate directly. Hard part: replicating CMA's session/memory features.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>CMA<br><span class="lbl">TO</span>Bedrock AgentCore
+        </div>
+        <div><span class="pill pill-bad">Hard</span></div>
+        <div class="mig-time">6-10 weeks</div>
+        <div class="mig-note">Different runtime, identity model, memory format. Most code rewrites.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>CMA<br><span class="lbl">TO</span>Deep Agents Deploy
+        </div>
+        <div><span class="pill pill-bad">Hard</span></div>
+        <div class="mig-time">4-8 weeks</div>
+        <div class="mig-note">Need to extract memory from Anthropic store. Different harness primitives.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>Agent SDK<br><span class="lbl">TO</span>CMA
+        </div>
+        <div><span class="pill pill-good">Easy</span></div>
+        <div class="mig-time">1-2 weeks</div>
+        <div class="mig-note">Anthropic designed these to be migration-friendly. Same primitives, hand off ops.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>Agent SDK<br><span class="lbl">TO</span>Other harness
+        </div>
+        <div><span class="pill pill-warn">Medium</span></div>
+        <div class="mig-time">3-5 weeks</div>
+        <div class="mig-note">Tool definitions and prompts port cleanly; agent loop logic needs rewriting.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>Self-hosted OSS<br><span class="lbl">TO</span>Anything
+        </div>
+        <div><span class="pill pill-good">Easy-Medium</span></div>
+        <div class="mig-time">2-4 weeks</div>
+        <div class="mig-note">You already own everything. Can keep memory store, swap harness.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>Claude API direct<br><span class="lbl">TO</span>CMA
+        </div>
+        <div><span class="pill pill-good">Easy</span></div>
+        <div class="mig-time">1 week</div>
+        <div class="mig-note">Layer CMA on top, gradually move workflows over.</div>
+      </div>
+      <div class="mig-row">
+        <div class="mig-fromto">
+          <span class="lbl">FROM</span>Anywhere<br><span class="lbl">TO</span>Multi-model setup
+        </div>
+        <div><span class="pill pill-bad">Hard if locked</span></div>
+        <div class="mig-time">8-12 weeks</div>
+        <div class="mig-note">Why model-agnostic harnesses matter as insurance.</div>
+      </div>
+    </div>
+
+    <div class="ap-grid-2" style="margin-top:32px;">
+      <div class="ap-card">
+        <div class="ap-kicker">REVERSIBILITY PRINCIPLES</div>
+        <ol style="list-style:decimal;padding-left:20px;color:var(--grey-200);font-size:14.5px;line-height:1.7;">
+          <li>Keep memory in your own database (Supabase) regardless of harness — never in vendor stores</li>
+          <li>Wrap MCP tool calls in your own interface so swapping harness doesn't touch tool code</li>
+          <li>Standardize agent definitions in markdown/YAML you control, not vendor APIs</li>
+          <li>Run evals against agent <em style="color:var(--yellow);font-style:normal;">outputs</em>, not harness internals — outputs port across platforms</li>
+          <li>Pilot any new harness on one non-critical agent for 30 days before broader adoption</li>
+        </ol>
+      </div>
+      <div class="ap-card" style="background:var(--navy-deep);border-color:var(--yellow);">
+        <div class="ap-kicker">THE CHEAP INSURANCE</div>
+        <p class="ap-p" style="margin-bottom:12px;">Even if committed to CMA today, do these three things to keep the door open:</p>
+        <ul style="list-style:disc;padding-left:20px;color:var(--grey-100);font-size:14.5px;line-height:1.7;">
+          <li>Mirror agent memory writes to Supabase as the source of truth</li>
+          <li>Define agents in your own markdown/JSON spec, then translate to CMA API on deploy</li>
+          <li>Keep a working Claude Agent SDK fallback for at least one critical agent</li>
+        </ul>
+        <p class="ap-p-sm" style="margin-top:16px;color:var(--yellow);">~1 week of upfront work. Saves 6-10 weeks if you ever need to switch.</p>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:36px;width:36px;opacity:0.5;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal Kazim &middot; May 9, 2026</p>
+  </footer>
+
+<script>
+(function(){
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+  function activate(id){
+    btns.forEach(function(b){
+      var match = b.dataset.tab === id;
+      b.classList.toggle('active', match);
+      b.setAttribute('aria-selected', match ? 'true' : 'false');
+    });
+    panels.forEach(function(p){
+      p.classList.toggle('active', p.id === 'tab-' + id);
+    });
+    if (history.replaceState) {
+      history.replaceState(null, '', '#' + id);
+    }
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      activate(b.dataset.tab);
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+  var hash = (location.hash || '').replace('#','');
+  if (hash && document.getElementById('tab-' + hash)) {
+    activate(hash);
+  }
+})();
+</script>
+
+</body>
+</html>
