@@ -64,8 +64,9 @@
     .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
     .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
     .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
-    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
+    @media (max-width: 1100px) { .ap-grid-3 { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-4 { grid-template-columns: 1fr; } }
 
     .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
 
@@ -77,6 +78,8 @@
     .btn-primary:hover { background: var(--yellow-dim); }
     .btn-primary:active { transform: translateY(1px); }
     .btn-primary.btn-lg { padding: 22px 48px; font-size: 18px; }
+    .btn-secondary { background: transparent; color: var(--yellow); border: 1.5px solid var(--yellow); padding: 16px 32px; border-radius: 10px; font-weight: 700; font-size: 15px; font-family: inherit; cursor: pointer; transition: background .15s, color .15s; display: inline-block; text-decoration: none; }
+    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
 
     a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
     a:hover { color: var(--yellow); }
@@ -85,6 +88,8 @@
     .ap-footer-left { display: flex; align-items: center; gap: 14px; }
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+    .ap-footer a { color: var(--yellow); }
+    .ap-footer a:hover { color: var(--yellow-dim); }
 
     /* HERO */
     .hero { padding: var(--space-16) 0 var(--space-12); text-align: center; }
@@ -111,24 +116,35 @@
     }
 
     /* OFFERS */
-    .offer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); margin-top: var(--space-10); }
-    @media (max-width: 900px) { .offer-grid { grid-template-columns: 1fr; } }
+    .offer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); margin-top: var(--space-10); align-items: stretch; }
+    @media (max-width: 1100px) { .offer-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; } }
 
-    .offer-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 14px; padding: 40px 32px; display: flex; flex-direction: column; height: 100%; position: relative; transition: border-color .15s, transform .15s; }
+    .offer-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 14px; padding: 36px 28px; display: flex; flex-direction: column; height: 100%; position: relative; transition: border-color .15s; }
     .offer-card.featured { border-color: var(--yellow); background: linear-gradient(180deg, #0a1050 0%, var(--navy-card) 60%); }
+    .offer-card.premium { border-color: var(--card-border-strong); background: linear-gradient(180deg, #0a1050 0%, var(--navy-deep) 100%); }
     .offer-card .tag { position: absolute; top: -12px; right: 24px; font-size: 10px; font-weight: 800; padding: 6px 14px; border-radius: 100px; letter-spacing: 1.2px; text-transform: uppercase; background: var(--yellow); color: var(--navy); }
+    .offer-card .tag.premium-tag { background: #fff; color: var(--navy); }
     .offer-card .offer-name { font-size: 13px; font-weight: 700; color: var(--yellow); letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 16px; }
-    .offer-card .price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
-    .offer-card .price { font-size: 64px; font-weight: 800; color: #fff; letter-spacing: -2.5px; line-height: 1; }
-    .offer-card .price-cents { font-size: 18px; color: var(--grey-300); font-weight: 600; }
-    .offer-card .price-meta { font-size: 14px; color: var(--grey-300); margin-bottom: 28px; }
-    .offer-card .pitch { font-size: 16px; color: var(--grey-100); margin-bottom: 28px; line-height: 1.5; font-weight: 500; padding-bottom: 24px; border-bottom: 1px solid var(--card-border); }
-    .offer-card ul { list-style: none; margin: 0 0 32px; padding: 0; flex-grow: 1; }
-    .offer-card li { padding: 10px 0 10px 28px; position: relative; font-size: 14.5px; color: var(--grey-100); line-height: 1.5; }
-    .offer-card li::before { content: ""; position: absolute; left: 2px; top: 14px; width: 14px; height: 9px; border-left: 2.5px solid var(--yellow); border-bottom: 2.5px solid var(--yellow); transform: rotate(-45deg); }
+    .offer-card.premium .offer-name { color: #fff; }
+    .offer-card .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .offer-card .price { font-size: 56px; font-weight: 800; color: #fff; letter-spacing: -2.5px; line-height: 1; }
+    .offer-card .price-cents { font-size: 16px; color: var(--grey-300); font-weight: 600; }
+    .offer-card .price-meta { font-size: 14px; color: var(--grey-300); margin-bottom: 24px; }
+    .offer-card .pitch { font-size: 15px; color: var(--grey-100); margin-bottom: 24px; line-height: 1.5; font-weight: 500; padding-bottom: 22px; border-bottom: 1px solid var(--card-border); }
+    .offer-card ul { list-style: none; margin: 0 0 28px; padding: 0; flex-grow: 1; }
+    .offer-card li { padding: 9px 0 9px 26px; position: relative; font-size: 14px; color: var(--grey-100); line-height: 1.5; }
+    .offer-card li::before { content: ""; position: absolute; left: 2px; top: 13px; width: 13px; height: 8px; border-left: 2.5px solid var(--yellow); border-bottom: 2.5px solid var(--yellow); transform: rotate(-45deg); }
     .offer-card li strong { color: #fff; font-weight: 600; }
     .offer-card .cta-row { display: flex; flex-direction: column; gap: 8px; }
     .offer-card .turnaround { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); letter-spacing: 0.6px; text-align: center; }
+
+    /* PREMIUM CONFIGURATOR */
+    .configurator { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; }
+    .configurator .label { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .configurator .calc { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .configurator .num-pill { background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; padding: 8px 14px; font-family: "JetBrains Mono", monospace; font-size: 14px; color: var(--yellow); font-weight: 600; }
+    .configurator .formula { font-size: 13px; color: var(--grey-200); }
+    .configurator .formula strong { color: #fff; }
 
     /* GUARANTEE */
     .guarantee-wrap { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-8); }
@@ -138,14 +154,14 @@
     .guarantee-card h3 { color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
     .guarantee-card p { font-size: 15px; color: var(--grey-100); line-height: 1.55; }
 
-    /* WHO IT'S FOR / PROCESS */
+    /* PROCESS */
     .process-step { display: grid; grid-template-columns: 56px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--card-border); }
     .process-step:last-child { border-bottom: none; }
     .process-step .step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; }
     .process-step h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
     .process-step p { font-size: 14.5px; color: var(--grey-200); line-height: 1.55; }
 
-    /* WHAT WE NEED FROM YOU */
+    /* CHECKLIST */
     .checklist { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-8); margin-top: var(--space-6); }
     .checklist ul { list-style: none; padding: 0; }
     .checklist li { padding: 12px 0 12px 32px; position: relative; font-size: 15px; color: var(--grey-100); border-bottom: 1px solid var(--card-border); }
@@ -155,12 +171,24 @@
 
     /* FAQ */
     .faq-item { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; }
-    .faq-item summary { padding: 20px 24px; cursor: pointer; font-weight: 600; color: #fff; font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .faq-item summary { padding: 20px 24px; cursor: pointer; font-weight: 600; color: #fff; font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary::after { content: "+"; color: var(--yellow); font-size: 22px; font-weight: 400; transition: transform .2s; }
+    .faq-item summary::after { content: "+"; color: var(--yellow); font-size: 22px; font-weight: 400; transition: transform .2s; flex-shrink: 0; }
     .faq-item[open] summary::after { transform: rotate(45deg); }
     .faq-item .faq-body { padding: 0 24px 22px; font-size: 14.5px; color: var(--grey-200); line-height: 1.6; }
     .faq-item .faq-body p + p { margin-top: 10px; }
+
+    /* WHITELABEL */
+    .whitelabel-section { background: linear-gradient(135deg, #0a1050 0%, var(--navy-deep) 100%); border: 1px solid var(--card-border-strong); border-radius: 14px; padding: 56px 48px; margin: var(--space-12) 0; display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-12); align-items: center; }
+    @media (max-width: 800px) { .whitelabel-section { grid-template-columns: 1fr; padding: 40px 28px; gap: var(--space-8); } }
+    .whitelabel-section .wl-tag { display: inline-block; padding: 5px 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; font-size: 10px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+    .whitelabel-section h2 { color: #fff; margin-bottom: 16px; }
+    .whitelabel-section p { font-size: 16px; color: var(--grey-100); line-height: 1.6; margin-bottom: 12px; }
+    .whitelabel-section ul { list-style: none; padding: 0; margin: 16px 0 24px; }
+    .whitelabel-section li { padding: 6px 0 6px 24px; position: relative; font-size: 14.5px; color: var(--grey-100); }
+    .whitelabel-section li::before { content: "→"; position: absolute; left: 0; top: 6px; color: var(--yellow); font-weight: 700; }
+    .whitelabel-section .wl-cta { display: flex; flex-direction: column; gap: 12px; }
+    .whitelabel-section .wl-cta-meta { font-size: 12px; color: var(--grey-300); text-align: center; letter-spacing: 0.4px; }
 
     /* FINAL CTA */
     .final-cta { background: linear-gradient(180deg, #0a1050 0%, var(--navy-card) 100%); border: 1px solid var(--yellow); border-radius: 14px; padding: 56px 40px; text-align: center; margin: var(--space-12) 0; }
@@ -172,7 +200,7 @@
       .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
       .ap-footer { margin-left: 20px; margin-right: 20px; }
       .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 28px; }
-      .offer-card .price { font-size: 52px; }
+      .offer-card .price { font-size: 48px; }
       .final-cta { padding: 40px 24px; }
     }
   </style>
@@ -224,7 +252,7 @@
         <p class="ap-p-lg">Most DTC brands run UGC and product-on-white. Illustrated character ads are a visually distinct format Meta's algorithm reads as fresh inventory &mdash; which means lower CPMs and a new audience match. Same product. Different creative ticket. Better economics.</p>
       </div>
 
-      <div class="ap-grid-3" style="margin-top: var(--space-12);">
+      <div class="ap-grid-3" style="margin-top: var(--space-12); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4);">
         <div class="ap-stat">
           <div class="ap-stat-num">30%</div>
           <div class="ap-stat-label">CPA reduction target</div>
@@ -243,7 +271,7 @@
     <section class="ap-section" id="offers">
       <div style="text-align: center; max-width: 720px; margin: 0 auto var(--space-6);">
         <span class="ap-kicker" style="margin-bottom: 16px;">Pick Your Pack</span>
-        <h2 class="ap-h2" style="margin-bottom: 16px;">Two packs. Same workflow. Same quality.</h2>
+        <h2 class="ap-h2" style="margin-bottom: 16px;">Three tiers. Same workflow. Same guarantees.</h2>
         <p class="ap-p-lg">Concept = a group of ideas built around one character. Variation = a different script or hook for that character. The more concepts, the more tickets in Meta's auction.</p>
       </div>
 
@@ -255,15 +283,15 @@
             <div class="price">$400</div>
           </div>
           <div class="price-meta">2 concepts &middot; 8 variations</div>
-          <p class="pitch">Test the format with two distinct characters. 8 finished ads to feed Meta's algorithm.</p>
+          <p class="pitch">Test the format with two distinct characters. 8 finished ads to feed the algorithm.</p>
           <ul>
             <li><strong>2 character concepts</strong> &mdash; AI-generated, strategist-approved</li>
             <li><strong>8 finished video ads</strong> (4 variations per concept)</li>
-            <li><strong>AI scripting</strong> built from your top-performing ads</li>
+            <li><strong>AI scripting</strong> from your top-performing ads</li>
             <li><strong>AI voiceover</strong> on every ad</li>
             <li><strong>9:16 and 1:1 cuts</strong> for every variation</li>
-            <li><strong>Full ownership</strong> &mdash; use them anywhere, forever</li>
-            <li><strong>2 script revisions + 2 generation revisions</strong> included</li>
+            <li><strong>Full ownership</strong> &mdash; use anywhere, forever</li>
+            <li><strong>2 + 2 revisions</strong> included ($40 each after)</li>
           </ul>
           <div class="cta-row">
             <a href="https://adpros.com/order/character-ads-starter" class="btn-primary">Get Started &mdash; $400</a>
@@ -280,14 +308,14 @@
           <div class="price-meta">3 concepts &middot; 12 variations</div>
           <p class="pitch">More concepts = more algorithm tickets. The volume pack Meta needs to find your buyer.</p>
           <ul>
-            <li><strong>3 character concepts</strong> &mdash; different angles, different audiences</li>
+            <li><strong>3 character concepts</strong> &mdash; different angles, audiences</li>
             <li><strong>12 finished video ads</strong> (4 variations per concept)</li>
-            <li><strong>AI scripting</strong> from your top ads + competitor research</li>
+            <li><strong>AI scripting</strong> from your ads + competitor research</li>
             <li><strong>AI voiceover</strong> on every ad</li>
             <li><strong>9:16, 1:1, and 4:5 cuts</strong> for every variation</li>
-            <li><strong>Full ownership</strong> &mdash; use them anywhere, forever</li>
-            <li><strong>2 script revisions + 2 generation revisions</strong> included</li>
-            <li><strong>Performance check-in</strong> with creative recommendations</li>
+            <li><strong>Full ownership</strong> &mdash; use anywhere, forever</li>
+            <li><strong>2 + 2 revisions</strong> included ($40 each after)</li>
+            <li><strong>Performance check-in</strong> with creative recs</li>
           </ul>
           <div class="cta-row">
             <a href="https://adpros.com/order/character-ads-performance" class="btn-primary">Get Started &mdash; $800</a>
@@ -295,9 +323,45 @@
           </div>
         </div>
 
+        <div class="offer-card premium">
+          <span class="tag premium-tag">Premium</span>
+          <div class="offer-name">Custom Studio</div>
+          <div class="price-row">
+            <div class="price">$1,000</div>
+            <div class="price-cents">/ concept</div>
+          </div>
+          <div class="price-meta">8 variations per concept &middot; choose how many</div>
+          <p class="pitch">Bespoke characters, unlimited revisions, dedicated strategist. For brands serious about creative IP.</p>
+          <ul>
+            <li><strong>Bespoke character design</strong> &mdash; not templated, fully custom</li>
+            <li><strong>8 finished ads per concept</strong> (1+ concepts, your choice)</li>
+            <li><strong>Style choice per concept</strong> &mdash; 2D, 3D, anime, claymation</li>
+            <li><strong>Unlimited revisions</strong> on scripts and generation</li>
+            <li><strong>5&ndash;7 day guaranteed</strong> turnaround</li>
+            <li><strong>Dedicated strategist</strong> + direct Slack channel</li>
+            <li><strong>4K resolution</strong> on every ad</li>
+            <li><strong>All formats</strong>: 9:16, 1:1, 4:5, 16:9 + GIFs + statics</li>
+            <li><strong>Performance reporting</strong> + iteration recommendations</li>
+            <li><strong>Full ownership</strong> &mdash; use anywhere, forever</li>
+          </ul>
+          <div class="configurator">
+            <div class="label">Quick math</div>
+            <div class="calc">
+              <span class="num-pill">$1,000</span>
+              <span class="formula">&times;</span>
+              <span class="num-pill">N concepts</span>
+              <span class="formula">= <strong style="color:#fff;">your total</strong></span>
+            </div>
+          </div>
+          <div class="cta-row">
+            <a href="https://adpros.com/order/character-ads-premium" class="btn-primary">Configure &amp; Order</a>
+            <div class="turnaround">5&ndash;7 DAYS GUARANTEED</div>
+          </div>
+        </div>
+
       </div>
 
-      <p class="ap-caption" style="text-align: center; margin-top: 24px;">Additional revisions beyond what's included: $40 each. Industry standard pricing is $500 per concept &mdash; we charge $200&ndash;$266.</p>
+      <p class="ap-caption" style="text-align: center; margin-top: 24px;">Industry standard pricing is $500 per concept &mdash; we charge $200&ndash;$1,000 depending on customization needs.</p>
     </section>
 
     <section class="ap-section">
@@ -310,12 +374,34 @@
         <div class="guarantee-card">
           <div class="badge">Guarantee 01</div>
           <h3>Delivery Guarantee</h3>
-          <p>All ads delivered within 14 days of approvals or you get 100% of your money back. We're that confident in our process.</p>
+          <p>All ads delivered within 14 days of approvals (5&ndash;7 days on Premium) or you get 100% of your money back. We're that confident in our process.</p>
         </div>
         <div class="guarantee-card">
           <div class="badge">Guarantee 02</div>
           <h3>Quality Guarantee</h3>
           <p>Don't love a concept we ship? We rework it free. No questions, no charge, until you do.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ap-section">
+      <div class="whitelabel-section">
+        <div>
+          <span class="wl-tag">For Agencies &amp; Service Providers</span>
+          <h2 class="ap-h2">White-label this for your clients.</h2>
+          <p>Resell AI character ads under your brand. We handle the AI strategy, scripting, generation, and post-production. You handle the relationship.</p>
+          <ul>
+            <li>Custom volume pricing for agency partners</li>
+            <li>Your branding on all deliverables &mdash; we stay invisible</li>
+            <li>Direct strategist access for your team</li>
+            <li>Fast turnaround across multiple client accounts</li>
+            <li>Built for agencies running $50K+/month in client ad spend</li>
+          </ul>
+          <p style="font-size: 14px; color: var(--grey-200);">Margin protection on every order. Scale a new service line without a single hire.</p>
+        </div>
+        <div class="wl-cta">
+          <a href="mailto:partnerships@adpros.com?subject=White-label%20AI%20Character%20Ads%20Partnership" class="btn-primary btn-lg" style="text-align: center;">Become a Partner</a>
+          <div class="wl-cta-meta">partnerships@adpros.com</div>
         </div>
       </div>
     </section>
@@ -374,7 +460,7 @@
       <div style="max-width: 760px; margin: 0 auto;">
         <span class="ap-kicker">What We Need From You</span>
         <h2 class="ap-h2">A 5-minute brief. That's it.</h2>
-        <p class="ap-p-lg" style="margin-top: 16px;">After you order, we send a quick intake form. Faster you complete it, faster we ship.</p>
+        <p class="ap-p-lg" style="margin-top: 16px;">After you order, we send a quick intake form. The faster you complete it, the faster we ship.</p>
 
         <div class="checklist">
           <ul>
@@ -397,7 +483,15 @@
           <summary>What's the difference between a concept and a variation?</summary>
           <div class="faq-body">
             <p>A <strong>concept</strong> is a group of ideas built around one character &mdash; a specific persona with a defined visual style, demographic, and energy. A <strong>variation</strong> is a different script or hook for that same character. Different style or character means a different concept.</p>
-            <p>Example: One concept might be a 30-year-old fitness enthusiast. The 4 variations would be the same character delivering different hooks &mdash; pain point hook, social proof hook, before/after hook, problem/solution hook.</p>
+            <p>Example: One concept might be a 30-year-old fitness enthusiast. The 4 variations would be the same character delivering different hooks &mdash; pain point, social proof, before/after, problem/solution.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What's different about the Premium tier?</summary>
+          <div class="faq-body">
+            <p>Premium is for brands that want fully bespoke characters, not AI-templated ones. You get unlimited revisions, faster turnaround (5&ndash;7 days guaranteed), a dedicated strategist with a direct Slack channel, your choice of visual style per concept (2D, 3D, anime, claymation), 4K output, and all aspect ratios plus GIFs and statics. Performance reporting with iteration recommendations is included.</p>
+            <p>Pricing is $1,000 per concept (each concept includes 8 variations). You choose how many concepts to order.</p>
           </div>
         </details>
 
@@ -418,35 +512,35 @@
         <details class="faq-item">
           <summary>What if I don't like what you ship?</summary>
           <div class="faq-body">
-            <p>That's what the Quality Guarantee is for. We rework any concept you don't love, free, until you do. Beyond the 2 script revisions and 2 generation revisions included in your pack, additional revisions are $40 each.</p>
+            <p>That's what the Quality Guarantee is for. We rework any concept you don't love, free, until you do. Starter and Performance packs include 2 script revisions and 2 generation revisions ($40 each after). Premium includes unlimited revisions.</p>
           </div>
         </details>
 
         <details class="faq-item">
           <summary>How fast do I actually get the ads?</summary>
           <div class="faq-body">
-            <p>As fast as 7 days when approvals are quick. Up to 14 days max. Approvals are expected within 48 hours at each gate &mdash; the delivery clock pauses while we wait on you, so the more responsive you are, the faster we ship.</p>
+            <p>Starter and Performance: as fast as 7 days when approvals are quick, up to 14 days max. Premium is 5&ndash;7 days guaranteed. Approvals are expected within 48 hours at each gate &mdash; the delivery clock pauses while we wait on you, so the more responsive you are, the faster we ship.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Are you available to white-label this for my agency?</summary>
+          <div class="faq-body">
+            <p>Yes. We work with agencies and service providers who want to resell AI character ads under their own brand. Custom volume pricing, your branding on deliverables, direct strategist access. Email <a href="mailto:partnerships@adpros.com">partnerships@adpros.com</a> to start a conversation.</p>
           </div>
         </details>
 
         <details class="faq-item">
           <summary>What format do the ads come in?</summary>
           <div class="faq-body">
-            <p>15&ndash;30 second video ads with AI voiceover, captions, and sound design. Starter pack includes 9:16 (vertical) and 1:1 (square) cuts. Performance pack adds 4:5 (feed-optimized).</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>What happens after the pack is delivered?</summary>
-          <div class="faq-body">
-            <p>You launch the ads. Performance pack includes a check-in to review what's working and recommend the next round. Many clients move into our ongoing creative production after seeing results &mdash; but there's no obligation. The pack is a complete deliverable on its own.</p>
+            <p>15&ndash;30 second video ads with AI voiceover, captions, and sound design. Starter pack includes 9:16 (vertical) and 1:1 (square). Performance adds 4:5. Premium delivers all aspect ratios plus GIFs and statics, in 4K.</p>
           </div>
         </details>
 
         <details class="faq-item">
           <summary>What if my brand has a strong existing visual style?</summary>
           <div class="faq-body">
-            <p>Different visual styles count as different concepts. If you want one character in flat 2D and another in 3D, that's two concepts &mdash; pick the pack that fits. We adapt to your brand, you don't adapt to ours.</p>
+            <p>Different visual styles count as different concepts. If you want one character in flat 2D and another in 3D, that's two concepts. Premium tier lets you specify a style per concept (2D, 3D, anime, claymation, etc.). We adapt to your brand, you don't adapt to ours.</p>
           </div>
         </details>
       </div>
@@ -475,7 +569,7 @@
         <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
         <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
       </svg>
-      <p>Ad Pros &mdash; Internal Use</p>
+      <p>Ad Pros &mdash; Internal Use &middot; <a href="mailto:partnerships@adpros.com">Agency? White-label this offer →</a></p>
     </div>
     <p class="ap-footer-meta">Published by Nehal Kazim &middot; May 10, 2026</p>
   </footer>
