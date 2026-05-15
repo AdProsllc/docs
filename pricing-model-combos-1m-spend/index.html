@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal Kazim">
+  <title>Pricing Model — Service Combos at $1M/mo Spend — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-12) 0; }
+    .ap-section + .ap-section { border-top: 1px solid var(--card-border); }
+
+    /* Tabs */
+    .ap-tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--card-border); margin-bottom: var(--space-8); position: sticky; top: 0; background: var(--navy); padding-top: 12px; z-index: 50; }
+    .ap-tab { background: transparent; color: var(--grey-300); border: none; padding: 12px 18px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; transition: all .15s; letter-spacing: 0.3px; }
+    .ap-tab:hover { color: #fff; }
+    .ap-tab.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+    .ap-panel { display: none; }
+    .ap-panel.active { display: block; }
+
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); margin: var(--space-6) 0; }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+
+    .ap-callout-yellow { background: rgba(249,217,0,0.08); border: 1px solid rgba(249,217,0,0.3); border-left: 3px solid var(--yellow); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); margin: var(--space-6) 0; }
+    .ap-callout-yellow strong { color: var(--yellow); display: block; margin-bottom: 4px; }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; margin: var(--space-4) 0 var(--space-6); font-size: 13px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; }
+    th { background: var(--navy-deep); color: var(--yellow); font-weight: 700; text-align: left; padding: 12px 14px; font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase; border-bottom: 1px solid var(--card-border-strong); }
+    td { padding: 11px 14px; color: var(--grey-100); border-top: 1px solid var(--card-border); }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    tr.ap-total td { background: rgba(249,217,0,0.06); font-weight: 700; color: #fff; border-top: 2px solid var(--yellow); }
+    td.ap-num { font-family: "JetBrains Mono", monospace; text-align: right; }
+    th.ap-num { text-align: right; }
+    .ap-table-wrap { overflow-x: auto; }
+
+    h2.section-h { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: var(--space-3); }
+    h3.section-h3 { font-size: 18px; font-weight: 700; color: #fff; margin: var(--space-8) 0 var(--space-3); }
+    h4.section-h4 { font-size: 14px; font-weight: 700; color: var(--yellow); letter-spacing: 0.5px; text-transform: uppercase; margin: var(--space-6) 0 var(--space-3); }
+
+    .ap-content p { margin-bottom: var(--space-3); }
+    .ap-content ul { margin: var(--space-3) 0 var(--space-4) 24px; }
+    .ap-content li { margin-bottom: var(--space-2); color: var(--grey-100); font-size: 14px; }
+    .ap-content strong { color: #fff; }
+
+    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px 18px; text-align: center; }
+    .ap-stat-num { font-size: 32px; font-weight: 800; color: var(--yellow); letter-spacing: -1px; line-height: 1; }
+    .ap-stat-label { font-size: 11px; color: var(--grey-300); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: var(--space-4) 0 var(--space-8); }
+    @media (max-width: 700px) { .ap-grid-3 { grid-template-columns: 1fr 1fr; } }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    .logo-mono { display: inline-flex; align-items: center; justify-content: center; background: var(--yellow); border-radius: 8px; color: var(--navy); font-weight: 900; font-family: "Inter", sans-serif; letter-spacing: -1px; }
+
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .ap-footer { margin-left: 20px; margin-right: 20px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+      table { font-size: 12px; } th, td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <div style="margin:0 auto 32px;display:flex;justify-content:center;">
+      <div style="display:inline-flex;align-items:center;justify-content:center;background:#F9D900;border-radius:8px;color:#040735;font-weight:900;font-family:Inter,sans-serif;letter-spacing:-1px;width:64px;height:64px;font-size:24px;">AP</div>
+    </div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-pricing-model-combos-1m-spend";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1'){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',reveal);}else{reveal();}}}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+  <header class="ap-header">
+    <div class="logo-mono" style="width:48px;height:48px;font-size:18px;">AP</div>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Pricing Model — Service Combos</h1>
+      <p>Scenario: $1M / month managed spend &middot; Performance-discount tiers</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <div class="ap-tabs" role="tablist">
+      <button class="ap-tab active" data-tab="exec">Executive Summary</button>
+      <button class="ap-tab" data-tab="assumptions">Assumptions</button>
+      <button class="ap-tab" data-tab="combo1">1. Media Only</button>
+      <button class="ap-tab" data-tab="combo2">2. Intelligence-Only</button>
+      <button class="ap-tab" data-tab="combo3">3. Creative Engine</button>
+      <button class="ap-tab" data-tab="combo4">4. Growth</button>
+      <button class="ap-tab" data-tab="combo5">5. Scale</button>
+      <button class="ap-tab" data-tab="combo6">6. Breakthrough</button>
+      <button class="ap-tab" data-tab="supporting">Supporting Info</button>
+    </div>
+
+    <!-- ============================== EXEC SUMMARY ============================== -->
+    <section class="ap-panel active" id="exec">
+      <span class="ap-kicker">Executive Summary</span>
+      <h2 class="section-h">Six service combos. One pricing model. Built to scale with spend.</h2>
+      <p class="ap-p-lg">Ad Pros now operates against a unified pricing architecture: <strong>flat base retainers for fixed-deliverable services</strong>, <strong>tiered variable rates for spend-scaling services</strong>, and a <strong>performance-discount mechanic</strong> tied to new customer ROAS. This document maps six combo plans against a $1M / month managed-spend scenario.</p>
+
+      <div class="ap-grid-3">
+        <div class="ap-stat"><div class="ap-stat-num">6</div><div class="ap-stat-label">Combo Plans</div></div>
+        <div class="ap-stat"><div class="ap-stat-num">$1M</div><div class="ap-stat-label">Spend Scenario</div></div>
+        <div class="ap-stat"><div class="ap-stat-num">5</div><div class="ap-stat-label">Discount Tiers</div></div>
+      </div>
+
+      <h3 class="section-h3">Combo summary (no discount applied)</h3>
+      <p>Sorted by total monthly fee descending. Each combo's revenue contribution is internal to that combo (i.e., a client buys one plan; the line items inside that plan sum to 100% of their fee).</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Combo</th><th>Positioning</th><th class="ap-num">Total Monthly</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Breakthrough</strong></td><td>Enterprise / $1M+ spenders</td><td class="ap-num">$123,600</td></tr>
+          <tr><td><strong>Scale</strong></td><td>$500K+ spenders adding creator channel</td><td class="ap-num">$95,600</td></tr>
+          <tr><td><strong>Growth</strong></td><td>Default full-service</td><td class="ap-num">$69,100</td></tr>
+          <tr><td><strong>Creative Engine</strong></td><td>In-house media buyers needing creative</td><td class="ap-num">$40,100</td></tr>
+          <tr><td><strong>Media Only</strong></td><td>In-house creative needing media</td><td class="ap-num">$25,000</td></tr>
+          <tr><td><strong>Intelligence-Only</strong></td><td>Wedge offer / signal layer</td><td class="ap-num">$1,399</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 class="section-h3">Key insights</h3>
+      <ul>
+        <li><strong>Default plan is Growth.</strong> Most prospects spending $250K–$750K/mo will land here at ~$69K/mo on $1M of spend (6.9% of spend).</li>
+        <li><strong>CPN is your second-largest revenue line on Scale and Breakthrough.</strong> 23.5% of Scale and 26.3% of Breakthrough comes from CPN. Whoever owns CPN owns major revenue.</li>
+        <li><strong>Media Buying is capped at $20K variable / month.</strong> This is buyer-friendly but materially shifts unit economics — uncapped would be $30K at $1M spend.</li>
+        <li><strong>Creative Production scales on 80% of spend</strong> (the non-CPN portion), recognizing CPN spend has its own production already covered by the CPN fee.</li>
+        <li><strong>Performance discount at -100% (4x+ nc-ROAS) drops Breakthrough from $123.6K to $49.6K</strong> — a 60% cut. Consider capping max discount at -75% to preserve operational margin.</li>
+      </ul>
+
+      <div class="ap-callout-yellow">
+        <strong>Strategic positioning line</strong>
+        Our pricing has two layers. A base retainer that covers the team and the AI infrastructure. A variable fee tied to your spend that scales our work with your scale — and shrinks as your new customer ROAS improves. We win when you win.
+      </div>
+    </section>
+
+    <!-- ============================== ASSUMPTIONS ============================== -->
+    <section class="ap-panel" id="assumptions">
+      <span class="ap-kicker">Assumptions</span>
+      <h2 class="section-h">Pricing rules, variable structures, and modeling inputs</h2>
+      <p class="ap-p-lg">Every combo in this document follows the rules below. Changes to any assumption ripple across all combo tabs.</p>
+
+      <h4 class="section-h4">Spend scenario</h4>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Variable</th><th>Value</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Total managed spend</td><td>$1,000,000 / month</td><td>Across all platforms for the client</td></tr>
+          <tr><td>Tier 0</td><td>$0 – $124,999</td><td>0% variable rate</td></tr>
+          <tr><td>Tier 1</td><td>$125,000 – $500,000</td><td>4% variable rate</td></tr>
+          <tr><td>Tier 2</td><td>$500,000 – $1,000,000</td><td>3% variable rate</td></tr>
+          <tr><td>Tier 3</td><td>$1,000,000 – $2,000,000</td><td>2% variable rate</td></tr>
+          <tr><td>Tier 4</td><td>$2,000,000+</td><td>1.5% variable rate</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Service pricing structure</h4>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Service</th><th>Category</th><th class="ap-num">Base / mo</th><th>Variable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Media Buying</td><td>AI Media Buying</td><td class="ap-num">$5,000</td><td>4% / 3% / 2% / 1.5% tiered, capped at $20K / mo</td></tr>
+          <tr><td>Creative Strategy</td><td>AI Creatives</td><td class="ap-num">$10,000</td><td>None — flat</td></tr>
+          <tr><td>Creative Production</td><td>AI Creatives</td><td class="ap-num">$5,000</td><td>4% / 3% / 2% / 1.5% on <strong>80% of spend</strong> (excludes CPN spend)</td></tr>
+          <tr><td>Creator Performance Network</td><td>AI Creatives</td><td class="ap-num">$2,500</td><td>20% of CPN spend (CPN spend assumed at 10% of total media spend)</td></tr>
+          <tr><td>AI Organic Content</td><td>AI Creatives</td><td class="ap-num">$2,000</td><td>None — flat</td></tr>
+          <tr><td>AI Landing Pages</td><td>AI Landing Pages</td><td class="ap-num">$2,000</td><td>$1,000 per new page template</td></tr>
+          <tr><td>Intel</td><td>AI Ops</td><td class="ap-num">$1,000</td><td>None — flat</td></tr>
+          <tr><td>AI Ads Library</td><td>AI Ops</td><td class="ap-num">$100</td><td>None — flat</td></tr>
+          <tr><td>Agentic Workflows</td><td>AI Ops</td><td class="ap-num">$1,000</td><td>$1,500 overage if exceeded</td></tr>
+          <tr><td>Strategy / Consulting</td><td>Consulting</td><td class="ap-num">$5,000</td><td>None — flat (Breakthrough only)</td></tr>
+          <tr><td>Dashboards</td><td>Data &amp; Measurement</td><td class="ap-num">$299</td><td>None — flat</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Variable fee math at $1M / month spend</h4>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Service</th><th>Calculation</th><th class="ap-num">Variable Fee</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Media Buying</td><td>(4% × $375K) + (3% × $500K) = $30K, capped at $20K</td><td class="ap-num">$20,000</td></tr>
+          <tr><td>Creative Production</td><td>80% of $1M = $800K. (4% × $375K) + (3% × $300K)</td><td class="ap-num">$24,000</td></tr>
+          <tr><td>CPN (Scale)</td><td>20% × $100K CPN spend</td><td class="ap-num">$20,000</td></tr>
+          <tr><td>CPN (Breakthrough)</td><td>20% × $150K CPN spend</td><td class="ap-num">$30,000</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Performance discount tiers (applied to variable fees only)</h4>
+      <p>Base retainers stay fixed regardless of performance. LP template fees are also fixed (not discounted). Discount applies only to media buying variable, creative production variable, and CPN variable.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>nc-ROAS Threshold</th><th class="ap-num">Discount</th><th>Logic</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 1.5x</td><td class="ap-num">0%</td><td>Below breakeven — full fee</td></tr>
+          <tr><td>≥ 1.5x</td><td class="ap-num">−10%</td><td>Modest profitability</td></tr>
+          <tr><td>≥ 2.0x</td><td class="ap-num">−25%</td><td>Solid performance</td></tr>
+          <tr><td>≥ 2.5x</td><td class="ap-num">−50%</td><td>Strong performance</td></tr>
+          <tr><td>≥ 3.0x</td><td class="ap-num">−75%</td><td>Breakthrough</td></tr>
+          <tr><td>≥ 4.0x</td><td class="ap-num">−100%</td><td>Exceptional — base only</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="ap-callout">
+        <strong>nc-ROAS measurement</strong>
+        Trailing 30-day new customer ROAS evaluated monthly, settled in the following month's invoice. Definition of "new customer" tied to the client's first-time-purchaser flag in Shopify / attribution platform. Thresholds adjustable per client based on category economics.
+      </div>
+    </section>
+
+    <!-- ============================== COMBO 1 ============================== -->
+    <section class="ap-panel" id="combo1">
+      <span class="ap-kicker">Combo 1</span>
+      <h2 class="section-h">Media Only</h2>
+      <p class="ap-p-lg"><strong>Positioning:</strong> Brands with strong in-house creative who need world-class media buying. Single-line offer. Lowest-friction entry point.</p>
+
+      <h4 class="section-h4">At $1M / month spend</h4>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Service</th><th class="ap-num">Base</th><th class="ap-num">Variable</th><th class="ap-num">Monthly</th><th class="ap-num">% of AP Rev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Media Buying</td><td>Media Buying</td><td class="ap-num">$5,000</td><td class="ap-num">$20,000 (capped)</td><td class="ap-num">$25,000</td><td class="ap-num">100.00%</td></tr>
+          <tr class="ap-total"><td colspan="4"><strong>Total</strong></td><td class="ap-num"><strong>$25,000</strong></td><td class="ap-num"><strong>100.00%</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Variable fee discount tiers</h4>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>nc-ROAS</th><th class="ap-num">Discount</th><th class="ap-num">Variable After</th><th class="ap-num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 1.5x</td><td class="ap-num">0%</td><td class="ap-num">$20,000</td><td class="ap-num">$25,000</td></tr>
+          <tr><td>≥ 1.5x</td><td class="ap-num">−10%</td><td class="ap-num">$18,000</td><td class="ap-num">$23,000</td></tr>
+          <tr><td>≥ 2.0x</td><td class="ap-num">−25%</td><td class="ap-num">$15,000</td><td class="ap-num">$20,000</td></tr>
+          <tr><td>≥ 2.5x</td><td class="ap-num">−50%</td><td class="ap-num">$10,000</td><td class="ap-num">$15,000</td></tr>
+          <tr><td>≥ 3.0x</td><td class="ap-num">−75%</td><td class="ap-num">$5,000</td><td class="ap-num">$10,000</td></tr>
+          <tr><td>≥ 4.0x</td><td class="ap-num">−100%</td><td class="ap-num">$0</td><td class="ap-num">$5,000</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ============================== COMBO 2 ============================== -->
+    <section class="ap-panel" id="combo2">
+      <span class="ap-kicker">Combo 2</span>
+      <h2 class="section-h">Intelligence-Only</h2>
+      <p class="ap-p-lg"><strong>Positioning:</strong> Sophisticated in-house teams who want the signal layer without switching agencies. Wedge offer — entry point into accounts that won't change media-buying providers but will pay for proprietary intelligence.</p>
+
+      <h4 class="section-h4">At $1M / month spend</h4>
+      <p>Sorted by % of AP Rev descending.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Service</th><th class="ap-num">Base</th><th class="ap-num">Variable</th><th class="ap-num">Monthly</th><th class="ap-num">% of AP Rev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Ops</td><td>Intel</td><td class="ap-num">$1,000</td><td class="ap-num">—</td><td class="ap-num">$1,000</td><td class="ap-num">71.48%</td></tr>
+          <tr><td>Data &amp; Measurement</td><td>Dashboards</td><td class="ap-num">$299</td><td class="ap-num">—</td><td class="ap-num">$299</td><td class="ap-num">21.37%</td></tr>
+          <tr><td>AI Ops</td><td>AI Ads Library</td><td class="ap-num">$100</td><td class="ap-num">—</td><td class="ap-num">$100</td><td class="ap-num">7.15%</td></tr>
+          <tr class="ap-total"><td colspan="4"><strong>Total</strong></td><td class="ap-num"><strong>$1,399</strong></td><td class="ap-num"><strong>100.00%</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="ap-callout">
+        <strong>No variable fees</strong>
+        Discount tiers do not apply. Total remains $1,399 across all performance levels.
+      </div>
+    </section>
+
+    <!-- ============================== COMBO 3 ============================== -->
+    <section class="ap-panel" id="combo3">
+      <span class="ap-kicker">Combo 3</span>
+      <h2 class="section-h">Creative Engine</h2>
+      <p class="ap-p-lg"><strong>Positioning:</strong> Brands with in-house media buying who need volume creative production + competitive intelligence. The creative-anchored alternative to Media Only.</p>
+
+      <h4 class="section-h4">At $1M / month spend</h4>
+      <p>Sorted by % of AP Rev descending.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Service</th><th class="ap-num">Base</th><th class="ap-num">Variable</th><th class="ap-num">Monthly</th><th class="ap-num">% of AP Rev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Creatives</td><td>Creative Production</td><td class="ap-num">$5,000</td><td class="ap-num">$24,000</td><td class="ap-num">$29,000</td><td class="ap-num">72.32%</td></tr>
+          <tr><td>AI Creatives</td><td>Creative Strategy</td><td class="ap-num">$10,000</td><td class="ap-num">—</td><td class="ap-num">$10,000</td><td class="ap-num">24.94%</td></tr>
+          <tr><td>AI Ops</td><td>Intel</td><td class="ap-num">$1,000</td><td class="ap-num">—</td><td class="ap-num">$1,000</td><td class="ap-num">2.49%</td></tr>
+          <tr><td>AI Ops</td><td>AI Ads Library</td><td class="ap-num">$100</td><td class="ap-num">—</td><td class="ap-num">$100</td><td class="ap-num">0.25%</td></tr>
+          <tr class="ap-total"><td colspan="4"><strong>Total</strong></td><td class="ap-num"><strong>$40,100</strong></td><td class="ap-num"><strong>100.00%</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Variable fee discount tiers</h4>
+      <p>Variable subject to discount = $24,000 (Creative Production only).</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>nc-ROAS</th><th class="ap-num">Discount</th><th class="ap-num">Variable After</th><th class="ap-num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 1.5x</td><td class="ap-num">0%</td><td class="ap-num">$24,000</td><td class="ap-num">$40,100</td></tr>
+          <tr><td>≥ 1.5x</td><td class="ap-num">−10%</td><td class="ap-num">$21,600</td><td class="ap-num">$37,700</td></tr>
+          <tr><td>≥ 2.0x</td><td class="ap-num">−25%</td><td class="ap-num">$18,000</td><td class="ap-num">$34,100</td></tr>
+          <tr><td>≥ 2.5x</td><td class="ap-num">−50%</td><td class="ap-num">$12,000</td><td class="ap-num">$28,100</td></tr>
+          <tr><td>≥ 3.0x</td><td class="ap-num">−75%</td><td class="ap-num">$6,000</td><td class="ap-num">$22,100</td></tr>
+          <tr><td>≥ 4.0x</td><td class="ap-num">−100%</td><td class="ap-num">$0</td><td class="ap-num">$16,100</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ============================== COMBO 4 ============================== -->
+    <section class="ap-panel" id="combo4">
+      <span class="ap-kicker">Combo 4</span>
+      <h2 class="section-h">Growth (Default)</h2>
+      <p class="ap-p-lg"><strong>Positioning:</strong> The default full-service plan. Most clients land here. Media buying + creative + LPs + intelligence in a single bundle.</p>
+
+      <h4 class="section-h4">At $1M / month spend, 2 new LP templates</h4>
+      <p>Sorted by % of AP Rev descending.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Service</th><th class="ap-num">Base</th><th class="ap-num">Variable</th><th class="ap-num">Monthly</th><th class="ap-num">% of AP Rev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Creatives</td><td>Creative Production</td><td class="ap-num">$5,000</td><td class="ap-num">$24,000</td><td class="ap-num">$29,000</td><td class="ap-num">41.97%</td></tr>
+          <tr><td>AI Media Buying</td><td>Media Buying</td><td class="ap-num">$5,000</td><td class="ap-num">$20,000 (capped)</td><td class="ap-num">$25,000</td><td class="ap-num">36.18%</td></tr>
+          <tr><td>AI Creatives</td><td>Creative Strategy</td><td class="ap-num">$10,000</td><td class="ap-num">—</td><td class="ap-num">$10,000</td><td class="ap-num">14.47%</td></tr>
+          <tr><td>AI Landing Pages</td><td>AI Landing Pages</td><td class="ap-num">$2,000</td><td class="ap-num">$2,000 (2 templates)</td><td class="ap-num">$4,000</td><td class="ap-num">5.79%</td></tr>
+          <tr><td>AI Ops</td><td>Intel</td><td class="ap-num">$1,000</td><td class="ap-num">—</td><td class="ap-num">$1,000</td><td class="ap-num">1.45%</td></tr>
+          <tr><td>AI Ops</td><td>AI Ads Library</td><td class="ap-num">$100</td><td class="ap-num">—</td><td class="ap-num">$100</td><td class="ap-num">0.14%</td></tr>
+          <tr class="ap-total"><td colspan="4"><strong>Total</strong></td><td class="ap-num"><strong>$69,100</strong></td><td class="ap-num"><strong>100.00%</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Variable fee discount tiers</h4>
+      <p>Variable subject to discount = $44,000 (Media + Creative Production). LP templates stay flat.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>nc-ROAS</th><th class="ap-num">Discount</th><th class="ap-num">Variable After</th><th class="ap-num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 1.5x</td><td class="ap-num">0%</td><td class="ap-num">$44,000</td><td class="ap-num">$69,100</td></tr>
+          <tr><td>≥ 1.5x</td><td class="ap-num">−10%</td><td class="ap-num">$39,600</td><td class="ap-num">$64,700</td></tr>
+          <tr><td>≥ 2.0x</td><td class="ap-num">−25%</td><td class="ap-num">$33,000</td><td class="ap-num">$58,100</td></tr>
+          <tr><td>≥ 2.5x</td><td class="ap-num">−50%</td><td class="ap-num">$22,000</td><td class="ap-num">$47,100</td></tr>
+          <tr><td>≥ 3.0x</td><td class="ap-num">−75%</td><td class="ap-num">$11,000</td><td class="ap-num">$36,100</td></tr>
+          <tr><td>≥ 4.0x</td><td class="ap-num">−100%</td><td class="ap-num">$0</td><td class="ap-num">$25,100</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ============================== COMBO 5 ============================== -->
+    <section class="ap-panel" id="combo5">
+      <span class="ap-kicker">Combo 5</span>
+      <h2 class="section-h">Scale</h2>
+      <p class="ap-p-lg"><strong>Positioning:</strong> $500K+ spenders adding the Creator Performance Network as a distribution channel. Growth + CPN + AI Organic Content + Agentic Workflows.</p>
+
+      <h4 class="section-h4">At $1M / month spend, $100K CPN spend, 3 new LP templates</h4>
+      <p>Sorted by % of AP Rev descending.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Service</th><th class="ap-num">Base</th><th class="ap-num">Variable</th><th class="ap-num">Monthly</th><th class="ap-num">% of AP Rev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Creatives</td><td>Creative Production</td><td class="ap-num">$5,000</td><td class="ap-num">$24,000</td><td class="ap-num">$29,000</td><td class="ap-num">30.33%</td></tr>
+          <tr><td>AI Media Buying</td><td>Media Buying</td><td class="ap-num">$5,000</td><td class="ap-num">$20,000 (capped)</td><td class="ap-num">$25,000</td><td class="ap-num">26.15%</td></tr>
+          <tr><td>AI Creatives</td><td>Creator Performance Network</td><td class="ap-num">$2,500</td><td class="ap-num">$20,000 (20% × $100K)</td><td class="ap-num">$22,500</td><td class="ap-num">23.54%</td></tr>
+          <tr><td>AI Creatives</td><td>Creative Strategy</td><td class="ap-num">$10,000</td><td class="ap-num">—</td><td class="ap-num">$10,000</td><td class="ap-num">10.46%</td></tr>
+          <tr><td>AI Landing Pages</td><td>AI Landing Pages</td><td class="ap-num">$2,000</td><td class="ap-num">$3,000 (3 templates)</td><td class="ap-num">$5,000</td><td class="ap-num">5.23%</td></tr>
+          <tr><td>AI Creatives</td><td>AI Organic Content</td><td class="ap-num">$2,000</td><td class="ap-num">—</td><td class="ap-num">$2,000</td><td class="ap-num">2.09%</td></tr>
+          <tr><td>AI Ops</td><td>Intel</td><td class="ap-num">$1,000</td><td class="ap-num">—</td><td class="ap-num">$1,000</td><td class="ap-num">1.05%</td></tr>
+          <tr><td>AI Ops</td><td>Agentic Workflows</td><td class="ap-num">$1,000</td><td class="ap-num">—</td><td class="ap-num">$1,000</td><td class="ap-num">1.05%</td></tr>
+          <tr><td>AI Ops</td><td>AI Ads Library</td><td class="ap-num">$100</td><td class="ap-num">—</td><td class="ap-num">$100</td><td class="ap-num">0.10%</td></tr>
+          <tr class="ap-total"><td colspan="4"><strong>Total</strong></td><td class="ap-num"><strong>$95,600</strong></td><td class="ap-num"><strong>100.00%</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Variable fee discount tiers</h4>
+      <p>Variable subject to discount = $64,000 (Media + Creative Production + CPN). LP templates stay flat.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>nc-ROAS</th><th class="ap-num">Discount</th><th class="ap-num">Variable After</th><th class="ap-num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 1.5x</td><td class="ap-num">0%</td><td class="ap-num">$64,000</td><td class="ap-num">$95,600</td></tr>
+          <tr><td>≥ 1.5x</td><td class="ap-num">−10%</td><td class="ap-num">$57,600</td><td class="ap-num">$89,200</td></tr>
+          <tr><td>≥ 2.0x</td><td class="ap-num">−25%</td><td class="ap-num">$48,000</td><td class="ap-num">$79,600</td></tr>
+          <tr><td>≥ 2.5x</td><td class="ap-num">−50%</td><td class="ap-num">$32,000</td><td class="ap-num">$63,600</td></tr>
+          <tr><td>≥ 3.0x</td><td class="ap-num">−75%</td><td class="ap-num">$16,000</td><td class="ap-num">$47,600</td></tr>
+          <tr><td>≥ 4.0x</td><td class="ap-num">−100%</td><td class="ap-num">$0</td><td class="ap-num">$31,600</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ============================== COMBO 6 ============================== -->
+    <section class="ap-panel" id="combo6">
+      <span class="ap-kicker">Combo 6</span>
+      <h2 class="section-h">Breakthrough (Enterprise)</h2>
+      <p class="ap-p-lg"><strong>Positioning:</strong> $1M+ spenders. Full Done-For-You agentic engine. Scale + Strategy / Consulting + heavier CPN routing.</p>
+
+      <h4 class="section-h4">At $1M / month spend, $150K CPN spend, 4 new LP templates</h4>
+      <p>Sorted by % of AP Rev descending.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Service</th><th class="ap-num">Base</th><th class="ap-num">Variable</th><th class="ap-num">Monthly</th><th class="ap-num">% of AP Rev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Creatives</td><td>Creator Performance Network</td><td class="ap-num">$2,500</td><td class="ap-num">$30,000 (20% × $150K)</td><td class="ap-num">$32,500</td><td class="ap-num">26.29%</td></tr>
+          <tr><td>AI Creatives</td><td>Creative Production</td><td class="ap-num">$5,000</td><td class="ap-num">$24,000</td><td class="ap-num">$29,000</td><td class="ap-num">23.46%</td></tr>
+          <tr><td>AI Media Buying</td><td>Media Buying</td><td class="ap-num">$5,000</td><td class="ap-num">$20,000 (capped)</td><td class="ap-num">$25,000</td><td class="ap-num">20.23%</td></tr>
+          <tr><td>AI Creatives</td><td>Creative Strategy</td><td class="ap-num">$10,000</td><td class="ap-num">—</td><td class="ap-num">$10,000</td><td class="ap-num">8.09%</td></tr>
+          <tr><td>AI Landing Pages</td><td>AI Landing Pages</td><td class="ap-num">$2,000</td><td class="ap-num">$4,000 (4 templates)</td><td class="ap-num">$6,000</td><td class="ap-num">4.85%</td></tr>
+          <tr><td>Consulting</td><td>Strategy / Consulting</td><td class="ap-num">$5,000</td><td class="ap-num">—</td><td class="ap-num">$5,000</td><td class="ap-num">4.05%</td></tr>
+          <tr><td>AI Creatives</td><td>AI Organic Content</td><td class="ap-num">$2,000</td><td class="ap-num">—</td><td class="ap-num">$2,000</td><td class="ap-num">1.62%</td></tr>
+          <tr><td>AI Ops</td><td>Intel</td><td class="ap-num">$1,000</td><td class="ap-num">—</td><td class="ap-num">$1,000</td><td class="ap-num">0.81%</td></tr>
+          <tr><td>AI Ops</td><td>Agentic Workflows</td><td class="ap-num">$1,000</td><td class="ap-num">—</td><td class="ap-num">$1,000</td><td class="ap-num">0.81%</td></tr>
+          <tr><td>AI Ops</td><td>AI Ads Library</td><td class="ap-num">$100</td><td class="ap-num">—</td><td class="ap-num">$100</td><td class="ap-num">0.08%</td></tr>
+          <tr class="ap-total"><td colspan="4"><strong>Total</strong></td><td class="ap-num"><strong>$123,600</strong></td><td class="ap-num"><strong>100.00%</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 class="section-h4">Variable fee discount tiers</h4>
+      <p>Variable subject to discount = $74,000 (Media + Creative Production + CPN). LP templates stay flat.</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>nc-ROAS</th><th class="ap-num">Discount</th><th class="ap-num">Variable After</th><th class="ap-num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 1.5x</td><td class="ap-num">0%</td><td class="ap-num">$74,000</td><td class="ap-num">$123,600</td></tr>
+          <tr><td>≥ 1.5x</td><td class="ap-num">−10%</td><td class="ap-num">$66,600</td><td class="ap-num">$116,200</td></tr>
+          <tr><td>≥ 2.0x</td><td class="ap-num">−25%</td><td class="ap-num">$55,500</td><td class="ap-num">$105,100</td></tr>
+          <tr><td>≥ 2.5x</td><td class="ap-num">−50%</td><td class="ap-num">$37,000</td><td class="ap-num">$86,600</td></tr>
+          <tr><td>≥ 3.0x</td><td class="ap-num">−75%</td><td class="ap-num">$18,500</td><td class="ap-num">$68,100</td></tr>
+          <tr><td>≥ 4.0x</td><td class="ap-num">−100%</td><td class="ap-num">$0</td><td class="ap-num">$49,600</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="ap-callout-yellow">
+        <strong>Operational margin note</strong>
+        At −100% discount on Breakthrough, total drops from $123,600 to $49,600 (3.5% of spend). If the team cost on a Breakthrough account exceeds $40K/mo, you approach break-even. Consider capping max discount at −75% to preserve operational margin on hyper-performing accounts.
+      </div>
+    </section>
+
+    <!-- ============================== SUPPORTING ============================== -->
+    <section class="ap-panel" id="supporting">
+      <span class="ap-kicker">Supporting Info</span>
+      <h2 class="section-h">Observations, mix strategy, and what to lock down next</h2>
+
+      <h4 class="section-h4">Observations on line-item economics</h4>
+      <ul>
+        <li><strong>In Growth (default plan), Creative Production is the biggest single line</strong> at 42% — bigger than Media Buying at 36%. Driven by the Media Buying cap at $20K. If Media Buying should be the headline service economically, the cap needs to lift or remove.</li>
+        <li><strong>In Scale and Breakthrough, CPN is the second or third largest line</strong> (23.5% Scale, 26.3% Breakthrough). Whoever owns CPN is operating a major revenue driver — staffing and operational rigor on CPN delivery should reflect that.</li>
+        <li><strong>Creative Strategy at $10K is 8-15% of full-stack combos.</strong> Material but not dominant. If the deliverable matures, pricing has room to flex upward.</li>
+        <li><strong>The intel layer (Intel + AI Ads Library + Agentic Workflows + Dashboards) sums to under 3% of any full-service combo.</strong> This is the moat — disproportionately low fee for what is structurally the differentiator. Sells via wedge offer (Intelligence-Only at $1,399) and bundles into all higher tiers.</li>
+      </ul>
+
+      <h4 class="section-h4">Mix strategy at $5M annual AP revenue target</h4>
+      <p>If Ad Pros targets $5M annual revenue (~$417K / mo), the combo mix could look like:</p>
+      <div class="ap-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Combo</th><th class="ap-num">Per-Client Monthly</th><th class="ap-num">Target Client Count</th><th class="ap-num">Monthly AP Rev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Breakthrough</td><td class="ap-num">$123,600</td><td class="ap-num">1</td><td class="ap-num">$123,600</td></tr>
+          <tr><td>Scale</td><td class="ap-num">$95,600</td><td class="ap-num">2</td><td class="ap-num">$191,200</td></tr>
+          <tr><td>Growth</td><td class="ap-num">$69,100</td><td class="ap-num">1</td><td class="ap-num">$69,100</td></tr>
+          <tr><td>Creative Engine</td><td class="ap-num">$40,100</td><td class="ap-num">0–1</td><td class="ap-num">$0–$40,100</td></tr>
+          <tr><td>Intelligence-Only</td><td class="ap-num">$1,399</td><td class="ap-num">10–15</td><td class="ap-num">$14K–$21K</td></tr>
+          <tr class="ap-total"><td><strong>Total</strong></td><td></td><td></td><td class="ap-num"><strong>~$417K / mo</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="ap-caption">Concentration risk: 1 Breakthrough client = 30% of revenue. Worth diversifying via Scale and Intelligence-Only wedges.</p>
+
+      <h4 class="section-h4">Build dependencies blocking sale of these combos</h4>
+      <p>Per the latest service overview, several services are flagged "Stuck" or "Doesn't Exist." Combos blocked:</p>
+      <ul>
+        <li><strong>Combo 3 (Creative Engine)</strong> blocked by: Creative Strategy (Stuck)</li>
+        <li><strong>Combo 4 (Growth)</strong> blocked by: Creative Strategy (Stuck), AI Landing Pages (Doesn't Exist)</li>
+        <li><strong>Combo 5 (Scale)</strong> blocked by: above + CPN (Stuck), AI Organic Content (Doesn't Exist)</li>
+        <li><strong>Combo 6 (Breakthrough)</strong> blocked by: all of the above</li>
+      </ul>
+      <p>Sellable today: Combo 1 (Media Only) and Combo 2 (Intelligence-Only). Unblocking Creative Strategy + shipping AI Landing Pages v1 opens 80% of the prospect funnel.</p>
+
+      <h4 class="section-h4">What to lock down before publishing this as a sales artifact</h4>
+      <ul>
+        <li><strong>Define the deliverables per combo.</strong> Each combo needs a one-pager: deliverables, cadence, ad-unit capacity, LP templates included, strategy workshop count, intel memo frequency.</li>
+        <li><strong>Define "new customer" attribution methodology</strong> for the nc-ROAS discount tiers. Tied to client's first-time-purchaser flag in Shopify or attribution platform. Lock the methodology in the MSA.</li>
+        <li><strong>Define CPN spend allocation.</strong> Currently assumed at 10% of total media spend on Scale, 15% on Breakthrough. In practice this is client-specific — make it part of the onboarding rules document.</li>
+        <li><strong>Decide on max discount cap.</strong> Recommend −75% as the max to preserve operational margin at breakthrough nc-ROAS levels.</li>
+        <li><strong>Decide on graduation logic.</strong> What automatically moves a client from Growth → Scale → Breakthrough? Spend thresholds? Channel count? Make the path explicit.</li>
+      </ul>
+
+      <div class="ap-callout">
+        <strong>Next document to publish</strong>
+        Per-combo deliverables one-pager — what each plan actually ships, the cadence, and the human-vs-agent split. This becomes the sales artifact paired with this pricing model.
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <div class="logo-mono" style="width:36px;height:36px;font-size:13px;opacity:0.5;">AP</div>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal Kazim &middot; May 15, 2026</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.ap-tab').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var tab = btn.getAttribute('data-tab');
+        document.querySelectorAll('.ap-tab').forEach(function(b){ b.classList.remove('active'); });
+        document.querySelectorAll('.ap-panel').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        var panel = document.getElementById(tab);
+        if (panel) panel.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+</div></body>
+</html>
