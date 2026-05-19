@@ -258,10 +258,10 @@
               <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#1A6FD4;letter-spacing:1.2px;text-transform:uppercase;">In-Platform Meta · Meta Ads Manager</div>
               <div style="color:#040735;font-size:22px;font-weight:800;letter-spacing:-0.3px;margin-top:6px;">Meta Benchmarks across four attribution settings</div>
             </div>
-            <div style="background:#040735;color:#F9D900;border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;white-space:nowrap;letter-spacing:0.4px;">All require ~14.9% CPA reduction / +17.5% ROAS lift</div>
+            <div style="background:#040735;color:#F9D900;border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;white-space:nowrap;letter-spacing:0.4px;">Regression-derived · daily 90-day data</div>
           </div>
           <p style="color:#2A2D4A;font-size:14px;line-height:1.6;margin-bottom:24px;">
-            Meta Ads Manager shows different numbers depending on the attribution setting applied. All four below count both new and returning customer purchases — that&rsquo;s unavoidable in-platform. Each represents the same underlying performance measured through a stricter or looser lens. Pick the one the team is operating against and use the matching benchmark.
+            Meta Ads Manager shows different numbers depending on the attribution setting applied. All four below count both new and returning customer purchases — that&rsquo;s unavoidable in-platform. Each benchmark is derived from a linear regression of that metric against business-wide ncCPA across 90 daily data points — the CPA / ROAS level at which business-wide ncCPA reaches $60. Pick the setting the team is operating against and hold to that benchmark consistently.
           </p>
           <table style="width:100%;border-collapse:collapse;color:#1f2937;font-size:14px;">
             <thead>
@@ -270,7 +270,8 @@
                 <th style="text-align:right;padding:12px;color:#040735;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">Current CPA</th>
                 <th style="text-align:right;padding:12px;color:#1A6FD4;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">Benchmark CPA</th>
                 <th style="text-align:right;padding:12px;color:#040735;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">Current ROAS</th>
-                <th style="text-align:right;padding:12px 0 12px 12px;color:#1A6FD4;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">Benchmark ROAS</th>
+                <th style="text-align:right;padding:12px 12px;color:#1A6FD4;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">Benchmark ROAS</th>
+                <th style="text-align:right;padding:12px 0 12px 12px;color:#040735;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">R² (CPA/ROAS)</th>
               </tr>
             </thead>
             <tbody>
@@ -280,9 +281,10 @@
                   <div style="margin-top:4px;font-size:12px;color:#6B7280;">Includes view-through. Loosest view.</div>
                 </td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">$59.05</td>
-                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$50.27</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$53.61</td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">1.88x</td>
-                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">2.21x</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">2.16x</td>
+                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:600;font-size:13px;">0.77 / 0.47</td>
               </tr>
               <tr style="border-bottom:1px solid #E5E7EB;">
                 <td style="padding:16px 12px 16px 0;">
@@ -290,9 +292,10 @@
                   <div style="margin-top:4px;font-size:12px;color:#6B7280;">Click only, no view-through. Counts repeat purchases per customer.</div>
                 </td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">$66.52</td>
-                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$56.62</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$59.99</td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">1.67x</td>
-                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">1.96x</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">1.84x</td>
+                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:600;font-size:13px;">0.75 / 0.41</td>
               </tr>
               <tr style="border-bottom:1px solid #E5E7EB;">
                 <td style="padding:16px 12px 16px 0;">
@@ -300,9 +303,10 @@
                   <div style="margin-top:4px;font-size:12px;color:#6B7280;">Click only. Counts only first purchase per customer (closer to new-customer view).</div>
                 </td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">$67.78</td>
-                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$57.69</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$61.17</td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">1.65x</td>
-                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">1.94x</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">1.86x</td>
+                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:600;font-size:13px;">0.82 / 0.64</td>
               </tr>
               <tr>
                 <td style="padding:16px 12px 16px 0;">
@@ -310,14 +314,15 @@
                   <div style="margin-top:4px;font-size:12px;color:#6B7280;">Meta&rsquo;s incrementality model. Strictest &mdash; only credits truly incremental conversions.</div>
                 </td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">$70.24</td>
-                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$59.79</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">$63.77</td>
                 <td style="text-align:right;padding:16px 12px;color:#9CA3AF;font-weight:600;">1.60x</td>
-                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">1.88x</td>
+                <td style="text-align:right;padding:16px 12px;color:#040735;font-weight:800;font-size:16px;background:#FFF59D;">1.88x</td>
+                <td style="text-align:right;padding:16px 0 16px 12px;color:#040735;font-weight:600;font-size:13px;">0.81 / 0.66</td>
               </tr>
             </tbody>
           </table>
           <div style="margin-top:20px;padding:16px;border-radius:8px;background:#F3F4F6;color:#374151;font-size:12px;line-height:1.6;">
-            <strong style="color:#040735;">Reading the table:</strong> as attribution tightens (top → bottom), Meta gets credit for fewer purchases, so reported CPA goes up and ROAS comes down. Each benchmark is built by applying the same proportional improvement Meta needs to deliver against the cross-channel new-customer view above. All four assume returning customer behavior holds steady — if only new customer volume grows while returning stays flat, the improvement in absolute terms will be smaller than these benchmarks suggest.
+            <strong style="color:#040735;">How these benchmarks were built:</strong> linear regression of each Meta metric against daily business-wide ncCPA over 90 days. The benchmark is the metric value at which the regression predicts business-wide ncCPA = $60. The four metrics need <em>different</em> improvements (~9-10% CPA reduction, +12-15% ROAS lift) because each lens correlates with the business outcome a bit differently. <strong>7-Day Click First Conversion CPA has the tightest fit (R² = 0.82)</strong> — most predictive single in-platform metric. Higher R² = more reliable signal.
           </div>
         </div>
 
@@ -395,8 +400,8 @@
         Each benchmark answers a different question. Used together, they give a clear picture of Meta&rsquo;s real contribution to the business.
       </p>
       <div class="how-card">
-        <div class="how-card-title">The day-to-day number — In-Platform Meta ($56.62 CPA / 2.21x ROAS)</div>
-        <p>This is the number the Growth Marketer watches every day inside Meta Ads Manager. If in-platform CPA drifts above $56.62 (or ROAS drops below 2.21x), that&rsquo;s the first signal something inside the Meta account needs attention — creative, audience, bid strategy, or testing cadence.</p>
+        <div class="how-card-title">The day-to-day number — In-Platform Meta ($59.99 CPA / 2.21x ROAS)</div>
+        <p>This is the number the Growth Marketer watches every day inside Meta Ads Manager. If in-platform CPA drifts above $59.99 (or ROAS drops below 2.21x), that&rsquo;s the first signal something inside the Meta account needs attention — creative, audience, bid strategy, or testing cadence.</p>
       </div>
       <div class="how-card">
         <div class="how-card-title">The closing-credit check — TW Last Click ($139.51 CPA)</div>
