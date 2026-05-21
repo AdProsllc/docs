@@ -94,8 +94,8 @@
     .ap-sidebar-open:hover { background: var(--yellow); border-color: var(--yellow); color: var(--navy); box-shadow: 0 0 0 4px rgba(249,217,0,0.15); }
     .ap-sidebar-open svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
     .ap-sidebar-open .count-badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 6px; background: var(--yellow); color: var(--navy); border: 2px solid var(--navy); border-radius: 999px; font-size: 11px; font-weight: 700; line-height: 16px; text-align: center; pointer-events: none; }
-    body.ap-sidebar-open { padding-left: 280px; transition: padding-left .25s ease; }
-    @media (max-width: 900px) { body.ap-sidebar-open { padding-left: 0; } .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); } }
+    body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
+    @media (max-width: 900px) { body.ap-has-sidebar { padding-left: 0; } .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); } }
     @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; } .ap-footer { margin-left: 20px; margin-right: 20px; } .ap-h2 { font-size: 26px; } }
   </style>
 </head>
@@ -172,11 +172,11 @@
     var list = document.getElementById('ap-sidebar-list');
     var current = location.pathname;
     function fmtDate(iso){ if(!iso) return ""; var d = new Date(iso); if(isNaN(d)) return ""; return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
-    function hideAll(){ if(sidebar) sidebar.style.display='none'; if(openBtn) openBtn.style.display='none'; document.body.classList.remove('ap-sidebar-open'); }
+    function hideAll(){ if(sidebar) sidebar.style.display='none'; if(openBtn) openBtn.style.display='none'; document.body.classList.remove('ap-has-sidebar'); }
     function setOpen(open){
       if(!sidebar||!openBtn) return;
-      if(open){ sidebar.classList.remove('collapsed'); openBtn.classList.remove('visible'); document.body.classList.add('ap-sidebar-open'); }
-      else { sidebar.classList.add('collapsed'); openBtn.classList.add('visible'); document.body.classList.remove('ap-sidebar-open'); }
+      if(open){ sidebar.classList.remove('collapsed'); openBtn.classList.remove('visible'); document.body.classList.add('ap-has-sidebar'); }
+      else { sidebar.classList.add('collapsed'); openBtn.classList.add('visible'); document.body.classList.remove('ap-has-sidebar'); }
       try { localStorage.setItem(STORAGE, open ? 'open' : 'closed'); } catch(e){}
     }
     function initialOpen(){
