@@ -193,7 +193,7 @@
       transition: color .15s, border-color .15s, background .15s;
     }
     .ap-toc-item:hover { color: #fff; background: rgba(255,255,255,0.04); }
-    .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); background: rgba(249,217,0,0.08); font-weight: 600; }
+    .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); background: rgba(249,217,0,0.14); font-weight: 700; }
     /* TOC visible at ≥768px (tablet portrait+). At ≥1100px, body gets padding-right to push content; below that the TOC overlays content. */
     @media (min-width: 1100px) { body { padding-right: 250px; transition: padding-right .25s ease; } }
     @media (min-width: 768px) and (max-width: 1099px) {
@@ -326,13 +326,33 @@
     var list = document.getElementById('ap-toc-list');
     if(!list) return;
     var items = Array.from(list.querySelectorAll('.ap-toc-item'));
-    var sections = items.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
-    if(sections.length < 2) return;
-    function setActive(id){
-      items.forEach(function(a){
-        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    // Build pairs of {TOC link element, target section element}
+    var pairs = items.map(function(a){
+      return { item: a, target: document.querySelector(a.getAttribute('href')) };
+    }).filter(function(p){ return p.target; });
+    if(pairs.length < 2) return;
+
+    function setActive(target){
+      pairs.forEach(function(p){
+        p.item.classList.toggle('active', p.target === target);
       });
     }
+
+    // Scroll-driven scrollspy: the active section is the LAST one whose top
+    // has passed the trigger line (140px from viewport top). Falls back to
+    // the first section before the user has scrolled.
+    function updateActive(){
+      var triggerY = 140;
+      var current = pairs[0].target;
+      pairs.forEach(function(p){
+        if(p.target.getBoundingClientRect().top - triggerY <= 0){
+          current = p.target;
+        }
+      });
+      setActive(current);
+    }
+
+    // Smooth-scroll on TOC click
     list.addEventListener('click', function(ev){
       var a = ev.target.closest('.ap-toc-item');
       if(!a) return;
@@ -343,17 +363,21 @@
       window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
       history.replaceState(null, '', '#' + id);
     });
-    var observer = new IntersectionObserver(function(entries){
-      var visible = entries.filter(function(e){ return e.isIntersecting; })
-                           .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
-      if(visible.length > 0) setActive(visible[0].target.id);
-    }, { rootMargin: '-100px 0px -70% 0px' });
-    sections.forEach(function(s){ observer.observe(s); });
-    var initialActive = sections.find(function(s){
-      var r = s.getBoundingClientRect();
-      return r.top < window.innerHeight * 0.3 && r.bottom > 0;
-    });
-    if(initialActive) setActive(initialActive.id);
+
+    // Throttled scroll handler via rAF
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if(!ticking){
+        window.requestAnimationFrame(function(){
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Run once on load to set the initial state
+    updateActive();
   })();
   </script>
   <header class="ap-header">
