@@ -171,8 +171,15 @@
     .ap-toc-item { display: block; padding: 7px 0 7px 14px; font-size: 12px; line-height: 1.35; color: var(--grey-300); text-decoration: none; border-left: 2px solid transparent; margin-left: -20px; transition: color .15s, border-color .15s; }
     .ap-toc-item:hover { color: #fff; }
     .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); font-weight: 500; }
+    /* TOC visible at ≥900px. Pushes content only at ≥1100px; overlays content at 900-1099. Hidden below 900. */
     @media (min-width: 1100px) { body.ap-has-toc { padding-right: 220px; transition: padding-right .25s ease; } }
-    @media (max-width: 1099px) { .ap-toc { display: none !important; } }
+    @media (min-width: 900px) and (max-width: 1099px) {
+      .ap-toc { width: 168px; right: 16px; background: linear-gradient(to right, transparent, rgba(7,11,61,0.85) 30%); padding-left: 22px; padding-right: 8px; backdrop-filter: blur(2px); }
+    }
+    @media (max-width: 899px) { .ap-toc { display: none !important; } }
+    /* Subtle reveal animation when TOC becomes visible for the first time. */
+    .ap-toc.visible { animation: ap-toc-reveal 0.5s ease-out; }
+    @keyframes ap-toc-reveal { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
     @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; } .ap-footer { margin-left: 28px; margin-right: 28px; } .ap-h2 { font-size: 26px; } }
   </style>
 </head>
@@ -291,6 +298,7 @@
     var list = document.getElementById('ap-toc-list');
     if(!toc || !list) return;
     var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
+    if(typeof console !== 'undefined' && console.log) console.log('[ap-toc] init — sections:', sections.length, '· viewport:', window.innerWidth + 'x' + window.innerHeight);
     if(sections.length < 4) return;
     sections.forEach(function(sec){
       var label = sec.getAttribute('data-toc-title')
