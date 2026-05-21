@@ -17,7 +17,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-band: #0a0f4a;
       --yellow: #F9D900; --yellow-dim: #DFC200;
       --blue: #1A6FD4; --blue-light: #3BA9F9;
       --white: #FFFFFF;
@@ -30,7 +30,7 @@
       --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--navy); color: var(--grey-200); font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
     .ap-h2 { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
     .ap-h3 { font-size: 22px; font-weight: 700; line-height: 1.25; color: #fff; }
     .ap-h4 { font-size: 18px; font-weight: 600; line-height: 1.3; color: #fff; }
@@ -43,10 +43,28 @@
     .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
     .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
     .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
-    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); scroll-margin-top: 80px; }
-    .ap-section:first-of-type { border-top: none; }
-    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
-    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+    /* === SECTIONS — alternating background bands === */
+    .ap-section { padding: var(--space-16) 0; scroll-margin-top: 80px; position: relative; z-index: 0; }
+    .ap-section:first-of-type { padding-top: var(--space-12); }
+    .ap-section::before {
+      content: ""; position: absolute; inset: 0 -100vw;
+      z-index: -1; background: transparent; pointer-events: none;
+    }
+    /* Even-numbered sections get a slightly lighter band — creates visible rhythm as user scrolls */
+    .ap-section:nth-of-type(even)::before { background: var(--navy-band); }
+    /* Section labels become more prominent with a yellow accent block */
+    .ap-section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: "JetBrains Mono", monospace; font-size: 11px;
+      color: var(--grey-200); margin-bottom: var(--space-4);
+      letter-spacing: 0.5px;
+      padding: 5px 10px 5px 14px;
+      background: rgba(249, 217, 0, 0.08);
+      border-left: 3px solid var(--yellow);
+      border-radius: 0 6px 6px 0;
+      margin-left: -14px;
+    }
+    .ap-section-label .num { color: var(--yellow); font-weight: 700; }
     .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
     .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
     @media (max-width: 900px) { .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
@@ -70,7 +88,59 @@
     .ap-footer-left { display: flex; align-items: center; gap: 14px; }
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
-    /* === CLIENT SIDEBAR === */
+    /* === SUMMARY BAR (top of report — audio + download) === */
+    .ap-summary-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-4); flex-wrap: wrap;
+      padding: 16px 20px;
+      background: var(--navy-card);
+      border: 1px solid var(--card-border-strong);
+      border-radius: 14px;
+      margin-bottom: var(--space-10);
+    }
+    .ap-summary-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .ap-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dim) 100%);
+      color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 17px;
+      flex-shrink: 0;
+    }
+    .ap-play-btn {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--yellow); color: var(--navy);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, transform .12s, box-shadow .15s;
+      flex-shrink: 0;
+    }
+    .ap-play-btn:hover { background: var(--yellow-dim); transform: scale(1.04); box-shadow: 0 0 0 4px rgba(249,217,0,0.18); }
+    .ap-play-btn:active { transform: scale(0.96); }
+    .ap-play-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .ap-play-btn svg.play-icon { transform: translateX(2px); }
+    .ap-summary-text { min-width: 0; }
+    .ap-summary-title { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.3; }
+    .ap-summary-sub { font-size: 12px; color: var(--grey-300); margin-top: 2px; }
+    .ap-download-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px;
+      background: transparent;
+      border: 1.5px solid var(--card-border-strong);
+      border-radius: 8px;
+      color: var(--grey-100);
+      font-size: 13px; font-weight: 500; font-family: inherit;
+      text-decoration: none;
+      transition: border-color .15s, background .15s, color .15s;
+    }
+    .ap-download-btn:hover { border-color: var(--yellow); background: rgba(249,217,0,0.06); color: var(--yellow); }
+    .ap-download-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    @media (max-width: 640px) {
+      .ap-summary-bar { padding: 14px 16px; }
+      .ap-summary-bar { flex-direction: column; align-items: stretch; }
+      .ap-download-btn { justify-content: center; }
+    }
+    /* === CLIENT SIDEBAR (unchanged from prior) === */
     .ap-sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 280px; background: var(--navy-deep); border-right: 1px solid var(--card-border); z-index: 100; display: flex; flex-direction: column; transform: translateX(0); transition: transform .25s ease; overflow-y: auto; }
     .ap-sidebar.collapsed { transform: translateX(-100%); }
     .ap-sidebar-header { padding: 24px 20px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--card-border); }
@@ -93,16 +163,16 @@
     body:not(.ap-has-sidebar) .ap-sidebar-toggle svg { transform: rotate(180deg); }
     body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
     @media (max-width: 900px) { body.ap-has-sidebar { padding-left: 0; } .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); } body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); } }
-    /* === FLOATING TOC === */
-    .ap-toc { position: fixed; top: 130px; right: 32px; z-index: 50; width: 200px; max-height: calc(100vh - 180px); overflow-y: auto; padding: 4px 0 4px 18px; border-left: 1px solid var(--card-border); display: none; }
+    /* === FLOATING TOC (lowered breakpoint to 1100px) === */
+    .ap-toc { position: fixed; top: 130px; right: 28px; z-index: 50; width: 190px; max-height: calc(100vh - 180px); overflow-y: auto; padding: 4px 0 4px 18px; border-left: 1px solid var(--card-border); display: none; }
     .ap-toc.visible { display: block; }
     .ap-toc-label { font-size: 11px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
     .ap-toc-list { list-style: none; padding: 0; margin: 0; }
-    .ap-toc-item { display: block; padding: 7px 0 7px 16px; font-size: 12.5px; line-height: 1.35; color: var(--grey-300); text-decoration: none; border-left: 2px solid transparent; margin-left: -20px; transition: color .15s, border-color .15s; }
+    .ap-toc-item { display: block; padding: 7px 0 7px 14px; font-size: 12px; line-height: 1.35; color: var(--grey-300); text-decoration: none; border-left: 2px solid transparent; margin-left: -20px; transition: color .15s, border-color .15s; }
     .ap-toc-item:hover { color: #fff; }
     .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); font-weight: 500; }
-    @media (min-width: 1280px) { body.ap-has-toc { padding-right: 232px; transition: padding-right .25s ease; } }
-    @media (max-width: 1279px) { .ap-toc { display: none !important; } }
+    @media (min-width: 1100px) { body.ap-has-toc { padding-right: 220px; transition: padding-right .25s ease; } }
+    @media (max-width: 1099px) { .ap-toc { display: none !important; } }
     @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; } .ap-footer { margin-left: 28px; margin-right: 28px; } .ap-h2 { font-size: 26px; } }
   </style>
 </head>
@@ -162,108 +232,108 @@
   <button class="ap-sidebar-toggle" id="ap-sidebar-toggle" onclick="apSidebarToggle()" aria-label="Toggle sidebar" title="Toggle sidebar">
     <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg>
   </button>
-<script>
-(function(){
-  var CLIENT = "Test Client";
-  var SCOPE_KEY = "test-client";
-  var STORAGE = 'ap-sb-' + SCOPE_KEY;
-  var sidebar = document.getElementById('ap-sidebar');
-  var toggleBtn = document.getElementById('ap-sidebar-toggle');
-  var section = document.getElementById('ap-sidebar-section');
-  var list = document.getElementById('ap-sidebar-list');
-  var current = location.pathname;
-  function fmtDate(iso){ if(!iso) return ""; var d = new Date(iso); if(isNaN(d)) return ""; return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
-  function hideAll(){ if(sidebar) sidebar.style.display='none'; if(toggleBtn) toggleBtn.style.display='none'; document.body.classList.remove('ap-has-sidebar'); }
-  function setOpen(open){
-    if(!sidebar) return;
-    if(open){ sidebar.classList.remove('collapsed'); document.body.classList.add('ap-has-sidebar'); }
-    else { sidebar.classList.add('collapsed'); document.body.classList.remove('ap-has-sidebar'); }
-    if(toggleBtn) toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    try { localStorage.setItem(STORAGE, open ? 'open' : 'closed'); } catch(e){}
-  }
-  function initialOpen(){
-    try { var v = localStorage.getItem(STORAGE); if(v==='open') return true; if(v==='closed') return false; } catch(e){}
-    return window.matchMedia('(min-width: 901px)').matches;
-  }
-  function clearChildren(el){ while(el.firstChild) el.removeChild(el.firstChild); }
-  setOpen(initialOpen());
-  window.apSidebarToggle = function(){ var isOpen = !sidebar.classList.contains('collapsed'); setOpen(!isOpen); };
-  document.addEventListener('keydown', function(ev){ if(ev.key==='Escape' && !sidebar.classList.contains('collapsed')) setOpen(false); });
-  fetch('../pages.json',{cache:'no-store'})
-    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function(data){
-      var pages = (data && data.pages) || [];
-      if(pages.length < 2){ hideAll(); return; }
-      if(section) section.textContent = 'All reports · ' + pages.length;
-      if(!list) return;
-      clearChildren(list);
-      pages.forEach(function(p){
-        var a = document.createElement('a');
-        a.className = 'ap-sidebar-item' + (p.url === current ? ' current' : '');
-        a.href = p.url;
-        var t = document.createElement('div'); t.className = 'ap-sidebar-item-title';
-        t.textContent = p.title || p.slug; a.appendChild(t);
-        var d = document.createElement('div'); d.className = 'ap-sidebar-item-date';
-        d.textContent = fmtDate(p.date); a.appendChild(d);
-        list.appendChild(a);
-      });
-    })
-    .catch(hideAll);
-})();
-</script>
+  <script>
+  (function(){
+    var CLIENT = "Test Client";
+    var SCOPE_KEY = "test-client";
+    var STORAGE = 'ap-sb-' + SCOPE_KEY;
+    var sidebar = document.getElementById('ap-sidebar');
+    var toggleBtn = document.getElementById('ap-sidebar-toggle');
+    var section = document.getElementById('ap-sidebar-section');
+    var list = document.getElementById('ap-sidebar-list');
+    var current = location.pathname;
+    function fmtDate(iso){ if(!iso) return ""; var d = new Date(iso); if(isNaN(d)) return ""; return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
+    function hideAll(){ if(sidebar) sidebar.style.display='none'; if(toggleBtn) toggleBtn.style.display='none'; document.body.classList.remove('ap-has-sidebar'); }
+    function setOpen(open){
+      if(!sidebar) return;
+      if(open){ sidebar.classList.remove('collapsed'); document.body.classList.add('ap-has-sidebar'); }
+      else { sidebar.classList.add('collapsed'); document.body.classList.remove('ap-has-sidebar'); }
+      if(toggleBtn) toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      try { localStorage.setItem(STORAGE, open ? 'open' : 'closed'); } catch(e){}
+    }
+    function initialOpen(){
+      try { var v = localStorage.getItem(STORAGE); if(v==='open') return true; if(v==='closed') return false; } catch(e){}
+      return window.matchMedia('(min-width: 901px)').matches;
+    }
+    function clearChildren(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+    setOpen(initialOpen());
+    window.apSidebarToggle = function(){ var isOpen = !sidebar.classList.contains('collapsed'); setOpen(!isOpen); };
+    document.addEventListener('keydown', function(ev){ if(ev.key==='Escape' && !sidebar.classList.contains('collapsed')) setOpen(false); });
+    fetch('../pages.json',{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(data){
+        var pages = (data && data.pages) || [];
+        if(pages.length < 2){ hideAll(); return; }
+        if(section) section.textContent = 'All reports · ' + pages.length;
+        if(!list) return;
+        clearChildren(list);
+        pages.forEach(function(p){
+          var a = document.createElement('a');
+          a.className = 'ap-sidebar-item' + (p.url === current ? ' current' : '');
+          a.href = p.url;
+          var t = document.createElement('div'); t.className = 'ap-sidebar-item-title';
+          t.textContent = p.title || p.slug; a.appendChild(t);
+          var d = document.createElement('div'); d.className = 'ap-sidebar-item-date';
+          d.textContent = fmtDate(p.date); a.appendChild(d);
+          list.appendChild(a);
+        });
+      })
+      .catch(hideAll);
+  })();
+  </script>
   <nav class="ap-toc" id="ap-toc" aria-label="On this page">
     <div class="ap-toc-label">On this page</div>
     <ol class="ap-toc-list" id="ap-toc-list"></ol>
   </nav>
-<script>
-(function(){
-  var toc = document.getElementById('ap-toc');
-  var list = document.getElementById('ap-toc-list');
-  if(!toc || !list) return;
-  var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
-  if(sections.length < 4) return;
-  sections.forEach(function(sec){
-    var label = sec.getAttribute('data-toc-title')
-      || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
-    var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.className = 'ap-toc-item';
-    a.href = '#' + sec.id;
-    a.textContent = label;
-    li.appendChild(a);
-    list.appendChild(li);
-  });
-  toc.classList.add('visible');
-  document.body.classList.add('ap-has-toc');
-  list.addEventListener('click', function(ev){
-    var a = ev.target.closest('.ap-toc-item');
-    if(!a) return;
-    ev.preventDefault();
-    var id = a.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if(!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
-    history.replaceState(null, '', '#' + id);
-  });
-  var items = Array.from(list.querySelectorAll('.ap-toc-item'));
-  function setActive(id){
-    items.forEach(function(a){
-      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+  <script>
+  (function(){
+    var toc = document.getElementById('ap-toc');
+    var list = document.getElementById('ap-toc-list');
+    if(!toc || !list) return;
+    var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
+    if(sections.length < 4) return;
+    sections.forEach(function(sec){
+      var label = sec.getAttribute('data-toc-title')
+        || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.className = 'ap-toc-item';
+      a.href = '#' + sec.id;
+      a.textContent = label;
+      li.appendChild(a);
+      list.appendChild(li);
     });
-  }
-  var observer = new IntersectionObserver(function(entries){
-    var visible = entries.filter(function(e){ return e.isIntersecting; })
-                         .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
-    if(visible.length > 0) setActive(visible[0].target.id);
-  }, { rootMargin: '-100px 0px -70% 0px' });
-  sections.forEach(function(s){ observer.observe(s); });
-  var initialActive = sections.find(function(s){
-    var r = s.getBoundingClientRect();
-    return r.top < window.innerHeight * 0.3 && r.bottom > 0;
-  });
-  if(initialActive) setActive(initialActive.id);
-})();
-</script>
+    toc.classList.add('visible');
+    document.body.classList.add('ap-has-toc');
+    list.addEventListener('click', function(ev){
+      var a = ev.target.closest('.ap-toc-item');
+      if(!a) return;
+      ev.preventDefault();
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if(!el) return;
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+      history.replaceState(null, '', '#' + id);
+    });
+    var items = Array.from(list.querySelectorAll('.ap-toc-item'));
+    function setActive(id){
+      items.forEach(function(a){
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+    var observer = new IntersectionObserver(function(entries){
+      var visible = entries.filter(function(e){ return e.isIntersecting; })
+                           .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
+      if(visible.length > 0) setActive(visible[0].target.id);
+    }, { rootMargin: '-100px 0px -70% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+    var initialActive = sections.find(function(s){
+      var r = s.getBoundingClientRect();
+      return r.top < window.innerHeight * 0.3 && r.bottom > 0;
+    });
+    if(initialActive) setActive(initialActive.id);
+  })();
+  </script>
   <header class="ap-header">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
   <rect width="81" height="81" fill="#040735"/>
@@ -283,6 +353,55 @@
     </div>
   </header>
   <div class="ap-content">
+    <div class="ap-summary-bar">
+    <div class="ap-summary-left">
+      <div class="ap-avatar" aria-label="Nehal">N</div>
+      <button class="ap-play-btn" id="ap-play-btn" aria-label="Play audio summary">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="ap-summary-text">
+        <div class="ap-summary-title">Listen to a 1-minute recap from Nehal</div>
+        <div class="ap-summary-sub" id="ap-summary-sub">Audio summary of this week's report</div>
+      </div>
+    </div>
+    <a class="ap-download-btn" href="./summary.md" download="weekly-update-may-18-2026.md" title="Download report as Markdown">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Download report</span>
+    </a>
+    <audio id="ap-summary-audio" src="./summary.m4a" preload="metadata"></audio>
+  </div>
+  <script>
+  (function(){
+    var btn = document.getElementById('ap-play-btn');
+    var audio = document.getElementById('ap-summary-audio');
+    var sub = document.getElementById('ap-summary-sub');
+    if(!btn || !audio) return;
+    var playSvg = '<svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    var pauseSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/></svg>';
+    btn.addEventListener('click', function(){
+      if(audio.paused){
+        audio.play().catch(function(){ if(sub) sub.textContent = 'Audio unavailable — please try the download instead.'; });
+        btn.innerHTML = pauseSvg;
+        btn.setAttribute('aria-label', 'Pause audio summary');
+      } else {
+        audio.pause();
+        btn.innerHTML = playSvg;
+        btn.setAttribute('aria-label', 'Play audio summary');
+      }
+    });
+    audio.addEventListener('ended', function(){
+      btn.innerHTML = playSvg;
+      btn.setAttribute('aria-label', 'Play audio summary');
+    });
+    audio.addEventListener('loadedmetadata', function(){
+      if(!isFinite(audio.duration)) return;
+      var s = Math.round(audio.duration);
+      var m = Math.floor(s/60);
+      s = s % 60;
+      if(sub) sub.textContent = 'Audio summary · ' + (m>0 ? m+' min ' : '') + s + ' sec';
+    });
+  })();
+  </script>
     <section class="ap-section" id="reporting-period" data-toc-title="Reporting period">
       <div class="ap-kicker">Reporting period</div>
       <h2 class="ap-h2">Week of May 18 – May 24, 2026</h2>
