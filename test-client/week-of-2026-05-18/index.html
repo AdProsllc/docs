@@ -164,22 +164,42 @@
     body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
     @media (max-width: 900px) { body.ap-has-sidebar { padding-left: 0; } .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); } body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); } }
     /* === FLOATING TOC (lowered breakpoint to 1100px) === */
-    .ap-toc { position: fixed; top: 130px; right: 28px; z-index: 50; width: 190px; max-height: calc(100vh - 180px); overflow-y: auto; padding: 4px 0 4px 18px; border-left: 1px solid var(--card-border); display: none; }
-    .ap-toc.visible { display: block; }
-    .ap-toc-label { font-size: 11px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
-    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
-    .ap-toc-item { display: block; padding: 7px 0 7px 14px; font-size: 12px; line-height: 1.35; color: var(--grey-300); text-decoration: none; border-left: 2px solid transparent; margin-left: -20px; transition: color .15s, border-color .15s; }
-    .ap-toc-item:hover { color: #fff; }
-    .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); font-weight: 500; }
-    /* TOC visible at ≥900px. Pushes content only at ≥1100px; overlays content at 900-1099. Hidden below 900. */
-    @media (min-width: 1100px) { body.ap-has-toc { padding-right: 220px; transition: padding-right .25s ease; } }
-    @media (min-width: 900px) and (max-width: 1099px) {
-      .ap-toc { width: 168px; right: 16px; background: linear-gradient(to right, transparent, rgba(7,11,61,0.85) 30%); padding-left: 22px; padding-right: 8px; backdrop-filter: blur(2px); }
+    .ap-toc {
+      position: fixed; top: 110px; right: 24px; z-index: 90;
+      width: 210px; max-height: calc(100vh - 150px); overflow-y: auto;
+      padding: 16px 18px 18px;
+      background: var(--navy-card);
+      border: 1px solid var(--card-border-strong);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      display: block;  /* visible by default — no JS required */
     }
-    @media (max-width: 899px) { .ap-toc { display: none !important; } }
-    /* Subtle reveal animation when TOC becomes visible for the first time. */
-    .ap-toc.visible { animation: ap-toc-reveal 0.5s ease-out; }
-    @keyframes ap-toc-reveal { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
+    .ap-toc-label {
+      font-size: 11px; font-weight: 700; color: var(--yellow);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
+    .ap-toc-item {
+      display: block; padding: 8px 10px;
+      font-size: 13px; line-height: 1.35;
+      color: var(--grey-100); text-decoration: none;
+      border-left: 2px solid transparent;
+      padding-left: 12px;
+      margin-left: -2px;
+      border-radius: 0 6px 6px 0;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    .ap-toc-item:hover { color: #fff; background: rgba(255,255,255,0.04); }
+    .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); background: rgba(249,217,0,0.08); font-weight: 600; }
+    /* TOC visible at ≥768px (tablet portrait+). At ≥1100px, body gets padding-right to push content; below that the TOC overlays content. */
+    @media (min-width: 1100px) { body { padding-right: 250px; transition: padding-right .25s ease; } }
+    @media (min-width: 768px) and (max-width: 1099px) {
+      .ap-toc { width: 180px; right: 12px; }
+    }
+    @media (max-width: 767px) { .ap-toc { display: none !important; } }
     @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; } .ap-footer { margin-left: 28px; margin-right: 28px; } .ap-h2 { font-size: 26px; } }
   </style>
 </head>
@@ -288,31 +308,31 @@
       .catch(hideAll);
   })();
   </script>
-  <nav class="ap-toc" id="ap-toc" aria-label="On this page">
+  <nav class="ap-toc visible" id="ap-toc" aria-label="On this page">
     <div class="ap-toc-label">On this page</div>
-    <ol class="ap-toc-list" id="ap-toc-list"></ol>
+    <ol class="ap-toc-list" id="ap-toc-list">
+      <li><a class="ap-toc-item" href="#reporting-period">Reporting period</a></li>
+      <li><a class="ap-toc-item" href="#northstar">Northstar</a></li>
+      <li><a class="ap-toc-item" href="#housekeeping">Housekeeping</a></li>
+      <li><a class="ap-toc-item" href="#meta">Meta</a></li>
+      <li><a class="ap-toc-item" href="#google">Google</a></li>
+      <li><a class="ap-toc-item" href="#tiktok">TikTok</a></li>
+      <li><a class="ap-toc-item" href="#creatives">Creatives</a></li>
+      <li><a class="ap-toc-item" href="#next-steps">Next steps</a></li>
+    </ol>
   </nav>
   <script>
   (function(){
-    var toc = document.getElementById('ap-toc');
     var list = document.getElementById('ap-toc-list');
-    if(!toc || !list) return;
-    var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
-    if(typeof console !== 'undefined' && console.log) console.log('[ap-toc] init — sections:', sections.length, '· viewport:', window.innerWidth + 'x' + window.innerHeight);
-    if(sections.length < 4) return;
-    sections.forEach(function(sec){
-      var label = sec.getAttribute('data-toc-title')
-        || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
-      var li = document.createElement('li');
-      var a = document.createElement('a');
-      a.className = 'ap-toc-item';
-      a.href = '#' + sec.id;
-      a.textContent = label;
-      li.appendChild(a);
-      list.appendChild(li);
-    });
-    toc.classList.add('visible');
-    document.body.classList.add('ap-has-toc');
+    if(!list) return;
+    var items = Array.from(list.querySelectorAll('.ap-toc-item'));
+    var sections = items.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    if(sections.length < 2) return;
+    function setActive(id){
+      items.forEach(function(a){
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
     list.addEventListener('click', function(ev){
       var a = ev.target.closest('.ap-toc-item');
       if(!a) return;
@@ -323,12 +343,6 @@
       window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
       history.replaceState(null, '', '#' + id);
     });
-    var items = Array.from(list.querySelectorAll('.ap-toc-item'));
-    function setActive(id){
-      items.forEach(function(a){
-        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-      });
-    }
     var observer = new IntersectionObserver(function(entries){
       var visible = entries.filter(function(e){ return e.isIntersecting; })
                            .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
