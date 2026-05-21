@@ -70,30 +70,33 @@
     .ap-footer-left { display: flex; align-items: center; gap: 14px; }
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
-    /* === CLIENT NAV (hamburger menu) === */
-    .ap-client-nav { margin-left: auto; position: relative; }
-    .ap-client-nav-trigger {
-      background: var(--navy-card); color: #fff;
-      border: 1.5px solid rgba(249,217,0,0.4);
-      width: 44px; height: 44px; padding: 0;
-      border-radius: 10px;
-      display: inline-flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: all .15s;
-      box-shadow: 0 0 0 0 rgba(249,217,0,0);
-    }
-    .ap-client-nav-trigger:hover { background: var(--yellow); border-color: var(--yellow); color: var(--navy); box-shadow: 0 0 0 4px rgba(249,217,0,0.15); }
-    .ap-client-nav-trigger[aria-expanded="true"] { background: var(--yellow); border-color: var(--yellow); color: var(--navy); }
-    .ap-client-nav-trigger svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
-    .ap-client-nav-count { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 6px; background: var(--yellow); color: var(--navy); border: 2px solid var(--navy); border-radius: 999px; font-size: 11px; font-weight: 700; line-height: 16px; text-align: center; pointer-events: none; }
-    .ap-client-nav-panel { display: none; position: absolute; top: calc(100% + 10px); right: 0; min-width: 320px; max-width: 400px; max-height: 70vh; overflow-y: auto; background: var(--navy-card); border: 1px solid var(--card-border-strong); border-radius: var(--radius); padding: 8px; z-index: 50; box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
-    .ap-client-nav-panel.open { display: block; }
-    .ap-client-nav-panel-header { padding: 10px 12px; font-size: 11px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--card-border); margin-bottom: 6px; }
-    .ap-client-nav-item { display: block; padding: 12px; border-radius: 6px; color: var(--grey-100); text-decoration: none; transition: background .12s; }
-    .ap-client-nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
-    .ap-client-nav-item.current { background: rgba(249,217,0,0.08); border-left: 2px solid var(--yellow); padding-left: 10px; }
-    .ap-client-nav-item-title { font-size: 14px; font-weight: 500; line-height: 1.35; }
-    .ap-client-nav-item-date { font-size: 11px; color: var(--grey-300); margin-top: 2px; }
-    @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; } .ap-footer { margin-left: 20px; margin-right: 20px; } .ap-h2 { font-size: 26px; } .ap-client-nav { margin-left: auto; } .ap-client-nav-panel { min-width: 0; width: calc(100vw - 40px); right: 0; } }
+    /* === CLIENT SIDEBAR === */
+    .ap-sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 280px; background: var(--navy-deep); border-right: 1px solid var(--card-border); z-index: 100; display: flex; flex-direction: column; transform: translateX(0); transition: transform .25s ease; overflow-y: auto; }
+    .ap-sidebar.collapsed { transform: translateX(-100%); }
+    .ap-sidebar-header { padding: 24px 20px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--card-border); }
+    .ap-sidebar-brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .ap-sidebar-brand-text { min-width: 0; }
+    .ap-sidebar-brand-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; line-height: 1.2; }
+    .ap-sidebar-brand-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .ap-sidebar-close { background: transparent; color: var(--grey-300); border: none; cursor: pointer; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; transition: color .12s, background .12s; }
+    .ap-sidebar-close:hover { color: #fff; background: rgba(255,255,255,0.05); }
+    .ap-sidebar-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    .ap-sidebar-section { padding: 18px 20px 8px; font-size: 11px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; }
+    .ap-sidebar-list { padding: 0 12px 20px; display: grid; gap: 4px; }
+    .ap-sidebar-item { display: block; padding: 12px 14px; border-radius: 8px; color: var(--grey-100); text-decoration: none; transition: background .12s; border-left: 2px solid transparent; }
+    .ap-sidebar-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .ap-sidebar-item.current { background: rgba(249,217,0,0.08); border-left-color: var(--yellow); padding-left: 12px; }
+    .ap-sidebar-item-title { font-size: 14px; font-weight: 500; line-height: 1.3; color: #fff; }
+    .ap-sidebar-item.current .ap-sidebar-item-title { color: var(--yellow); }
+    .ap-sidebar-item-date { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .ap-sidebar-open { position: fixed; top: 20px; left: 20px; z-index: 99; width: 44px; height: 44px; background: var(--navy-card); color: #fff; border: 1.5px solid rgba(249,217,0,0.4); border-radius: 10px; align-items: center; justify-content: center; cursor: pointer; transition: all .15s; display: none; padding: 0; }
+    .ap-sidebar-open.visible { display: inline-flex; }
+    .ap-sidebar-open:hover { background: var(--yellow); border-color: var(--yellow); color: var(--navy); box-shadow: 0 0 0 4px rgba(249,217,0,0.15); }
+    .ap-sidebar-open svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    .ap-sidebar-open .count-badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 6px; background: var(--yellow); color: var(--navy); border: 2px solid var(--navy); border-radius: 999px; font-size: 11px; font-weight: 700; line-height: 16px; text-align: center; pointer-events: none; }
+    body.ap-sidebar-open { padding-left: 280px; transition: padding-left .25s ease; }
+    @media (max-width: 900px) { body.ap-sidebar-open { padding-left: 0; } .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); } }
+    @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; } .ap-footer { margin-left: 20px; margin-right: 20px; } .ap-h2 { font-size: 26px; } }
   </style>
 </head>
 <body>
@@ -136,6 +139,77 @@
 })();
 </script>
 <div id="ap-content" style="display:none;">
+  <aside class="ap-sidebar" id="ap-sidebar" aria-label="All pages for Test Client">
+    <div class="ap-sidebar-header">
+      <div class="ap-sidebar-brand">
+        <div class="ap-sidebar-brand-text">
+          <div class="ap-sidebar-brand-name">Test Client</div>
+          <div class="ap-sidebar-brand-sub">Prepared by Ad Pros</div>
+        </div>
+      </div>
+      <button class="ap-sidebar-close" onclick="apSidebarToggle()" aria-label="Collapse sidebar" title="Collapse">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+      </button>
+    </div>
+    <div class="ap-sidebar-section" id="ap-sidebar-section">All reports</div>
+    <nav class="ap-sidebar-list" id="ap-sidebar-list" role="navigation">
+      <span style="padding:12px 14px;color:var(--grey-300);font-size:13px;">Loading&hellip;</span>
+    </nav>
+  </aside>
+  <button class="ap-sidebar-open" id="ap-sidebar-open" onclick="apSidebarToggle()" aria-label="Open sidebar" title="View all pages for Test Client">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    <span class="count-badge" id="ap-sidebar-open-count" hidden></span>
+  </button>
+  <script>
+  (function(){
+    var CLIENT = "Test Client";
+    var SCOPE_KEY = "test-client";
+    var STORAGE = 'ap-sb-' + SCOPE_KEY;
+    var sidebar = document.getElementById('ap-sidebar');
+    var openBtn = document.getElementById('ap-sidebar-open');
+    var openBtnCount = document.getElementById('ap-sidebar-open-count');
+    var section = document.getElementById('ap-sidebar-section');
+    var list = document.getElementById('ap-sidebar-list');
+    var current = location.pathname;
+    function fmtDate(iso){ if(!iso) return ""; var d = new Date(iso); if(isNaN(d)) return ""; return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
+    function hideAll(){ if(sidebar) sidebar.style.display='none'; if(openBtn) openBtn.style.display='none'; document.body.classList.remove('ap-sidebar-open'); }
+    function setOpen(open){
+      if(!sidebar||!openBtn) return;
+      if(open){ sidebar.classList.remove('collapsed'); openBtn.classList.remove('visible'); document.body.classList.add('ap-sidebar-open'); }
+      else { sidebar.classList.add('collapsed'); openBtn.classList.add('visible'); document.body.classList.remove('ap-sidebar-open'); }
+      try { localStorage.setItem(STORAGE, open ? 'open' : 'closed'); } catch(e){}
+    }
+    function initialOpen(){
+      try { var v = localStorage.getItem(STORAGE); if(v==='open') return true; if(v==='closed') return false; } catch(e){}
+      return window.matchMedia('(min-width: 901px)').matches;
+    }
+    function clearChildren(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+    setOpen(initialOpen());
+    window.apSidebarToggle = function(){ var isOpen = !sidebar.classList.contains('collapsed'); setOpen(!isOpen); };
+    document.addEventListener('keydown', function(ev){ if(ev.key==='Escape' && !sidebar.classList.contains('collapsed')) setOpen(false); });
+    fetch('../pages.json',{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(data){
+        var pages = (data && data.pages) || [];
+        if(pages.length < 2){ hideAll(); return; }
+        if(section) section.textContent = 'All reports · ' + pages.length;
+        if(openBtnCount){ openBtnCount.textContent = pages.length; openBtnCount.hidden = false; }
+        if(!list) return;
+        clearChildren(list);
+        pages.forEach(function(p){
+          var a = document.createElement('a');
+          a.className = 'ap-sidebar-item' + (p.url === current ? ' current' : '');
+          a.href = p.url;
+          var t = document.createElement('div'); t.className = 'ap-sidebar-item-title';
+          t.textContent = p.title || p.slug; a.appendChild(t);
+          var d = document.createElement('div'); d.className = 'ap-sidebar-item-date';
+          d.textContent = fmtDate(p.date); a.appendChild(d);
+          list.appendChild(a);
+        });
+      })
+      .catch(hideAll);
+  })();
+  </script>
   <header class="ap-header">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
   <rect width="81" height="81" fill="#040735"/>
@@ -153,81 +227,7 @@
       <h1>Weekly Update — Week of May 18, 2026</h1>
       <p>Test Client &middot; Prepared by Ad Pros</p>
     </div>
-    <div class="ap-client-nav">
-      <button class="ap-client-nav-trigger" onclick="apClientNavToggle(event)"
-              aria-haspopup="true" aria-expanded="false"
-              aria-label="View all pages for Test Client"
-              title="View all pages for Test Client">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <line x1="4" y1="7" x2="20" y2="7"/>
-          <line x1="4" y1="12" x2="20" y2="12"/>
-          <line x1="4" y1="17" x2="20" y2="17"/>
-        </svg>
-        <span class="ap-client-nav-count" id="ap-client-nav-count" hidden></span>
-      </button>
-      <div class="ap-client-nav-panel" id="ap-client-nav-panel" role="menu" aria-label="All pages for Test Client">
-        <div class="ap-client-nav-panel-header" id="ap-client-nav-panel-header">All pages for Test Client</div>
-        <div id="ap-client-nav-list">Loading&hellip;</div>
-      </div>
-    </div>
-    <script>
-    (function(){
-      var CLIENT = "Test Client";
-      var current = location.pathname;
-      function fmtDate(iso){ if(!iso) return ""; var d = new Date(iso); if(isNaN(d)) return ""; return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
-      function hideNav(){ var n=document.querySelector('.ap-client-nav'); if(n) n.style.display='none'; }
-      function clearChildren(el){ while(el.firstChild) el.removeChild(el.firstChild); }
-      fetch('../pages.json',{cache:'no-store'})
-        .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
-        .then(function(data){
-          var pages = (data && data.pages) || [];
-          if(pages.length < 2){ hideNav(); return; }
-          var countEl = document.getElementById('ap-client-nav-count');
-          if(countEl){ countEl.textContent = pages.length; countEl.hidden = false; }
-          var headerEl = document.getElementById('ap-client-nav-panel-header');
-          if(headerEl){ headerEl.textContent = 'All pages for ' + CLIENT + ' — ' + pages.length; }
-          var list = document.getElementById('ap-client-nav-list');
-          if(!list) return;
-          clearChildren(list);
-          pages.forEach(function(p){
-            var a = document.createElement('a');
-            a.className = 'ap-client-nav-item' + (p.url === current ? ' current' : '');
-            a.href = p.url;
-            var t = document.createElement('div'); t.className = 'ap-client-nav-item-title';
-            t.textContent = p.title || p.slug; a.appendChild(t);
-            var d = document.createElement('div'); d.className = 'ap-client-nav-item-date';
-            d.textContent = fmtDate(p.date); a.appendChild(d);
-            list.appendChild(a);
-          });
-        })
-        .catch(hideNav);
-      window.apClientNavToggle = function(ev){
-        ev.stopPropagation();
-        var panel = document.getElementById('ap-client-nav-panel');
-        var trig = document.querySelector('.ap-client-nav-trigger');
-        if(!panel || !trig) return;
-        var open = panel.classList.toggle('open');
-        trig.setAttribute('aria-expanded', open ? 'true' : 'false');
-      };
-      document.addEventListener('click', function(ev){
-        var nav = document.querySelector('.ap-client-nav');
-        if(!nav || nav.contains(ev.target)) return;
-        var panel = document.getElementById('ap-client-nav-panel');
-        var trig = document.querySelector('.ap-client-nav-trigger');
-        if(panel) panel.classList.remove('open');
-        if(trig) trig.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function(ev){
-        if(ev.key !== 'Escape') return;
-        var panel = document.getElementById('ap-client-nav-panel');
-        var trig = document.querySelector('.ap-client-nav-trigger');
-        if(panel) panel.classList.remove('open');
-        if(trig) trig.setAttribute('aria-expanded', 'false');
-      });
-    })();
-    </script>
   </header>
-
   <div class="ap-content">
     <section class="ap-section">
       <div class="ap-kicker">Test Page &middot; Template Preview</div>
