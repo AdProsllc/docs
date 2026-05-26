@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="googlebot" content="noindex, nofollow">
-  <meta name="bingbot" content="noindex, nofollow">
-  <meta name="slurp" content="noindex, nofollow">
-  <meta name="duckduckbot" content="noindex, nofollow">
-  <meta name="baiduspider" content="noindex, nofollow">
-  <meta name="yandex" content="noindex, nofollow">
-  <meta name="author" content="Tyler Gillespie">
-  <title>Weekly Update — Week of May 18, 2026 — Test Client — Ad Pros</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<meta name="author" content="Tyler Gillespie">
+<title>Weekly Update — Week of May 18, 2026 — Test Client — Ad Pros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-band: #0a0f4a;
@@ -23,7 +23,10 @@
       --white: #FFFFFF;
       --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
       --card-border: #0e1358; --card-border-strong: #1a2375;
-      --success: #0F973D; --error: #D42620;
+      /* Channel palette — the "less blue" answer. Each channel section gets its own accent. */
+      --meta: #F9D900; --google: #5B8DEF; --tiktok: #E879F9;
+      /* Semantic status colors */
+      --success: #7CD9A6; --error: #FF8B8B; --amber: #FFC772; --info: #5B8DEF;
       --radius: 10px;
       --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
       --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
@@ -31,28 +34,64 @@
     }
     html { scroll-behavior: smooth; }
     body { background: var(--navy); color: var(--grey-200); font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
-    .ap-h2 { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    /* Editorial type scale */
+    .ap-h-hero { font-size: clamp(36px, 4.8vw, 54px); font-weight: 800; line-height: 1.04; letter-spacing: -1.6px; color: #fff; }
+    .ap-h2 { font-size: 36px; font-weight: 800; line-height: 1.15; letter-spacing: -0.8px; color: #fff; }
     .ap-h3 { font-size: 22px; font-weight: 700; line-height: 1.25; color: #fff; }
     .ap-h4 { font-size: 18px; font-weight: 600; line-height: 1.3; color: #fff; }
     .ap-p-lg { font-size: 17px; line-height: 1.6; color: var(--grey-200); }
     .ap-p-sm { font-size: 14px; line-height: 1.55; color: var(--grey-200); }
-    .ap-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
-    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+    /* Eyebrow — uppercase yellow label with optional rule */
+    .ap-eyebrow {
+      display: inline-flex; align-items: center; gap: 14px;
+      font-size: 11px; font-weight: 700; color: var(--yellow);
+      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px;
+      font-family: "Inter", sans-serif;
+    }
+    .ap-eyebrow::before { content: ""; width: 32px; height: 2px; background: var(--yellow); flex: 0 0 auto; }
+    /* Editorial pull quote (Fraunces serif italic) */
+    .ap-pull-quote {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 19px; font-style: italic; font-weight: 400;
+      line-height: 1.55; color: #fff;
+      padding: 0;
+    }
+    .ap-pull-quote-byline {
+      margin-top: 14px; font-family: "Inter", sans-serif;
+      font-size: 11px; color: var(--grey-300); letter-spacing: 1px; text-transform: uppercase;
+    }
+    /* Status chips — colored dot + uppercase label */
+    .ap-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; font-family: "Inter", sans-serif;
+      white-space: nowrap;
+    }
+    .ap-status-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; }
+    .ap-status-done,    .ap-status-scale  { background: rgba(124,217,166,0.12); color: var(--success); }
+    .ap-status-done .ap-status-dot,    .ap-status-scale .ap-status-dot  { background: var(--success); }
+    .ap-status-progress,.ap-status-hold,.ap-status-med   { background: rgba(255,199,114,0.12); color: var(--amber); }
+    .ap-status-progress .ap-status-dot,.ap-status-hold .ap-status-dot,.ap-status-med .ap-status-dot   { background: var(--amber); }
+    .ap-status-action,  .ap-status-pause,.ap-status-high { background: rgba(255,139,139,0.12); color: var(--error); }
+    .ap-status-action .ap-status-dot,  .ap-status-pause .ap-status-dot,.ap-status-high .ap-status-dot { background: var(--error); }
+    .ap-status-low      { background: rgba(91,141,239,0.12); color: var(--info); }
+    .ap-status-low .ap-status-dot      { background: var(--info); }
+    /* Header */
     .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
     .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
     .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
     .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
-    /* === SECTIONS — alternating background bands === */
+    /* Section bands — alternating bg via pseudo-element */
     .ap-section { padding: var(--space-16) 0; scroll-margin-top: 80px; position: relative; z-index: 0; }
     .ap-section:first-of-type { padding-top: var(--space-12); }
     .ap-section::before {
       content: ""; position: absolute; inset: 0 -100vw;
       z-index: -1; background: transparent; pointer-events: none;
     }
-    /* Even-numbered sections get a slightly lighter band — creates visible rhythm as user scrolls */
     .ap-section:nth-of-type(even)::before { background: var(--navy-band); }
-    /* Section labels become more prominent with a yellow accent block */
     .ap-section-label {
       display: inline-flex; align-items: center; gap: 10px;
       font-family: "JetBrains Mono", monospace; font-size: 11px;
@@ -70,77 +109,119 @@
     @media (max-width: 900px) { .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
     @media (max-width: 560px) { .ap-grid-4 { grid-template-columns: 1fr; } }
     .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
-    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px 18px; text-align: center; }
-    .ap-stat-num { font-size: 32px; font-weight: 800; color: var(--yellow); letter-spacing: -1px; line-height: 1; }
-    .ap-stat-label { font-size: 11px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
-    .ap-stat-delta { font-size: 11px; color: var(--success); margin-top: 8px; font-weight: 600; letter-spacing: 0.4px; }
+    /* Stat card — now with sparkline + channel-tinted number */
+    .ap-stat {
+      background: var(--navy-card); border: 1px solid var(--card-border);
+      border-radius: var(--radius); padding: 22px 18px 18px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .ap-stat-num { font-size: 30px; font-weight: 800; color: var(--accent, var(--yellow)); letter-spacing: -1px; line-height: 1; font-variant-numeric: tabular-nums; }
+    .ap-stat-label { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; }
+    .ap-stat-spark { margin-top: 2px; opacity: 0.95; }
+    .ap-stat-delta { font-size: 11px; color: var(--success); font-weight: 700; letter-spacing: 0.4px; }
     .ap-stat-delta.down { color: var(--error); }
+    /* Value rows (numbered) */
     .ap-value { display: grid; grid-template-columns: 56px 1fr; gap: 16px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 10px; }
     .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; }
-    .ap-value-body { padding: 18px 22px 18px 0; }
+    .ap-value-body { padding: 16px 22px 16px 0; }
     .ap-value-body h4 { color: #fff; font-size: 15.5px; font-weight: 700; margin-bottom: 4px; }
     .ap-value-body p { font-size: 13.5px; color: var(--grey-200); line-height: 1.55; }
     .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
     .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
     a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
     a:hover { color: var(--yellow); }
+    /* Northstar hero — special layout */
+    .ap-northstar-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr;
+      gap: var(--space-12); align-items: start;
+    }
+    @media (max-width: 900px) { .ap-northstar-grid { grid-template-columns: 1fr; } }
+    .ap-northstar-value { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .ap-northstar-big { font-size: 54px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1; font-variant-numeric: tabular-nums; }
+    .ap-northstar-delta { font-size: 18px; font-weight: 700; color: var(--success); }
+    .ap-northstar-period { font-size: 12px; color: var(--grey-300); letter-spacing: 1px; }
+    .ap-chart-frame { padding: 20px 8px 8px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); margin-top: 16px; overflow-x: auto; }
+    /* Creative card — illustrated poster + metric table */
+    .ap-creative-card {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: var(--space-6); padding: var(--space-6);
+      background: var(--navy-card); border: 1px solid var(--card-border);
+      border-radius: var(--radius); margin-bottom: var(--space-4);
+      align-items: center;
+    }
+    @media (max-width: 700px) {
+      .ap-creative-card { grid-template-columns: 1fr; }
+      .ap-creative-card > svg { max-width: 200px; margin: 0 auto; }
+    }
+    .ap-creative-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+    .ap-creative-id {
+      display: inline-block; padding: 3px 10px;
+      background: var(--yellow); color: var(--navy);
+      border-radius: 999px;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.5px;
+      font-family: "JetBrains Mono", monospace;
+    }
+    .ap-creative-platform { font-size: 12px; color: var(--grey-300); }
+    .ap-creative-label { font-size: 15px; color: #fff; margin-bottom: 14px; line-height: 1.4; }
+    .ap-creative-table { width: 100%; border-collapse: collapse; }
+    .ap-creative-table th {
+      text-align: left; padding: 10px 12px; color: var(--grey-300);
+      font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.6px;
+      font-weight: 600; border-bottom: 1px solid var(--card-border-strong);
+    }
+    .ap-creative-table td {
+      padding: 11px 12px; font-size: 13px; color: var(--grey-100);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ap-creative-table td:first-child { color: var(--yellow); font-weight: 700; letter-spacing: 0.3px; }
+    .ap-creative-table td:last-child { color: #fff; font-weight: 600; }
+    /* Next-steps ledger row */
+    .ap-ledger-row {
+      display: grid;
+      grid-template-columns: 50px 90px 1fr 160px;
+      gap: 16px; padding: 18px 0;
+      border-top: 1px solid var(--card-border);
+      align-items: center;
+    }
+    .ap-ledger-row:first-child { border-top: 1px solid var(--card-border-strong); }
+    .ap-ledger-row:last-child { border-bottom: 1px solid var(--card-border); }
+    .ap-ledger-num {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px; font-weight: 700; color: var(--yellow);
+      letter-spacing: 1px;
+    }
+    .ap-ledger-action { font-size: 15px; color: #fff; line-height: 1.4; }
+    .ap-ledger-action-note { display: block; font-size: 12px; color: var(--grey-300); margin-top: 4px; line-height: 1.5; }
+    .ap-ledger-owner { font-size: 12px; color: var(--grey-300); text-align: right; }
+    @media (max-width: 700px) {
+      .ap-ledger-row { grid-template-columns: 1fr; gap: 6px; }
+      .ap-ledger-owner { text-align: left; }
+    }
+    /* Footer */
     .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .ap-footer-left { display: flex; align-items: center; gap: 14px; }
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
-    /* === SUMMARY BAR (top of report — audio + download) === */
-    .ap-summary-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: var(--space-4); flex-wrap: wrap;
-      padding: 16px 20px;
-      background: var(--navy-card);
-      border: 1px solid var(--card-border-strong);
-      border-radius: 14px;
-      margin-bottom: var(--space-10);
-    }
+    /* Summary bar */
+    .ap-summary-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; padding: 16px 20px; background: var(--navy-card); border: 1px solid var(--card-border-strong); border-radius: 14px; margin-bottom: var(--space-10); }
     .ap-summary-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
-    .ap-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
-      border: 2px solid var(--yellow);
-      background: var(--navy-deep);
-    }
+    .ap-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid var(--yellow); background: var(--navy-deep); }
     .ap-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .ap-play-btn {
-      width: 46px; height: 46px; border-radius: 50%;
-      background: var(--yellow); color: var(--navy);
-      border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .15s, transform .12s, box-shadow .15s;
-      flex-shrink: 0;
-    }
+    .ap-play-btn { width: 46px; height: 46px; border-radius: 50%; background: var(--yellow); color: var(--navy); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s, transform .12s, box-shadow .15s; flex-shrink: 0; }
     .ap-play-btn:hover { background: var(--yellow-dim); transform: scale(1.04); box-shadow: 0 0 0 4px rgba(249,217,0,0.18); }
-    .ap-play-btn:active { transform: scale(0.96); }
     .ap-play-btn svg { width: 20px; height: 20px; fill: currentColor; }
     .ap-play-btn svg.play-icon { transform: translateX(2px); }
     .ap-summary-text { min-width: 0; }
     .ap-summary-title { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.3; }
     .ap-summary-sub { font-size: 12px; color: var(--grey-300); margin-top: 2px; }
-    .ap-download-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 16px;
-      background: transparent;
-      border: 1.5px solid var(--card-border-strong);
-      border-radius: 8px;
-      color: var(--grey-100);
-      font-size: 13px; font-weight: 500; font-family: inherit;
-      text-decoration: none;
-      transition: border-color .15s, background .15s, color .15s;
-    }
+    .ap-download-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: transparent; border: 1.5px solid var(--card-border-strong); border-radius: 8px; color: var(--grey-100); font-size: 13px; font-weight: 500; font-family: inherit; text-decoration: none; transition: border-color .15s, background .15s, color .15s; }
     .ap-download-btn:hover { border-color: var(--yellow); background: rgba(249,217,0,0.06); color: var(--yellow); }
     .ap-download-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     @media (max-width: 640px) {
-      .ap-summary-bar { padding: 14px 16px; }
-      .ap-summary-bar { flex-direction: column; align-items: stretch; }
+      .ap-summary-bar { padding: 14px 16px; flex-direction: column; align-items: stretch; }
       .ap-download-btn { justify-content: center; }
     }
-    /* === CLIENT SIDEBAR (unchanged from prior) === */
+    /* Sidebar (same as v1) */
     .ap-sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 280px; background: var(--navy-deep); border-right: 1px solid var(--card-border); z-index: 100; display: flex; flex-direction: column; transform: translateX(0); transition: transform .25s ease; overflow-y: auto; }
     .ap-sidebar.collapsed { transform: translateX(-100%); }
     .ap-sidebar-header { padding: 24px 20px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--card-border); }
@@ -163,50 +244,21 @@
     body:not(.ap-has-sidebar) .ap-sidebar-toggle svg { transform: rotate(180deg); }
     body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
     @media (max-width: 900px) { body.ap-has-sidebar { padding-left: 0; } .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); } body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); } }
-    /* === FLOATING TOC (lowered breakpoint to 1100px) === */
-    .ap-toc {
-      position: fixed; top: 110px; right: 24px; z-index: 90;
-      width: 210px; max-height: calc(100vh - 150px); overflow-y: auto;
-      padding: 16px 18px 18px;
-      background: var(--navy-card);
-      border: 1px solid var(--card-border-strong);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      display: block;  /* visible by default — no JS required */
-    }
-    .ap-toc-label {
-      font-size: 11px; font-weight: 700; color: var(--yellow);
-      text-transform: uppercase; letter-spacing: 1px;
-      margin-bottom: 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--card-border);
-    }
+    /* TOC */
+    .ap-toc { position: fixed; top: 110px; right: 24px; z-index: 90; width: 210px; max-height: calc(100vh - 150px); overflow-y: auto; padding: 16px 18px 18px; background: var(--navy-card); border: 1px solid var(--card-border-strong); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); display: block; }
+    .ap-toc-label { font-size: 11px; font-weight: 700; color: var(--yellow); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); }
     .ap-toc-list { list-style: none; padding: 0; margin: 0; }
-    .ap-toc-item {
-      display: block; padding: 8px 10px;
-      font-size: 13px; line-height: 1.35;
-      color: var(--grey-100); text-decoration: none;
-      border-left: 2px solid transparent;
-      padding-left: 12px;
-      margin-left: -2px;
-      border-radius: 0 6px 6px 0;
-      transition: color .15s, border-color .15s, background .15s;
-    }
+    .ap-toc-item { display: block; padding: 8px 10px; font-size: 13px; line-height: 1.35; color: var(--grey-100); text-decoration: none; border-left: 2px solid transparent; padding-left: 12px; margin-left: -2px; border-radius: 0 6px 6px 0; transition: color .15s, border-color .15s, background .15s; }
     .ap-toc-item:hover { color: #fff; background: rgba(255,255,255,0.04); }
     .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); background: rgba(249,217,0,0.14); font-weight: 700; }
-    /* TOC visible at ≥768px (tablet portrait+). At ≥1100px, body gets padding-right to push content; below that the TOC overlays content. */
     @media (min-width: 1100px) { body { padding-right: 250px; transition: padding-right .25s ease; } }
-    @media (min-width: 768px) and (max-width: 1099px) {
-      .ap-toc { width: 180px; right: 12px; }
-    }
+    @media (min-width: 768px) and (max-width: 1099px) { .ap-toc { width: 180px; right: 12px; } }
     @media (max-width: 767px) { .ap-toc { display: none !important; } }
-    @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; } .ap-footer { margin-left: 28px; margin-right: 28px; } .ap-h2 { font-size: 26px; } }
-  </style>
+    @media (max-width: 640px) { .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; } .ap-footer { margin-left: 28px; margin-right: 28px; } .ap-h2 { font-size: 28px; } }
+</style>
 </head>
 <body>
-<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
-  <div style="max-width:400px;width:100%;text-align:center;">
-    <div style="margin:0 auto 32px;display:flex;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="64" height="64">
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;"><div style="max-width:400px;width:100%;text-align:center;"><div style="margin:0 auto 32px;display:flex;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="64" height="64">
   <rect width="81" height="81" fill="#040735"/>
   <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
   <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
@@ -216,16 +268,7 @@
   <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
   <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
 </svg>
-</div>
-    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
-    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
-    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
-      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
-      onkeydown="if(event.key==='Enter')ap_check()">
-    <button onclick="ap_check()" style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">Unlock</button>
-    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
-  </div>
-</div>
+</div><h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2><p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p><input type="password" id="ap-pw" autocomplete="off" placeholder="Password" style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;" onkeydown="if(event.key===&#39;Enter&#39;)ap_check()"><button onclick="ap_check()" style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">Unlock</button><p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p></div></div>
 <script>
 (function(){
   var H="88c56fb8ea6ee0522e3f50b31c4844d32e174b9143c8223c903d4927ae60ef23";
@@ -242,146 +285,102 @@
 })();
 </script>
 <div id="ap-content" style="display:none;">
-  <aside class="ap-sidebar" id="ap-sidebar" aria-label="All pages for Test Client">
-    <div class="ap-sidebar-header">
-      <div class="ap-sidebar-brand">
-        <div class="ap-sidebar-brand-text">
-          <div class="ap-sidebar-brand-name">Test Client</div>
-          <div class="ap-sidebar-brand-sub">Prepared by Ad Pros</div>
-        </div>
-      </div>
-    </div>
-    <div class="ap-sidebar-section" id="ap-sidebar-section">All reports</div>
-    <nav class="ap-sidebar-list" id="ap-sidebar-list" role="navigation">
-      <span style="padding:12px 14px;color:var(--grey-300);font-size:13px;">Loading&hellip;</span>
-    </nav>
-  </aside>
-  <button class="ap-sidebar-toggle" id="ap-sidebar-toggle" onclick="apSidebarToggle()" aria-label="Toggle sidebar" title="Toggle sidebar">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg>
-  </button>
-  <script>
-  (function(){
-    var CLIENT = "Test Client";
-    var SCOPE_KEY = "test-client";
-    var STORAGE = 'ap-sb-' + SCOPE_KEY;
-    var sidebar = document.getElementById('ap-sidebar');
-    var toggleBtn = document.getElementById('ap-sidebar-toggle');
-    var section = document.getElementById('ap-sidebar-section');
-    var list = document.getElementById('ap-sidebar-list');
-    var current = location.pathname;
-    function fmtDate(iso){ if(!iso) return ""; var d = new Date(iso); if(isNaN(d)) return ""; return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
-    function hideAll(){ if(sidebar) sidebar.style.display='none'; if(toggleBtn) toggleBtn.style.display='none'; document.body.classList.remove('ap-has-sidebar'); }
-    function setOpen(open){
-      if(!sidebar) return;
-      if(open){ sidebar.classList.remove('collapsed'); document.body.classList.add('ap-has-sidebar'); }
-      else { sidebar.classList.add('collapsed'); document.body.classList.remove('ap-has-sidebar'); }
-      if(toggleBtn) toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      try { localStorage.setItem(STORAGE, open ? 'open' : 'closed'); } catch(e){}
-    }
-    function initialOpen(){
-      try { var v = localStorage.getItem(STORAGE); if(v==='open') return true; if(v==='closed') return false; } catch(e){}
-      return window.matchMedia('(min-width: 901px)').matches;
-    }
-    function clearChildren(el){ while(el.firstChild) el.removeChild(el.firstChild); }
-    setOpen(initialOpen());
-    window.apSidebarToggle = function(){ var isOpen = !sidebar.classList.contains('collapsed'); setOpen(!isOpen); };
-    document.addEventListener('keydown', function(ev){ if(ev.key==='Escape' && !sidebar.classList.contains('collapsed')) setOpen(false); });
-    fetch('../pages.json',{cache:'no-store'})
-      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function(data){
-        var pages = (data && data.pages) || [];
-        if(pages.length < 2){ hideAll(); return; }
-        if(section) section.textContent = 'All reports · ' + pages.length;
-        if(!list) return;
-        clearChildren(list);
-        pages.forEach(function(p){
-          var a = document.createElement('a');
-          a.className = 'ap-sidebar-item' + (p.url === current ? ' current' : '');
-          a.href = p.url;
-          var t = document.createElement('div'); t.className = 'ap-sidebar-item-title';
-          t.textContent = p.title || p.slug; a.appendChild(t);
-          var d = document.createElement('div'); d.className = 'ap-sidebar-item-date';
-          d.textContent = fmtDate(p.date); a.appendChild(d);
-          list.appendChild(a);
-        });
-      })
-      .catch(hideAll);
-  })();
-  </script>
-  <nav class="ap-toc visible" id="ap-toc" aria-label="On this page">
-    <div class="ap-toc-label">On this page</div>
-    <ol class="ap-toc-list" id="ap-toc-list">
-      <li><a class="ap-toc-item" href="#reporting-period">Reporting period</a></li>
-      <li><a class="ap-toc-item" href="#northstar">Northstar</a></li>
-      <li><a class="ap-toc-item" href="#housekeeping">Housekeeping</a></li>
-      <li><a class="ap-toc-item" href="#meta">Meta</a></li>
-      <li><a class="ap-toc-item" href="#google">Google</a></li>
-      <li><a class="ap-toc-item" href="#tiktok">TikTok</a></li>
-      <li><a class="ap-toc-item" href="#creatives">Creatives</a></li>
-      <li><a class="ap-toc-item" href="#next-steps">Next steps</a></li>
-    </ol>
-  </nav>
-  <script>
-  (function(){
-    var list = document.getElementById('ap-toc-list');
-    if(!list) return;
-    var items = Array.from(list.querySelectorAll('.ap-toc-item'));
-    // Build pairs of {TOC link element, target section element}
-    var pairs = items.map(function(a){
-      return { item: a, target: document.querySelector(a.getAttribute('href')) };
-    }).filter(function(p){ return p.target; });
-    if(pairs.length < 2) return;
-
-    function setActive(target){
-      pairs.forEach(function(p){
-        p.item.classList.toggle('active', p.target === target);
+<aside class="ap-sidebar" id="ap-sidebar" aria-label="All pages for Test Client"><div class="ap-sidebar-header"><div class="ap-sidebar-brand"><div class="ap-sidebar-brand-text"><div class="ap-sidebar-brand-name">Test Client</div><div class="ap-sidebar-brand-sub">Prepared by Ad Pros</div></div></div></div><div class="ap-sidebar-section" id="ap-sidebar-section">All reports</div><nav class="ap-sidebar-list" id="ap-sidebar-list" role="navigation"><span style="padding:12px 14px;color:var(--grey-300);font-size:13px;">Loading&hellip;</span></nav></aside><button class="ap-sidebar-toggle" id="ap-sidebar-toggle" onclick="apSidebarToggle()" aria-label="Toggle sidebar" title="Toggle sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg></button>
+<script>
+(function(){
+  var CLIENT = "Test Client";
+  var SCOPE_KEY = "test-client";
+  var STORAGE = 'ap-sb-' + SCOPE_KEY;
+  var sidebar = document.getElementById('ap-sidebar');
+  var toggleBtn = document.getElementById('ap-sidebar-toggle');
+  var section = document.getElementById('ap-sidebar-section');
+  var list = document.getElementById('ap-sidebar-list');
+  var current = location.pathname;
+  function fmtDate(iso){ if(!iso) return ""; var d = new Date(iso); if(isNaN(d)) return ""; return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
+  function hideAll(){ if(sidebar) sidebar.style.display='none'; if(toggleBtn) toggleBtn.style.display='none'; document.body.classList.remove('ap-has-sidebar'); }
+  function setOpen(open){
+    if(!sidebar) return;
+    if(open){ sidebar.classList.remove('collapsed'); document.body.classList.add('ap-has-sidebar'); }
+    else { sidebar.classList.add('collapsed'); document.body.classList.remove('ap-has-sidebar'); }
+    if(toggleBtn) toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    try { localStorage.setItem(STORAGE, open ? 'open' : 'closed'); } catch(e){}
+  }
+  function initialOpen(){
+    try { var v = localStorage.getItem(STORAGE); if(v==='open') return true; if(v==='closed') return false; } catch(e){}
+    return window.matchMedia('(min-width: 901px)').matches;
+  }
+  function clearChildren(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+  setOpen(initialOpen());
+  window.apSidebarToggle = function(){ var isOpen = !sidebar.classList.contains('collapsed'); setOpen(!isOpen); };
+  document.addEventListener('keydown', function(ev){ if(ev.key==='Escape' && !sidebar.classList.contains('collapsed')) setOpen(false); });
+  fetch('../pages.json',{cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(data){
+      var pages = (data && data.pages) || [];
+      if(pages.length < 2){ hideAll(); return; }
+      if(section) section.textContent = 'All reports · ' + pages.length;
+      if(!list) return;
+      clearChildren(list);
+      pages.forEach(function(p){
+        var a = document.createElement('a');
+        a.className = 'ap-sidebar-item' + (p.url === current ? ' current' : '');
+        a.href = p.url;
+        var t = document.createElement('div'); t.className = 'ap-sidebar-item-title';
+        t.textContent = p.title || p.slug; a.appendChild(t);
+        var d = document.createElement('div'); d.className = 'ap-sidebar-item-date';
+        d.textContent = fmtDate(p.date); a.appendChild(d);
+        list.appendChild(a);
       });
-    }
-
-    // Scroll-driven scrollspy: the active section is the LAST one whose top
-    // has passed the trigger line (140px from viewport top). Falls back to
-    // the first section before the user has scrolled.
-    function updateActive(){
-      var triggerY = 140;
-      var current = pairs[0].target;
-      pairs.forEach(function(p){
-        if(p.target.getBoundingClientRect().top - triggerY <= 0){
-          current = p.target;
-        }
-      });
-      setActive(current);
-    }
-
-    // Smooth-scroll on TOC click
-    list.addEventListener('click', function(ev){
-      var a = ev.target.closest('.ap-toc-item');
-      if(!a) return;
-      ev.preventDefault();
-      var id = a.getAttribute('href').slice(1);
-      var el = document.getElementById(id);
-      if(!el) return;
-      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
-      history.replaceState(null, '', '#' + id);
+    })
+    .catch(hideAll);
+})();
+</script>
+<nav class="ap-toc" id="ap-toc" aria-label="On this page"><div class="ap-toc-label">On this page</div><ol class="ap-toc-list" id="ap-toc-list"><li><a class="ap-toc-item" href="#reporting-period">Reporting period</a></li><li><a class="ap-toc-item" href="#northstar">Northstar</a></li><li><a class="ap-toc-item" href="#housekeeping">Housekeeping</a></li><li><a class="ap-toc-item" href="#meta">Meta</a></li><li><a class="ap-toc-item" href="#google">Google</a></li><li><a class="ap-toc-item" href="#tiktok">TikTok</a></li><li><a class="ap-toc-item" href="#creatives">Creatives</a></li><li><a class="ap-toc-item" href="#next-steps">Next steps</a></li></ol></nav>
+<script>
+(function(){
+  var list = document.getElementById('ap-toc-list');
+  if(!list) return;
+  var items = Array.from(list.querySelectorAll('.ap-toc-item'));
+  var pairs = items.map(function(a){
+    return { item: a, target: document.querySelector(a.getAttribute('href')) };
+  }).filter(function(p){ return p.target; });
+  if(pairs.length < 2) return;
+  function setActive(target){
+    pairs.forEach(function(p){
+      p.item.classList.toggle('active', p.target === target);
     });
-
-    // Throttled scroll handler via rAF
-    var ticking = false;
-    window.addEventListener('scroll', function(){
-      if(!ticking){
-        window.requestAnimationFrame(function(){
-          updateActive();
-          ticking = false;
-        });
-        ticking = true;
+  }
+  function updateActive(){
+    var triggerY = 140;
+    var current = pairs[0].target;
+    pairs.forEach(function(p){
+      if(p.target.getBoundingClientRect().top - triggerY <= 0){
+        current = p.target;
       }
-    }, { passive: true });
-
-    // Run once on load to set the initial state
-    updateActive();
-  })();
-  </script>
-  <header class="ap-header">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+    });
+    setActive(current);
+  }
+  list.addEventListener('click', function(ev){
+    var a = ev.target.closest('.ap-toc-item');
+    if(!a) return;
+    ev.preventDefault();
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + id);
+  });
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){ updateActive(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+  updateActive();
+})();
+</script>
+<header class="ap-header"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
   <rect width="81" height="81" fill="#040735"/>
   <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
   <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
@@ -391,689 +390,37 @@
   <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
   <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
 </svg>
-
-    <div class="ap-header-divider"></div>
-    <div class="ap-header-text">
-      <h1>Weekly Update — Week of May 18, 2026</h1>
-      <p>Test Client &middot; Prepared by Ad Pros</p>
-    </div>
-  </header>
-  <div class="ap-content">
-    <div class="ap-summary-bar">
-    <div class="ap-summary-left">
-      <div class="ap-avatar"><img src="/assets/team/nehal-kazim.jpg" alt="Nehal Kazim"></div>
-      <button class="ap-play-btn" id="ap-play-btn" aria-label="Play audio summary">
-        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <div class="ap-summary-text">
-        <div class="ap-summary-title">Listen to a 1-minute recap from Nehal</div>
-        <div class="ap-summary-sub" id="ap-summary-sub">Audio summary of this week's report</div>
-      </div>
-    </div>
-    <a class="ap-download-btn" href="./summary.md" download="weekly-update-may-18-2026.md" title="Download report as Markdown">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      <span>Download report</span>
-    </a>
-    <audio id="ap-summary-audio" src="./summary.m4a" preload="metadata"></audio>
-  </div>
-  <script>
-  (function(){
-    var btn = document.getElementById('ap-play-btn');
-    var audio = document.getElementById('ap-summary-audio');
-    var sub = document.getElementById('ap-summary-sub');
-    if(!btn || !audio) return;
-    var playSvg = '<svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-    var pauseSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/></svg>';
-    btn.addEventListener('click', function(){
-      if(audio.paused){
-        audio.play().catch(function(){ if(sub) sub.textContent = 'Audio unavailable — please try the download instead.'; });
-        btn.innerHTML = pauseSvg;
-        btn.setAttribute('aria-label', 'Pause audio summary');
-      } else {
-        audio.pause();
-        btn.innerHTML = playSvg;
-        btn.setAttribute('aria-label', 'Play audio summary');
-      }
-    });
-    audio.addEventListener('ended', function(){
-      btn.innerHTML = playSvg;
-      btn.setAttribute('aria-label', 'Play audio summary');
-    });
-    audio.addEventListener('loadedmetadata', function(){
-      if(!isFinite(audio.duration)) return;
-      var s = Math.round(audio.duration);
-      var m = Math.floor(s/60);
-      s = s % 60;
-      if(sub) sub.textContent = 'Audio summary · ' + (m>0 ? m+' min ' : '') + s + ' sec';
-    });
-  })();
-  </script>
-    <section class="ap-section" id="reporting-period" data-toc-title="Reporting period">
-      <div class="ap-kicker">Reporting period</div>
-      <h2 class="ap-h2">Week of May 18 – May 24, 2026</h2>
-      <p class="ap-p-lg" style="max-width:720px;margin-top:var(--space-3);">
-        Prepared May 26, 2026 by Tyler Gillespie for Test Client. All numbers and analysis below reflect Monday May 18 through Sunday May 24, 2026.
-      </p>
-    </section>
-
-    <section class="ap-section" id="northstar" data-toc-title="Northstar">
-      <div class="ap-section-label"><span class="num">01</span> Northstar</div>
-      <h2 class="ap-h2" style="margin-bottom:var(--space-4);">
-        NC ROAS is up <em style="color:var(--yellow);font-style:normal;">+18%</em> week-over-week while scaling spend +14%.
-      </h2>
-      <div class="ap-callout">
-        <strong>The one thing</strong>
-        A new comparison-hook creative on Meta prospecting unlocked previously-fatigued audiences. Two of the three top performers this week share the same hook structure — we have a pattern, not just a winner.
-      </div>
-    </section>
-
-    <section class="ap-section" id="housekeeping" data-toc-title="Housekeeping">
-      <div class="ap-section-label"><span class="num">02</span> Housekeeping</div>
-      <h2 class="ap-h2" style="margin-bottom:var(--space-8);">Three things to address</h2>
-      <div class="ap-value">
-        <div class="ap-value-num">1</div>
-        <div class="ap-value-body">
-          <h4>Pixel installation on the new product landing pages — done</h4>
-          <p>Confirmed firing on add-to-cart and purchase events. Your dev team shipped Tuesday.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">2</div>
-        <div class="ap-value-body">
-          <h4>Q3 budget projection — sign-off needed by Friday</h4>
-          <p>Drafted at $290K/mo blended across the three channels. Locks channel allocations for the quarter once approved.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">3</div>
-        <div class="ap-value-body">
-          <h4>Email list segmentation sync with your CRM team this week</h4>
-          <p>We need to align our retargeting audiences with the new tier structure you rolled out last week.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="ap-section" data-toc-title="" style="border-top:none;padding-top:var(--space-8);padding-bottom:0;">
-      <div class="ap-section-label"><span class="num">03</span> Performance Review · per channel</div>
-      <p class="ap-p-lg" style="max-width:720px;color:var(--grey-300);margin-top:var(--space-3);">
-        Three active channels this week: Meta, Google, TikTok. Each follows the same five-step pattern — summary, what happened, why, what we learned, next week.
-      </p>
-    </section>
-
-    <section class="ap-section" id="meta" data-toc-title="Meta">
-      <div class="ap-section-label"><span class="num">04</span> Performance Review · Meta</div>
-      <h2 class="ap-h2" style="margin-bottom:var(--space-8);">Meta</h2>
-
-      <div class="ap-grid-4" style="margin-bottom:var(--space-12);">
-          <div class="ap-stat">
-            <div class="ap-stat-num">$52K</div>
-            <div class="ap-stat-label">Spend</div>
-            <div class="ap-stat-delta">+24% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">3.12</div>
-            <div class="ap-stat-label">NC ROAS</div>
-            <div class="ap-stat-delta">+22% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">$28.50</div>
-            <div class="ap-stat-label">CPA</div>
-            <div class="ap-stat-delta">−9% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">1.84%</div>
-            <div class="ap-stat-label">CTR</div>
-            <div class="ap-stat-delta">+22% WoW</div>
-          </div>
-      </div>
-
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Overall performance</h4>
-          <p>Scaled prospecting +28% while holding CPA flat. New comparison-hook creative drove the lift — replaced two fatigued creatives at the top of the funnel.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Efficiency</h4>
-          <p>NC ROAS climbed 2.55 → 3.12 (+22%). Strongest week since March. Prior period was below our 2.8 floor; we're back above target.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Scale / pacing</h4>
-          <p>On pace for $215K monthly spend, $5K ahead of plan. No daily caps hit. Retargeting frequency reset to 2.1 after Tuesday's creative refresh.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What happened</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Comparison-hook creative (C014) scaled to $1.8K/day</h4>
-          <p>Now driving 38% of new-customer revenue on Meta. Was at $200/day learning on Monday.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Retargeting frequency reset from 4.2 → 2.1</h4>
-          <p>Shipped fresh creative Tuesday. Same audience, doubled CTR within 48 hours.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Paused 2 underperforming prospecting creatives</h4>
-          <p>Both had CPA >$50 over the prior 7 days. Reclaimed $4.2K/week of budget.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Why it happened</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Comparison framing unlocked previously-fatigued cold audiences</h4>
-          <p>Different cognitive frame than the lifestyle creative we'd been running for 6 weeks. Audience hadn't seen "us vs. them" treatment before — CPM dropped 12% as relevance score climbed.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Refreshed retargeting removed the "I've seen this 5 times" signal</h4>
-          <p>CTR on retargeting audiences went 0.94% → 1.81% on the same audience definition. Pure creative effect — no audience or budget change.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Concentration on validated winners cut auction waste</h4>
-          <p>Pausing the bottom 2 creatives funneled spend to the top 4. Account-level CPM dropped 11% as we exited weak placements.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What we learned</h3>
-      <div class="ap-grid-2">
-          <div class="ap-card">
-            <h3 class="ap-h4" style="margin-bottom:var(--space-3);">Comparison hooks &gt; aspirational creative for cold audiences in this category</h3>
-            <p class="ap-p-sm">Worth ~3 more variant tests over the next 2–3 weeks. Different competitors, different value props, same structural format.</p>
-          </div>
-          <div class="ap-card">
-            <h3 class="ap-h4" style="margin-bottom:var(--space-3);">Retargeting fatigue threshold is ~frequency 3.8 in this account</h3>
-            <p class="ap-p-sm">Setting this as our automated refresh trigger going forward. No more reactive refreshes after we've already lost a week of efficiency.</p>
-          </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Meta — next week</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">1</div>
-        <div class="ap-value-body">
-          <h4>Scale C014 to $2.5K/day; ship 3 variant scripts (different competitors)</h4>
-          <p>Expected: maintain ROAS at scale, validate the comparison-hook pattern beyond a single execution.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">2</div>
-        <div class="ap-value-body">
-          <h4>Test new audience expansions (LAL 3–5%) on the comparison hook</h4>
-          <p>Expected: open a new cold pool now that we have a working creative structure.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">3</div>
-        <div class="ap-value-body">
-          <h4>Set automated retargeting-refresh trigger at frequency 3.8</h4>
-          <p>Expected: prevent fatigue-driven CTR dips proactively, eliminate the manual weekly check.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="ap-section" id="google" data-toc-title="Google">
-      <div class="ap-section-label"><span class="num">05</span> Performance Review · Google</div>
-      <h2 class="ap-h2" style="margin-bottom:var(--space-8);">Google</h2>
-
-      <div class="ap-grid-4" style="margin-bottom:var(--space-12);">
-          <div class="ap-stat">
-            <div class="ap-stat-num">$31K</div>
-            <div class="ap-stat-label">Spend</div>
-            <div class="ap-stat-delta">+8% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">2.45</div>
-            <div class="ap-stat-label">NC ROAS</div>
-            <div class="ap-stat-delta down">−3% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">$35.20</div>
-            <div class="ap-stat-label">CPA</div>
-            <div class="ap-stat-delta down">+6% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">4.10</div>
-            <div class="ap-stat-label">Blended ROAS</div>
-            <div class="ap-stat-delta">+1% WoW</div>
-          </div>
-      </div>
-
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Overall performance</h4>
-          <p>Completed Performance Max consolidation Tuesday. Search lifted +12% on volume, Shopping dipped −8% during PMax learning. Net: modest WoW drag but expected.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Efficiency</h4>
-          <p>Blended ROAS held at 4.10 — 5% off our 4.30 target. PMax learning is the primary drag. Should stabilize within 7–10 days of warmup.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Scale / pacing</h4>
-          <p>On pace for $128K monthly spend, $3K ahead of plan. Search caps not hit. PMax in learning phase — holding spend conservative until we settle.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What happened</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>PMax migration completed Tuesday</h4>
-          <p>Consolidated 6 standard Shopping campaigns into 1 PMax with asset-group segmentation by product line.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Search up +12% on volume</h4>
-          <p>New long-tail keyword expansion converted. CVR on the new keywords is 4.8% vs portfolio average 3.2%.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Brand campaign held steady — no spend changes</h4>
-          <p>Useful control — confirms WoW movement on other campaigns is real, not seasonal noise.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Why it happened</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>PMax learning phase introduces noise (industry-standard)</h4>
-          <p>First 48–72 hours typically see CPA spike before the model stabilizes. We're inside that window. Held bidding conservative to avoid overfitting to noisy early signal.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Long-tail expansion hit a previously-untargeted high-intent segment</h4>
-          <p>These queries were running in Shopping before, with no creative control. Now in Search with specific ad copy → conversion rate jumped.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Brand stayed stable because we made no change</h4>
-          <p>Useful baseline. Confirms our prospecting movement isn't market noise.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What we learned</h3>
-      <div class="ap-grid-2">
-          <div class="ap-card">
-            <h3 class="ap-h4" style="margin-bottom:var(--space-3);">PMax warmup in this account is closer to 5–7 days, not 14</h3>
-            <p class="ap-p-sm">Re-forecast accordingly. We can lift bidding back to target by Friday instead of waiting two weeks.</p>
-          </div>
-          <div class="ap-card">
-            <h3 class="ap-h4" style="margin-bottom:var(--space-3);">Long-tail keyword expansion is underexploited</h3>
-            <p class="ap-p-sm">This one segment alone is converting at 1.5x portfolio. Probably 2–3 more weeks of room to add converters before saturation.</p>
-          </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Google — next week</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">1</div>
-        <div class="ap-value-body">
-          <h4>Hold PMax bidding steady through Friday warmup completion</h4>
-          <p>Expected: ROAS recovers to 4.3+, noise dissipates, model converges on stable bid set.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">2</div>
-        <div class="ap-value-body">
-          <h4>Add 50 more long-tail keywords this week</h4>
-          <p>Expected: incremental conversion volume at the high CVR we saw this week.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">3</div>
-        <div class="ap-value-body">
-          <h4>Begin DSA test with conservative budget</h4>
-          <p>Expected: catch zero-volume queries we're missing in our manual keyword list.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="ap-section" id="tiktok" data-toc-title="TikTok">
-      <div class="ap-section-label"><span class="num">06</span> Performance Review · TikTok</div>
-      <h2 class="ap-h2" style="margin-bottom:var(--space-8);">TikTok</h2>
-
-      <div class="ap-grid-4" style="margin-bottom:var(--space-12);">
-          <div class="ap-stat">
-            <div class="ap-stat-num">$14K</div>
-            <div class="ap-stat-label">Spend</div>
-            <div class="ap-stat-delta down">−22% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">1.85</div>
-            <div class="ap-stat-label">NC ROAS</div>
-            <div class="ap-stat-delta">+18% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">$42.10</div>
-            <div class="ap-stat-label">CPA</div>
-            <div class="ap-stat-delta">−11% WoW</div>
-          </div>
-          <div class="ap-stat">
-            <div class="ap-stat-num">1.21%</div>
-            <div class="ap-stat-label">CTR</div>
-            <div class="ap-stat-delta">+8% WoW</div>
-          </div>
-      </div>
-
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Overall performance</h4>
-          <p>Pruned 11 underperforming ad sets this week. Concentrated budget on top 4 performers. Efficiency lift confirms account had structural bloat.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Efficiency</h4>
-          <p>NC ROAS jumped 1.57 → 1.85 (+18%) — biggest WoW move in any channel this week, in percentage terms. Still below our 2.2 floor but trajectory is right.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Scale / pacing</h4>
-          <p>Intentional pullback — $14K is below the $20K/wk pace. Reinvesting saved budget into creative production for next week's batch.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What happened</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Paused 11 ad sets with ROAS &lt; 1.4 over rolling 14 days</h4>
-          <p>Active ad-set count dropped from 23 to 12. Top 4 now receive 90% of spend (was 60%).</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>CPM dropped −14% as we exited low-quality auctions</h4>
-          <p>Pure structural effect — concentrating spend on validated placements lifted relevance scores.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Creative refresh cycle audit completed</h4>
-          <p>Confirmed our 14-day batch turnover is too slow for TikTok. Top creative lifecycle on the platform is closer to 7 days.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Why it happened</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Account was too thin per ad set — learning phases never completed</h4>
-          <p>23 active ad sets at $14K/week meant ~$85/day each — below the 50-conversion learning threshold for most. Pruning concentrated spend so survivors actually exited learning.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Concentration moved spend to ad sets with proven CTR</h4>
-          <p>Auction quality is endogenous — TikTok rewards consistency at the ad-set level. We'd been spreading too thin to signal consistency.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>TikTok algorithm punishes broad-thin structures more than Meta does</h4>
-          <p>Confirmed by the 14% CPM drop with no audience change. Platform-specific structural lesson.</p>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What we learned</h3>
-      <div class="ap-grid-2">
-          <div class="ap-card">
-            <h3 class="ap-h4" style="margin-bottom:var(--space-3);">TikTok rewards concentration over breadth in this account</h3>
-            <p class="ap-p-sm">Operating principle going forward: cap active ad sets at 6. Above that, performance degrades non-linearly.</p>
-          </div>
-          <div class="ap-card">
-            <h3 class="ap-h4" style="margin-bottom:var(--space-3);">Creative batch turnover needs to compress to 7 days, not 14</h3>
-            <p class="ap-p-sm">TikTok creative half-life is shorter than Meta's. Adjusting our creative-production sprint cadence to match.</p>
-          </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">TikTok — next week</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">1</div>
-        <div class="ap-value-body">
-          <h4>Brief and produce 5 new creative concepts (comparison hooks adapted for TikTok)</h4>
-          <p>Expected: replenish the top 4 with fresh tests, preserve concentration thesis with new winners.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">2</div>
-        <div class="ap-value-body">
-          <h4>Scale top 4 ad sets to $3K/day each</h4>
-          <p>Expected: validate that concentration scales, not just stabilizes.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">3</div>
-        <div class="ap-value-body">
-          <h4>Cap active ad sets at 6 going forward</h4>
-          <p>Expected: maintain learning-phase completion, sustain the efficiency lift we earned this week.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="ap-section" id="creatives" data-toc-title="Creatives">
-      <div class="ap-section-label"><span class="num">07</span> Creatives</div>
-      <h2 class="ap-h2" style="margin-bottom:var(--space-8);">Top performing creatives</h2>
-      <div class="ap-card" style="display:grid;grid-template-columns:200px 1fr;gap:var(--space-8);margin-bottom:var(--space-4);align-items:start;">
-        <div>
-          <div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg, var(--navy-card) 0%, var(--navy-deep) 100%); border:1px solid var(--card-border); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--grey-300); font-family:'JetBrains Mono', ui-monospace, monospace; font-size:12px; gap:8px;">
-            <div style="font-size:24px; color:var(--yellow); font-weight:700; letter-spacing:1px;">C014</div>
-            <div style="font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:var(--grey-400);">creative thumbnail<br>placeholder</div>
-          </div>
-          <div style="margin-top:var(--space-3);font-size:12px;color:var(--grey-300);text-align:center;">Image · Static</div>
-        </div>
-        <div>
-          <table style="width:100%;border-collapse:collapse;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--card-border-strong);">
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Metric</th>
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Target</th>
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Actual</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">CTR</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">1.5%</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">2.34%</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">CPA</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">$30.00</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">$24.10</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">Spend share</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">—</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">22%</td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="ap-card" style="display:grid;grid-template-columns:200px 1fr;gap:var(--space-8);margin-bottom:var(--space-4);align-items:start;">
-        <div>
-          <div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg, var(--navy-card) 0%, var(--navy-deep) 100%); border:1px solid var(--card-border); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--grey-300); font-family:'JetBrains Mono', ui-monospace, monospace; font-size:12px; gap:8px;">
-            <div style="font-size:24px; color:var(--yellow); font-weight:700; letter-spacing:1px;">C012</div>
-            <div style="font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:var(--grey-400);">creative thumbnail<br>placeholder</div>
-          </div>
-          <div style="margin-top:var(--space-3);font-size:12px;color:var(--grey-300);text-align:center;">Video · 15s UGC</div>
-        </div>
-        <div>
-          <table style="width:100%;border-collapse:collapse;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--card-border-strong);">
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Metric</th>
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Target</th>
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Actual</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">CTR</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">1.5%</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">1.92%</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">CPA</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">$30.00</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">$27.80</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">Spend share</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">—</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">16%</td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="ap-card" style="display:grid;grid-template-columns:200px 1fr;gap:var(--space-8);margin-bottom:var(--space-4);align-items:start;">
-        <div>
-          <div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg, var(--navy-card) 0%, var(--navy-deep) 100%); border:1px solid var(--card-border); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--grey-300); font-family:'JetBrains Mono', ui-monospace, monospace; font-size:12px; gap:8px;">
-            <div style="font-size:24px; color:var(--yellow); font-weight:700; letter-spacing:1px;">C009</div>
-            <div style="font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:var(--grey-400);">creative thumbnail<br>placeholder</div>
-          </div>
-          <div style="margin-top:var(--space-3);font-size:12px;color:var(--grey-300);text-align:center;">Image · Testimonial</div>
-        </div>
-        <div>
-          <table style="width:100%;border-collapse:collapse;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--card-border-strong);">
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Metric</th>
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Target</th>
-                <th style="text-align:left;padding:12px;color:var(--grey-300);font-size:11px;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;">Actual</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">CTR</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">1.5%</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">1.71%</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">CPA</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">$30.00</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">$29.40</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--card-border);">
-                  <td style="padding:14px 12px;color:var(--yellow);font-weight:700;font-size:13px;letter-spacing:0.4px;">Spend share</td>
-                  <td style="padding:14px 12px;color:var(--grey-100);font-size:14px;">—</td>
-                  <td style="padding:14px 12px;color:#fff;font-weight:600;font-size:14px;">11%</td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Creative analysis</h3>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Top creative pattern</h4>
-          <p>All three top performers lead with a direct "us vs. them" or "before/after" comparison structure in the first 1.5 seconds. The audience is responding to specificity — abstract aspiration is underperforming on every platform.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Key creative learning</h4>
-          <p>Audience has matured beyond category awareness. They know skincare brands exist; they're now choosing between them. Our creative needs to do the comparison work for them, not assume they'll do it themselves.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">●</div>
-        <div class="ap-value-body">
-          <h4>Next creative test</h4>
-          <p>Three new variants of the comparison structure: (a) C014's hook against a specific named competitor, (b) before/after with stronger before-photo, (c) ingredient-spec comparison ("ours has X, theirs has Y").</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="ap-section" id="next-steps" data-toc-title="Next steps">
-      <div class="ap-section-label"><span class="num">08</span> Next steps</div>
-      <h2 class="ap-h2" style="margin-bottom:var(--space-8);">Focus for the week of May 25</h2>
-      <div class="ap-value">
-        <div class="ap-value-num">1</div>
-        <div class="ap-value-body">
-          <h4>Scale Meta comparison-hook winner (C014) to $2.5K/day + ship 3 variant scripts</h4>
-          <p>Maintain or improve current 3.12 NC ROAS at higher spend.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">2</div>
-        <div class="ap-value-body">
-          <h4>Hold Google PMax through Friday warmup, then add 50 long-tail keywords</h4>
-          <p>Blended ROAS recovers to 4.3+, incremental volume from underexploited search.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">3</div>
-        <div class="ap-value-body">
-          <h4>Brief and produce 5 new TikTok creative concepts (comparison-style) by next Wednesday</h4>
-          <p>Enable continued scale on the concentrated ad-set strategy.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">4</div>
-        <div class="ap-value-body">
-          <h4>Set automated retargeting refresh on Meta at frequency 3.8</h4>
-          <p>Prevent fatigue dips proactively, eliminate the manual weekly check.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">5</div>
-        <div class="ap-value-body">
-          <h4><strong style="color:var(--yellow);">Need from you</strong>: Approval on the 3 Meta comparison variant scripts by Wednesday EOD</h4>
-          <p>Scripts are in your inbox. Approval unblocks the Thursday creative ship.</p>
-        </div>
-      </div>
-    </section>
-  </div>
-  <footer class="ap-footer">
-    <div class="ap-footer-left"><svg style="opacity:0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36">
+<div class="ap-header-divider"></div><div class="ap-header-text"><h1>Weekly Update — Week of May 18, 2026</h1><p>Test Client &middot; Prepared by Ad Pros</p></div></header>
+<div class="ap-content">
+<div class="ap-summary-bar"><div class="ap-summary-left"><div class="ap-avatar"><img src="/assets/team/nehal-kazim.jpg" alt="Nehal Kazim"></div><button class="ap-play-btn" id="ap-play-btn" aria-label="Play audio summary"><svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button><div class="ap-summary-text"><div class="ap-summary-title">Listen to a 1-minute recap from Nehal</div><div class="ap-summary-sub" id="ap-summary-sub">Audio summary of this week's report</div></div></div><a class="ap-download-btn" href="./summary.md" download="weekly-update-may-18-2026.md" title="Download report as Markdown"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Download report</span></a><audio id="ap-summary-audio" src="./summary.m4a" preload="metadata"></audio></div>
+<script>
+(function(){
+  var btn = document.getElementById('ap-play-btn');
+  var audio = document.getElementById('ap-summary-audio');
+  var sub = document.getElementById('ap-summary-sub');
+  if(!btn || !audio) return;
+  var playSvg = '<svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  var pauseSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/></svg>';
+  btn.addEventListener('click', function(){
+    if(audio.paused){
+      audio.play().catch(function(){ if(sub) sub.textContent = 'Audio unavailable — please try the download instead.'; });
+      btn.innerHTML = pauseSvg; btn.setAttribute('aria-label', 'Pause audio summary');
+    } else {
+      audio.pause(); btn.innerHTML = playSvg; btn.setAttribute('aria-label', 'Play audio summary');
+    }
+  });
+  audio.addEventListener('ended', function(){ btn.innerHTML = playSvg; btn.setAttribute('aria-label', 'Play audio summary'); });
+  audio.addEventListener('loadedmetadata', function(){
+    if(!isFinite(audio.duration)) return;
+    var s = Math.round(audio.duration);
+    var m = Math.floor(s/60); s = s % 60;
+    if(sub) sub.textContent = 'Audio summary · ' + (m>0 ? m+' min ' : '') + s + ' sec';
+  });
+})();
+</script>
+<section class="ap-section" id="reporting-period" data-toc-title="Reporting period"><div class="ap-eyebrow">Weekly Brief · Wk 21 · 2026</div><h2 class="ap-h-hero">Week of May 18 – May 24, 2026</h2><p class="ap-p-lg" style="max-width:720px;margin-top:var(--space-4);color:var(--grey-200);">Prepared May 26, 2026 by Tyler Gillespie for Test Client. All numbers and analysis below reflect Monday May 18 through Sunday May 24, 2026.</p></section><section class="ap-section" id="northstar" data-toc-title="Northstar"><div class="ap-section-label"><span class="num">01</span> Northstar</div><h2 class="ap-h2" style="margin-bottom:var(--space-8);">NC ROAS up <em style="color:var(--yellow);font-style:normal;">+18%</em> week-over-week while scaling spend +14%.</h2><div class="ap-northstar-grid"><div><div style="font-size:11px;font-weight:700;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Northstar · NC ROAS</div><div class="ap-northstar-value"><div class="ap-northstar-big">3.28</div><div class="ap-northstar-delta">↑ +18%</div><div class="ap-northstar-period">WoW</div></div><div class="ap-chart-frame"><svg width="560" height="180" style="display:block;overflow:visible;"><defs><linearGradient id="bl-ac7c90" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F9D900" stop-opacity="0.32"/><stop offset="100%" stop-color="#F9D900" stop-opacity="0"/></linearGradient></defs><line x1="38" x2="542" y1="152.0" y2="152.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.5"/><text x="30" y="155.0" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="end" font-family="Inter,sans-serif">2.00</text><line x1="38" x2="542" y1="118.5" y2="118.5" stroke="rgba(255,255,255,0.10)" stroke-width="0.5" stroke-dasharray="2 4"/><text x="30" y="121.5" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="end" font-family="Inter,sans-serif">2.40</text><line x1="38" x2="542" y1="85.0" y2="85.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.5" stroke-dasharray="2 4"/><text x="30" y="88.0" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="end" font-family="Inter,sans-serif">2.80</text><line x1="38" x2="542" y1="51.5" y2="51.5" stroke="rgba(255,255,255,0.10)" stroke-width="0.5" stroke-dasharray="2 4"/><text x="30" y="54.5" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="end" font-family="Inter,sans-serif">3.20</text><line x1="38" x2="542" y1="18.0" y2="18.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.5" stroke-dasharray="2 4"/><text x="30" y="21.0" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="end" font-family="Inter,sans-serif">3.60</text><text x="38.0" y="168" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="middle" font-family="Inter,sans-serif" letter-spacing="1">APR 27</text><text x="206.0" y="168" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="middle" font-family="Inter,sans-serif" letter-spacing="1">MAY 4</text><text x="374.0" y="168" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="middle" font-family="Inter,sans-serif" letter-spacing="1">MAY 11</text><text x="542.0" y="168" font-size="9.5" fill="rgba(255,255,255,0.45)" text-anchor="middle" font-family="Inter,sans-serif" letter-spacing="1">MAY 18</text><path d="M38.0,117.7 L206.0,100.1 L374.0,87.5 L542.0,44.8 L542.0,152 L38.0,152 Z" fill="url(#bl-ac7c90)"/><path d="M38.0,117.7 L206.0,100.1 L374.0,87.5 L542.0,44.8" fill="none" stroke="#F9D900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38.0" cy="117.7" r="3.5" fill="#F9D900"/><circle cx="206.0" cy="100.1" r="3.5" fill="#F9D900"/><circle cx="374.0" cy="87.5" r="3.5" fill="#F9D900"/><circle cx="542.0" cy="44.8" r="3.5" fill="#F9D900"/><text x="542.0" y="34.8" font-size="13" font-weight="700" fill="#F9D900" text-anchor="middle" font-family="Inter,sans-serif">3.28</text></svg></div></div><div><div style="font-size:11px;font-weight:700;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;">The One Thing</div><div class="ap-pull-quote">"A new comparison-hook creative on Meta prospecting unlocked previously-fatigued audiences. Two of the three top performers this week share the same hook structure — we have a pattern, not just a winner."</div><div class="ap-pull-quote-byline">— Tyler Gillespie · Account Director</div></div></div></section><section class="ap-section" id="housekeeping" data-toc-title="Housekeeping"><div class="ap-section-label"><span class="num">02</span> Housekeeping</div><h2 class="ap-h2" style="margin-bottom:var(--space-8);">Three things to address</h2><div style="display:grid;grid-template-columns:1fr 140px;gap:16px;padding:14px 18px;background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);margin-bottom:8px;align-items:center;"><div><h4 style="color:#fff;font-size:15px;font-weight:700;margin-bottom:4px;">Pixel installation on new product landing pages</h4><p style="font-size:13.5px;color:var(--grey-200);line-height:1.55;">Confirmed firing on add-to-cart and purchase events. Your dev team shipped Tuesday.</p></div><div style="text-align:right;"><span class="ap-status ap-status-done"><span class="ap-status-dot"></span>DONE</span></div></div><div style="display:grid;grid-template-columns:1fr 140px;gap:16px;padding:14px 18px;background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);margin-bottom:8px;align-items:center;"><div><h4 style="color:#fff;font-size:15px;font-weight:700;margin-bottom:4px;">Q3 budget projection — sign-off needed by Friday</h4><p style="font-size:13.5px;color:var(--grey-200);line-height:1.55;">Drafted at $290K/mo blended across the three channels. Locks channel allocations once approved.</p></div><div style="text-align:right;"><span class="ap-status ap-status-action"><span class="ap-status-dot"></span>ACTION NEEDED</span></div></div><div style="display:grid;grid-template-columns:1fr 140px;gap:16px;padding:14px 18px;background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);margin-bottom:8px;align-items:center;"><div><h4 style="color:#fff;font-size:15px;font-weight:700;margin-bottom:4px;">Email list segmentation sync with your CRM team</h4><p style="font-size:13.5px;color:var(--grey-200);line-height:1.55;">Aligning our retargeting audiences with the new tier structure you rolled out last week.</p></div><div style="text-align:right;"><span class="ap-status ap-status-progress"><span class="ap-status-dot"></span>IN PROGRESS</span></div></div></section><section class="ap-section" id="meta" data-toc-title="Meta" data-channel="meta"><div class="ap-section-label"><span class="num">03</span> Performance Review · Meta</div><h2 class="ap-h2" style="margin-bottom:var(--space-8);">Meta</h2><div class="ap-grid-4" style="margin-bottom:var(--space-12);"><div class="ap-stat" style="--accent:#F9D900;"><div class="ap-stat-num">$52K</div><div class="ap-stat-label">Spend</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-671645" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F9D900" stop-opacity="0.28"/><stop offset="100%" stop-color="#F9D900" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,18.0 L56.7,10.0 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-671645)"/><path d="M2.0,22.0 L29.3,18.0 L56.7,10.0 L84.0,2.0" fill="none" stroke="#F9D900" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#F9D900"/></svg></div><div class="ap-stat-delta">+24% WoW</div></div><div class="ap-stat" style="--accent:#F9D900;"><div class="ap-stat-num">3.12</div><div class="ap-stat-label">NC ROAS</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-d5e5cc" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F9D900" stop-opacity="0.28"/><stop offset="100%" stop-color="#F9D900" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,16.4 L56.7,10.9 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-d5e5cc)"/><path d="M2.0,22.0 L29.3,16.4 L56.7,10.9 L84.0,2.0" fill="none" stroke="#F9D900" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#F9D900"/></svg></div><div class="ap-stat-delta">+22% WoW</div></div><div class="ap-stat" style="--accent:#F9D900;"><div class="ap-stat-num">$28.50</div><div class="ap-stat-label">CPA</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-4a5eac" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F9D900" stop-opacity="0.28"/><stop offset="100%" stop-color="#F9D900" stop-opacity="0"/></linearGradient></defs><path d="M2.0,2.0 L29.3,5.6 L56.7,12.9 L84.0,22.0 L84.0,22 L2.0,22 Z" fill="url(#sg-4a5eac)"/><path d="M2.0,2.0 L29.3,5.6 L56.7,12.9 L84.0,22.0" fill="none" stroke="#F9D900" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="22.0" r="2.6" fill="#F9D900"/></svg></div><div class="ap-stat-delta">−9% WoW</div></div><div class="ap-stat" style="--accent:#F9D900;"><div class="ap-stat-num">1.84%</div><div class="ap-stat-label">CTR</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-4041b4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F9D900" stop-opacity="0.28"/><stop offset="100%" stop-color="#F9D900" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,17.5 L56.7,8.4 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-4041b4)"/><path d="M2.0,22.0 L29.3,17.5 L56.7,8.4 L84.0,2.0" fill="none" stroke="#F9D900" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#F9D900"/></svg></div><div class="ap-stat-delta">+22% WoW</div></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Overall performance</h4><p>Scaled prospecting +28% while holding CPA flat. New comparison-hook creative drove the lift — replaced two fatigued creatives at the top of the funnel.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Efficiency</h4><p>NC ROAS climbed 2.55 → 3.12 (+22%). Strongest week since March. Prior period was below our 2.8 floor; we're back above target.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Scale / pacing</h4><p>On pace for $215K monthly spend, $5K ahead of plan. No daily caps hit. Retargeting frequency reset to 2.1 after Tuesday's creative refresh.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What happened</h3><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Comparison-hook creative (C014) scaled to $1.8K/day</h4><p>Now driving 38% of new-customer revenue on Meta. Was at $200/day learning on Monday.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Retargeting frequency reset from 4.2 → 2.1</h4><p>Shipped fresh creative Tuesday. Same audience, doubled CTR within 48 hours.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Paused 2 underperforming prospecting creatives</h4><p>Both had CPA &gt;$50 over the prior 7 days. Reclaimed $4.2K/week of budget.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Why it happened</h3><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Comparison framing unlocked previously-fatigued cold audiences</h4><p>Different cognitive frame than the lifestyle creative we'd been running for 6 weeks. CPM dropped 12% as relevance score climbed.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Refreshed retargeting removed the "I've seen this 5 times" signal</h4><p>CTR on retargeting audiences went 0.94% → 1.81% on the same audience definition. Pure creative effect — no audience or budget change.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Concentration on validated winners cut auction waste</h4><p>Pausing the bottom 2 creatives funneled spend to the top 4. Account-level CPM dropped 11%.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What we learned</h3><div class="ap-grid-2"><div class="ap-card"><h3 class="ap-h4" style="margin-bottom:var(--space-3);">Comparison hooks &gt; aspirational creative for cold audiences</h3><p class="ap-p-sm">Worth ~3 more variant tests over the next 2–3 weeks. Different competitors, different value props, same structural format.</p></div><div class="ap-card"><h3 class="ap-h4" style="margin-bottom:var(--space-3);">Retargeting fatigue threshold is ~frequency 3.8 in this account</h3><p class="ap-p-sm">Setting this as our automated refresh trigger going forward.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Meta — next week</h3><div class="ap-value"><div class="ap-value-num" style="background:#F9D900;color:var(--navy);">1</div><div class="ap-value-body"><h4>Scale C014 to $2.5K/day; ship 3 variant scripts</h4><p>Expected: maintain ROAS at scale, validate the comparison-hook pattern beyond a single execution.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:#F9D900;color:var(--navy);">2</div><div class="ap-value-body"><h4>Test new audience expansions (LAL 3–5%) on the comparison hook</h4><p>Expected: open a new cold pool now that we have a working creative structure.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:#F9D900;color:var(--navy);">3</div><div class="ap-value-body"><h4>Set automated retargeting-refresh trigger at frequency 3.8</h4><p>Expected: prevent fatigue-driven CTR dips proactively.</p></div></div></section><section class="ap-section" id="google" data-toc-title="Google" data-channel="google"><div class="ap-section-label"><span class="num">04</span> Performance Review · Google</div><h2 class="ap-h2" style="margin-bottom:var(--space-8);">Google</h2><div class="ap-grid-4" style="margin-bottom:var(--space-12);"><div class="ap-stat" style="--accent:#5B8DEF;"><div class="ap-stat-num">$31K</div><div class="ap-stat-label">Spend</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-05f64d" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5B8DEF" stop-opacity="0.28"/><stop offset="100%" stop-color="#5B8DEF" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,12.0 L56.7,12.0 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-05f64d)"/><path d="M2.0,22.0 L29.3,12.0 L56.7,12.0 L84.0,2.0" fill="none" stroke="#5B8DEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#5B8DEF"/></svg></div><div class="ap-stat-delta">+8% WoW</div></div><div class="ap-stat" style="--accent:#5B8DEF;"><div class="ap-stat-num">2.45</div><div class="ap-stat-label">NC ROAS</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-2a5542" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5B8DEF" stop-opacity="0.28"/><stop offset="100%" stop-color="#5B8DEF" stop-opacity="0"/></linearGradient></defs><path d="M2.0,2.0 L29.3,10.0 L56.7,18.0 L84.0,22.0 L84.0,22 L2.0,22 Z" fill="url(#sg-2a5542)"/><path d="M2.0,2.0 L29.3,10.0 L56.7,18.0 L84.0,22.0" fill="none" stroke="#5B8DEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="22.0" r="2.6" fill="#5B8DEF"/></svg></div><div class="ap-stat-delta down">−3% WoW</div></div><div class="ap-stat" style="--accent:#5B8DEF;"><div class="ap-stat-num">$35.20</div><div class="ap-stat-label">CPA</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-d2154b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5B8DEF" stop-opacity="0.28"/><stop offset="100%" stop-color="#5B8DEF" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,12.9 L56.7,3.8 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-d2154b)"/><path d="M2.0,22.0 L29.3,12.9 L56.7,3.8 L84.0,2.0" fill="none" stroke="#5B8DEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#5B8DEF"/></svg></div><div class="ap-stat-delta down">+6% WoW</div></div><div class="ap-stat" style="--accent:#5B8DEF;"><div class="ap-stat-num">4.10</div><div class="ap-stat-label">Blended ROAS</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-5fdd54" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5B8DEF" stop-opacity="0.28"/><stop offset="100%" stop-color="#5B8DEF" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,8.7 L56.7,2.0 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-5fdd54)"/><path d="M2.0,22.0 L29.3,8.7 L56.7,2.0 L84.0,2.0" fill="none" stroke="#5B8DEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#5B8DEF"/></svg></div><div class="ap-stat-delta">+1% WoW</div></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Overall performance</h4><p>Completed Performance Max consolidation Tuesday. Search lifted +12% on volume, Shopping dipped −8% during PMax learning. Net: modest WoW drag but expected.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Efficiency</h4><p>Blended ROAS held at 4.10 — 5% off our 4.30 target. PMax learning is the primary drag. Should stabilize within 7–10 days of warmup.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Scale / pacing</h4><p>On pace for $128K monthly, $3K ahead of plan. PMax in learning phase — holding spend conservative until we settle.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What happened</h3><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>PMax migration completed Tuesday</h4><p>Consolidated 6 standard Shopping campaigns into 1 PMax with asset-group segmentation by product line.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Search up +12% on volume</h4><p>New long-tail keyword expansion converted. CVR on the new keywords is 4.8% vs portfolio average 3.2%.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Brand campaign held steady — no spend changes</h4><p>Useful control — confirms WoW movement on other campaigns is real, not seasonal noise.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Why it happened</h3><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>PMax learning phase introduces noise (industry-standard)</h4><p>First 48–72 hours typically see CPA spike before the model stabilizes.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Long-tail expansion hit a previously-untargeted high-intent segment</h4><p>These queries were running in Shopping before, with no creative control. Now in Search with specific ad copy → conversion rate jumped.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Brand stayed stable because we made no change</h4><p>Useful baseline. Confirms our prospecting movement isn't market noise.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What we learned</h3><div class="ap-grid-2"><div class="ap-card"><h3 class="ap-h4" style="margin-bottom:var(--space-3);">PMax warmup in this account is closer to 5–7 days, not 14</h3><p class="ap-p-sm">Re-forecast accordingly. We can lift bidding back to target by Friday.</p></div><div class="ap-card"><h3 class="ap-h4" style="margin-bottom:var(--space-3);">Long-tail keyword expansion is underexploited</h3><p class="ap-p-sm">This one segment alone is converting at 1.5x portfolio. Probably 2–3 more weeks of room to add converters.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Google — next week</h3><div class="ap-value"><div class="ap-value-num" style="background:#5B8DEF;color:var(--navy);">1</div><div class="ap-value-body"><h4>Hold PMax bidding steady through Friday warmup completion</h4><p>Expected: ROAS recovers to 4.3+, model converges on stable bid set.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:#5B8DEF;color:var(--navy);">2</div><div class="ap-value-body"><h4>Add 50 more long-tail keywords this week</h4><p>Expected: incremental conversion volume at the high CVR we saw this week.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:#5B8DEF;color:var(--navy);">3</div><div class="ap-value-body"><h4>Begin DSA test with conservative budget</h4><p>Expected: catch zero-volume queries we're missing in our manual keyword list.</p></div></div></section><section class="ap-section" id="tiktok" data-toc-title="TikTok" data-channel="tiktok"><div class="ap-section-label"><span class="num">05</span> Performance Review · TikTok</div><h2 class="ap-h2" style="margin-bottom:var(--space-8);">TikTok</h2><div class="ap-grid-4" style="margin-bottom:var(--space-12);"><div class="ap-stat" style="--accent:#E879F9;"><div class="ap-stat-num">$14K</div><div class="ap-stat-label">Spend</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-cfdb7b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E879F9" stop-opacity="0.28"/><stop offset="100%" stop-color="#E879F9" stop-opacity="0"/></linearGradient></defs><path d="M2.0,2.0 L29.3,7.0 L56.7,12.0 L84.0,22.0 L84.0,22 L2.0,22 Z" fill="url(#sg-cfdb7b)"/><path d="M2.0,2.0 L29.3,7.0 L56.7,12.0 L84.0,22.0" fill="none" stroke="#E879F9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="22.0" r="2.6" fill="#E879F9"/></svg></div><div class="ap-stat-delta down">−22% WoW</div></div><div class="ap-stat" style="--accent:#E879F9;"><div class="ap-stat-num">1.85</div><div class="ap-stat-label">NC ROAS</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-5e73d9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E879F9" stop-opacity="0.28"/><stop offset="100%" stop-color="#E879F9" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,19.9 L56.7,12.7 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-5e73d9)"/><path d="M2.0,22.0 L29.3,19.9 L56.7,12.7 L84.0,2.0" fill="none" stroke="#E879F9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#E879F9"/></svg></div><div class="ap-stat-delta">+18% WoW</div></div><div class="ap-stat" style="--accent:#E879F9;"><div class="ap-stat-num">$42.10</div><div class="ap-stat-label">CPA</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-1742e7" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E879F9" stop-opacity="0.28"/><stop offset="100%" stop-color="#E879F9" stop-opacity="0"/></linearGradient></defs><path d="M2.0,2.0 L29.3,10.2 L56.7,14.2 L84.0,22.0 L84.0,22 L2.0,22 Z" fill="url(#sg-1742e7)"/><path d="M2.0,2.0 L29.3,10.2 L56.7,14.2 L84.0,22.0" fill="none" stroke="#E879F9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="22.0" r="2.6" fill="#E879F9"/></svg></div><div class="ap-stat-delta">−11% WoW</div></div><div class="ap-stat" style="--accent:#E879F9;"><div class="ap-stat-num">1.21%</div><div class="ap-stat-label">CTR</div><div class="ap-stat-spark"><svg class="ap-sparkline" width="86" height="24" style="display:block;overflow:visible;"><defs><linearGradient id="sg-152c81" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E879F9" stop-opacity="0.28"/><stop offset="100%" stop-color="#E879F9" stop-opacity="0"/></linearGradient></defs><path d="M2.0,22.0 L29.3,15.7 L56.7,9.5 L84.0,2.0 L84.0,22 L2.0,22 Z" fill="url(#sg-152c81)"/><path d="M2.0,22.0 L29.3,15.7 L56.7,9.5 L84.0,2.0" fill="none" stroke="#E879F9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84.0" cy="2.0" r="2.6" fill="#E879F9"/></svg></div><div class="ap-stat-delta">+8% WoW</div></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Overall performance</h4><p>Pruned 11 underperforming ad sets this week. Concentrated budget on top 4 performers. Efficiency lift confirms account had structural bloat.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Efficiency</h4><p>NC ROAS jumped 1.57 → 1.85 (+18%) — biggest WoW move in any channel this week, in percentage terms.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Scale / pacing</h4><p>Intentional pullback — $14K is below the $20K/wk pace. Reinvesting saved budget into creative production.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What happened</h3><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Paused 11 ad sets with ROAS &lt; 1.4 over rolling 14 days</h4><p>Active ad-set count dropped from 23 to 12. Top 4 now receive 90% of spend.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>CPM dropped −14% as we exited low-quality auctions</h4><p>Pure structural effect — concentrating spend on validated placements lifted relevance scores.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Creative refresh cycle audit completed</h4><p>Our 14-day batch turnover is too slow for TikTok. Top creative lifecycle is closer to 7 days.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Why it happened</h3><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Account was too thin per ad set — learning phases never completed</h4><p>23 active ad sets at $14K/week meant ~$85/day each — below the 50-conversion learning threshold.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Concentration moved spend to ad sets with proven CTR</h4><p>Auction quality is endogenous — TikTok rewards consistency at the ad-set level.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>TikTok algorithm punishes broad-thin structures more than Meta does</h4><p>Confirmed by the 14% CPM drop with no audience change. Platform-specific structural lesson.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">What we learned</h3><div class="ap-grid-2"><div class="ap-card"><h3 class="ap-h4" style="margin-bottom:var(--space-3);">TikTok rewards concentration over breadth in this account</h3><p class="ap-p-sm">Operating principle: cap active ad sets at 6. Above that, performance degrades non-linearly.</p></div><div class="ap-card"><h3 class="ap-h4" style="margin-bottom:var(--space-3);">Creative batch turnover needs to compress to 7 days, not 14</h3><p class="ap-p-sm">TikTok creative half-life is shorter than Meta's. Adjusting our creative-production sprint cadence to match.</p></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">TikTok — next week</h3><div class="ap-value"><div class="ap-value-num" style="background:#E879F9;color:var(--navy);">1</div><div class="ap-value-body"><h4>Brief and produce 5 new creative concepts (comparison hooks adapted for TikTok)</h4><p>Expected: replenish the top 4 with fresh tests.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:#E879F9;color:var(--navy);">2</div><div class="ap-value-body"><h4>Scale top 4 ad sets to $3K/day each</h4><p>Expected: validate that concentration scales.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:#E879F9;color:var(--navy);">3</div><div class="ap-value-body"><h4>Cap active ad sets at 6 going forward</h4><p>Expected: sustain the efficiency lift we earned this week.</p></div></div></section><section class="ap-section" id="creatives" data-toc-title="Creatives"><div class="ap-section-label"><span class="num">06</span> Creatives</div><h2 class="ap-h2" style="margin-bottom:var(--space-8);">Top performing creatives</h2><div class="ap-creative-card"><div><svg width="180" height="180" viewBox="0 0 180 180" style="display:block;background:#E8EBF5;border-radius:6px;"><rect x="0" y="0" width="90.0" height="180" fill="#D5D8E8"/><rect x="90.0" y="0" width="90.0" height="180" fill="#B7BEDB"/><path d="M32.4 54.0 l9.0 -9.0 l14.4 0 l9.0 9.0 l0 63.0 l-32.4 0 z" fill="#9099B8"/><path d="M111.6 50.4 l9.0 -7.2 l18.0 0 l9.0 7.2 l0 72.0 l-36.0 0 z" fill="#040735"/><text x="45.0" y="162.0" text-anchor="middle" font-size="12" font-weight="700" fill="#040735" font-family="Inter,sans-serif" letter-spacing="0.5">BEFORE</text><text x="135.0" y="162.0" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Inter,sans-serif" letter-spacing="0.5">AFTER</text><line x1="90.0" y1="0" x2="90.0" y2="180" stroke="#F9D900" stroke-width="2"/></svg></div><div><div class="ap-creative-meta"><span class="ap-creative-id">C014</span><span class="ap-creative-platform">Meta</span><span class="ap-status ap-status-scale"><span class="ap-status-dot"></span>SCALE</span></div><div class="ap-creative-label">UGC · Comparison hook · 22 sec</div><table class="ap-creative-table"><thead><tr><th>Metric</th><th>Target</th><th>Actual</th></tr></thead><tbody><tr><td>CTR</td><td>1.5%</td><td>2.34%</td></tr><tr><td>CPA</td><td>$30.00</td><td>$24.10</td></tr><tr><td>Spend share</td><td>—</td><td>22%</td></tr></tbody></table></div></div><div class="ap-creative-card"><div><svg width="180" height="180" viewBox="0 0 180 180" style="display:block;background:#1E2147;border-radius:6px;"><rect x="14.4" y="18.0" width="72.0" height="50.4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/><circle cx="28.8" cy="34.2" r="7.2" fill="#F9D900"/><rect x="21.6" y="50.4" width="54.0" height="2" fill="rgba(255,255,255,0.7)"/><rect x="21.6" y="57.6" width="36.0" height="2" fill="rgba(255,255,255,0.4)"/><rect x="93.6" y="18.0" width="72.0" height="50.4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/><circle cx="108.0" cy="34.2" r="7.2" fill="#F9D900"/><rect x="100.8" y="50.4" width="54.0" height="2" fill="rgba(255,255,255,0.7)"/><rect x="100.8" y="57.6" width="36.0" height="2" fill="rgba(255,255,255,0.4)"/><rect x="14.4" y="75.6" width="72.0" height="50.4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/><circle cx="28.8" cy="91.8" r="7.2" fill="#F9D900"/><rect x="21.6" y="108.0" width="54.0" height="2" fill="rgba(255,255,255,0.7)"/><rect x="21.6" y="115.2" width="36.0" height="2" fill="rgba(255,255,255,0.4)"/><rect x="93.6" y="75.6" width="72.0" height="50.4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/><circle cx="108.0" cy="91.8" r="7.2" fill="#F9D900"/><rect x="100.8" y="108.0" width="54.0" height="2" fill="rgba(255,255,255,0.7)"/><rect x="100.8" y="115.2" width="36.0" height="2" fill="rgba(255,255,255,0.4)"/><text x="90.0" y="149.4" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="Inter,sans-serif" letter-spacing="0.5">BUILT TO MOVE</text><text x="90.0" y="163.8" text-anchor="middle" font-size="8" font-weight="500" fill="rgba(255,255,255,0.6)" font-family="Inter,sans-serif" letter-spacing="0.3">4 ways we outperform</text></svg></div><div><div class="ap-creative-meta"><span class="ap-creative-id">C012</span><span class="ap-creative-platform">Meta</span><span class="ap-status ap-status-hold"><span class="ap-status-dot"></span>HOLD</span></div><div class="ap-creative-label">Static · Founder UGC · 15s video</div><table class="ap-creative-table"><thead><tr><th>Metric</th><th>Target</th><th>Actual</th></tr></thead><tbody><tr><td>CTR</td><td>1.5%</td><td>1.92%</td></tr><tr><td>CPA</td><td>$30.00</td><td>$27.80</td></tr><tr><td>Spend share</td><td>—</td><td>16%</td></tr></tbody></table></div></div><div class="ap-creative-card"><div><svg width="180" height="180" viewBox="0 0 180 180" style="display:block;background:#F4EFE3;border-radius:6px;"><rect x="0" y="0" width="180" height="108.0" fill="#E8DCBE"/><rect x="0" y="108.0" width="180" height="72.0" fill="#9E8B6E"/><circle cx="126.0" cy="45.0" r="18.0" fill="#F9D900" opacity="0.5"/><path d="M0 108.0 L36.0 72.0 L72.0 99.0 L108.0 63.0 L153.0 90.0 L180 81.0 L180 108.0 Z" fill="#7A6E5A" opacity="0.8"/><rect x="81.0" y="99.0" width="7.2" height="21.6" fill="#040735"/><circle cx="75.6" cy="169.2" r="2.5" fill="#040735"/><circle cx="84.6" cy="169.2" r="2.5" fill="rgba(0,0,0,0.25)"/><circle cx="93.6" cy="169.2" r="2.5" fill="rgba(0,0,0,0.25)"/><circle cx="102.6" cy="169.2" r="2.5" fill="rgba(0,0,0,0.25)"/></svg></div><div><div class="ap-creative-meta"><span class="ap-creative-id">C009</span><span class="ap-creative-platform">Meta</span><span class="ap-status ap-status-pause"><span class="ap-status-dot"></span>PAUSE</span></div><div class="ap-creative-label">Image · Testimonial static</div><table class="ap-creative-table"><thead><tr><th>Metric</th><th>Target</th><th>Actual</th></tr></thead><tbody><tr><td>CTR</td><td>1.5%</td><td>1.71%</td></tr><tr><td>CPA</td><td>$30.00</td><td>$29.40</td></tr><tr><td>Spend share</td><td>—</td><td>11%</td></tr></tbody></table></div></div><h3 class="ap-h3" style="margin: var(--space-12) 0 var(--space-4);">Creative analysis</h3><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Top creative pattern</h4><p>All three top performers lead with a direct "us vs. them" or "before/after" comparison structure in the first 1.5 seconds. The audience is responding to specificity — abstract aspiration is underperforming on every platform.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Key creative learning</h4><p>Audience has matured beyond category awareness. They're choosing between brands now. Our creative needs to do the comparison work for them.</p></div></div><div class="ap-value"><div class="ap-value-num" style="background:transparent;color:var(--yellow);font-size:14px;">●</div><div class="ap-value-body"><h4>Next creative test</h4><p>Three new variants of the comparison structure: (a) C014's hook against a specific named competitor, (b) before/after with stronger before-photo, (c) ingredient-spec comparison.</p></div></div></section><section class="ap-section" id="next-steps" data-toc-title="Next steps"><div class="ap-section-label"><span class="num">07</span> Next steps</div><h2 class="ap-h2" style="margin-bottom:var(--space-8);">Focus for the week of May 25</h2><div class="ap-ledger-row"><div class="ap-ledger-num">01</div><div><span class="ap-status ap-status-high"><span class="ap-status-dot"></span>HIGH</span></div><div class="ap-ledger-action">Scale Meta comparison-hook winner (C014) to $2.5K/day + ship 3 variant scripts<span class="ap-ledger-action-note">Maintain or improve current 3.12 NC ROAS at higher spend.</span></div><div class="ap-ledger-owner">Gabriel · Media</div></div><div class="ap-ledger-row"><div class="ap-ledger-num">02</div><div><span class="ap-status ap-status-high"><span class="ap-status-dot"></span>HIGH</span></div><div class="ap-ledger-action">Hold Google PMax through Friday warmup, then add 50 long-tail keywords<span class="ap-ledger-action-note">Blended ROAS recovers to 4.3+, incremental volume from underexploited search.</span></div><div class="ap-ledger-owner">JP · Media</div></div><div class="ap-ledger-row"><div class="ap-ledger-num">03</div><div><span class="ap-status ap-status-med"><span class="ap-status-dot"></span>MED</span></div><div class="ap-ledger-action">Brief and produce 5 new TikTok creative concepts by next Wednesday<span class="ap-ledger-action-note">Enable continued scale on the concentrated ad-set strategy.</span></div><div class="ap-ledger-owner">Gabriel · Creative</div></div><div class="ap-ledger-row"><div class="ap-ledger-num">04</div><div><span class="ap-status ap-status-med"><span class="ap-status-dot"></span>MED</span></div><div class="ap-ledger-action">Set automated retargeting refresh on Meta at frequency 3.8<span class="ap-ledger-action-note">Prevent fatigue dips proactively, eliminate the manual weekly check.</span></div><div class="ap-ledger-owner">Gabriel · Media</div></div><div class="ap-ledger-row"><div class="ap-ledger-num">05</div><div><span class="ap-status ap-status-high"><span class="ap-status-dot"></span>HIGH</span></div><div class="ap-ledger-action"><strong style="color:var(--yellow);">Need from you: Approval on the 3 Meta comparison variant scripts by Wednesday EOD</strong><span class="ap-ledger-action-note">Scripts are in your inbox. Approval unblocks the Thursday creative ship.</span></div><div class="ap-ledger-owner">Test Client team</div></div></section>
+</div>
+<footer class="ap-footer"><div class="ap-footer-left"><svg style="opacity:0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36">
   <rect width="81" height="81" fill="#040735"/>
   <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
   <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
@@ -1083,9 +430,7 @@
   <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
   <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
 </svg>
-<p>Ad Pros &middot; Prepared for Test Client</p></div>
-    <p class="ap-footer-meta">Published by Tyler Gillespie &middot; May 26, 2026</p>
-  </footer>
+<p>Ad Pros &middot; Prepared for Test Client</p></div><p class="ap-footer-meta">Published by Tyler Gillespie &middot; May 26, 2026</p></footer>
 </div>
 </body>
 </html>
