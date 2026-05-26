@@ -488,9 +488,9 @@
 </div>
 
 <div class="ap-edit-toolbar" id="ap-edit-toolbar" role="toolbar" aria-label="Edit toolbar" style="display: none;">
-  <div class="ap-edit-toolbar-status" id="ap-edit-status"><span class="badge">EDIT MODE</span>Click any text to change it. Save when done.</div>
-  <button class="ap-btn-cancel" id="ap-btn-cancel" onclick="apEditCancel()" disabled="">Cancel</button>
-  <button class="ap-btn-save" id="ap-btn-save" onclick="apEditSave()" disabled="">Saving…</button>
+  <div class="ap-edit-toolbar-status" id="ap-edit-status"><span class="badge">EDIT MODE</span>Type to edit. <strong>Publish</strong> commits to the live page. <strong>Discard</strong> exits without saving.</div>
+  <button class="ap-btn-cancel" id="ap-btn-cancel" onclick="apEditCancel()" title="Throw away changes and exit edit mode">Discard</button>
+  <button class="ap-btn-save" id="ap-btn-save" onclick="apEditSave()" title="Commit changes to the live page (~30 sec to deploy)">Publish</button>
 </div>
 <div class="ap-edit-toast success" id="ap-edit-toast" role="status" aria-live="polite" style="display: none;">Edit mode on. Click any text to change.</div>
 <script>
@@ -543,6 +543,7 @@
 
   function enterEditMode(){
     inEditMode = true;
+    window.__apHasEdits = false;
     snapshot = document.documentElement.outerHTML;
     document.body.classList.add('ap-editing');
     // 1. Make the entire .ap-content wrapper editable as one big root.
@@ -560,12 +561,13 @@
     var origStatus = statusEl ? statusEl.innerHTML : '';
     var hasChanges = false;
     var saveBtn = document.getElementById('ap-btn-save');
-    if(saveBtn){ saveBtn.disabled = true; saveBtn.textContent = 'No changes yet'; }
+    if(saveBtn){ saveBtn.disabled = true; saveBtn.textContent = 'No changes'; }
     var onInput = function(){
       if(!hasChanges){
         hasChanges = true;
-        if(statusEl) statusEl.innerHTML = '<span class=\"badge\">UNSAVED</span>You\'ve made changes. Click Save to publish.';
-        if(saveBtn){ saveBtn.disabled = false; saveBtn.textContent = 'Save changes'; }
+        window.__apHasEdits = true;
+        if(statusEl) statusEl.innerHTML = '<span class=\"badge\">UNSAVED</span>You\'ve made changes. <strong>Publish</strong> to commit, <strong>Discard</strong> to throw them out.';
+        if(saveBtn){ saveBtn.disabled = false; saveBtn.textContent = 'Publish'; }
       }
     };
     if(root){ root.addEventListener('input', onInput); }
@@ -574,12 +576,8 @@
 
   window.apEditCancel = function(){
     if(!inEditMode) return;
-    // Restore from snapshot — easiest way to discard edits
-    if(snapshot && confirm('Discard all unsaved changes?')){
-      document.open();
-      document.write(snapshot);
-      document.close();
-      // Re-running scripts after document.write isn't reliable — let the user refresh
+    if(!window.__apHasEdits){ location.reload(); return; }
+    if(confirm('Discard all unsaved changes and exit edit mode?')){
       location.reload();
     }
   };
@@ -589,8 +587,8 @@
     var saveBtn = document.getElementById('ap-btn-save');
     var cancelBtn = document.getElementById('ap-btn-cancel');
     var statusEl = document.getElementById('ap-edit-status');
-    if(saveBtn){ saveBtn.disabled = true; saveBtn.textContent = 'Saving…'; }
-    if(cancelBtn){ cancelBtn.disabled = true; }
+
+    // IMPORTANT: do not mutate button state before serializing — that gets baked in.
 
     // Clean up the live DOM before serializing: remove the edit toolbar + toast
     // (they shouldn't be in the committed HTML), and clear contentEditable from
@@ -619,6 +617,10 @@
     var path = location.pathname.replace(/^\/+/, '');
     if(!path.endsWith('.html')) path = path.replace(/\/?$/, '/') + 'index.html';
 
+    // Snapshot is captured. NOW safe to show loading UI.
+    if(saveBtn){ saveBtn.disabled = true; saveBtn.textContent = 'Publishing…'; }
+    if(cancelBtn){ cancelBtn.disabled = true; }
+
     try {
       var r = await fetch(WORKER_URL + '/edit', {
         method: 'POST',
@@ -629,13 +631,13 @@
       if(!r.ok || !data.ok){
         throw new Error(data.error || ('HTTP ' + r.status));
       }
-      showToast('Saved · GitHub Pages will redeploy in ~30 sec', 'success');
-      if(statusEl){ statusEl.innerHTML = '<span class="badge">SAVED</span>Refresh in 30 sec to see the live version.'; }
-      if(saveBtn){ saveBtn.textContent = 'Saved'; }
-      if(cancelBtn){ cancelBtn.textContent = 'Refresh page'; cancelBtn.disabled = false; cancelBtn.onclick = function(){ location.reload(); }; }
+      showToast('Published · GitHub Pages will redeploy in ~30 sec', 'success');
+      if(statusEl){ statusEl.innerHTML = '<span class="badge">PUBLISHED</span>Live in ~30 sec. Refresh the page to see it.'; }
+      if(saveBtn){ saveBtn.textContent = 'Published'; }
+      if(cancelBtn){ cancelBtn.textContent = 'Refresh now'; cancelBtn.disabled = false; cancelBtn.onclick = function(){ location.reload(); }; }
     } catch(e){
       showToast('Save failed: ' + e.message, 'error');
-      if(saveBtn){ saveBtn.disabled = false; saveBtn.textContent = 'Save changes'; }
+      if(saveBtn){ saveBtn.disabled = false; saveBtn.textContent = 'Publish'; }
       if(cancelBtn){ cancelBtn.disabled = false; }
     }
   };
