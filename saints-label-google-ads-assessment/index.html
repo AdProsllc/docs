@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Kevin Watson">
+  <title>Saints Label — Google Ads Assessment — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    .ap-display { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1 { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2 { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3 { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-p-lg { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; padding-top: var(--space-8); }
+    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; text-transform: uppercase; }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-8); }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
+
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+
+    .ap-stat { padding: 4px 0; }
+    .ap-stat-num { font-size: 56px; font-weight: 800; color: var(--yellow); letter-spacing: -2px; line-height: 1; font-variant-numeric: tabular-nums; }
+    .ap-stat-num.red { color: var(--error); }
+    .ap-stat-num.green { color: var(--success); }
+    .ap-stat-label { font-size: 13px; font-weight: 600; color: #fff; margin-top: 10px; letter-spacing: 0.3px; }
+    .ap-stat-sub { font-size: 12px; color: var(--grey-300); margin-top: 4px; line-height: 1.4; }
+
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    /* Audit-specific components */
+    .core-issue {
+      border-left: 4px solid var(--yellow);
+      background: rgba(249, 217, 0, 0.07);
+      padding: 22px 26px;
+      margin: 28px 0;
+    }
+    .core-issue-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px;
+    }
+    .core-issue-label {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--yellow); font-weight: 700;
+    }
+    .core-issue-cat {
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--yellow); opacity: 0.65; font-weight: 600;
+    }
+    .core-issue-body {
+      font-size: 20px; font-weight: 500; line-height: 1.4; color: #fff;
+    }
+
+    .section-head {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 700; margin: 0 0 14px; color: var(--yellow);
+    }
+    .section-head.blue { color: var(--blue-light); }
+    .section-head.green { color: var(--success); }
+    .section-head.red { color: var(--error); }
+
+    .bullets { list-style: none; padding: 0; margin: 0; font-size: 15px; line-height: 1.65; color: var(--grey-100); }
+    .bullets li { display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
+    .bullets li::before {
+      content: "";
+      flex-shrink: 0;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--yellow);
+      margin-top: 9px;
+    }
+    .bullets.blue li::before { background: var(--blue-light); }
+    .bullets.green li::before { background: var(--success); }
+    .bullets.red li::before { background: var(--error); }
+
+    .channel-table { margin-top: 12px; }
+    .channel-table-head {
+      display: grid; grid-template-columns: 170px 1fr 90px 130px;
+      gap: 16px; padding-bottom: 14px;
+      font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--grey-300); font-weight: 600;
+    }
+    .channel-table-row {
+      display: grid; grid-template-columns: 170px 1fr 90px 130px;
+      gap: 16px; align-items: center; padding: 14px 0;
+      border-top: 1px solid var(--card-border);
+    }
+    .channel-table-row .name { font-size: 15px; font-weight: 600; color: #fff; }
+    .channel-table-row .spend { text-align: right; font-size: 14px; color: var(--grey-100); font-variant-numeric: tabular-nums; }
+    .channel-table-row .share { text-align: right; font-size: 14px; color: var(--grey-300); font-variant-numeric: tabular-nums; }
+    .channel-table-row .roas { text-align: right; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .roas.green { color: var(--success); }
+    .roas.yellow { color: var(--yellow); }
+    .roas.red { color: var(--error); }
+    .channel-table-foot {
+      margin-top: 14px; padding-top: 12px;
+      border-top: 1px solid var(--card-border);
+      font-size: 11px; color: var(--grey-300);
+    }
+
+    .chart-frame {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px 32px; margin: 28px 0;
+    }
+    .chart-label {
+      font-size: 11px; color: var(--grey-300); letter-spacing: 1.5px;
+      text-transform: uppercase; font-weight: 600; margin-bottom: 18px;
+    }
+
+    .pmax-channel-row { padding: 14px 0; border-top: 1px solid var(--card-border); }
+    .pmax-channel-row:first-child { border-top: none; }
+    .pmax-channel-head {
+      display: flex; justify-content: space-between;
+      font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px;
+    }
+    .pmax-channel-head .cost { color: var(--grey-300); font-variant-numeric: tabular-nums; font-weight: 400; }
+    .pmax-channel-head .roas { font-weight: 700; font-variant-numeric: tabular-nums; }
+    .pmax-channel-head .roas.green { color: var(--success); }
+    .pmax-channel-head .roas.red { color: var(--error); }
+    .pmax-channel-bar {
+      position: relative; height: 14px; background: rgba(255,255,255,0.05);
+    }
+    .pmax-channel-bar > div { height: 100%; min-width: 2px; }
+    .pmax-channel-caption { font-size: 12px; color: var(--grey-300); margin-top: 6px; }
+
+    .fragmentation-grid {
+      display: grid; grid-template-columns: repeat(11, 1fr);
+      gap: 8px; max-width: 380px; margin-bottom: 18px;
+    }
+    .fragmentation-cell { aspect-ratio: 1/1; }
+    .fragmentation-cell.fed { background: var(--success); }
+    .fragmentation-cell.starved { background: var(--error); opacity: 0.65; }
+    .fragmentation-legend { display: flex; gap: 28px; font-size: 13px; color: var(--grey-300); line-height: 1.5; }
+    .fragmentation-legend .row { display: flex; flex-direction: column; }
+    .fragmentation-legend .swatch { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+    .fragmentation-legend .swatch span { width: 12px; height: 12px; display: inline-block; }
+
+    .callout-box {
+      padding: 18px 22px;
+      background: rgba(255,255,255,0.04);
+      border-left: 3px solid var(--yellow);
+      font-size: 15px; line-height: 1.55; color: var(--grey-100);
+      margin-top: 24px;
+    }
+    .callout-box.green { border-left-color: var(--success); background: rgba(15, 151, 61, 0.08); }
+    .callout-box strong { color: #fff; }
+
+    .pill {
+      display: inline-block; background: var(--yellow); color: var(--navy);
+      font-size: 11px; font-weight: 800; letter-spacing: 2px;
+      padding: 6px 12px; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .pill.dark { background: rgba(255,255,255,0.12); color: #fff; }
+
+    .primary-constraint-section {
+      background: var(--white); color: var(--navy);
+      margin: var(--space-16) -48px; padding: var(--space-16) 48px;
+      border-top: none;
+    }
+    .primary-constraint-section .ap-h1,
+    .primary-constraint-section .ap-h2,
+    .primary-constraint-section .ap-h3 { color: var(--navy); }
+    .primary-constraint-section .ap-p,
+    .primary-constraint-section .ap-p-lg { color: rgba(4,7,53,0.85); }
+    .primary-constraint-section .section-head { color: var(--blue); }
+    .primary-constraint-section .ap-kicker { color: var(--blue); }
+    .primary-constraint-section .ap-kicker::before { background: var(--blue); }
+    .primary-constraint-section .bullets { color: rgba(4,7,53,0.85); }
+    .primary-constraint-section .bullets li::before { background: var(--blue); }
+    .primary-constraint-section .bullets strong { color: var(--navy); }
+
+    .discovery-q { margin-bottom: 28px; max-width: 940px; }
+    .discovery-q strong { color: var(--yellow); font-size: 19px; font-weight: 700; }
+    .discovery-q .qbody { font-size: 15px; color: var(--grey-300); margin-top: 6px; line-height: 1.55; }
+
+    .ol-discovery { padding-left: 22px; margin: 0; }
+    .ol-discovery li { color: var(--grey-200); margin-bottom: 4px; }
+
+    @media (max-width: 900px) {
+      .channel-table-head, .channel-table-row { grid-template-columns: 1.2fr 1fr 70px 90px; gap: 8px; }
+      .channel-table-row .name { font-size: 13px; }
+      .channel-table-row .roas { font-size: 15px; }
+      .primary-constraint-section { margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
+    }
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .ap-footer { margin-left: 20px; margin-right: 20px; }
+      .ap-h1 { font-size: 30px; } .ap-h2 { font-size: 24px; }
+      .core-issue-body { font-size: 17px; }
+      .channel-table-head { display: none; }
+      .channel-table-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+      .channel-table-row .name { font-size: 15px; }
+      .channel-table-row .spend, .channel-table-row .share { text-align: left; }
+      .channel-table-row .roas { text-align: left; font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg width="48" height="48" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#adpros-clip)">
+        <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+        <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+        <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+        <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+        <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F7D80A"/>
+        <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+        <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+      </g>
+      <defs>
+        <clipPath id="adpros-clip">
+          <rect width="80.8" height="80" fill="#FFFFFF" transform="translate(0 0.572266)"/>
+        </clipPath>
+      </defs>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Saints Label — Google Ads Assessment</h1>
+      <p>90-day analysis window · Feb 1 to May 21, 2026</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <!-- INTRO / CONTENTS -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">00</span> Contents</div>
+      <h2 class="ap-h2">What This Covers</h2>
+      <p class="ap-p-lg" style="margin-top: 16px; max-width: 760px;">Google Ads assessment for Saints Label, built on 90 days of TripleWhale and in-platform data. Findings, the constraint that limits scale, and the first 30 days of work.</p>
+      <div class="ap-grid-2" style="margin-top: 32px; gap: 8px var(--space-8);">
+        <ol style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">01</span>Business-Wide Context</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">02</span>ncROAS by Google Channel</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">03</span>Monthly ncROAS by Google</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">04</span>Demand Gen</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">05</span>Performance Max</li>
+          <li style="padding: 10px 0; display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">06</span>Brand Search</li>
+        </ol>
+        <ol style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">07</span>Non-Branded Search</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">08</span>Shopping</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">09</span>Tracking &amp; Account Controls</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">10</span>Primary Constraint</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--card-border); display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">11</span>Path Forward</li>
+          <li style="padding: 10px 0; display: flex; gap: 14px; font-size: 16px; color: #fff;"><span style="color: var(--yellow); font-weight: 700; min-width: 28px;">12</span>For the Call</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 01 BUSINESS-WIDE CONTEXT -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">01</span> Business-Wide Context</div>
+      <h2 class="ap-h2">The Business Is Short of the 1.8x ncROAS Floor</h2>
+      <p class="ap-p-lg" style="margin-top: 16px; color: var(--grey-300); max-width: 940px;">Across the last 90 days, business-wide ncROAS came in at 1.69x. That's the only place the 1.8x to 2.0x benchmark applies. Channel-level ncROAS numbers report each channel's attributed share of new customer revenue under a multi-touch model and cannot be read against the business benchmark in isolation.</p>
+
+      <div class="ap-grid-4" style="margin-top: 40px;">
+        <div class="ap-stat">
+          <div class="ap-stat-num">$2.55M</div>
+          <div class="ap-stat-label">Total paid spend (90 days)</div>
+          <div class="ap-stat-sub">All paid channels combined</div>
+        </div>
+        <div class="ap-stat">
+          <div class="ap-stat-num">68,173</div>
+          <div class="ap-stat-label">New customers</div>
+          <div class="ap-stat-sub">98% of all purchases</div>
+        </div>
+        <div class="ap-stat">
+          <div class="ap-stat-num red">1.69x</div>
+          <div class="ap-stat-label">Business-wide ncROAS</div>
+          <div class="ap-stat-sub">Short of the 1.8x floor by 0.11x</div>
+        </div>
+        <div class="ap-stat">
+          <div class="ap-stat-num red">$281K</div>
+          <div class="ap-stat-label">Revenue gap to 1.8x floor</div>
+          <div class="ap-stat-sub">At current 90-day paid spend</div>
+        </div>
+      </div>
+
+      <div class="callout-box" style="margin-top: 32px;">
+        This audit looks at Google Ads specifically. The rest of the page uses channel-level ncROAS to compare Google channels to each other and over time. Those numbers are not benchmark comparisons.
+      </div>
+    </section>
+
+    <!-- 02 ncROAS BY GOOGLE CHANNEL -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">02</span> ncROAS by Google Channel</div>
+      <h2 class="ap-h2">Inside Google, the Spend Goes to the Wrong Place</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Coverage</div>
+        </div>
+        <div class="core-issue-body">86.5% of Google spend went to Demand Gen at 1.68x ncROAS. Brand Search earned 3.60x ncROAS on 3.6% of Google spend. The Google channel mix is putting the most budget behind the channel with the lowest attributed efficiency per dollar.</div>
+      </div>
+
+      <div class="channel-table">
+        <div class="channel-table-head">
+          <div>Channel</div>
+          <div style="text-align: right;">90-day spend</div>
+          <div style="text-align: right;">Share</div>
+          <div style="text-align: right;">ncROAS</div>
+        </div>
+        <div class="channel-table-row">
+          <div class="name">Brand Search</div>
+          <div class="spend">$4,091</div>
+          <div class="share">3.6%</div>
+          <div class="roas green">3.60x</div>
+        </div>
+        <div class="channel-table-row">
+          <div class="name">Demand Gen</div>
+          <div class="spend">$98,156</div>
+          <div class="share">86.5%</div>
+          <div class="roas yellow">1.68x</div>
+        </div>
+        <div class="channel-table-row">
+          <div class="name">Performance Max</div>
+          <div class="spend">$7,170</div>
+          <div class="share">6.3%</div>
+          <div class="roas red">1.36x</div>
+        </div>
+        <div class="channel-table-row">
+          <div class="name">Shopping</div>
+          <div class="spend">$2,344</div>
+          <div class="share">2.1%</div>
+          <div class="roas red">0.58x</div>
+        </div>
+        <div class="channel-table-row">
+          <div class="name">NB Search</div>
+          <div class="spend">$1,739</div>
+          <div class="share">1.5%</div>
+          <div class="roas red">0.26x</div>
+        </div>
+        <div class="channel-table-foot">Linear All attribution from TripleWhale, Feb 1 to May 21, 2026. New-customer revenue only.</div>
+      </div>
+
+      <p class="ap-p" style="margin-top: 32px; max-width: 940px;">Each channel's ncROAS reflects its attributed share of new customer revenue under TripleWhale's Linear All model. Higher numbers mean a channel earns more new-customer credit per dollar of spend. The comparison is between Google channels, not against the 1.8x business benchmark.</p>
+    </section>
+
+    <!-- 03 MONTHLY ncROAS BY GOOGLE -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">03</span> Monthly ncROAS by Google</div>
+      <h2 class="ap-h2">Demand Gen Broke When It Scaled</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Delivery</div>
+        </div>
+        <div class="core-issue-body">Demand Gen held 1.92x ncROAS through March and April, then dropped to 1.47x in May as monthly spend scaled to $52K. The drop coincides with budget growth, not with any external change. The channel is breaking under scale, not under demand.</div>
+      </div>
+
+      <div class="chart-frame">
+        <div class="chart-label">Monthly ncROAS by channel · Linear All attribution · Feb 1 to May 21, 2026</div>
+        <svg viewBox="0 0 720 350" style="width: 100%; height: auto;">
+          <!-- Gridlines -->
+          <line x1="56" y1="16" x2="580" y2="16" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 4"/>
+          <text x="46" y="20" font-size="11" fill="#8A8B93" text-anchor="end">5x</text>
+          <line x1="56" y1="69.8" x2="580" y2="69.8" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 4"/>
+          <text x="46" y="73.8" font-size="11" fill="#8A8B93" text-anchor="end">4x</text>
+          <line x1="56" y1="123.6" x2="580" y2="123.6" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 4"/>
+          <text x="46" y="127.6" font-size="11" fill="#8A8B93" text-anchor="end">3x</text>
+          <line x1="56" y1="177.4" x2="580" y2="177.4" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 4"/>
+          <text x="46" y="181.4" font-size="11" fill="#8A8B93" text-anchor="end">2x</text>
+          <line x1="56" y1="231.2" x2="580" y2="231.2" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 4"/>
+          <text x="46" y="235.2" font-size="11" fill="#8A8B93" text-anchor="end">1x</text>
+          <line x1="56" y1="285" x2="580" y2="285" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 4"/>
+          <text x="46" y="289" font-size="11" fill="#8A8B93" text-anchor="end">0x</text>
+
+          <!-- Brand Search line: 3.69, 3.36, 3.58, 4.62 -->
+          <polyline points="56,86.4 230.7,103.7 405.3,92.1 580,36.4" fill="none" stroke="#0F973D" stroke-width="2.5"/>
+          <circle cx="56" cy="86.4" r="5" fill="#0F973D"/>
+          <text x="56" y="75.4" font-size="11" fill="#0F973D" text-anchor="middle" font-weight="700">3.69x</text>
+          <circle cx="230.7" cy="103.7" r="5" fill="#0F973D"/>
+          <text x="230.7" y="92.7" font-size="11" fill="#0F973D" text-anchor="middle" font-weight="700">3.36x</text>
+          <circle cx="405.3" cy="92.1" r="5" fill="#0F973D"/>
+          <text x="405.3" y="81.1" font-size="11" fill="#0F973D" text-anchor="middle" font-weight="700">3.58x</text>
+          <circle cx="580" cy="36.4" r="5" fill="#0F973D"/>
+          <text x="580" y="25.4" font-size="11" fill="#0F973D" text-anchor="middle" font-weight="700">4.62x</text>
+
+          <!-- Demand Gen line: skip Feb, 1.92, 1.92, 1.47 -->
+          <polyline points="230.7,181.7 405.3,181.7 580,205.9" fill="none" stroke="#F9D900" stroke-width="2.5"/>
+          <circle cx="230.7" cy="181.7" r="5" fill="#F9D900"/>
+          <text x="230.7" y="170.7" font-size="11" fill="#F9D900" text-anchor="middle" font-weight="700">1.92x</text>
+          <circle cx="405.3" cy="181.7" r="5" fill="#F9D900"/>
+          <text x="405.3" y="170.7" font-size="11" fill="#F9D900" text-anchor="middle" font-weight="700">1.92x</text>
+          <circle cx="580" cy="205.9" r="5" fill="#F9D900"/>
+          <text x="580" y="194.9" font-size="11" fill="#F9D900" text-anchor="middle" font-weight="700">1.47x</text>
+
+          <!-- PMax line: skip Feb, 0.28, 0.93, 2.12 -->
+          <polyline points="230.7,269.9 405.3,234.9 580,170.9" fill="none" stroke="#1A6FD4" stroke-width="2.5"/>
+          <circle cx="230.7" cy="269.9" r="5" fill="#1A6FD4"/>
+          <text x="230.7" y="258.9" font-size="11" fill="#1A6FD4" text-anchor="middle" font-weight="700">0.28x</text>
+          <circle cx="405.3" cy="234.9" r="5" fill="#1A6FD4"/>
+          <text x="405.3" y="223.9" font-size="11" fill="#1A6FD4" text-anchor="middle" font-weight="700">0.93x</text>
+          <circle cx="580" cy="170.9" r="5" fill="#1A6FD4"/>
+          <text x="580" y="159.9" font-size="11" fill="#1A6FD4" text-anchor="middle" font-weight="700">2.12x</text>
+
+          <!-- X labels -->
+          <text x="56" y="302" font-size="13" fill="#8A8B93" text-anchor="middle" font-weight="600">Feb 2026</text>
+          <text x="230.7" y="302" font-size="13" fill="#8A8B93" text-anchor="middle" font-weight="600">Mar 2026</text>
+          <text x="405.3" y="302" font-size="13" fill="#8A8B93" text-anchor="middle" font-weight="600">Apr 2026</text>
+          <text x="580" y="302" font-size="13" fill="#8A8B93" text-anchor="middle" font-weight="600">May 2026</text>
+
+          <!-- Legend -->
+          <g transform="translate(592, 46)">
+            <line x1="0" y1="0" x2="14" y2="0" stroke="#0F973D" stroke-width="2.5"/>
+            <circle cx="7" cy="0" r="4" fill="#0F973D"/>
+            <text x="20" y="4" font-size="11" fill="#FFFFFF" font-weight="600">Brand Search</text>
+          </g>
+          <g transform="translate(592, 68)">
+            <line x1="0" y1="0" x2="14" y2="0" stroke="#F9D900" stroke-width="2.5"/>
+            <circle cx="7" cy="0" r="4" fill="#F9D900"/>
+            <text x="20" y="4" font-size="11" fill="#FFFFFF" font-weight="600">Demand Gen</text>
+          </g>
+          <g transform="translate(592, 90)">
+            <line x1="0" y1="0" x2="14" y2="0" stroke="#1A6FD4" stroke-width="2.5"/>
+            <circle cx="7" cy="0" r="4" fill="#1A6FD4"/>
+            <text x="20" y="4" font-size="11" fill="#FFFFFF" font-weight="600">PMax</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="ap-grid-3" style="margin-top: 32px;">
+        <div>
+          <div class="section-head green">Brand Search</div>
+          <p class="ap-p-sm">Held 3.36x to 4.62x ncROAS through every month at $362 to $1,794 of monthly spend. Spend fell while ncROAS stayed strong. The channel is under-funded, not under-performing.</p>
+        </div>
+        <div>
+          <div class="section-head" style="color: var(--yellow);">Demand Gen</div>
+          <p class="ap-p-sm">Stable through April at 1.92x ncROAS. Broke to 1.47x in May as spend hit $52K. The 22-campaign structure cannot absorb scale without losing signal efficiency.</p>
+        </div>
+        <div>
+          <div class="section-head blue">Performance Max</div>
+          <p class="ap-p-sm">0.28x to 0.93x to 2.12x. The trajectory is positive. The campaign is learning and improving, but the recent 63 changes in 30 days are slowing the learning rate.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 DEMAND GEN -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">04</span> Demand Gen</div>
+      <h2 class="ap-h2">Demand Gen</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Delivery</div>
+        </div>
+        <div class="core-issue-body">22 active Demand Gen campaigns. 18 of them are below Google's 50-conversion learning threshold. $13.9K of monthly Demand Gen spend is running in campaigns the algorithm cannot optimize. The May ncROAS drop from 1.92x to 1.47x is the structural problem showing up in the numbers.</div>
+      </div>
+
+      <div class="ap-grid-2">
+        <div>
+          <div class="section-head">Analysis</div>
+          <p class="ap-p">Each new creative batch launches as a new campaign instead of as an ad inside a consolidated campaign. At $50 to $300 daily budgets across 47 lifetime campaigns, conversion volume per campaign sits between 0 and 3 per day. That is below the threshold Maximize Conversions needs to learn cleanly. Every new batch starts the model from zero.</p>
+          <p class="ap-p" style="margin-top: 12px;">21 of the 22 active Demand Gen campaigns run on Maximize Conversions, not value-based bidding. The account optimizes for transaction count, ignoring revenue, despite a ROAS-targeted business goal.</p>
+          <p class="ap-p" style="margin-top: 12px;">When monthly Demand Gen spend ramped from $7.9K in March to $52K in May, ncROAS dropped from 1.92x to 1.47x. The model gets weaker signal per dollar as budget spreads thinner across more campaigns sitting below the learning threshold.</p>
+
+          <div class="section-head blue" style="margin-top: 28px;">Recommendations</div>
+          <ul class="bullets blue">
+            <li>Consolidate 22 campaigns into roughly 4, grouped by creative theme. Future creative batches launch as ads inside those campaigns, not as new campaigns.</li>
+            <li>Move the consolidated campaigns to Maximize Conversion Value with a tROAS target tied to product margin.</li>
+            <li>Reallocate freed budget toward Brand Search and Performance Max while Demand Gen restructures.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head">22 active Demand Gen campaigns, last 30 days</div>
+          <div class="fragmentation-grid">
+            <div class="fragmentation-cell fed"></div><div class="fragmentation-cell fed"></div><div class="fragmentation-cell fed"></div><div class="fragmentation-cell fed"></div>
+            <div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div>
+            <div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div><div class="fragmentation-cell starved"></div>
+          </div>
+          <div class="fragmentation-legend">
+            <div class="row">
+              <div class="swatch"><span style="background: var(--success);"></span><strong style="color: #fff;">4 above threshold</strong></div>
+              <div>50 or more conversions in the last 30 days</div>
+            </div>
+            <div class="row">
+              <div class="swatch"><span style="background: var(--error); opacity: 0.65;"></span><strong style="color: #fff;">18 below threshold</strong></div>
+              <div>$13.9K of monthly Demand Gen spend</div>
+            </div>
+          </div>
+          <div class="callout-box">
+            <div style="font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">Bid strategy split</div>
+            <div style="font-size: 16px; line-height: 1.5; color: #fff;">21 of 22 active Demand Gen campaigns run on Maximize Conversions. 1 uses value-based bidding.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 PERFORMANCE MAX -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">05</span> Performance Max</div>
+      <h2 class="ap-h2">Performance Max</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Coverage + Delivery</div>
+        </div>
+        <div class="core-issue-body">Performance Max ncROAS climbed from 0.28x to 0.93x to 2.12x across March, April, and May as the campaign learned. 64% of Performance Max spend is delivering on Google Search, returning $7,423 of attributed value at $4,584 of cost. The campaign is improving and is being held back by roughly 63 changes in the last 30 days.</div>
+      </div>
+
+      <div class="ap-grid-2">
+        <div>
+          <div class="section-head">Analysis</div>
+          <p class="ap-p">The search-terms report confirms Performance Max is capturing real non-branded category demand: "bible study guide" (414 clicks, 35 conversions, 8.45% conversion rate), "bible study guides", "66 page bible study guide", "bible study guides book". The branded queries that do appear (saintslabel.com, faith sprouts the 66 roots journey) are correctly excluded by the negative list. Branded delivery is not happening on this campaign.</p>
+          <p class="ap-p" style="margin-top: 12px;">Performance Max is functioning as the de facto non-branded Search engine. It has to do that job without a dedicated Search campaign feeding it Quality Score signal, controlling intent tiers, or absorbing exact-match traffic.</p>
+          <p class="ap-p" style="margin-top: 12px;">The campaign also has roughly 63 changes logged in 30 days, including repeated tROAS step-downs visible in the campaign name (2.8x then 2.5x then 2.7x). Value-based bidding strategies need around 14 days of stable signal to optimize. Every target change resets that learning.</p>
+
+          <div class="section-head blue" style="margin-top: 28px;">Recommendations</div>
+          <ul class="bullets blue">
+            <li>Lock the tROAS target. Pick one number based on product margin and hold it for a full 14-day cycle before reviewing.</li>
+            <li>Lift Performance Max budget as the learning trajectory continues. ncROAS doubled from April to May, and the campaign has not yet stabilized.</li>
+            <li>Treat Performance Max as the Shopping and YouTube engine. Let a restructured Non-Branded Search campaign capture exact-match Search intent.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head">Performance Max delivery by channel · Feb 1 to May 21</div>
+
+          <div class="pmax-channel-row">
+            <div class="pmax-channel-head">
+              <span>Google Search</span>
+              <span><span class="cost">$4,584 · </span><span class="roas green">1.62x</span></span>
+            </div>
+            <div class="pmax-channel-bar"><div style="width: 64%; background: var(--success);"></div></div>
+            <div class="pmax-channel-caption">64.0% of Performance Max spend · 137 conversions</div>
+          </div>
+
+          <div class="pmax-channel-row">
+            <div class="pmax-channel-head">
+              <span>YouTube</span>
+              <span><span class="cost">$2,379 · </span><span class="roas green">1.63x</span></span>
+            </div>
+            <div class="pmax-channel-bar"><div style="width: 33.2%; background: var(--yellow);"></div></div>
+            <div class="pmax-channel-caption">33.2% of Performance Max spend · 72 conversions</div>
+          </div>
+
+          <div class="pmax-channel-row">
+            <div class="pmax-channel-head">
+              <span>Display Network</span>
+              <span><span class="cost">$179 · </span><span class="roas red">0x</span></span>
+            </div>
+            <div class="pmax-channel-bar"><div style="width: 2.5%; background: var(--error);"></div></div>
+            <div class="pmax-channel-caption">2.5% of Performance Max spend · 0 conversions</div>
+          </div>
+
+          <div class="pmax-channel-row">
+            <div class="pmax-channel-head">
+              <span>Discover</span>
+              <span><span class="cost">$22 · </span><span class="roas green">1.82x</span></span>
+            </div>
+            <div class="pmax-channel-bar"><div style="width: 0.3%; background: var(--blue-light);"></div></div>
+            <div class="pmax-channel-caption">0.3% of Performance Max spend · 1 conversion</div>
+          </div>
+
+          <div class="callout-box" style="border-left-color: var(--blue); margin-top: 24px; font-size: 13px;">
+            Brand exclusions are working. "saintslabel.com" and "faith sprouts the 66 roots journey" appear as Excluded in the search-terms report.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 BRAND SEARCH -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">06</span> Brand Search</div>
+      <h2 class="ap-h2">Brand Search</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Competition</div>
+        </div>
+        <div class="core-issue-body">Brand Search earned 3.60x ncROAS across the 90 days at $4,091 of spend. Monthly ncROAS held between 3.36x and 4.62x even as spend shrank to $362 in May. The channel is the most efficient earner in the Google account on every monthly cut, and it is being starved.</div>
+      </div>
+
+      <div class="section-head">Analysis</div>
+      <p class="ap-p" style="max-width: 940px;">Brand Search is at 70% impression share on the brand's own name, losing 30% to Ad Rank. On a brand with no obvious paid competitor on the Search Engine Results Page, that usually points to Quality Score components (ad relevance, expected click-through rate, landing page experience) rather than bid pressure. CPC at $0.98 is high for a brand with that competitive picture.</p>
+      <p class="ap-p" style="margin-top: 12px; max-width: 940px;">The campaign also shows repeated tROAS step-downs in the change history (8x to 7.5x to 6x). Like Performance Max, the campaign that is actually earning the most attributed credit per dollar is being tinkered with too aggressively to learn.</p>
+      <p class="ap-p" style="margin-top: 12px; max-width: 940px;">Brand Search spend dropped from $1,794 in March to $362 in May. The channel did not lose efficiency. It lost budget.</p>
+
+      <div class="section-head blue" style="margin-top: 28px;">Recommendations</div>
+      <ul class="bullets blue" style="max-width: 940px;">
+        <li>Audit Quality Score components on branded ad groups. Tighten headline-to-keyword alignment, test brand-specific responsive search ad variations.</li>
+        <li>Hold the tROAS target for a full 14-day cycle before changing it again.</li>
+        <li>Increase Brand Search budget until impression share clears 90%. The channel has produced 3.36x to 4.62x monthly ncROAS at every spend level this window.</li>
+        <li>Add Branded Shopping back at scale to defend the Search Engine Results Page from third-party listings appearing on the brand name.</li>
+      </ul>
+    </section>
+
+    <!-- 07 NON-BRANDED SEARCH -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">07</span> Non-Branded Search</div>
+      <h2 class="ap-h2">Non-Branded Search</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Coverage + Delivery</div>
+        </div>
+        <div class="core-issue-body">A Non-Branded Search campaign was launched and returned 0.26x ncROAS on $1,739 of spend. The demand exists. Performance Max captures the same queries at 8.45% conversion rate. The relaunch needs structure the original campaign did not have.</div>
+      </div>
+
+      <div class="ap-grid-2">
+        <div>
+          <div class="section-head">Analysis</div>
+          <p class="ap-p">The Performance Max search-terms report proves the demand is there and converts well. "Bible study guide" runs at an 8.45% conversion rate at a $24.72 CPA inside Performance Max. A dedicated Search campaign on that exact query and its close variants should earn meaningful attributed credit.</p>
+          <p class="ap-p" style="margin-top: 12px;">The launched Non-Branded Search campaign did not perform because the structure could not isolate the intent. The keyword set was narrow, the budget was small ($1,739 across two months with most spent before any learning could occur), and the landing experience pulled high-intent searchers into the homepage rather than a product-detail page.</p>
+          <p class="ap-p" style="margin-top: 12px;">This is also the campaign that creates the Search foundation Performance Max needs. Without it, Performance Max has to do all the Search work using shopping signal and asset groups, which limits how much spend the account can put behind that intent profitably.</p>
+
+          <div class="section-head blue" style="margin-top: 28px;">Recommendations</div>
+          <ul class="bullets blue">
+            <li>Relaunch Non-Branded Search with intent-tiered ad groups: category queries ("bible study guide"), specific queries ("66 page bible study guide"), feature queries ("bible study guide for beginners").</li>
+            <li>Start phrase match, layer exact match in once data builds. Use the converting Performance Max search terms as the seed keyword list.</li>
+            <li>Run the new campaign to a product-detail page landing experience, not the homepage. Measure landing page conversion rate separately from campaign ncROAS.</li>
+            <li>Build a shared negative keyword list so Non-Branded Search and Performance Max do not bid against each other on the same exact-match queries.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head">The previous attempt</div>
+          <div class="ap-stat" style="margin-bottom: 16px;">
+            <div class="ap-stat-num">$1,739</div>
+            <div class="ap-stat-label">Spend</div>
+            <div class="ap-stat-sub">Across Feb and Mar 2026</div>
+          </div>
+          <div class="ap-stat" style="margin-bottom: 16px;">
+            <div class="ap-stat-num red">0.26x</div>
+            <div class="ap-stat-label">ncROAS</div>
+            <div class="ap-stat-sub">Linear All, the lowest in the account</div>
+          </div>
+          <div class="ap-stat" style="margin-bottom: 16px;">
+            <div class="ap-stat-num red">8</div>
+            <div class="ap-stat-label">New customers</div>
+            <div class="ap-stat-sub">At a $217 effective new customer CPA</div>
+          </div>
+          <div class="callout-box">
+            <strong>The demand is real.</strong> Performance Max captures the same queries at 8.45% conversion rate. A relaunched Search campaign needs structure that competes in those auctions with Quality Score support.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 SHOPPING -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">08</span> Shopping</div>
+      <h2 class="ap-h2">Shopping</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Coverage</div>
+        </div>
+        <div class="core-issue-body">Non-Brand Shopping earned 0.58x ncROAS on $2,344 of 90-day spend. The previous team scaled it down to $142 in the last 30 days. Performance Max is doing the Shopping work in its place, so the question is whether to invest in standalone Shopping at all.</div>
+      </div>
+
+      <div class="section-head">Analysis</div>
+      <p class="ap-p" style="max-width: 940px;">Search Impression Share on Non-Brand Shopping sits at 17.7%, with 55% of auctions lost to Ad Rank and 17.7% lost to Budget. The campaign is starved and structurally limited. Performance Max's product-data ads inside Google Search ($3,548 cost, $5,760 value) are proof that Shopping inventory can convert profitably for this account.</p>
+      <p class="ap-p" style="margin-top: 12px; max-width: 940px;">A standalone Non-Brand Shopping campaign would only make sense if it could outperform Performance Max's product-data delivery on the same query set. With Performance Max already capturing the converting Shopping intent, the case for re-investing in standalone Shopping is weaker than it looked from the in-platform view alone.</p>
+
+      <div class="section-head blue" style="margin-top: 28px;">Recommendations</div>
+      <ul class="bullets blue" style="max-width: 940px;">
+        <li>Hold Shopping at minimal spend for now. Use the budget to fund Non-Branded Search and Performance Max instead.</li>
+        <li>Audit the product feed for title, description, and image quality. Reviews on the product detail page mention "shipped from China, no author or production name", which is a Quality Score and trust signal risk that would affect any Shopping investment.</li>
+        <li>Revisit standalone Shopping after Non-Branded Search and Performance Max are stable. If demand exceeds what Performance Max can absorb, a properly structured Shopping campaign becomes the next expansion.</li>
+      </ul>
+    </section>
+
+    <!-- 09 TRACKING & ACCOUNT CONTROLS -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">09</span> Tracking &amp; Account Controls</div>
+      <h2 class="ap-h2">Tracking &amp; Account Controls</h2>
+
+      <div class="core-issue">
+        <div class="core-issue-header">
+          <div class="core-issue-label">Core Issue</div>
+          <div class="core-issue-cat">Delivery</div>
+        </div>
+        <div class="core-issue-body">Conversion tracking and account controls are set up correctly. In-platform Google Ads, TripleWhale Linear All, and TripleWhale Triple Attribution all reconcile to within reasonable variance, which is what a clean setup looks like.</div>
+      </div>
+
+      <div class="ap-grid-2">
+        <div>
+          <div class="section-head green">Set up correctly</div>
+          <ul class="bullets green">
+            <li>Single Primary purchase event from the Shopify Google Ads app. No double counting.</li>
+            <li>Data-driven attribution active on the Purchase event.</li>
+            <li>Enhanced Conversions enabled through Google Tag.</li>
+            <li>Dynamic conversion values flowing through correctly. In-platform AOV reconciles cleanly to TripleWhale.</li>
+            <li>Auto-apply recommendations fully off. 0 of 21 recommendations selected.</li>
+            <li>90-day click window, 1-day view-through. Appropriate for this average order value and category.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head red">Where over-management is undermining it</div>
+          <ul class="bullets red">
+            <li>Roughly 63 changes on Performance Max and 57 on Brand Search in the last 30 days. Both run value-based bidding. Both are being prevented from finishing a learning cycle.</li>
+            <li>21 of 22 Demand Gen campaigns run on Maximize Conversions. Conversion value is being ignored despite a value-based business target.</li>
+            <li>Add to Cart goal is flagged "Misconfigured" in the conversions UI. Minor, but worth fixing.</li>
+            <li>"Upgrade your conversion tracking" recommendation is currently surfaced. Worth confirming Google sees Data-Driven Attribution as fully applied.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout-box green" style="margin-top: 32px;">
+        The conversion tracking foundation is solid. The fix is letting the bidding strategies finish their learning cycles and aligning Demand Gen to value-based bidding. Not rebuilding tracking from scratch.
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 10 PRIMARY CONSTRAINT (light section) -->
+  <div class="primary-constraint-section">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 48px;">
+      <div class="ap-kicker">The single biggest thing limiting Google scale</div>
+      <h2 class="ap-h1" style="font-size: 52px; line-height: 1.05; margin-bottom: 24px;">Demand Gen Breaks Under Scale<br/>While Better Channels Are Starved</h2>
+      <p class="ap-p-lg" style="font-size: 20px; max-width: 980px; margin-bottom: 48px;">Demand Gen carries 86.5% of Google spend and held 1.92x ncROAS through March and April. As it scaled to $52K in May, ncROAS dropped to 1.47x. The structural fragmentation across 22 active campaigns is the cause. Meanwhile Brand Search lost budget despite holding 3.36x to 4.62x monthly ncROAS, and Performance Max climbed to 2.12x while being throttled by over-management.</p>
+
+      <div class="ap-grid-2">
+        <div>
+          <div class="section-head" style="color: var(--blue);">What proves it</div>
+          <ul class="bullets">
+            <li>Demand Gen monthly ncROAS: <strong>1.92x → 1.92x → 1.47x</strong> as spend went $7.9K → $38K → $52K</li>
+            <li>Brand Search monthly ncROAS: <strong>3.69x → 3.36x → 3.58x → 4.62x</strong> with spend dropping to $362 in May</li>
+            <li>Performance Max trajectory: <strong>0.28x → 0.93x → 2.12x</strong> as the campaign learned</li>
+            <li>18 of 22 active Demand Gen campaigns sit below Google's 50-conversion learning threshold</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head" style="color: var(--blue);">What the fix looks like</div>
+          <p style="font-size: 17px; line-height: 1.6; color: rgba(4,7,53,0.85);">Restructure Demand Gen so it can absorb its existing budget without fragmenting signal. Move the freed efficiency toward Brand Search and Performance Max, both of which have headroom for more spend at their current ncROAS. Relaunch Non-Branded Search to give Performance Max the foundation it needs. These three changes compound: each one makes the others work better.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ap-content">
+
+    <!-- 11 PATH FORWARD -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">11</span> Path Forward</div>
+      <h2 class="ap-h2">The First 30 Days</h2>
+      <p class="ap-p-lg" style="color: var(--grey-300); max-width: 820px; margin-top: 16px;">What we would execute, in what order, and what we would leave alone. Designed to recover wasted spend and reallocate toward the channels showing the strongest trajectories.</p>
+
+      <div class="ap-grid-3" style="margin-top: 36px;">
+        <div>
+          <div class="pill">Week 1</div>
+          <h3 class="ap-h3" style="font-size: 22px; margin-bottom: 16px;">Lock and Shift</h3>
+          <ul class="bullets">
+            <li>Lock the tROAS target on Performance Max and Brand Search. End the repeated step-downs and let the bidders complete a 14-day learning cycle.</li>
+            <li>Pause the worst-performing signal-starved Demand Gen campaigns. Free up roughly $13K of monthly spend.</li>
+            <li>Shift initial freed budget into Brand Search until impression share moves above 90%, and into Performance Max while it is locked.</li>
+            <li>Audit Quality Score components on branded ad groups while the bidder learns.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pill">Weeks 2 to 4</div>
+          <h3 class="ap-h3" style="font-size: 22px; margin-bottom: 16px;">Restructure and Relaunch</h3>
+          <ul class="bullets">
+            <li>Consolidate 22 Demand Gen campaigns into roughly 4, grouped by creative theme. Future creative batches launch as ads inside those campaigns.</li>
+            <li>Move consolidated Demand Gen to Maximize Conversion Value with a margin-tied tROAS target.</li>
+            <li>Relaunch Non-Branded Search with intent-tiered ad groups and product-detail page landing destinations. Seed keywords from the Performance Max converting search terms.</li>
+            <li>Build a shared negative keyword list so Non-Branded Search and Performance Max do not bid against each other on the same exact-match queries.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pill dark">Leave alone</div>
+          <h3 class="ap-h3" style="font-size: 22px; margin-bottom: 16px;">The Parts That Work</h3>
+          <ul class="bullets">
+            <li>Conversion tracking. Data-Driven Attribution, Enhanced Conversions, single Primary purchase event. Keep all of it.</li>
+            <li>Auto-apply off. Do not change that.</li>
+            <li>Demand Gen as a channel. We restructure it. We do not kill it. The 1.92x ncROAS it held through March and April is real.</li>
+            <li>Brand Search campaign structure. We tune Quality Score and lift budget. We do not rebuild.</li>
+            <li>Performance Max brand exclusions. They are working.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 FOR THE CALL -->
+    <section class="ap-section">
+      <div class="ap-section-label"><span class="num">12</span> For the Call</div>
+      <h2 class="ap-h2">What We Still Want to Learn</h2>
+      <p class="ap-p-lg" style="color: var(--grey-300); max-width: 780px; margin-top: 16px;">Three questions to answer before locking the budget reallocation.</p>
+
+      <ol class="ol-discovery" style="margin-top: 36px;">
+        <li class="discovery-q">
+          <strong>What is the contribution margin on the product?</strong>
+          <div class="qbody">The right tROAS target for Performance Max, Brand Search, and the relaunched Non-Branded Search depends on contribution margin. Without it, every bid-strategy recommendation is a directional guess.</div>
+        </li>
+        <li class="discovery-q">
+          <strong>Why was Non-Branded Search paused?</strong>
+          <div class="qbody">The previous attempt returned 0.26x ncROAS. Knowing whether the team saw structural reasons or pulled the plug on the headline ncROAS number changes how we communicate the relaunch.</div>
+        </li>
+        <li class="discovery-q">
+          <strong>What's the ceiling on Google spend you would be comfortable with?</strong>
+          <div class="qbody">Brand Search and Performance Max have headroom for more budget at their current ncROAS. Knowing the comfort zone shapes how aggressively we sequence the rebuild.</div>
+        </li>
+      </ol>
+
+      <div style="margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <div class="ap-kicker" style="margin-bottom: 8px;">Next step</div>
+          <h3 class="ap-h3" style="font-size: 28px;">Let's Talk About Scaling Google Properly.</h3>
+        </div>
+        <a href="mailto:book@adpros.com" style="display: inline-block; background: var(--yellow); color: var(--navy); padding: 14px 26px; border-radius: 8px; font-weight: 700; font-size: 15px; letter-spacing: 0.3px;">book@adpros.com</a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg width="36" height="36" viewBox="0 0 81 81" fill="none" style="opacity:0.5" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#adpros-clip-foot)">
+          <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+          <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+          <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+          <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+          <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F7D80A"/>
+          <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+          <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+        </g>
+        <defs>
+          <clipPath id="adpros-clip-foot">
+            <rect width="80.8" height="80" fill="#FFFFFF" transform="translate(0 0.572266)"/>
+          </clipPath>
+        </defs>
+      </svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Kevin Watson &middot; May 26, 2026</p>
+  </footer>
+</body>
+</html>
