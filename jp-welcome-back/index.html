@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Kevin Watson">
+  <title>JP — Welcome Back Briefing — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; position: sticky; top: 0; z-index: 50; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-header-nav { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+    .ap-header-nav a { background: rgba(255,255,255,0.08); color: #fff; padding: 8px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; transition: background .15s, color .15s; }
+    .ap-header-nav a:hover { background: var(--yellow); color: var(--navy); }
+
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-12) 0; }
+
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-8); }
+
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    /* === HERO === */
+    .hero { background: var(--navy-card); border: 1px solid var(--card-border); border-left: 4px solid var(--yellow); border-radius: var(--radius); padding: 36px 40px; margin-bottom: 32px; position: relative; overflow: hidden; }
+    .hero::after { content: ""; position: absolute; top: 0; right: 0; width: 240px; height: 240px; background: radial-gradient(circle, rgba(249,217,0,0.18) 0%, transparent 60%); pointer-events: none; }
+    .hero-list { margin-top: 8px; padding-left: 22px; font-size: 16px; line-height: 1.55; color: var(--grey-100); position: relative; z-index: 1; list-style: disc; }
+    .hero-list > li { margin-bottom: 18px; }
+    .hero-list > li:last-child { margin-bottom: 0; }
+    .hero-list strong { color: var(--yellow); font-weight: 700; }
+    .hero-sub { margin-top: 8px; padding-left: 22px; list-style: circle; }
+    .hero-sub li { margin-bottom: 6px; font-size: 14px; color: var(--grey-200); }
+
+    /* === HOW TO READ === */
+    .how-to-read { background: rgba(249,217,0,0.10); border-left: 3px solid var(--yellow); padding: 16px 20px; margin-bottom: 32px; font-size: 13px; line-height: 1.55; color: var(--grey-100); border-radius: 4px; }
+    .how-to-read strong { color: #fff; }
+
+    /* === CLIENT CARDS === */
+    .client { background: var(--navy-card); border: 1px solid var(--card-border); border-left: 4px solid var(--yellow); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 24px; scroll-margin-top: 110px; }
+    .client-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid var(--card-border); }
+    .client-head h2 { font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1; margin-bottom: 6px; }
+    .client-head p { font-size: 14px; color: var(--grey-200); line-height: 1.45; max-width: 720px; }
+
+    .pill { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+    .pill-red { background: rgba(212,38,32,0.18); color: #ff6b66; border: 1px solid rgba(212,38,32,0.5); }
+    .pill-yellow { background: rgba(249,217,0,0.22); color: var(--yellow); border: 1px solid rgba(249,217,0,0.55); }
+    .pill-blue { background: rgba(26,111,212,0.2); color: var(--blue-light); border: 1px solid rgba(26,111,212,0.5); }
+
+    .now-state { margin-bottom: 24px; }
+    .now-state p { font-size: 14px; line-height: 1.6; color: var(--grey-100); }
+
+    .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .section-grid + .section-grid { margin-top: 22px; }
+    @media (max-width: 760px) { .section-grid { grid-template-columns: 1fr; } }
+
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--card-border); }
+    .section-head .label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); }
+    .section-head .count { font-size: 11px; font-weight: 600; color: var(--grey-400); }
+
+    .item-list { margin: 0; padding-left: 18px; }
+    .item-list li { margin-bottom: 10px; font-size: 14px; line-height: 1.5; color: var(--grey-100); }
+    .item-list li .source { font-size: 11px; color: var(--grey-400); margin-left: 6px; font-style: italic; }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 20px; padding-right: 20px; }
+      .ap-footer { margin-left: 20px; margin-right: 20px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+      .hero { padding: 24px 22px; }
+      .client { padding: 22px 20px; }
+      .client-head { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <div style="margin:0 auto 32px;display:flex;justify-content:center;">
+      <svg width="64" height="64" viewBox="0 0 81 81" xmlns="http://www.w3.org/2000/svg">
+        <defs><clipPath id="adpros-clip-gate"><rect width="81" height="81" /></clipPath></defs>
+        <g clip-path="url(#adpros-clip-gate)">
+          <rect width="81" height="81" fill="#040735" />
+          <rect x="0" y="68" width="81" height="6" fill="#F9D900" />
+          <path d="M14 30 L14 52 L18 52 L18 44 L24 44 L24 52 L28 52 L28 30 L24 30 L24 40 L18 40 L18 30 Z" fill="white" />
+          <path d="M32 30 L32 52 L40 52 C44 52 46 50 46 46 L46 36 C46 32 44 30 40 30 Z M36 34 L40 34 C41 34 42 35 42 36 L42 46 C42 47 41 48 40 48 L36 48 Z" fill="white" />
+          <path d="M49 30 L49 52 L53 52 L53 44 L57 44 C60 44 62 42 62 39 L62 35 C62 32 60 30 57 30 Z M53 34 L57 34 C58 34 58 35 58 35 L58 39 C58 39 58 40 57 40 L53 40 Z" fill="white" />
+          <path d="M65 30 L65 52 L69 52 L69 44 L70 44 L73 52 L77 52 L74 43 C76 42 77 40 77 38 L77 35 C77 32 75 30 72 30 Z M69 34 L72 34 C73 34 73 35 73 35 L73 38 C73 38 73 39 72 39 L69 39 Z" fill="white" />
+        </g>
+      </svg>
+    </div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-jp-welcome-back";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1'){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',reveal);}else{reveal();}}}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+
+<div id="ap-content" style="display:none;">
+
+  <header class="ap-header">
+    <svg width="48" height="48" viewBox="0 0 81 81" xmlns="http://www.w3.org/2000/svg">
+      <defs><clipPath id="adpros-clip-hdr"><rect width="81" height="81" /></clipPath></defs>
+      <g clip-path="url(#adpros-clip-hdr)">
+        <rect width="81" height="81" fill="#040735" />
+        <rect x="0" y="68" width="81" height="6" fill="#F9D900" />
+        <path d="M14 30 L14 52 L18 52 L18 44 L24 44 L24 52 L28 52 L28 30 L24 30 L24 40 L18 40 L18 30 Z" fill="white" />
+        <path d="M32 30 L32 52 L40 52 C44 52 46 50 46 46 L46 36 C46 32 44 30 40 30 Z M36 34 L40 34 C41 34 42 35 42 36 L42 46 C42 47 41 48 40 48 L36 48 Z" fill="white" />
+        <path d="M49 30 L49 52 L53 52 L53 44 L57 44 C60 44 62 42 62 39 L62 35 C62 32 60 30 57 30 Z M53 34 L57 34 C58 34 58 35 58 35 L58 39 C58 39 58 40 57 40 L53 40 Z" fill="white" />
+        <path d="M65 30 L65 52 L69 52 L69 44 L70 44 L73 52 L77 52 L74 43 C76 42 77 40 77 38 L77 35 C77 32 75 30 72 30 Z M69 34 L72 34 C73 34 73 35 73 35 L73 38 C73 38 73 39 72 39 L69 39 Z" fill="white" />
+      </g>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>JP — Welcome Back Briefing</h1>
+      <p>While you were out · May 9 – May 25, 2026 · Prepared by Kevin</p>
+    </div>
+    <nav class="ap-header-nav">
+      <a href="#47skin">47 Skin</a>
+      <a href="#valorrea">Valorrea</a>
+      <a href="#broya">Broya</a>
+      <a href="#infiniwell">Infiniwell</a>
+    </nav>
+  </header>
+
+  <div class="ap-content">
+
+    <section class="hero" id="top">
+      <div class="ap-kicker">Read this first</div>
+      <h1 class="ap-h1" style="margin-bottom: 20px;">What needs your attention this week.</h1>
+      <ul class="hero-list">
+        <li>
+          <strong>47 Skin has a new weekly Trading meeting starting Tues May 27.</strong>
+          <ul class="hero-sub">
+            <li>Nic launched it. Kevin and Joao are the planned paid attendees; you'll likely be in rotation.</li>
+            <li>Strategic context: Nic is positioning to pull UK spend from the UK agency. US performance now carries weight beyond the account.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Valorrea has three stacked problems.</strong>
+          <ul class="hero-sub">
+            <li>Real ncROAS target is 200%, not 130% like we previously thought. Still need to confirm this with Yordan in writing.</li>
+            <li>Brief was built on AI Pastor VSSL fear hooks, but the winning format is UGC product demo. Brief needs reset with Adrienne. Product is shipping for real UGC filming.</li>
+            <li>Creative production was slow because the team thought they were waiting on an audit from Kevin and Joao. That wasn't real. This got cleared up but production still needs unblocking.</li>
+            <li>Confirm the kids/adult ad routing was fixed. Kids ads were going to the adult LP in the adult ad account.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Broya — open audit point + Monday tasks.</strong>
+          <ul class="hero-sub">
+            <li>Joao answered 5/6 Google audit points. Nima's May 25 followup raised a new one (double pixel tracking) that hasn't been addressed.</li>
+            <li>Monday tasks from Nima: turn off Concentrate #5 and #6 ad sets, migrate the 1 winning ad from each to Best Performers.</li>
+            <li>Nima paused all Ad Pros creative work May 20.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>47 Skin lost Emory + EOM sale this week.</strong>
+          <ul class="hero-sub">
+            <li>Emory pulled creator rights May 21. 5+ top performers shut down. Need a replication analysis on what made her work.</li>
+            <li>EOM Sale May 28–31. Verify it's scheduled before Thursday.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Infiniwell has three creative items pending.</strong>
+          <ul class="hero-sub">
+            <li>Protocol Quiz creatives in Air since May 11. Awaiting Erika/Anton approval.</li>
+            <li>CEP Meta statics in production with Omar and Bruno. Anton sign-off needed when delivered.</li>
+            <li>CEP Google needs McMahon headlines for non-branded search. Without these, only shopping placement works.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Joao's Meta access is still blocked.</strong>
+          <ul class="hero-sub">
+            <li>Three invite attempts unanswered. admanage is his workaround.</li>
+            <li>Blocks Meta launches across Infiniwell and Broya. Keep pressure on Nehal.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <div class="how-to-read">
+      <strong>How to read this:</strong> Each client gets current state, what changed (not a timeline), what's queued for you, what's already resolved, and what's likely to escalate. Source noted inline. Built from every Slack thread with replies across both channels per client, Pod B huddle docs (May 11 + May 18), ClickUp status notes, and the latest decks.
+    </div>
+
+    <!-- 47 SKIN -->
+    <section class="client" id="47skin">
+      <div class="client-head">
+        <div>
+          <h2>47 Skin</h2>
+          <p>New weekly Trading meeting starts Tues May 27. Emory rights pulled top performers. EOM sale May 28–31.</p>
+        </div>
+        <span class="pill pill-yellow">High stakes</span>
+      </div>
+
+      <div class="now-state">
+        <div class="section-head"><span class="label">Where things stand now</span></div>
+        <p>Nic launched a weekly cross-functional Trading & Growth Alignment meeting starting Tues May 27. Kevin and Joao are the paid attendees; Adrienne and Omar invited. Internal framing from Nehal: Nic is positioning to take UK spend away from the UK agency, so US performance now has strategic weight beyond the account itself. Quiz funnel launched May 14 — GTV animations in Best Performers running 105% ncROAS at 30% of campaign spend. Account weakened mid-week May 20, then took a bigger hit May 21 when creator Emory Fairchild demanded her ads be pulled (used without permission). Shut down 5+ of her top performers including the C018 nurse-in-blue-scrubs ad. EOM Sale May 28–31, LP live at us.47skin.com/pages/may-eom. Hit $1MM Shopify revenue on day 22.</p>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">What changed while you were out</span><span class="count">6</span></div>
+          <ul class="item-list">
+            <li>Scaling target shifted from 80% to 100% NCROAS Shopify (without Amazon). At 80% the math produces negative EBIT per new customer. No further scaling until back to 100%. <span class="source">(external Slack, May 18)</span></li>
+            <li>Quiz funnel launched May 14 at 67% ncROAS week one. GTV animations now at 105% ncROAS / 30% of campaign spend. Quiz-specific verbiage versions requested from creative. <span class="source">(external + internal Slack, May 18-20)</span></li>
+            <li>Emory Fairchild pulled creator rights May 21. Lost C018 (80% ncROAS, ~50% of adset spend) and Iteration 4 (top-3 across all funnels), plus 3+ others. <span class="source">(external Slack, May 21)</span></li>
+            <li>Maddie shoot dropped May 11 — real customer/MUA, 4 concepts. Access granted to Adrienne, Omar, creatives@. Aligns with May/June brand campaign positioning Serum as makeup base. <span class="source">(external Slack, May 11)</span></li>
+            <li>TikTok Pixel set up from scratch — no existing one was collecting data. Their BM structure has 3 business managers and admin access gaps. Joao got added as US BM admin to fix. <span class="source">(May 18 huddle)</span></li>
+            <li>Joao OOO May 15 (funeral). Weekly client call May 21 cancelled — replaced with Joao 1:1 with Nic. <span class="source">(external Slack, May 15 + 21)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Waiting on you</span><span class="count">7</span></div>
+          <ul class="item-list">
+            <li>Trading & Growth Alignment meeting Tues May 27. Mondays going forward. Come with paid priorities, blockers, dependencies, decisions needed. <span class="source">(internal Slack, May 20)</span></li>
+            <li>Confirm NC ROAS benchmark with Nic/Ally — with Amazon vs without. Account was 107 with Amazon, 0.9 without when Ali said to hold spend. Clarity needed before scaling. <span class="source">(May 18 huddle)</span></li>
+            <li>Emory replacement strategy. Need hook/script/intonation analysis on what made her work so the team can replicate with other creators. <span class="source">(external Slack, May 21)</span></li>
+            <li>US LP/CVR is the #1 unlock per Nic (US ~1%, UK ~2%). Direct coordination with Jalpesh/Enchant — separate from regular team. <span class="source">(external Slack, May 11 + 21)</span></li>
+            <li>EOM Sale May 28–31 — verify scheduling is queued before Thursday go-live. <span class="source">(external Slack, May 21)</span></li>
+            <li>TikTok normal ads campaign — hold launch until fiscal year restart (~end of May / early June). Keep it ready to launch on date. <span class="source">(May 18 huddle)</span></li>
+            <li>Quiz-specific GTV animation verbiage — production not started. <span class="source">(internal Slack, May 20)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">Resolved / no action needed</span><span class="count">4</span></div>
+          <ul class="item-list">
+            <li>TikTok Pixel set up via Shopify connection after US BM admin access granted. <span class="source">(May 18 huddle)</span></li>
+            <li>20 concepts "stuck in approved" was a column-update issue, not a backlog. Most launched. <span class="source">(internal Slack, May 20)</span></li>
+            <li>External content links doc access granted to ad@, omar@, rafael@, bruno@, creatives@. <span class="source">(external Slack, May 22)</span></li>
+            <li>$1MM Shopify revenue day on day 22 of May. On pace to beat BFCM monthly record. <span class="source">(internal Slack, May 22)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Watch-outs</span><span class="count">4</span></div>
+          <ul class="item-list">
+            <li>Second JP at 47 Skin — Jalpesh from Enchant (their dev team). Distinct user ID, check the tag. <span class="source">(internal Slack, May 20)</span></li>
+            <li>TT Shops trial serum strategy is misaligned with profitability. Their fiscal year-end creates an artificially high ROAS target. Revisit post-FY-close. <span class="source">(May 11 huddle)</span></li>
+            <li>Account weakness May 17–20 has no diagnosed root cause yet. Initially attributed to broad Meta volatility. <span class="source">(external Slack, May 18 + 20)</span></li>
+            <li>Process note — Laura wants previous comments preserved on Air, and her + Gemma tagged on all reviews (not just channel). <span class="source">(external Slack, May 15)</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALORREA -->
+    <section class="client" id="valorrea">
+      <div class="client-head">
+        <div>
+          <h2>Valorrea</h2>
+          <p>Real ncROAS target is 200, not 130. Optimizations were directed at the wrong number for weeks. Brief also needs to change.</p>
+        </div>
+        <span class="pill pill-red">Wrong target</span>
+      </div>
+
+      <div class="now-state">
+        <div class="section-head"><span class="label">Where things stand now</span></div>
+        <p>Two-funnel split done — HT2 Adult and HT3 Children tagged in TW. L7 as of May 20: HT2 122%/130%, HT3 133%/132% ncROAS. The May 18 huddle surfaced that those numbers are all failing, not passing — real target is 200 ncROAS / $30 NC CPA, with anything under 130 to be turned off. Yordan being uncomfortable scaling at 180–190 confirms it. Every optimization Joao made was directed at the wrong target. Top performer analysis (5-tab doc) shows the winning format is UGC product demo with warm tone — not the AI Pastor VSSL the brief was built around. Then May 22 — only 2 new creatives in pipeline because Omar believed he was waiting on an audit from Kevin and Joao that doesn't exist. Unresolved.</p>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">What changed while you were out</span><span class="count">8</span></div>
+          <ul class="item-list">
+            <li>Benchmark is 200 ncROAS / $30 NC CPA, not 130. Joao's recent scaling, turn-offs, and budget shifts were directed at the wrong target. <span class="source">(May 18 huddle)</span></li>
+            <li>Top performer analysis (Adrienne 5-tab doc) — winning format is UGC product demo, warm tone, ~30s. Brief was built on AI Pastor VSSL fear hooks. Brief needs reset. 15 direct replications + 15 new ideas scoped. <span class="source">(internal Slack, May 19)</span></li>
+            <li>Decision in May 18 huddle — stop producing AI VSL ads, do root cause on the failures, explore image / creator / UGC formats. <span class="source">(May 18 huddle)</span></li>
+            <li>Product shipping from Yordan to Adrienne and Omar for real UGC filming. <span class="source">(external Slack, May 19)</span></li>
+            <li>Yordan sent his own creatives May 15 — launched same day in adult ad account / consolidated campaign. <span class="source">(external Slack, May 15)</span></li>
+            <li>TripleWhale access granted (joao@, kevin@, joaosilva@, omar@, tech@). <span class="source">(external Slack, May 11-18)</span></li>
+            <li>Two ad accounts (adult + kids). Kids ads were launched to adult LP in adult ad account. Fix via admanage was planned May 11. <span class="source">(May 11 huddle)</span></li>
+            <li>UTM tracking break May 18 — resolved. <span class="source">(internal Slack, May 18)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Waiting on you</span><span class="count">8</span></div>
+          <ul class="item-list">
+            <li>Unblock the creative pipeline. The "audit" Omar believed he was waiting on doesn't exist. Align with Adrienne and Omar Tuesday. <span class="source">(internal Slack, May 22)</span></li>
+            <li>Verify the kids/adult ad routing fix from May 11 actually happened before launching anything else. <span class="source">(May 11 huddle)</span></li>
+            <li>Get benchmarks + breakeven from Yordan in writing. Without a single source of truth, every scaling decision is guesswork. <span class="source">(May 18 huddle)</span></li>
+            <li>Reset the creative brief with Adrienne using the 5-tab analysis. Product is incoming for real UGC. <span class="source">(internal Slack, May 19)</span></li>
+            <li>HT2/HT3 (adult/kids) naming convention bulk-replace in TW at campaign, adset, ad level. No ad-account-level filter exists in TW. <span class="source">(May 18 huddle)</span></li>
+            <li>Yordan's May 20 batch — confirm what launched and what's still pending his approval. <span class="source">(external Slack, May 20)</span></li>
+            <li>Whitelisting / UGC creator program — Joao raised with Yordan, open. <span class="source">(external Slack, May 20)</span></li>
+            <li>Parker integration with TW — Adrienne checking for an API workaround. <span class="source">(May 18 huddle)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">Resolved / no action needed</span><span class="count">3</span></div>
+          <ul class="item-list">
+            <li>TripleWhale access. <span class="source">(external Slack, May 18)</span></li>
+            <li>UTM tracking break. <span class="source">(internal Slack, May 18)</span></li>
+            <li>Top performer analysis published. 5-tab doc is the new playbook. <span class="source">(internal Slack, May 19)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Watch-outs</span><span class="count">2</span></div>
+          <ul class="item-list">
+            <li>Creative pipeline starved at the worst possible moment. With the corrected benchmark, our top performers (112% / 89%) are failing. <span class="source">(May 18 huddle)</span></li>
+            <li>Yordan communication cadence is irregular — long silences then bursts. He has not given creative input since onboarding. <span class="source">(internal Slack, May 13 + May 18 huddle)</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- BROYA -->
+    <section class="client" id="broya">
+      <div class="client-head">
+        <div>
+          <h2>Broya</h2>
+          <p>L7 ncROAS 0.39. Outside Google audit May 21. Creative work paused. Nima privately told Nehal his business "is dying."</p>
+        </div>
+        <span class="pill pill-red">Difficult</span>
+      </div>
+
+      <div class="now-state">
+        <div class="section-head"><span class="label">Where things stand now</span></div>
+        <p>L7 (May 17–23) is bad: $5,731 spent at 0.39 ncROAS. May 22–23 worse at 0.19. Nima reduced budgets himself May 24, with two manual tasks queued for Monday: turn off Concentrate #5 and #6 ad sets and migrate the 1 winner from each to Best Performers. Spring Harvest Sale ran badly. Joao responded to 5 of 6 Google audit points May 22; Nima's May 25 followup added a new technical concern (double pixel tracking) that's unaddressed. Nehal's 1:1 read: Nima feels his business is dying. Nehal is 90% sure the audit itself was Claude-generated. Nima paused all creative work with Ad Pros May 20.</p>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">What changed while you were out</span><span class="count">8</span></div>
+          <ul class="item-list">
+            <li>Google Ads audit May 21 — 6 points. Joao responded to 5/6 May 22 (defended tracking, branded/non-branded split, tCPA on Branded; agreed on shopping titles + PMax scaling). Nima's May 25 followup raised double pixel tracking — unaddressed. <span class="source">(external Slack, May 21-25)</span></li>
+            <li>Nima blew up May 15 over duplicate Spring Harvest ads. Joao defended with the call recording showing Nima had approved the creatives and asked to ramp. Resolved as miscommunication but trust took a hit. <span class="source">(external Slack, May 15 + May 18 huddle)</span></li>
+            <li>Copia not being renewed (last day May 20). All Ad Pros creative work paused until Nima evaluates in-house options. <span class="source">(external Slack, May 20)</span></li>
+            <li>Quiz funnel live May 19. No performance read yet. <span class="source">(external Slack, May 19)</span></li>
+            <li>"3pm crash" Concentrate creative is the winner. Migrated to Best Performers at 50% min spend. New iterations briefed to Omar: 10-15 Tallow Skin Problem Solutions statics + 10-15 Chicken Concentrate High Protein. <span class="source">(external Slack, May 20)</span></li>
+            <li>Shopify Shops app spend discovered May 24 — leftover from old agency. Turned off. <span class="source">(external Slack, May 24)</span></li>
+            <li>admanage doesn't support min spend adjustments. Workaround requires the FB user (Nehal's wife's aunt) to do it manually but she can't without Nehal in person. <span class="source">(internal Slack, May 18)</span></li>
+            <li>Position on Copia is set: we don't manage it. Nima's tool, Nima's team. <span class="source">(May 18 huddle)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Waiting on you</span><span class="count">6</span></div>
+          <ul class="item-list">
+            <li>Double pixel tracking — Nima frames it as the primary technical priority. Verify and respond. <span class="source">(external Slack, May 25)</span></li>
+            <li>Monday tasks — turn off Concentrate #5 and #6, migrate winners to Best Performers. <span class="source">(external Slack, May 24)</span></li>
+            <li>Confirm Tallow Skin Problem Solutions + High Protein 240g launches landed. Plus June 5 Tallow Cooking Oil launch readiness. <span class="source">(external Slack, May 25)</span></li>
+            <li>Growth strategy doc Nima asked for — not delivered. <span class="source">(external Slack, May 21)</span></li>
+            <li>Shopping product titles fix — Joao agreed, not started. <span class="source">(external Slack, May 21)</span></li>
+            <li>PMax competitor campaign scaling — Joao proposed 20%/week, awaiting Nima's call. <span class="source">(external Slack, May 22)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">Resolved / no action needed</span><span class="count">5</span></div>
+          <ul class="item-list">
+            <li>Spring Harvest assets launched in 2 ad sets at $2k/d May 17-18. <span class="source">(external Slack, May 18)</span></li>
+            <li>Founder angle launched in own ad set May 18. <span class="source">(external Slack, May 18)</span></li>
+            <li>Google branded confusion — Nehal walked Nima through TA vs Linear vs Last Click. <span class="source">(external Slack, May 24)</span></li>
+            <li>Shopify Shops app spend turned off. <span class="source">(external Slack, May 24)</span></li>
+            <li>Whitelisting rates — $200/video + 3% spend. <span class="source">(external Slack, May 11)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Watch-outs</span><span class="count">4</span></div>
+          <ul class="item-list">
+            <li>Creative pipeline frozen — no new Ad Pros-produced concepts in production. <span class="source">(external Slack, May 20)</span></li>
+            <li>Meta ncROAS dropped week-over-week 60% to 44%. Joao's read: Meta struggling to find a breakthrough. <span class="source">(status notes)</span></li>
+            <li>Nima making campaign decisions unilaterally and running ads from his personal account. All proposals will be scrutinized. <span class="source">(external Slack, May 14)</span></li>
+            <li>admanage constraint — Nehal needs to be in person to change min spends. Workflow blocker. <span class="source">(internal Slack, May 18)</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFINIWELL -->
+    <section class="client" id="infiniwell">
+      <div class="client-head">
+        <div>
+          <h2>Infiniwell</h2>
+          <p>NMN nCAC stable ~$130. Cellular Energy Pro launched May 22 on Google. Erika and Anton own creative approvals now. Joao's Meta access still blocked.</p>
+        </div>
+        <span class="pill pill-blue">Stable, pivoting</span>
+      </div>
+
+      <div class="now-state">
+        <div class="section-head"><span class="label">Where things stand now</span></div>
+        <p>NMN nCAC stable at $120–140 — likely the new normal post-BPC. Meta spend ~$4.25k/d. Standard attribution beating Incremental, Joao bumped Standard $3,750 to $4,250/d. NMN Quiz adset is the standout: $33k spent, $309 nCAC, 60% min spend. Cellular Energy Pro launched May 22 across PMax, Non-Branded Search, Shopping. Sitewide sale "Memorial Day 25% off SUMMER" live across sitelinks, GMC, H2 headlines. Creative direction reset May 15: away from AI designs, back to prior templates. Ryan is out of the loop; Erika and Anton own approvals now. Joao's Meta access is still blocked — three invite attempts unanswered.</p>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">What changed while you were out</span><span class="count">7</span></div>
+          <ul class="item-list">
+            <li>Creative direction reset May 15. AI designs rejected. Erika is the new direction owner. Approvals chain now Erika + Anton, not Ryan. <span class="source">(external Slack May 15 + May 18 huddle)</span></li>
+            <li>Cellular Energy Pro Google launch May 22 — PMax, Non-Branded Search, Shopping. Launched as separate non-branded ad group (not mixed into NMN) because keywords are very specific. Needs McMahon headlines for search. <span class="source">(external Slack May 20-22 + May 18 huddle)</span></li>
+            <li>CEP Meta statics in production (Omar + Bruno, ~20). None launched yet. Anton sign-off pending. <span class="source">(internal Slack, May 21-22)</span></li>
+            <li>Dustin's May 12 list — partial response from Joao. Safe-zones in use, traffic relaunched with LPV optimization (was 50% drop-off click-to-page). Catalog ads still blocked at platform support. <span class="source">(external Slack, May 12)</span></li>
+            <li>NMN traffic campaign staying on per Anton — mirroring 47 Skin TOF approach. <span class="source">(internal Slack, May 19)</span></li>
+            <li>Reddit Ads green-lit. Setup pending coordination with Michael. <span class="source">(external Slack, May 7)</span></li>
+            <li>Joao's Meta access still blocked — three invite attempts to Nehal's wife's aunt unanswered. admanage is the current workaround. <span class="source">(May 18 huddle)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Waiting on you</span><span class="count">7</span></div>
+          <ul class="item-list">
+            <li>CEP Meta statics — confirm Anton sign-off once Omar + Bruno deliver. <span class="source">(internal Slack, May 22)</span></li>
+            <li>CEP Google search headlines — McMahon to write. Without these, only shopping placement works. <span class="source">(May 18 huddle)</span></li>
+            <li>Protocol Quiz launch — creatives in Air since May 11 (C204-C208). Pending Erika/Anton approval. <span class="source">(May 19 deck)</span></li>
+            <li>Catalog ads — Meta platform support still has it blocked. Re-engage or escalate. <span class="source">(external Slack, May 12)</span></li>
+            <li>Reddit Ads test — decision needed: run it or hold. <span class="source">(external Slack, May 7)</span></li>
+            <li>Process gap on served-ads-to-kill reports from Dustin. Ryan doesn't have access to new ad accounts to verify himself. Tighten the loop. <span class="source">(external Slack, May 25)</span></li>
+            <li>Joao's Meta access — keep pressure on Nehal. Blocks Meta launches. <span class="source">(May 18 huddle)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-grid">
+        <div>
+          <div class="section-head"><span class="label">Resolved / no action needed</span><span class="count">5</span></div>
+          <ul class="item-list">
+            <li>CEP Google launch May 22, GMC + sitelinks scheduled for Memorial Day. <span class="source">(external Slack, May 22)</span></li>
+            <li>Safe-zone templates confirmed in use. <span class="source">(external Slack, May 12)</span></li>
+            <li>NMN traffic campaign kept on per Anton. <span class="source">(internal Slack, May 19)</span></li>
+            <li>Northbeam DNS popup — flagged to Michael, with John on INF side. <span class="source">(external Slack, May 11)</span></li>
+            <li>C213/C214 launched May 23. C215 on hold per client. <span class="source">(internal Slack, May 23)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><span class="label">Watch-outs</span><span class="count">5</span></div>
+          <ul class="item-list">
+            <li>Google PMax NMN nCPO up 600% week-over-week. Some campaigns 500-738% nCPA. Low spend ($290) so not catastrophic but unexplained. Joao to investigate. <span class="source">(May 19 deck + May 18 huddle)</span></li>
+            <li>NMN subscription CPA on Meta-only is ~$800. Total NMN purchase to NMN ad spend ratio (not subscription-only) is the better number. Math not yet done. <span class="source">(May 11 huddle)</span></li>
+            <li>Anton availability unstable — emergency evacuation flagged May 22. Approval bottleneck possible. <span class="source">(internal Slack, May 22)</span></li>
+            <li>Median time-to-purchase: Meta ~4 days, NMN 8-11 days. Matters for attribution windows. <span class="source">(external Slack, May 19)</span></li>
+            <li>Euka.ai creator outreach — 2,500 reached, very low response rate. Niche/product fit or targeting likely off. <span class="source">(internal Slack, May 20)</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg width="36" height="36" viewBox="0 0 81 81" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5">
+        <defs><clipPath id="adpros-clip-ftr"><rect width="81" height="81" /></clipPath></defs>
+        <g clip-path="url(#adpros-clip-ftr)">
+          <rect width="81" height="81" fill="#040735" />
+          <rect x="0" y="68" width="81" height="6" fill="#F9D900" />
+          <path d="M14 30 L14 52 L18 52 L18 44 L24 44 L24 52 L28 52 L28 30 L24 30 L24 40 L18 40 L18 30 Z" fill="white" />
+          <path d="M32 30 L32 52 L40 52 C44 52 46 50 46 46 L46 36 C46 32 44 30 40 30 Z M36 34 L40 34 C41 34 42 35 42 36 L42 46 C42 47 41 48 40 48 L36 48 Z" fill="white" />
+          <path d="M49 30 L49 52 L53 52 L53 44 L57 44 C60 44 62 42 62 39 L62 35 C62 32 60 30 57 30 Z M53 34 L57 34 C58 34 58 35 58 35 L58 39 C58 39 58 40 57 40 L53 40 Z" fill="white" />
+          <path d="M65 30 L65 52 L69 52 L69 44 L70 44 L73 52 L77 52 L74 43 C76 42 77 40 77 38 L77 35 C77 32 75 30 72 30 Z M69 34 L72 34 C73 34 73 35 73 35 L73 38 C73 38 73 39 72 39 L69 39 Z" fill="white" />
+        </g>
+      </svg>
+      <p>Ad Pros — Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Kevin Watson · May 26, 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>
