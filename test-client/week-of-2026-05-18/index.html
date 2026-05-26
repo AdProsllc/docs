@@ -487,7 +487,7 @@
 <p>Ad Pros · Prepared for Test Client</p></div><p class="ap-footer-meta">Published by Tyler Gillespie · May 26, 2026<button class="ap-edit-pencil" id="ap-edit-pencil" onclick="apEditStart()" aria-label="Edit page (admin only)" title="Edit page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></button></p></footer>
 </div>
 
-<div class="ap-edit-toolbar" id="ap-edit-toolbar" role="toolbar" aria-label="Edit toolbar" style="display: none;">
+<div class="ap-edit-toolbar" id="ap-edit-toolbar" role="toolbar" aria-label="Edit toolbar">
   <div class="ap-edit-toolbar-status" id="ap-edit-status"><span class="badge">EDIT MODE</span>Type to edit. <strong>Publish</strong> commits to the live page. <strong>Discard</strong> exits without saving.</div>
   <button class="ap-btn-cancel" id="ap-btn-cancel" onclick="apEditCancel()" title="Throw away changes and exit edit mode">Discard</button>
   <button class="ap-btn-save" id="ap-btn-save" onclick="apEditSave()" title="Commit changes to the live page (~30 sec to deploy)">Publish</button>
@@ -598,14 +598,11 @@
       el.removeAttribute('spellcheck');
     });
     document.body.classList.remove('ap-editing');
-    var toolbar = document.getElementById('ap-edit-toolbar');
-    var toast = document.getElementById('ap-edit-toast');
-    if(toolbar) toolbar.style.display = 'none';
-    if(toast) toast.style.display = 'none';
+    // NOTE: removing the body.ap-editing class is enough to hide the toolbar + toast
+    // via CSS. Setting inline style.display='none' would persist into the serialized
+    // HTML and stick the toolbar permanently hidden on next load. Do NOT do it.
     var serialized = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     // Restore edit mode UI for the user (in case the save fails)
-    if(toolbar) toolbar.style.removeProperty('display');
-    if(toast) toast.style.removeProperty('display');
     document.body.classList.add('ap-editing');
     var _root = document.querySelector(EDITABLE_ROOT);
     if(_root){ _root.contentEditable = 'true'; _root.spellcheck = true; }
