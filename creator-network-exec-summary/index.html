@@ -1509,9 +1509,26 @@ function OutreachTab({ m }) {
             <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.blue }}>{fmtD(identCost)}</span>
           </div>
           <Slider m={m} label="Scraping Tools (Kalodata, FastMoss, EchoTik)" value={scrapingTools} onChange={setScrapingTools} min={50} max={1000} step={50} format={v => fmtD(v)} color={C.blue} />
-          <Slider m={m} label="Profile Enrichment (per profile)" value={enrichmentCost} onChange={setEnrichmentCost} min={0.005} max={0.10} step={0.005} format={v => `$${v.toFixed(3)} × ${identMo.toLocaleString()} = ${fmtD(enrichmentTotal)}`} color={C.blue} />
-          <Slider m={m} label="Email Validation (per contact)" value={validationCost} onChange={setValidationCost} min={0.003} max={0.05} step={0.001} format={v => `$${v.toFixed(3)} × ${msgMo.toLocaleString()} = ${fmtD(validationTotal)}`} color={C.blue} />
+          <Slider m={m} label="Profile Enrichment (per profile)" value={enrichmentCost} onChange={setEnrichmentCost} min={0.005} max={0.10} step={0.005} format={v => `$${v.toFixed(3)}`} color={C.blue} />
+          <Slider m={m} label="Email Validation (per contact)" value={validationCost} onChange={setValidationCost} min={0.003} max={0.05} step={0.001} format={v => `$${v.toFixed(3)}`} color={C.blue} />
           <Slider m={m} label="Identification VA / Month" value={identVa} onChange={setIdentVa} min={0} max={5000} step={250} format={v => fmtD(v)} color={C.blue} />
+          <div style={{ background: C.bg, borderRadius: 8, padding: m ? "8px 10px" : "10px 14px", marginTop: 8 }}>
+            {[
+              { l: "Scraping Tools", v: scrapingTools, s: "monthly" },
+              { l: "Profile Enrichment", v: enrichmentTotal, s: `$${enrichmentCost.toFixed(3)} × ${identMo.toLocaleString()} profiles` },
+              { l: "Email Validation", v: validationTotal, s: `$${validationCost.toFixed(3)} × ${msgMo.toLocaleString()} contacts` },
+              { l: "Identification VA", v: identVa, s: "monthly" },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: i < 3 ? `1px solid ${C.border}` : "none", fontSize: m ? 11 : 12 }}>
+                <div><span style={{ color: C.offWhite }}>{r.l}</span> <span style={{ fontSize: 10, color: C.muted }}>{r.s}</span></div>
+                <span style={{ fontFamily: F.mono, fontWeight: 600, color: C.blue }}>{fmtD(r.v)}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 8, marginTop: 4, borderTop: `1px solid ${C.blue}30`, fontSize: m ? 12 : 13 }}>
+              <span style={{ fontWeight: 700, color: C.white }}>Subtotal</span>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: C.blue }}>{fmtD(identCost)}</span>
+            </div>
+          </div>
         </Surf>
 
         {/* OUTREACH */}
@@ -1521,8 +1538,24 @@ function OutreachTab({ m }) {
             <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.accent }}>{fmtD(outreachCost)}</span>
           </div>
           <Slider m={m} label="Outreach Tools (Cruva, Instantly, Smartlead)" value={outreachTools} onChange={setOutreachTools} min={50} max={1500} step={50} format={v => fmtD(v)} color={C.accent} />
-          <Slider m={m} label="Cost per Message Sent" value={costPerMsg} onChange={setCostPerMsg} min={0.01} max={0.25} step={0.01} format={v => `$${v.toFixed(2)} × ${totalMsgs.toLocaleString()} = ${fmtD(msgCostTotal)}`} color={C.accent} />
+          <Slider m={m} label="Cost per Message Sent" value={costPerMsg} onChange={setCostPerMsg} min={0.01} max={0.25} step={0.01} format={v => `$${v.toFixed(2)}`} color={C.accent} />
           <Slider m={m} label="Outreach VA / Month" value={outreachVa} onChange={setOutreachVa} min={0} max={5000} step={250} format={v => fmtD(v)} color={C.accent} />
+          <div style={{ background: C.bg, borderRadius: 8, padding: m ? "8px 10px" : "10px 14px", marginTop: 8 }}>
+            {[
+              { l: "Outreach Tools", v: outreachTools, s: "monthly" },
+              { l: "Message Costs", v: msgCostTotal, s: `$${costPerMsg.toFixed(2)} × ${totalMsgs.toLocaleString()} msgs` },
+              { l: "Outreach VA", v: outreachVa, s: "monthly" },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: i < 2 ? `1px solid ${C.border}` : "none", fontSize: m ? 11 : 12 }}>
+                <div><span style={{ color: C.offWhite }}>{r.l}</span> <span style={{ fontSize: 10, color: C.muted }}>{r.s}</span></div>
+                <span style={{ fontFamily: F.mono, fontWeight: 600, color: C.accent }}>{fmtD(r.v)}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 8, marginTop: 4, borderTop: `1px solid ${C.accent}30`, fontSize: m ? 12 : 13 }}>
+              <span style={{ fontWeight: 700, color: C.white }}>Subtotal</span>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: C.accent }}>{fmtD(outreachCost)}</span>
+            </div>
+          </div>
         </Surf>
 
         {/* ACTIVATION */}
@@ -1531,9 +1564,25 @@ function OutreachTab({ m }) {
             <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>3. Activation</span>
             <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.green }}>{fmtD(activationCost)}</span>
           </div>
-          <Slider m={m} label="Product Sample Cost (per unit)" value={productCost} onChange={setProductCost} min={5} max={200} step={5} format={v => `$${v} × ${productSent.toLocaleString()} = ${fmtD(productCostTotal)}`} color={C.green} />
-          <Slider m={m} label="Shipping per Sample" value={shippingCost} onChange={setShippingCost} min={0} max={50} step={1} format={v => `$${v} × ${productSent.toLocaleString()} = ${fmtD(shippingTotal)}`} color={C.green} />
+          <Slider m={m} label="Product Sample Cost (per unit)" value={productCost} onChange={setProductCost} min={5} max={200} step={5} format={v => `$${v}`} color={C.green} />
+          <Slider m={m} label="Shipping per Sample" value={shippingCost} onChange={setShippingCost} min={0} max={50} step={1} format={v => `$${v}`} color={C.green} />
           <Slider m={m} label="Onboarding / Contract Ops" value={activationOps} onChange={setActivationOps} min={0} max={3000} step={100} format={v => fmtD(v)} color={C.green} />
+          <div style={{ background: C.bg, borderRadius: 8, padding: m ? "8px 10px" : "10px 14px", marginTop: 8 }}>
+            {[
+              { l: "Product Samples", v: productCostTotal, s: `$${productCost} × ${productSent.toLocaleString()} units` },
+              { l: "Shipping", v: shippingTotal, s: `$${shippingCost} × ${productSent.toLocaleString()} units` },
+              { l: "Onboarding / Contract Ops", v: activationOps, s: "monthly" },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: i < 2 ? `1px solid ${C.border}` : "none", fontSize: m ? 11 : 12 }}>
+                <div><span style={{ color: C.offWhite }}>{r.l}</span> <span style={{ fontSize: 10, color: C.muted }}>{r.s}</span></div>
+                <span style={{ fontFamily: F.mono, fontWeight: 600, color: C.green }}>{fmtD(r.v)}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 8, marginTop: 4, borderTop: `1px solid ${C.green}30`, fontSize: m ? 12 : 13 }}>
+              <span style={{ fontWeight: 700, color: C.white }}>Subtotal</span>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: C.green }}>{fmtD(activationCost)}</span>
+            </div>
+          </div>
         </Surf>
 
         {/* TOTAL */}
