@@ -1353,11 +1353,19 @@ function OutreachTab({ m }) {
   const [productRate, setProductRate] = useState(90);
   const [postRate, setPostRate] = useState(80);
 
-  // Cost inputs
-  const [costPerMsg, setCostPerMsg] = useState(0.05);
-  const [toolsCost, setToolsCost] = useState(500);
+  // Cost inputs — Identification
+  const [scrapingTools, setScrapingTools] = useState(300);
+  const [enrichmentCost, setEnrichmentCost] = useState(0.02);
+  const [validationCost, setValidationCost] = useState(0.01);
+  const [identVa, setIdentVa] = useState(1000);
+  // Cost inputs — Outreach
+  const [outreachTools, setOutreachTools] = useState(400);
+  const [costPerMsg, setCostPerMsg] = useState(0.03);
+  const [outreachVa, setOutreachVa] = useState(1500);
+  // Cost inputs — Activation
   const [productCost, setProductCost] = useState(25);
-  const [recruiterCost, setRecruiterCost] = useState(2000);
+  const [shippingCost, setShippingCost] = useState(8);
+  const [activationOps, setActivationOps] = useState(500);
 
   const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1) + "M" : n >= 1000 ? (n / 1000).toFixed(1) + "K" : n.toFixed(0);
   const fmtD = n => "$" + (n >= 1000 ? (n / 1000).toFixed(1) + "K" : n.toFixed(0));
@@ -1377,10 +1385,19 @@ function OutreachTab({ m }) {
   const e2eFromMsg = msgMo > 0 ? (posted / msgMo * 100) : 0;
   const e2eFromIdent = identMo > 0 ? (posted / identMo * 100) : 0;
 
-  // Costs
+  // Costs — Identification
+  const enrichmentTotal = identMo * enrichmentCost;
+  const validationTotal = msgMo * validationCost;
+  const identCost = scrapingTools + enrichmentTotal + validationTotal + identVa;
+  // Costs — Outreach
   const msgCostTotal = totalMsgs * costPerMsg;
+  const outreachCost = outreachTools + msgCostTotal + outreachVa;
+  // Costs — Activation
   const productCostTotal = productSent * productCost;
-  const totalCost = msgCostTotal + toolsCost + productCostTotal + recruiterCost;
+  const shippingTotal = productSent * shippingCost;
+  const activationCost = productCostTotal + shippingTotal + activationOps;
+  // Total
+  const totalCost = identCost + outreachCost + activationCost;
   const costPerCreator = posted > 0 ? totalCost / posted : 0;
 
   const stages = [
@@ -1484,31 +1501,65 @@ function OutreachTab({ m }) {
       {/* COST MODEL */}
       <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
         <SL num="02" text="Monthly Cost Model" m={m} />
-        <Surf m={m}>
-          <ML>Cost Inputs</ML>
-          <div style={{ marginTop: 8, marginBottom: 16 }}>
-            <Slider m={m} label="Cost per Message (DM + email tools)" value={costPerMsg} onChange={setCostPerMsg} min={0.01} max={0.50} step={0.01} format={v => `$${v.toFixed(2)}`} color={C.purple} />
-            <Slider m={m} label="Tools & Software / Month" value={toolsCost} onChange={setToolsCost} min={100} max={3000} step={100} format={v => fmtD(v)} color={C.purple} />
-            <Slider m={m} label="Product Cost per Sample" value={productCost} onChange={setProductCost} min={5} max={200} step={5} format={v => `$${v}`} color={C.purple} />
-            <Slider m={m} label="Recruiter / VA Cost / Month" value={recruiterCost} onChange={setRecruiterCost} min={500} max={10000} step={250} format={v => fmtD(v)} color={C.purple} />
-          </div>
 
+        {/* IDENTIFICATION */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.blue}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>1. Identification</span>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.blue }}>{fmtD(identCost)}</span>
+          </div>
+          <Slider m={m} label="Scraping Tools (Kalodata, FastMoss, EchoTik)" value={scrapingTools} onChange={setScrapingTools} min={50} max={1000} step={50} format={v => fmtD(v)} color={C.blue} />
+          <Slider m={m} label="Profile Enrichment (per profile)" value={enrichmentCost} onChange={setEnrichmentCost} min={0.005} max={0.10} step={0.005} format={v => `$${v.toFixed(3)} × ${identMo.toLocaleString()} = ${fmtD(enrichmentTotal)}`} color={C.blue} />
+          <Slider m={m} label="Email Validation (per contact)" value={validationCost} onChange={setValidationCost} min={0.003} max={0.05} step={0.001} format={v => `$${v.toFixed(3)} × ${msgMo.toLocaleString()} = ${fmtD(validationTotal)}`} color={C.blue} />
+          <Slider m={m} label="Identification VA / Month" value={identVa} onChange={setIdentVa} min={0} max={5000} step={250} format={v => fmtD(v)} color={C.blue} />
+        </Surf>
+
+        {/* OUTREACH */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.accent}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>2. Outreach</span>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.accent }}>{fmtD(outreachCost)}</span>
+          </div>
+          <Slider m={m} label="Outreach Tools (Cruva, Instantly, Smartlead)" value={outreachTools} onChange={setOutreachTools} min={50} max={1500} step={50} format={v => fmtD(v)} color={C.accent} />
+          <Slider m={m} label="Cost per Message Sent" value={costPerMsg} onChange={setCostPerMsg} min={0.01} max={0.25} step={0.01} format={v => `$${v.toFixed(2)} × ${totalMsgs.toLocaleString()} = ${fmtD(msgCostTotal)}`} color={C.accent} />
+          <Slider m={m} label="Outreach VA / Month" value={outreachVa} onChange={setOutreachVa} min={0} max={5000} step={250} format={v => fmtD(v)} color={C.accent} />
+        </Surf>
+
+        {/* ACTIVATION */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.green}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>3. Activation</span>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.green }}>{fmtD(activationCost)}</span>
+          </div>
+          <Slider m={m} label="Product Sample Cost (per unit)" value={productCost} onChange={setProductCost} min={5} max={200} step={5} format={v => `$${v} × ${productSent.toLocaleString()} = ${fmtD(productCostTotal)}`} color={C.green} />
+          <Slider m={m} label="Shipping per Sample" value={shippingCost} onChange={setShippingCost} min={0} max={50} step={1} format={v => `$${v} × ${productSent.toLocaleString()} = ${fmtD(shippingTotal)}`} color={C.green} />
+          <Slider m={m} label="Onboarding / Contract Ops" value={activationOps} onChange={setActivationOps} min={0} max={3000} step={100} format={v => fmtD(v)} color={C.green} />
+        </Surf>
+
+        {/* TOTAL */}
+        <Surf m={m}>
           {[
-            { label: "Message Costs", value: msgCostTotal, sub: `${totalMsgs.toLocaleString()} msgs × $${costPerMsg.toFixed(2)}`, color: C.offWhite },
-            { label: "Tools & Software", value: toolsCost, sub: "Cruva, Kalodata, email tools", color: C.offWhite },
-            { label: "Product Samples", value: productCostTotal, sub: `${productSent.toLocaleString()} units × $${productCost}`, color: C.offWhite },
-            { label: "Recruiter / VA", value: recruiterCost, sub: "dedicated headcount", color: C.offWhite },
+            { label: "Identification", value: identCost, color: C.blue },
+            { label: "Outreach", value: outreachCost, color: C.accent },
+            { label: "Activation", value: activationCost, color: C.green },
           ].map((r, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderBottom: `1px solid ${C.border}`, fontSize: m ? 12 : 13 }}>
-              <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: r.color, flexShrink: 0 }} />
                 <span style={{ color: C.offWhite }}>{r.label}</span>
-                <span style={{ fontSize: 10, color: C.muted, marginLeft: 8 }}>{r.sub}</span>
               </div>
-              <span style={{ fontFamily: F.mono, fontWeight: 600, color: C.offWhite }}>{fmtD(r.value)}</span>
+              <span style={{ fontFamily: F.mono, fontWeight: 600, color: r.color }}>{fmtD(r.value)}</span>
             </div>
           ))}
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", marginTop: 8, borderTop: `2px solid ${C.accent}` }}>
+          {/* Stacked bar */}
+          <div style={{ display: "flex", height: 8, borderRadius: 4, overflow: "hidden", margin: "12px 0" }}>
+            <div style={{ width: `${totalCost > 0 ? (identCost / totalCost) * 100 : 0}%`, background: C.blue }} />
+            <div style={{ width: `${totalCost > 0 ? (outreachCost / totalCost) * 100 : 0}%`, background: C.accent }} />
+            <div style={{ width: `${totalCost > 0 ? (activationCost / totalCost) * 100 : 0}%`, background: C.green }} />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderTop: `2px solid ${C.accent}` }}>
             <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>Total Monthly Cost</span>
             <span style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.accent }}>{fmtD(totalCost)}</span>
           </div>
