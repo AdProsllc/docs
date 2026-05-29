@@ -29,8 +29,9 @@ em{font-style:normal;color:var(--yellow);}
 .slide-h3{font-size:20px;font-weight:700;color:#fff;margin:20px 0 12px;}
 .ai-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--blue-light);border:1px solid rgba(59,169,249,0.4);background:rgba(26,111,212,0.12);border-radius:999px;padding:2px 9px;vertical-align:middle;margin-left:8px;}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
-@media(max-width:820px){.grid4{grid-template-columns:repeat(2,1fr);}.two-col{grid-template-columns:1fr;}}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+.learned-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:820px){.grid4{grid-template-columns:repeat(2,1fr);}.two-col{grid-template-columns:1fr;}.learned-row{grid-template-columns:1fr;}}
 .card{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px;}
 .card h4{color:#fff;font-size:15px;margin-bottom:6px;}
 .card p{font-size:13.5px;color:var(--grey-200);line-height:1.5;}
@@ -46,12 +47,15 @@ em{font-style:normal;color:var(--yellow);}
 .vbody p{font-size:13.5px;color:var(--grey-200);line-height:1.5;}
 .callout{background:rgba(26,111,212,0.1);border:1px solid rgba(26,111,212,0.4);border-left:3px solid var(--blue);padding:18px 22px;border-radius:8px;font-size:16px;color:var(--grey-100);line-height:1.55;}
 .callout strong{color:#fff;display:block;margin-bottom:6px;}
-.ns-row{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;margin-bottom:20px;}
+.ns-row{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:stretch;margin-bottom:18px;}
 @media(max-width:820px){.ns-row{grid-template-columns:1fr;}}
-.ns-chart{padding:18px;}
+.ns-chart{padding:18px;display:flex;flex-direction:column;}
 .ns-clabel{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--grey-300);margin-bottom:12px;}
-.ns-axis{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--grey-400);font-family:"JetBrains Mono",monospace;}
-.ns-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.ns-spark-wrap{flex:1;min-height:150px;display:flex;align-items:stretch;}
+.ns-axis{display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:var(--grey-400);font-family:"JetBrains Mono",monospace;}
+.ns-mini{display:grid;grid-template-columns:repeat(3,1fr);background:var(--navy-card);border:1px solid var(--card-border);border-radius:12px;padding:20px 0;}
+.ns-mini>div{padding:0 22px;text-align:center;}
+.ns-mini>div+div{border-left:1px solid var(--card-border);}
 .m-num{font-size:26px;font-weight:800;color:#fff;}
 .m-lbl{font-size:12px;color:var(--grey-300);margin-top:4px;}
 /* cover */
@@ -66,7 +70,7 @@ em{font-style:normal;color:var(--yellow);}
 .hl-lbl{font-size:14px;color:var(--grey-300);text-transform:uppercase;letter-spacing:1px;}
 .hl-delta{font-size:16px;font-weight:700;color:var(--success);}
 .hl-delta.down{color:#ff6b6b;}
-.audio-bar{display:flex;align-items:center;gap:14px;background:var(--navy-card);border:1px solid var(--card-border);border-radius:999px;padding:10px 18px 10px 10px;max-width:440px;margin:0 auto;text-align:left;}
+.audio-bar{display:flex;align-items:center;gap:14px;background:var(--navy-card);border:1px solid var(--card-border);border-radius:999px;padding:10px 18px 10px 10px;max-width:440px;margin:44px auto 0;text-align:left;}
 .audio-avatar img{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;}
 .audio-play{width:40px;height:40px;border-radius:50%;background:var(--yellow);color:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .audio-play.playing{background:var(--blue-light);color:#fff;}
@@ -204,7 +208,7 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
         <div class="ns-hero"><span class="ns-hero-num">0.81</span><div><div class="ns-hero-lbl">NC ROAS</div><div class="ns-hero-delta down">▼ 28% week-over-week</div></div></div>
         <div class="callout"><strong>The one thing</strong>New-customer revenue fell ~27% ($53K → $39K) while spend held. The drop is concentrated in Meta (NC ROAS 0.55 on 84% of spend). Google held strong at 1.42 but is too small a share to offset it.</div>
       </div>
-      <div class="card ns-chart"><div class="ns-clabel">NC ROAS · last 4 weeks</div><svg viewBox="0 0 300 70" preserveAspectRatio="none" style="display:block;width:100%;height:70px;"><polyline points="0.0,4.0 100.0,24.1 200.0,14.1 300.0,66.0" fill="none" stroke="#F9D900" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="300.0" cy="66.0" r="3.5" fill="#F9D900"/></svg><div class="ns-axis"><span>Apr 27</span><span>May 4</span><span>May 11</span><span>May 18</span></div></div>
+      <div class="card ns-chart"><div class="ns-clabel">NC ROAS · last 4 weeks</div><div class="ns-spark-wrap"><svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%;display:block;"><polygon points="0,100 0.0,9.0 33.3,35.6 66.7,22.3 100.0,91.0 100,100" fill="rgba(249,217,0,0.14)"/><polyline points="0.0,9.0 33.3,35.6 66.7,22.3 100.0,91.0" fill="none" stroke="#F9D900" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg></div><div class="ns-axis"><span>Apr 27</span><span>May 4</span><span>May 11</span><span>May 18</span></div></div>
     </div>
     <div class="ns-mini">
       <div><div class="m-num">$48K</div><div class="m-lbl">Spend · +2%</div></div>
@@ -228,8 +232,10 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
         <h3 class="slide-h3">Why it happened</h3>
         <div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Engagement held, conversion didn't</h4><p>CTR rose to 4.8% while NC ROAS fell. The hook is landing the click; the drop is downstream at conversion.</p></div></div><div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Spend concentrated in mid-ROAS video</h4><p>C018 absorbed ~$4.6K at 0.66 NC ROAS — volume leaned on proven video below target.</p></div></div><div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Cause under investigation</h4><p>Tie the conversion drop to a specific campaign, audience, or LP change. Flagged, not assumed.</p></div></div>
         <h3 class="slide-h3" style="margin-top:24px;">What we learned</h3>
-        <div class="card"><h4>CTR is not the bottleneck</h4><p>Creative is earning the click; focus optimization on post-click — offer, LP, audience.</p></div>
-        <div class="card" style="margin-top:12px;"><h4>Flat spend masked a volume drop</h4><p>NC orders fell 26%. Watch order volume, not just spend, as the pacing signal.</p></div>
+        <div class="learned-row">
+          <div class="card"><h4>CTR is not the bottleneck</h4><p>Creative is earning the click; focus optimization on post-click — offer, LP, audience.</p></div>
+          <div class="card"><h4>Flat spend masked a volume drop</h4><p>NC orders fell 26%. Watch order volume, not just spend, as the pacing signal.</p></div>
+        </div>
       </div>
       <div>
         <h3 class="slide-h3">Next week</h3>
