@@ -130,6 +130,27 @@ em{font-style:normal;color:var(--yellow);}
 .ap-sb-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transform:rotate(180deg);transition:transform .25s ease;}
 .ap-sb-toggle.open svg{transform:rotate(0deg);}
 @media(max-width:900px){.ap-sidebar{width:min(320px,88vw);box-shadow:12px 0 32px rgba(0,0,0,0.5);}.ap-sb-toggle.open{left:min(320px,88vw);}}
+/* edit mode (admin) */
+.ap-edit-pencil{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;background:transparent;color:var(--grey-300);border:1px solid var(--card-border-strong);border-radius:6px;cursor:pointer;transition:color .15s,border-color .15s,background .15s;vertical-align:middle;margin-left:12px;}
+.ap-edit-pencil:hover{color:var(--yellow);border-color:var(--yellow);background:rgba(249,217,0,0.06);}
+.ap-edit-pencil svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+body.ap-editing .ap-edit-pencil{display:none;}
+.ap-edit-toolbar{position:fixed;top:0;left:0;right:0;z-index:9000;display:none;align-items:center;gap:12px;padding:12px 24px;background:var(--yellow);color:var(--navy);box-shadow:0 4px 16px rgba(0,0,0,0.25);}
+body.ap-editing .ap-edit-toolbar{display:flex;}
+.ap-edit-toolbar-status{font-size:13px;font-weight:600;flex:1;}
+.ap-edit-toolbar-status .badge{display:inline-block;padding:2px 8px;background:var(--navy);color:var(--yellow);border-radius:4px;font-size:11px;margin-right:8px;letter-spacing:0.5px;}
+.ap-edit-toolbar button{padding:7px 14px;border-radius:6px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border:none;transition:opacity .15s,background .15s;}
+.ap-edit-toolbar button[disabled]{opacity:0.5;cursor:wait;}
+.ap-btn-save{background:var(--navy);color:var(--yellow);}
+.ap-btn-save:hover:not([disabled]){background:#02041f;}
+.ap-btn-cancel{background:transparent;color:var(--navy);border:1.5px solid var(--navy)!important;}
+.ap-btn-cancel:hover:not([disabled]){background:var(--navy);color:var(--yellow);}
+body.ap-editing #track[contenteditable="true"]{outline:1px dashed rgba(249,217,0,0.4);outline-offset:-6px;}
+body.ap-editing [contenteditable="false"]{cursor:not-allowed;}
+.ap-edit-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 20px;background:var(--navy-card);color:#fff;border:1px solid var(--card-border-strong);border-radius:8px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,0.4);z-index:9001;display:none;max-width:90vw;text-align:center;}
+.ap-edit-toast.show{display:block;}
+.ap-edit-toast.success{border-color:var(--success);color:var(--success);}
+.ap-edit-toast.error{border-color:var(--error);color:var(--error);}
 @media(max-width:640px){.slide{padding:70px 22px 80px;}.slide-h2{font-size:28px;}.cover-title{font-size:44px;}.nav-arrow{width:42px;height:42px;}.nav-prev{left:8px;}.nav-next{right:8px;}.ns-hero-num{font-size:44px;}}
 </style></head><body>
 <div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,Arial,sans-serif;padding:20px;">
@@ -173,7 +194,13 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
   <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
   <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
 </svg>
-<span class="t">47 Skin USA · Week of May 18 – 24, 2026</span></div><div class="counter" id="counter">1 / 8</div></div>
+<span class="t">47 Skin USA · Week of May 18 – 24, 2026</span></div><div style="display:flex;align-items:center;"><span class="counter" id="counter">1 / 8</span><button id="ap-edit-pencil" class="ap-edit-pencil" onclick="apEditStart()" aria-label="Edit page (admin only)" title="Edit page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button></div></div>
+  <div class="ap-edit-toolbar" id="ap-edit-toolbar" role="toolbar" aria-label="Edit toolbar">
+    <div class="ap-edit-toolbar-status" id="ap-edit-status"><span class="badge">EDIT MODE</span>Click any text to edit. Use the on-screen arrows to move between slides.</div>
+    <button class="ap-btn-cancel" id="ap-btn-cancel" onclick="apEditCancel()" title="Discard changes and exit">Discard</button>
+    <button class="ap-btn-save" id="ap-btn-save" onclick="apEditSave()" title="Commit changes to the live page (~30 sec to deploy)">Publish</button>
+  </div>
+  <div class="ap-edit-toast" id="ap-edit-toast" role="status" aria-live="polite"></div>
   <div class="deck"><div class="track" id="track"><section class="slide cover">
   <div class="cover-inner">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="64" height="64">
@@ -321,13 +348,14 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
   prev.onclick=function(){go(i-1);}; next.onclick=function(){go(i+1);};
   dots.forEach(function(d){d.onclick=function(){go(+d.dataset.i);};});
   document.addEventListener('keydown',function(e){
+    if(document.body.classList.contains('ap-editing'))return;  // let arrows move the text cursor in edit mode
     if(e.key==='ArrowRight'||e.key==='PageDown'){go(i+1);}
     else if(e.key==='ArrowLeft'||e.key==='PageUp'){go(i-1);}
   });
   // touch swipe
   var x0=null;
   document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
-  document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50){go(dx<0?i+1:i-1);}x0=null;});
+  document.addEventListener('touchend',function(e){if(document.body.classList.contains('ap-editing')){x0=null;return;}if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50){go(dx<0?i+1:i-1);}x0=null;});
   // audio — toggle play/pause icon via class (icons are both in the DOM)
   var a=document.getElementById('recap'), btn=document.getElementById('audio-play'), sub=document.getElementById('audio-sub');
   if(a&&btn){
@@ -359,6 +387,66 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
     }).catch(function(){ SB.style.display='none'; SBT.style.display='none'; });
   }
   render();
+})();
+</script>
+<script>
+(function(){
+  var WORKER_URL="https://adpros-edit-worker.100partners.workers.dev";
+  var EDITABLE_ROOT="#track";
+  var LOCKED="#track svg, #track img, #track audio, #track .audio-bar, #track button";
+  var authHash=null, inEditMode=false;
+  async function sha256(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  function toast(msg,kind){var t=document.getElementById('ap-edit-toast');if(!t)return;t.className='ap-edit-toast '+(kind||'')+' show';t.textContent=msg;setTimeout(function(){t.className='ap-edit-toast '+(kind||'');},3800);}
+  function setStatus(badge,sentence){var s=document.getElementById('ap-edit-status');if(!s)return;while(s.firstChild)s.removeChild(s.firstChild);var b=document.createElement('span');b.className='badge';b.textContent=badge;s.appendChild(b);s.appendChild(document.createTextNode(' '+sentence));}
+  function lockAtoms(){document.querySelectorAll(LOCKED).forEach(function(el){el.contentEditable='false';});}
+  window.apEditStart=async function(){
+    if(inEditMode)return;
+    var pwd=prompt('Admin password to enter edit mode:');if(!pwd)return;
+    var hash=await sha256(pwd);
+    try{var r=await fetch(WORKER_URL+'/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({auth:hash})});if(!r.ok){toast('Incorrect password','error');return;}}
+    catch(e){toast('Worker unreachable: '+e.message,'error');return;}
+    authHash=hash;enter();
+  };
+  function enter(){
+    inEditMode=true;window.__apHasEdits=false;
+    document.body.classList.add('ap-editing');
+    var root=document.querySelector(EDITABLE_ROOT);
+    if(root){root.contentEditable='true';root.spellcheck=true;}
+    lockAtoms();
+    var saveBtn=document.getElementById('ap-btn-save');
+    if(saveBtn){saveBtn.disabled=true;saveBtn.textContent='No changes';}
+    var changed=false;
+    if(root){root.addEventListener('input',function(){if(!changed){changed=true;window.__apHasEdits=true;setStatus('UNSAVED',"You've made changes. Publish to commit, Discard to throw them out.");if(saveBtn){saveBtn.disabled=false;saveBtn.textContent='Publish';}}});}
+    toast('Edit mode on. Click any text to edit; arrows still move slides.','success');
+  }
+  window.apEditCancel=function(){if(!inEditMode)return;if(!window.__apHasEdits){location.reload();return;}if(confirm('Discard all unsaved changes and exit edit mode?')){location.reload();}};
+  window.apEditSave=async function(){
+    if(!inEditMode||!authHash)return;
+    var saveBtn=document.getElementById('ap-btn-save'),cancelBtn=document.getElementById('ap-btn-cancel');
+    // snapshot BEFORE mutating button state (avoids baking UI state into the commit)
+    document.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable');el.removeAttribute('spellcheck');});
+    document.body.classList.remove('ap-editing');
+    // reset transient deck state so the committed HTML loads on slide 1 with chrome closed
+    var sb=document.getElementById('ap-sidebar'),sbt=document.getElementById('ap-sb-toggle'),pl=document.getElementById('audio-play'),tk=document.getElementById('track');
+    if(sb)sb.classList.remove('open');if(sbt)sbt.classList.remove('open');if(pl)pl.classList.remove('playing');if(tk)tk.style.transform='';
+    var serialized='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    // restore edit UI in case the save fails
+    document.body.classList.add('ap-editing');
+    var root=document.querySelector(EDITABLE_ROOT);if(root){root.contentEditable='true';root.spellcheck=true;}
+    lockAtoms();
+    var path=location.pathname.replace(/^\/+/,'');if(!path.endsWith('.html'))path=path.replace(/\/?$/,'/')+'index.html';
+    if(saveBtn){saveBtn.disabled=true;saveBtn.textContent='Publishing\u2026';}
+    if(cancelBtn){cancelBtn.disabled=true;}
+    try{
+      var r=await fetch(WORKER_URL+'/edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({auth:authHash,path:path,html:serialized})});
+      var data=await r.json();
+      if(!r.ok||!data.ok)throw new Error(data.error||('HTTP '+r.status));
+      toast('Published \u00b7 GitHub Pages redeploys in ~30 sec','success');
+      setStatus('PUBLISHED','Live in ~30 sec. Refresh to see it.');
+      if(saveBtn)saveBtn.textContent='Published';
+      if(cancelBtn){cancelBtn.textContent='Refresh now';cancelBtn.disabled=false;cancelBtn.onclick=function(){location.reload();};}
+    }catch(e){toast('Save failed: '+e.message,'error');if(saveBtn){saveBtn.disabled=false;saveBtn.textContent='Publish';}if(cancelBtn)cancelBtn.disabled=false;}
+  };
 })();
 </script>
 </body></html>
