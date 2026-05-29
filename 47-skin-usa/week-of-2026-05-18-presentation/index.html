@@ -70,6 +70,9 @@ em{font-style:normal;color:var(--yellow);}
 .audio-avatar img{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;}
 .audio-play{width:40px;height:40px;border-radius:50%;background:var(--yellow);color:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .audio-play.playing{background:var(--blue-light);color:#fff;}
+.audio-play .ic-pause{display:none;}
+.audio-play.playing .ic-play{display:none;}
+.audio-play.playing .ic-pause{display:block;}
 .audio-title{font-size:13px;font-weight:600;color:#fff;line-height:1.3;}
 .audio-sub{font-size:11px;color:var(--grey-300);margin-top:2px;}
 .cover-hint{font-size:12px;color:var(--grey-400);margin-top:30px;}
@@ -94,7 +97,36 @@ em{font-style:normal;color:var(--yellow);}
 .dots{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:9px;z-index:35;}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--card-border-strong);border:none;cursor:pointer;padding:0;transition:background .15s,width .15s;}
 .dot.active{background:var(--yellow);width:24px;border-radius:5px;}
-@media(max-width:640px){.slide{padding:70px 22px 80px;}.slide-h2{font-size:28px;}.cover-title{font-size:44px;}.nav-arrow{width:42px;height:42px;}.nav-prev{left:8px;}.nav-next{right:8px;}}
+/* northstar hero stat (moved from cover) */
+.ns-hero{display:flex;align-items:center;gap:18px;background:var(--navy-card);border:1px solid var(--card-border-strong);border-radius:14px;padding:22px 26px;margin-bottom:18px;}
+.ns-hero-num{font-size:56px;font-weight:800;color:var(--yellow);letter-spacing:-2px;line-height:1;}
+.ns-hero-lbl{font-size:13px;color:var(--grey-300);text-transform:uppercase;letter-spacing:1px;}
+.ns-hero-delta{font-size:15px;font-weight:700;margin-top:4px;color:var(--success);}
+.ns-hero-delta.down{color:#ff6b6b;}
+/* real creative images */
+.cre-img{width:100%;height:240px;border-radius:8px;border:1px solid var(--card-border);background:#02041f;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.cre-img img{width:100%;height:100%;object-fit:contain;display:block;}
+/* client report sidebar (overlays the deck) */
+.ap-sidebar{position:fixed;top:0;left:0;height:100vh;width:280px;background:var(--navy-deep);border-right:1px solid var(--card-border);z-index:120;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .25s ease;overflow-y:auto;}
+.ap-sidebar.open{transform:translateX(0);}
+.ap-sidebar-header{padding:24px 20px 16px;border-bottom:1px solid var(--card-border);}
+.ap-sidebar-brand-name{font-size:15px;font-weight:700;color:#fff;}
+.ap-sidebar-brand-sub{font-size:11px;color:var(--grey-300);margin-top:3px;}
+.ap-sidebar-section{padding:18px 20px 8px;font-size:11px;font-weight:600;color:var(--grey-300);text-transform:uppercase;letter-spacing:0.8px;}
+.ap-sidebar-list{padding:0 12px 20px;display:grid;gap:4px;}
+.ap-sidebar-item{display:block;padding:12px 14px;border-radius:8px;color:var(--grey-100);text-decoration:none;border-left:2px solid transparent;}
+.ap-sidebar-item:hover{background:rgba(255,255,255,0.04);}
+.ap-sidebar-item.current{background:rgba(249,217,0,0.08);border-left-color:var(--yellow);}
+.ap-sidebar-item-title{font-size:14px;font-weight:500;color:#fff;}
+.ap-sidebar-item.current .ap-sidebar-item-title{color:var(--yellow);}
+.ap-sidebar-item-date{font-size:11px;color:var(--grey-300);margin-top:3px;}
+.ap-sb-toggle{position:fixed;top:78px;left:0;z-index:121;width:24px;height:56px;background:var(--navy-card);color:var(--grey-200);border:1.5px solid rgba(249,217,0,0.4);border-left:none;border-radius:0 10px 10px 0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:left .25s ease,background .15s,color .15s;}
+.ap-sb-toggle:hover{background:var(--yellow);color:var(--navy);border-color:var(--yellow);}
+.ap-sb-toggle.open{left:280px;}
+.ap-sb-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transform:rotate(180deg);transition:transform .25s ease;}
+.ap-sb-toggle.open svg{transform:rotate(0deg);}
+@media(max-width:900px){.ap-sidebar{width:min(320px,88vw);box-shadow:12px 0 32px rgba(0,0,0,0.5);}.ap-sb-toggle.open{left:min(320px,88vw);}}
+@media(max-width:640px){.slide{padding:70px 22px 80px;}.slide-h2{font-size:28px;}.cover-title{font-size:44px;}.nav-arrow{width:42px;height:42px;}.nav-prev{left:8px;}.nav-next{right:8px;}.ns-hero-num{font-size:44px;}}
 </style></head><body>
 <div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,Arial,sans-serif;padding:20px;">
 <div style="max-width:400px;width:100%;text-align:center;"><div style="margin:0 auto 32px;display:flex;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="64" height="64">
@@ -120,6 +152,12 @@ function r(){var g=document.getElementById('ap-gate');if(g)g.style.display='none
 try{if(sessionStorage.getItem(K)==='1'){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',r);}else{r();}}}catch(e){}
 setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);})();</script>
 <div id="deck-wrap" style="display:none;">
+  <aside class="ap-sidebar" id="ap-sidebar" aria-label="All reports for 47 Skin USA">
+    <div class="ap-sidebar-header"><div class="ap-sidebar-brand-name">47 Skin USA</div><div class="ap-sidebar-brand-sub">Prepared by Ad Pros</div></div>
+    <div class="ap-sidebar-section" id="ap-sb-section">All reports</div>
+    <nav class="ap-sidebar-list" id="ap-sb-list"><span style="padding:12px 14px;color:var(--grey-300);font-size:13px;">Loading&hellip;</span></nav>
+  </aside>
+  <button class="ap-sb-toggle" id="ap-sb-toggle" aria-label="Toggle all reports" title="All reports"><svg viewBox="0 0 24 24"><polyline points="15 6 9 12 15 18"/></svg></button>
   <div class="progress" id="progress"></div>
   <div class="deck-top"><div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="34" height="34">
   <rect width="81" height="81" fill="#040735"/>
@@ -149,10 +187,9 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
     <h1 class="cover-title">47 Skin USA</h1>
     <div class="cover-week">Week of May 18 – 24, 2026</div>
     <div class="cover-by">Prepared by Gabriel Santana · May 29, 2026</div>
-    <div class="cover-headline"><span class="hl-num">0.81</span><span class="hl-lbl">NC ROAS</span><span class="hl-delta down">▼ 28% WoW</span></div>
     <div class="audio-bar">
       <div class="audio-avatar"><img src="https://docs.adpros.com/assets/team/nehal-kazim.jpg" alt="Nehal Kazim"></div>
-      <button class="audio-play" id="audio-play" aria-label="Play recap"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+      <button class="audio-play" id="audio-play" aria-label="Play recap"><svg class="ic-play" viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><svg class="ic-pause" viewBox="0 0 24 24" width="20" height="20"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg></button>
       <div class="audio-text"><div class="audio-title">Listen to your 60-second recap from AI Nehal</div><div class="audio-sub" id="audio-sub">Audio summary · 60 sec</div></div>
       <audio id="recap" preload="metadata" src="./summary.mp3"></audio>
     </div>
@@ -161,9 +198,12 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
 </section><section class="slide">
   <div class="slide-body narrow">
     <div class="kicker"><span class="num">01</span> Northstar</div>
-    <h2 class="slide-h2">New-customer ROAS landed at <em>0.81</em>, down 28% week-over-week on roughly flat spend.</h2>
+    <h2 class="slide-h2">New-customer ROAS</h2>
     <div class="ns-row">
-      <div class="callout"><strong>The one thing</strong>New-customer revenue fell ~27% ($53K → $39K) while spend held. The drop is concentrated in Meta (NC ROAS 0.55 on 84% of spend). Google held strong at 1.42 but is too small a share to offset it.</div>
+      <div>
+        <div class="ns-hero"><span class="ns-hero-num">0.81</span><div><div class="ns-hero-lbl">NC ROAS</div><div class="ns-hero-delta down">▼ 28% week-over-week</div></div></div>
+        <div class="callout"><strong>The one thing</strong>New-customer revenue fell ~27% ($53K → $39K) while spend held. The drop is concentrated in Meta (NC ROAS 0.55 on 84% of spend). Google held strong at 1.42 but is too small a share to offset it.</div>
+      </div>
       <div class="card ns-chart"><div class="ns-clabel">NC ROAS · last 4 weeks</div><svg viewBox="0 0 300 70" preserveAspectRatio="none" style="display:block;width:100%;height:70px;"><polyline points="0.0,4.0 100.0,24.1 200.0,14.1 300.0,66.0" fill="none" stroke="#F9D900" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="300.0" cy="66.0" r="3.5" fill="#F9D900"/></svg><div class="ns-axis"><span>Apr 27</span><span>May 4</span><span>May 11</span><span>May 18</span></div></div>
     </div>
     <div class="ns-mini">
@@ -187,13 +227,13 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
       <div>
         <h3 class="slide-h3">Why it happened</h3>
         <div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Engagement held, conversion didn't</h4><p>CTR rose to 4.8% while NC ROAS fell. The hook is landing the click; the drop is downstream at conversion.</p></div></div><div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Spend concentrated in mid-ROAS video</h4><p>C018 absorbed ~$4.6K at 0.66 NC ROAS — volume leaned on proven video below target.</p></div></div><div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Cause under investigation</h4><p>Tie the conversion drop to a specific campaign, audience, or LP change. Flagged, not assumed.</p></div></div>
-      </div>
-      <div>
-        <h3 class="slide-h3">What we learned</h3>
+        <h3 class="slide-h3" style="margin-top:24px;">What we learned</h3>
         <div class="card"><h4>CTR is not the bottleneck</h4><p>Creative is earning the click; focus optimization on post-click — offer, LP, audience.</p></div>
         <div class="card" style="margin-top:12px;"><h4>Flat spend masked a volume drop</h4><p>NC orders fell 26%. Watch order volume, not just spend, as the pacing signal.</p></div>
-        <h3 class="slide-h3" style="margin-top:24px;">Next week</h3>
-        <div class="vrow"><div class="vnum">1</div><div class="vbody"><h4>Audit the post-click path on top video</h4><p></p></div></div><div class="vrow"><div class="vnum">2</div><div class="vbody"><h4>Hold Meta spend until efficiency recovers</h4><p></p></div></div>
+      </div>
+      <div>
+        <h3 class="slide-h3">Next week</h3>
+        <div class="vrow"><div class="vnum">1</div><div class="vbody"><h4>Audit the post-click path on top video</h4><p>Pull LP and checkout conversion for C018 traffic to locate the drop.</p></div></div><div class="vrow"><div class="vnum">2</div><div class="vbody"><h4>Rebalance toward efficient angles</h4><p>Shift budget out of sub-0.6 ROAS variants into angles above target.</p></div></div><div class="vrow"><div class="vnum">3</div><div class="vbody"><h4>Hold Meta spend until efficiency recovers</h4><p>No scale until NC ROAS climbs back toward 0.7+.</p></div></div>
       </div>
     </div>
   </div>
@@ -212,12 +252,12 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
       <div>
         <h3 class="slide-h3">Why it happened</h3>
         <div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Prior week was a peak, not the baseline</h4><p>2.48 NC ROAS was well above Google's ~1.5–1.8 norm. This week is closer to trend; the −43% is partly mean-reversion.</p></div></div><div class="vrow"><div class="vnum">●</div><div class="vbody"><h4>Branded vs non-branded mix</h4><p>A shift toward non-branded prospecting would raise CPA and lower NC ROAS. Worth confirming in-account.</p></div></div>
+        <h3 class="slide-h3" style="margin-top:24px;">What we learned</h3>
+        <div class="card"><h4>Google is the efficiency anchor</h4><p>Even off-peak, 1.42 NC ROAS beats Meta 3:1. There may be room to scale Google's share of budget.</p></div>
       </div>
       <div>
-        <h3 class="slide-h3">What we learned</h3>
-        <div class="card"><h4>Google is the efficiency anchor</h4><p>Even off-peak, 1.42 NC ROAS beats Meta 3:1. There may be room to scale Google's share of budget.</p></div>
-        <h3 class="slide-h3" style="margin-top:24px;">Next week</h3>
-        <div class="vrow"><div class="vnum">1</div><div class="vbody"><h4>Test a controlled budget increase (+15–20%)</h4><p></p></div></div><div class="vrow"><div class="vnum">2</div><div class="vbody"><h4>Segment branded vs non-branded reporting</h4><p></p></div></div>
+        <h3 class="slide-h3">Next week</h3>
+        <div class="vrow"><div class="vnum">1</div><div class="vbody"><h4>Test a controlled budget increase</h4><p>Trial a 15–20% lift on Google and watch NC CPA.</p></div></div><div class="vrow"><div class="vnum">2</div><div class="vbody"><h4>Segment branded vs non-branded</h4><p>Report the two separately so efficiency swings are explainable.</p></div></div>
       </div>
     </div>
   </div>
@@ -226,17 +266,17 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
     <div class="kicker"><span class="num">04</span> Creatives · top performers</div>
     <h2 class="slide-h2">Top performing creatives</h2>
     <div class="cre-grid"><div class="card cre">
-      <svg viewBox="0 0 240 240" style="width:100%;border-radius:8px;border:1px solid var(--card-border);background:#070b3d;"><rect width="240" height="240" fill="#070b3d"/><rect x="20" y="20" width="200" height="140" rx="6" fill="none" stroke="#1a2375" stroke-width="2"/><circle cx="120" cy="90" r="26" fill="none" stroke="#F9D900" stroke-width="2.5"/><path d="M112 78 L112 102 L134 90 Z" fill="#F9D900"/><text x="120" y="196" text-anchor="middle" fill="#8A8B93" font-family="JetBrains Mono,monospace" font-size="12">C018 · Video</text><text x="120" y="215" text-anchor="middle" fill="#54556A" font-family="Inter" font-size="9.5">thumbnail pending</text></svg>
+      <div class="cre-img"><img src="./creative-c018.jpg" alt="C018 creative" loading="lazy"></div>
       <div class="cre-meta"><span class="chip-id">C018</span> <span class="chip amber">HOLD</span></div>
       <div class="cre-label">TTS · Breakout Winners · Video</div>
       <div class="cre-stats"><span>Spend $4,607.00</span><span>NC orders 44</span><span>NC rev $3,061.00</span><span style="color:var(--yellow);font-weight:700;">ROAS 0.66</span></div>
     </div><div class="card cre">
-      <svg viewBox="0 0 240 240" style="width:100%;border-radius:8px;border:1px solid var(--card-border);background:#070b3d;"><rect width="240" height="240" fill="#070b3d"/><rect x="20" y="20" width="200" height="140" rx="6" fill="none" stroke="#1a2375" stroke-width="2"/><circle cx="120" cy="90" r="26" fill="none" stroke="#F9D900" stroke-width="2.5"/><path d="M112 78 L112 102 L134 90 Z" fill="#F9D900"/><text x="120" y="196" text-anchor="middle" fill="#8A8B93" font-family="JetBrains Mono,monospace" font-size="12">C015 · Video</text><text x="120" y="215" text-anchor="middle" fill="#54556A" font-family="Inter" font-size="9.5">thumbnail pending</text></svg>
+      <div class="cre-img"><img src="./creative-c015.jpg" alt="C015 creative" loading="lazy"></div>
       <div class="cre-meta"><span class="chip-id">C015</span> <span class="chip red">REVIEW</span></div>
       <div class="cre-label">GTV Animation · Hospitals Silhouette</div>
       <div class="cre-stats"><span>Spend $3,652.00</span><span>NC orders 25</span><span>NC rev $1,869.00</span><span style="color:var(--yellow);font-weight:700;">ROAS 0.51</span></div>
     </div><div class="card cre">
-      <svg viewBox="0 0 240 240" style="width:100%;border-radius:8px;border:1px solid var(--card-border);background:#070b3d;"><rect width="240" height="240" fill="#070b3d"/><rect x="20" y="20" width="200" height="140" rx="6" fill="none" stroke="#1a2375" stroke-width="2"/><circle cx="120" cy="90" r="26" fill="none" stroke="#F9D900" stroke-width="2.5"/><path d="M112 78 L112 102 L134 90 Z" fill="#F9D900"/><text x="120" y="196" text-anchor="middle" fill="#8A8B93" font-family="JetBrains Mono,monospace" font-size="12">C018-C · Video</text><text x="120" y="215" text-anchor="middle" fill="#54556A" font-family="Inter" font-size="9.5">thumbnail pending</text></svg>
+      <div class="cre-img"><img src="./creative-c018c.jpg" alt="C018-C creative" loading="lazy"></div>
       <div class="cre-meta"><span class="chip-id">C018-C</span> <span class="chip amber">HOLD</span></div>
       <div class="cre-label">TTS · Breakout Winners (variant C)</div>
       <div class="cre-stats"><span>Spend $2,059.00</span><span>NC orders 17</span><span>NC rev $1,303.00</span><span style="color:var(--yellow);font-weight:700;">ROAS 0.63</span></div>
@@ -279,13 +319,35 @@ setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50
   var x0=null;
   document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
   document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50){go(dx<0?i+1:i-1);}x0=null;});
-  // audio
+  // audio — toggle play/pause icon via class (icons are both in the DOM)
   var a=document.getElementById('recap'), btn=document.getElementById('audio-play'), sub=document.getElementById('audio-sub');
   if(a&&btn){
     btn.onclick=function(e){e.stopPropagation(); if(a.paused){a.play();}else{a.pause();}};
-    a.addEventListener('play',function(){btn.classList.add('playing');});
-    a.addEventListener('pause',function(){btn.classList.remove('playing');});
+    a.addEventListener('play',function(){btn.classList.add('playing'); btn.setAttribute('aria-label','Pause recap');});
+    a.addEventListener('pause',function(){btn.classList.remove('playing'); btn.setAttribute('aria-label','Play recap');});
+    a.addEventListener('ended',function(){btn.classList.remove('playing'); btn.setAttribute('aria-label','Play recap');});
     a.addEventListener('loadedmetadata',function(){var s=Math.round(a.duration);if(s&&sub)sub.textContent='Audio summary · '+s+' sec';});
+  }
+  // client report sidebar
+  var SB=document.getElementById('ap-sidebar'), SBT=document.getElementById('ap-sb-toggle'),
+      SBL=document.getElementById('ap-sb-list'), SBS=document.getElementById('ap-sb-section');
+  function sbOpen(o){ if(!SB)return; SB.classList.toggle('open',o); SBT.classList.toggle('open',o); SBT.setAttribute('aria-expanded',o?'true':'false'); }
+  if(SBT){ SBT.onclick=function(){ sbOpen(!SB.classList.contains('open')); }; }
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&SB&&SB.classList.contains('open')) sbOpen(false); });
+  if(SB){
+    fetch('../pages.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+      var pages=(d&&d.pages)||[]; var cur=location.pathname;
+      if(pages.length<2){ SB.style.display='none'; SBT.style.display='none'; return; }
+      if(SBS) SBS.textContent='All reports · '+pages.length;
+      while(SBL.firstChild) SBL.removeChild(SBL.firstChild);
+      pages.forEach(function(p){
+        var el=document.createElement('a'); el.className='ap-sidebar-item'+(p.url===cur?' current':''); el.href=p.url;
+        var t=document.createElement('div'); t.className='ap-sidebar-item-title'; t.textContent=p.title||p.slug; el.appendChild(t);
+        var dt=document.createElement('div'); dt.className='ap-sidebar-item-date';
+        if(p.date){var dd=new Date(p.date); if(!isNaN(dd)) dt.textContent=dd.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});}
+        el.appendChild(dt); SBL.appendChild(el);
+      });
+    }).catch(function(){ SB.style.display='none'; SBT.style.display='none'; });
   }
   render();
 })();
