@@ -185,6 +185,8 @@ async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder
 window.ap_check=async function(){var pw=document.getElementById('ap-pw').value;if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}r();}else{document.getElementById('ap-err').textContent='Incorrect password';}};
 function r(){var g=document.getElementById('ap-gate');if(g)g.style.display='none';var d=document.getElementById('deck-wrap');if(d)d.style.display='';}
 try{if(sessionStorage.getItem(K)==='1'){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',r);}else{r();}}}catch(e){}
+  // URL-fragment unlock: #pw=<password> auto-unlocks and strips itself from the address bar.
+  try{var fm=(location.hash||'').match(/[#&]pw=([^&]+)/);if(fm){sha(decodeURIComponent(fm[1])).then(function(fh){if(fh===H){try{sessionStorage.setItem(K,'1');}catch(e){}try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',r);}else{r();}}});}}catch(e){}
 setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);})();</script>
 <div id="deck-wrap" style="display:none;">
   <aside class="ap-sidebar" id="ap-sidebar" aria-label="All reports for 47 Skin USA">
