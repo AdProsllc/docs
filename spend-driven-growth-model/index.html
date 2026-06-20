@@ -311,6 +311,7 @@
 #apm .chev{ align-self:center; color:var(--faint); display:flex; align-items:center; }
 #apm .tbl-d{ display:block; } #apm .tbl-m{ display:none; }
 #apm .trow{ display:grid; grid-template-columns:1.4fr .8fr 1fr .8fr 1.5fr; gap:8px; align-items:center; }
+#apm .pl{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:8px; align-items:center; }
 #apm .ue{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:12px; }
 #apm .qa{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:12px 0; }
 #apm .badge{ font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.08em; padding:3px 7px; border-radius:3px; white-space:nowrap; }
@@ -326,7 +327,7 @@
 <div id="apm">
   <div class="eyebrow">Ad Pros &middot; Growth Model</div>
   <h2 class="t">Spend-driven P&amp;L</h2>
-  <p style="font-size:13.5px;color:var(--soft);max-width:640px;margin:0 0 16px;">One knob — monthly ad spend — cascades through leads, customers, the accumulated base, and upsells. Tables show both revenue frames; every ratio is checked at the bottom.</p>
+  <p style="font-size:13.5px;color:var(--soft);max-width:640px;margin:0 0 16px;">One knob — monthly ad spend — cascades through leads, customers, the accumulated base, and upsells. Tables show both revenue frames and money in vs money out; every ratio is checked at the bottom.</p>
 
   <div class="panel">
     <div class="hero-grid" style="display:grid;grid-template-columns:minmax(240px,1fr) 1px minmax(260px,1.2fr);gap:22px;align-items:center;">
@@ -347,6 +348,8 @@
   <div class="panel">
     <div class="eyebrow" style="margin-bottom:16px;">Levers</div>
     <div class="levers" id="levers"></div>
+    <div class="eyebrow" style="margin:22px 0 16px;">Money out &middot; monthly costs</div>
+    <div class="levers" id="costs"></div>
   </div>
 
   <div id="apm-out"></div>
@@ -354,8 +357,9 @@
 
 <script>
 (function(){
-  var S={spend:40000,splitAP:.75,cpl:15,organicPct:.5,conv:.05,groupConvPct:.009,agencyConvPct:.0006,agencyRetainer:15000,
-    apPrice:47,apLTV:300,swPrice:100,swLTV:1200,groupPrice:500,groupLTV:1500,agencyLTV:60000,uniquePct:.8};
+  var S={spend:30000,splitAP:.5,cpl:15,organicPct:.25,conv:.05,groupConvPct:.009,agencyConvPct:.0006,agencyRetainer:15000,
+    apPrice:47,apLTV:300,swPrice:100,swLTV:1200,groupPrice:500,groupLTV:1500,agencyLTV:60000,uniquePct:1.0,
+    mktgTeam:10000,deliveryTeam:10000,swCogs:750};
 
   function money(n){ if(!isFinite(n))return "—"; var a=Math.abs(n);
     if(a>=1e6)return "$"+(n/1e6).toFixed(2)+"M";
@@ -369,27 +373,34 @@
     var apRet=i.apLTV/i.apPrice, swRet=i.swLTV/i.swPrice, groupRet=i.groupLTV/i.groupPrice, agencyRet=i.agencyLTV/i.agencyRetainer;
     var paidLeadsAP=(i.spend*i.splitAP)/i.cpl, paidLeadsSW=(i.spend*(1-i.splitAP))/i.cpl;
     var apLeads=paidLeadsAP*(1+i.organicPct), swDirectLeads=paidLeadsSW*(1+i.organicPct);
-    var swTotalLeads=swDirectLeads+apLeads, distinctLeads=apLeads+swDirectLeads;
-    var apNew=apLeads*i.conv, swNew=swTotalLeads*i.conv;
+    var distinctLeads=apLeads+swDirectLeads;
+    // each channel converts its own leads at the same rate — no cross-feed, no overlap
+    var apNew=apLeads*i.conv, swNew=swDirectLeads*i.conv;
     var apBase=apNew*Math.min(apRet,12), swBase=swNew*Math.min(swRet,12), custBase=apBase+swBase;
-    var groupNew=custBase*i.groupConvPct, groupBase=groupNew*Math.min(groupRet,12);
-    var agencyNew=custBase*i.agencyConvPct, agencyBase=agencyNew*Math.min(agencyRet,12);
+    // group + agency convert off THIS MONTH'S new customers (stage 3)
+    var newCust=apNew+swNew;
+    var groupNew=newCust*i.groupConvPct, groupBase=groupNew*Math.min(groupRet,12);
+    var agencyNew=newCust*i.agencyConvPct, agencyBase=agencyNew*Math.min(agencyRet,12);
     var mrr={ap:apBase*i.apPrice,sw:swBase*i.swPrice,group:groupBase*i.groupPrice,agency:agencyBase*i.agencyRetainer};
     var matureMRR=mrr.ap+mrr.sw+mrr.group+mrr.agency;
     var newMRR={ap:apNew*i.apPrice,sw:swNew*i.swPrice,group:groupNew*i.groupPrice,agency:agencyNew*i.agencyRetainer};
     var month1MRR=newMRR.ap+newMRR.sw+newMRR.group+newMRR.agency;
     var ltvBooked=apNew*i.apLTV+swNew*i.swLTV+groupNew*i.groupLTV+agencyNew*i.agencyLTV;
     var totalNew=apNew+swNew+groupNew+agencyNew, uniqueNew=totalNew*i.uniquePct;
+    var moneyOut=i.spend+i.mktgTeam+i.deliveryTeam+i.swCogs;
+    var netMonth1=month1MRR-moneyOut, netMature=matureMRR-moneyOut;
     var ramp=[];
     for(var t=1;t<=12;t++){
-      var apB=apNew*Math.min(t,apRet), swB=swNew*Math.min(t,swRet), cb=apB+swB;
-      var gB=cb*i.groupConvPct*Math.min(t,groupRet), aB=cb*i.agencyConvPct*Math.min(t,agencyRet);
+      var apB=apNew*Math.min(t,apRet), swB=swNew*Math.min(t,swRet);
+      var gB=groupNew*Math.min(t,groupRet), aB=agencyNew*Math.min(t,agencyRet);
       ramp.push({month:t,mrr:apB*i.apPrice+swB*i.swPrice+gB*i.groupPrice+aB*i.agencyRetainer});
     }
     return {apRet:apRet,swRet:swRet,groupRet:groupRet,agencyRet:agencyRet,apLeads:apLeads,swDirectLeads:swDirectLeads,
-      swTotalLeads:swTotalLeads,distinctLeads:distinctLeads,apNew:apNew,swNew:swNew,apBase:apBase,swBase:swBase,custBase:custBase,
+      distinctLeads:distinctLeads,apNew:apNew,swNew:swNew,apBase:apBase,swBase:swBase,custBase:custBase,
       groupNew:groupNew,groupBase:groupBase,agencyNew:agencyNew,agencyBase:agencyBase,mrr:mrr,matureMRR:matureMRR,newMRR:newMRR,
       month1MRR:month1MRR,ltvBooked:ltvBooked,totalNew:totalNew,uniqueNew:uniqueNew,
+      moneyOut:moneyOut,netMonth1:netMonth1,netMature:netMature,
+      marginMonth1:(month1MRR?netMonth1/month1MRR:0),marginMature:(matureMRR?netMature/matureMRR:0),
       ltvCac:ltvBooked/i.spend,roasMature:matureMRR/i.spend,roasMonth1:month1MRR/i.spend,
       cpaUnique:i.spend/uniqueNew,paybackMo:i.spend/month1MRR,ramp:ramp};
   }
@@ -398,22 +409,31 @@
     {k:'splitAP',label:'Spend split → Ad Plays',min:0,max:1,step:.05,fmt:function(v){return Math.round(v*100)+'% / '+Math.round((1-v)*100)+'% SW';},hint:'rest funds direct software leads'},
     {k:'cpl',label:'Cost per lead',min:5,max:40,step:.5,fmt:function(v){return '$'+v.toFixed(1);}},
     {k:'organicPct',label:'Organic uplift',min:0,max:1.5,step:.05,fmt:function(v){return '+'+Math.round(v*100)+'%';},hint:'organic as a share of paid'},
-    {k:'conv',label:'Free → paid',min:.01,max:.15,step:.005,fmt:function(v){return pct(v,1);},hint:'both front-end tiers'},
-    {k:'groupConvPct',label:'Group conv (of base)',min:0,max:.05,step:.001,fmt:function(v){return pct(v,2);},hint:'monthly, off accumulated base'},
-    {k:'agencyConvPct',label:'Agency conv (of base)',min:0,max:.005,step:.0001,fmt:function(v){return pct(v,3);},hint:'best-of-best, kept low'},
+    {k:'conv',label:'Free → paid',min:.01,max:.15,step:.005,fmt:function(v){return pct(v,1);},hint:"same rate · each tier's own leads"},
+    {k:'groupConvPct',label:'Group conv (of new/mo)',min:0,max:.05,step:.001,fmt:function(v){return pct(v,2);},hint:'% of new customers each month'},
+    {k:'agencyConvPct',label:'Agency conv (of new/mo)',min:0,max:.005,step:.0001,fmt:function(v){return pct(v,3);},hint:'best-of-best · of new/mo'},
     {k:'agencyRetainer',label:'Agency retainer',min:1000,max:50000,step:1000,fmt:function(v){return fullD(v);},hintId:'h-agencyRetainer'}
   ];
+  var CFG2=[
+    {k:'mktgTeam',label:'Marketing team',min:0,max:50000,step:500,fmt:function(v){return fullD(v);}},
+    {k:'deliveryTeam',label:'Delivery team',min:0,max:50000,step:500,fmt:function(v){return fullD(v);},hint:'agency + group fulfillment'},
+    {k:'swCogs',label:'Software COGS',min:0,max:10000,step:50,fmt:function(v){return fullD(v);}}
+  ];
 
-  var lev=document.getElementById('levers');
-  CFG.forEach(function(c){
-    var d=document.createElement('div'); d.className='lever';
-    var hint = c.hintId ? '<span class="hint" id="'+c.hintId+'"></span>' : (c.hint?'<span class="hint">'+c.hint+'</span>':'');
-    d.innerHTML='<div class="row"><span class="lbl">'+c.label+'</span><span class="val" id="v-'+c.k+'"></span></div>'+
-      '<input type="range" id="s-'+c.k+'" min="'+c.min+'" max="'+c.max+'" step="'+c.step+'">'+hint;
-    lev.appendChild(d);
-    var inp=d.querySelector('input'); inp.value=S[c.k];
-    inp.addEventListener('input',function(){ S[c.k]=parseFloat(inp.value); render(); });
-  });
+  function buildLevers(container,cfg){
+    cfg.forEach(function(c){
+      var d=document.createElement('div'); d.className='lever';
+      var hint = c.hintId ? '<span class="hint" id="'+c.hintId+'"></span>' : (c.hint?'<span class="hint">'+c.hint+'</span>':'');
+      d.innerHTML='<div class="row"><span class="lbl">'+c.label+'</span><span class="val" id="v-'+c.k+'"></span></div>'+
+        '<input type="range" id="s-'+c.k+'" min="'+c.min+'" max="'+c.max+'" step="'+c.step+'">'+hint;
+      container.appendChild(d);
+      var inp=d.querySelector('input'); inp.value=S[c.k];
+      inp.addEventListener('input',function(){ S[c.k]=parseFloat(inp.value); render(); });
+    });
+  }
+  buildLevers(document.getElementById('levers'),CFG);
+  buildLevers(document.getElementById('costs'),CFG2);
+  var ALL=CFG.concat(CFG2);
   var sp=document.getElementById('s-spend'); sp.value=S.spend;
   sp.addEventListener('input',function(){ S.spend=parseFloat(sp.value); render(); });
 
@@ -443,7 +463,7 @@
   function renderOut(r){
     var stages=[
       {i:1,label:'Spend',big:money(S.spend),ac:'var(--em)',ln:[['Ad Plays',money(S.spend*S.splitAP)],['Software',money(S.spend*(1-S.splitAP))]]},
-      {i:2,label:'Leads / mo',big:num(r.distinctLeads),ac:'var(--ink)',ln:[['Ad-play pool',num(r.apLeads)],['SW direct',num(r.swDirectLeads)],['→ SW total',num(r.swTotalLeads)]]},
+      {i:2,label:'Leads / mo',big:num(r.distinctLeads),ac:'var(--ink)',ln:[['Ad Plays',num(r.apLeads)],['Software',num(r.swDirectLeads)]]},
       {i:3,label:'New cust / mo',big:num(r.apNew+r.swNew),ac:'var(--ink)',ln:[['Ad Plays',num(r.apNew)],['Software',num(r.swNew)]]},
       {i:4,label:'Base · mo 12',big:num(r.custBase),ac:'var(--em)',ln:[['Ad Plays',num(r.apBase)],['Software',num(r.swBase)]]},
       {i:5,label:'Upsell / mo',big:num(r.groupNew+r.agencyNew,1),ac:'var(--ink)',ln:[['Group',num(r.groupNew,1)],['Agency',num(r.agencyNew,2)]]}
@@ -492,34 +512,57 @@
     var totalCard='<div style="padding:14px 0 0;border-top:2px solid var(--ink);"><div style="font-size:14px;font-weight:700;margin-bottom:8px;">Total</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;color:var(--soft);">Same month</div><div class="mono" style="font-size:19px;font-weight:700;">'+money(r.month1MRR)+'</div></div><div><div style="font-size:10px;color:var(--soft);">Mature</div><div class="mono" style="font-size:19px;font-weight:700;color:var(--em);">'+money(r.matureMRR)+'</div></div></div></div>';
     var tblM='<div class="tbl-m">'+cards+totalCard+'</div>';
 
+    // P&L money in / money out
+    var plHead='<div class="pl" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>LINE</span><span style="text-align:right">SAME MONTH</span><span style="text-align:right">MATURE · MO 12</span></div>';
+    var plSub=function(t){return '<div class="eyebrow" style="font-size:10px;padding:14px 0 6px;">'+t+'</div>';};
+    var plRow=function(label,a,b,o){o=o||{};var top=o.top?'border-top:1px solid var(--line);':'';var fw=o.bold?700:400;
+      var fa=function(v){return (o.neg&&v<0)?'('+money(-v)+')':money(v);};
+      return '<div class="pl" style="padding:7px 0;'+top+'">'
+        +'<span style="font-size:13px;font-weight:'+fw+';color:'+(o.lc||'var(--ink)')+';">'+label+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.ac||o.lc||'var(--ink)')+';">'+fa(a)+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.bc||o.lc||'var(--ink)')+';">'+fa(b)+'</span></div>';};
+    var inR=[['Ad Plays',r.newMRR.ap,r.mrr.ap],['Software',r.newMRR.sw,r.mrr.sw],['Group',r.newMRR.group,r.mrr.group],['Agency',r.newMRR.agency,r.mrr.agency]];
+    var outR=[['Ad spend',S.spend],['Marketing team',S.mktgTeam],['Delivery team',S.deliveryTeam],['Software COGS',S.swCogs]];
+    var negEm=function(v){return v>=0?'var(--em)':'var(--red)';};
+    var pl=plHead+plSub('Money in')
+      +inR.map(function(x){return plRow(x[0],x[1],x[2]);}).join('')
+      +plRow('Total money in',r.month1MRR,r.matureMRR,{bold:true,top:true,lc:'var(--em)'})
+      +plSub('Money out')
+      +outR.map(function(x){return plRow(x[0],x[1],x[1]);}).join('')
+      +plRow('Total money out',r.moneyOut,r.moneyOut,{bold:true,top:true,lc:'var(--amber)'})
+      +plSub('Net')
+      +plRow('Net (in − out)',r.netMonth1,r.netMature,{bold:true,neg:true,ac:negEm(r.netMonth1),bc:negEm(r.netMature)})
+      +'<div class="pl" style="padding:7px 0;"><span style="font-size:12px;color:var(--soft);">Net margin</span><span class="mono" style="text-align:right;font-size:12px;color:var(--soft);">'+pct(r.marginMonth1,0)+'</span><span class="mono" style="text-align:right;font-size:12px;color:var(--soft);">'+pct(r.marginMature,0)+'</span></div>';
+
     var ueItems=[
       ['Blended LTV : CAC',r.ltvCac.toFixed(1)+'×','LTV booked ÷ spend','var(--em)'],
       ['Mature MRR per $1 spend',r.roasMature.toFixed(2)+'×','mo-12 MRR ÷ monthly spend','var(--ink)'],
       ['Same-month ROAS',r.roasMonth1.toFixed(2)+'×','cohort bookings ÷ spend','var(--ink)'],
-      ['CPA · unique',fullD(r.cpaUnique),pct(S.uniquePct,0)+' unique of '+num(r.totalNew),'var(--ink)'],
+      ['CPA · per customer',fullD(r.cpaUnique),'spend ÷ '+num(r.totalNew)+' new/mo','var(--ink)'],
       ['Payback',(r.paybackMo<1?'<1 mo':r.paybackMo.toFixed(1)+' mo'),'spend ÷ new MRR','var(--ink)']
     ];
     var ue=ueItems.map(function(m){return '<div class="panel" style="padding:15px;margin:0;"><div style="font-size:11px;color:var(--soft);">'+m[0]+'</div><div class="mono" style="font-size:22px;font-weight:700;color:'+m[3]+';margin:6px 0 3px;letter-spacing:-.01em;">'+m[1]+'</div><div style="font-size:10.5px;color:var(--faint);">'+m[2]+'</div></div>';}).join('');
 
     var consistencyDelta=Math.abs(r.matureMRR-r.ltvBooked)/(r.ltvBooked||1);
     var retOk=[r.apRet,r.swRet,r.groupRet,r.agencyRet].every(function(x){return x>=1&&x<=24;});
-    var agencyClose=Math.abs(r.newMRR.agency-30000)/30000<0.25;
     var QA=[
       {t:'Internal consistency — two ways to mature MRR',d:'Base × price = '+money(r.matureMRR)+' · New × LTV = '+money(r.ltvBooked)+' · Δ '+pct(consistencyDelta,2),s:consistencyDelta<0.01?'pass':'fail'},
       {t:'Implied retention = LTV ÷ price',d:'Ad Plays '+r.apRet.toFixed(1)+'mo · Software '+r.swRet.toFixed(1)+'mo · Group '+r.groupRet.toFixed(1)+'mo · Agency '+r.agencyRet.toFixed(1)+'mo',s:retOk?'pass':'warn'},
-      {t:'Agency cohort vs $30k reference',d:num(r.agencyNew,2)+' clients/mo × '+fullD(S.agencyRetainer)+' = '+money(r.newMRR.agency)+' new MRR (target $30k)',s:agencyClose?'pass':'info'},
-      {t:'Distinct leads vs North Star (200/day)',d:num(r.distinctLeads/30,0)+'/day · '+num(r.distinctLeads)+' /mo',s:(r.distinctLeads/30>=180)?'pass':'info'},
-      {t:'New customers vs North Star (AP 150 · SW 150 · Grp 30 · Agcy ~2)',d:'AP '+num(r.apNew)+' · SW '+num(r.swNew)+' · Group '+num(r.groupNew,1)+' · Agency '+num(r.agencyNew,2),s:'info'},
-      {t:'Unit economics sanity',d:'LTV:CAC '+r.ltvCac.toFixed(1)+'× · payback '+(r.paybackMo<1?'<1':r.paybackMo.toFixed(1))+'mo · CPA(unique) '+fullD(r.cpaUnique),s:(r.ltvCac>=3)?'pass':'warn'}
+      {t:'Group + agency convert off new customers/mo',d:'New/mo '+num(r.apNew+r.swNew)+' → Group '+num(r.groupNew,1)+' ('+pct(S.groupConvPct,2)+') · Agency '+num(r.agencyNew,2)+' ('+pct(S.agencyConvPct,3)+')',s:'info'},
+      {t:'Distinct leads / day',d:num(r.distinctLeads/30,0)+'/day · '+num(r.distinctLeads)+' /mo',s:'info'},
+      {t:'Net margin at maturity',d:'mature net '+money(r.netMature)+' on '+money(r.matureMRR)+' in = '+pct(r.marginMature,0),s:(r.netMature>=0)?'pass':'warn'},
+      {t:'Unit economics sanity',d:'LTV:CAC '+r.ltvCac.toFixed(1)+'× · payback '+(r.paybackMo<1?'<1':r.paybackMo.toFixed(1))+'mo · CPA '+fullD(r.cpaUnique),s:(r.ltvCac>=3)?'pass':'warn'}
     ];
     var qa=QA.map(function(q,k){return '<div class="qa" style="'+(k?'border-top:1px solid var(--line);':'')+'"><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:3px;">'+q.t+'</div><div class="mono" style="font-size:11.5px;color:var(--soft);word-break:break-word;">'+q.d+'</div></div>'+badge(q.s)+'</div>';}).join('');
 
     return '<div class="panel"><div class="eyebrow" style="margin-bottom:18px;">The waterfall</div><div class="wf">'+wf+'</div></div>'
       +'<div class="panel"><div class="eyebrow" style="margin-bottom:14px;">By tier &middot; same-month vs mature</div>'+tblD+tblM+'</div>'
+      +'<div class="panel"><div class="eyebrow" style="margin-bottom:14px;">Money in / money out &middot; monthly P&amp;L</div>'+pl
+      +'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Same-month net is one cohort&rsquo;s first month against the full monthly cost base — the investment dip. Mature net is the accumulated base against the same costs. Delivery team + COGS are entered flat; at scale they rise with the base, so read mature net as a ceiling.</div></div>'
       +'<div class="ue">'+ue+'</div>'
       +'<div class="panel"><div class="eyebrow" style="margin-bottom:6px;">MRR ramp &middot; months 1–12</div><div style="font-size:12px;color:var(--soft);margin-bottom:14px;">One steady month of acquisition, compounding as the subscription base fills.</div>'+chart(r)+'</div>'
-      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:4px;">QA &middot; ratio verification</div><div style="font-size:12px;color:var(--soft);margin-bottom:10px;">Live checks on internal consistency and against the North Star targets.</div>'+qa
-      +'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Notes — Active base = new/mo × min(lifetime, 12); at maturity base×price equals new×LTV, which is why the consistency check resolves to ~0%. Ad-play leads and customers route into software, so software&rsquo;s pool = direct SW leads + the full ad-play pool. Group and agency convert monthly off the accumulated base. Delivery cost is not modeled — mature MRR is revenue, not profit, until team/COGS that scale with the base are layered in.</div></div>';
+      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:4px;">QA &middot; ratio verification</div><div style="font-size:12px;color:var(--soft);margin-bottom:10px;">Live checks on internal consistency and the funnel logic.</div>'+qa
+      +'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Notes — Active base = new/mo × min(lifetime, 12); at maturity base×price equals new×LTV, which is why the consistency check resolves to ~0%. Ad plays and software are independent channels — each converts its own leads at the same rate, with no cross-feed and no overlap. Group and agency convert off each month&rsquo;s new customers (stage 3). Delivery cost is entered flat — mature MRR is revenue, not profit, until team/COGS that scale with the base are layered in.</div></div>';
   }
 
   function render(){
@@ -528,7 +571,7 @@
     document.getElementById('o-m1').textContent=money(r.month1MRR);
     document.getElementById('o-m12').textContent=money(r.matureMRR);
     document.getElementById('o-ann').textContent=money(r.matureMRR*12)+' annual';
-    CFG.forEach(function(c){ document.getElementById('v-'+c.k).textContent=c.fmt(S[c.k]); });
+    ALL.forEach(function(c){ var el=document.getElementById('v-'+c.k); if(el) el.textContent=c.fmt(S[c.k]); });
     var ah=document.getElementById('h-agencyRetainer'); if(ah) ah.textContent='implies '+r.agencyRet.toFixed(1)+'-mo retention';
     document.getElementById('apm-out').innerHTML=renderOut(r);
   }
