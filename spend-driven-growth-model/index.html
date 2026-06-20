@@ -275,7 +275,7 @@
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
       <h1>Spend-Driven Growth Model</h1>
-      <p>Interactive financial model · spend as the proxy</p>
+      <p>Ad Model → CPL → funnel P&amp;L. An interactive, self-checking model of the spend-driven ascension funnel.</p>
     </div>
   </header>
   <div class="ap-content">
@@ -290,6 +290,9 @@
 #apm .panel{ background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px; margin-bottom:12px; }
 #apm .mono{ font-family:var(--mono); }
 #apm h2.t{ font-size:26px; font-weight:800; letter-spacing:-.02em; margin:6px 0 4px; color:var(--ink); line-height:1.1; }
+#apm .tabbar{ display:flex; gap:4px; margin-bottom:14px; border-bottom:1px solid var(--line); }
+#apm .tab{ font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--faint); background:transparent; border:none; border-bottom:2px solid transparent; padding:8px 12px; cursor:pointer; margin-bottom:-1px; }
+#apm .tab.active{ color:var(--ink); border-bottom-color:var(--em); }
 #apm input[type=range]{ -webkit-appearance:none; appearance:none; width:100%; height:3px; background:var(--line); border-radius:2px; outline:none; cursor:pointer; }
 #apm input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:15px; height:15px; border-radius:50%; background:var(--blue); border:2px solid #fff; box-shadow:0 0 0 1px var(--blue); cursor:pointer; }
 #apm input[type=range]::-moz-range-thumb{ width:15px; height:15px; border-radius:50%; background:var(--blue); border:2px solid #fff; box-shadow:0 0 0 1px var(--blue); cursor:pointer; }
@@ -301,6 +304,7 @@
 #apm .lever .lbl{ font-size:12px; color:var(--soft); }
 #apm .lever .val{ font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink); }
 #apm .lever .hint{ font-size:10.5px; color:var(--faint); margin-top:6px; display:block; }
+#apm .lever .ro{ height:3px; background:var(--line); border-radius:2px; }
 #apm .wf{ display:flex; gap:4px; align-items:flex-start; }
 #apm .stage{ flex:1 1 0; min-width:140px; }
 #apm .stage .si{ font-family:var(--mono); font-size:10px; color:var(--faint); letter-spacing:.12em; margin-bottom:8px; }
@@ -312,12 +316,15 @@
 #apm .tbl-d{ display:block; } #apm .tbl-m{ display:none; }
 #apm .trow{ display:grid; grid-template-columns:1.4fr .8fr 1fr .8fr 1.5fr; gap:8px; align-items:center; }
 #apm .pl{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:8px; align-items:center; }
+#apm .os{ display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:8px; align-items:center; }
 #apm .ue{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:12px; }
 #apm .qa{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:12px 0; }
 #apm .badge{ font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.08em; padding:3px 7px; border-radius:3px; white-space:nowrap; }
+#apm .herogrid{ display:grid; grid-template-columns:minmax(240px,1fr) 1px minmax(260px,1.2fr); gap:22px; align-items:center; }
+#apm .herodiv{ background:var(--line); width:1px; height:100%; }
 @media(max-width:720px){
-  #apm .hero-grid{ grid-template-columns:1fr !important; }
-  #apm .hero-div{ display:none !important; }
+  #apm .herogrid{ grid-template-columns:1fr !important; }
+  #apm .herodiv{ display:none !important; }
   #apm .wf{ flex-direction:column; }
   #apm .chev{ transform:rotate(90deg); align-self:flex-start; }
   #apm .tbl-d{ display:none; } #apm .tbl-m{ display:block; }
@@ -327,39 +334,66 @@
 <div id="apm">
   <div class="eyebrow">Ad Pros &middot; Growth Model</div>
   <h2 class="t">Spend-driven P&amp;L</h2>
-  <p style="font-size:13.5px;color:var(--soft);max-width:640px;margin:0 0 16px;">One knob — monthly ad spend — cascades through leads, customers, the accumulated base, and upsells. Tables show both revenue frames and money in vs money out; every ratio is checked at the bottom.</p>
+  <p style="font-size:13.5px;color:var(--soft);max-width:640px;margin:0 0 14px;">Two layers: the <b>Ad Model</b> turns CPM / CTR / CVR into a cost-per-lead; the <b>Spend Model</b> runs that CPL through the funnel to revenue, P&amp;L, and upsells. Every ratio is checked.</p>
 
-  <div class="panel">
-    <div class="hero-grid" style="display:grid;grid-template-columns:minmax(240px,1fr) 1px minmax(260px,1.2fr);gap:22px;align-items:center;">
-      <div>
-        <div class="eyebrow" style="margin-bottom:10px;">Monthly ad spend</div>
-        <div id="o-spend" class="mono" style="font-size:40px;font-weight:700;color:var(--em);letter-spacing:-.02em;line-height:1;"></div>
-        <input class="hero" type="range" id="s-spend" min="5000" max="200000" step="1000" style="margin-top:16px;">
-        <div class="mono" style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:6px;"><span>$5k</span><span>$200k / mo</span></div>
-      </div>
-      <div class="hero-div" style="background:var(--line);width:1px;height:100%;"></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div><div class="eyebrow">Same month &middot; new MRR</div><div id="o-m1" class="mono" style="font-size:28px;font-weight:700;margin-top:8px;"></div><div style="font-size:11.5px;color:var(--soft);margin-top:4px;">one month&rsquo;s cohort</div></div>
-        <div><div class="eyebrow">Month 12 &middot; mature MRR</div><div id="o-m12" class="mono" style="font-size:28px;font-weight:700;color:var(--em);margin-top:8px;"></div><div id="o-ann" style="font-size:11.5px;color:var(--soft);margin-top:4px;"></div></div>
+  <div class="tabbar">
+    <button class="tab active" id="tab-btn-spend">Spend Model</button>
+    <button class="tab" id="tab-btn-ad">Ad Model</button>
+  </div>
+
+  <div id="tab-spend">
+    <div class="panel">
+      <div class="herogrid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:10px;">Monthly ad spend</div>
+          <div id="o-spend" class="mono" style="font-size:40px;font-weight:700;color:var(--em);letter-spacing:-.02em;line-height:1;"></div>
+          <input class="hero" type="range" id="s-spend" min="5000" max="200000" step="1000" style="margin-top:16px;">
+          <div class="mono" style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:6px;"><span>$5k</span><span>$200k / mo</span></div>
+        </div>
+        <div class="herodiv"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div><div class="eyebrow">Same month &middot; new MRR</div><div id="o-m1" class="mono" style="font-size:28px;font-weight:700;margin-top:8px;"></div><div style="font-size:11.5px;color:var(--soft);margin-top:4px;">one month&rsquo;s cohort</div></div>
+          <div><div class="eyebrow">Month 12 &middot; mature MRR</div><div id="o-m12" class="mono" style="font-size:28px;font-weight:700;color:var(--em);margin-top:8px;"></div><div id="o-ann" style="font-size:11.5px;color:var(--soft);margin-top:4px;"></div></div>
+        </div>
       </div>
     </div>
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Levers</div>
+      <div class="levers" id="levers"></div>
+      <div class="eyebrow" style="margin:22px 0 16px;">Money out &middot; monthly costs</div>
+      <div class="levers" id="costs"></div>
+    </div>
+    <div id="apm-out"></div>
   </div>
 
-  <div class="panel">
-    <div class="eyebrow" style="margin-bottom:16px;">Levers</div>
-    <div class="levers" id="levers"></div>
-    <div class="eyebrow" style="margin:22px 0 16px;">Money out &middot; monthly costs</div>
-    <div class="levers" id="costs"></div>
+  <div id="tab-ad" style="display:none;">
+    <div class="panel">
+      <div class="herogrid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;"><span>Cost per lead</span><span id="a-badge" class="badge"></span></div>
+          <div id="a-cpl" class="mono" style="font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1;"></div>
+          <div id="a-sub" style="font-size:11.5px;color:var(--soft);margin-top:10px;"></div>
+        </div>
+        <div class="herodiv"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div><div class="eyebrow">Cost per click</div><div id="a-cpc" class="mono" style="font-size:28px;font-weight:700;margin-top:8px;"></div><div style="font-size:11.5px;color:var(--soft);margin-top:4px;">link CPC</div></div>
+          <div><div class="eyebrow">Software CAC</div><div id="a-cac" class="mono" style="font-size:28px;font-weight:700;color:var(--em);margin-top:8px;"></div><div id="a-cacsub" style="font-size:11.5px;color:var(--soft);margin-top:4px;"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Media inputs</div>
+      <div class="levers" id="adinputs"></div>
+    </div>
+    <div id="ad-out"></div>
   </div>
-
-  <div id="apm-out"></div>
 </div>
 
 <script>
 (function(){
-  var S={spend:30000,splitAP:.5,cpl:15,organicPct:.25,conv:.05,groupConvPct:.009,agencyConvPct:.0006,agencyRetainer:15000,
+  var S={spend:30000,splitAP:0,organicPct:.25,conv:.10,groupConvPct:.03,agencyConvPct:.0027,agencyRetainer:15000,
     apPrice:47,apLTV:300,swPrice:100,swLTV:1200,groupPrice:500,groupLTV:1500,agencyLTV:60000,uniquePct:1.0,
-    mktgTeam:10000,deliveryTeam:10000,swCogs:750};
+    mktgTeam:10000,deliveryTeam:10000,swCogs:750,cpm:90,ctr:.03,cvr:.30};
 
   function money(n){ if(!isFinite(n))return "—"; var a=Math.abs(n);
     if(a>=1e6)return "$"+(n/1e6).toFixed(2)+"M";
@@ -374,10 +408,8 @@
     var paidLeadsAP=(i.spend*i.splitAP)/i.cpl, paidLeadsSW=(i.spend*(1-i.splitAP))/i.cpl;
     var apLeads=paidLeadsAP*(1+i.organicPct), swDirectLeads=paidLeadsSW*(1+i.organicPct);
     var distinctLeads=apLeads+swDirectLeads;
-    // each channel converts its own leads at the same rate — no cross-feed, no overlap
     var apNew=apLeads*i.conv, swNew=swDirectLeads*i.conv;
     var apBase=apNew*Math.min(apRet,12), swBase=swNew*Math.min(swRet,12), custBase=apBase+swBase;
-    // group + agency convert off THIS MONTH'S new customers (stage 3)
     var newCust=apNew+swNew;
     var groupNew=newCust*i.groupConvPct, groupBase=groupNew*Math.min(groupRet,12);
     var agencyNew=newCust*i.agencyConvPct, agencyBase=agencyNew*Math.min(agencyRet,12);
@@ -405,11 +437,38 @@
       cpaUnique:i.spend/uniqueNew,paybackMo:i.spend/month1MRR,ramp:ramp};
   }
 
+  // derive CPL from the ad model
+  function cpc(){ return S.cpm/(S.ctr*1000); }
+  function cpl(){ return cpc()/S.cvr; }
+  function state(){ var o={}; for(var k in S) o[k]=S[k]; o.cpl=cpl(); return o; }
+
+  var CTRLS=[];
+  function buildLevers(container,cfg,sp,vp){
+    cfg.forEach(function(c){
+      var d=document.createElement('div'); d.className='lever';
+      var vid=vp+c.k, sid=sp+c.k;
+      if(c.ro){
+        d.innerHTML='<div class="row"><span class="lbl">'+c.label+'</span><span class="val" id="'+vid+'" style="color:var(--em);"></span></div><div class="ro"></div>'+(c.hint?'<span class="hint">'+c.hint+'</span>':'');
+        CTRLS.push({k:c.k,vid:vid,ro:true});
+      } else {
+        var hint = c.hintId ? '<span class="hint" id="'+c.hintId+'"></span>' : (c.hint?'<span class="hint">'+c.hint+'</span>':'');
+        d.innerHTML='<div class="row"><span class="lbl">'+c.label+'</span><span class="val" id="'+vid+'"></span></div>'+
+          '<input type="range" id="'+sid+'" min="'+c.min+'" max="'+c.max+'" step="'+c.step+'">'+hint;
+        container.appendChild(d);
+        var inp=d.querySelector('input'); inp.value=S[c.k];
+        inp.addEventListener('input',function(){ S[c.k]=parseFloat(inp.value); render(); });
+        CTRLS.push({k:c.k,sid:sid,vid:vid,fmt:c.fmt});
+        return;
+      }
+      container.appendChild(d);
+    });
+  }
+
   var CFG=[
     {k:'splitAP',label:'Spend split → Ad Plays',min:0,max:1,step:.05,fmt:function(v){return Math.round(v*100)+'% / '+Math.round((1-v)*100)+'% SW';},hint:'rest funds direct software leads'},
-    {k:'cpl',label:'Cost per lead',min:5,max:40,step:.5,fmt:function(v){return '$'+v.toFixed(1);}},
+    {k:'cpl',label:'Cost per lead',ro:true,hint:'derived on the Ad Model tab'},
     {k:'organicPct',label:'Organic uplift',min:0,max:1.5,step:.05,fmt:function(v){return '+'+Math.round(v*100)+'%';},hint:'organic as a share of paid'},
-    {k:'conv',label:'Free → paid',min:.01,max:.15,step:.005,fmt:function(v){return pct(v,1);},hint:"same rate · each tier's own leads"},
+    {k:'conv',label:'Free → paid',min:.01,max:.30,step:.005,fmt:function(v){return pct(v,1);},hint:"same rate · each tier's own leads"},
     {k:'groupConvPct',label:'Group conv (of new/mo)',min:0,max:.05,step:.001,fmt:function(v){return pct(v,2);},hint:'% of new customers each month'},
     {k:'agencyConvPct',label:'Agency conv (of new/mo)',min:0,max:.005,step:.0001,fmt:function(v){return pct(v,3);},hint:'best-of-best · of new/mo'},
     {k:'agencyRetainer',label:'Agency retainer',min:1000,max:50000,step:1000,fmt:function(v){return fullD(v);},hintId:'h-agencyRetainer'}
@@ -419,23 +478,27 @@
     {k:'deliveryTeam',label:'Delivery team',min:0,max:50000,step:500,fmt:function(v){return fullD(v);},hint:'agency + group fulfillment'},
     {k:'swCogs',label:'Software COGS',min:0,max:10000,step:50,fmt:function(v){return fullD(v);}}
   ];
-
-  function buildLevers(container,cfg){
-    cfg.forEach(function(c){
-      var d=document.createElement('div'); d.className='lever';
-      var hint = c.hintId ? '<span class="hint" id="'+c.hintId+'"></span>' : (c.hint?'<span class="hint">'+c.hint+'</span>':'');
-      d.innerHTML='<div class="row"><span class="lbl">'+c.label+'</span><span class="val" id="v-'+c.k+'"></span></div>'+
-        '<input type="range" id="s-'+c.k+'" min="'+c.min+'" max="'+c.max+'" step="'+c.step+'">'+hint;
-      container.appendChild(d);
-      var inp=d.querySelector('input'); inp.value=S[c.k];
-      inp.addEventListener('input',function(){ S[c.k]=parseFloat(inp.value); render(); });
-    });
-  }
-  buildLevers(document.getElementById('levers'),CFG);
-  buildLevers(document.getElementById('costs'),CFG2);
-  var ALL=CFG.concat(CFG2);
+  var CFGA=[
+    {k:'cpm',label:'CPM',min:5,max:200,step:1,fmt:function(v){return '$'+v;},hint:'cost per 1,000 impressions'},
+    {k:'ctr',label:'CTR (link)',min:.005,max:.10,step:.001,fmt:function(v){return pct(v,1);},hint:'clicks ÷ impressions'},
+    {k:'cvr',label:'Landing-page CVR',min:.05,max:.60,step:.01,fmt:function(v){return pct(v,0);},hint:'click → lead'},
+    {k:'conv',label:'Lead → purchase (SW)',min:.01,max:.30,step:.005,fmt:function(v){return pct(v,1);},hint:"also the model's Free→paid"}
+  ];
+  buildLevers(document.getElementById('levers'),CFG,'s-','v-');
+  buildLevers(document.getElementById('costs'),CFG2,'s-','v-');
+  buildLevers(document.getElementById('adinputs'),CFGA,'as-','av-');
   var sp=document.getElementById('s-spend'); sp.value=S.spend;
   sp.addEventListener('input',function(){ S.spend=parseFloat(sp.value); render(); });
+
+  // tabs
+  function setTab(t){
+    document.getElementById('tab-spend').style.display = (t==='spend')?'block':'none';
+    document.getElementById('tab-ad').style.display = (t==='ad')?'block':'none';
+    document.getElementById('tab-btn-spend').className = 'tab'+(t==='spend'?' active':'');
+    document.getElementById('tab-btn-ad').className = 'tab'+(t==='ad'?' active':'');
+  }
+  document.getElementById('tab-btn-spend').addEventListener('click',function(){setTab('spend');});
+  document.getElementById('tab-btn-ad').addEventListener('click',function(){setTab('ad');});
 
   function badge(state){
     var m={pass:['#E7F3EE','var(--em)','VERIFIED'],info:['#EAF0FB','var(--blue)','INFO'],warn:['#FBF1E3','var(--amber)','OFF TARGET'],fail:['#FBEBE9','var(--red)','FAIL']}[state];
@@ -460,7 +523,7 @@
       +'<polyline fill="none" stroke="var(--em)" stroke-width="2.5" points="'+pts+'"/>'+dots+xl+'</svg>';
   }
 
-  function renderOut(r){
+  function renderSpendOut(r){
     var stages=[
       {i:1,label:'Spend',big:money(S.spend),ac:'var(--em)',ln:[['Ad Plays',money(S.spend*S.splitAP)],['Software',money(S.spend*(1-S.splitAP))]]},
       {i:2,label:'Leads / mo',big:num(r.distinctLeads),ac:'var(--ink)',ln:[['Ad Plays',num(r.apLeads)],['Software',num(r.swDirectLeads)]]},
@@ -474,7 +537,6 @@
       wf+='<div class="stage"><div class="si">0'+s.i+' &middot; '+s.label+'</div><div class="sb" style="color:'+s.ac+'">'+s.big+'</div><div style="margin-top:10px;">'+lines+'</div></div>';
       if(idx<stages.length-1) wf+='<div class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--faint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
     });
-
     var TR=[
       {k:'Ad Plays',price:'$'+S.apPrice+'/mo',nw:r.apNew,nmrr:r.newMRR.ap,base:r.apBase,mrr:r.mrr.ap,ltv:S.apLTV,c:'var(--em)'},
       {k:'Software',price:'$'+S.swPrice+'/mo',nw:r.swNew,nmrr:r.newMRR.sw,base:r.swBase,mrr:r.mrr.sw,ltv:S.swLTV,c:'var(--emb)'},
@@ -483,7 +545,6 @@
     ];
     var maxMRR=Math.max(TR[0].mrr,TR[1].mrr,TR[2].mrr,TR[3].mrr)||1;
     var totalBase=r.custBase+r.groupBase+r.agencyBase;
-
     var head='<div class="trow" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>TIER</span><span style="text-align:right">NEW/MO</span><span style="text-align:right">SAME-MO MRR</span><span style="text-align:right">BASE</span><span>MATURE MRR</span></div>';
     var rows=TR.map(function(t){
       return '<div class="trow" style="padding:11px 0;border-bottom:1px solid var(--line);">'
@@ -491,8 +552,7 @@
         +'<span class="mono" style="text-align:right;font-size:13px;">'+num(t.nw,t.nw<10?2:0)+'</span>'
         +'<span class="mono" style="text-align:right;font-size:13px;">'+money(t.nmrr)+'</span>'
         +'<span class="mono" style="text-align:right;font-size:13px;">'+num(t.base,t.base<10?1:0)+'</span>'
-        +'<div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--wash);border-radius:3px;overflow:hidden;"><div style="width:'+(t.mrr/maxMRR*100).toFixed(1)+'%;height:100%;background:'+t.c+';border-radius:3px;"></div></div><span class="mono" style="font-size:13px;font-weight:600;min-width:54px;text-align:right;">'+money(t.mrr)+'</span></div>'
-        +'</div>';
+        +'<div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--wash);border-radius:3px;overflow:hidden;"><div style="width:'+(t.mrr/maxMRR*100).toFixed(1)+'%;height:100%;background:'+t.c+';border-radius:3px;"></div></div><span class="mono" style="font-size:13px;font-weight:600;min-width:54px;text-align:right;">'+money(t.mrr)+'</span></div></div>';
     }).join('');
     var totalRow='<div class="trow" style="padding:12px 0 0;"><div style="font-size:13.5px;font-weight:700;">Total</div>'
       +'<span class="mono" style="text-align:right;font-size:13px;">'+num(r.totalNew,0)+'</span>'
@@ -500,40 +560,26 @@
       +'<span class="mono" style="text-align:right;font-size:13px;">'+num(totalBase,0)+'</span>'
       +'<span class="mono" style="font-size:15px;font-weight:700;color:var(--em);text-align:right;">'+money(r.matureMRR)+'</span></div>';
     var tblD='<div class="tbl-d">'+head+rows+totalRow+'</div>';
-
     var cards=TR.map(function(t){
-      return '<div style="padding:14px 0;border-top:1px solid var(--line);">'
-        +'<div style="margin-bottom:10px;"><div style="font-size:14px;font-weight:600;">'+t.k+'</div><div style="font-size:10.5px;color:var(--faint);font-family:var(--mono);">'+t.price+'</div></div>'
-        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
-        +'<div style="background:var(--wash);border-radius:6px;padding:9px 11px;"><div style="font-size:10px;color:var(--soft);">Same month</div><div class="mono" style="font-size:17px;font-weight:700;">'+money(t.nmrr)+'</div></div>'
-        +'<div style="background:var(--wash);border-radius:6px;padding:9px 11px;"><div style="font-size:10px;color:var(--soft);">Mature · mo 12</div><div class="mono" style="font-size:17px;font-weight:700;color:'+t.c+';">'+money(t.mrr)+'</div></div></div>'
+      return '<div style="padding:14px 0;border-top:1px solid var(--line);"><div style="margin-bottom:10px;"><div style="font-size:14px;font-weight:600;">'+t.k+'</div><div style="font-size:10.5px;color:var(--faint);font-family:var(--mono);">'+t.price+'</div></div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;"><div style="background:var(--wash);border-radius:6px;padding:9px 11px;"><div style="font-size:10px;color:var(--soft);">Same month</div><div class="mono" style="font-size:17px;font-weight:700;">'+money(t.nmrr)+'</div></div><div style="background:var(--wash);border-radius:6px;padding:9px 11px;"><div style="font-size:10px;color:var(--soft);">Mature · mo 12</div><div class="mono" style="font-size:17px;font-weight:700;color:'+t.c+';">'+money(t.mrr)+'</div></div></div>'
         +'<div class="mono" style="display:flex;justify-content:space-between;font-size:11px;color:var(--soft);"><span>New '+num(t.nw,t.nw<10?2:0)+'/mo</span><span>Base '+num(t.base,t.base<10?1:0)+'</span><span>LTV '+money(t.nw*t.ltv)+'/mo</span></div></div>';
     }).join('');
     var totalCard='<div style="padding:14px 0 0;border-top:2px solid var(--ink);"><div style="font-size:14px;font-weight:700;margin-bottom:8px;">Total</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;color:var(--soft);">Same month</div><div class="mono" style="font-size:19px;font-weight:700;">'+money(r.month1MRR)+'</div></div><div><div style="font-size:10px;color:var(--soft);">Mature</div><div class="mono" style="font-size:19px;font-weight:700;color:var(--em);">'+money(r.matureMRR)+'</div></div></div></div>';
     var tblM='<div class="tbl-m">'+cards+totalCard+'</div>';
-
-    // P&L money in / money out
-    var plHead='<div class="pl" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>LINE</span><span style="text-align:right">SAME MONTH</span><span style="text-align:right">MATURE · MO 12</span></div>';
     var plSub=function(t){return '<div class="eyebrow" style="font-size:10px;padding:14px 0 6px;">'+t+'</div>';};
-    var plRow=function(label,a,b,o){o=o||{};var top=o.top?'border-top:1px solid var(--line);':'';var fw=o.bold?700:400;
-      var fa=function(v){return (o.neg&&v<0)?'('+money(-v)+')':money(v);};
-      return '<div class="pl" style="padding:7px 0;'+top+'">'
-        +'<span style="font-size:13px;font-weight:'+fw+';color:'+(o.lc||'var(--ink)')+';">'+label+'</span>'
-        +'<span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.ac||o.lc||'var(--ink)')+';">'+fa(a)+'</span>'
-        +'<span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.bc||o.lc||'var(--ink)')+';">'+fa(b)+'</span></div>';};
+    var plRow=function(label,a,b,o){o=o||{};var top=o.top?'border-top:1px solid var(--line);':'';var fw=o.bold?700:400;var fa=function(v){return (o.neg&&v<0)?'('+money(-v)+')':money(v);};
+      return '<div class="pl" style="padding:7px 0;'+top+'"><span style="font-size:13px;font-weight:'+fw+';color:'+(o.lc||'var(--ink)')+';">'+label+'</span><span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.ac||o.lc||'var(--ink)')+';">'+fa(a)+'</span><span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.bc||o.lc||'var(--ink)')+';">'+fa(b)+'</span></div>';};
     var inR=[['Ad Plays',r.newMRR.ap,r.mrr.ap],['Software',r.newMRR.sw,r.mrr.sw],['Group',r.newMRR.group,r.mrr.group],['Agency',r.newMRR.agency,r.mrr.agency]];
     var outR=[['Ad spend',S.spend],['Marketing team',S.mktgTeam],['Delivery team',S.deliveryTeam],['Software COGS',S.swCogs]];
     var negEm=function(v){return v>=0?'var(--em)':'var(--red)';};
-    var pl=plHead+plSub('Money in')
-      +inR.map(function(x){return plRow(x[0],x[1],x[2]);}).join('')
+    var plHead='<div class="pl" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>LINE</span><span style="text-align:right">SAME MONTH</span><span style="text-align:right">MATURE · MO 12</span></div>';
+    var pl=plHead+plSub('Money in')+inR.map(function(x){return plRow(x[0],x[1],x[2]);}).join('')
       +plRow('Total money in',r.month1MRR,r.matureMRR,{bold:true,top:true,lc:'var(--em)'})
-      +plSub('Money out')
-      +outR.map(function(x){return plRow(x[0],x[1],x[1]);}).join('')
+      +plSub('Money out')+outR.map(function(x){return plRow(x[0],x[1],x[1]);}).join('')
       +plRow('Total money out',r.moneyOut,r.moneyOut,{bold:true,top:true,lc:'var(--amber)'})
-      +plSub('Net')
-      +plRow('Net (in − out)',r.netMonth1,r.netMature,{bold:true,neg:true,ac:negEm(r.netMonth1),bc:negEm(r.netMature)})
+      +plSub('Net')+plRow('Net (in − out)',r.netMonth1,r.netMature,{bold:true,neg:true,ac:negEm(r.netMonth1),bc:negEm(r.netMature)})
       +'<div class="pl" style="padding:7px 0;"><span style="font-size:12px;color:var(--soft);">Net margin</span><span class="mono" style="text-align:right;font-size:12px;color:var(--soft);">'+pct(r.marginMonth1,0)+'</span><span class="mono" style="text-align:right;font-size:12px;color:var(--soft);">'+pct(r.marginMature,0)+'</span></div>';
-
     var ueItems=[
       ['Blended LTV : CAC',r.ltvCac.toFixed(1)+'×','LTV booked ÷ spend','var(--em)'],
       ['Mature MRR per $1 spend',r.roasMature.toFixed(2)+'×','mo-12 MRR ÷ monthly spend','var(--ink)'],
@@ -542,38 +588,71 @@
       ['Payback',(r.paybackMo<1?'<1 mo':r.paybackMo.toFixed(1)+' mo'),'spend ÷ new MRR','var(--ink)']
     ];
     var ue=ueItems.map(function(m){return '<div class="panel" style="padding:15px;margin:0;"><div style="font-size:11px;color:var(--soft);">'+m[0]+'</div><div class="mono" style="font-size:22px;font-weight:700;color:'+m[3]+';margin:6px 0 3px;letter-spacing:-.01em;">'+m[1]+'</div><div style="font-size:10.5px;color:var(--faint);">'+m[2]+'</div></div>';}).join('');
-
-    var consistencyDelta=Math.abs(r.matureMRR-r.ltvBooked)/(r.ltvBooked||1);
+    var cd=Math.abs(r.matureMRR-r.ltvBooked)/(r.ltvBooked||1);
     var retOk=[r.apRet,r.swRet,r.groupRet,r.agencyRet].every(function(x){return x>=1&&x<=24;});
     var QA=[
-      {t:'Internal consistency — two ways to mature MRR',d:'Base × price = '+money(r.matureMRR)+' · New × LTV = '+money(r.ltvBooked)+' · Δ '+pct(consistencyDelta,2),s:consistencyDelta<0.01?'pass':'fail'},
+      {t:'Internal consistency — two ways to mature MRR',d:'Base × price = '+money(r.matureMRR)+' · New × LTV = '+money(r.ltvBooked)+' · Δ '+pct(cd,2),s:cd<0.01?'pass':'fail'},
       {t:'Implied retention = LTV ÷ price',d:'Ad Plays '+r.apRet.toFixed(1)+'mo · Software '+r.swRet.toFixed(1)+'mo · Group '+r.groupRet.toFixed(1)+'mo · Agency '+r.agencyRet.toFixed(1)+'mo',s:retOk?'pass':'warn'},
       {t:'Group + agency convert off new customers/mo',d:'New/mo '+num(r.apNew+r.swNew)+' → Group '+num(r.groupNew,1)+' ('+pct(S.groupConvPct,2)+') · Agency '+num(r.agencyNew,2)+' ('+pct(S.agencyConvPct,3)+')',s:'info'},
-      {t:'Distinct leads / day',d:num(r.distinctLeads/30,0)+'/day · '+num(r.distinctLeads)+' /mo',s:'info'},
       {t:'Net margin at maturity',d:'mature net '+money(r.netMature)+' on '+money(r.matureMRR)+' in = '+pct(r.marginMature,0),s:(r.netMature>=0)?'pass':'warn'},
       {t:'Unit economics sanity',d:'LTV:CAC '+r.ltvCac.toFixed(1)+'× · payback '+(r.paybackMo<1?'<1':r.paybackMo.toFixed(1))+'mo · CPA '+fullD(r.cpaUnique),s:(r.ltvCac>=3)?'pass':'warn'}
     ];
     var qa=QA.map(function(q,k){return '<div class="qa" style="'+(k?'border-top:1px solid var(--line);':'')+'"><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:3px;">'+q.t+'</div><div class="mono" style="font-size:11.5px;color:var(--soft);word-break:break-word;">'+q.d+'</div></div>'+badge(q.s)+'</div>';}).join('');
-
     return '<div class="panel"><div class="eyebrow" style="margin-bottom:18px;">The waterfall</div><div class="wf">'+wf+'</div></div>'
       +'<div class="panel"><div class="eyebrow" style="margin-bottom:14px;">By tier &middot; same-month vs mature</div>'+tblD+tblM+'</div>'
-      +'<div class="panel"><div class="eyebrow" style="margin-bottom:14px;">Money in / money out &middot; monthly P&amp;L</div>'+pl
-      +'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Same-month net is one cohort&rsquo;s first month against the full monthly cost base — the investment dip. Mature net is the accumulated base against the same costs. Delivery team + COGS are entered flat; at scale they rise with the base, so read mature net as a ceiling.</div></div>'
+      +'<div class="panel"><div class="eyebrow" style="margin-bottom:14px;">Money in / money out &middot; monthly P&amp;L</div>'+pl+'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Same-month net is one cohort&rsquo;s first month against the full monthly cost base — the investment dip. Mature net is the accumulated base against the same costs. Delivery team + COGS are entered flat; read mature net as a ceiling.</div></div>'
       +'<div class="ue">'+ue+'</div>'
       +'<div class="panel"><div class="eyebrow" style="margin-bottom:6px;">MRR ramp &middot; months 1–12</div><div style="font-size:12px;color:var(--soft);margin-bottom:14px;">One steady month of acquisition, compounding as the subscription base fills.</div>'+chart(r)+'</div>'
-      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:4px;">QA &middot; ratio verification</div><div style="font-size:12px;color:var(--soft);margin-bottom:10px;">Live checks on internal consistency and the funnel logic.</div>'+qa
-      +'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Notes — Active base = new/mo × min(lifetime, 12); at maturity base×price equals new×LTV, which is why the consistency check resolves to ~0%. Ad plays and software are independent channels — each converts its own leads at the same rate, with no cross-feed and no overlap. Group and agency convert off each month&rsquo;s new customers (stage 3). Delivery cost is entered flat — mature MRR is revenue, not profit, until team/COGS that scale with the base are layered in.</div></div>';
+      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:4px;">QA &middot; ratio verification</div><div style="font-size:12px;color:var(--soft);margin-bottom:10px;">Live checks on internal consistency and the funnel logic.</div>'+qa+'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Notes — Active base = new/mo × min(lifetime, 12). Ad plays and software are independent channels, each converting its own leads at the same rate (no cross-feed, no overlap). Group and agency convert off each month&rsquo;s new customers (stage 3). CPL is derived on the Ad Model tab. Delivery cost is entered flat — mature MRR is revenue, not profit.</div></div>';
+  }
+
+  function renderAdOut(r){
+    var CPC=cpc(), CPL=cpl(), CAC=CPL/S.conv;
+    var chain=[['CPM','$'+S.cpm,'per 1,000 impr'],['CTR',pct(S.ctr,1),'link clicks'],['CPC','$'+CPC.toFixed(2),'per click'],
+      ['CVR',pct(S.cvr,0),'→ lead'],['CPL','$'+CPL.toFixed(2),'per lead'],['LP',pct(S.conv,1),'→ purchase'],['CAC',fullD(CAC),'software']];
+    var ch='';
+    chain.forEach(function(x,idx){
+      var col = (x[0]==='CPL') ? (CPL<=10?'var(--em)':'var(--amber)') : 'var(--ink)';
+      ch+='<div class="stage" style="min-width:86px;"><div class="si">'+x[0]+'</div><div class="mono" style="font-size:20px;font-weight:700;color:'+col+';">'+x[1]+'</div><div style="font-size:10.5px;color:var(--soft);margin-top:3px;">'+x[2]+'</div></div>';
+      if(idx<chain.length-1) ch+='<div class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--faint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+    });
+    var targetCpc=10*S.cvr;
+    var ctrs=[.01,.015,.02,.025,.03,.04,.05];
+    var nearest=ctrs.reduce(function(a,b){return Math.abs(b-S.ctr)<Math.abs(a-S.ctr)?b:a;},ctrs[0]);
+    var oh='<div class="os" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>CTR (LINK)</span><span style="text-align:right">CPM NEEDED</span><span style="text-align:right">VS YOUR $'+S.cpm+'</span></div>';
+    var orows=ctrs.map(function(ct){var req=targetCpc*(ct*1000);var here=(ct===nearest);var ok=(S.cpm<=req);
+      return '<div class="os" style="padding:9px 0;border-bottom:1px solid var(--line);background:'+(here?'var(--wash)':'transparent')+';"><span class="mono" style="font-size:13px;font-weight:'+(here?700:400)+';">'+pct(ct,1)+(here?'  ←':'')+'</span><span class="mono" style="text-align:right;font-size:13px;">$'+req.toFixed(0)+'</span><span class="mono" style="text-align:right;font-size:12px;color:'+(ok?'var(--em)':'var(--amber)')+';">'+(ok?'within budget':'over')+'</span></div>';}).join('');
+    return '<div class="panel"><div class="eyebrow" style="margin-bottom:18px;">The media chain</div><div class="wf">'+ch+'</div></div>'
+      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:6px;">Optimization surface · CPM needed for $10 CPL</div><div style="font-size:12px;color:var(--soft);margin-bottom:14px;">At '+pct(S.cvr,0)+' landing-page conversion, $10 CPL needs a $'+targetCpc.toFixed(2)+' CPC. Any CTR/CPM pair on this line hits the target — low CTR is fine if CPM is low.</div>'+oh+orows
+      +'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Chain — CPC = CPM ÷ (CTR × 1,000) · CPL = CPC ÷ CVR · Software CAC = CPL ÷ lead-to-purchase. Whatever CPL you dial here feeds the Spend Model&rsquo;s cost-per-lead directly. The fragile input is the landing-page CVR holding on cold traffic, not the media cost.</div></div>';
   }
 
   function render(){
-    var r=compute(S);
+    var st=state(); var r=compute(st);
+    var CPC=cpc(), CPL=cpl(), CAC=CPL/S.conv;
+    // spend hero
     document.getElementById('o-spend').textContent=fullD(S.spend);
     document.getElementById('o-m1').textContent=money(r.month1MRR);
     document.getElementById('o-m12').textContent=money(r.matureMRR);
     document.getElementById('o-ann').textContent=money(r.matureMRR*12)+' annual';
-    ALL.forEach(function(c){ var el=document.getElementById('v-'+c.k); if(el) el.textContent=c.fmt(S[c.k]); });
+    document.getElementById('s-spend').value=S.spend;
+    // ad hero
+    var aCpl=document.getElementById('a-cpl'); aCpl.textContent='$'+CPL.toFixed(2); aCpl.style.color=(CPL<=10?'var(--em)':'var(--amber)');
+    var ab=document.getElementById('a-badge'); ab.textContent=(CPL<=10?'≤ $10 TARGET':'OVER $10'); ab.style.color=(CPL<=10?'var(--em)':'var(--amber)'); ab.style.background=(CPL<=10?'#E7F3EE':'#FBF1E3');
+    document.getElementById('a-sub').textContent='$'+S.cpm+' CPM · '+pct(S.ctr,1)+' CTR · '+pct(S.cvr,0)+' landing-page conversion';
+    document.getElementById('a-cpc').textContent='$'+CPC.toFixed(2);
+    document.getElementById('a-cac').textContent=fullD(CAC);
+    document.getElementById('a-cacsub').textContent='CPL ÷ '+pct(S.conv,0)+' lead→purchase';
+    // all control labels + slider positions
+    CTRLS.forEach(function(c){
+      var vel=document.getElementById(c.vid);
+      if(c.ro){ if(vel) vel.textContent='$'+Math.round(CPL).toLocaleString(); return; }
+      if(vel) vel.textContent=c.fmt(S[c.k]);
+      var sel=document.getElementById(c.sid); if(sel) sel.value=S[c.k];
+    });
     var ah=document.getElementById('h-agencyRetainer'); if(ah) ah.textContent='implies '+r.agencyRet.toFixed(1)+'-mo retention';
-    document.getElementById('apm-out').innerHTML=renderOut(r);
+    document.getElementById('apm-out').innerHTML=renderSpendOut(r);
+    document.getElementById('ad-out').innerHTML=renderAdOut(r);
   }
   render();
 })();
