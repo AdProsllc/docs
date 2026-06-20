@@ -275,7 +275,7 @@
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
       <h1>Spend-Driven Growth Model</h1>
-      <p>Ad Model → CPL → funnel P&amp;L. An interactive, self-checking model of the spend-driven ascension funnel.</p>
+      <p>Ad Model → CPL → funnel P&amp;L → software LTV &amp; gross margin. An interactive, self-checking model of the spend-driven ascension funnel.</p>
     </div>
   </header>
   <div class="ap-content">
@@ -339,6 +339,7 @@
   <div class="tabbar">
     <button class="tab active" id="tab-btn-spend">Spend Model</button>
     <button class="tab" id="tab-btn-ad">Ad Model</button>
+    <button class="tab" id="tab-btn-ltv">Software LTV</button>
   </div>
 
   <div id="tab-spend">
@@ -387,13 +388,22 @@
     </div>
     <div id="ad-out"></div>
   </div>
+
+  <div id="tab-ltv" style="display:none;">
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Retention inputs</div>
+      <div class="levers" id="ltvinputs" style="margin-bottom:18px;"></div>
+      <div id="ltv-summary" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;"></div>
+    </div>
+    <div id="ltv-out"></div>
+  </div>
 </div>
 
 <script>
 (function(){
   var S={spend:30000,splitAP:0,organicPct:.25,conv:.10,groupConvPct:.03,agencyConvPct:.0027,agencyRetainer:15000,
     apPrice:47,apLTV:300,swPrice:100,swLTV:1200,groupPrice:500,groupLTV:1500,agencyLTV:60000,uniquePct:1.0,
-    mktgTeam:10000,deliveryTeam:10000,swCogs:750,cpm:90,ctr:.03,cvr:.30};
+    mktgTeam:10000,deliveryTeam:10000,swCogs:750,cpm:90,ctr:.03,cvr:.30,churn:.0833,cogsPct:.10};
 
   function money(n){ if(!isFinite(n))return "—"; var a=Math.abs(n);
     if(a>=1e6)return "$"+(n/1e6).toFixed(2)+"M";
@@ -484,21 +494,28 @@
     {k:'cvr',label:'Landing-page CVR',min:.05,max:.60,step:.01,fmt:function(v){return pct(v,0);},hint:'click → lead'},
     {k:'conv',label:'Lead → purchase (SW)',min:.01,max:.30,step:.005,fmt:function(v){return pct(v,1);},hint:"also the model's Free→paid"}
   ];
+  var CFGL=[
+    {k:'churn',label:'Monthly churn',min:.01,max:.25,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-churn'},
+    {k:'cogsPct',label:'COGS',min:0,max:.5,step:.01,fmt:function(v){return pct(v,0);},hint:'share of revenue'},
+    {k:'swPrice',label:'Software AOV',ro:true,hint:'software monthly price'}
+  ];
   buildLevers(document.getElementById('levers'),CFG,'s-','v-');
   buildLevers(document.getElementById('costs'),CFG2,'s-','v-');
   buildLevers(document.getElementById('adinputs'),CFGA,'as-','av-');
+  buildLevers(document.getElementById('ltvinputs'),CFGL,'ls-','lv-');
   var sp=document.getElementById('s-spend'); sp.value=S.spend;
   sp.addEventListener('input',function(){ S.spend=parseFloat(sp.value); render(); });
 
   // tabs
   function setTab(t){
-    document.getElementById('tab-spend').style.display = (t==='spend')?'block':'none';
-    document.getElementById('tab-ad').style.display = (t==='ad')?'block':'none';
-    document.getElementById('tab-btn-spend').className = 'tab'+(t==='spend'?' active':'');
-    document.getElementById('tab-btn-ad').className = 'tab'+(t==='ad'?' active':'');
+    ['spend','ad','ltv'].forEach(function(k){
+      document.getElementById('tab-'+k).style.display = (t===k)?'block':'none';
+      document.getElementById('tab-btn-'+k).className = 'tab'+(t===k?' active':'');
+    });
   }
   document.getElementById('tab-btn-spend').addEventListener('click',function(){setTab('spend');});
   document.getElementById('tab-btn-ad').addEventListener('click',function(){setTab('ad');});
+  document.getElementById('tab-btn-ltv').addEventListener('click',function(){setTab('ltv');});
 
   function badge(state){
     var m={pass:['#E7F3EE','var(--em)','VERIFIED'],info:['#EAF0FB','var(--blue)','INFO'],warn:['#FBF1E3','var(--amber)','OFF TARGET'],fail:['#FBEBE9','var(--red)','FAIL']}[state];
@@ -627,6 +644,69 @@
       +'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Chain — CPC = CPM ÷ (CTR × 1,000) · CPL = CPC ÷ CVR · Software CAC = CPL ÷ lead-to-purchase. Whatever CPL you dial here feeds the Spend Model&rsquo;s cost-per-lead directly. The fragile input is the landing-page CVR holding on cold traffic, not the media cost.</div></div>';
   }
 
+  function renderLtv(r){
+    var aov=S.swPrice, gmRate=1-S.cogsPct, life=1/S.churn, ltvRev=aov/S.churn, ltvGM=ltvRev*gmRate;
+    var CAC=cpl()/S.conv, swSpend=S.spend*(1-S.splitAP), swNew=r.swNew, blended=swNew?swSpend/swNew:0;
+    var surv=function(t){return Math.pow(1-S.churn,t-1);};
+    var sm=function(v){return v<0?('('+fullD(-v)+')'):fullD(v);};
+    var cc=function(v){return v<0?'var(--red)':'var(--em)';};
+    // summary
+    var sm5=[
+      ['Monthly churn',pct(S.churn,1),life.toFixed(1)+'-mo average life','var(--ink)'],
+      ['Revenue LTV',money(ltvRev),fullD(aov)+'/mo × '+life.toFixed(1)+' mo','var(--ink)'],
+      ['Gross-margin LTV',money(ltvGM),'after '+pct(S.cogsPct,0)+' COGS','var(--em)'],
+      ['CAC · per user',fullD(CAC),'from Ad Model · CPL ÷ conv','var(--ink)'],
+      ['GM LTV : CAC',(ltvGM/CAC).toFixed(1)+'×','gross-margin basis','var(--em)'],
+      ['Blended CAC',fullD(blended),'spend ÷ all new (incl. organic)','var(--blue)']
+    ];
+    document.getElementById('ltv-summary').innerHTML=sm5.map(function(m){
+      return '<div style="background:var(--wash);border-radius:6px;padding:11px 13px;"><div style="font-size:10.5px;color:var(--soft);">'+m[0]+'</div><div class="mono" style="font-size:19px;font-weight:700;color:'+m[3]+';margin:5px 0 3px;letter-spacing:-.01em;">'+m[1]+'</div><div style="font-size:10px;color:var(--faint);">'+m[2]+'</div></div>';
+    }).join('');
+    // per-user rows
+    var UG='0.95fr 0.8fr 1fr 0.95fr 0.95fr 1.15fr';
+    var uRows=[], uCum=-CAC, uPay=null;
+    uRows.push({m:'0 · acquire',ret:null,rev:null,cogs:null,gm:-CAC,cum:uCum,cac:true});
+    for(var t=1;t<=12;t++){var sv=surv(t),rev=aov*sv,cg=rev*S.cogsPct,gm=rev-cg;uCum+=gm;if(uPay===null&&uCum>=0)uPay=t;uRows.push({m:''+t,ret:sv,rev:rev,cogs:-cg,gm:gm,cum:uCum});}
+    uRows.push({m:'Lifetime',ret:null,rev:ltvRev,cogs:-ltvRev*S.cogsPct,gm:ltvGM,cum:ltvGM-CAC,life:true});
+    // cohort rows
+    var CG='0.95fr 0.85fr 1.05fr 0.95fr 1fr 1.2fr';
+    var cRows=[], cCum=-swSpend, cPay=null;
+    cRows.push({m:'0 · spend',act:null,rev:null,cogs:null,gm:-swSpend,cum:cCum,cac:true});
+    for(var t=1;t<=12;t++){var sv=surv(t),act=swNew*sv,rev=act*aov,cg=rev*S.cogsPct,gm=rev-cg;cCum+=gm;if(cPay===null&&cCum>=0)cPay=t;cRows.push({m:''+t,act:act,rev:rev,cogs:-cg,gm:gm,cum:cCum});}
+    cRows.push({m:'Lifetime',act:null,rev:swNew*ltvRev,cogs:-swNew*ltvRev*S.cogsPct,gm:swNew*ltvGM,cum:swNew*ltvGM-swSpend,life:true});
+    function head(G){return '<div style="display:grid;grid-template-columns:'+G+';gap:8px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;"><span>MONTH</span><span style="text-align:right">'+(G===UG?'RETAINED':'ACTIVE')+'</span><span style="text-align:right">REVENUE</span><span style="text-align:right">COGS</span><span style="text-align:right">GROSS MGN</span><span style="text-align:right">CUMULATIVE</span></div>';}
+    function cell(v,extra){return '<span class="mono" style="text-align:right;font-size:12.5px;'+(extra||'')+'">'+v+'</span>';}
+    function uRow(x){
+      var bg=(uPay&&x.m===''+uPay)?'var(--wash)':(x.life?'#F3F7F5':'transparent');
+      return '<div style="display:grid;grid-template-columns:'+UG+';gap:8px;padding:8px 0;border-bottom:1px solid var(--line);background:'+bg+';">'
+        +'<span class="mono" style="font-size:12.5px;font-weight:'+(x.life?700:400)+';">'+x.m+'</span>'
+        +cell(x.ret==null?'—':(x.ret*100).toFixed(0)+'%','color:var(--soft);')
+        +cell(x.rev==null?'—':fullD(x.rev))
+        +cell(x.cogs==null?'—':sm(x.cogs),'color:var(--soft);')
+        +cell(sm(x.gm),'color:'+(x.cac?'var(--red)':'var(--ink)')+';font-weight:'+(x.cac?700:400)+';')
+        +cell(sm(x.cum),'color:'+cc(x.cum)+';font-weight:700;')+'</div>';
+    }
+    function cRow(x){
+      var bg=(cPay&&x.m===''+cPay)?'var(--wash)':(x.life?'#F3F7F5':'transparent');
+      return '<div style="display:grid;grid-template-columns:'+CG+';gap:8px;padding:8px 0;border-bottom:1px solid var(--line);background:'+bg+';">'
+        +'<span class="mono" style="font-size:12.5px;font-weight:'+(x.life?700:400)+';">'+x.m+'</span>'
+        +cell(x.act==null?'—':num(x.act,x.act<100?1:0),'color:var(--soft);')
+        +cell(x.rev==null?'—':money(x.rev))
+        +cell(x.cogs==null?'—':sm(x.cogs),'color:var(--soft);')
+        +cell(x.cac?sm(x.gm):money(x.gm),'color:'+(x.cac?'var(--red)':'var(--ink)')+';font-weight:'+(x.cac?700:400)+';')
+        +cell(sm(x.cum),'color:'+cc(x.cum)+';font-weight:700;')+'</div>';
+    }
+    var html=''
+      +'<div class="panel"><div class="eyebrow" style="margin-bottom:6px;">Gross margin by user · one software customer</div>'
+      +'<div style="font-size:12px;color:var(--soft);margin-bottom:14px;">CAC lands as a negative up front; each retained month adds '+fullD(aov)+' of revenue at '+pct(gmRate,0)+' margin, decayed by churn. '+(uPay?('Cumulative turns positive in month '+uPay+'.'):'Cumulative stays negative across the window.')+'</div>'
+      +'<div style="overflow-x:auto;"><div style="min-width:520px;">'+head(UG)+uRows.map(uRow).join('')+'</div></div></div>'
+      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:6px;">Total gross margin per cohort · '+num(swNew)+' new software customers / mo</div>'
+      +'<div style="font-size:12px;color:var(--soft);margin-bottom:14px;">Month 0 is the full software spend ('+fullD(swSpend)+'); each month the surviving cohort&rsquo;s gross margin stacks on top. '+(cPay?('The cohort clears spend in month '+cPay+'.'):'The cohort does not recover spend in the window.')+' Blended CAC is '+fullD(blended)+' — below per-user '+fullD(CAC)+' because the organic uplift adds free customers.</div>'
+      +'<div style="overflow-x:auto;"><div style="min-width:540px;">'+head(CG)+cRows.map(cRow).join('')+'</div></div>'
+      +'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Notes — LTV is churn-driven: revenue LTV = AOV ÷ monthly churn; gross-margin LTV applies '+pct(S.cogsPct,0)+' COGS. Survival decays geometrically at the churn rate from month 1. Per-user CAC is the paid cost from the Ad Model (CPL ÷ conversion); the cohort uses real cash spend over all new customers including organic, so blended CAC is lower. Group/agency upsell and team costs are excluded — this is the software contribution layer only.</div></div>';
+    document.getElementById('ltv-out').innerHTML=html;
+  }
+
   function render(){
     var st=state(); var r=compute(st);
     var CPC=cpc(), CPL=cpl(), CAC=CPL/S.conv;
@@ -646,13 +726,15 @@
     // all control labels + slider positions
     CTRLS.forEach(function(c){
       var vel=document.getElementById(c.vid);
-      if(c.ro){ if(vel) vel.textContent='$'+Math.round(CPL).toLocaleString(); return; }
+      if(c.ro){ if(vel) vel.textContent=(c.k==='cpl')?('$'+Math.round(CPL).toLocaleString()):(c.k==='swPrice')?(fullD(S.swPrice)+'/mo'):fullD(S[c.k]); return; }
       if(vel) vel.textContent=c.fmt(S[c.k]);
       var sel=document.getElementById(c.sid); if(sel) sel.value=S[c.k];
     });
     var ah=document.getElementById('h-agencyRetainer'); if(ah) ah.textContent='implies '+r.agencyRet.toFixed(1)+'-mo retention';
     document.getElementById('apm-out').innerHTML=renderSpendOut(r);
     document.getElementById('ad-out').innerHTML=renderAdOut(r);
+    var hC=document.getElementById('h-churn'); if(hC) hC.textContent=(1/S.churn).toFixed(1)+'-mo average customer life';
+    renderLtv(r);
   }
   render();
 })();
