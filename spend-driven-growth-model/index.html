@@ -354,7 +354,7 @@
         <div class="herodiv"></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
           <div><div class="eyebrow">Same month &middot; new MRR</div><div id="o-m1" class="mono" style="font-size:28px;font-weight:700;margin-top:8px;"></div><div style="font-size:11.5px;color:var(--soft);margin-top:4px;">one month&rsquo;s cohort</div></div>
-          <div><div class="eyebrow">Month 12 &middot; mature MRR</div><div id="o-m12" class="mono" style="font-size:28px;font-weight:700;color:var(--em);margin-top:8px;"></div><div id="o-ann" style="font-size:11.5px;color:var(--soft);margin-top:4px;"></div></div>
+          <div><div class="eyebrow">Steady state &middot; mature MRR</div><div id="o-m12" class="mono" style="font-size:28px;font-weight:700;color:var(--em);margin-top:8px;"></div><div id="o-ann" style="font-size:11.5px;color:var(--soft);margin-top:4px;"></div></div>
         </div>
       </div>
     </div>
@@ -363,6 +363,11 @@
       <div class="levers" id="levers"></div>
       <div class="eyebrow" style="margin:22px 0 16px;">Money out &middot; monthly costs</div>
       <div class="levers" id="costs"></div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Churn &amp; LTV by offer</div>
+      <div class="levers" id="offerchurn" style="margin-bottom:18px;"></div>
+      <div id="offerltv"></div>
     </div>
     <div id="apm-out"></div>
   </div>
@@ -402,7 +407,7 @@
 <script>
 (function(){
   var S={spend:30000,splitAP:0,organicPct:.25,conv:.10,groupConvPct:.03,agencyConvPct:.0027,agencyRetainer:15000,
-    apPrice:47,apLTV:300,swPrice:100,swLTV:1200,groupPrice:500,groupLTV:1500,agencyLTV:60000,uniquePct:1.0,
+    apPrice:47,swPrice:100,groupPrice:500,uniquePct:1.0,apChurn:47/300,swChurn:100/1200,groupChurn:500/1500,agencyChurn:15000/60000,
     mktgTeam:10000,deliveryTeam:10000,swCogs:750,cpm:90,ctr:.03,cvr:.30,churn:.0833,cogsPct:.10};
 
   function money(n){ if(!isFinite(n))return "—"; var a=Math.abs(n);
@@ -414,20 +419,21 @@
   function pct(n,d){ d=(d==null?2:d); return (n*100).toFixed(d)+"%"; }
 
   function compute(i){
-    var apRet=i.apLTV/i.apPrice, swRet=i.swLTV/i.swPrice, groupRet=i.groupLTV/i.groupPrice, agencyRet=i.agencyLTV/i.agencyRetainer;
+    var apRet=1/i.apChurn, swRet=1/i.swChurn, groupRet=1/i.groupChurn, agencyRet=1/i.agencyChurn;
+    var apLTV=i.apPrice*apRet, swLTV=i.swPrice*swRet, groupLTV=i.groupPrice*groupRet, agencyLTV=i.agencyRetainer*agencyRet;
     var paidLeadsAP=(i.spend*i.splitAP)/i.cpl, paidLeadsSW=(i.spend*(1-i.splitAP))/i.cpl;
     var apLeads=paidLeadsAP*(1+i.organicPct), swDirectLeads=paidLeadsSW*(1+i.organicPct);
     var distinctLeads=apLeads+swDirectLeads;
     var apNew=apLeads*i.conv, swNew=swDirectLeads*i.conv;
-    var apBase=apNew*Math.min(apRet,12), swBase=swNew*Math.min(swRet,12), custBase=apBase+swBase;
+    var apBase=apNew*apRet, swBase=swNew*swRet, custBase=apBase+swBase;
     var newCust=apNew+swNew;
-    var groupNew=newCust*i.groupConvPct, groupBase=groupNew*Math.min(groupRet,12);
-    var agencyNew=newCust*i.agencyConvPct, agencyBase=agencyNew*Math.min(agencyRet,12);
+    var groupNew=newCust*i.groupConvPct, groupBase=groupNew*groupRet;
+    var agencyNew=newCust*i.agencyConvPct, agencyBase=agencyNew*agencyRet;
     var mrr={ap:apBase*i.apPrice,sw:swBase*i.swPrice,group:groupBase*i.groupPrice,agency:agencyBase*i.agencyRetainer};
     var matureMRR=mrr.ap+mrr.sw+mrr.group+mrr.agency;
     var newMRR={ap:apNew*i.apPrice,sw:swNew*i.swPrice,group:groupNew*i.groupPrice,agency:agencyNew*i.agencyRetainer};
     var month1MRR=newMRR.ap+newMRR.sw+newMRR.group+newMRR.agency;
-    var ltvBooked=apNew*i.apLTV+swNew*i.swLTV+groupNew*i.groupLTV+agencyNew*i.agencyLTV;
+    var ltvBooked=apNew*apLTV+swNew*swLTV+groupNew*groupLTV+agencyNew*agencyLTV;
     var totalNew=apNew+swNew+groupNew+agencyNew, uniqueNew=totalNew*i.uniquePct;
     var moneyOut=i.spend+i.mktgTeam+i.deliveryTeam+i.swCogs;
     var netMonth1=month1MRR-moneyOut, netMature=matureMRR-moneyOut;
@@ -437,7 +443,7 @@
       var gB=groupNew*Math.min(t,groupRet), aB=agencyNew*Math.min(t,agencyRet);
       ramp.push({month:t,mrr:apB*i.apPrice+swB*i.swPrice+gB*i.groupPrice+aB*i.agencyRetainer});
     }
-    return {apRet:apRet,swRet:swRet,groupRet:groupRet,agencyRet:agencyRet,apLeads:apLeads,swDirectLeads:swDirectLeads,
+    return {apRet:apRet,swRet:swRet,groupRet:groupRet,agencyRet:agencyRet,apLTV:apLTV,swLTV:swLTV,groupLTV:groupLTV,agencyLTV:agencyLTV,apLeads:apLeads,swDirectLeads:swDirectLeads,
       distinctLeads:distinctLeads,apNew:apNew,swNew:swNew,apBase:apBase,swBase:swBase,custBase:custBase,
       groupNew:groupNew,groupBase:groupBase,agencyNew:agencyNew,agencyBase:agencyBase,mrr:mrr,matureMRR:matureMRR,newMRR:newMRR,
       month1MRR:month1MRR,ltvBooked:ltvBooked,totalNew:totalNew,uniqueNew:uniqueNew,
@@ -495,12 +501,19 @@
     {k:'conv',label:'Lead → purchase (SW)',min:.01,max:.30,step:.005,fmt:function(v){return pct(v,1);},hint:"also the model's Free→paid"}
   ];
   var CFGL=[
-    {k:'churn',label:'Monthly churn',min:.01,max:.25,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-churn'},
+    {k:'swChurn',label:'Monthly churn (software)',min:.01,max:.6,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-churn'},
     {k:'cogsPct',label:'COGS',min:0,max:.5,step:.01,fmt:function(v){return pct(v,0);},hint:'share of revenue'},
     {k:'swPrice',label:'Software AOV',ro:true,hint:'software monthly price'}
   ];
   buildLevers(document.getElementById('levers'),CFG,'s-','v-');
+  var CFGO=[
+    {k:'apChurn',label:'Ad Plays churn',min:.01,max:.6,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-apChurn'},
+    {k:'swChurn',label:'Software churn',min:.01,max:.6,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-swChurn'},
+    {k:'groupChurn',label:'Group churn',min:.02,max:.8,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-groupChurn'},
+    {k:'agencyChurn',label:'Agency churn',min:.02,max:.8,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-agencyChurn'}
+  ];
   buildLevers(document.getElementById('costs'),CFG2,'s-','v-');
+  buildLevers(document.getElementById('offerchurn'),CFGO,'os-','ov-');
   buildLevers(document.getElementById('adinputs'),CFGA,'as-','av-');
   buildLevers(document.getElementById('ltvinputs'),CFGL,'ls-','lv-');
   var sp=document.getElementById('s-spend'); sp.value=S.spend;
@@ -545,7 +558,7 @@
       {i:1,label:'Spend',big:money(S.spend),ac:'var(--em)',ln:[['Ad Plays',money(S.spend*S.splitAP)],['Software',money(S.spend*(1-S.splitAP))]]},
       {i:2,label:'Leads / mo',big:num(r.distinctLeads),ac:'var(--ink)',ln:[['Ad Plays',num(r.apLeads)],['Software',num(r.swDirectLeads)]]},
       {i:3,label:'New cust / mo',big:num(r.apNew+r.swNew),ac:'var(--ink)',ln:[['Ad Plays',num(r.apNew)],['Software',num(r.swNew)]]},
-      {i:4,label:'Base · mo 12',big:num(r.custBase),ac:'var(--em)',ln:[['Ad Plays',num(r.apBase)],['Software',num(r.swBase)]]},
+      {i:4,label:'Base · steady',big:num(r.custBase),ac:'var(--em)',ln:[['Ad Plays',num(r.apBase)],['Software',num(r.swBase)]]},
       {i:5,label:'Upsell / mo',big:num(r.groupNew+r.agencyNew,1),ac:'var(--ink)',ln:[['Group',num(r.groupNew,1)],['Agency',num(r.agencyNew,2)]]}
     ];
     var wf='';
@@ -555,10 +568,10 @@
       if(idx<stages.length-1) wf+='<div class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--faint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
     });
     var TR=[
-      {k:'Ad Plays',price:'$'+S.apPrice+'/mo',nw:r.apNew,nmrr:r.newMRR.ap,base:r.apBase,mrr:r.mrr.ap,ltv:S.apLTV,c:'var(--em)'},
-      {k:'Software',price:'$'+S.swPrice+'/mo',nw:r.swNew,nmrr:r.newMRR.sw,base:r.swBase,mrr:r.mrr.sw,ltv:S.swLTV,c:'var(--emb)'},
-      {k:'Group',price:'$'+S.groupPrice+'/mo',nw:r.groupNew,nmrr:r.newMRR.group,base:r.groupBase,mrr:r.mrr.group,ltv:S.groupLTV,c:'var(--blue)'},
-      {k:'Agency',price:fullD(S.agencyRetainer)+'/mo',nw:r.agencyNew,nmrr:r.newMRR.agency,base:r.agencyBase,mrr:r.mrr.agency,ltv:S.agencyLTV,c:'var(--amber)'}
+      {k:'Ad Plays',price:'$'+S.apPrice+'/mo',nw:r.apNew,nmrr:r.newMRR.ap,base:r.apBase,mrr:r.mrr.ap,ltv:r.apLTV,c:'var(--em)'},
+      {k:'Software',price:'$'+S.swPrice+'/mo',nw:r.swNew,nmrr:r.newMRR.sw,base:r.swBase,mrr:r.mrr.sw,ltv:r.swLTV,c:'var(--emb)'},
+      {k:'Group',price:'$'+S.groupPrice+'/mo',nw:r.groupNew,nmrr:r.newMRR.group,base:r.groupBase,mrr:r.mrr.group,ltv:r.groupLTV,c:'var(--blue)'},
+      {k:'Agency',price:fullD(S.agencyRetainer)+'/mo',nw:r.agencyNew,nmrr:r.newMRR.agency,base:r.agencyBase,mrr:r.mrr.agency,ltv:r.agencyLTV,c:'var(--amber)'}
     ];
     var maxMRR=Math.max(TR[0].mrr,TR[1].mrr,TR[2].mrr,TR[3].mrr)||1;
     var totalBase=r.custBase+r.groupBase+r.agencyBase;
@@ -644,15 +657,35 @@
       +'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Chain — CPC = CPM ÷ (CTR × 1,000) · CPL = CPC ÷ CVR · Software CAC = CPL ÷ lead-to-purchase. Whatever CPL you dial here feeds the Spend Model&rsquo;s cost-per-lead directly. The fragile input is the landing-page CVR holding on cold traffic, not the media cost.</div></div>';
   }
 
+  function renderOfferLtv(r){
+    var G='1.3fr 1fr 0.9fr 1fr 1.1fr';
+    var rows=[
+      ['Ad Plays','var(--em)','$'+S.apPrice,S.apChurn,r.apRet,r.apLTV],
+      ['Software','var(--emb)','$'+S.swPrice,S.swChurn,r.swRet,r.swLTV],
+      ['Group','var(--blue)','$'+S.groupPrice,S.groupChurn,r.groupRet,r.groupLTV],
+      ['Agency','var(--amber)',fullD(S.agencyRetainer),S.agencyChurn,r.agencyRet,r.agencyLTV]
+    ];
+    var head='<div style="display:grid;grid-template-columns:'+G+';gap:8px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;"><span>OFFER</span><span style="text-align:right">MONTHLY</span><span style="text-align:right">CHURN</span><span style="text-align:right">AVG LIFE</span><span style="text-align:right">LTV</span></div>';
+    var body=rows.map(function(x){
+      return '<div style="display:grid;grid-template-columns:'+G+';gap:8px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center;">'
+        +'<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;"><span style="width:8px;height:8px;border-radius:2px;background:'+x[1]+';"></span>'+x[0]+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;">'+x[2]+'/mo</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;color:var(--soft);">'+pct(x[3],1)+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;color:var(--soft);">'+x[4].toFixed(1)+' mo</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;font-weight:700;color:'+x[1]+';">'+money(x[5])+'</span></div>';
+    }).join('');
+    return '<div style="overflow-x:auto;"><div style="min-width:460px;">'+head+body+'<div style="margin-top:12px;font-size:11px;color:var(--faint);line-height:1.6;">LTV = monthly price \u00f7 churn (revenue, pre-COGS). Lower churn lifts retention and LTV, raising the accumulated base and mature MRR. Gross-margin LTV and per-cohort payback live on the Software LTV tab.</div></div></div>';
+  }
+
   function renderLtv(r){
-    var aov=S.swPrice, gmRate=1-S.cogsPct, life=1/S.churn, ltvRev=aov/S.churn, ltvGM=ltvRev*gmRate;
+    var aov=S.swPrice, gmRate=1-S.cogsPct, life=1/S.swChurn, ltvRev=aov/S.swChurn, ltvGM=ltvRev*gmRate;
     var CAC=cpl()/S.conv, swSpend=S.spend*(1-S.splitAP), swNew=r.swNew, blended=swNew?swSpend/swNew:0;
-    var surv=function(t){return Math.pow(1-S.churn,t-1);};
+    var surv=function(t){return Math.pow(1-S.swChurn,t-1);};
     var sm=function(v){return v<0?('('+fullD(-v)+')'):fullD(v);};
     var cc=function(v){return v<0?'var(--red)':'var(--em)';};
     // summary
     var sm5=[
-      ['Monthly churn',pct(S.churn,1),life.toFixed(1)+'-mo average life','var(--ink)'],
+      ['Monthly churn',pct(S.swChurn,1),life.toFixed(1)+'-mo average life','var(--ink)'],
       ['Revenue LTV',money(ltvRev),fullD(aov)+'/mo × '+life.toFixed(1)+' mo','var(--ink)'],
       ['Gross-margin LTV',money(ltvGM),'after '+pct(S.cogsPct,0)+' COGS','var(--em)'],
       ['CAC · per user',fullD(CAC),'from Ad Model · CPL ÷ conv','var(--ink)'],
@@ -730,10 +763,14 @@
       if(vel) vel.textContent=c.fmt(S[c.k]);
       var sel=document.getElementById(c.sid); if(sel) sel.value=S[c.k];
     });
-    var ah=document.getElementById('h-agencyRetainer'); if(ah) ah.textContent='implies '+r.agencyRet.toFixed(1)+'-mo retention';
+    var ah=document.getElementById('h-agencyRetainer'); if(ah) ah.textContent='\u2192 LTV '+money(r.agencyLTV)+' at '+pct(S.agencyChurn,1)+' churn';
+    [['ap',r.apRet,r.apLTV],['sw',r.swRet,r.swLTV],['group',r.groupRet,r.groupLTV],['agency',r.agencyRet,r.agencyLTV]].forEach(function(o){
+      var oe=document.getElementById('h-'+o[0]+'Churn'); if(oe) oe.textContent=o[1].toFixed(1)+'-mo life \u00b7 LTV '+money(o[2]);
+    });
+    document.getElementById('offerltv').innerHTML=renderOfferLtv(r);
     document.getElementById('apm-out').innerHTML=renderSpendOut(r);
     document.getElementById('ad-out').innerHTML=renderAdOut(r);
-    var hC=document.getElementById('h-churn'); if(hC) hC.textContent=(1/S.churn).toFixed(1)+'-mo average customer life';
+    var hC=document.getElementById('h-churn'); if(hC) hC.textContent=(1/S.swChurn).toFixed(1)+'-mo average customer life';
     renderLtv(r);
   }
   render();
