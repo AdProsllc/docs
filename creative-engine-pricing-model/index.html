@@ -124,6 +124,7 @@
     .cm-table td.cyan { color:var(--blue-light); font-weight:700; }
     .cm-table tr.cm-cross td { background:rgba(249,217,0,0.08); }
     .cm-table tfoot td { border-top:2px solid var(--card-border-strong); font-weight:800; color:#fff; background:var(--navy-deep); }
+    .cm-table tr.cm-grouprow td { background:var(--navy-deep); color:var(--yellow); font-weight:700; font-size:10px; text-transform:uppercase; letter-spacing:0.9px; text-align:left; padding:8px 14px; }
     .cm-levers { display:grid; grid-template-columns:repeat(2,1fr); gap:18px 28px; background:var(--navy-card); border:1px solid var(--card-border-strong); border-radius:var(--radius); padding:24px 26px; margin-bottom:18px; }
     @media (max-width:760px){ .cm-levers { grid-template-columns:1fr; } }
     .cm-lever label { display:flex; justify-content:space-between; align-items:baseline; font-size:12px; color:var(--grey-300); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px; }
@@ -209,7 +210,7 @@
 <section class="cm-panel" id="tab-credits">
   <span class="cm-pill">Production menu</span>
   <h2 class="cm-h2">Production &amp; credits</h2>
-  <p class="cm-sub">Every asset priced at 2&times; loaded cost. <strong style="color:var(--yellow);">Cost basis v2</strong> &mdash; token costs refreshed (cheaper models / reduced generation ratios). Figures update live from the levers on the <strong style="color:var(--yellow);">Financial Model</strong> tab.</p>
+  <p class="cm-sub">Every asset priced at 2&times; loaded cost. <strong style="color:var(--yellow);">Cost basis v2</strong> &mdash; token costs refreshed (cheaper models / reduced generation ratios). Non-AI / live-action assets are priced on labor only (no token cost). Figures update live from the levers on the <strong style="color:var(--yellow);">Financial Model</strong> tab.</p>
   <div class="cm-table-wrap">
     <table class="cm-table">
       <thead><tr><th>Asset</th><th>Labor</th><th>Token</th><th>Cost</th><th>Credits</th><th>Client Price</th><th>Markup</th></tr></thead>
@@ -223,7 +224,7 @@
 <section class="cm-panel" id="tab-calc">
   <span class="cm-pill">Mix builder</span>
   <h2 class="cm-h2">Production calculator</h2>
-  <p class="cm-sub">Choose how many ads of each type you want and see the total volume, credits, cost, and client price. Start from a preset distribution, then edit any line. Pricing follows the markup, credit price, and token index set on the Financial Model tab.</p>
+  <p class="cm-sub">Choose how many ads of each type you want and see the total volume, credits, cost, and client price. AI and non-AI (live-action / design) assets are both included &mdash; non-AI assets carry no token cost. Start from a preset distribution, then edit any line. Pricing follows the markup, credit price, and token index set on the Financial Model tab.</p>
 
   <div class="cm-section-label">Preset scenarios</div>
   <div class="cm-seg wrap" id="seg-scenario" style="margin-bottom:22px;">
@@ -231,6 +232,7 @@
     <button data-v="balanced" class="active">Static + Motion</button>
     <button data-v="video">Video-First</button>
     <button data-v="funnel">Full-Funnel</button>
+    <button data-v="liveaction">Live-Action</button>
   </div>
 
   <div class="cm-out">
@@ -243,7 +245,7 @@
   <div class="cm-table-wrap">
     <table class="cm-table">
       <thead><tr><th>Asset</th><th>Ads</th><th>Credits / ea</th><th>Total Credits</th><th>Total Cost</th><th>Total Price</th></tr></thead>
-      <tbody id="cm-calc-body"><tr><td>AI image</td><td><input class="cm-num" id="calc-0" type="number" min="0" step="1" value="0"></td><td id="cc-0">&mdash;</td><td class="cyan" id="tc-0">&mdash;</td><td id="tcost-0">&mdash;</td><td class="pos" id="tprice-0">&mdash;</td></tr><tr><td>AI gif</td><td><input class="cm-num" id="calc-1" type="number" min="0" step="1" value="0"></td><td id="cc-1">&mdash;</td><td class="cyan" id="tc-1">&mdash;</td><td id="tcost-1">&mdash;</td><td class="pos" id="tprice-1">&mdash;</td></tr><tr><td>AI video</td><td><input class="cm-num" id="calc-2" type="number" min="0" step="1" value="0"></td><td id="cc-2">&mdash;</td><td class="cyan" id="tc-2">&mdash;</td><td id="tcost-2">&mdash;</td><td class="pos" id="tprice-2">&mdash;</td></tr><tr><td>AI UGC</td><td><input class="cm-num" id="calc-3" type="number" min="0" step="1" value="0"></td><td id="cc-3">&mdash;</td><td class="cyan" id="tc-3">&mdash;</td><td id="tcost-3">&mdash;</td><td class="pos" id="tprice-3">&mdash;</td></tr><tr><td>AI animated ads - 30s</td><td><input class="cm-num" id="calc-4" type="number" min="0" step="1" value="0"></td><td id="cc-4">&mdash;</td><td class="cyan" id="tc-4">&mdash;</td><td id="tcost-4">&mdash;</td><td class="pos" id="tprice-4">&mdash;</td></tr><tr><td>AI animated ads - 60s</td><td><input class="cm-num" id="calc-5" type="number" min="0" step="1" value="0"></td><td id="cc-5">&mdash;</td><td class="cyan" id="tc-5">&mdash;</td><td id="tcost-5">&mdash;</td><td class="pos" id="tprice-5">&mdash;</td></tr><tr><td>AI podcast</td><td><input class="cm-num" id="calc-6" type="number" min="0" step="1" value="0"></td><td id="cc-6">&mdash;</td><td class="cyan" id="tc-6">&mdash;</td><td id="tcost-6">&mdash;</td><td class="pos" id="tprice-6">&mdash;</td></tr><tr><td>AI VSL - 60s</td><td><input class="cm-num" id="calc-7" type="number" min="0" step="1" value="0"></td><td id="cc-7">&mdash;</td><td class="cyan" id="tc-7">&mdash;</td><td id="tcost-7">&mdash;</td><td class="pos" id="tprice-7">&mdash;</td></tr><tr><td>AI VSL - 120s</td><td><input class="cm-num" id="calc-8" type="number" min="0" step="1" value="0"></td><td id="cc-8">&mdash;</td><td class="cyan" id="tc-8">&mdash;</td><td id="tcost-8">&mdash;</td><td class="pos" id="tprice-8">&mdash;</td></tr><tr><td>AI VSL - 180s</td><td><input class="cm-num" id="calc-9" type="number" min="0" step="1" value="0"></td><td id="cc-9">&mdash;</td><td class="cyan" id="tc-9">&mdash;</td><td id="tcost-9">&mdash;</td><td class="pos" id="tprice-9">&mdash;</td></tr></tbody>
+      <tbody id="cm-calc-body"><tr class="cm-grouprow"><td colspan="6">AI-produced</td></tr><tr><td>AI image</td><td><input class="cm-num" id="calc-0" type="number" min="0" step="1" value="0"></td><td id="cc-0">&mdash;</td><td class="cyan" id="tc-0">&mdash;</td><td id="tcost-0">&mdash;</td><td class="pos" id="tprice-0">&mdash;</td></tr><tr><td>AI gif</td><td><input class="cm-num" id="calc-1" type="number" min="0" step="1" value="0"></td><td id="cc-1">&mdash;</td><td class="cyan" id="tc-1">&mdash;</td><td id="tcost-1">&mdash;</td><td class="pos" id="tprice-1">&mdash;</td></tr><tr><td>AI video</td><td><input class="cm-num" id="calc-2" type="number" min="0" step="1" value="0"></td><td id="cc-2">&mdash;</td><td class="cyan" id="tc-2">&mdash;</td><td id="tcost-2">&mdash;</td><td class="pos" id="tprice-2">&mdash;</td></tr><tr><td>AI UGC</td><td><input class="cm-num" id="calc-3" type="number" min="0" step="1" value="0"></td><td id="cc-3">&mdash;</td><td class="cyan" id="tc-3">&mdash;</td><td id="tcost-3">&mdash;</td><td class="pos" id="tprice-3">&mdash;</td></tr><tr><td>AI animated ads - 30s</td><td><input class="cm-num" id="calc-4" type="number" min="0" step="1" value="0"></td><td id="cc-4">&mdash;</td><td class="cyan" id="tc-4">&mdash;</td><td id="tcost-4">&mdash;</td><td class="pos" id="tprice-4">&mdash;</td></tr><tr><td>AI animated ads - 60s</td><td><input class="cm-num" id="calc-5" type="number" min="0" step="1" value="0"></td><td id="cc-5">&mdash;</td><td class="cyan" id="tc-5">&mdash;</td><td id="tcost-5">&mdash;</td><td class="pos" id="tprice-5">&mdash;</td></tr><tr><td>AI podcast</td><td><input class="cm-num" id="calc-6" type="number" min="0" step="1" value="0"></td><td id="cc-6">&mdash;</td><td class="cyan" id="tc-6">&mdash;</td><td id="tcost-6">&mdash;</td><td class="pos" id="tprice-6">&mdash;</td></tr><tr><td>AI VSL - 60s</td><td><input class="cm-num" id="calc-7" type="number" min="0" step="1" value="0"></td><td id="cc-7">&mdash;</td><td class="cyan" id="tc-7">&mdash;</td><td id="tcost-7">&mdash;</td><td class="pos" id="tprice-7">&mdash;</td></tr><tr><td>AI VSL - 120s</td><td><input class="cm-num" id="calc-8" type="number" min="0" step="1" value="0"></td><td id="cc-8">&mdash;</td><td class="cyan" id="tc-8">&mdash;</td><td id="tcost-8">&mdash;</td><td class="pos" id="tprice-8">&mdash;</td></tr><tr><td>AI VSL - 180s</td><td><input class="cm-num" id="calc-9" type="number" min="0" step="1" value="0"></td><td id="cc-9">&mdash;</td><td class="cyan" id="tc-9">&mdash;</td><td id="tcost-9">&mdash;</td><td class="pos" id="tprice-9">&mdash;</td></tr><tr class="cm-grouprow"><td colspan="6">Non-AI · live-action &amp; design</td></tr><tr><td>Static image (designed)</td><td><input class="cm-num" id="calc-10" type="number" min="0" step="1" value="0"></td><td id="cc-10">&mdash;</td><td class="cyan" id="tc-10">&mdash;</td><td id="tcost-10">&mdash;</td><td class="pos" id="tprice-10">&mdash;</td></tr><tr><td>Carousel ad</td><td><input class="cm-num" id="calc-11" type="number" min="0" step="1" value="0"></td><td id="cc-11">&mdash;</td><td class="cyan" id="tc-11">&mdash;</td><td id="tcost-11">&mdash;</td><td class="pos" id="tprice-11">&mdash;</td></tr><tr><td>Motion graphic / GIF</td><td><input class="cm-num" id="calc-12" type="number" min="0" step="1" value="0"></td><td id="cc-12">&mdash;</td><td class="cyan" id="tc-12">&mdash;</td><td id="tcost-12">&mdash;</td><td class="pos" id="tprice-12">&mdash;</td></tr><tr><td>UGC video (creator + edit)</td><td><input class="cm-num" id="calc-13" type="number" min="0" step="1" value="0"></td><td id="cc-13">&mdash;</td><td class="cyan" id="tc-13">&mdash;</td><td id="tcost-13">&mdash;</td><td class="pos" id="tprice-13">&mdash;</td></tr><tr><td>Talking-head video</td><td><input class="cm-num" id="calc-14" type="number" min="0" step="1" value="0"></td><td id="cc-14">&mdash;</td><td class="cyan" id="tc-14">&mdash;</td><td id="tcost-14">&mdash;</td><td class="pos" id="tprice-14">&mdash;</td></tr><tr><td>Product demo video</td><td><input class="cm-num" id="calc-15" type="number" min="0" step="1" value="0"></td><td id="cc-15">&mdash;</td><td class="cyan" id="tc-15">&mdash;</td><td id="tcost-15">&mdash;</td><td class="pos" id="tprice-15">&mdash;</td></tr><tr><td>Podcast / audio ad</td><td><input class="cm-num" id="calc-16" type="number" min="0" step="1" value="0"></td><td id="cc-16">&mdash;</td><td class="cyan" id="tc-16">&mdash;</td><td id="tcost-16">&mdash;</td><td class="pos" id="tprice-16">&mdash;</td></tr><tr><td>Live VSL - 60s</td><td><input class="cm-num" id="calc-17" type="number" min="0" step="1" value="0"></td><td id="cc-17">&mdash;</td><td class="cyan" id="tc-17">&mdash;</td><td id="tcost-17">&mdash;</td><td class="pos" id="tprice-17">&mdash;</td></tr><tr><td>Live VSL - 120s</td><td><input class="cm-num" id="calc-18" type="number" min="0" step="1" value="0"></td><td id="cc-18">&mdash;</td><td class="cyan" id="tc-18">&mdash;</td><td id="tcost-18">&mdash;</td><td class="pos" id="tprice-18">&mdash;</td></tr><tr><td>Live VSL - 180s</td><td><input class="cm-num" id="calc-19" type="number" min="0" step="1" value="0"></td><td id="cc-19">&mdash;</td><td class="cyan" id="tc-19">&mdash;</td><td id="tcost-19">&mdash;</td><td class="pos" id="tprice-19">&mdash;</td></tr></tbody>
       <tfoot><tr><td>Total</td><td id="tot-ads">&mdash;</td><td>&mdash;</td><td id="tot-cred">&mdash;</td><td id="tot-cost">&mdash;</td><td id="tot-price">&mdash;</td></tr></tfoot>
     </table>
   </div>
@@ -337,6 +339,7 @@
       <dt>Production COGS</dt><dd>Production fee &divide; markup (e.g. at 2&times;, half the production fee).</dd>
       <dt>Performance cost</dt><dd>Treated as <span class="mono">~0</span> &mdash; performance is effectively pure margin.</dd>
       <dt>Asset cost basis</dt><dd>Refreshed token costs (cheaper models / reduced generation ratios). Labor held constant; only the token share flexes with the Token Price Index.</dd>
+      <dt>Non-AI assets</dt><dd>Live-action &amp; design assets (statics, carousels, UGC, talking-head, demos, live VSLs, podcasts). Priced on <span class="mono">labor only</span> &mdash; no token cost. Labor scaled off human production hours, several&times; the AI equivalent.</dd>
     </dl>
   </div>
 
@@ -357,16 +360,21 @@
 <script>
 (function(){
   var ASSETS=[
-    ["AI image",2.54,0.20],["AI gif",5.62,0.90],["AI video",20.40,18.00],["AI UGC",20.40,18.00],
-    ["AI animated ads - 30s",51.20,9.00],["AI animated ads - 60s",82.00,18.00],["AI podcast",82.00,18.00],
-    ["AI VSL - 60s",51.20,6.00],["AI VSL - 120s",71.60,12.00],["AI VSL - 180s",92.00,18.00]
+    ["AI image",2.54,0.20,"AI"],["AI gif",5.62,0.90,"AI"],["AI video",20.40,18.00,"AI"],["AI UGC",20.40,18.00,"AI"],
+    ["AI animated ads - 30s",51.20,9.00,"AI"],["AI animated ads - 60s",82.00,18.00,"AI"],["AI podcast",82.00,18.00,"AI"],
+    ["AI VSL - 60s",51.20,6.00,"AI"],["AI VSL - 120s",71.60,12.00,"AI"],["AI VSL - 180s",92.00,18.00,"AI"],
+    ["Static image (designed)",20.00,0,"Manual"],["Carousel ad",45.00,0,"Manual"],["Motion graphic / GIF",55.00,0,"Manual"],
+    ["UGC video (creator + edit)",95.00,0,"Manual"],["Talking-head video",130.00,0,"Manual"],["Product demo video",140.00,0,"Manual"],
+    ["Podcast / audio ad",170.00,0,"Manual"],["Live VSL - 60s",220.00,0,"Manual"],["Live VSL - 120s",340.00,0,"Manual"],["Live VSL - 180s",460.00,0,"Manual"]
   ];
+  var GLABEL={AI:"AI-produced",Manual:"Non-AI \u00b7 live-action & design"};
   var LEVELS=[30000,50000,100000,250000,500000,750000,1000000,1500000,2000000,2500000,3000000];
   var SCEN={
-    testing:[50,25,10,10,0,0,0,0,0,0],
-    balanced:[25,15,12,12,4,2,0,0,0,0],
-    video:[10,5,20,20,6,4,0,0,0,0],
-    funnel:[12,6,10,10,2,2,2,4,2,1]
+    testing:[50,25,10,10,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+    balanced:[25,15,12,12,4,2,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+    video:[10,5,20,20,6,4,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+    funnel:[12,6,10,10,2,2,2,4,2,1, 0,0,0,0,0,0,0,0,0,0],
+    liveaction:[0,0,0,0,0,0,0,0,0,0, 15,8,5,12,6,4,3,3,2,1]
   };
   var DEF={strategy:"2500",prod:"5000",stratcost:40,markup:2.0,credit:1.00,token:1.00,perf:5,pctap:100,mode:"threshold",basis:"prodstrat",testpct:20,cpa:100,cpamult:"2",varpc:4};
   function $(id){return document.getElementById(id);}
@@ -400,8 +408,9 @@
     $("out-varpc").textContent=s.varpc;
     var bg=$("basis-group"); if(bg){ bg.classList.toggle("disabled", s.mode==="from0"); }
 
-    var cb=$("cm-credit-body"); cb.innerHTML="";
+    var cb=$("cm-credit-body"); cb.innerHTML=""; var lastCat=null;
     ASSETS.forEach(function(a){
+      if(a[3]!==lastCat){ lastCat=a[3]; var gr=document.createElement("tr"); gr.className="cm-grouprow"; gr.innerHTML="<td colspan='7'>"+GLABEL[a[3]]+"</td>"; cb.appendChild(gr); }
       var labor=a[1], tok=a[2]*s.token, cost=labor+tok, credits=Math.ceil(cost*s.markup/s.credit);
       var price=credits*s.credit, mk=cost>0?price/cost:0;
       var tr=document.createElement("tr");
