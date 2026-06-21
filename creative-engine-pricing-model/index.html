@@ -122,14 +122,17 @@
     .cm-h2 { font-size:28px; font-weight:800; color:#fff; letter-spacing:-0.5px; margin:8px 0 18px; }
     .cm-block { margin-bottom:40px; }
     .cm-sub { font-size:13px; color:var(--grey-300); margin-bottom:18px; max-width:820px; }
+    .cm-section-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.9px; color:var(--yellow); margin:6px 0 12px; }
     .cm-table-wrap { overflow-x:auto; border:1px solid var(--card-border); border-radius:var(--radius); }
     table.cm-table { width:100%; border-collapse:collapse; font-size:13px; min-width:640px; }
+    table.cm-table.wide { min-width:960px; }
     .cm-table th { background:var(--navy-deep); color:#fff; font-weight:700; text-align:right; padding:12px 14px; font-size:11px; text-transform:uppercase; letter-spacing:0.6px; border-bottom:1px solid var(--card-border-strong); }
     .cm-table th:first-child, .cm-table td:first-child { text-align:left; }
     .cm-table td { padding:11px 14px; text-align:right; border-bottom:1px solid var(--card-border); color:var(--grey-100); font-variant-numeric:tabular-nums; }
     .cm-table tr:last-child td { border-bottom:none; }
     .cm-table tr:nth-child(even) td { background:rgba(255,255,255,0.015); }
     .cm-table td.pos { color:var(--yellow); font-weight:700; }
+    .cm-table td.cyan { color:var(--blue-light); font-weight:700; }
     .cm-table tr.cm-cross td { background:rgba(249,217,0,0.08); }
     .cm-levers { display:grid; grid-template-columns:repeat(2,1fr); gap:18px 28px; background:var(--navy-card); border:1px solid var(--card-border-strong); border-radius:var(--radius); padding:24px 26px; margin-bottom:18px; }
     @media (max-width:760px){ .cm-levers { grid-template-columns:1fr; } }
@@ -147,10 +150,11 @@
     .cm-seg button + button { border-left:1px solid var(--card-border-strong); }
     .cm-seg button.active { background:var(--yellow); color:var(--navy); }
     .cm-seg button:hover:not(.active) { color:#fff; }
-    .cm-out { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:22px 0 28px; }
-    @media (max-width:680px){ .cm-out { grid-template-columns:1fr; } }
+    .cm-out { display:grid; grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); gap:14px; margin:22px 0 28px; }
     .cm-outcard { background:var(--navy-card); border:1px solid var(--card-border); border-left:3px solid var(--yellow); border-radius:var(--radius); padding:18px 20px; }
+    .cm-outcard.cyan { border-left-color:var(--blue-light); }
     .cm-outcard .n { font-size:30px; font-weight:800; color:var(--yellow); letter-spacing:-1px; line-height:1; }
+    .cm-outcard.cyan .n { color:var(--blue-light); }
     .cm-outcard .l { font-size:12px; color:var(--grey-300); margin-top:8px; line-height:1.4; }
     .cm-reset { background:transparent; color:#fff; border:1px solid var(--card-border-strong); padding:10px 18px; border-radius:8px; font-weight:600; font-size:13px; font-family:inherit; cursor:pointer; align-self:flex-end; }
     .cm-reset:hover { border-color:var(--yellow); color:var(--yellow); }
@@ -181,7 +185,7 @@
     <div class="ap-callout" style="margin-bottom:14px;"><strong>The structure</strong>Three separate, stacked fees: Strategy ($2,500 or $5,000/mo) + Production (a monthly fee for credits at 2&times; loaded cost) + Performance (5% of AP-creative spend, uncapped).</div>
     <div class="ap-callout" style="margin-bottom:14px;"><strong>Why it&rsquo;s defensible</strong>We don&rsquo;t compete to be cheapest &mdash; competitive on entry, then we earn on what works. Credits abstract the production cost, so as model prices fall our margin rides the curve down while the client sees stable pricing.</div>
     <div class="ap-callout" style="margin-bottom:14px;"><strong>The performance lever</strong>The 5% can run from the first dollar of spend, or above a threshold &mdash; where the fee must first earn out the production fee (or production + strategy) before it adds. Both are switchable in the model.</div>
-    <div class="ap-callout"><strong>Guardrails</strong>Minimum 4 variations per concept (fan-out protects production margin). Credits roll 90 days. 90-day minimum commitment funds ramp-up. A guarantee miss refunds credits and waives the 5% &mdash; worst case is the strategy fee alone.</div>
+    <div class="ap-callout"><strong>Production sizing</strong>A built-in calculator sizes the concepts and variations required each month from the testing budget, target CPA, and test multiplier &mdash; so volume is grounded in the math, not guesswork.</div>
   </div>
 </section>
 
@@ -199,8 +203,8 @@
 
   <div class="ap-grid-2 cm-block">
     <div class="ap-card">
-      <h4 class="ap-h4" style="margin-bottom:10px;">Credit mechanics</h4>
-      <p class="ap-p-sm">Credits charged = production cost &times; markup &divide; credit price, rounded up so the markup never falls below 2&times;. A Token Price Index flexes the AI-generation share of cost while labor stays sticky &mdash; so when model prices drop, margin widens at the same credit price (or we cut the credit price and stay competitive).</p>
+      <h4 class="ap-h4" style="margin-bottom:10px;">Production sizing calculator</h4>
+      <p class="ap-p-sm">Concepts required per month = testing budget (total spend &times; testing %) &divide; 30 days &divide; CPA &divide; test multiplier &times; 4 weeks. Variations required = concepts &times; variations-per-concept. This turns a spend level into a concrete production load.</p>
     </div>
     <div class="ap-card">
       <h4 class="ap-h4" style="margin-bottom:10px;">Performance: two modes</h4>
@@ -229,13 +233,14 @@
 <section class="cm-panel" id="tab-model">
   <span class="cm-pill">Live model</span>
   <h2 class="cm-h2">Lever-based financial model</h2>
-  <p class="cm-sub">Move any lever and the tables recompute instantly. Production fee is what the client pays for credits each month; its gross profit is derived at the current markup. Use the toggles to run performance from $0 or above a threshold.</p>
+  <p class="cm-sub">Move any lever and the tables recompute instantly. Production fee is what the client pays for credits each month; its gross profit is derived at the current markup. Use the toggles to run performance from $0 or above a threshold. The production calculator sizes concepts and variations from the testing budget, CPA, and test multiplier.</p>
 
+  <div class="cm-section-label">Pricing levers</div>
   <div class="cm-levers">
-    <div class="cm-lever"><label>Strategy fee / month <span class="val" id="out-strategy">$5,000</span></label>
-      <select id="in-strategy" class="cm-select"><option value="2500">$2,500</option><option value="5000" selected>$5,000</option></select></div>
-    <div class="cm-lever"><label>Production fee / month <span class="val" id="out-prod">$10,000</span></label>
-      <select id="in-prod" class="cm-select"><option value="2500">$2,500</option><option value="5000">$5,000</option><option value="7500">$7,500</option><option value="10000" selected>$10,000</option><option value="12500">$12,500</option><option value="15000">$15,000</option><option value="20000">$20,000</option></select></div>
+    <div class="cm-lever"><label>Strategy fee / month <span class="val" id="out-strategy">$2,500</span></label>
+      <select id="in-strategy" class="cm-select"><option value="2500" selected>$2,500</option><option value="5000">$5,000</option></select></div>
+    <div class="cm-lever"><label>Production fee / month <span class="val" id="out-prod">$5,000</span></label>
+      <select id="in-prod" class="cm-select"><option value="2500">$2,500</option><option value="5000" selected>$5,000</option><option value="7500">$7,500</option><option value="10000">$10,000</option><option value="12500">$12,500</option><option value="15000">$15,000</option><option value="20000">$20,000</option></select></div>
     <div class="cm-lever"><label>Production markup <span class="val" id="out-markup">2.0&times;</span></label><input type="range" id="in-markup" value="2.0" min="1" max="3" step="0.1"></div>
     <div class="cm-lever"><label>Credit price <span class="val" id="out-credit">$1.00</span></label><input type="range" id="in-credit" value="1.00" min="0.25" max="5" step="0.25"></div>
     <div class="cm-lever"><label>Token price index <span class="val" id="out-token">1.00</span></label><input type="range" id="in-token" value="1.00" min="0.5" max="2" step="0.05"></div>
@@ -261,19 +266,29 @@
     </div>
   </div>
 
+  <div class="cm-section-label">Creative production calculator</div>
+  <div class="cm-levers">
+    <div class="cm-lever"><label>Testing budget % <span class="val" id="out-testpct">20%</span></label><input type="range" id="in-testpct" value="20" min="5" max="50" step="1"></div>
+    <div class="cm-lever"><label>CPA (cost per new customer) <span class="val" id="out-cpa">$100</span></label><input type="range" id="in-cpa" value="100" min="25" max="300" step="5"></div>
+    <div class="cm-lever"><label>CPA multiplier (test) <span class="val" id="out-cpamult">2&times;</span></label>
+      <select id="in-cpamult" class="cm-select"><option value="1">1&times;</option><option value="2" selected>2&times;</option><option value="3">3&times;</option><option value="4">4&times;</option><option value="5">5&times;</option><option value="6">6&times;</option></select></div>
+    <div class="cm-lever"><label>Variations per concept <span class="val" id="out-varpc">4</span></label><input type="range" id="in-varpc" value="4" min="1" max="12" step="1"></div>
+  </div>
+
   <div class="cm-out">
     <div class="cm-outcard"><div class="n" id="kpi-cross">From $0</div><div class="l">Where the 5% fee starts adding (threshold spend)</div></div>
-    <div class="cm-outcard"><div class="n" id="kpi-contrib">$60,000</div><div class="l">Monthly gross margin $ at $1M AP spend (current mode)</div></div>
-    <div class="cm-outcard"><div class="n" id="kpi-share">83%</div><div class="l">Performance share of gross margin at $1M AP spend</div></div>
+    <div class="cm-outcard"><div class="n" id="kpi-contrib">$55,000</div><div class="l">Monthly gross margin $ at $1M AP spend (current mode)</div></div>
+    <div class="cm-outcard"><div class="n" id="kpi-share">91%</div><div class="l">Performance share of gross margin at $1M AP spend</div></div>
+    <div class="cm-outcard cyan"><div class="n" id="kpi-concepts">133</div><div class="l">Concepts / month at $1M total spend</div></div>
   </div>
 
   <div class="cm-table-wrap">
-    <table class="cm-table">
-      <thead><tr><th>Total Spend</th><th>AP Spend</th><th>Strategy</th><th>Prod Fee</th><th>Performance</th><th>Revenue</th><th>Cost</th><th>Gross Margin $</th><th>Gross Margin %</th></tr></thead>
+    <table class="cm-table wide">
+      <thead><tr><th>Total Spend</th><th>AP Spend</th><th>Concepts</th><th>Variations</th><th>Strategy</th><th>Prod Fee</th><th>Performance</th><th>Total Revenue</th><th>Cost</th><th>Gross Margin $</th><th>Gross Margin %</th></tr></thead>
       <tbody id="cm-profit-body"></tbody>
     </table>
   </div>
-  <p class="ap-caption" style="margin-top:14px;">Revenue = strategy + production fee + performance. Cost = production COGS (production fee &divide; markup). Gross margin $ = revenue &minus; cost; gross margin % = gross margin $ &divide; revenue. With a threshold, performance only accrues on spend above where 5% clears the chosen base; the highlighted row marks that threshold.</p>
+  <p class="ap-caption" style="margin-top:14px;">Concepts/mo = total spend &times; testing % &divide; 30 &divide; CPA &divide; test multiplier &times; 4. Variations = concepts &times; variations-per-concept. Total revenue = strategy + production fee + performance. Cost = production COGS (production fee &divide; markup). Gross margin $ = total revenue &minus; cost; gross margin % = gross margin $ &divide; total revenue. With a threshold, performance only accrues on spend above where 5% clears the chosen base; the highlighted row marks that threshold.</p>
 </section>
 
 <script>
@@ -285,18 +300,20 @@
     ["AI VSL - 120s - v2",71.60,12.00],["AI VSL - 180s - v1",92.00,54.00],["AI VSL - 180s - v2",92.00,18.00]
   ];
   var LEVELS=[30000,50000,100000,250000,500000,750000,1000000,1500000,2000000,2500000,3000000];
-  var DEF={strategy:"5000",prod:"10000",markup:2.0,credit:1.00,token:1.00,perf:5,pctap:100,mode:"from0",basis:"prodstrat"};
+  var DEF={strategy:"2500",prod:"5000",markup:2.0,credit:1.00,token:1.00,perf:5,pctap:100,mode:"from0",basis:"prodstrat",testpct:20,cpa:100,cpamult:"2",varpc:4};
   function $(id){return document.getElementById(id);}
   function money(n){ if(Math.abs(n)>=1000) return "$"+Math.round(n).toLocaleString("en-US"); return "$"+n.toFixed(2); }
   function moneyK(n){ if(n>=1000000) return "$"+(Math.round(n/100000)/10)+"M"; if(n>=1000) return "$"+Math.round(n/1000)+"k"; return "$"+Math.round(n); }
   function seg(id){ var b=document.querySelector("#"+id+" button.active"); return b?b.getAttribute("data-v"):null; }
   function setSeg(id,v){ var g=$(id); if(!g)return; Array.prototype.forEach.call(g.querySelectorAll("button"),function(x){x.classList.toggle("active",x.getAttribute("data-v")===v);}); }
+  function concepts(totalSpend,testpct,cpa,cpamult){ if(cpa<=0||cpamult<=0) return 0; return Math.round(totalSpend*testpct/30/cpa/cpamult*4); }
   function read(){
     return {
       strategy:+$("in-strategy").value, prod:+$("in-prod").value,
       markup:+$("in-markup").value, credit:+$("in-credit").value,
       token:+$("in-token").value, perf:+$("in-perf").value/100, pctap:+$("in-pctap").value/100,
-      mode:seg("seg-mode"), basis:seg("seg-basis")
+      mode:seg("seg-mode"), basis:seg("seg-basis"),
+      testpct:+$("in-testpct").value/100, cpa:+$("in-cpa").value, cpamult:+$("in-cpamult").value, varpc:+$("in-varpc").value
     };
   }
   function render(){
@@ -308,6 +325,10 @@
     $("out-token").textContent=s.token.toFixed(2);
     $("out-perf").textContent=(s.perf*100).toFixed(1)+"%";
     $("out-pctap").textContent=Math.round(s.pctap*100)+"%";
+    $("out-testpct").textContent=Math.round(s.testpct*100)+"%";
+    $("out-cpa").textContent="$"+s.cpa;
+    $("out-cpamult").textContent=s.cpamult+"\u00d7";
+    $("out-varpc").textContent=s.varpc;
     var bg=$("basis-group"); if(bg){ bg.classList.toggle("disabled", s.mode==="from0"); }
 
     var cb=$("cm-credit-body"); cb.innerHTML="";
@@ -328,8 +349,9 @@
     LEVELS.forEach(function(L){
       var ap=L*s.pctap, perfRaw=ap*s.perf, perf=Math.max(0,perfRaw-base);
       var revenue=s.strategy+s.prod+perf, gm=revenue-cost, gmp=revenue>0?gm/revenue:0;
+      var con=concepts(L,s.testpct,s.cpa,s.cpamult), vary=con*s.varpc;
       var tr=document.createElement("tr");
-      tr.innerHTML="<td>"+money(L)+"</td><td>"+money(ap)+"</td><td>"+money(s.strategy)+"</td><td>"+money(s.prod)+
+      tr.innerHTML="<td>"+money(L)+"</td><td>"+money(ap)+"</td><td class='cyan'>"+con+"</td><td class='cyan'>"+vary+"</td><td>"+money(s.strategy)+"</td><td>"+money(s.prod)+
         "</td><td>"+money(perf)+"</td><td>"+money(revenue)+"</td><td>"+money(cost)+"</td><td class='pos'>"+money(gm)+"</td><td>"+Math.round(gmp*100)+"%</td>";
       pb.appendChild(tr);
     });
@@ -343,8 +365,9 @@
     var rev1=s.strategy+s.prod+perf1, gm1=rev1-cost;
     $("kpi-contrib").textContent=money(gm1);
     $("kpi-share").textContent=(gm1>0?Math.round(perf1/gm1*100):0)+"%";
+    $("kpi-concepts").textContent=concepts(1000000,s.testpct,s.cpa,s.cpamult);
   }
-  ["in-strategy","in-prod","in-markup","in-credit","in-token","in-perf","in-pctap"].forEach(function(id){
+  ["in-strategy","in-prod","in-markup","in-credit","in-token","in-perf","in-pctap","in-testpct","in-cpa","in-cpamult","in-varpc"].forEach(function(id){
     $(id).addEventListener("input",render); $(id).addEventListener("change",render);
   });
   ["seg-mode","seg-basis"].forEach(function(gid){
@@ -358,6 +381,7 @@
   $("cm-reset").addEventListener("click",function(){
     $("in-strategy").value=DEF.strategy; $("in-prod").value=DEF.prod; $("in-markup").value=DEF.markup;
     $("in-credit").value=DEF.credit; $("in-token").value=DEF.token; $("in-perf").value=DEF.perf; $("in-pctap").value=DEF.pctap;
+    $("in-testpct").value=DEF.testpct; $("in-cpa").value=DEF.cpa; $("in-cpamult").value=DEF.cpamult; $("in-varpc").value=DEF.varpc;
     setSeg("seg-mode",DEF.mode); setSeg("seg-basis",DEF.basis); render();
   });
   Array.prototype.forEach.call(document.querySelectorAll(".cm-tab"),function(btn){
