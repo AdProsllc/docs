@@ -340,6 +340,7 @@
     <button class="tab active" id="tab-btn-spend">Spend Model</button>
     <button class="tab" id="tab-btn-ad">Ad Model</button>
     <button class="tab" id="tab-btn-ltv">Software LTV</button>
+    <button class="tab" id="tab-btn-country">Country Rollout</button>
   </div>
 
   <div id="tab-spend">
@@ -402,7 +403,34 @@
     </div>
     <div id="ltv-out"></div>
   </div>
+
+  <div id="tab-country" style="display:none;">
+    <div class="panel" style="margin-bottom:14px;">
+      <div class="eyebrow" style="margin-bottom:10px;">Country rollout</div>
+      <div style="font-size:13px;color:var(--soft);line-height:1.55;">A phased geographic rollout optimized for new-customer acquisition at <i>efficient CAC</i> &mdash; not raw CPL. The cheapest-CPL markets aren&rsquo;t the cheapest-CAC once language, conversion, and USD monetization are factored in. Assumes an English-language, USD-priced product sold to DTC operators and agencies.</div>
+    </div>
+    <div id="country-out"></div>
+    <div class="panel" style="margin-bottom:0;">
+      <div style="font-size:11px;color:var(--faint);line-height:1.6;">The fragile input everywhere is landing-page conversion holding on cold traffic &mdash; strongest in English-native markets, which is why several high-CPM countries rank ahead of cheap-CPM ones. Validate CPM / CTR / CPL per market against your own Meta accounts before sizing budget.</div>
+    </div>
+  </div>
 </div>
+
+<style>
+#apm .phase{ margin-bottom:20px; }
+#apm .phase-h{ display:flex; align-items:center; gap:9px; margin-bottom:4px; }
+#apm .phase-bar{ width:4px; height:18px; border-radius:2px; }
+#apm .phase-t{ font-size:15px; font-weight:700; letter-spacing:-.01em; }
+#apm .phase-n{ font-family:var(--mono); font-size:10.5px; color:var(--faint); margin-left:auto; white-space:nowrap; }
+#apm .phase-strat{ font-size:12.5px; color:var(--soft); line-height:1.5; margin:0 0 11px 13px; }
+#apm .citems{ display:grid; grid-template-columns:1fr; gap:8px; }
+#apm .citem{ background:var(--panel); border:1px solid var(--line); border-radius:9px; padding:13px 14px; }
+#apm .citem-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:5px; }
+#apm .cname{ font-size:14.5px; font-weight:700; letter-spacing:-.01em; }
+#apm .ctag{ font-family:var(--mono); font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--soft); background:var(--wash); border-radius:4px; padding:3px 7px; white-space:nowrap; }
+#apm .crat{ font-size:12.5px; color:var(--soft); line-height:1.5; }
+@media(min-width:760px){ #apm .citems{ grid-template-columns:1fr 1fr; } }
+</style>
 
 <script>
 (function(){
@@ -521,7 +549,7 @@
 
   // tabs
   function setTab(t){
-    ['spend','ad','ltv'].forEach(function(k){
+    ['spend','ad','ltv','country'].forEach(function(k){
       document.getElementById('tab-'+k).style.display = (t===k)?'block':'none';
       document.getElementById('tab-btn-'+k).className = 'tab'+(t===k?' active':'');
     });
@@ -529,6 +557,7 @@
   document.getElementById('tab-btn-spend').addEventListener('click',function(){setTab('spend');});
   document.getElementById('tab-btn-ad').addEventListener('click',function(){setTab('ad');});
   document.getElementById('tab-btn-ltv').addEventListener('click',function(){setTab('ltv');});
+  document.getElementById('tab-btn-country').addEventListener('click',function(){setTab('country');});
 
   function badge(state){
     var m={pass:['#E7F3EE','var(--em)','VERIFIED'],info:['#EAF0FB','var(--blue)','INFO'],warn:['#FBF1E3','var(--amber)','OFF TARGET'],fail:['#FBEBE9','var(--red)','FAIL']}[state];
@@ -740,6 +769,48 @@
     document.getElementById('ltv-out').innerHTML=html;
   }
 
+  function renderCountryTab(){
+    var esc=function(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');};
+    var PHASES=[
+      {t:'Wave 1 \u2014 lead here',color:'var(--em)',strat:'English-native, DTC-dense, pays USD, CPA viable. Win proof and testimonials at lower competition than the US.',c:[
+        ['United Kingdom','English \u00b7 DTC-dense','Huge DTC/Shopify ecosystem, mature performance agencies, pays USD. Best landing-page conversion and LTV \u2014 the top pick.'],
+        ['Canada','English \u00b7 US-adjacent','Shares the US playbook and willingness to pay at moderate CPM. The lowest-friction first market.'],
+        ['Australia','English \u00b7 DTC-dense','Deep DTC/Shopify scene and high AOV; CPM runs high but the funnel converts.'],
+        ['New Zealand','English \u00b7 efficient','Punches above its size in DTC; cheaper than Australia with the same English funnel.'],
+        ['Ireland','English \u00b7 SaaS hub','Small but high-value, English, and home to many EMEA tech HQs and buyers.'],
+        ['Israel','Founder-dense','Unusually high density of DTC founders, performance marketers, and adtech; English-comfortable, pays USD \u2014 the sleeper pick.']
+      ]},
+      {t:'Wave 2 \u2014 strong secondary',color:'var(--blue)',strat:'High value, English-capable business buyers. Run English funnels; localization lifts the laggard.',c:[
+        ['Netherlands','English-capable','Near-bilingual for business, so an English funnel converts; strong EU ecommerce.'],
+        ['Singapore','English biz \u00b7 USD','High income, English business language, regional HQs; smaller DTC base but high quality.'],
+        ['United Arab Emirates','English biz \u00b7 high AOV','Very high income and AOV, English business language, growing DTC and agency scene.'],
+        ['Germany','Localize \u00b7 big TAM','Large market, but German-language expectations and GDPR/consent friction drag an English funnel. Localization moves it up a wave.']
+      ]},
+      {t:'Wave 3 \u2014 localize first',color:'var(--amber)',strat:'Large or growing, but native-language funnels are non-negotiable. Gate behind localization, not budget.',c:[
+        ['France','Localize','Large ecommerce, but native-language creative and LP are required for conversion to hold.'],
+        ['Italy','Localize','Same as France \u2014 localize before scaling; English cold traffic sags.'],
+        ['Spain','Localize','Large market; localize the funnel first, then scale.'],
+        ['Portugal','Localize','Smaller and language-gated, with cheaper CPM. Test with localized assets.'],
+        ['Saudi Arabia','Localize \u00b7 Arabic','Growing ecommerce and high income, but Arabic localization and business-culture fit are needed.']
+      ]},
+      {t:'Hold / fold in',color:'var(--red)',strat:'Cheap leads but weak USD monetization or payment friction. Fold the USD micro-markets into English campaigns; hold the rest.',c:[
+        ['Brazil','Cheap-lead trap','Massive ecommerce and cheap CPM, but Portuguese-required, price-sensitive, and weak USD monetization. Great for cheap leads, poor for paid SaaS conversion.'],
+        ['Argentina','FX / capital controls','Cheapest CPM and a vibrant founder scene, but capital controls and FX volatility make a USD purchase genuinely hard.'],
+        ['Puerto Rico','Fold-in \u00b7 USD','USD-based and US-adjacent (English/Spanish) but small TAM \u2014 fold into English campaigns for free incremental volume.'],
+        ['Panama','Fold-in \u00b7 tiny','USD currency and a small ICP; negligible standalone volume \u2014 fold in rather than target.']
+      ]},
+      {t:'Deprioritized \u2014 your call',color:'var(--faint)',strat:'Highest intent and DTC depth, and the media math works \u2014 but the most saturated and expensive. Sequenced last by choice.',c:[
+        ['United States','Sequence last','#1 on intent and DTC depth, but the most contested and expensive market. Circle back once Wave 1 produces case studies.']
+      ]}
+    ];
+    return PHASES.map(function(p){
+      var items=p.c.map(function(x){
+        return '<div class="citem"><div class="citem-top"><span class="cname">'+esc(x[0])+'</span><span class="ctag">'+esc(x[1])+'</span></div><div class="crat">'+esc(x[2])+'</div></div>';
+      }).join('');
+      return '<div class="phase"><div class="phase-h"><span class="phase-bar" style="background:'+p.color+';"></span><span class="phase-t">'+esc(p.t)+'</span><span class="phase-n">'+p.c.length+(p.c.length===1?' market':' markets')+'</span></div><div class="phase-strat">'+esc(p.strat)+'</div><div class="citems">'+items+'</div></div>';
+    }).join('');
+  }
+
   function render(){
     var st=state(); var r=compute(st);
     var CPC=cpc(), CPL=cpl(), CAC=CPL/S.conv;
@@ -774,6 +845,7 @@
     renderLtv(r);
   }
   render();
+  document.getElementById('country-out').innerHTML=renderCountryTab();
 })();
 </script>
 
