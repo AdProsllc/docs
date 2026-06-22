@@ -232,6 +232,7 @@
   <div style="margin-bottom:22px;max-width:280px;"><select id="in-package" class="cm-select"><option value="1000">$1,000</option><option value="2500">$2,500</option><option value="5000" selected>$5,000</option><option value="7500">$7,500</option><option value="10000">$10,000</option><option value="15000">$15,000</option><option value="20000">$20,000</option></select></div>
   <div class="cm-out">
     <div class="cm-outcard cyan"><div class="n" id="calc-concepts">&mdash;</div><div class="l">Total concepts in this mix</div></div>
+    <div class="cm-outcard cyan"><div class="n" id="calc-variations">&mdash;</div><div class="l">Total variations (individual cuts)</div></div>
     <div class="cm-outcard"><div class="n" id="calc-alacarte">&mdash;</div><div class="l">&Agrave; la carte value (sum of concept prices)</div></div>
     <div class="cm-outcard"><div class="n" id="calc-package">&mdash;</div><div class="l">Package price (what the client pays)</div></div>
     <div class="cm-outcard"><div class="n" id="calc-cost">&mdash;</div><div class="l">Our cost (COGS) for this mix</div></div>
@@ -340,7 +341,7 @@
 (function(){
   var ASSETS=[["AI image",2.54,0.1,"AI"],["AI gif",5.62,0.4,"AI"],["AI video",20.4,2.5,"AI"],["AI UGC",20.4,2.5,"AI"],["AI animated ads - 30s",51.2,4.0,"AI"],["AI animated ads - 60s",82.0,7.0,"AI"],["AI podcast",82.0,5.0,"AI"],["AI VSL - 60s",51.2,4.0,"AI"],["AI VSL - 120s",71.6,7.0,"AI"],["AI VSL - 180s",92.0,10.0,"AI"],["Static image (designed)",20.0,0,"Manual"],["Carousel ad",45.0,0,"Manual"],["Motion graphic / GIF",55.0,0,"Manual"],["UGC video (creator + edit)",95.0,0,"Manual"],["Talking-head video",130.0,0,"Manual"],["Product demo video",140.0,0,"Manual"],["Podcast / audio ad",170.0,0,"Manual"],["Live VSL - 60s",220.0,0,"Manual"],["Live VSL - 120s",340.0,0,"Manual"],["Live VSL - 180s",460.0,0,"Manual"]];
   var GLABEL={AI:"AI-produced",Manual:"Non-AI \u00b7 live-action & design"};
-  var CMX=[[10.56,100],[24.08,125],[91.6,200],[91.6,200],[220.8,250],[356.0,300],[348.0,300],[220.8,250],[314.4,325],[204.0,400],[100.0,200],[80.0,100],[180.0,125],[220.0,150],[190.0,200],[260.0,300],[280.0,300],[340.0,350],[220.0,300],[340.0,400],[460.0,500],[40.0,200]];
+  var CMX=[[10.56,100,4],[24.08,125,4],[91.6,200,4],[91.6,200,4],[220.8,250,4],[356.0,300,4],[348.0,300,4],[220.8,250,4],[314.4,325,4],[204.0,400,2],[100.0,200,1],[80.0,100,4],[180.0,125,4],[220.0,150,4],[190.0,200,2],[260.0,300,2],[280.0,300,2],[340.0,350,2],[220.0,300,1],[340.0,400,1],[460.0,500,1],[40.0,200,1]];
   var SCEN={
     testing:[10,6,4,4,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0],
     balanced:[6,4,4,4,2,1,0,0,0,0,1, 0,0,0,0,0,0,0,0,0,0,0],
@@ -402,16 +403,17 @@
     $("kpi-concepts").textContent=concepts(1000000,s.testpct,s.cpa,s.cpamult);
   }
   function renderCalc(){
-    var totC=0,totCost=0,totPrice=0;
+    var totC=0,totCost=0,totPrice=0,totVars=0;
     CMX.forEach(function(m,i){
       var el=$("calc-"+i); var n=el?(parseInt(el.value,10)||0):0;
-      var tc=m[0]*n, tp=m[1]*n; totC+=n; totCost+=tc; totPrice+=tp;
+      var tc=m[0]*n, tp=m[1]*n; totC+=n; totCost+=tc; totPrice+=tp; totVars+=m[2]*n;
       $("tcost-"+i).textContent=money(tc); $("tprice-"+i).textContent=money(tp);
     });
     var pkg=+$("in-package").value;
     $("tot-concepts").textContent=totC.toLocaleString("en-US");
     $("tot-cost").textContent=money(totCost); $("tot-price").textContent=money(totPrice);
     $("calc-concepts").textContent=totC.toLocaleString("en-US");
+    $("calc-variations").textContent=totVars.toLocaleString("en-US");
     $("calc-alacarte").textContent=money(totPrice); $("calc-package").textContent=money(pkg);
     $("calc-cost").textContent=money(totCost);
     $("calc-margin").textContent=(pkg>0?Math.round((pkg-totCost)/pkg*100):0)+"%";
