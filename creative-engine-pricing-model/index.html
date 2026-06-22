@@ -219,7 +219,7 @@
 <section class="cm-panel" id="tab-calc">
   <span class="cm-pill">Concept mix</span>
   <h2 class="cm-h2">Production calculator</h2>
-  <p class="cm-sub">Choose how many <strong style="color:var(--yellow);">concepts</strong> of each type you want and see total concepts, cost, client price and blended margin. Cost and price per concept come straight from the Concept Matrix. Start from a preset, then edit any line.</p>
+  <p class="cm-sub">Pick a <strong style="color:var(--yellow);">scenario</strong> and a <strong style="color:var(--yellow);">package price</strong> &mdash; the calculator distributes concepts in that scenario&rsquo;s proportions to fill the package, so a bigger package buys more concepts of the same mix. Cost and price per concept come straight from the Concept Matrix. Fine-tune any line afterward.</p>
   <div class="cm-section-label">Preset scenarios</div>
   <div class="cm-seg wrap" id="seg-scenario" style="margin-bottom:22px;">
     <button data-v="testing">Testing Sprint</button>
@@ -244,7 +244,7 @@
       <tfoot><tr><td>Total</td><td id="tot-concepts">&mdash;</td><td>&mdash;</td><td>&mdash;</td><td id="tot-cost">&mdash;</td><td id="tot-price">&mdash;</td></tr></tfoot>
     </table>
   </div>
-  <p class="ap-caption" style="margin-top:14px;">Each line is a count of concepts (not individual cuts). <strong style="color:var(--yellow);">&Agrave; la carte value</strong> sums the per-concept prices; <strong style="color:var(--yellow);">package price</strong> is the bundled monthly price you actually charge. Package margin = (package &minus; cost) &divide; package &mdash; production line only, before strategy and performance.</p>
+  <p class="ap-caption" style="margin-top:14px;">Concepts are distributed to fill the chosen <strong style="color:var(--yellow);">package price</strong> in the scenario&rsquo;s proportions &mdash; change the package or scenario and the counts redistribute; manual edits to a line stay until you do. <strong style="color:var(--yellow);">&Agrave; la carte value</strong> sums the delivered concept prices; package margin = (package &minus; cost) &divide; package &mdash; production line only, before strategy and performance.</p>
 </section>
 
 <!-- ===== FINANCIAL MODEL ===== -->
@@ -416,7 +416,15 @@
     $("calc-cost").textContent=money(totCost);
     $("calc-margin").textContent=(pkg>0?Math.round((pkg-totCost)/pkg*100):0)+"%";
   }
-  function setScenario(key){ var arr=SCEN[key]; if(!arr)return; CMX.forEach(function(m,i){ var el=$("calc-"+i); if(el) el.value=arr[i]; }); setSeg("seg-scenario",key); renderCalc(); }
+  var currentScenario="balanced";
+  function distribute(key){
+    var base=SCEN[key]; if(!base)return;
+    var bv=0; base.forEach(function(c,i){ bv+=c*CMX[i][1]; });
+    var pkg=+$("in-package").value; var f=(bv>0?pkg/bv:1);
+    base.forEach(function(c,i){ var el=$("calc-"+i); if(el) el.value=Math.round(c*f); });
+    renderCalc();
+  }
+  function setScenario(key){ if(!SCEN[key])return; currentScenario=key; setSeg("seg-scenario",key); distribute(key); }
 
   ["in-strategy","in-prod","in-stratcost","in-markup","in-credit","in-token","in-perf","in-pctap","in-testpct","in-cpa","in-cpamult"].forEach(function(id){
     $(id).addEventListener("input",render); $(id).addEventListener("change",render);
@@ -424,7 +432,7 @@
   ["seg-mode","seg-basis"].forEach(function(gid){ var g=$(gid); if(!g)return; g.addEventListener("click",function(ev){ var b=ev.target.closest("button"); if(!b)return; Array.prototype.forEach.call(g.querySelectorAll("button"),function(x){x.classList.remove("active");}); b.classList.add("active"); render(); }); });
   $("seg-scenario").addEventListener("click",function(ev){ var b=ev.target.closest("button"); if(!b)return; setScenario(b.getAttribute("data-v")); });
   CMX.forEach(function(m,i){ var el=$("calc-"+i); if(el) el.addEventListener("input",renderCalc); });
-  $("in-package").addEventListener("input",renderCalc); $("in-package").addEventListener("change",renderCalc);
+  $("in-package").addEventListener("change",function(){ distribute(currentScenario); });
   $("cm-reset").addEventListener("click",function(){
     $("in-strategy").value=DEF.strategy; $("in-prod").value=DEF.prod; $("in-stratcost").value=DEF.stratcost;
     $("in-markup").value=DEF.markup; $("in-credit").value=DEF.credit; $("in-token").value=DEF.token;
