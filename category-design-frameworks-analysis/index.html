@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal Kazim">
+  <title>Frameworks Completed for Ad Pros — Ad Pros</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.65; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    .ap-display { font-size: clamp(32px, 4.8vw, 44px); font-weight: 800; line-height: 1.1; letter-spacing: -1.2px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h2 { font-size: 26px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3 { font-size: 19px; font-weight: 700; line-height: 1.25; color: #fff; }
+    .ap-h4 { font-size: 16px; font-weight: 700; line-height: 1.3; color: #fff; }
+    .ap-p-lg { font-size: 16px; line-height: 1.65; color: var(--grey-100); }
+    .ap-p { font-size: 15px; line-height: 1.7; color: var(--grey-200); }
+    .ap-p + .ap-p { margin-top: 12px; }
+    .ap-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 18px; }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    .framework-tag { display: inline-block; padding: 4px 10px; background: rgba(249,217,0,0.12); color: var(--yellow); border: 1px solid rgba(249,217,0,0.3); border-radius: 12px; font-family: "JetBrains Mono", monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; margin-bottom: 12px; }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 24px 40px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 38px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 12.5px; color: var(--grey-300); margin-top: 2px; }
+
+    .ap-content { padding: 32px 40px 60px; max-width: 920px; margin: 0 auto; }
+
+    .ap-hero { padding-bottom: 28px; border-bottom: 1px solid var(--card-border); margin-bottom: 28px; }
+
+    .tabs { position: sticky; top: 0; z-index: 10; background: var(--navy); padding-top: 4px; border-bottom: 1px solid var(--card-border); margin: 0 -40px 28px; padding-left: 40px; padding-right: 40px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .tabs-inner { display: flex; gap: 4px; min-width: max-content; }
+    .tab-btn { padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--grey-300); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-family: inherit; white-space: nowrap; transition: color .15s, border-color .15s; letter-spacing: 0.2px; }
+    .tab-btn:hover { color: var(--grey-100); }
+    .tab-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+    .tab-btn .num { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--grey-400); margin-right: 6px; }
+    .tab-btn.active .num { color: var(--yellow); }
+
+    .tab-panel { display: none; animation: fadein 0.2s ease; }
+    .tab-panel.active { display: block; }
+    @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    .panel-content > * + * { margin-top: 18px; }
+
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 22px 24px; }
+
+    /* Filled framework field */
+    .field { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px 22px; }
+    .field .label { display: block; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--yellow); letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 10px; }
+    .field h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .field p { font-size: 14.5px; color: var(--grey-100); line-height: 1.65; }
+    .field p + p { margin-top: 10px; }
+    .field .answer { color: #fff; font-weight: 600; }
+
+    /* Numbered step (1-5 sequence) */
+    .step-row { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px 22px; display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; }
+    .step-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; border-radius: 8px; width: 48px; height: 48px; }
+    .step-row .step-label { display: block; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--grey-300); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+    .step-row h4 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .step-row p { font-size: 14px; color: var(--grey-100); line-height: 1.65; }
+    .step-row p + p { margin-top: 8px; }
+
+    .ap-pullquote { background: var(--navy-card); border: 1px solid var(--card-border); border-left: 3px solid var(--yellow); padding: 22px 26px; border-radius: var(--radius); }
+    .ap-pullquote p { font-size: 18px; line-height: 1.45; color: #fff; font-weight: 600; letter-spacing: -0.2px; }
+    .ap-pullquote .source { font-size: 11px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 14px 18px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+    .ap-callout.warn { background: rgba(249,217,0,0.06); border-color: rgba(249,217,0,0.4); border-left-color: var(--yellow); }
+    .ap-callout.success { background: rgba(15,151,61,0.07); border-color: rgba(15,151,61,0.4); border-left-color: var(--success); }
+
+    .ap-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .ap-table th { background: var(--navy-card); color: var(--yellow); font-weight: 600; text-align: left; padding: 12px 14px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.7px; border: 1px solid var(--card-border); }
+    .ap-table td { padding: 12px 14px; border: 1px solid var(--card-border); color: var(--grey-100); vertical-align: top; }
+    .ap-table tr:nth-child(even) td { background: rgba(7,11,61,0.4); }
+
+    .panel-content ul.bullets { list-style: none; padding: 0; }
+    .panel-content ul.bullets li { font-size: 14.5px; color: var(--grey-100); padding: 7px 0 7px 22px; position: relative; line-height: 1.55; }
+    .panel-content ul.bullets li::before { content: "→"; position: absolute; left: 0; color: var(--yellow); font-weight: 700; }
+    .panel-content ul.checks { list-style: none; padding: 0; }
+    .panel-content ul.checks li { font-size: 14px; color: var(--grey-100); padding: 8px 0 8px 22px; position: relative; line-height: 1.55; border-bottom: 1px solid var(--card-border); }
+    .panel-content ul.checks li:last-child { border-bottom: none; }
+    .panel-content ul.checks li::before { content: "✓"; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+
+    /* Pitch / linear narrative */
+    .pitch-line { padding: 14px 18px; border-left: 3px solid var(--yellow); background: rgba(249,217,0,0.04); margin-bottom: 8px; }
+    .pitch-line .stage { display: block; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 4px; }
+    .pitch-line p { font-size: 15px; color: #fff; line-height: 1.55; font-weight: 500; }
+
+    /* Magic Triangle */
+    .triangle-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    @media (max-width: 800px) { .triangle-grid { grid-template-columns: 1fr; } }
+    .triangle-side { background: var(--navy-card); border: 1px solid var(--card-border); border-top: 3px solid var(--yellow); border-radius: var(--radius); padding: 20px 22px; }
+    .triangle-side .label { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--yellow); letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 8px; }
+    .triangle-side h4 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .triangle-side p { font-size: 14px; color: var(--grey-100); line-height: 1.6; }
+    .triangle-side p + p { margin-top: 8px; }
+    .fit-status { margin-top: 12px; padding: 10px 12px; border-radius: 6px; font-size: 12.5px; font-weight: 600; }
+    .fit-status.ok { background: rgba(15,151,61,0.12); color: #b6f2ce; border: 1px solid rgba(15,151,61,0.4); }
+    .fit-status.gap { background: rgba(249,217,0,0.1); color: #ffe57d; border: 1px solid rgba(249,217,0,0.4); }
+    .fit-status.miss { background: rgba(212,38,32,0.1); color: #ffbdbb; border: 1px solid rgba(212,38,32,0.4); }
+
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    .ap-footer { margin: 56px 40px 28px; padding-top: 22px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    @media (max-width: 640px) {
+      .ap-header { padding: 20px 18px; }
+      .ap-content { padding: 24px 18px 50px; }
+      .tabs { margin: 0 -18px 22px; padding-left: 18px; padding-right: 18px; }
+      .ap-footer { margin: 40px 18px 24px; }
+      .ap-h2 { font-size: 22px; } .ap-h3 { font-size: 17px; }
+      .ap-table { font-size: 12.5px; } .ap-table th, .ap-table td { padding: 9px 10px; }
+      .ap-pullquote { padding: 16px 18px; } .ap-pullquote p { font-size: 16px; }
+      .step-row { grid-template-columns: 40px 1fr; gap: 12px; padding: 16px 18px; }
+      .step-num { width: 40px; height: 40px; font-size: 14px; }
+    }
+</style>
+</head>
+<body>
+
+  <header class="ap-header">
+    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:48px;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Frameworks Completed for Ad Pros</h1>
+      <p>Each framework filled in — not explained. Master summary in the final tab.</p>
+    </div>
+  </header>
+  <div class="ap-content">
+
+    <div class="ap-hero">
+      <div class="ap-kicker">Completed Frameworks · Filled In</div>
+      <h1 class="ap-display">Each framework, <em>run on Ad Pros.</em></h1>
+      <p class="ap-p-lg" style="margin-top:18px;max-width:740px;">Not definitions. Filled-in artifacts. Each tab is one framework completed for "performance partner for 8-figure operators" — using the 2026 deck, the kicker pricing, the Creator Performance Network, the Intelligence Stack, and the Dream Client filter as inputs. The final tab is the master summary.</p>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <div class="tabs-inner">
+        <button class="tab-btn active" data-tab="dunford"><span class="num">01</span>Dunford 5</button>
+        <button class="tab-btn" data-tab="pitch"><span class="num">02</span>Sales Pitch</button>
+        <button class="tab-btn" data-tab="pov"><span class="num">03</span>POV</button>
+        <button class="tab-btn" data-tab="strike"><span class="num">04</span>Lightning Strike</button>
+        <button class="tab-btn" data-tab="triangle"><span class="num">05</span>Magic Triangle</button>
+        <button class="tab-btn" data-tab="languaging"><span class="num">06</span>Languaging</button>
+        <button class="tab-btn" data-tab="super"><span class="num">07</span>Superconsumers</button>
+        <button class="tab-btn" data-tab="laws"><span class="num">08</span>22 Laws</button>
+        <button class="tab-btn" data-tab="lifecycle"><span class="num">09</span>Lifecycle</button>
+        <button class="tab-btn" data-tab="jtbd"><span class="num">10</span>JTBD + Chasm</button>
+        <button class="tab-btn" data-tab="master"><span class="num">11</span>Master Summary</button>
+      </div>
+    </div>
+
+    <!-- TAB 01: DUNFORD 5 -->
+    <section class="tab-panel active" id="tab-dunford">
+      <div class="panel-content">
+        <span class="framework-tag">April Dunford · Obviously Awesome (2019)</span>
+        <h2 class="ap-h2">The five components, completed for Ad Pros.</h2>
+        <p class="ap-p-lg">Each component constrains the next. Read top to bottom.</p>
+
+        <div class="step-row"><div class="step-num">1</div><div>
+          <span class="step-label">Component 01 · Competitive Alternatives</span>
+          <h4>What does an 8-figure operator do if Ad Pros doesn't exist?</h4>
+          <p><strong style="color:#fff;">Status quo (the real winner):</strong> they keep media in-house with a junior buyer or marketing manager, and accept the variance. This is the default Ad Pros has to beat first.</p>
+          <p><strong style="color:#fff;">Generic performance agencies</strong> (Common Thread, Disruptive, Tier 11, dozens of mid-market shops): flat retainers $5K–$25K/mo, traditional team structure, indifferent to outcomes beyond the contract.</p>
+          <p><strong style="color:#fff;">Freelance buyer + freelance creative roster:</strong> $3K–$8K/mo combined, no integration, all coordination falls on the operator.</p>
+          <p><strong style="color:#fff;">Fractional CMO + outsourced execution:</strong> $10K–$15K/mo for strategy, separate vendors for buying and creative. Higher senior-eyes coverage but no production muscle.</p>
+          <p><strong style="color:#fff;">Holding-company "growth" arms</strong> (WPP/Publicis/Stagwell digital units): expensive, slow, optimized for Fortune-500 not 8-figure DTC.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">2</div><div>
+          <span class="step-label">Component 02 · Differentiated Capabilities</span>
+          <h4>What does Ad Pros have that none of the alternatives do?</h4>
+          <p><strong style="color:#fff;">CPA-linked variable pricing.</strong> $5K base + tiered kicker (4% / 3% / 2% / 1.5%) means Ad Pros gets paid more when the operator wins, less when they don't. No major alternative offers this — they bill flat.</p>
+          <p><strong style="color:#fff;">Creator Performance Network with 7/3 split.</strong> Creators participate in performance economics. Brands buy a creator program where the agency, brand, and creators share upside. No major alternative offers performance-aligned creator economics.</p>
+          <p><strong style="color:#fff;">The Intelligence Stack</strong> (AI Ads Library + Intel + Agentic Workflows / Noor): proprietary AI infrastructure processing 5K+ Meta ads/day, BigQuery + Supabase + Claude API stack. Most agencies have no in-house AI infrastructure — they use third-party SaaS.</p>
+          <p><strong style="color:#fff;">9 Dimensions Creative Strategy + Creative Matrix + Breakthrough classification</strong>: a named creative scoring system with a breakthrough definition (5–10% of account spend, ROAS target, &lt;90 days). Most agencies score creative ad-hoc.</p>
+          <p><strong style="color:#fff;">11 channels managed by one team</strong>: Meta, Google, YouTube, AppLovin, TikTok, Native, Snap, Pinterest, CTV, Bing, LinkedIn, Reddit. No fee-per-platform. Most alternatives charge separately per channel or only cover 2–3.</p>
+          <p><strong style="color:#fff;">Operator-grade case studies at scale</strong>: $4M/mo Kachava, $4M+/mo SupportPets revenue, $2M/mo AudienHearing, AG1 / Canada Goose / Infiniwell. Few alternatives have $1M+/mo managed-spend case studies in DTC.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">3</div><div>
+          <span class="step-label">Component 03 · Differentiated Value</span>
+          <h4>What value do those capabilities deliver to an 8-figure operator?</h4>
+          <p><strong style="color:#fff;">Aligned incentives → lower variance.</strong> With CPA-linked pricing the agency earns more when the operator wins. Operators stop fighting the agency to produce more, test faster, scale harder — incentives are already pointing the same direction.</p>
+          <p><strong style="color:#fff;">Performance creator economics → cheaper, better creator volume.</strong> CPN's 7/3 split lets creators earn upside instead of flat fees. This attracts a higher tier of creator at lower cost-per-asset, which compounds creative testing velocity.</p>
+          <p><strong style="color:#fff;">AI infrastructure → faster breakthrough discovery.</strong> The Intelligence Stack means new winners are identified and scaled in days not weeks, and competitive intel is processed continuously not quarterly.</p>
+          <p><strong style="color:#fff;">Named creative scoring → predictable breakthrough yield.</strong> Operators get one breakthrough ad per quarter at a minimum (Foundation tier) up to one per month (Breakthrough tier). Predictable creative ROI, not "we'll try."</p>
+          <p><strong style="color:#fff;">Multi-channel under one team → no agency tax across channels.</strong> 11 channels, one team, one fee. Operators stop paying 3 agencies for 3 channels. Coordination overhead drops to zero.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">4</div><div>
+          <span class="step-label">Component 04 · Best-Fit Customer</span>
+          <h4>Who cares enough about that value to pay partnership economics?</h4>
+          <p>The Dream Client filter from the deck, sharpened for self-selection:</p>
+          <ul class="bullets">
+            <li>$3M+/mo revenue ($250K minimum monthly floor)</li>
+            <li>$1M+/mo paid spend ($100K minimum monthly floor)</li>
+            <li>AOV $50–$150 (mass-market DTC, not luxury, not subscription-only)</li>
+            <li>30%+ revenue from repeat customers (LTV economics that justify premium fees)</li>
+            <li>Founder-led OR a CEO who personally reviews ad performance weekly</li>
+            <li>Has tried 2+ agencies before and fired them (knows the pain of vendor relationships)</li>
+            <li>Treats ad spend as a P&amp;L line, not a marketing expense</li>
+          </ul>
+          <p><strong style="color:#fff;">Verticals that fit cleanly:</strong> health/supplements (Kachava, AG1, Infiniwell), pet (SupportPets), wellness tech (AudienHearing), apparel/lifestyle with strong repeat (Canada Goose).</p>
+          <p><strong style="color:#fff;">Verticals that don't fit:</strong> B2B SaaS, single-purchase products with no repeat (mattresses, furniture), low-AOV ecommerce ($&lt;$50), local services, anything below $500K/mo total spend.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">5</div><div>
+          <span class="step-label">Component 05 · Market Category</span>
+          <h4>What category context makes the value obvious?</h4>
+          <p><strong style="color:#fff;">Frame Ad Pros inside the existing "performance marketing agency" category</strong> — buyers already understand the category and what they expect from it (media buying, creative, reporting). Don't try to invent a new category; the cost of educating the market is too high and the position is sharp enough without it.</p>
+          <p><strong style="color:#fff;">Claim a sub-position inside that category:</strong> "performance partner" — the agency model where fees scale with operator outcomes. This is positioned against "performance vendor" (the default), which most agencies are even when they call themselves partners.</p>
+          <p><strong style="color:#fff;">The category line:</strong> "Performance partner for 8-figure operators." Six words. Audience-first. Self-selecting. Reads like a job description that exists in the market, not a tagline an agency invented.</p>
+        </div></div>
+
+        <div class="ap-callout success">
+          <strong>The recursion check</strong>
+          Each component reinforces the next. Best-fit customer (8-figure operator with 30%+ repeat revenue) cares about lower variance and faster breakthrough discovery. That value comes from differentiated capabilities (CPA pricing, CPN, Intelligence Stack). Those capabilities only differentiate against the alternatives (status quo, generic agencies, freelancers). All of it lives inside the performance partner sub-category. The framework holds.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 02: SALES PITCH -->
+    <section class="tab-panel" id="tab-pitch">
+      <div class="panel-content">
+        <span class="framework-tag">April Dunford · Sales Pitch (Sales Pitch, 2023)</span>
+        <h2 class="ap-h2">The Ad Pros sales pitch, structured.</h2>
+        <p class="ap-p-lg">Dunford's pitch sequence builds on the 5 components. It's the order to walk a prospect through on a discovery call.</p>
+
+        <div class="pitch-line"><span class="stage">Step 1 · Insight</span><p>"Most 8-figure DTC brands have one thing in common: they've fired at least two agencies. The pattern isn't bad agencies — it's misaligned incentives. When the agency gets paid the same whether you scale or stall, the relationship rots."</p></div>
+
+        <div class="pitch-line"><span class="stage">Step 2 · Alternatives + Trade-offs</span><p>"The four ways operators handle this today: keep it in-house and accept the variance, hire a flat-fee agency, stitch together freelancers, or pay a fractional CMO who outsources execution. Each one trades off something — usually senior eyes for cost, or coordination for control."</p></div>
+
+        <div class="pitch-line"><span class="stage">Step 3 · The Different Approach</span><p>"There's a fifth option, and it's the one we built. Performance partner economics: low floor, kicker on spend, equity-like exposure for creators. We get paid more when you scale and less when you don't. Same direction, same incentives, no rotting."</p></div>
+
+        <div class="pitch-line"><span class="stage">Step 4 · The Capabilities (proof of different)</span><p>"Three things make this work. The Breakthrough System: a named creative scoring methodology that produces a quantified breakthrough ad every 30–90 days at 5–10% of account spend. The Creator Performance Network: 7% to us, 3% to creators, performance-aligned. And the Intelligence Stack: proprietary AI infrastructure processing 5,000+ ads a day so we find winners faster than anyone scoring creative manually."</p></div>
+
+        <div class="pitch-line"><span class="stage">Step 5 · The Value (what the operator gets)</span><p>"Net-net: lower variance, predictable breakthrough yield, faster scale, and no coordination overhead because all 11 channels run under one team. Operators we work with — Kachava at $4M/mo, SupportPets 10x'd to $4M+/mo, AudienHearing at $2M/mo on AppLovin and TikTok Shop — those numbers come from this structure, not despite it."</p></div>
+
+        <div class="pitch-line"><span class="stage">Step 6 · The Best-Fit Filter</span><p>"This isn't for everyone. We're built for operators doing $3M+/mo revenue with $1M+/mo in spend, AOV $50–$150, 30%+ repeat revenue, founder-led, and treating spend as a P&amp;L line. If that's you, the math works. If you're earlier than that, we're not the right fit yet."</p></div>
+
+        <div class="pitch-line"><span class="stage">Step 7 · The Ask</span><p>"Want to look at the math on your account? We can walk through what partnership economics would have looked like on your last 90 days of spend, and you can decide if the structure makes sense."</p></div>
+
+        <div class="ap-callout">
+          <strong>The pitch order matters</strong>
+          Most agencies pitch capabilities first ("we do creative + media + production"). Dunford's sequence pitches insight first, alternatives second, the different approach third, capabilities fourth. By the time capabilities arrive, the prospect already wants the different approach to be possible. Capabilities become proof, not features.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 03: POV -->
+    <section class="tab-panel" id="tab-pov">
+      <div class="panel-content">
+        <span class="framework-tag">Play Bigger · Point of View</span>
+        <h2 class="ap-h2">The Ad Pros POV, written out.</h2>
+        <p class="ap-p-lg">Four-part argument: (1) name the unnamed problem, (2) cost of not solving it, (3) the future where it's solved, (4) the inevitable solution.</p>
+
+        <div class="field"><span class="label">Part 1 · The Problem</span>
+          <h4>The agency model is structurally misaligned with operator economics — and operators know it but tolerate it because the alternatives are worse.</h4>
+          <p>For every dollar an 8-figure DTC operator spends on a flat-retainer agency, the agency captures the same revenue whether spend scales 10x or sits flat. The agency makes more money by holding more accounts, not by making any single account win. This is the hidden tax inside every flat-retainer engagement: the people executing your media don't financially benefit when you grow, and don't financially suffer when you don't.</p>
+          <p>Operators have responded by churning agencies — the average 8-figure DTC brand fires 2–3 agencies before settling. They blame execution. The real issue is structure.</p>
+        </div>
+
+        <div class="field"><span class="label">Part 2 · The Cost of Not Solving It</span>
+          <h4>Misaligned incentives compound into variance, churn, and a permanent ceiling on what paid media can do for a brand.</h4>
+          <p>When the agency optimizes for retention over results, three things happen: (1) testing slows because losing tests look bad and winning tests don't pay extra; (2) breakthrough creative becomes rare because breakthroughs require risk and the agency has nothing to gain from risk; (3) the senior team rotates off accounts as soon as they're stable, leaving juniors to manage spend that's now generating the agency's revenue floor.</p>
+          <p>The cost shows up as variance — months where ROAS swings unpredictably — and as a ceiling. Most 8-figure DTC brands plateau at $3–5M/mo spend not because the channels are saturated, but because the agency model can't push past it.</p>
+        </div>
+
+        <div class="field"><span class="label">Part 3 · The Future</span>
+          <h4>Performance partnership replaces vendor relationships across every layer of the agency model — media, creative, creators.</h4>
+          <p>In 5 years, the operators winning at scale won't be paying agencies flat retainers. They'll be paying performance partners — agencies whose fee structure scales with outcomes, whose creators participate in upside instead of flat per-asset fees, and whose internal infrastructure is built on operator stack (BigQuery, AI agents, real-time attribution) instead of agency stack (Asana boards and slide decks).</p>
+          <p>The boundary between "operator" and "agency" blurs. The agency runs on the same infrastructure the operator runs on, gets paid on the same terms the operator gets paid on, and stays for years instead of quarters because the math compounds for everyone in the room.</p>
+        </div>
+
+        <div class="field"><span class="label">Part 4 · The Inevitable Solution</span>
+          <h4>Ad Pros is the performance partner for 8-figure operators — and the only agency that has restructured all three layers (media, creative, creators) on aligned economics.</h4>
+          <p>Media: $5K base + variable kicker scaling 4% to 1.5% across spend tiers. The variable dominates at the spend levels we serve.</p>
+          <p>Creators: the Creator Performance Network — 7% kept, 3% passed to creators. Creators earn upside; brands buy performance-aligned creator programs.</p>
+          <p>Infrastructure: the Intelligence Stack — AI Ads Library, Intel, and Agentic Workflows running on BigQuery + Supabase + Claude API. Operator infrastructure, not agency infrastructure.</p>
+          <p>This is the only structure where the agency, the brand, and the creators all win when spend scales — and all share exposure when it doesn't. Performance partnership isn't a tagline. It's a fee structure, an org structure, and an infrastructure stack. We built all three.</p>
+        </div>
+
+        <div class="ap-callout warn">
+          <strong>How to use this POV</strong>
+          This is the manifesto draft. Publish a 2,500-word version at docs.adpros.com/manifesto. Reference it on every sales call. Quote from it on IG and LinkedIn. The POV becomes the substrate that every other piece of marketing references — without it, the positioning is rhetorical.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 04: LIGHTNING STRIKE -->
+    <section class="tab-panel" id="tab-strike">
+      <div class="panel-content">
+        <span class="framework-tag">Play Bigger · Lightning Strike</span>
+        <h2 class="ap-h2">The Q3 2026 Lightning Strike — concrete plan.</h2>
+        <p class="ap-p-lg">A 3-week mobilization that anchors "performance partner for 8-figure operators" in the market in one window. The asset that justifies the strike is the public launch of the Ad Pros Intelligence Stack — bundling AI Ads Library, Intel, and Agentic Workflows into one named platform.</p>
+
+        <div class="step-row"><div class="step-num">1</div><div>
+          <span class="step-label">Pre-strike · Weeks T-8 to T-3</span>
+          <h4>Build the artifacts</h4>
+          <p><strong style="color:#fff;">The manifesto</strong> (2,500 words, docs.adpros.com/manifesto) — written, edited, ready to publish.</p>
+          <p><strong style="color:#fff;">The Intelligence Stack landing page</strong> (docs.adpros.com/intelligence-stack) — naming, screenshots, anonymized client data, three named-client testimonials.</p>
+          <p><strong style="color:#fff;">A public results dashboard</strong> showing aggregate scale: $X managed monthly across 11 channels, breakthrough yield, operator retention rate.</p>
+          <p><strong style="color:#fff;">5 podcast appearances confirmed</strong> with launch dates inside the strike window: Operators podcast, Limited Supply, DTC Pod, Marketing Examined, one industry-specific (e.g., Beardbrand's CFO show).</p>
+          <p><strong style="color:#fff;">A 90-second launch video</strong> — Nehal on camera, the Stack on screen, named clients quoted.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">2</div><div>
+          <span class="step-label">Day 0 · Strike opening</span>
+          <h4>Tuesday morning, single-day saturation</h4>
+          <p>Manifesto published. Landing page goes live. Launch video drops on IG, LinkedIn, X simultaneously. First podcast episode airs same day. Email goes to entire current-and-prospect list with the manifesto link and the Stack landing page.</p>
+          <p>Three named clients post their own testimonial in their own voice on their own channels — coordinated, not asked-after.</p>
+          <p>Goal: the first 24 hours look like Ad Pros is everywhere at once, not like a slow rollout.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">3</div><div>
+          <span class="step-label">Days 1–7 · Saturation</span>
+          <h4>Daily content fire</h4>
+          <p>One IG/LinkedIn post per day from Nehal walking through one piece of the Intelligence Stack with screenshots and operator-language explanation.</p>
+          <p>Two more podcast episodes air this week. Outreach to 50 target operators with personalized notes referencing the manifesto.</p>
+          <p>Slack/Twitter responses to anyone who shares the manifesto, with named-client examples and direct invitations to a strategy call.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">4</div><div>
+          <span class="step-label">Days 8–14 · Reinforcement</span>
+          <h4>Operator interviews + social proof</h4>
+          <p>Publish 3 short-form case study videos (60-90 sec each) — one operator, one number, one structural reason it worked. Post Kachava, SupportPets, AudienHearing if rights allow; otherwise anonymize with permission.</p>
+          <p>Two more podcast appearances. One published Q&amp;A or AMA on LinkedIn or in a target operator community (Coalition, Operators, etc.).</p>
+          <p>Outreach campaign to all warm leads who downloaded the manifesto: discovery call invitations.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">5</div><div>
+          <span class="step-label">Days 15–21 · Closing the strike</span>
+          <h4>Convert attention to pipeline</h4>
+          <p>Public results retrospective: "What 21 days of launching the Intelligence Stack taught us." Numbers: pipeline added, operators booked, podcast downloads, manifesto reads. Transparency is the close.</p>
+          <p>Final 2 podcast appearances air. Final round of personalized outbound to operators who engaged but didn't book.</p>
+          <p>One published partnership announcement (creator agency partner, AI vendor partner, or industry analyst alignment) to extend the news cycle.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">6</div><div>
+          <span class="step-label">Post-strike · Steady drip from Day 22 onward</span>
+          <h4>Compound the anchor</h4>
+          <p>Weekly cadence: one operator-language IG post, one breakthrough case study, one targeted outbound campaign, one internal team training.</p>
+          <p>Every public reference to Ad Pros from this point forward references the manifesto, the Intelligence Stack, or a named client outcome. The strike becomes the anchor everything else points back to.</p>
+        </div></div>
+
+        <div class="ap-callout">
+          <strong>Why this works</strong>
+          The strike compresses what would otherwise be 9 months of slow positioning work into 3 weeks of saturation. Without the strike, "performance partner for 8-figure operators" reads as a tagline. With the strike, it reads as a category claim with a public manifesto, a named platform, and an operator cohort behind it.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 05: MAGIC TRIANGLE -->
+    <section class="tab-panel" id="tab-triangle">
+      <div class="panel-content">
+        <span class="framework-tag">Category Pirates · Magic Triangle</span>
+        <h2 class="ap-h2">Position–Product–Company fit, audited.</h2>
+        <p class="ap-p-lg">Three sides, equal weight. If any one drifts, the position weakens. Adapted from Pirates' Magic Triangle — Position substituted for Category since Ad Pros is repositioning, not creating a category.</p>
+
+        <div class="triangle-grid">
+
+          <div class="triangle-side">
+            <span class="label">Side 1 · Position</span>
+            <h4>Performance partner for 8-figure operators</h4>
+            <p><strong style="color:#fff;">What the position promises:</strong> aligned economics. Floor + kicker. Equity-like creator exposure. Operator-grade infrastructure.</p>
+            <p><strong style="color:#fff;">Where it lives:</strong> website hero, deck cover, sales script, IG bios, LinkedIn taglines.</p>
+            <div class="fit-status ok">Position is sharp ✓</div>
+          </div>
+
+          <div class="triangle-side">
+            <span class="label">Side 2 · Product</span>
+            <h4>Services + pricing structure</h4>
+            <p><strong style="color:#fff;">What's right:</strong> the kicker structure exists (4% / 3% / 2% / 1.5%). CPN exists (7/3 split). Intelligence Stack exists internally. 9 Dimensions exists.</p>
+            <p><strong style="color:#fff;">What's misaligned:</strong> in the sample proposal, variable is only 37% of total fees — the kicker is the garnish, not the entrée. Production is sold standalone (commodity-priced). CPN is "coming soon" instead of lead. Intelligence Stack is buried.</p>
+            <div class="fit-status gap">Product partially fits — pricing weight is the gap</div>
+          </div>
+
+          <div class="triangle-side">
+            <span class="label">Side 3 · Company</span>
+            <h4>Team + infrastructure + culture</h4>
+            <p><strong style="color:#fff;">What's right:</strong> 26 team members across 7 countries. AI infrastructure (BigQuery, Supabase, Claude API, Noor). Senior operators (Katherine, Pedro, Chino, Dani named in past work).</p>
+            <p><strong style="color:#fff;">What needs reinforcement:</strong> the team needs to see itself as "operators not account managers." Internal language, performance reviews, hiring criteria all need to reinforce the partner identity. Currently strong on infrastructure, less codified on culture-as-position-evidence.</p>
+            <div class="fit-status ok">Company largely fits — codify the culture layer</div>
+          </div>
+
+        </div>
+
+        <h3 class="ap-h3" style="margin-top:24px;">The single point of failure</h3>
+        <p class="ap-p">Pirates' rule: of the three, the weakest side determines the strength of the whole. Right now the weakest side is <strong style="color:var(--yellow);">Product</strong> — specifically the pricing structure. The position promises performance partnership; the product (proposal) bills 63% fixed. Until variable dominates, the triangle has a structural gap that any sophisticated operator will catch within five minutes of reading the proposal.</p>
+
+        <div class="ap-callout warn">
+          <strong>Action: close the Product side</strong>
+          Restructure the standard partnership proposal so variable is 65–80% of total fees. Reserve current structure as the explicit "vendor tier" for non-partnership engagements. The triangle holds when the product matches the rhetoric — not before.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 06: LANGUAGING -->
+    <section class="tab-panel" id="tab-languaging">
+      <div class="panel-content">
+        <span class="framework-tag">Category Pirates · Languaging (Frame It / Name It / Claim It)</span>
+        <h2 class="ap-h2">Languaging applied to Ad Pros.</h2>
+        <p class="ap-p-lg">Three operations: Frame It (define the problem), Name It (memorable defensible name), Claim It (own the name in customers' minds).</p>
+
+        <div class="field"><span class="label">Frame It · The unnamed problem</span>
+          <h4>"The agency model is structurally misaligned with operator economics."</h4>
+          <p>This is the framing. Not "agencies are bad" (defensive). Not "we're better" (benchmark argument). The frame names a structural problem the market hasn't named — misaligned incentives — and positions Ad Pros as the structural fix.</p>
+          <p><strong style="color:#fff;">Public phrase:</strong> "Most agencies bill the same whether you scale or stall. We don't."</p>
+        </div>
+
+        <div class="field"><span class="label">Name It · The names to install</span>
+          <p style="margin-bottom:12px;">Three names do all the heavy lifting. Saturate them everywhere.</p>
+          <ul class="bullets">
+            <li><strong style="color:#fff;">Performance partner</strong> — the agency identity. Replaces "agency," "team," "shop."</li>
+            <li><strong style="color:#fff;">8-figure operator</strong> — the client identity. Replaces "founder," "brand," "DTC company," "Dream Client."</li>
+            <li><strong style="color:#fff;">Creator Performance Network (CPN)</strong> — the category-claim asset. Replaces "creator program," "UGC management."</li>
+          </ul>
+          <p style="margin-top:12px;">Two supporting names that can carry weight if installed alongside:</p>
+          <ul class="bullets">
+            <li><strong style="color:#fff;">The Intelligence Stack</strong> — the public name for AI Ads Library + Intel + Agentic Workflows.</li>
+            <li><strong style="color:#fff;">The Breakthrough System</strong> — the public name for 9 Dimensions + Creative Matrix + Breakthrough classification.</li>
+          </ul>
+        </div>
+
+        <div class="field"><span class="label">Claim It · The vendor language to retire</span>
+          <table class="ap-table" style="margin-top:8px;">
+            <thead><tr><th>Retire</th><th>Install</th></tr></thead>
+            <tbody>
+              <tr><td>"Total investment: $24,060/mo"</td><td>"Partnership economics: $X floor + Y% of spend"</td></tr>
+              <tr><td>"Creative Strategy / Production / Media Buying" (generic nouns)</td><td>"The Breakthrough System / Production / Performance Operations"</td></tr>
+              <tr><td>"Creator Performance Network — Coming Soon"</td><td>"The Creator Performance Network — live"</td></tr>
+              <tr><td>"Add Your Next Million A Month" (generic agency promise)</td><td>"Performance partner for 8-figure operators"</td></tr>
+              <tr><td>"Dream Client" (inverts the partnership)</td><td>"Best-fit operator" or "Partnership-grade operator"</td></tr>
+              <tr><td>"Channels included" lists</td><td>"All 11 channels covered. We pick where your spend wins."</td></tr>
+              <tr><td>"$2,500/month" tier headers</td><td>"Foundation — for operators committing $X+ in spend"</td></tr>
+              <tr><td>"Clients: AG1, Kachava…"</td><td>"Operators we partner with — and the operators they refer."</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ap-callout">
+          <strong>Saturation, not iteration</strong>
+          Update website hero, deck cover, IG bios for Ad Pros and Nehal, LinkedIn company tagline, email signatures, contract preambles, Slack channel descriptions — all in one week. Languaging works at saturation. A six-month rollout dilutes the change.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 07: SUPERCONSUMERS -->
+    <section class="tab-panel" id="tab-super">
+      <div class="panel-content">
+        <span class="framework-tag">Eddie Yoon · Superconsumers</span>
+        <h2 class="ap-h2">The Ad Pros Superconsumer profile.</h2>
+        <p class="ap-p-lg">In every category Yoon studied, ~10% of customers drive 30–70% of profit. Not 2x more valuable — 5–10x more valuable. They renew, expand, refer, tolerate price, and recruit the next cohort.</p>
+
+        <h3 class="ap-h3">Scoring rubric — score every current Ad Pros client</h3>
+        <table class="ap-table">
+          <thead><tr><th>Dimension</th><th>1 point</th><th>2 points</th><th>3 points</th></tr></thead>
+          <tbody>
+            <tr><td>Monthly spend</td><td>$100K–$500K</td><td>$500K–$1M</td><td>$1M+</td></tr>
+            <tr><td>Tenure with Ad Pros</td><td>&lt;6 months</td><td>6–18 months</td><td>18+ months</td></tr>
+            <tr><td>NPS / qualitative satisfaction</td><td>passive</td><td>promoter</td><td>active evangelist</td></tr>
+            <tr><td>Referrals generated</td><td>0</td><td>1</td><td>2+</td></tr>
+            <tr><td>Spend trajectory</td><td>flat</td><td>growing 1–10% MoM</td><td>growing 10%+ MoM</td></tr>
+            <tr><td>Repeat revenue %</td><td>&lt;30%</td><td>30–50%</td><td>50%+</td></tr>
+            <tr><td>Price sensitivity</td><td>negotiates aggressively</td><td>accepts pricing</td><td>tolerates increases</td></tr>
+          </tbody>
+        </table>
+        <p class="ap-p" style="margin-top:14px;">Max score: 21. <strong style="color:#fff;">Superconsumers score 17+</strong>. Run this on every active client this week.</p>
+
+        <h3 class="ap-h3" style="margin-top:24px;">The hypothesized Superconsumer profile</h3>
+        <p class="ap-p">Based on the named clients in the deck (Kachava, AG1, SupportPets, AudienHearing, Canada Goose, Infiniwell), the Superconsumer pattern looks like:</p>
+        <ul class="bullets">
+          <li>Health, supplements, or wellness vertical (5 of 6 named clients)</li>
+          <li>$1M–$4M/mo managed spend (the deck's case study range)</li>
+          <li>AOV $50–$150 with subscription or strong repeat (AG1, Kachava, Infiniwell, SupportPets all repeat-economics-driven)</li>
+          <li>Founder still personally engaged (no Fortune-500 detached buyers)</li>
+          <li>Multi-channel — not Meta-only (the deck shows clients running 6–8 channels)</li>
+          <li>Has tried 1–2 agencies before (Ad Pros is rarely the first agency for a brand at this scale)</li>
+        </ul>
+
+        <h3 class="ap-h3" style="margin-top:24px;">The action</h3>
+        <ol class="bullets" style="list-style:decimal;padding-left:20px;">
+          <li>This week: score every active Ad Pros client on the rubric. Identify the top 10%.</li>
+          <li>Document what they share — vertical, AOV, repeat rate, founder type, channel mix, prior agency history.</li>
+          <li>Build the next 90 days of outbound exclusively against that profile. Disqualify aggressively.</li>
+          <li>Run a quarterly review: did Superconsumer score predict retention and expansion? Tighten the rubric.</li>
+        </ol>
+
+        <div class="ap-pullquote">
+          <p>"Knowing who you're not for is just as important as knowing who you're for."</p>
+          <div class="source">Christopher Lochhead</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 08: 22 LAWS APPLIED -->
+    <section class="tab-panel" id="tab-laws">
+      <div class="panel-content">
+        <span class="framework-tag">Category Pirates · The 22 Laws of Category Design</span>
+        <h2 class="ap-h2">The 5 laws that matter, applied to Ad Pros.</h2>
+        <p class="ap-p-lg">Read the rest. Internalize these five. Each one has a concrete Ad Pros action.</p>
+
+        <div class="field"><span class="label">Law 1 · The Different Law</span>
+          <h4>Don't compete on better. Win on different.</h4>
+          <p><strong style="color:#fff;">Ad Pros action:</strong> stop saying "we're the best performance agency for DTC." Start saying "we're the only agency where the fee structure scales with operator outcomes." First is a benchmark claim (every agency makes it). Second is a structural claim (only Ad Pros can prove it).</p>
+        </div>
+
+        <div class="field"><span class="label">Law 2 · The Niche Down Law</span>
+          <h4>Become known for one thing before you expand.</h4>
+          <p><strong style="color:#fff;">Ad Pros action:</strong> the one thing is "performance partnership." Not "performance creative" or "AI media buying" or "creator economics" alone — the integrated economics across all three layers. Resist the temptation to also be known for AI infrastructure or creator networks separately. Those are proof points, not the niche.</p>
+        </div>
+
+        <div class="field"><span class="label">Law 3 · The Languaging Law</span>
+          <h4>The words you choose shape the category.</h4>
+          <p><strong style="color:#fff;">Ad Pros action:</strong> three names installed everywhere — "performance partner," "8-figure operator," "Creator Performance Network." Audit every public artifact within one week. Saturate, don't drip.</p>
+        </div>
+
+        <div class="field"><span class="label">Law 4 · The Damming Demand Law</span>
+          <h4>Dam existing demand and redirect it to your category.</h4>
+          <p><strong style="color:#fff;">Ad Pros action:</strong> existing demand is "I need an agency." Dam it: convert that demand into "I need a performance partner." Every piece of outbound, every podcast, every IG post should reframe the buyer's question — not "which agency?" but "vendor or partner?" Once that frame catches on, Ad Pros is the only credible answer.</p>
+        </div>
+
+        <div class="field"><span class="label">Law 5 · The 6-10 Law (with caveat)</span>
+          <h4>It takes 6–10 years to design and dominate a category.</h4>
+          <p><strong style="color:#fff;">Ad Pros caveat:</strong> the full law applies to category creation. Ad Pros isn't creating a category — it's claiming a sub-position inside performance agencies. Realistic horizon: 18–24 months to be the recognized partnership-pricing leader, 36 months to be the default answer when an 8-figure operator says "I need a real partner." Don't let the 6–10 law license slow execution; do let it license multi-year patience for compounding effects.</p>
+        </div>
+
+        <h3 class="ap-h3" style="margin-top:24px;">Laws to read but not act on</h3>
+        <ul class="bullets">
+          <li><strong>The Lightning Strike Law</strong> — useful as concept, already covered in the Lightning Strike tab.</li>
+          <li><strong>The No Ocean Strategy</strong> — Pirates' Blue Ocean rebuttal; theological more than operational.</li>
+          <li><strong>The Magic Triangle Law</strong> — the framework itself, covered in its own tab.</li>
+          <li><strong>The Superconsumer Law</strong> — covered in the Superconsumers tab.</li>
+          <li><strong>The Personal Category Design Law</strong> — applies to founders building personal brands; useful for Nehal's IG strategy, less central to Ad Pros positioning.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TAB 09: LIFECYCLE -->
+    <section class="tab-panel" id="tab-lifecycle">
+      <div class="panel-content">
+        <span class="framework-tag">Play Bigger · Define-Develop-Dominate</span>
+        <h2 class="ap-h2">Where Ad Pros sits in the lifecycle.</h2>
+        <p class="ap-p-lg">Three phases. Knowing the phase dictates strategy.</p>
+
+        <div class="step-row"><div class="step-num">1</div><div>
+          <span class="step-label">Phase 1 · DEFINE</span>
+          <h4>Where the category is right now</h4>
+          <p>"Performance partnership agency" as a defined sub-category does not yet exist. Several agencies use partnership language loosely (Common Thread, Pilothouse, a few smaller shops have variable kicker components). None has claimed the category as its identity. The market currently sees them all as "performance agencies with optional kickers."</p>
+          <p><strong style="color:#fff;">Implication:</strong> the Define phase is where Ad Pros sits today. The opportunity is to anchor the problem ("flat-retainer agencies are misaligned") and the language ("performance partner") in the market's mind before any competitor does.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">2</div><div>
+          <span class="step-label">Phase 2 · DEVELOP</span>
+          <h4>Where the category goes next (12–24 months)</h4>
+          <p>If Ad Pros executes the Lightning Strike and the post-strike steady drip, the Develop phase will feature 2–3 agencies competing for the partnership-positioning lane: Ad Pros plus likely Pilothouse and one other emerging shop. This is where weaker entrants drop out — agencies that try to copy partnership pricing without restructuring their economics will fail to deliver on the promise and lose the operators who signed up.</p>
+          <p><strong style="color:#fff;">Implication:</strong> the goal for the next 18 months is to establish Ad Pros as the unambiguous Develop-phase leader. That's measured by inbound: when an 8-figure operator types "performance partnership agency" into a search bar or asks a peer for a referral, Ad Pros is the first name spoken.</p>
+        </div></div>
+
+        <div class="step-row"><div class="step-num">3</div><div>
+          <span class="step-label">Phase 3 · DOMINATE</span>
+          <h4>The 36-month destination</h4>
+          <p>In a fully formed sub-category, the leader takes 60–80% of category economics — meaning 60–80% of the operators specifically seeking a performance partner choose Ad Pros. Other agencies in the lane survive but never lead. Total addressable market in the 8-figure DTC partnership lane is plausibly 200–500 brands globally. Capturing 20–30% of that as managed accounts at $1M+/mo spend would be a $200M+ ARR business with industry-leading margins.</p>
+          <p><strong style="color:#fff;">Implication:</strong> Dominate phase requires defending the position once held. The defense moves: deeper integration with operator stack (BigQuery, attribution, finance), exclusive Intelligence Stack capabilities, public manifesto-grade content cadence, and a CPN with creator network effects competitors can't replicate.</p>
+        </div></div>
+
+        <div class="ap-callout success">
+          <strong>The strategic call</strong>
+          Ad Pros is in Define. Most agencies miss this — they think they're in Develop or Dominate when they're actually still in Define. Recognizing the phase is what justifies the Lightning Strike and the manifesto: in Define, anchoring the problem and the language is more valuable than any individual feature or case study. Anchor first. Develop second. Dominate later.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 10: JTBD + CHASM -->
+    <section class="tab-panel" id="tab-jtbd">
+      <div class="panel-content">
+        <span class="framework-tag">Substrate · Christensen JTBD + Geoffrey Moore Chasm</span>
+        <h2 class="ap-h2">The two substrate frameworks worth running.</h2>
+        <p class="ap-p-lg">Both inform Ad Pros' position even though neither is a category-design framework strictly. JTBD sharpens the value claim; Chasm explains why 8-figure operators are early-majority, not innovators.</p>
+
+        <h3 class="ap-h3">Jobs-to-be-Done · What is the operator hiring Ad Pros to do?</h3>
+        <div class="field">
+          <h4>The functional job</h4>
+          <p>"Help me grow paid spend profitably across the channels that work for my business, while I focus on product, supply chain, and team."</p>
+        </div>
+        <div class="field">
+          <h4>The emotional job</h4>
+          <p>"Let me stop worrying about whether my agency is actually trying to make me win. I want to feel that the people running my media wake up thinking about my account the way I do."</p>
+        </div>
+        <div class="field">
+          <h4>The social job</h4>
+          <p>"Let me be the founder my peers refer to as 'they have their performance team figured out.' I want the credibility of working with the agency other smart operators name-drop."</p>
+        </div>
+        <p class="ap-p" style="margin-top:14px;"><strong style="color:#fff;">Implication:</strong> the partnership economics, the manifesto, the named-client testimonials, the "operators we partner with" framing — all three address all three jobs. Most agencies only address the functional job. Ad Pros has the architecture to address all three; the deck just needs to surface them.</p>
+
+        <h3 class="ap-h3" style="margin-top:24px;">Crossing the Chasm · Where 8-figure operators sit</h3>
+        <p class="ap-p">Moore's adoption curve: innovators → early adopters → early majority → late majority → laggards. The chasm sits between early adopters and early majority.</p>
+        <table class="ap-table" style="margin-top:14px;">
+          <thead><tr><th>Segment</th><th>Who they are</th><th>Right pitch</th></tr></thead>
+          <tbody>
+            <tr><td>Innovators</td><td>$50M+ DTC, in-house performance teams, build their own AI</td><td>Not Ad Pros' market — they don't outsource.</td></tr>
+            <tr><td>Early adopters</td><td>$10–30M DTC operators willing to try non-traditional agencies, founder-led</td><td>The current Ad Pros base. Pitch: structural difference, willingness to bet on partnership economics.</td></tr>
+            <tr><td>Early majority</td><td>$10–50M DTC operators who want what Early Adopters have but need proof</td><td>The next 24-month growth target. Pitch: named-client case studies, public manifesto, clear ROI math.</td></tr>
+            <tr><td>Late majority</td><td>$50M+ legacy DTC + traditional brands</td><td>Wait. They'll come once category is dominated.</td></tr>
+            <tr><td>Laggards</td><td>Sub-$3M DTC, not yet at scale</td><td>Wrong fit. Refer out.</td></tr>
+          </tbody>
+        </table>
+        <p class="ap-p" style="margin-top:14px;"><strong style="color:#fff;">Implication:</strong> Ad Pros has Early Adopters. The Chasm to cross is to Early Majority — operators who want the partnership model but need more social proof and structural clarity than Early Adopters did. The Lightning Strike, manifesto, public dashboard, and named-client testimonials are all chasm-crossing artifacts. Without them, Ad Pros stays at $10M ARR forever.</p>
+
+        <div class="ap-callout">
+          <strong>The substrate insight</strong>
+          JTBD says address all three job layers. Chasm says the next growth phase requires Early-Majority-grade proof. Both point to the same action: invest in public artifacts (manifesto, case studies, dashboard, podcast tour) over private features. The product is right. The proof is the bottleneck.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 11: MASTER -->
+    <section class="tab-panel" id="tab-master">
+      <div class="panel-content">
+        <span class="framework-tag">Master Summary</span>
+        <h2 class="ap-h2">All frameworks, one view.</h2>
+        <p class="ap-p-lg">Each framework's filled-in answer for Ad Pros, with the single action it implies.</p>
+
+        <table class="ap-table">
+          <thead><tr><th>Framework</th><th>Filled-in answer for Ad Pros</th><th>Single action</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Dunford 5-Component</strong></td>
+              <td>Alternatives: status quo + generic agencies + freelancers + fractional CMOs. Capabilities: CPA-linked pricing + CPN 7/3 + Intelligence Stack + 9 Dimensions + 11 channels under one team. Value: aligned incentives → lower variance, faster breakthroughs, no agency tax. Best-fit: $3M+/mo rev, $1M+/mo spend, 30%+ repeat, founder-led. Category: "performance partner" inside performance agencies.</td>
+              <td>Walk every prospect through this sequence on discovery calls.</td>
+            </tr>
+            <tr>
+              <td><strong>Dunford Sales Pitch</strong></td>
+              <td>Insight (misalignment) → Alternatives → Different Approach (partnership economics) → Capabilities (Breakthrough System, CPN, Intelligence Stack) → Value (variance, breakthroughs, scale) → Filter (Dream Client) → Ask (math walk-through).</td>
+              <td>Convert this into a 10-slide deck and a 30-min discovery script.</td>
+            </tr>
+            <tr>
+              <td><strong>Play Bigger POV</strong></td>
+              <td>Problem (agency model is misaligned) → Cost (variance, churn, ceiling) → Future (partnership replaces vendor everywhere) → Solution (Ad Pros restructured all 3 layers).</td>
+              <td>Publish 2,500-word manifesto at docs.adpros.com/manifesto in next 14 days.</td>
+            </tr>
+            <tr>
+              <td><strong>Lightning Strike</strong></td>
+              <td>Q3 2026, 3-week window. Anchor: public launch of the Intelligence Stack. Artifacts: manifesto, landing page, dashboard, 5 podcasts, 90-sec video, 3 named-client testimonials.</td>
+              <td>Pick the strike date this week. Block calendar. Build artifacts in T-8 to T-3.</td>
+            </tr>
+            <tr>
+              <td><strong>Magic Triangle</strong></td>
+              <td>Position: sharp (✓). Company: largely fits, codify culture (✓). Product: gap — variable is only 37% of fees in sample proposal.</td>
+              <td>Restructure standard partnership proposal to 65–80% variable. Two weeks.</td>
+            </tr>
+            <tr>
+              <td><strong>Languaging</strong></td>
+              <td>Frame: structural misalignment. Names: performance partner / 8-figure operator / CPN / Intelligence Stack / Breakthrough System. Retire: "investment," "Coming Soon," "Dream Client," generic service nouns.</td>
+              <td>One-week saturation audit across web, deck, IG, LinkedIn, contracts, signatures.</td>
+            </tr>
+            <tr>
+              <td><strong>Superconsumers</strong></td>
+              <td>Profile: health/wellness DTC, $1–4M/mo spend, AOV $50–150, founder-engaged, repeat-economics-driven, 1–2 prior agencies fired. Top 10% of current clients are the ICP for next 12 months.</td>
+              <td>Score every active client this week using the 7-dimension rubric.</td>
+            </tr>
+            <tr>
+              <td><strong>22 Laws (5 that matter)</strong></td>
+              <td>Different Law: structural not benchmark. Niche Down: only "performance partnership," resist diluting. Languaging: saturate the names. Damming Demand: reframe "I need an agency" to "vendor or partner?" 6–10 with caveat: 18–24 months to lead, 36 to dominate.</td>
+              <td>Internalize the five. Walk team through them in next all-hands.</td>
+            </tr>
+            <tr>
+              <td><strong>Define-Develop-Dominate</strong></td>
+              <td>Currently in Define. The category "performance partnership agency" doesn't exist yet. 12–24 months to Develop (2–3 competitors). 36 months to Dominate.</td>
+              <td>Optimize for anchoring the problem and language now, not for feature competition.</td>
+            </tr>
+            <tr>
+              <td><strong>JTBD + Chasm</strong></td>
+              <td>JTBD: functional (grow profitably) + emotional (stop worrying about alignment) + social (be the operator peers refer to). Chasm: Early Adopters today, need Early Majority proof to grow next.</td>
+              <td>Public artifacts (manifesto + dashboard + named clients) over private features for next 12 months.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="ap-h3" style="margin-top:32px;">The synthesis in one paragraph</h3>
+        <p class="ap-p-lg">Ad Pros is in the Define phase of a sub-category that doesn't yet exist publicly: performance partnership agencies for 8-figure DTC operators. The position is correct, the company largely fits, the capabilities are real. The two gaps are pricing weight (variable should dominate) and proof (manifesto + named-client artifacts + Lightning Strike). Close those gaps in the next 90 days and Ad Pros becomes the Develop-phase leader. Hold that position for 18 months and the category solidifies. Hold it for 36 months and Ad Pros owns it.</p>
+
+        <div class="ap-pullquote">
+          <p>Frameworks are useless until they're filled in. Now they are. Pick the next 30 days from this page and execute.</p>
+          <div class="source">The working answer</div>
+        </div>
+
+        <div class="ap-callout success">
+          <strong>The next 30 days, prioritized</strong>
+          Week 1: Languaging audit + saturation rollout. Week 2: Superconsumer scoring on every active client. Week 2: Restructure standard proposal to 65–80% variable. Week 3: Draft manifesto. Week 4: Lock Lightning Strike date and book podcasts. Everything else can wait.
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:36px;opacity:0.5;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal Kazim &middot; May 9, 2026</p>
+  </footer>
+
+  <script>
+    (function() {
+      var btns = document.querySelectorAll('.tab-btn');
+      var panels = document.querySelectorAll('.tab-panel');
+      function activate(name) {
+        btns.forEach(function(b) { b.classList.toggle('active', b.dataset.tab === name); });
+        panels.forEach(function(p) { p.classList.toggle('active', p.id === 'tab-' + name); });
+        if (history.replaceState) {
+          try { history.replaceState(null, '', '#' + name); } catch (e) {}
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' in (window.scrollTo) ? 'instant' : 'auto' });
+      }
+      btns.forEach(function(b) {
+        b.addEventListener('click', function() { activate(b.dataset.tab); });
+      });
+      var hash = (window.location.hash || '').replace('#', '');
+      var valid = ['dunford','pitch','pov','strike','triangle','languaging','super','laws','lifecycle','jtbd','master'];
+      if (hash && valid.indexOf(hash) >= 0) activate(hash);
+    })();
+  </script>
+
+</body>
+</html>

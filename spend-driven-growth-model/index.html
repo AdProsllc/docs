@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Block search engines per-bot. NEVER use a blanket robots tag — that
+       blocks ClaudeBot/Claude-User/Claude-SearchBot, which we WANT so the
+       team can paste docs.adpros.com URLs into Claude chat. -->
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal">
+  <title>Spend-Driven Growth Model — Ad Pros</title>
+  <!-- Favicon: SVG (modern), Apple touch icon (iOS), and theme color (mobile
+       browser chrome). favicon.svg lives at the docs repo root; Step 7
+       guarantees it's present before push. Never remove these tags — the
+       AdPros mark in the tab is non-negotiable brand. -->
+  <!-- Same favicon files served at the root of docs.adpros.com — these are
+       the actual PNGs used by www.adpros.com, so the docs tab and the main
+       site tab show the exact same mark. Do not swap to /favicon.svg; the
+       SVG version of our logo has tighter letter-bounds padding than the
+       main-site PNG and renders visually larger in the browser tab. -->
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      /* Color tokens */
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      /* Spacing scale (4px base) */
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    /* Power Grotesk preferred (if installed locally), Inter is the loaded fallback */
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    /* === TYPE SCALE === */
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    /* === HEADER === */
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    /* === LAYOUT === */
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; }
+    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
+
+    /* === CARDS === */
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
+
+    /* === STAT === */
+    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
+    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
+    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    /* === VALUE / NUMBERED ROW === */
+    .ap-value { display: grid; grid-template-columns: 72px 1fr; gap: 20px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+    .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .ap-value-body { padding: 20px 24px; }
+    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .ap-value-body p  { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+
+    /* === BUTTONS === */
+    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
+    .btn-primary:hover { background: var(--yellow-dim); }
+    .btn-secondary { background: var(--navy); color: var(--yellow); border: 1.5px solid var(--yellow); padding: 10.5px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; transition: background .15s, color .15s; }
+    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid var(--card-border-strong); padding: 10.5px 22px; border-radius: 8px; font-weight: 500; font-size: 14px; font-family: inherit; cursor: pointer; transition: border-color .15s; }
+    .btn-ghost:hover { border-color: var(--grey-300); }
+
+    /* === FORM FIELDS === */
+    .ap-input-label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .ap-input { width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 14px; font-family: inherit; outline: none; transition: border-color .15s; }
+    .ap-input:focus { border-color: var(--blue); }
+    .ap-input.error { border-color: var(--error); }
+    .ap-input.success { border-color: var(--success); }
+
+    /* === TOASTS === */
+    .toast { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 3px solid; }
+    .toast-success { background: rgba(15,151,61,0.1);  border-color: var(--success); color: #b6f2ce; }
+    .toast-error   { background: rgba(212,38,32,0.1);  border-color: var(--error);   color: #ffbdbb; }
+    .toast-warn    { background: rgba(249,217,0,0.08); border-color: var(--yellow);  color: #ffe57d; }
+    .toast-info    { background: rgba(26,111,212,0.1); border-color: var(--blue);    color: #b1d5ff; }
+
+    /* === CALLOUT === */
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+
+    /* === LINKS === */
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    /* === FOOTER === */
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    /* === CLIENT SIDEBAR (collapsible left rail — only rendered on client pages) === */
+    .ap-sidebar {
+      position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
+      background: var(--navy-deep); border-right: 1px solid var(--card-border);
+      z-index: 100; display: flex; flex-direction: column;
+      transform: translateX(0); transition: transform .25s ease;
+      overflow-y: auto;
+    }
+    .ap-sidebar.collapsed { transform: translateX(-100%); }
+    .ap-sidebar-header {
+      padding: 24px 20px 16px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ap-sidebar-brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .ap-sidebar-brand-text { min-width: 0; }
+    .ap-sidebar-brand-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; line-height: 1.2; }
+    .ap-sidebar-brand-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .ap-sidebar-section {
+      padding: 18px 20px 8px;
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .ap-sidebar-list { padding: 0 12px 20px; display: grid; gap: 4px; }
+    .ap-sidebar-item {
+      display: block; padding: 12px 14px; border-radius: 8px;
+      color: var(--grey-100); text-decoration: none;
+      transition: background .12s;
+      border-left: 2px solid transparent;
+    }
+    .ap-sidebar-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .ap-sidebar-item.current { background: rgba(249,217,0,0.08); border-left-color: var(--yellow); padding-left: 12px; }
+    .ap-sidebar-item-title { font-size: 14px; font-weight: 500; line-height: 1.3; color: #fff; }
+    .ap-sidebar-item.current .ap-sidebar-item-title { color: var(--yellow); }
+    .ap-sidebar-item-date { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+
+    /* Chevron toggle — visible in BOTH states. Sits at the sidebar's right
+       edge when open, slides to viewport left edge when closed. Chevron flips
+       180° based on body state class. */
+    .ap-sidebar-toggle {
+      /* top: 170px sits well below the 108px-tall page header so the toggle
+         has clear vertical separation from the AdPros logo when the sidebar
+         is closed. Slim 22px width keeps it unobtrusive. */
+      position: fixed; top: 170px; left: 280px; z-index: 101;
+      width: 22px; height: 56px; padding: 0;
+      background: var(--navy-card); color: var(--grey-200);
+      border: 1.5px solid rgba(249,217,0,0.4);
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: left .25s ease, background .15s, color .15s, border-color .15s, box-shadow .15s;
+    }
+    .ap-sidebar-toggle:hover { background: var(--yellow); color: var(--navy); border-color: var(--yellow); box-shadow: 4px 0 0 0 rgba(249,217,0,0.15); }
+    .ap-sidebar-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle { left: 0; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle svg { transform: rotate(180deg); }
+
+    /* When sidebar is open on desktop, push the rest of the page right. */
+    body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
+
+    /* Mobile: sidebar overlays instead of pushing content; backdrop dims behind it. */
+    @media (max-width: 900px) {
+      body.ap-has-sidebar { padding-left: 0; }
+      .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); }
+      body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); }
+    }
+
+    /* === FLOATING TOC (auto-builds on viewport ≥1280px when 4+ .ap-section[id] elements exist) === */
+    .ap-toc {
+      position: fixed; top: 130px; right: 32px; z-index: 50;
+      width: 200px; max-height: calc(100vh - 180px); overflow-y: auto;
+      padding: 4px 0 4px 18px;
+      border-left: 1px solid var(--card-border);
+      display: none;
+    }
+    .ap-toc.visible { display: block; }
+    .ap-toc-label {
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
+    .ap-toc-item {
+      display: block; padding: 7px 0 7px 16px;
+      font-size: 12.5px; line-height: 1.35;
+      color: var(--grey-300); text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -20px;
+      transition: color .15s, border-color .15s;
+    }
+    .ap-toc-item:hover { color: #fff; }
+    .ap-toc-item.active {
+      color: var(--yellow);
+      border-left-color: var(--yellow);
+      font-weight: 500;
+    }
+    /* When TOC is rendered, body gets right-padding to make room for it (only at ≥1280px). */
+    @media (min-width: 1280px) {
+      body.ap-has-toc { padding-right: 232px; transition: padding-right .25s ease; }
+    }
+    @media (max-width: 1279px) {
+      .ap-toc { display: none !important; }
+    }
+
+    @media (max-width: 640px) {
+      /* Bump side padding from 20px to 28px so content has breathing room
+         on phones — text isn't flush against the viewport edge. */
+      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
+      .ap-footer { margin-left: 28px; margin-right: 28px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="ap-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Spend-Driven Growth Model</h1>
+      <p>Ad Model → CPL → funnel P&amp;L → software LTV &amp; gross margin. An interactive, self-checking model of the spend-driven ascension funnel.</p>
+    </div>
+  </header>
+  <div class="ap-content">
+    <style>
+#apm{ --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --canvas:#F4F5F2; --panel:#FFFFFF; --ink:#10171C; --soft:#5A6670; --faint:#8A949C; --line:#E3E6E1;
+  --em:#14795A; --emb:#1FA67C; --blue:#2563EB; --amber:#B45309; --red:#B42318; --wash:#EEF1ED;
+  background:var(--canvas); color:var(--ink); font-family:var(--sans); display:block;
+  border:1px solid var(--line); border-radius:12px; padding:22px; }
+#apm *{ box-sizing:border-box; }
+#apm .eyebrow{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:var(--faint); text-transform:uppercase; }
+#apm .panel{ background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px; margin-bottom:12px; }
+#apm .mono{ font-family:var(--mono); }
+#apm h2.t{ font-size:26px; font-weight:800; letter-spacing:-.02em; margin:6px 0 4px; color:var(--ink); line-height:1.1; }
+#apm .tabbar{ display:flex; gap:4px; margin-bottom:14px; border-bottom:1px solid var(--line); }
+#apm .tab{ font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--faint); background:transparent; border:none; border-bottom:2px solid transparent; padding:8px 12px; cursor:pointer; margin-bottom:-1px; }
+#apm .tab.active{ color:var(--ink); border-bottom-color:var(--em); }
+#apm input[type=range]{ -webkit-appearance:none; appearance:none; width:100%; height:3px; background:var(--line); border-radius:2px; outline:none; cursor:pointer; }
+#apm input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:15px; height:15px; border-radius:50%; background:var(--blue); border:2px solid #fff; box-shadow:0 0 0 1px var(--blue); cursor:pointer; }
+#apm input[type=range]::-moz-range-thumb{ width:15px; height:15px; border-radius:50%; background:var(--blue); border:2px solid #fff; box-shadow:0 0 0 1px var(--blue); cursor:pointer; }
+#apm input.hero[type=range]{ height:4px; }
+#apm input.hero[type=range]::-webkit-slider-thumb{ width:20px; height:20px; background:var(--em); box-shadow:0 0 0 1px var(--em); }
+#apm input.hero[type=range]::-moz-range-thumb{ width:20px; height:20px; background:var(--em); box-shadow:0 0 0 1px var(--em); }
+#apm .levers{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:18px 24px; }
+#apm .lever .row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+#apm .lever .lbl{ font-size:12px; color:var(--soft); }
+#apm .lever .val{ font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink); }
+#apm .lever .hint{ font-size:10.5px; color:var(--faint); margin-top:6px; display:block; }
+#apm .lever .ro{ height:3px; background:var(--line); border-radius:2px; }
+#apm .wf{ display:flex; gap:4px; align-items:flex-start; }
+#apm .stage{ flex:1 1 0; min-width:140px; }
+#apm .stage .si{ font-family:var(--mono); font-size:10px; color:var(--faint); letter-spacing:.12em; margin-bottom:8px; }
+#apm .stage .sb{ font-family:var(--mono); font-size:25px; font-weight:700; letter-spacing:-.01em; line-height:1; }
+#apm .stage .sl{ display:flex; justify-content:space-between; font-size:11.5px; margin-top:3px; }
+#apm .stage .sl span:first-child{ color:var(--soft); }
+#apm .stage .sl span:last-child{ font-family:var(--mono); color:var(--ink); font-weight:600; }
+#apm .chev{ align-self:center; color:var(--faint); display:flex; align-items:center; }
+#apm .tbl-d{ display:block; } #apm .tbl-m{ display:none; }
+#apm .trow{ display:grid; grid-template-columns:1.4fr .8fr 1fr .8fr 1.5fr; gap:8px; align-items:center; }
+#apm .pl{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:8px; align-items:center; }
+#apm .os{ display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:8px; align-items:center; }
+#apm .ue{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:12px; }
+#apm .qa{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:12px 0; }
+#apm .badge{ font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.08em; padding:3px 7px; border-radius:3px; white-space:nowrap; }
+#apm .herogrid{ display:grid; grid-template-columns:minmax(240px,1fr) 1px minmax(260px,1.2fr); gap:22px; align-items:center; }
+#apm .herodiv{ background:var(--line); width:1px; height:100%; }
+@media(max-width:720px){
+  #apm .herogrid{ grid-template-columns:1fr !important; }
+  #apm .herodiv{ display:none !important; }
+  #apm .wf{ flex-direction:column; }
+  #apm .chev{ transform:rotate(90deg); align-self:flex-start; }
+  #apm .tbl-d{ display:none; } #apm .tbl-m{ display:block; }
+}
+</style>
+
+<div id="apm">
+  <div class="eyebrow">Ad Pros &middot; Growth Model</div>
+  <h2 class="t">Spend-driven P&amp;L</h2>
+  <p style="font-size:13.5px;color:var(--soft);max-width:640px;margin:0 0 14px;">Two layers: the <b>Ad Model</b> turns CPM / CTR / CVR into a cost-per-lead; the <b>Spend Model</b> runs that CPL through the funnel to revenue, P&amp;L, and upsells. Every ratio is checked.</p>
+
+  <div class="tabbar">
+    <button class="tab active" id="tab-btn-spend">Spend Model</button>
+    <button class="tab" id="tab-btn-ad">Ad Model</button>
+    <button class="tab" id="tab-btn-ltv">Software LTV</button>
+    <button class="tab" id="tab-btn-country">Country Rollout</button>
+  </div>
+
+  <div id="tab-spend">
+    <div class="panel">
+      <div class="herogrid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:10px;">Monthly ad spend</div>
+          <div id="o-spend" class="mono" style="font-size:40px;font-weight:700;color:var(--em);letter-spacing:-.02em;line-height:1;"></div>
+          <input class="hero" type="range" id="s-spend" min="5000" max="200000" step="1000" style="margin-top:16px;">
+          <div class="mono" style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:6px;"><span>$5k</span><span>$200k / mo</span></div>
+        </div>
+        <div class="herodiv"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div><div class="eyebrow">Same month &middot; new MRR</div><div id="o-m1" class="mono" style="font-size:28px;font-weight:700;margin-top:8px;"></div><div style="font-size:11.5px;color:var(--soft);margin-top:4px;">one month&rsquo;s cohort</div></div>
+          <div><div class="eyebrow">Steady state &middot; mature MRR</div><div id="o-m12" class="mono" style="font-size:28px;font-weight:700;color:var(--em);margin-top:8px;"></div><div id="o-ann" style="font-size:11.5px;color:var(--soft);margin-top:4px;"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Levers</div>
+      <div class="levers" id="levers"></div>
+      <div class="eyebrow" style="margin:22px 0 16px;">Money out &middot; monthly costs</div>
+      <div class="levers" id="costs"></div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Churn &amp; LTV by offer</div>
+      <div class="levers" id="offerchurn" style="margin-bottom:18px;"></div>
+      <div id="offerltv"></div>
+    </div>
+    <div id="apm-out"></div>
+  </div>
+
+  <div id="tab-ad" style="display:none;">
+    <div class="panel">
+      <div class="herogrid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;"><span>Cost per lead</span><span id="a-badge" class="badge"></span></div>
+          <div id="a-cpl" class="mono" style="font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1;"></div>
+          <div id="a-sub" style="font-size:11.5px;color:var(--soft);margin-top:10px;"></div>
+        </div>
+        <div class="herodiv"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div><div class="eyebrow">Cost per click</div><div id="a-cpc" class="mono" style="font-size:28px;font-weight:700;margin-top:8px;"></div><div style="font-size:11.5px;color:var(--soft);margin-top:4px;">link CPC</div></div>
+          <div><div class="eyebrow">Software CAC</div><div id="a-cac" class="mono" style="font-size:28px;font-weight:700;color:var(--em);margin-top:8px;"></div><div id="a-cacsub" style="font-size:11.5px;color:var(--soft);margin-top:4px;"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Media inputs</div>
+      <div class="levers" id="adinputs"></div>
+    </div>
+    <div id="ad-out"></div>
+  </div>
+
+  <div id="tab-ltv" style="display:none;">
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:16px;">Retention inputs</div>
+      <div class="levers" id="ltvinputs" style="margin-bottom:18px;"></div>
+      <div id="ltv-summary" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;"></div>
+    </div>
+    <div id="ltv-out"></div>
+  </div>
+
+  <div id="tab-country" style="display:none;">
+    <div class="panel" style="margin-bottom:14px;">
+      <div class="eyebrow" style="margin-bottom:10px;">Country rollout</div>
+      <div style="font-size:13px;color:var(--soft);line-height:1.55;">A phased geographic rollout optimized for new-customer acquisition at <i>efficient CAC</i> &mdash; not raw CPL. The cheapest-CPL markets aren&rsquo;t the cheapest-CAC once language, conversion, and USD monetization are factored in. Assumes an English-language, USD-priced product sold to DTC operators and agencies.</div>
+    </div>
+    <div id="country-out"></div>
+    <div class="panel" style="margin-bottom:0;">
+      <div style="font-size:11px;color:var(--faint);line-height:1.6;">The fragile input everywhere is landing-page conversion holding on cold traffic &mdash; strongest in English-native markets, which is why several high-CPM countries rank ahead of cheap-CPM ones. Validate CPM / CTR / CPL per market against your own Meta accounts before sizing budget.</div>
+    </div>
+  </div>
+</div>
+
+<style>
+#apm .phase{ margin-bottom:20px; }
+#apm .phase-h{ display:flex; align-items:center; gap:9px; margin-bottom:4px; }
+#apm .phase-bar{ width:4px; height:18px; border-radius:2px; }
+#apm .phase-t{ font-size:15px; font-weight:700; letter-spacing:-.01em; }
+#apm .phase-n{ font-family:var(--mono); font-size:10.5px; color:var(--faint); margin-left:auto; white-space:nowrap; }
+#apm .phase-strat{ font-size:12.5px; color:var(--soft); line-height:1.5; margin:0 0 11px 13px; }
+#apm .citems{ display:grid; grid-template-columns:1fr; gap:8px; }
+#apm .citem{ background:var(--panel); border:1px solid var(--line); border-radius:9px; padding:13px 14px; }
+#apm .citem-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:5px; }
+#apm .cname{ font-size:14.5px; font-weight:700; letter-spacing:-.01em; }
+#apm .ctag{ font-family:var(--mono); font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--soft); background:var(--wash); border-radius:4px; padding:3px 7px; white-space:nowrap; }
+#apm .crat{ font-size:12.5px; color:var(--soft); line-height:1.5; }
+@media(min-width:760px){ #apm .citems{ grid-template-columns:1fr 1fr; } }
+</style>
+
+<script>
+(function(){
+  var S={spend:30000,splitAP:0,organicPct:.25,conv:.10,groupConvPct:.03,agencyConvPct:.0027,agencyRetainer:15000,
+    apPrice:47,swPrice:100,groupPrice:500,uniquePct:1.0,apChurn:47/300,swChurn:100/1200,groupChurn:500/1500,agencyChurn:15000/60000,
+    mktgTeam:10000,deliveryTeam:10000,swCogs:750,cpm:90,ctr:.03,cvr:.30,churn:.0833,cogsPct:.10};
+
+  function money(n){ if(!isFinite(n))return "—"; var a=Math.abs(n);
+    if(a>=1e6)return "$"+(n/1e6).toFixed(2)+"M";
+    if(a>=1e3)return "$"+(n/1e3).toFixed(a>=1e4?0:1)+"k";
+    return "$"+Math.round(n).toLocaleString(); }
+  function fullD(n){ return "$"+Math.round(n).toLocaleString(); }
+  function num(n,d){ d=d||0; return Number(n).toLocaleString(undefined,{maximumFractionDigits:d,minimumFractionDigits:d}); }
+  function pct(n,d){ d=(d==null?2:d); return (n*100).toFixed(d)+"%"; }
+
+  function compute(i){
+    var apRet=1/i.apChurn, swRet=1/i.swChurn, groupRet=1/i.groupChurn, agencyRet=1/i.agencyChurn;
+    var apLTV=i.apPrice*apRet, swLTV=i.swPrice*swRet, groupLTV=i.groupPrice*groupRet, agencyLTV=i.agencyRetainer*agencyRet;
+    var paidLeadsAP=(i.spend*i.splitAP)/i.cpl, paidLeadsSW=(i.spend*(1-i.splitAP))/i.cpl;
+    var apLeads=paidLeadsAP*(1+i.organicPct), swDirectLeads=paidLeadsSW*(1+i.organicPct);
+    var distinctLeads=apLeads+swDirectLeads;
+    var apNew=apLeads*i.conv, swNew=swDirectLeads*i.conv;
+    var apBase=apNew*apRet, swBase=swNew*swRet, custBase=apBase+swBase;
+    var newCust=apNew+swNew;
+    var groupNew=newCust*i.groupConvPct, groupBase=groupNew*groupRet;
+    var agencyNew=newCust*i.agencyConvPct, agencyBase=agencyNew*agencyRet;
+    var mrr={ap:apBase*i.apPrice,sw:swBase*i.swPrice,group:groupBase*i.groupPrice,agency:agencyBase*i.agencyRetainer};
+    var matureMRR=mrr.ap+mrr.sw+mrr.group+mrr.agency;
+    var newMRR={ap:apNew*i.apPrice,sw:swNew*i.swPrice,group:groupNew*i.groupPrice,agency:agencyNew*i.agencyRetainer};
+    var month1MRR=newMRR.ap+newMRR.sw+newMRR.group+newMRR.agency;
+    var ltvBooked=apNew*apLTV+swNew*swLTV+groupNew*groupLTV+agencyNew*agencyLTV;
+    var totalNew=apNew+swNew+groupNew+agencyNew, uniqueNew=totalNew*i.uniquePct;
+    var moneyOut=i.spend+i.mktgTeam+i.deliveryTeam+i.swCogs;
+    var netMonth1=month1MRR-moneyOut, netMature=matureMRR-moneyOut;
+    var ramp=[];
+    for(var t=1;t<=12;t++){
+      var apB=apNew*Math.min(t,apRet), swB=swNew*Math.min(t,swRet);
+      var gB=groupNew*Math.min(t,groupRet), aB=agencyNew*Math.min(t,agencyRet);
+      ramp.push({month:t,mrr:apB*i.apPrice+swB*i.swPrice+gB*i.groupPrice+aB*i.agencyRetainer});
+    }
+    return {apRet:apRet,swRet:swRet,groupRet:groupRet,agencyRet:agencyRet,apLTV:apLTV,swLTV:swLTV,groupLTV:groupLTV,agencyLTV:agencyLTV,apLeads:apLeads,swDirectLeads:swDirectLeads,
+      distinctLeads:distinctLeads,apNew:apNew,swNew:swNew,apBase:apBase,swBase:swBase,custBase:custBase,
+      groupNew:groupNew,groupBase:groupBase,agencyNew:agencyNew,agencyBase:agencyBase,mrr:mrr,matureMRR:matureMRR,newMRR:newMRR,
+      month1MRR:month1MRR,ltvBooked:ltvBooked,totalNew:totalNew,uniqueNew:uniqueNew,
+      moneyOut:moneyOut,netMonth1:netMonth1,netMature:netMature,
+      marginMonth1:(month1MRR?netMonth1/month1MRR:0),marginMature:(matureMRR?netMature/matureMRR:0),
+      ltvCac:ltvBooked/i.spend,roasMature:matureMRR/i.spend,roasMonth1:month1MRR/i.spend,
+      cpaUnique:i.spend/uniqueNew,paybackMo:i.spend/month1MRR,ramp:ramp};
+  }
+
+  // derive CPL from the ad model
+  function cpc(){ return S.cpm/(S.ctr*1000); }
+  function cpl(){ return cpc()/S.cvr; }
+  function state(){ var o={}; for(var k in S) o[k]=S[k]; o.cpl=cpl(); return o; }
+
+  var CTRLS=[];
+  function buildLevers(container,cfg,sp,vp){
+    cfg.forEach(function(c){
+      var d=document.createElement('div'); d.className='lever';
+      var vid=vp+c.k, sid=sp+c.k;
+      if(c.ro){
+        d.innerHTML='<div class="row"><span class="lbl">'+c.label+'</span><span class="val" id="'+vid+'" style="color:var(--em);"></span></div><div class="ro"></div>'+(c.hint?'<span class="hint">'+c.hint+'</span>':'');
+        CTRLS.push({k:c.k,vid:vid,ro:true});
+      } else {
+        var hint = c.hintId ? '<span class="hint" id="'+c.hintId+'"></span>' : (c.hint?'<span class="hint">'+c.hint+'</span>':'');
+        d.innerHTML='<div class="row"><span class="lbl">'+c.label+'</span><span class="val" id="'+vid+'"></span></div>'+
+          '<input type="range" id="'+sid+'" min="'+c.min+'" max="'+c.max+'" step="'+c.step+'">'+hint;
+        container.appendChild(d);
+        var inp=d.querySelector('input'); inp.value=S[c.k];
+        inp.addEventListener('input',function(){ S[c.k]=parseFloat(inp.value); render(); });
+        CTRLS.push({k:c.k,sid:sid,vid:vid,fmt:c.fmt});
+        return;
+      }
+      container.appendChild(d);
+    });
+  }
+
+  var CFG=[
+    {k:'splitAP',label:'Spend split → Ad Plays',min:0,max:1,step:.05,fmt:function(v){return Math.round(v*100)+'% / '+Math.round((1-v)*100)+'% SW';},hint:'rest funds direct software leads'},
+    {k:'cpl',label:'Cost per lead',ro:true,hint:'derived on the Ad Model tab'},
+    {k:'organicPct',label:'Organic uplift',min:0,max:1.5,step:.05,fmt:function(v){return '+'+Math.round(v*100)+'%';},hint:'organic as a share of paid'},
+    {k:'conv',label:'Free → paid',min:.01,max:.30,step:.005,fmt:function(v){return pct(v,1);},hint:"same rate · each tier's own leads"},
+    {k:'groupConvPct',label:'Group conv (of new/mo)',min:0,max:.05,step:.001,fmt:function(v){return pct(v,2);},hint:'% of new customers each month'},
+    {k:'agencyConvPct',label:'Agency conv (of new/mo)',min:0,max:.005,step:.0001,fmt:function(v){return pct(v,3);},hint:'best-of-best · of new/mo'},
+    {k:'agencyRetainer',label:'Agency retainer',min:1000,max:50000,step:1000,fmt:function(v){return fullD(v);},hintId:'h-agencyRetainer'}
+  ];
+  var CFG2=[
+    {k:'mktgTeam',label:'Marketing team',min:0,max:50000,step:500,fmt:function(v){return fullD(v);}},
+    {k:'deliveryTeam',label:'Delivery team',min:0,max:50000,step:500,fmt:function(v){return fullD(v);},hint:'agency + group fulfillment'},
+    {k:'swCogs',label:'Software COGS',min:0,max:10000,step:50,fmt:function(v){return fullD(v);}}
+  ];
+  var CFGA=[
+    {k:'cpm',label:'CPM',min:5,max:200,step:1,fmt:function(v){return '$'+v;},hint:'cost per 1,000 impressions'},
+    {k:'ctr',label:'CTR (link)',min:.005,max:.10,step:.001,fmt:function(v){return pct(v,1);},hint:'clicks ÷ impressions'},
+    {k:'cvr',label:'Landing-page CVR',min:.05,max:.60,step:.01,fmt:function(v){return pct(v,0);},hint:'click → lead'},
+    {k:'conv',label:'Lead → purchase (SW)',min:.01,max:.30,step:.005,fmt:function(v){return pct(v,1);},hint:"also the model's Free→paid"}
+  ];
+  var CFGL=[
+    {k:'swChurn',label:'Monthly churn (software)',min:.01,max:.6,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-churn'},
+    {k:'cogsPct',label:'COGS',min:0,max:.5,step:.01,fmt:function(v){return pct(v,0);},hint:'share of revenue'},
+    {k:'swPrice',label:'Software AOV',ro:true,hint:'software monthly price'}
+  ];
+  buildLevers(document.getElementById('levers'),CFG,'s-','v-');
+  var CFGO=[
+    {k:'apChurn',label:'Ad Plays churn',min:.01,max:.6,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-apChurn'},
+    {k:'swChurn',label:'Software churn',min:.01,max:.6,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-swChurn'},
+    {k:'groupChurn',label:'Group churn',min:.02,max:.8,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-groupChurn'},
+    {k:'agencyChurn',label:'Agency churn',min:.02,max:.8,step:.005,fmt:function(v){return pct(v,1);},hintId:'h-agencyChurn'}
+  ];
+  buildLevers(document.getElementById('costs'),CFG2,'s-','v-');
+  buildLevers(document.getElementById('offerchurn'),CFGO,'os-','ov-');
+  buildLevers(document.getElementById('adinputs'),CFGA,'as-','av-');
+  buildLevers(document.getElementById('ltvinputs'),CFGL,'ls-','lv-');
+  var sp=document.getElementById('s-spend'); sp.value=S.spend;
+  sp.addEventListener('input',function(){ S.spend=parseFloat(sp.value); render(); });
+
+  // tabs
+  function setTab(t){
+    ['spend','ad','ltv','country'].forEach(function(k){
+      document.getElementById('tab-'+k).style.display = (t===k)?'block':'none';
+      document.getElementById('tab-btn-'+k).className = 'tab'+(t===k?' active':'');
+    });
+  }
+  document.getElementById('tab-btn-spend').addEventListener('click',function(){setTab('spend');});
+  document.getElementById('tab-btn-ad').addEventListener('click',function(){setTab('ad');});
+  document.getElementById('tab-btn-ltv').addEventListener('click',function(){setTab('ltv');});
+  document.getElementById('tab-btn-country').addEventListener('click',function(){setTab('country');});
+
+  function badge(state){
+    var m={pass:['#E7F3EE','var(--em)','VERIFIED'],info:['#EAF0FB','var(--blue)','INFO'],warn:['#FBF1E3','var(--amber)','OFF TARGET'],fail:['#FBEBE9','var(--red)','FAIL']}[state];
+    return '<span class="badge" style="color:'+m[1]+';background:'+m[0]+';">'+m[2]+'</span>';
+  }
+
+  function chart(r){
+    var W=600,H=240,pl=58,pr=14,pt=12,pb=26;
+    var mx=Math.max.apply(null,r.ramp.map(function(p){return p.mrr;}))||1;
+    var xs=function(m){return pl+(m-1)/11*(W-pl-pr);};
+    var ys=function(v){return H-pb-(v/mx)*(H-pb-pt);};
+    var pts=r.ramp.map(function(p){return xs(p.month).toFixed(1)+','+ys(p.mrr).toFixed(1);}).join(' ');
+    var dots=r.ramp.map(function(p){return '<circle cx="'+xs(p.month).toFixed(1)+'" cy="'+ys(p.mrr).toFixed(1)+'" r="2.4" fill="var(--em)"/>';}).join('');
+    var m1y=ys(r.month1MRR);
+    var xl=[1,3,6,9,12].map(function(m){return '<text x="'+xs(m).toFixed(1)+'" y="'+(H-pb+15)+'" font-family="var(--mono)" font-size="11" fill="var(--faint)" text-anchor="middle">'+m+'</text>';}).join('');
+    return '<svg viewBox="0 0 '+W+' '+H+'" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block;">'
+      +'<line x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'" stroke="var(--line)"/>'
+      +'<line x1="'+pl+'" y1="'+m1y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+m1y.toFixed(1)+'" stroke="var(--faint)" stroke-dasharray="3 3"/>'
+      +'<text x="'+(pl+4)+'" y="'+(m1y-5).toFixed(1)+'" font-family="var(--mono)" font-size="10" fill="var(--faint)">month 1</text>'
+      +'<text x="'+(pl-6)+'" y="'+(pt+9)+'" font-family="var(--mono)" font-size="11" fill="var(--faint)" text-anchor="end">'+money(mx)+'</text>'
+      +'<text x="'+(pl-6)+'" y="'+(H-pb)+'" font-family="var(--mono)" font-size="11" fill="var(--faint)" text-anchor="end">$0</text>'
+      +'<polyline fill="none" stroke="var(--em)" stroke-width="2.5" points="'+pts+'"/>'+dots+xl+'</svg>';
+  }
+
+  function renderSpendOut(r){
+    var stages=[
+      {i:1,label:'Spend',big:money(S.spend),ac:'var(--em)',ln:[['Ad Plays',money(S.spend*S.splitAP)],['Software',money(S.spend*(1-S.splitAP))]]},
+      {i:2,label:'Leads / mo',big:num(r.distinctLeads),ac:'var(--ink)',ln:[['Ad Plays',num(r.apLeads)],['Software',num(r.swDirectLeads)]]},
+      {i:3,label:'New cust / mo',big:num(r.apNew+r.swNew),ac:'var(--ink)',ln:[['Ad Plays',num(r.apNew)],['Software',num(r.swNew)]]},
+      {i:4,label:'Base · steady',big:num(r.custBase),ac:'var(--em)',ln:[['Ad Plays',num(r.apBase)],['Software',num(r.swBase)]]},
+      {i:5,label:'Upsell / mo',big:num(r.groupNew+r.agencyNew,1),ac:'var(--ink)',ln:[['Group',num(r.groupNew,1)],['Agency',num(r.agencyNew,2)]]}
+    ];
+    var wf='';
+    stages.forEach(function(s,idx){
+      var lines=s.ln.map(function(l){return '<div class="sl"><span>'+l[0]+'</span><span>'+l[1]+'</span></div>';}).join('');
+      wf+='<div class="stage"><div class="si">0'+s.i+' &middot; '+s.label+'</div><div class="sb" style="color:'+s.ac+'">'+s.big+'</div><div style="margin-top:10px;">'+lines+'</div></div>';
+      if(idx<stages.length-1) wf+='<div class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--faint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+    });
+    var TR=[
+      {k:'Ad Plays',price:'$'+S.apPrice+'/mo',nw:r.apNew,nmrr:r.newMRR.ap,base:r.apBase,mrr:r.mrr.ap,ltv:r.apLTV,c:'var(--em)'},
+      {k:'Software',price:'$'+S.swPrice+'/mo',nw:r.swNew,nmrr:r.newMRR.sw,base:r.swBase,mrr:r.mrr.sw,ltv:r.swLTV,c:'var(--emb)'},
+      {k:'Group',price:'$'+S.groupPrice+'/mo',nw:r.groupNew,nmrr:r.newMRR.group,base:r.groupBase,mrr:r.mrr.group,ltv:r.groupLTV,c:'var(--blue)'},
+      {k:'Agency',price:fullD(S.agencyRetainer)+'/mo',nw:r.agencyNew,nmrr:r.newMRR.agency,base:r.agencyBase,mrr:r.mrr.agency,ltv:r.agencyLTV,c:'var(--amber)'}
+    ];
+    var maxMRR=Math.max(TR[0].mrr,TR[1].mrr,TR[2].mrr,TR[3].mrr)||1;
+    var totalBase=r.custBase+r.groupBase+r.agencyBase;
+    var head='<div class="trow" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>TIER</span><span style="text-align:right">NEW/MO</span><span style="text-align:right">SAME-MO MRR</span><span style="text-align:right">BASE</span><span>MATURE MRR</span></div>';
+    var rows=TR.map(function(t){
+      return '<div class="trow" style="padding:11px 0;border-bottom:1px solid var(--line);">'
+        +'<div><div style="font-size:13.5px;font-weight:600;">'+t.k+'</div><div style="font-size:10.5px;color:var(--faint);font-family:var(--mono);">'+t.price+'</div></div>'
+        +'<span class="mono" style="text-align:right;font-size:13px;">'+num(t.nw,t.nw<10?2:0)+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;">'+money(t.nmrr)+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;">'+num(t.base,t.base<10?1:0)+'</span>'
+        +'<div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--wash);border-radius:3px;overflow:hidden;"><div style="width:'+(t.mrr/maxMRR*100).toFixed(1)+'%;height:100%;background:'+t.c+';border-radius:3px;"></div></div><span class="mono" style="font-size:13px;font-weight:600;min-width:54px;text-align:right;">'+money(t.mrr)+'</span></div></div>';
+    }).join('');
+    var totalRow='<div class="trow" style="padding:12px 0 0;"><div style="font-size:13.5px;font-weight:700;">Total</div>'
+      +'<span class="mono" style="text-align:right;font-size:13px;">'+num(r.totalNew,0)+'</span>'
+      +'<span class="mono" style="text-align:right;font-size:13px;font-weight:700;">'+money(r.month1MRR)+'</span>'
+      +'<span class="mono" style="text-align:right;font-size:13px;">'+num(totalBase,0)+'</span>'
+      +'<span class="mono" style="font-size:15px;font-weight:700;color:var(--em);text-align:right;">'+money(r.matureMRR)+'</span></div>';
+    var tblD='<div class="tbl-d">'+head+rows+totalRow+'</div>';
+    var cards=TR.map(function(t){
+      return '<div style="padding:14px 0;border-top:1px solid var(--line);"><div style="margin-bottom:10px;"><div style="font-size:14px;font-weight:600;">'+t.k+'</div><div style="font-size:10.5px;color:var(--faint);font-family:var(--mono);">'+t.price+'</div></div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;"><div style="background:var(--wash);border-radius:6px;padding:9px 11px;"><div style="font-size:10px;color:var(--soft);">Same month</div><div class="mono" style="font-size:17px;font-weight:700;">'+money(t.nmrr)+'</div></div><div style="background:var(--wash);border-radius:6px;padding:9px 11px;"><div style="font-size:10px;color:var(--soft);">Mature · mo 12</div><div class="mono" style="font-size:17px;font-weight:700;color:'+t.c+';">'+money(t.mrr)+'</div></div></div>'
+        +'<div class="mono" style="display:flex;justify-content:space-between;font-size:11px;color:var(--soft);"><span>New '+num(t.nw,t.nw<10?2:0)+'/mo</span><span>Base '+num(t.base,t.base<10?1:0)+'</span><span>LTV '+money(t.nw*t.ltv)+'/mo</span></div></div>';
+    }).join('');
+    var totalCard='<div style="padding:14px 0 0;border-top:2px solid var(--ink);"><div style="font-size:14px;font-weight:700;margin-bottom:8px;">Total</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;color:var(--soft);">Same month</div><div class="mono" style="font-size:19px;font-weight:700;">'+money(r.month1MRR)+'</div></div><div><div style="font-size:10px;color:var(--soft);">Mature</div><div class="mono" style="font-size:19px;font-weight:700;color:var(--em);">'+money(r.matureMRR)+'</div></div></div></div>';
+    var tblM='<div class="tbl-m">'+cards+totalCard+'</div>';
+    var plSub=function(t){return '<div class="eyebrow" style="font-size:10px;padding:14px 0 6px;">'+t+'</div>';};
+    var plRow=function(label,a,b,o){o=o||{};var top=o.top?'border-top:1px solid var(--line);':'';var fw=o.bold?700:400;var fa=function(v){return (o.neg&&v<0)?'('+money(-v)+')':money(v);};
+      return '<div class="pl" style="padding:7px 0;'+top+'"><span style="font-size:13px;font-weight:'+fw+';color:'+(o.lc||'var(--ink)')+';">'+label+'</span><span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.ac||o.lc||'var(--ink)')+';">'+fa(a)+'</span><span class="mono" style="text-align:right;font-size:13px;font-weight:'+fw+';color:'+(o.bc||o.lc||'var(--ink)')+';">'+fa(b)+'</span></div>';};
+    var inR=[['Ad Plays',r.newMRR.ap,r.mrr.ap],['Software',r.newMRR.sw,r.mrr.sw],['Group',r.newMRR.group,r.mrr.group],['Agency',r.newMRR.agency,r.mrr.agency]];
+    var outR=[['Ad spend',S.spend],['Marketing team',S.mktgTeam],['Delivery team',S.deliveryTeam],['Software COGS',S.swCogs]];
+    var negEm=function(v){return v>=0?'var(--em)':'var(--red)';};
+    var plHead='<div class="pl" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>LINE</span><span style="text-align:right">SAME MONTH</span><span style="text-align:right">MATURE · MO 12</span></div>';
+    var pl=plHead+plSub('Money in')+inR.map(function(x){return plRow(x[0],x[1],x[2]);}).join('')
+      +plRow('Total money in',r.month1MRR,r.matureMRR,{bold:true,top:true,lc:'var(--em)'})
+      +plSub('Money out')+outR.map(function(x){return plRow(x[0],x[1],x[1]);}).join('')
+      +plRow('Total money out',r.moneyOut,r.moneyOut,{bold:true,top:true,lc:'var(--amber)'})
+      +plSub('Net')+plRow('Net (in − out)',r.netMonth1,r.netMature,{bold:true,neg:true,ac:negEm(r.netMonth1),bc:negEm(r.netMature)})
+      +'<div class="pl" style="padding:7px 0;"><span style="font-size:12px;color:var(--soft);">Net margin</span><span class="mono" style="text-align:right;font-size:12px;color:var(--soft);">'+pct(r.marginMonth1,0)+'</span><span class="mono" style="text-align:right;font-size:12px;color:var(--soft);">'+pct(r.marginMature,0)+'</span></div>';
+    var ueItems=[
+      ['Blended LTV : CAC',r.ltvCac.toFixed(1)+'×','LTV booked ÷ spend','var(--em)'],
+      ['Mature MRR per $1 spend',r.roasMature.toFixed(2)+'×','mo-12 MRR ÷ monthly spend','var(--ink)'],
+      ['Same-month ROAS',r.roasMonth1.toFixed(2)+'×','cohort bookings ÷ spend','var(--ink)'],
+      ['CPA · per customer',fullD(r.cpaUnique),'spend ÷ '+num(r.totalNew)+' new/mo','var(--ink)'],
+      ['Payback',(r.paybackMo<1?'<1 mo':r.paybackMo.toFixed(1)+' mo'),'spend ÷ new MRR','var(--ink)']
+    ];
+    var ue=ueItems.map(function(m){return '<div class="panel" style="padding:15px;margin:0;"><div style="font-size:11px;color:var(--soft);">'+m[0]+'</div><div class="mono" style="font-size:22px;font-weight:700;color:'+m[3]+';margin:6px 0 3px;letter-spacing:-.01em;">'+m[1]+'</div><div style="font-size:10.5px;color:var(--faint);">'+m[2]+'</div></div>';}).join('');
+    var cd=Math.abs(r.matureMRR-r.ltvBooked)/(r.ltvBooked||1);
+    var retOk=[r.apRet,r.swRet,r.groupRet,r.agencyRet].every(function(x){return x>=1&&x<=24;});
+    var QA=[
+      {t:'Internal consistency — two ways to mature MRR',d:'Base × price = '+money(r.matureMRR)+' · New × LTV = '+money(r.ltvBooked)+' · Δ '+pct(cd,2),s:cd<0.01?'pass':'fail'},
+      {t:'Implied retention = LTV ÷ price',d:'Ad Plays '+r.apRet.toFixed(1)+'mo · Software '+r.swRet.toFixed(1)+'mo · Group '+r.groupRet.toFixed(1)+'mo · Agency '+r.agencyRet.toFixed(1)+'mo',s:retOk?'pass':'warn'},
+      {t:'Group + agency convert off new customers/mo',d:'New/mo '+num(r.apNew+r.swNew)+' → Group '+num(r.groupNew,1)+' ('+pct(S.groupConvPct,2)+') · Agency '+num(r.agencyNew,2)+' ('+pct(S.agencyConvPct,3)+')',s:'info'},
+      {t:'Net margin at maturity',d:'mature net '+money(r.netMature)+' on '+money(r.matureMRR)+' in = '+pct(r.marginMature,0),s:(r.netMature>=0)?'pass':'warn'},
+      {t:'Unit economics sanity',d:'LTV:CAC '+r.ltvCac.toFixed(1)+'× · payback '+(r.paybackMo<1?'<1':r.paybackMo.toFixed(1))+'mo · CPA '+fullD(r.cpaUnique),s:(r.ltvCac>=3)?'pass':'warn'}
+    ];
+    var qa=QA.map(function(q,k){return '<div class="qa" style="'+(k?'border-top:1px solid var(--line);':'')+'"><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:3px;">'+q.t+'</div><div class="mono" style="font-size:11.5px;color:var(--soft);word-break:break-word;">'+q.d+'</div></div>'+badge(q.s)+'</div>';}).join('');
+    return '<div class="panel"><div class="eyebrow" style="margin-bottom:18px;">The waterfall</div><div class="wf">'+wf+'</div></div>'
+      +'<div class="panel"><div class="eyebrow" style="margin-bottom:14px;">By tier &middot; same-month vs mature</div>'+tblD+tblM+'</div>'
+      +'<div class="panel"><div class="eyebrow" style="margin-bottom:14px;">Money in / money out &middot; monthly P&amp;L</div>'+pl+'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Same-month net is one cohort&rsquo;s first month against the full monthly cost base — the investment dip. Mature net is the accumulated base against the same costs. Delivery team + COGS are entered flat; read mature net as a ceiling.</div></div>'
+      +'<div class="ue">'+ue+'</div>'
+      +'<div class="panel"><div class="eyebrow" style="margin-bottom:6px;">MRR ramp &middot; months 1–12</div><div style="font-size:12px;color:var(--soft);margin-bottom:14px;">One steady month of acquisition, compounding as the subscription base fills.</div>'+chart(r)+'</div>'
+      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:4px;">QA &middot; ratio verification</div><div style="font-size:12px;color:var(--soft);margin-bottom:10px;">Live checks on internal consistency and the funnel logic.</div>'+qa+'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Notes — Active base = new/mo × min(lifetime, 12). Ad plays and software are independent channels, each converting its own leads at the same rate (no cross-feed, no overlap). Group and agency convert off each month&rsquo;s new customers (stage 3). CPL is derived on the Ad Model tab. Delivery cost is entered flat — mature MRR is revenue, not profit.</div></div>';
+  }
+
+  function renderAdOut(r){
+    var CPC=cpc(), CPL=cpl(), CAC=CPL/S.conv;
+    var chain=[['CPM','$'+S.cpm,'per 1,000 impr'],['CTR',pct(S.ctr,1),'link clicks'],['CPC','$'+CPC.toFixed(2),'per click'],
+      ['CVR',pct(S.cvr,0),'→ lead'],['CPL','$'+CPL.toFixed(2),'per lead'],['LP',pct(S.conv,1),'→ purchase'],['CAC',fullD(CAC),'software']];
+    var ch='';
+    chain.forEach(function(x,idx){
+      var col = (x[0]==='CPL') ? (CPL<=10?'var(--em)':'var(--amber)') : 'var(--ink)';
+      ch+='<div class="stage" style="min-width:86px;"><div class="si">'+x[0]+'</div><div class="mono" style="font-size:20px;font-weight:700;color:'+col+';">'+x[1]+'</div><div style="font-size:10.5px;color:var(--soft);margin-top:3px;">'+x[2]+'</div></div>';
+      if(idx<chain.length-1) ch+='<div class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--faint)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+    });
+    var targetCpc=10*S.cvr;
+    var ctrs=[.01,.015,.02,.025,.03,.04,.05];
+    var nearest=ctrs.reduce(function(a,b){return Math.abs(b-S.ctr)<Math.abs(a-S.ctr)?b:a;},ctrs[0]);
+    var oh='<div class="os" style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--line);"><span>CTR (LINK)</span><span style="text-align:right">CPM NEEDED</span><span style="text-align:right">VS YOUR $'+S.cpm+'</span></div>';
+    var orows=ctrs.map(function(ct){var req=targetCpc*(ct*1000);var here=(ct===nearest);var ok=(S.cpm<=req);
+      return '<div class="os" style="padding:9px 0;border-bottom:1px solid var(--line);background:'+(here?'var(--wash)':'transparent')+';"><span class="mono" style="font-size:13px;font-weight:'+(here?700:400)+';">'+pct(ct,1)+(here?'  ←':'')+'</span><span class="mono" style="text-align:right;font-size:13px;">$'+req.toFixed(0)+'</span><span class="mono" style="text-align:right;font-size:12px;color:'+(ok?'var(--em)':'var(--amber)')+';">'+(ok?'within budget':'over')+'</span></div>';}).join('');
+    return '<div class="panel"><div class="eyebrow" style="margin-bottom:18px;">The media chain</div><div class="wf">'+ch+'</div></div>'
+      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:6px;">Optimization surface · CPM needed for $10 CPL</div><div style="font-size:12px;color:var(--soft);margin-bottom:14px;">At '+pct(S.cvr,0)+' landing-page conversion, $10 CPL needs a $'+targetCpc.toFixed(2)+' CPC. Any CTR/CPM pair on this line hits the target — low CTR is fine if CPM is low.</div>'+oh+orows
+      +'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Chain — CPC = CPM ÷ (CTR × 1,000) · CPL = CPC ÷ CVR · Software CAC = CPL ÷ lead-to-purchase. Whatever CPL you dial here feeds the Spend Model&rsquo;s cost-per-lead directly. The fragile input is the landing-page CVR holding on cold traffic, not the media cost.</div></div>';
+  }
+
+  function renderOfferLtv(r){
+    var G='1.3fr 1fr 0.9fr 1fr 1.1fr';
+    var rows=[
+      ['Ad Plays','var(--em)','$'+S.apPrice,S.apChurn,r.apRet,r.apLTV],
+      ['Software','var(--emb)','$'+S.swPrice,S.swChurn,r.swRet,r.swLTV],
+      ['Group','var(--blue)','$'+S.groupPrice,S.groupChurn,r.groupRet,r.groupLTV],
+      ['Agency','var(--amber)',fullD(S.agencyRetainer),S.agencyChurn,r.agencyRet,r.agencyLTV]
+    ];
+    var head='<div style="display:grid;grid-template-columns:'+G+';gap:8px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;"><span>OFFER</span><span style="text-align:right">MONTHLY</span><span style="text-align:right">CHURN</span><span style="text-align:right">AVG LIFE</span><span style="text-align:right">LTV</span></div>';
+    var body=rows.map(function(x){
+      return '<div style="display:grid;grid-template-columns:'+G+';gap:8px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center;">'
+        +'<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;"><span style="width:8px;height:8px;border-radius:2px;background:'+x[1]+';"></span>'+x[0]+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;">'+x[2]+'/mo</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;color:var(--soft);">'+pct(x[3],1)+'</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;color:var(--soft);">'+x[4].toFixed(1)+' mo</span>'
+        +'<span class="mono" style="text-align:right;font-size:13px;font-weight:700;color:'+x[1]+';">'+money(x[5])+'</span></div>';
+    }).join('');
+    return '<div style="overflow-x:auto;"><div style="min-width:460px;">'+head+body+'<div style="margin-top:12px;font-size:11px;color:var(--faint);line-height:1.6;">LTV = monthly price \u00f7 churn (revenue, pre-COGS). Lower churn lifts retention and LTV, raising the accumulated base and mature MRR. Gross-margin LTV and per-cohort payback live on the Software LTV tab.</div></div></div>';
+  }
+
+  function renderLtv(r){
+    var aov=S.swPrice, gmRate=1-S.cogsPct, life=1/S.swChurn, ltvRev=aov/S.swChurn, ltvGM=ltvRev*gmRate;
+    var CAC=cpl()/S.conv, swSpend=S.spend*(1-S.splitAP), swNew=r.swNew, blended=swNew?swSpend/swNew:0;
+    var surv=function(t){return Math.pow(1-S.swChurn,t-1);};
+    var sm=function(v){return v<0?('('+fullD(-v)+')'):fullD(v);};
+    var cc=function(v){return v<0?'var(--red)':'var(--em)';};
+    // summary
+    var sm5=[
+      ['Monthly churn',pct(S.swChurn,1),life.toFixed(1)+'-mo average life','var(--ink)'],
+      ['Revenue LTV',money(ltvRev),fullD(aov)+'/mo × '+life.toFixed(1)+' mo','var(--ink)'],
+      ['Gross-margin LTV',money(ltvGM),'after '+pct(S.cogsPct,0)+' COGS','var(--em)'],
+      ['CAC · per user',fullD(CAC),'from Ad Model · CPL ÷ conv','var(--ink)'],
+      ['GM LTV : CAC',(ltvGM/CAC).toFixed(1)+'×','gross-margin basis','var(--em)'],
+      ['Blended CAC',fullD(blended),'spend ÷ all new (incl. organic)','var(--blue)']
+    ];
+    document.getElementById('ltv-summary').innerHTML=sm5.map(function(m){
+      return '<div style="background:var(--wash);border-radius:6px;padding:11px 13px;"><div style="font-size:10.5px;color:var(--soft);">'+m[0]+'</div><div class="mono" style="font-size:19px;font-weight:700;color:'+m[3]+';margin:5px 0 3px;letter-spacing:-.01em;">'+m[1]+'</div><div style="font-size:10px;color:var(--faint);">'+m[2]+'</div></div>';
+    }).join('');
+    // per-user rows
+    var UG='0.95fr 0.8fr 1fr 0.95fr 0.95fr 1.15fr';
+    var uRows=[], uCum=-CAC, uPay=null;
+    uRows.push({m:'0 · acquire',ret:null,rev:null,cogs:null,gm:-CAC,cum:uCum,cac:true});
+    for(var t=1;t<=12;t++){var sv=surv(t),rev=aov*sv,cg=rev*S.cogsPct,gm=rev-cg;uCum+=gm;if(uPay===null&&uCum>=0)uPay=t;uRows.push({m:''+t,ret:sv,rev:rev,cogs:-cg,gm:gm,cum:uCum});}
+    uRows.push({m:'Lifetime',ret:null,rev:ltvRev,cogs:-ltvRev*S.cogsPct,gm:ltvGM,cum:ltvGM-CAC,life:true});
+    // cohort rows
+    var CG='0.95fr 0.85fr 1.05fr 0.95fr 1fr 1.2fr';
+    var cRows=[], cCum=-swSpend, cPay=null;
+    cRows.push({m:'0 · spend',act:null,rev:null,cogs:null,gm:-swSpend,cum:cCum,cac:true});
+    for(var t=1;t<=12;t++){var sv=surv(t),act=swNew*sv,rev=act*aov,cg=rev*S.cogsPct,gm=rev-cg;cCum+=gm;if(cPay===null&&cCum>=0)cPay=t;cRows.push({m:''+t,act:act,rev:rev,cogs:-cg,gm:gm,cum:cCum});}
+    cRows.push({m:'Lifetime',act:null,rev:swNew*ltvRev,cogs:-swNew*ltvRev*S.cogsPct,gm:swNew*ltvGM,cum:swNew*ltvGM-swSpend,life:true});
+    function head(G){return '<div style="display:grid;grid-template-columns:'+G+';gap:8px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;"><span>MONTH</span><span style="text-align:right">'+(G===UG?'RETAINED':'ACTIVE')+'</span><span style="text-align:right">REVENUE</span><span style="text-align:right">COGS</span><span style="text-align:right">GROSS MGN</span><span style="text-align:right">CUMULATIVE</span></div>';}
+    function cell(v,extra){return '<span class="mono" style="text-align:right;font-size:12.5px;'+(extra||'')+'">'+v+'</span>';}
+    function uRow(x){
+      var bg=(uPay&&x.m===''+uPay)?'var(--wash)':(x.life?'#F3F7F5':'transparent');
+      return '<div style="display:grid;grid-template-columns:'+UG+';gap:8px;padding:8px 0;border-bottom:1px solid var(--line);background:'+bg+';">'
+        +'<span class="mono" style="font-size:12.5px;font-weight:'+(x.life?700:400)+';">'+x.m+'</span>'
+        +cell(x.ret==null?'—':(x.ret*100).toFixed(0)+'%','color:var(--soft);')
+        +cell(x.rev==null?'—':fullD(x.rev))
+        +cell(x.cogs==null?'—':sm(x.cogs),'color:var(--soft);')
+        +cell(sm(x.gm),'color:'+(x.cac?'var(--red)':'var(--ink)')+';font-weight:'+(x.cac?700:400)+';')
+        +cell(sm(x.cum),'color:'+cc(x.cum)+';font-weight:700;')+'</div>';
+    }
+    function cRow(x){
+      var bg=(cPay&&x.m===''+cPay)?'var(--wash)':(x.life?'#F3F7F5':'transparent');
+      return '<div style="display:grid;grid-template-columns:'+CG+';gap:8px;padding:8px 0;border-bottom:1px solid var(--line);background:'+bg+';">'
+        +'<span class="mono" style="font-size:12.5px;font-weight:'+(x.life?700:400)+';">'+x.m+'</span>'
+        +cell(x.act==null?'—':num(x.act,x.act<100?1:0),'color:var(--soft);')
+        +cell(x.rev==null?'—':money(x.rev))
+        +cell(x.cogs==null?'—':sm(x.cogs),'color:var(--soft);')
+        +cell(x.cac?sm(x.gm):money(x.gm),'color:'+(x.cac?'var(--red)':'var(--ink)')+';font-weight:'+(x.cac?700:400)+';')
+        +cell(sm(x.cum),'color:'+cc(x.cum)+';font-weight:700;')+'</div>';
+    }
+    var html=''
+      +'<div class="panel"><div class="eyebrow" style="margin-bottom:6px;">Gross margin by user · one software customer</div>'
+      +'<div style="font-size:12px;color:var(--soft);margin-bottom:14px;">CAC lands as a negative up front; each retained month adds '+fullD(aov)+' of revenue at '+pct(gmRate,0)+' margin, decayed by churn. '+(uPay?('Cumulative turns positive in month '+uPay+'.'):'Cumulative stays negative across the window.')+'</div>'
+      +'<div style="overflow-x:auto;"><div style="min-width:520px;">'+head(UG)+uRows.map(uRow).join('')+'</div></div></div>'
+      +'<div class="panel" style="margin-bottom:0;"><div class="eyebrow" style="margin-bottom:6px;">Total gross margin per cohort · '+num(swNew)+' new software customers / mo</div>'
+      +'<div style="font-size:12px;color:var(--soft);margin-bottom:14px;">Month 0 is the full software spend ('+fullD(swSpend)+'); each month the surviving cohort&rsquo;s gross margin stacks on top. '+(cPay?('The cohort clears spend in month '+cPay+'.'):'The cohort does not recover spend in the window.')+' Blended CAC is '+fullD(blended)+' — below per-user '+fullD(CAC)+' because the organic uplift adds free customers.</div>'
+      +'<div style="overflow-x:auto;"><div style="min-width:540px;">'+head(CG)+cRows.map(cRow).join('')+'</div></div>'
+      +'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.6;">Notes — LTV is churn-driven: revenue LTV = AOV ÷ monthly churn; gross-margin LTV applies '+pct(S.cogsPct,0)+' COGS. Survival decays geometrically at the churn rate from month 1. Per-user CAC is the paid cost from the Ad Model (CPL ÷ conversion); the cohort uses real cash spend over all new customers including organic, so blended CAC is lower. Group/agency upsell and team costs are excluded — this is the software contribution layer only.</div></div>';
+    document.getElementById('ltv-out').innerHTML=html;
+  }
+
+  function renderCountryTab(){
+    var esc=function(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');};
+    var PHASES=[
+      {t:'Wave 1 \u2014 lead here',color:'var(--em)',strat:'English-native, DTC-dense, pays USD, CPA viable. Win proof and testimonials at lower competition than the US.',c:[
+        ['United Kingdom','English \u00b7 DTC-dense','Huge DTC/Shopify ecosystem, mature performance agencies, pays USD. Best landing-page conversion and LTV \u2014 the top pick.'],
+        ['Canada','English \u00b7 US-adjacent','Shares the US playbook and willingness to pay at moderate CPM. The lowest-friction first market.'],
+        ['Australia','English \u00b7 DTC-dense','Deep DTC/Shopify scene and high AOV; CPM runs high but the funnel converts.'],
+        ['New Zealand','English \u00b7 efficient','Punches above its size in DTC; cheaper than Australia with the same English funnel.'],
+        ['Ireland','English \u00b7 SaaS hub','Small but high-value, English, and home to many EMEA tech HQs and buyers.'],
+        ['Israel','Founder-dense','Unusually high density of DTC founders, performance marketers, and adtech; English-comfortable, pays USD \u2014 the sleeper pick.']
+      ]},
+      {t:'Wave 2 \u2014 strong secondary',color:'var(--blue)',strat:'High value, English-capable business buyers. Run English funnels; localization lifts the laggard.',c:[
+        ['Netherlands','English-capable','Near-bilingual for business, so an English funnel converts; strong EU ecommerce.'],
+        ['Singapore','English biz \u00b7 USD','High income, English business language, regional HQs; smaller DTC base but high quality.'],
+        ['United Arab Emirates','English biz \u00b7 high AOV','Very high income and AOV, English business language, growing DTC and agency scene.'],
+        ['Germany','Localize \u00b7 big TAM','Large market, but German-language expectations and GDPR/consent friction drag an English funnel. Localization moves it up a wave.']
+      ]},
+      {t:'Wave 3 \u2014 localize first',color:'var(--amber)',strat:'Large or growing, but native-language funnels are non-negotiable. Gate behind localization, not budget.',c:[
+        ['France','Localize','Large ecommerce, but native-language creative and LP are required for conversion to hold.'],
+        ['Italy','Localize','Same as France \u2014 localize before scaling; English cold traffic sags.'],
+        ['Spain','Localize','Large market; localize the funnel first, then scale.'],
+        ['Portugal','Localize','Smaller and language-gated, with cheaper CPM. Test with localized assets.'],
+        ['Saudi Arabia','Localize \u00b7 Arabic','Growing ecommerce and high income, but Arabic localization and business-culture fit are needed.']
+      ]},
+      {t:'Hold / fold in',color:'var(--red)',strat:'Cheap leads but weak USD monetization or payment friction. Fold the USD micro-markets into English campaigns; hold the rest.',c:[
+        ['Brazil','Cheap-lead trap','Massive ecommerce and cheap CPM, but Portuguese-required, price-sensitive, and weak USD monetization. Great for cheap leads, poor for paid SaaS conversion.'],
+        ['Argentina','FX / capital controls','Cheapest CPM and a vibrant founder scene, but capital controls and FX volatility make a USD purchase genuinely hard.'],
+        ['Puerto Rico','Fold-in \u00b7 USD','USD-based and US-adjacent (English/Spanish) but small TAM \u2014 fold into English campaigns for free incremental volume.'],
+        ['Panama','Fold-in \u00b7 tiny','USD currency and a small ICP; negligible standalone volume \u2014 fold in rather than target.']
+      ]},
+      {t:'Deprioritized \u2014 your call',color:'var(--faint)',strat:'Highest intent and DTC depth, and the media math works \u2014 but the most saturated and expensive. Sequenced last by choice.',c:[
+        ['United States','Sequence last','#1 on intent and DTC depth, but the most contested and expensive market. Circle back once Wave 1 produces case studies.']
+      ]}
+    ];
+    return PHASES.map(function(p){
+      var items=p.c.map(function(x){
+        return '<div class="citem"><div class="citem-top"><span class="cname">'+esc(x[0])+'</span><span class="ctag">'+esc(x[1])+'</span></div><div class="crat">'+esc(x[2])+'</div></div>';
+      }).join('');
+      return '<div class="phase"><div class="phase-h"><span class="phase-bar" style="background:'+p.color+';"></span><span class="phase-t">'+esc(p.t)+'</span><span class="phase-n">'+p.c.length+(p.c.length===1?' market':' markets')+'</span></div><div class="phase-strat">'+esc(p.strat)+'</div><div class="citems">'+items+'</div></div>';
+    }).join('');
+  }
+
+  function render(){
+    var st=state(); var r=compute(st);
+    var CPC=cpc(), CPL=cpl(), CAC=CPL/S.conv;
+    // spend hero
+    document.getElementById('o-spend').textContent=fullD(S.spend);
+    document.getElementById('o-m1').textContent=money(r.month1MRR);
+    document.getElementById('o-m12').textContent=money(r.matureMRR);
+    document.getElementById('o-ann').textContent=money(r.matureMRR*12)+' annual';
+    document.getElementById('s-spend').value=S.spend;
+    // ad hero
+    var aCpl=document.getElementById('a-cpl'); aCpl.textContent='$'+CPL.toFixed(2); aCpl.style.color=(CPL<=10?'var(--em)':'var(--amber)');
+    var ab=document.getElementById('a-badge'); ab.textContent=(CPL<=10?'≤ $10 TARGET':'OVER $10'); ab.style.color=(CPL<=10?'var(--em)':'var(--amber)'); ab.style.background=(CPL<=10?'#E7F3EE':'#FBF1E3');
+    document.getElementById('a-sub').textContent='$'+S.cpm+' CPM · '+pct(S.ctr,1)+' CTR · '+pct(S.cvr,0)+' landing-page conversion';
+    document.getElementById('a-cpc').textContent='$'+CPC.toFixed(2);
+    document.getElementById('a-cac').textContent=fullD(CAC);
+    document.getElementById('a-cacsub').textContent='CPL ÷ '+pct(S.conv,0)+' lead→purchase';
+    // all control labels + slider positions
+    CTRLS.forEach(function(c){
+      var vel=document.getElementById(c.vid);
+      if(c.ro){ if(vel) vel.textContent=(c.k==='cpl')?('$'+Math.round(CPL).toLocaleString()):(c.k==='swPrice')?(fullD(S.swPrice)+'/mo'):fullD(S[c.k]); return; }
+      if(vel) vel.textContent=c.fmt(S[c.k]);
+      var sel=document.getElementById(c.sid); if(sel) sel.value=S[c.k];
+    });
+    var ah=document.getElementById('h-agencyRetainer'); if(ah) ah.textContent='\u2192 LTV '+money(r.agencyLTV)+' at '+pct(S.agencyChurn,1)+' churn';
+    [['ap',r.apRet,r.apLTV],['sw',r.swRet,r.swLTV],['group',r.groupRet,r.groupLTV],['agency',r.agencyRet,r.agencyLTV]].forEach(function(o){
+      var oe=document.getElementById('h-'+o[0]+'Churn'); if(oe) oe.textContent=o[1].toFixed(1)+'-mo life \u00b7 LTV '+money(o[2]);
+    });
+    document.getElementById('offerltv').innerHTML=renderOfferLtv(r);
+    document.getElementById('apm-out').innerHTML=renderSpendOut(r);
+    document.getElementById('ad-out').innerHTML=renderAdOut(r);
+    var hC=document.getElementById('h-churn'); if(hC) hC.textContent=(1/S.swChurn).toFixed(1)+'-mo average customer life';
+    renderLtv(r);
+  }
+  render();
+  document.getElementById('country-out').innerHTML=renderCountryTab();
+})();
+</script>
+
+  </div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36" style="opacity:0.5">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal &middot; June 20, 2026</p>
+  </footer>
+</body>
+</html>
