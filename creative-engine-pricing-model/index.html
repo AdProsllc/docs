@@ -16,16 +16,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d;
-      --yellow: #F9D900; --blue: #1A6FD4; --blue-light: #3BA9F9; --white: #FFFFFF;
-      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
-      --card-border: #0e1358; --card-border-strong: #1a2375; --radius: 10px;
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--navy); color: var(--grey-200); font-family: "Power Grotesk","Inter","Helvetica Neue",Arial,sans-serif; font-size:15px; line-height:1.6; min-height:100vh; -webkit-font-smoothing:antialiased; }
+    :root { --navy:#040735; --navy-deep:#02041f; --navy-card:#070b3d; --yellow:#F9D900; --blue:#1A6FD4; --blue-light:#3BA9F9; --white:#fff; --grey-400:#54556A; --grey-300:#8A8B93; --grey-200:#B0B1B6; --grey-100:#E6E6E7; --card-border:#0e1358; --card-border-strong:#1a2375; --radius:10px; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--navy); color:var(--grey-200); font-family:"Power Grotesk","Inter","Helvetica Neue",Arial,sans-serif; font-size:15px; line-height:1.6; min-height:100vh; -webkit-font-smoothing:antialiased; }
     code,.mono { font-family:"JetBrains Mono",ui-monospace,monospace; font-size:13px; }
-    .ap-display { font-size: clamp(40px,6vw,56px); font-weight:800; line-height:1.1; letter-spacing:-1.5px; color:#fff; }
+    .ap-display { font-size:clamp(40px,6vw,56px); font-weight:800; line-height:1.1; letter-spacing:-1.5px; color:#fff; }
     .ap-display em { font-style:normal; color:var(--yellow); }
     .ap-h4 { font-size:20px; font-weight:600; line-height:1.3; color:#fff; }
     .ap-p-sm { font-size:14px; line-height:1.5; color:var(--grey-200); }
@@ -88,11 +83,11 @@
     .cm-lead { font-size:18px; line-height:1.65; color:var(--grey-100); max-width:760px; margin-bottom:32px; }
     .cm-h2 { font-size:28px; font-weight:800; color:#fff; letter-spacing:-0.5px; margin:8px 0 18px; }
     .cm-block { margin-bottom:40px; }
-    .cm-sub { font-size:13px; color:var(--grey-300); margin-bottom:18px; max-width:860px; }
+    .cm-sub { font-size:13px; color:var(--grey-300); margin-bottom:18px; max-width:880px; }
     .cm-section-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.9px; color:var(--yellow); margin:6px 0 12px; }
     .cm-table-wrap { overflow-x:auto; border:1px solid var(--card-border); border-radius:var(--radius); }
     table.cm-table { width:100%; border-collapse:collapse; font-size:13px; min-width:560px; }
-    table.cm-table.wide { min-width:900px; }
+    table.cm-table.wide { min-width:920px; }
     .cm-table th { background:var(--navy-deep); color:#fff; font-weight:700; text-align:right; padding:12px 14px; font-size:11px; text-transform:uppercase; letter-spacing:0.6px; border-bottom:1px solid var(--card-border-strong); }
     .cm-table th:first-child,.cm-table td:first-child { text-align:left; }
     .cm-table td { padding:11px 14px; text-align:right; border-bottom:1px solid var(--card-border); color:var(--grey-100); font-variant-numeric:tabular-nums; }
@@ -126,11 +121,13 @@
     .cm-seg button + button { border-left:1px solid var(--card-border-strong); }
     .cm-seg button.active { background:var(--yellow); color:var(--navy); }
     .cm-seg button:hover:not(.active) { color:#fff; }
-    .cm-out { display:grid; grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); gap:14px; margin:22px 0 28px; }
+    .cm-out { display:grid; grid-template-columns:repeat(auto-fit,minmax(195px,1fr)); gap:14px; margin:22px 0 28px; }
     .cm-outcard { background:var(--navy-card); border:1px solid var(--card-border); border-left:3px solid var(--yellow); border-radius:var(--radius); padding:18px 20px; }
     .cm-outcard.cyan { border-left-color:var(--blue-light); }
+    .cm-outcard.neutral { border-left-color:var(--card-border-strong); }
     .cm-outcard .n { font-size:30px; font-weight:800; color:var(--yellow); letter-spacing:-1px; line-height:1; }
     .cm-outcard.cyan .n { color:var(--blue-light); }
+    .cm-outcard .n.warn { color:#f87171; }
     .cm-outcard .l { font-size:12px; color:var(--grey-300); margin-top:8px; line-height:1.4; }
     .cm-reset { background:transparent; color:#fff; border:1px solid var(--card-border-strong); padding:10px 18px; border-radius:8px; font-weight:600; font-size:13px; font-family:inherit; cursor:pointer; align-self:flex-end; }
     .cm-reset:hover { border-color:var(--yellow); color:var(--yellow); }
@@ -152,74 +149,75 @@
   <button class="cm-tab" data-tab="assume">Assumptions</button>
 </div>
 
-<!-- ===== EXEC SUMMARY ===== -->
+<!-- EXEC SUMMARY -->
 <section class="cm-panel active" id="tab-summary">
   <span class="ap-kicker">Internal &middot; Pricing Strategy</span>
   <h2 class="ap-display">Priced by the <em>concept.</em> Performance is the engine.</h2>
-  <p class="cm-lead">A three-fee architecture for the AI creative engine: a competitive Strategy base, Production sold by the concept ($100&ndash;400 each), and an uncapped Performance fee on the spend behind our creatives &mdash; where the real margin lives.</p>
+  <p class="cm-lead">Three fees: a Strategy base that auto-tiers with volume, Production sold by the concept ($100&ndash;400), and an uncapped Performance fee on the spend behind our creatives. Media buying is a separate service and is not priced here.</p>
   <div class="ap-grid-4 cm-block">
     <div class="ap-stat"><div class="ap-stat-num">$100&ndash;400</div><div class="ap-stat-label">Price per concept</div></div>
     <div class="ap-stat"><div class="ap-stat-num">5%</div><div class="ap-stat-label">Performance on AP spend</div></div>
-    <div class="ap-stat"><div class="ap-stat-num">40%</div><div class="ap-stat-label">Creative strategy cost</div></div>
-    <div class="ap-stat"><div class="ap-stat-num">90%+</div><div class="ap-stat-label">Performance share at $1M+</div></div>
+    <div class="ap-stat"><div class="ap-stat-num">25+</div><div class="ap-stat-label">Concepts &rarr; $5k strategy tier</div></div>
+    <div class="ap-stat"><div class="ap-stat-num">1 cr = $1</div><div class="ap-stat-label">Credit = $1 of concept value</div></div>
   </div>
   <div class="cm-block">
-    <div class="ap-callout" style="margin-bottom:14px;"><strong>The unit is the concept</strong>Everything is counted and priced by the concept &mdash; the sellable creative unit, with its cuts bundled in. Concepts run $100&ndash;400 each (VSLs over 3 min are the exception).</div>
-    <div class="ap-callout" style="margin-bottom:14px;"><strong>Where margin comes from</strong>Production is sold near a healthy concept margin; the strategy fee carries a ~40% delivery cost; performance is almost pure margin. As spend scales, the 5% dominates &mdash; 90%+ of gross margin past $1M.</div>
-    <div class="ap-callout"><strong>Two calculators</strong>The Production Calculator turns a concept mix into cost, price and margin; the Financial Model sizes how many concepts/month a spend level needs from the testing budget, CPA and test multiplier.</div>
+    <div class="ap-callout" style="margin-bottom:14px;"><strong>The unit is the concept; the credit is the currency</strong>A concept bundles its cuts and is priced $100&ndash;400 by value. One credit = $1 of that value, so a package is a monthly credit balance: $10,000 = 10,000 credits, an AI image draws 100, an AI video 200.</div>
+    <div class="ap-callout" style="margin-bottom:14px;"><strong>The two halves now reconcile</strong>The Financial Model sizes concepts/month from the testing budget, then scales the production fee and production cost to that volume and auto-tiers the strategy fee. Gross margin reflects real creative-production COGS.</div>
+    <div class="ap-callout"><strong>Gross margin, not EBITDA</strong>Overhead / G&amp;A and media-buying labor are not in these numbers. On a creative-only model, a high net margin is only reachable once the performance line scales.</div>
   </div>
 </section>
 
-<!-- ===== HOW IT WORKS ===== -->
+<!-- HOW IT WORKS -->
 <section class="cm-panel" id="tab-structure">
   <span class="cm-pill">The three fees</span>
   <h2 class="cm-h2">How the model works</h2>
-  <p class="cm-sub">Each fee does a different job. The base two are floors; the third is the upside.</p>
+  <p class="cm-sub">Two base fees that scale with volume, plus the performance upside.</p>
   <div class="cm-block">
-    <div class="ap-value"><div class="ap-value-num">1</div><div class="ap-value-body"><h4>Strategy Fee &mdash; the base</h4><p>$2,500/mo for up to 25 concepts (&le;100 ads); $5,000/mo above 25 concepts. Covers strategy and the moat &mdash; taste, intelligence, and the system that turns volume into winners. Carries a ~40% delivery cost (runs ~60% margin).</p></div></div>
-    <div class="ap-value"><div class="ap-value-num">2</div><div class="ap-value-body"><h4>Production &mdash; sold by the concept</h4><p>Each concept is a priced unit ($100&ndash;400) with its variations bundled in. The concept price is set by value, not token cost; cost per concept just sets the margin.</p></div></div>
-    <div class="ap-value"><div class="ap-value-num">3</div><div class="ap-value-body"><h4>Performance &mdash; the engine</h4><p>5% of the spend behind Ad Pros creatives, uncapped. Aligned with the client&rsquo;s success and our highest-margin line. This is where an account becomes genuinely profitable as it scales.</p></div></div>
+    <div class="ap-value"><div class="ap-value-num">1</div><div class="ap-value-body"><h4>Strategy Fee &mdash; auto-tiered</h4><p>$2,500/mo at &le;25 concepts; $5,000/mo above 25 concepts. Covers creative strategy and the intelligence moat. Carries a ~40% delivery cost.</p></div></div>
+    <div class="ap-value"><div class="ap-value-num">2</div><div class="ap-value-body"><h4>Production &mdash; by the concept, scales with volume</h4><p>Each concept is a priced unit ($100&ndash;400) with its cuts bundled. The production fee scales with how many concepts the spend level needs, so cost and revenue track volume.</p></div></div>
+    <div class="ap-value"><div class="ap-value-num">3</div><div class="ap-value-body"><h4>Performance &mdash; the engine</h4><p>5% of the spend behind Ad Pros creatives, uncapped. Absorbed: the client pays whichever is larger &mdash; the base fees or the 5%. Media buying is billed separately.</p></div></div>
   </div>
   <div class="ap-grid-2 cm-block">
-    <div class="ap-card"><h4 class="ap-h4" style="margin-bottom:10px;">Sizing concepts</h4><p class="ap-p-sm">Concepts/mo = total spend &times; testing % &divide; 30 &divide; CPA &divide; test multiplier &times; 4 weeks. The Production Calculator then turns a chosen concept mix into cost, price and blended margin.</p></div>
-    <div class="ap-card"><h4 class="ap-h4" style="margin-bottom:10px;">Performance: two modes</h4><p class="ap-p-sm"><strong style="color:#fff;">From $0:</strong> 5% from the first dollar, fully additive.<br><br><strong style="color:#fff;">With threshold:</strong> the 5% only adds once it clears a base &mdash; the production fee, or production + strategy.</p></div>
+    <div class="ap-card"><h4 class="ap-h4" style="margin-bottom:10px;">Sizing concepts</h4><p class="ap-p-sm">Concepts/mo = total spend &times; testing % &divide; 30 &divide; CPA &divide; test multiplier &times; 4 weeks. Strategy tier and production fee both follow that number.</p></div>
+    <div class="ap-card"><h4 class="ap-h4" style="margin-bottom:10px;">Performance: absorbed</h4><p class="ap-p-sm">Revenue = max(base fees, 5% of AP spend). Below the cross-over the client pays the base; above it, the 5% takes over and the base is absorbed into it &mdash; never both stacked.</p></div>
   </div>
-  <div class="ap-callout"><strong>Guardrails &amp; terms</strong>Concepts bundle their cuts &middot; 90-day minimum commitment for ramp &middot; $500 internal onboarding cost &middot; guarantee miss = refund concept credits, no cash, waive 5% (worst case = strategy fee only).</div>
+  <div class="ap-callout"><strong>Guardrails &amp; terms</strong>Concepts bundle their cuts &middot; 90-day minimum &middot; $500 internal onboarding cost &middot; guarantee miss = refund concept credits, no cash, waive 5% (worst case = strategy fee only, with production COGS already sunk).</div>
 </section>
 
-<!-- ===== PRODUCTION & CREDITS ===== -->
+<!-- PRODUCTION & CREDITS -->
 <section class="cm-panel" id="tab-credits">
   <span class="cm-pill">Per-asset cost</span>
   <h2 class="cm-h2">Production cost reference</h2>
-  <p class="cm-sub">The loaded cost of a single asset (one cut) &mdash; the building block of a concept. <strong style="color:var(--yellow);">Cost basis v2</strong>: token costs trimmed for cheaper models / lower iteration. Non-AI assets are labor only. Client-facing pricing is by the concept on the <strong style="color:var(--yellow);">Concept Matrix</strong> tab.</p>
+  <p class="cm-sub">Loaded cost of a single cut, broken into its inputs. <strong style="color:var(--yellow);">Labor</strong> = editor hours &times; $14/hr (Medellín basis; live-action rows include shoot &amp; talent time). <strong style="color:var(--yellow);">Token</strong> = output seconds &times; $0.10/sec &times; 3 raw generations per production-ready cut. Client-facing pricing is by the concept on the <strong style="color:var(--yellow);">Concept Matrix</strong>.</p>
   <div class="cm-table-wrap">
-    <table class="cm-table">
-      <thead><tr><th>Asset (one cut)</th><th>Labor</th><th>Token</th><th>Cost</th><th>Credits</th><th>Cost-up price</th><th>Markup</th></tr></thead>
-      <tbody id="cm-credit-body"></tbody>
+    <table class="cm-table wide">
+      <thead><tr><th>Asset (one cut)</th><th>Editor hrs</th><th>Labor $</th><th>Output</th><th>Raw gens</th><th>Token $</th><th>Loaded cost</th><th>Cost-up (2&times;)</th></tr></thead>
+      <tbody><tr class="cm-grouprow"><td colspan="8">AI-produced</td></tr><tr><td>AI image</td><td>0.2</td><td>$2.54</td><td>1 frame</td><td>3</td><td>$0.30</td><td>$2.84</td><td class="pos">$5.68</td></tr><tr><td>AI gif</td><td>0.4</td><td>$5.62</td><td>~3s</td><td>3</td><td>$0.60</td><td>$6.22</td><td class="pos">$12.44</td></tr><tr><td>AI video</td><td>1.5</td><td>$20.40</td><td>15s</td><td>3</td><td>$4.50</td><td>$24.90</td><td class="pos">$49.80</td></tr><tr><td>AI UGC</td><td>1.5</td><td>$20.40</td><td>15s</td><td>3</td><td>$4.50</td><td>$24.90</td><td class="pos">$49.80</td></tr><tr><td>AI animated ads - 30s</td><td>3.7</td><td>$51.20</td><td>30s</td><td>3</td><td>$9.00</td><td>$60.20</td><td class="pos">$120.40</td></tr><tr><td>AI animated ads - 60s</td><td>5.9</td><td>$82.00</td><td>60s</td><td>3</td><td>$18.00</td><td>$100.00</td><td class="pos">$200.00</td></tr><tr><td>AI podcast</td><td>5.9</td><td>$82.00</td><td>60s</td><td>3</td><td>$18.00</td><td>$100.00</td><td class="pos">$200.00</td></tr><tr><td>AI VSL - 60s</td><td>3.7</td><td>$51.20</td><td>60s</td><td>3</td><td>$18.00</td><td>$69.20</td><td class="pos">$138.40</td></tr><tr><td>AI VSL - 120s</td><td>5.1</td><td>$71.60</td><td>120s</td><td>3</td><td>$36.00</td><td>$107.60</td><td class="pos">$215.20</td></tr><tr><td>AI VSL - 180s</td><td>6.6</td><td>$92.00</td><td>180s</td><td>3</td><td>$54.00</td><td>$146.00</td><td class="pos">$292.00</td></tr><tr><td>AI b-roll (4 min)</td><td>2.0</td><td>$28.00</td><td>240s</td><td>3</td><td>$72.00</td><td>$100.00</td><td class="pos">$200.00</td></tr><tr class="cm-grouprow"><td colspan="8">Non-AI · live-action &amp; design</td></tr><tr><td>Static image (designed)</td><td>1.4</td><td>$20.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$20.00</td><td class="pos">$40.00</td></tr><tr><td>Carousel ad</td><td>3.2</td><td>$45.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$45.00</td><td class="pos">$90.00</td></tr><tr><td>Motion graphic / GIF</td><td>3.9</td><td>$55.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$55.00</td><td class="pos">$110.00</td></tr><tr><td>UGC video (creator + edit)</td><td>6.8</td><td>$95.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$95.00</td><td class="pos">$190.00</td></tr><tr><td>Talking-head video</td><td>9.3</td><td>$130.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$130.00</td><td class="pos">$260.00</td></tr><tr><td>Product demo video</td><td>10.0</td><td>$140.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$140.00</td><td class="pos">$280.00</td></tr><tr><td>Podcast / audio ad</td><td>12.1</td><td>$170.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$170.00</td><td class="pos">$340.00</td></tr><tr><td>Live VSL - 60s</td><td>15.7</td><td>$220.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$220.00</td><td class="pos">$440.00</td></tr><tr><td>Live VSL - 120s</td><td>24.3</td><td>$340.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$340.00</td><td class="pos">$680.00</td></tr><tr><td>Live VSL - 180s</td><td>32.9</td><td>$460.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$460.00</td><td class="pos">$920.00</td></tr><tr><td>UGC b-roll (brief)</td><td>2.9</td><td>$40.00</td><td>—</td><td>&mdash;</td><td>$0.00</td><td>$40.00</td><td class="pos">$80.00</td></tr></tbody>
     </table>
   </div>
-  <p class="ap-caption" style="margin-top:14px;">Token cost shown is after the Token Price Index. &ldquo;Cost-up price&rdquo; is the 2&times; cost benchmark per cut &mdash; a reference only; client pricing is per concept.</p>
+  <p class="ap-caption" style="margin-top:14px;">Token math example (b-roll): 240s &times; $0.10 &times; 3 gens = $72. Cost-up (2&times;) is a per-cut benchmark only &mdash; a credit is $1, so cost-up doubles as the credit count. Client pricing is per concept, not per cut.</p>
 </section>
 
-<!-- ===== CONCEPT MATRIX ===== -->
+<!-- CONCEPT MATRIX -->
 <section class="cm-panel" id="tab-matrix">
   <span class="cm-pill">Approved pricing</span>
   <h2 class="cm-h2">Concept cost &amp; price matrix</h2>
-  <p class="cm-sub">Pricing by the concept. Target band <strong style="color:var(--yellow);">$100&ndash;400 / concept</strong>; VSLs over 3 min are exempt. Margin shading: <span style="color:#34d399;">green &ge; 60%</span>, <span style="color:#fbbf24;">amber 20&ndash;60%</span>, <span style="color:#f87171;">red &lt; 20%</span>.</p>
+  <p class="cm-sub">Pricing by the concept. Target band <strong style="color:var(--yellow);">$100&ndash;400</strong>; VSLs over 3 min exempt. Cost/concept = (labor + token) &times; variations, with token on the corrected per-second basis. Shading: <span style="color:#34d399;">green &ge; 60%</span>, <span style="color:#fbbf24;">amber 20&ndash;60%</span>, <span style="color:#f87171;">red &lt; 20%</span>.</p>
   <div class="cm-table-wrap">
     <table class="cm-table">
       <thead><tr><th>Asset (per concept)</th><th>Cost / concept</th><th>Price / concept</th><th>Gross margin $</th><th>Gross margin %</th></tr></thead>
-      <tbody><tr class="cm-grouprow"><td colspan="5">AI-produced</td></tr><tr><td>AI image</td><td>$11</td><td class="">$100</td><td>$89</td><td class="mg-green">89%</td></tr><tr><td>AI gif</td><td>$24</td><td class="">$125</td><td>$101</td><td class="mg-green">81%</td></tr><tr><td>AI video</td><td>$92</td><td class="">$200</td><td>$108</td><td class="mg-amber">54%</td></tr><tr><td>AI UGC</td><td>$92</td><td class="">$200</td><td>$108</td><td class="mg-amber">54%</td></tr><tr><td>AI animated ads - 30s</td><td>$221</td><td class="">$250</td><td>$29</td><td class="mg-red">12%</td></tr><tr><td>AI animated ads - 60s</td><td>$356</td><td class="">$300</td><td>-$56</td><td class="mg-red">-19%</td></tr><tr><td>AI podcast</td><td>$348</td><td class="">$300</td><td>-$48</td><td class="mg-red">-16%</td></tr><tr><td>AI VSL - 60s</td><td>$221</td><td class="">$250</td><td>$29</td><td class="mg-red">12%</td></tr><tr><td>AI VSL - 120s</td><td>$314</td><td class="">$325</td><td>$11</td><td class="mg-red">3%</td></tr><tr><td>AI VSL - 180s</td><td>$204</td><td class="">$400</td><td>$196</td><td class="mg-amber">49%</td></tr><tr><td>AI b-roll (4 min)<sup>*</sup></td><td>$100</td><td class="">$200</td><td>$100</td><td class="mg-amber">50%</td></tr><tr class="cm-grouprow"><td colspan="5">Non-AI · live-action &amp; design</td></tr><tr><td>Static image (designed)</td><td>$80</td><td class="">$100</td><td>$20</td><td class="mg-amber">20%</td></tr><tr><td>Carousel ad</td><td>$180</td><td class="">$125</td><td>-$55</td><td class="mg-red">-44%</td></tr><tr><td>Motion graphic / GIF</td><td>$220</td><td class="">$150</td><td>-$70</td><td class="mg-red">-47%</td></tr><tr><td>UGC video (creator + edit)</td><td>$190</td><td class="">$200</td><td>$10</td><td class="mg-red">5%</td></tr><tr><td>Talking-head video</td><td>$260</td><td class="">$300</td><td>$40</td><td class="mg-red">13%</td></tr><tr><td>Product demo video</td><td>$280</td><td class="">$300</td><td>$20</td><td class="mg-red">7%</td></tr><tr><td>Podcast / audio ad</td><td>$340</td><td class="">$350</td><td>$10</td><td class="mg-red">3%</td></tr><tr><td>Live VSL - 60s</td><td>$220</td><td class="">$300</td><td>$80</td><td class="mg-amber">27%</td></tr><tr><td>Live VSL - 120s</td><td>$340</td><td class="">$400</td><td>$60</td><td class="mg-red">15%</td></tr><tr><td>Live VSL - 180s</td><td>$460</td><td class="pr-amber">$500</td><td>$40</td><td class="mg-red">8%</td></tr><tr><td>UGC b-roll (brief)<sup>*</sup></td><td>$40</td><td class="">$200</td><td>$160</td><td class="mg-green">80%</td></tr></tbody>
+      <tbody><tr class="cm-grouprow"><td colspan="5">AI-produced</td></tr><tr><td>AI image</td><td>$11</td><td class="">$100</td><td>$89</td><td class="mg-green">89%</td></tr><tr><td>AI gif</td><td>$25</td><td class="">$125</td><td>$100</td><td class="mg-green">80%</td></tr><tr><td>AI video</td><td>$100</td><td class="">$200</td><td>$100</td><td class="mg-amber">50%</td></tr><tr><td>AI UGC</td><td>$100</td><td class="">$200</td><td>$100</td><td class="mg-amber">50%</td></tr><tr><td>AI animated ads - 30s</td><td>$241</td><td class="">$250</td><td>$9</td><td class="mg-red">4%</td></tr><tr><td>AI animated ads - 60s</td><td>$400</td><td class="">$300</td><td>-$100</td><td class="mg-red">-33%</td></tr><tr><td>AI podcast</td><td>$400</td><td class="">$300</td><td>-$100</td><td class="mg-red">-33%</td></tr><tr><td>AI VSL - 60s</td><td>$277</td><td class="">$250</td><td>-$27</td><td class="mg-red">-11%</td></tr><tr><td>AI VSL - 120s</td><td>$430</td><td class="">$325</td><td>-$105</td><td class="mg-red">-32%</td></tr><tr><td>AI VSL - 180s</td><td>$292</td><td class="">$400</td><td>$108</td><td class="mg-amber">27%</td></tr><tr><td>AI b-roll (4 min)<sup>*</sup></td><td>$100</td><td class="">$200</td><td>$100</td><td class="mg-amber">50%</td></tr><tr class="cm-grouprow"><td colspan="5">Non-AI · live-action &amp; design</td></tr><tr><td>Static image (designed)</td><td>$80</td><td class="">$100</td><td>$20</td><td class="mg-amber">20%</td></tr><tr><td>Carousel ad</td><td>$180</td><td class="">$125</td><td>-$55</td><td class="mg-red">-44%</td></tr><tr><td>Motion graphic / GIF</td><td>$220</td><td class="">$150</td><td>-$70</td><td class="mg-red">-47%</td></tr><tr><td>UGC video (creator + edit)</td><td>$190</td><td class="">$200</td><td>$10</td><td class="mg-red">5%</td></tr><tr><td>Talking-head video</td><td>$260</td><td class="">$300</td><td>$40</td><td class="mg-red">13%</td></tr><tr><td>Product demo video</td><td>$280</td><td class="">$300</td><td>$20</td><td class="mg-red">7%</td></tr><tr><td>Podcast / audio ad</td><td>$340</td><td class="">$350</td><td>$10</td><td class="mg-red">3%</td></tr><tr><td>Live VSL - 60s</td><td>$220</td><td class="">$300</td><td>$80</td><td class="mg-amber">27%</td></tr><tr><td>Live VSL - 120s</td><td>$340</td><td class="">$400</td><td>$60</td><td class="mg-red">15%</td></tr><tr><td>Live VSL - 180s</td><td>$460</td><td class="pr-amber">$500</td><td>$40</td><td class="mg-red">8%</td></tr><tr><td>UGC b-roll (brief)<sup>*</sup></td><td>$40</td><td class="">$200</td><td>$160</td><td class="mg-green">80%</td></tr></tbody>
     </table>
   </div>
-  <p class="ap-caption" style="margin-top:14px;"><sup>*</sup> <strong>AI b-roll</strong> &mdash; $200 for 4 min (240s): $28 editor (2 hrs) + $72 generation ($18 / 60s). <strong>UGC b-roll</strong> &mdash; $200 for the concept / brief; creator fees ($150&ndash;500 per creator, ~20 b-roll each) are billed separately and not in this margin. Red rows are concepts where cost exceeds price &mdash; raise the price or simplify the concept to bring them green.</p>
+  <p class="ap-caption" style="margin-top:14px;"><sup>*</sup> <strong>AI b-roll</strong> $200 for 4 min ($28 editor + $72 generation). <strong>UGC b-roll</strong> $200 for one concept (the brief); creator fees ($150&ndash;500 per creator, ~20 b-roll each) are billed separately and not in this margin. <strong style="color:#f87171;">Red rows</strong> are concepts now under cost on the corrected token basis at their current variation counts &mdash; the fix is fewer cuts (long-form video at 1&ndash;2 variations) or a higher price.</p>
 </section>
 
-<!-- ===== PRODUCTION CALCULATOR ===== -->
+<!-- PRODUCTION CALCULATOR -->
 <section class="cm-panel" id="tab-calc">
   <span class="cm-pill">Concept mix</span>
   <h2 class="cm-h2">Production calculator</h2>
-  <p class="cm-sub">Pick a <strong style="color:var(--yellow);">scenario</strong> and a <strong style="color:var(--yellow);">package price</strong> &mdash; the calculator distributes concepts in that scenario&rsquo;s proportions to fill the package, so a bigger package buys more concepts of the same mix. Cost and price per concept come straight from the Concept Matrix. Fine-tune any line afterward.</p>
+  <p class="cm-sub">Pick a <strong style="color:var(--yellow);">scenario</strong> and a <strong style="color:var(--yellow);">package price</strong> &mdash; concepts are distributed in that scenario&rsquo;s proportions to fill the package, so a bigger package buys more concepts of the same mix. Fine-tune any line afterward.</p>
+  <div class="ap-callout" style="margin-bottom:22px;"><strong>What a credit is worth</strong>1 credit = $1 of finished, media-ready creative at list value. Your monthly package is a credit balance &mdash; a $10,000 package is 10,000 credits. Each concept draws credits equal to its price (AI image 100, AI video 200, VSL-180 400). The plan is sized right when <em>credits allocated</em> lands at or just under your package; the headroom card shows how many concepts the plan still supports (or by how much it&rsquo;s over).</div>
   <div class="cm-section-label">Preset scenarios</div>
   <div class="cm-seg wrap" id="seg-scenario" style="margin-bottom:22px;">
     <button data-v="testing">Testing Sprint</button>
@@ -233,63 +231,54 @@
   <div class="cm-out">
     <div class="cm-outcard cyan"><div class="n" id="calc-concepts">&mdash;</div><div class="l">Total concepts in this mix</div></div>
     <div class="cm-outcard cyan"><div class="n" id="calc-variations">&mdash;</div><div class="l">Total variations (individual cuts)</div></div>
-    <div class="cm-outcard"><div class="n" id="calc-alacarte">&mdash;</div><div class="l">&Agrave; la carte value (sum of concept prices)</div></div>
+    <div class="cm-outcard"><div class="n" id="calc-alacarte">&mdash;</div><div class="l">&Agrave; la carte value = credits allocated</div></div>
     <div class="cm-outcard"><div class="n" id="calc-package">&mdash;</div><div class="l">Package price (what the client pays)</div></div>
     <div class="cm-outcard"><div class="n" id="calc-cost">&mdash;</div><div class="l">Our cost (COGS) for this mix</div></div>
     <div class="cm-outcard"><div class="n" id="calc-margin">&mdash;</div><div class="l">Package margin (package &minus; cost)</div></div>
+    <div class="cm-outcard neutral"><div class="n" id="calc-headroom">&mdash;</div><div class="l">Package headroom (credits vs package)</div></div>
   </div>
   <div class="cm-table-wrap">
     <table class="cm-table wide">
-      <thead><tr><th>Asset</th><th>Concepts</th><th>Cost / concept</th><th>Price / concept</th><th>Total cost</th><th>Total price</th></tr></thead>
-      <tbody id="cm-calc-body"><tr class="cm-grouprow"><td colspan="6">AI-produced</td></tr><tr><td>AI image</td><td><input class="cm-num" id="calc-0" type="number" min="0" step="1" value="0"></td><td>$11</td><td>$100</td><td id="tcost-0">&mdash;</td><td class="pos" id="tprice-0">&mdash;</td></tr><tr><td>AI gif</td><td><input class="cm-num" id="calc-1" type="number" min="0" step="1" value="0"></td><td>$24</td><td>$125</td><td id="tcost-1">&mdash;</td><td class="pos" id="tprice-1">&mdash;</td></tr><tr><td>AI video</td><td><input class="cm-num" id="calc-2" type="number" min="0" step="1" value="0"></td><td>$92</td><td>$200</td><td id="tcost-2">&mdash;</td><td class="pos" id="tprice-2">&mdash;</td></tr><tr><td>AI UGC</td><td><input class="cm-num" id="calc-3" type="number" min="0" step="1" value="0"></td><td>$92</td><td>$200</td><td id="tcost-3">&mdash;</td><td class="pos" id="tprice-3">&mdash;</td></tr><tr><td>AI animated ads - 30s</td><td><input class="cm-num" id="calc-4" type="number" min="0" step="1" value="0"></td><td>$221</td><td>$250</td><td id="tcost-4">&mdash;</td><td class="pos" id="tprice-4">&mdash;</td></tr><tr><td>AI animated ads - 60s</td><td><input class="cm-num" id="calc-5" type="number" min="0" step="1" value="0"></td><td>$356</td><td>$300</td><td id="tcost-5">&mdash;</td><td class="pos" id="tprice-5">&mdash;</td></tr><tr><td>AI podcast</td><td><input class="cm-num" id="calc-6" type="number" min="0" step="1" value="0"></td><td>$348</td><td>$300</td><td id="tcost-6">&mdash;</td><td class="pos" id="tprice-6">&mdash;</td></tr><tr><td>AI VSL - 60s</td><td><input class="cm-num" id="calc-7" type="number" min="0" step="1" value="0"></td><td>$221</td><td>$250</td><td id="tcost-7">&mdash;</td><td class="pos" id="tprice-7">&mdash;</td></tr><tr><td>AI VSL - 120s</td><td><input class="cm-num" id="calc-8" type="number" min="0" step="1" value="0"></td><td>$314</td><td>$325</td><td id="tcost-8">&mdash;</td><td class="pos" id="tprice-8">&mdash;</td></tr><tr><td>AI VSL - 180s</td><td><input class="cm-num" id="calc-9" type="number" min="0" step="1" value="0"></td><td>$204</td><td>$400</td><td id="tcost-9">&mdash;</td><td class="pos" id="tprice-9">&mdash;</td></tr><tr><td>AI b-roll (4 min)</td><td><input class="cm-num" id="calc-10" type="number" min="0" step="1" value="0"></td><td>$100</td><td>$200</td><td id="tcost-10">&mdash;</td><td class="pos" id="tprice-10">&mdash;</td></tr><tr class="cm-grouprow"><td colspan="6">Non-AI · live-action &amp; design</td></tr><tr><td>Static image (designed)</td><td><input class="cm-num" id="calc-11" type="number" min="0" step="1" value="0"></td><td>$80</td><td>$100</td><td id="tcost-11">&mdash;</td><td class="pos" id="tprice-11">&mdash;</td></tr><tr><td>Carousel ad</td><td><input class="cm-num" id="calc-12" type="number" min="0" step="1" value="0"></td><td>$180</td><td>$125</td><td id="tcost-12">&mdash;</td><td class="pos" id="tprice-12">&mdash;</td></tr><tr><td>Motion graphic / GIF</td><td><input class="cm-num" id="calc-13" type="number" min="0" step="1" value="0"></td><td>$220</td><td>$150</td><td id="tcost-13">&mdash;</td><td class="pos" id="tprice-13">&mdash;</td></tr><tr><td>UGC video (creator + edit)</td><td><input class="cm-num" id="calc-14" type="number" min="0" step="1" value="0"></td><td>$190</td><td>$200</td><td id="tcost-14">&mdash;</td><td class="pos" id="tprice-14">&mdash;</td></tr><tr><td>Talking-head video</td><td><input class="cm-num" id="calc-15" type="number" min="0" step="1" value="0"></td><td>$260</td><td>$300</td><td id="tcost-15">&mdash;</td><td class="pos" id="tprice-15">&mdash;</td></tr><tr><td>Product demo video</td><td><input class="cm-num" id="calc-16" type="number" min="0" step="1" value="0"></td><td>$280</td><td>$300</td><td id="tcost-16">&mdash;</td><td class="pos" id="tprice-16">&mdash;</td></tr><tr><td>Podcast / audio ad</td><td><input class="cm-num" id="calc-17" type="number" min="0" step="1" value="0"></td><td>$340</td><td>$350</td><td id="tcost-17">&mdash;</td><td class="pos" id="tprice-17">&mdash;</td></tr><tr><td>Live VSL - 60s</td><td><input class="cm-num" id="calc-18" type="number" min="0" step="1" value="0"></td><td>$220</td><td>$300</td><td id="tcost-18">&mdash;</td><td class="pos" id="tprice-18">&mdash;</td></tr><tr><td>Live VSL - 120s</td><td><input class="cm-num" id="calc-19" type="number" min="0" step="1" value="0"></td><td>$340</td><td>$400</td><td id="tcost-19">&mdash;</td><td class="pos" id="tprice-19">&mdash;</td></tr><tr><td>Live VSL - 180s</td><td><input class="cm-num" id="calc-20" type="number" min="0" step="1" value="0"></td><td>$460</td><td>$500</td><td id="tcost-20">&mdash;</td><td class="pos" id="tprice-20">&mdash;</td></tr><tr><td>UGC b-roll (brief)</td><td><input class="cm-num" id="calc-21" type="number" min="0" step="1" value="0"></td><td>$40</td><td>$200</td><td id="tcost-21">&mdash;</td><td class="pos" id="tprice-21">&mdash;</td></tr></tbody>
-      <tfoot><tr><td>Total</td><td id="tot-concepts">&mdash;</td><td>&mdash;</td><td>&mdash;</td><td id="tot-cost">&mdash;</td><td id="tot-price">&mdash;</td></tr></tfoot>
+      <thead><tr><th>Asset</th><th>Concepts</th><th>Cost / concept</th><th>Price / concept</th><th>Credits</th><th>Total cost</th><th>Total price</th></tr></thead>
+      <tbody id="cm-calc-body"><tr class="cm-grouprow"><td colspan="7">AI-produced</td></tr><tr><td>AI image</td><td><input class="cm-num" id="calc-0" type="number" min="0" step="1" value="0"></td><td>$11</td><td>$100</td><td class="cyan" id="cr-0">&mdash;</td><td id="tcost-0">&mdash;</td><td class="pos" id="tprice-0">&mdash;</td></tr><tr><td>AI gif</td><td><input class="cm-num" id="calc-1" type="number" min="0" step="1" value="0"></td><td>$25</td><td>$125</td><td class="cyan" id="cr-1">&mdash;</td><td id="tcost-1">&mdash;</td><td class="pos" id="tprice-1">&mdash;</td></tr><tr><td>AI video</td><td><input class="cm-num" id="calc-2" type="number" min="0" step="1" value="0"></td><td>$100</td><td>$200</td><td class="cyan" id="cr-2">&mdash;</td><td id="tcost-2">&mdash;</td><td class="pos" id="tprice-2">&mdash;</td></tr><tr><td>AI UGC</td><td><input class="cm-num" id="calc-3" type="number" min="0" step="1" value="0"></td><td>$100</td><td>$200</td><td class="cyan" id="cr-3">&mdash;</td><td id="tcost-3">&mdash;</td><td class="pos" id="tprice-3">&mdash;</td></tr><tr><td>AI animated ads - 30s</td><td><input class="cm-num" id="calc-4" type="number" min="0" step="1" value="0"></td><td>$241</td><td>$250</td><td class="cyan" id="cr-4">&mdash;</td><td id="tcost-4">&mdash;</td><td class="pos" id="tprice-4">&mdash;</td></tr><tr><td>AI animated ads - 60s</td><td><input class="cm-num" id="calc-5" type="number" min="0" step="1" value="0"></td><td>$400</td><td>$300</td><td class="cyan" id="cr-5">&mdash;</td><td id="tcost-5">&mdash;</td><td class="pos" id="tprice-5">&mdash;</td></tr><tr><td>AI podcast</td><td><input class="cm-num" id="calc-6" type="number" min="0" step="1" value="0"></td><td>$400</td><td>$300</td><td class="cyan" id="cr-6">&mdash;</td><td id="tcost-6">&mdash;</td><td class="pos" id="tprice-6">&mdash;</td></tr><tr><td>AI VSL - 60s</td><td><input class="cm-num" id="calc-7" type="number" min="0" step="1" value="0"></td><td>$277</td><td>$250</td><td class="cyan" id="cr-7">&mdash;</td><td id="tcost-7">&mdash;</td><td class="pos" id="tprice-7">&mdash;</td></tr><tr><td>AI VSL - 120s</td><td><input class="cm-num" id="calc-8" type="number" min="0" step="1" value="0"></td><td>$430</td><td>$325</td><td class="cyan" id="cr-8">&mdash;</td><td id="tcost-8">&mdash;</td><td class="pos" id="tprice-8">&mdash;</td></tr><tr><td>AI VSL - 180s</td><td><input class="cm-num" id="calc-9" type="number" min="0" step="1" value="0"></td><td>$292</td><td>$400</td><td class="cyan" id="cr-9">&mdash;</td><td id="tcost-9">&mdash;</td><td class="pos" id="tprice-9">&mdash;</td></tr><tr><td>AI b-roll (4 min)</td><td><input class="cm-num" id="calc-10" type="number" min="0" step="1" value="0"></td><td>$100</td><td>$200</td><td class="cyan" id="cr-10">&mdash;</td><td id="tcost-10">&mdash;</td><td class="pos" id="tprice-10">&mdash;</td></tr><tr class="cm-grouprow"><td colspan="7">Non-AI · live-action &amp; design</td></tr><tr><td>Static image (designed)</td><td><input class="cm-num" id="calc-11" type="number" min="0" step="1" value="0"></td><td>$80</td><td>$100</td><td class="cyan" id="cr-11">&mdash;</td><td id="tcost-11">&mdash;</td><td class="pos" id="tprice-11">&mdash;</td></tr><tr><td>Carousel ad</td><td><input class="cm-num" id="calc-12" type="number" min="0" step="1" value="0"></td><td>$180</td><td>$125</td><td class="cyan" id="cr-12">&mdash;</td><td id="tcost-12">&mdash;</td><td class="pos" id="tprice-12">&mdash;</td></tr><tr><td>Motion graphic / GIF</td><td><input class="cm-num" id="calc-13" type="number" min="0" step="1" value="0"></td><td>$220</td><td>$150</td><td class="cyan" id="cr-13">&mdash;</td><td id="tcost-13">&mdash;</td><td class="pos" id="tprice-13">&mdash;</td></tr><tr><td>UGC video (creator + edit)</td><td><input class="cm-num" id="calc-14" type="number" min="0" step="1" value="0"></td><td>$190</td><td>$200</td><td class="cyan" id="cr-14">&mdash;</td><td id="tcost-14">&mdash;</td><td class="pos" id="tprice-14">&mdash;</td></tr><tr><td>Talking-head video</td><td><input class="cm-num" id="calc-15" type="number" min="0" step="1" value="0"></td><td>$260</td><td>$300</td><td class="cyan" id="cr-15">&mdash;</td><td id="tcost-15">&mdash;</td><td class="pos" id="tprice-15">&mdash;</td></tr><tr><td>Product demo video</td><td><input class="cm-num" id="calc-16" type="number" min="0" step="1" value="0"></td><td>$280</td><td>$300</td><td class="cyan" id="cr-16">&mdash;</td><td id="tcost-16">&mdash;</td><td class="pos" id="tprice-16">&mdash;</td></tr><tr><td>Podcast / audio ad</td><td><input class="cm-num" id="calc-17" type="number" min="0" step="1" value="0"></td><td>$340</td><td>$350</td><td class="cyan" id="cr-17">&mdash;</td><td id="tcost-17">&mdash;</td><td class="pos" id="tprice-17">&mdash;</td></tr><tr><td>Live VSL - 60s</td><td><input class="cm-num" id="calc-18" type="number" min="0" step="1" value="0"></td><td>$220</td><td>$300</td><td class="cyan" id="cr-18">&mdash;</td><td id="tcost-18">&mdash;</td><td class="pos" id="tprice-18">&mdash;</td></tr><tr><td>Live VSL - 120s</td><td><input class="cm-num" id="calc-19" type="number" min="0" step="1" value="0"></td><td>$340</td><td>$400</td><td class="cyan" id="cr-19">&mdash;</td><td id="tcost-19">&mdash;</td><td class="pos" id="tprice-19">&mdash;</td></tr><tr><td>Live VSL - 180s</td><td><input class="cm-num" id="calc-20" type="number" min="0" step="1" value="0"></td><td>$460</td><td>$500</td><td class="cyan" id="cr-20">&mdash;</td><td id="tcost-20">&mdash;</td><td class="pos" id="tprice-20">&mdash;</td></tr><tr><td>UGC b-roll (brief)</td><td><input class="cm-num" id="calc-21" type="number" min="0" step="1" value="0"></td><td>$40</td><td>$200</td><td class="cyan" id="cr-21">&mdash;</td><td id="tcost-21">&mdash;</td><td class="pos" id="tprice-21">&mdash;</td></tr></tbody>
+      <tfoot><tr><td>Total</td><td id="tot-concepts">&mdash;</td><td>&mdash;</td><td>&mdash;</td><td id="tot-credits">&mdash;</td><td id="tot-cost">&mdash;</td><td id="tot-price">&mdash;</td></tr></tfoot>
     </table>
   </div>
-  <p class="ap-caption" style="margin-top:14px;">Concepts are distributed to fill the chosen <strong style="color:var(--yellow);">package price</strong> in the scenario&rsquo;s proportions &mdash; change the package or scenario and the counts redistribute; manual edits to a line stay until you do. <strong style="color:var(--yellow);">&Agrave; la carte value</strong> sums the delivered concept prices; package margin = (package &minus; cost) &divide; package &mdash; production line only, before strategy and performance.</p>
+  <p class="ap-caption" style="margin-top:14px;">Credits = concepts &times; price (1 credit = $1). Concepts redistribute when you change the package or scenario; manual line edits stay until you do. Package margin = (package &minus; cost) &divide; package &mdash; production line only, before strategy and performance.</p>
 </section>
 
-<!-- ===== FINANCIAL MODEL ===== -->
+<!-- FINANCIAL MODEL -->
 <section class="cm-panel" id="tab-model">
   <span class="cm-pill">Live model</span>
   <h2 class="cm-h2">Lever-based financial model</h2>
-  <p class="cm-sub">Move any lever and the table recomputes. Production fee is what the client pays for concepts each month; gross profit is derived at the current markup. Cost includes the creative strategy delivery cost. Concepts/month is sized from the testing budget, CPA and test multiplier.</p>
+  <p class="cm-sub">Concepts/month are sized from the spend level, then everything follows: the <strong style="color:var(--yellow);">strategy fee auto-tiers</strong> (&le;25 &rarr; $2,500, &gt;25 &rarr; $5,000) and the <strong style="color:var(--yellow);">production fee and its COGS scale with concept volume</strong>. Cost includes real creative-production COGS plus strategy delivery. Media buying and overhead/G&amp;A are excluded &mdash; this is gross margin.</p>
 
-  <div class="cm-section-label">Pricing levers</div>
+  <div class="cm-section-label">Levers</div>
   <div class="cm-levers">
-    <div class="cm-lever"><label>Strategy fee / month <span class="val" id="out-strategy">$2,500</span></label>
-      <select id="in-strategy" class="cm-select"><option value="2500" selected>$2,500</option><option value="5000">$5,000</option></select></div>
-    <div class="cm-lever"><label>Production fee / month <span class="val" id="out-prod">$5,000</span></label>
-      <select id="in-prod" class="cm-select"><option value="2500">$2,500</option><option value="5000" selected>$5,000</option><option value="7500">$7,500</option><option value="10000">$10,000</option><option value="12500">$12,500</option><option value="15000">$15,000</option><option value="20000">$20,000</option></select></div>
+    <div class="cm-lever"><label>Avg price / concept <span class="val" id="out-avgprice">$150</span></label><input type="range" id="in-avgprice" value="150" min="50" max="400" step="10"></div>
+    <div class="cm-lever"><label>Production markup (sets COGS) <span class="val" id="out-markup">2.0&times;</span></label><input type="range" id="in-markup" value="2.0" min="1" max="3" step="0.1"></div>
     <div class="cm-lever"><label>Creative strategy cost % <span class="val" id="out-stratcost">40%</span></label><input type="range" id="in-stratcost" value="40" min="0" max="100" step="5"></div>
-    <div class="cm-lever"><label>Production markup <span class="val" id="out-markup">2.0&times;</span></label><input type="range" id="in-markup" value="2.0" min="1" max="3" step="0.1"></div>
-    <div class="cm-lever"><label>Credit price <span class="val" id="out-credit">$1.00</span></label><input type="range" id="in-credit" value="1.00" min="0.25" max="5" step="0.25"></div>
-    <div class="cm-lever"><label>Token price index <span class="val" id="out-token">1.00</span></label><input type="range" id="in-token" value="1.00" min="0.5" max="2" step="0.05"></div>
     <div class="cm-lever"><label>Performance fee <span class="val" id="out-perf">5.0%</span></label><input type="range" id="in-perf" value="5" min="0" max="10" step="0.5"></div>
     <div class="cm-lever"><label>% of spend on AP creatives <span class="val" id="out-pctap">100%</span></label><input type="range" id="in-pctap" value="100" min="10" max="100" step="5"></div>
-  </div>
-
-  <div class="cm-toggles">
-    <div class="cm-tgroup"><span class="cm-tlabel">Performance</span>
-      <div class="cm-seg" id="seg-mode"><button data-v="from0">From $0</button><button data-v="threshold" class="active">With threshold</button></div></div>
-    <div class="cm-tgroup" id="basis-group"><span class="cm-tlabel">Threshold earns out</span>
-      <div class="cm-seg" id="seg-basis"><button data-v="prod">Production fee</button><button data-v="prodstrat" class="active">Production + Strategy</button></div></div>
-    <div class="cm-tgroup" style="justify-content:flex-end;"><button class="cm-reset" id="cm-reset">Reset to defaults</button></div>
-  </div>
-
-  <div class="cm-section-label">Concepts / month sizing</div>
-  <div class="cm-levers">
     <div class="cm-lever"><label>Testing budget % <span class="val" id="out-testpct">20%</span></label><input type="range" id="in-testpct" value="20" min="5" max="50" step="1"></div>
     <div class="cm-lever"><label>CPA (cost per new customer) <span class="val" id="out-cpa">$100</span></label><input type="range" id="in-cpa" value="100" min="25" max="300" step="5"></div>
     <div class="cm-lever"><label>CPA multiplier (test) <span class="val" id="out-cpamult">2&times;</span></label>
       <select id="in-cpamult" class="cm-select"><option value="1">1&times;</option><option value="2" selected>2&times;</option><option value="3">3&times;</option><option value="4">4&times;</option><option value="5">5&times;</option><option value="6">6&times;</option></select></div>
-    <div class="cm-lever" style="display:flex;align-items:flex-end;"><span class="ap-caption">A concept bundles its cuts &mdash; sizing is in concepts, not individual variations.</span></div>
+  </div>
+
+  <div class="cm-toggles">
+    <div class="cm-tgroup"><span class="cm-tlabel">Performance</span>
+      <div class="cm-seg" id="seg-mode"><button data-v="from0">From $0 (additive)</button><button data-v="threshold" class="active">Absorbed (max)</button></div></div>
+    <div class="cm-tgroup" id="basis-group"><span class="cm-tlabel">Absorbed against</span>
+      <div class="cm-seg" id="seg-basis"><button data-v="prod">Production fee</button><button data-v="prodstrat" class="active">Production + Strategy</button></div></div>
+    <div class="cm-tgroup" style="justify-content:flex-end;"><button class="cm-reset" id="cm-reset">Reset to defaults</button></div>
   </div>
 
   <div class="cm-out">
-    <div class="cm-outcard"><div class="n" id="kpi-cross">$150k</div><div class="l">Where the 5% fee starts adding (threshold spend)</div></div>
-    <div class="cm-outcard"><div class="n" id="kpi-contrib">$46,500</div><div class="l">Monthly gross margin $ at $1M AP spend (current mode)</div></div>
-    <div class="cm-outcard"><div class="n" id="kpi-share">91%</div><div class="l">Performance share of gross margin at $1M AP spend</div></div>
-    <div class="cm-outcard cyan"><div class="n" id="kpi-concepts">133</div><div class="l">Concepts / month at $1M total spend</div></div>
+    <div class="cm-outcard"><div class="n" id="kpi-gm">&mdash;</div><div class="l">Monthly gross margin $ at $1M AP spend</div></div>
+    <div class="cm-outcard"><div class="n" id="kpi-gmp">&mdash;</div><div class="l">Gross margin % at $1M AP spend</div></div>
+    <div class="cm-outcard"><div class="n" id="kpi-share">&mdash;</div><div class="l">Performance share of gross margin at $1M</div></div>
+    <div class="cm-outcard cyan"><div class="n" id="kpi-concepts">&mdash;</div><div class="l">Concepts / month at $1M total spend</div></div>
   </div>
 
   <div class="cm-table-wrap">
@@ -298,125 +287,127 @@
       <tbody id="cm-profit-body"></tbody>
     </table>
   </div>
-  <p class="ap-caption" style="margin-top:14px;">Concepts/mo = total spend &times; testing % &divide; 30 &divide; CPA &divide; test multiplier &times; 4. Total revenue = strategy + production fee + performance. Cost = production COGS (production fee &divide; markup) + creative strategy cost (strategy fee &times; strategy cost %). Gross margin $ = revenue &minus; cost; gross margin % = gross margin $ &divide; revenue. With a threshold, performance only accrues on spend above where 5% clears the chosen base; the highlighted row marks that threshold.</p>
+  <p class="ap-caption" style="margin-top:14px;">Concepts/mo = total spend &times; testing % &divide; 30 &divide; CPA &divide; test multiplier &times; 4. Strategy = $2,500 (&le;25 concepts) or $5,000 (&gt;25). Production fee = concepts &times; avg price/concept; production COGS = concepts &times; (avg price &divide; markup). Cost = production COGS + strategy &times; strategy cost %. Absorbed: revenue = max(base, AP &times; 5%); the Performance column is the part above the base. Excludes media-buying labor and overhead/G&amp;A.</p>
 </section>
 
-<!-- ===== ASSUMPTIONS ===== -->
+<!-- ASSUMPTIONS -->
 <section class="cm-panel" id="tab-assume">
   <span class="cm-pill">Reference</span>
   <h2 class="cm-h2">Assumptions</h2>
-  <p class="cm-sub">The defaults and definitions behind the model. Everything is expressed per concept &mdash; the sellable unit, with its cuts bundled in.</p>
+  <p class="cm-sub">Defaults and definitions. Everything is per concept &mdash; the sellable unit, with its cuts bundled in.</p>
   <div class="ap-card cm-block">
-    <h4 class="ap-h4" style="margin-bottom:16px;">Pricing</h4>
+    <h4 class="ap-h4" style="margin-bottom:16px;">Pricing &amp; credits</h4>
     <dl class="cm-def">
-      <dt>Strategy fee</dt><dd><span class="mono">$2,500/mo</span> for &le;25 concepts (&le;100 ads); <span class="mono">$5,000/mo</span> above 25 concepts.</dd>
-      <dt>Concept price</dt><dd>Set by value, <span class="mono">$100&ndash;400</span> per concept (VSLs over 3 min exempt). Not derived from token cost.</dd>
-      <dt>Production markup</dt><dd><span class="mono">2.0&times;</span> floor used for the per-cut cost-up reference and production-fee gross profit.</dd>
-      <dt>Performance fee</dt><dd><span class="mono">5%</span> of spend behind Ad Pros creatives, uncapped.</dd>
+      <dt>Strategy fee</dt><dd>Auto-tiers: <span class="mono">$2,500/mo</span> at &le;25 concepts, <span class="mono">$5,000/mo</span> above 25.</dd>
+      <dt>Concept price</dt><dd>Set by value, <span class="mono">$100&ndash;400</span> (VSLs over 3 min exempt).</dd>
+      <dt>Credit</dt><dd><span class="mono">1 credit = $1</span> of concept list value. A package is a monthly credit balance.</dd>
+      <dt>Performance fee</dt><dd><span class="mono">5%</span> of spend behind Ad Pros creatives, uncapped, absorbed (max of base vs 5%).</dd>
+      <dt>Media buying</dt><dd>Separate service &mdash; not priced in this model.</dd>
     </dl>
   </div>
   <div class="ap-card cm-block">
     <h4 class="ap-h4" style="margin-bottom:16px;">Cost basis</h4>
     <dl class="cm-def">
-      <dt>Cost per concept</dt><dd>(labor + token) for one cut &times; the cuts bundled into that concept. Shown directly on the Concept Matrix.</dd>
-      <dt>Creative strategy cost</dt><dd><span class="mono">40%</span> of the strategy fee (delivery / strategist labor).</dd>
-      <dt>Production COGS</dt><dd>Production fee &divide; markup (e.g. half the fee at 2&times;).</dd>
-      <dt>Token basis</dt><dd>Trimmed for cheaper models / lower iteration: image $0.10 &middot; video/UGC $2.50 &middot; animated 60s $7 &middot; VSL-180s $10. Non-AI assets carry no token cost.</dd>
-      <dt>b-roll</dt><dd>AI b-roll $200 for 4 min ($28 editor + $72 generation). UGC b-roll $200 for the brief; creator fees ($150&ndash;500/creator, ~20 b-roll each) billed separately.</dd>
+      <dt>Editor labor</dt><dd>Editor hours &times; <span class="mono">$14/hr</span> (Medellín). Live-action rows include shoot &amp; talent time.</dd>
+      <dt>Token / generation</dt><dd><span class="mono">$0.10/sec &times; 3 raw generations</span> per production-ready cut (e.g. 240s b-roll = $72; 60s video = $18).</dd>
+      <dt>Cost per concept</dt><dd>(labor + token) &times; variations.</dd>
+      <dt>Production COGS (model)</dt><dd>concepts &times; (avg price &divide; markup).</dd>
+      <dt>Creative strategy cost</dt><dd><span class="mono">40%</span> of the strategy fee.</dd>
+      <dt>Overhead / G&amp;A</dt><dd>Not modeled. These are gross-margin figures; net margin depends on performance scale.</dd>
     </dl>
   </div>
   <div class="ap-card cm-block">
     <h4 class="ap-h4" style="margin-bottom:16px;">Concepts / month sizing</h4>
     <dl class="cm-def">
-      <dt>Testing budget %</dt><dd><span class="mono">20%</span> of total spend allocated to creative testing.</dd>
-      <dt>CPA</dt><dd>Cost to acquire a new customer, default <span class="mono">$100</span> (range $50&ndash;$200).</dd>
-      <dt>CPA test multiplier</dt><dd><span class="mono">2&times;</span> default (range 1&ndash;6&times;) &mdash; spend per concept to read a valid test.</dd>
+      <dt>Testing budget %</dt><dd><span class="mono">20%</span> of total spend on creative testing.</dd>
+      <dt>CPA</dt><dd>Cost per new customer, default <span class="mono">$100</span>.</dd>
+      <dt>CPA test multiplier</dt><dd><span class="mono">2&times;</span> default &mdash; spend per concept to read a valid test.</dd>
       <dt>Concepts / month</dt><dd>total spend &times; testing % &divide; 30 &divide; CPA &divide; test multiplier &times; 4 weeks.</dd>
     </dl>
   </div>
-  <div class="ap-callout"><strong>Terms</strong>90-day minimum commitment &middot; $500 internal onboarding cost &middot; guarantee miss = refund concept credits, no cash, waive 5%. Spend levels modeled: $30k &rarr; $3M/mo.</div>
+  <div class="ap-callout"><strong>Terms</strong>90-day minimum &middot; $500 internal onboarding cost &middot; guarantee miss = refund concept credits, no cash, waive 5%. Spend modeled $30k &rarr; $3M/mo.</div>
 </section>
 
 <script>
 (function(){
-  var ASSETS=[["AI image",2.54,0.1,"AI"],["AI gif",5.62,0.4,"AI"],["AI video",20.4,2.5,"AI"],["AI UGC",20.4,2.5,"AI"],["AI animated ads - 30s",51.2,4.0,"AI"],["AI animated ads - 60s",82.0,7.0,"AI"],["AI podcast",82.0,5.0,"AI"],["AI VSL - 60s",51.2,4.0,"AI"],["AI VSL - 120s",71.6,7.0,"AI"],["AI VSL - 180s",92.0,10.0,"AI"],["Static image (designed)",20.0,0,"Manual"],["Carousel ad",45.0,0,"Manual"],["Motion graphic / GIF",55.0,0,"Manual"],["UGC video (creator + edit)",95.0,0,"Manual"],["Talking-head video",130.0,0,"Manual"],["Product demo video",140.0,0,"Manual"],["Podcast / audio ad",170.0,0,"Manual"],["Live VSL - 60s",220.0,0,"Manual"],["Live VSL - 120s",340.0,0,"Manual"],["Live VSL - 180s",460.0,0,"Manual"]];
-  var GLABEL={AI:"AI-produced",Manual:"Non-AI \u00b7 live-action & design"};
-  var CMX=[[10.56,100,4],[24.08,125,4],[91.6,200,4],[91.6,200,4],[220.8,250,4],[356.0,300,4],[348.0,300,4],[220.8,250,4],[314.4,325,4],[204.0,400,2],[100.0,200,1],[80.0,100,4],[180.0,125,4],[220.0,150,4],[190.0,200,2],[260.0,300,2],[280.0,300,2],[340.0,350,2],[220.0,300,1],[340.0,400,1],[460.0,500,1],[40.0,200,1]];
+  var CMX=[[11.36,100,4],[24.88,125,4],[99.6,200,4],[99.6,200,4],[240.8,250,4],[400.0,300,4],[400.0,300,4],[276.8,250,4],[430.4,325,4],[292.0,400,2],[100.0,200,1],[80.0,100,4],[180.0,125,4],[220.0,150,4],[190.0,200,2],[260.0,300,2],[280.0,300,2],[340.0,350,2],[220.0,300,1],[340.0,400,1],[460.0,500,1],[40.0,200,1]];
   var SCEN={
     testing:[10,6,4,4,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0],
-    balanced:[6,4,4,4,2,1,0,0,0,0,1, 0,0,0,0,0,0,0,0,0,0,0],
+    balanced:[5,3,2,2,1,0,0,0,0,0,1, 3,0,2,0,0,0,0,0,0,0,0],
     video:[3,1,6,6,2,2,0,0,0,0,2, 0,0,0,0,0,0,0,0,0,0,0],
     funnel:[4,2,3,3,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0,0,0,0],
     liveaction:[0,0,0,0,0,0,0,0,0,0,0, 4,2,2,4,2,1,1,1,1,1,1]
   };
   var LEVELS=[30000,50000,100000,250000,500000,750000,1000000,1500000,2000000,2500000,3000000];
-  var DEF={strategy:"2500",prod:"5000",stratcost:40,markup:2.0,credit:1.00,token:1.00,perf:5,pctap:100,mode:"threshold",basis:"prodstrat",testpct:20,cpa:100,cpamult:"2"};
+  var DEF={avgprice:150,markup:2.0,stratcost:40,perf:5,pctap:100,testpct:20,cpa:100,cpamult:"2",mode:"threshold",basis:"prodstrat"};
   function $(id){return document.getElementById(id);}
   function money(n){ if(Math.abs(n)>=1000) return "$"+Math.round(n).toLocaleString("en-US"); return "$"+n.toFixed(2); }
   function moneyK(n){ if(n>=1000000) return "$"+(Math.round(n/100000)/10)+"M"; if(n>=1000) return "$"+Math.round(n/1000)+"k"; return "$"+Math.round(n); }
   function seg(id){ var b=document.querySelector("#"+id+" button.active"); return b?b.getAttribute("data-v"):null; }
   function setSeg(id,v){ var g=$(id); if(!g)return; Array.prototype.forEach.call(g.querySelectorAll("button"),function(x){x.classList.toggle("active",x.getAttribute("data-v")===v);}); }
-  function concepts(totalSpend,testpct,cpa,cpamult){ if(cpa<=0||cpamult<=0) return 0; return Math.round(totalSpend*testpct/30/cpa/cpamult*4); }
+  function concepts(total,testpct,cpa,cpamult){ if(cpa<=0||cpamult<=0) return 0; return Math.round(total*testpct/30/cpa/cpamult*4); }
+
+  // ---- Financial model ----
   function read(){
-    return { strategy:+$("in-strategy").value, prod:+$("in-prod").value, stratcost:+$("in-stratcost").value/100,
-      markup:+$("in-markup").value, credit:+$("in-credit").value, token:+$("in-token").value,
-      perf:+$("in-perf").value/100, pctap:+$("in-pctap").value/100, mode:seg("seg-mode"), basis:seg("seg-basis"),
-      testpct:+$("in-testpct").value/100, cpa:+$("in-cpa").value, cpamult:+$("in-cpamult").value };
+    return { avgprice:+$("in-avgprice").value, markup:+$("in-markup").value, stratcost:+$("in-stratcost").value/100,
+      perf:+$("in-perf").value/100, pctap:+$("in-pctap").value/100,
+      testpct:+$("in-testpct").value/100, cpa:+$("in-cpa").value, cpamult:+$("in-cpamult").value,
+      mode:seg("seg-mode"), basis:seg("seg-basis") };
+  }
+  function rowEcon(L,s){
+    var ap=L*s.pctap, con=concepts(L,s.testpct,s.cpa,s.cpamult);
+    var strat=con>25?5000:2500;
+    var prodFee=con*s.avgprice;
+    var prodCost=con*(s.markup>0?s.avgprice/s.markup:0);
+    var cost=prodCost + strat*s.stratcost;
+    var base=s.mode==="from0"?0:(s.basis==="prod"?prodFee:prodFee+strat);
+    var perf=Math.max(0, ap*s.perf - base);
+    var rev=strat+prodFee+perf, gm=rev-cost, gmp=rev>0?gm/rev:0;
+    return {ap:ap,con:con,strat:strat,prodFee:prodFee,perf:perf,rev:rev,cost:cost,gm:gm,gmp:gmp};
   }
   function render(){
     var s=read();
-    $("out-strategy").textContent=money(s.strategy); $("out-prod").textContent=money(s.prod);
-    $("out-stratcost").textContent=Math.round(s.stratcost*100)+"%"; $("out-markup").textContent=s.markup.toFixed(1)+"\u00d7";
-    $("out-credit").textContent="$"+s.credit.toFixed(2); $("out-token").textContent=s.token.toFixed(2);
-    $("out-perf").textContent=(s.perf*100).toFixed(1)+"%"; $("out-pctap").textContent=Math.round(s.pctap*100)+"%";
-    $("out-testpct").textContent=Math.round(s.testpct*100)+"%"; $("out-cpa").textContent="$"+s.cpa; $("out-cpamult").textContent=s.cpamult+"\u00d7";
+    $("out-avgprice").textContent=money(s.avgprice); $("out-markup").textContent=s.markup.toFixed(1)+"\u00d7";
+    $("out-stratcost").textContent=Math.round(s.stratcost*100)+"%"; $("out-perf").textContent=(s.perf*100).toFixed(1)+"%";
+    $("out-pctap").textContent=Math.round(s.pctap*100)+"%"; $("out-testpct").textContent=Math.round(s.testpct*100)+"%";
+    $("out-cpa").textContent="$"+s.cpa; $("out-cpamult").textContent=s.cpamult+"\u00d7";
     var bg=$("basis-group"); if(bg){ bg.classList.toggle("disabled", s.mode==="from0"); }
-
-    var cb=$("cm-credit-body"); cb.innerHTML=""; var lastCat=null;
-    ASSETS.forEach(function(a){
-      if(a[3]!==lastCat){ lastCat=a[3]; var gr=document.createElement("tr"); gr.className="cm-grouprow"; gr.innerHTML="<td colspan='7'>"+GLABEL[a[3]]+"</td>"; cb.appendChild(gr); }
-      var labor=a[1], tok=a[2]*s.token, cost=labor+tok, credits=Math.ceil(cost*s.markup/s.credit);
-      var price=credits*s.credit, mk=cost>0?price/cost:0;
-      var tr=document.createElement("tr");
-      tr.innerHTML="<td>"+a[0]+"</td><td>"+money(labor)+"</td><td>"+money(tok)+"</td><td>"+money(cost)+
-        "</td><td class='pos'>"+credits.toLocaleString("en-US")+"</td><td>"+money(price)+"</td><td>"+mk.toFixed(2)+"\u00d7</td>";
-      cb.appendChild(tr);
-    });
-
-    var base = s.mode==="from0" ? 0 : (s.basis==="prod" ? s.prod : s.prod + s.strategy);
-    var thrSpend = (s.perf>0 && s.mode!=="from0") ? base/s.perf : 0;
-    var cost = (s.markup>0 ? s.prod/s.markup : 0) + s.strategy*s.stratcost;
     var pb=$("cm-profit-body"); pb.innerHTML="";
     LEVELS.forEach(function(L){
-      var ap=L*s.pctap, perfRaw=ap*s.perf, perf=Math.max(0,perfRaw-base);
-      var revenue=s.strategy+s.prod+perf, gm=revenue-cost, gmp=revenue>0?gm/revenue:0;
-      var con=concepts(L,s.testpct,s.cpa,s.cpamult);
+      var e=rowEcon(L,s);
       var tr=document.createElement("tr");
-      tr.innerHTML="<td>"+money(L)+"</td><td>"+money(ap)+"</td><td class='cyan'>"+con+"</td><td>"+money(s.strategy)+"</td><td>"+money(s.prod)+
-        "</td><td>"+money(perf)+"</td><td>"+money(revenue)+"</td><td>"+money(cost)+"</td><td class='pos'>"+money(gm)+"</td><td>"+Math.round(gmp*100)+"%</td>";
+      tr.innerHTML="<td>"+money(L)+"</td><td>"+money(e.ap)+"</td><td class='cyan'>"+e.con+"</td><td>"+money(e.strat)+
+        "</td><td>"+money(e.prodFee)+"</td><td>"+money(e.perf)+"</td><td>"+money(e.rev)+"</td><td>"+money(e.cost)+
+        "</td><td class='pos'>"+money(e.gm)+"</td><td>"+Math.round(e.gmp*100)+"%</td>";
       pb.appendChild(tr);
     });
-    if(thrSpend>0){ var rows=pb.querySelectorAll("tr"),best=-1,bd=Infinity; LEVELS.forEach(function(L,i){var d=Math.abs(L*s.pctap-thrSpend); if(d<bd){bd=d;best=i;}}); if(best>=0) rows[best].classList.add("cm-cross"); }
-    $("kpi-cross").textContent = s.mode==="from0" ? "From $0" : (thrSpend>0?moneyK(thrSpend):"n/a");
-    var ap1=1000000*s.pctap, pr1=ap1*s.perf, perf1=Math.max(0,pr1-base), rev1=s.strategy+s.prod+perf1, gm1=rev1-cost;
-    $("kpi-contrib").textContent=money(gm1); $("kpi-share").textContent=(gm1>0?Math.round(perf1/gm1*100):0)+"%";
+    var m=rowEcon(1000000,s);
+    $("kpi-gm").textContent=money(m.gm); $("kpi-gmp").textContent=Math.round(m.gmp*100)+"%";
+    $("kpi-share").textContent=(m.gm>0?Math.round(m.perf/m.gm*100):0)+"%";
     $("kpi-concepts").textContent=concepts(1000000,s.testpct,s.cpa,s.cpamult);
   }
+
+  // ---- Production calculator ----
   function renderCalc(){
-    var totC=0,totCost=0,totPrice=0,totVars=0;
+    var totC=0,totCost=0,totPrice=0,totVars=0,totCred=0;
     CMX.forEach(function(m,i){
       var el=$("calc-"+i); var n=el?(parseInt(el.value,10)||0):0;
-      var tc=m[0]*n, tp=m[1]*n; totC+=n; totCost+=tc; totPrice+=tp; totVars+=m[2]*n;
-      $("tcost-"+i).textContent=money(tc); $("tprice-"+i).textContent=money(tp);
+      var tc=m[0]*n, tp=m[1]*n; totC+=n; totCost+=tc; totPrice+=tp; totVars+=m[2]*n; totCred+=tp;
+      $("cr-"+i).textContent=tp.toLocaleString("en-US"); $("tcost-"+i).textContent=money(tc); $("tprice-"+i).textContent=money(tp);
     });
     var pkg=+$("in-package").value;
-    $("tot-concepts").textContent=totC.toLocaleString("en-US");
+    $("tot-concepts").textContent=totC.toLocaleString("en-US"); $("tot-credits").textContent=totCred.toLocaleString("en-US");
     $("tot-cost").textContent=money(totCost); $("tot-price").textContent=money(totPrice);
     $("calc-concepts").textContent=totC.toLocaleString("en-US");
     $("calc-variations").textContent=totVars.toLocaleString("en-US");
     $("calc-alacarte").textContent=money(totPrice); $("calc-package").textContent=money(pkg);
     $("calc-cost").textContent=money(totCost);
     $("calc-margin").textContent=(pkg>0?Math.round((pkg-totCost)/pkg*100):0)+"%";
+    var head=pkg-totPrice, hc=$("calc-headroom");
+    hc.firstChild ? null : null;
+    var nEl=hc.querySelector(".n");
+    if(head>=0){ nEl.classList.remove("warn"); nEl.textContent="+"+head.toLocaleString("en-US")+" cr"; }
+    else { nEl.classList.add("warn"); nEl.textContent=head.toLocaleString("en-US")+" cr"; }
   }
   var currentScenario="balanced";
   function distribute(key){
@@ -428,7 +419,8 @@
   }
   function setScenario(key){ if(!SCEN[key])return; currentScenario=key; setSeg("seg-scenario",key); distribute(key); }
 
-  ["in-strategy","in-prod","in-stratcost","in-markup","in-credit","in-token","in-perf","in-pctap","in-testpct","in-cpa","in-cpamult"].forEach(function(id){
+  // listeners
+  ["in-avgprice","in-markup","in-stratcost","in-perf","in-pctap","in-testpct","in-cpa","in-cpamult"].forEach(function(id){
     $(id).addEventListener("input",render); $(id).addEventListener("change",render);
   });
   ["seg-mode","seg-basis"].forEach(function(gid){ var g=$(gid); if(!g)return; g.addEventListener("click",function(ev){ var b=ev.target.closest("button"); if(!b)return; Array.prototype.forEach.call(g.querySelectorAll("button"),function(x){x.classList.remove("active");}); b.classList.add("active"); render(); }); });
@@ -436,8 +428,7 @@
   CMX.forEach(function(m,i){ var el=$("calc-"+i); if(el) el.addEventListener("input",renderCalc); });
   $("in-package").addEventListener("change",function(){ distribute(currentScenario); });
   $("cm-reset").addEventListener("click",function(){
-    $("in-strategy").value=DEF.strategy; $("in-prod").value=DEF.prod; $("in-stratcost").value=DEF.stratcost;
-    $("in-markup").value=DEF.markup; $("in-credit").value=DEF.credit; $("in-token").value=DEF.token;
+    $("in-avgprice").value=DEF.avgprice; $("in-markup").value=DEF.markup; $("in-stratcost").value=DEF.stratcost;
     $("in-perf").value=DEF.perf; $("in-pctap").value=DEF.pctap; $("in-testpct").value=DEF.testpct; $("in-cpa").value=DEF.cpa; $("in-cpamult").value=DEF.cpamult;
     setSeg("seg-mode",DEF.mode); setSeg("seg-basis",DEF.basis); render();
   });
