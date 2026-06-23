@@ -143,6 +143,16 @@
     .te-legend { display:inline-flex; align-items:center; gap:8px; font-size:12px; color:var(--grey-300); margin-top:14px; }
     .te-legend .swatch { width:14px; height:14px; border-radius:3px; background:#071a3d; border:1px solid var(--blue); display:inline-block; }
     .ce-note { font-size:12.5px; color:var(--grey-300); margin-top:14px; line-height:1.55; }
+    /* Cost Investment tab */
+    .ce-eyebrow { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--yellow); margin-bottom:12px; }
+    .ce-fee-tag { font-size:10.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--yellow); }
+    .ce-fee-price { font-size:26px; font-weight:800; color:var(--yellow); letter-spacing:-1px; margin:2px 0 10px; }
+    .ce-fee-price span { font-size:14px; font-weight:600; color:var(--grey-300); letter-spacing:0; }
+    .ci-card { text-align:center; padding:22px 16px; }
+    .ci-num { font-size:30px; font-weight:800; letter-spacing:-1px; line-height:1; color:var(--yellow); }
+    .ci-num.blue { color:var(--blue-light); }
+    .ci-label { font-size:11.5px; color:var(--grey-300); margin-top:8px; text-transform:uppercase; letter-spacing:0.6px; line-height:1.3; }
+    .ci-card.emph { box-shadow:inset 0 0 0 1px rgba(249,217,0,0.3); border-color:var(--card-border-strong); }
     @media (max-width: 640px) {
       .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
       .ap-footer { margin-left: 28px; margin-right: 28px; }
@@ -193,6 +203,7 @@
     <div class="ce-tabs" role="tablist">
       <button class="ce-tab active" data-tab="overview" role="tab">Overview</button>
       <button class="ce-tab" data-tab="how" role="tab">How It Works</button>
+      <button class="ce-tab" data-tab="cost" role="tab">Cost Investment</button>
       <button class="ce-tab" data-tab="menu" role="tab">Credit Menu</button>
       <button class="ce-tab" data-tab="builder" role="tab">Plan Builder</button>
       <button class="ce-tab" data-tab="testing" role="tab">Testing Engine</button>
@@ -248,6 +259,64 @@
         <strong>Guardrails &amp; terms</strong>
         Concepts bundle their cuts &middot; 90-day minimum &middot; guarantee miss = refund concept credits (no cash) and waive the 5%.
       </div>
+    </section>
+
+    <!-- COST INVESTMENT -->
+    <section class="ce-panel" id="tab-cost">
+      <div class="ce-eyebrow">How you&rsquo;re charged</div>
+      <h3 class="ap-h3" style="margin-bottom:14px;">What it costs &amp; what you get</h3>
+      <p class="ap-p" style="max-width:840px;margin-bottom:28px;">You&rsquo;re charged <strong style="color:#fff;">three fees</strong> &mdash; nothing else. Media buying is a separate engagement. Set whether you want creative strategy and your monthly ad spend, and the model sizes your concepts, variations, and fees.</p>
+
+      <div class="ce-eyebrow">The three fees</div>
+      <div class="ap-grid-3" style="margin-bottom:36px;">
+        <div class="ap-card" style="border-top:2px solid var(--yellow);">
+          <div class="ce-fee-tag">Fee 1 &middot; Optional</div>
+          <h4 class="ap-h5" style="margin:6px 0 0;">Creative Strategy Fee</h4>
+          <div class="ce-fee-price">$2,500&ndash;$5,000<span>/mo</span></div>
+          <p class="ap-p-sm">Angles, hooks, research and the testing roadmap that direct every concept. Auto-tiers: $2,500 up to 25 concepts/mo, $5,000 above. Optional &mdash; toggle off and you brief us yourself.</p>
+        </div>
+        <div class="ap-card" style="border-top:2px solid var(--yellow);">
+          <div class="ce-fee-tag">Fee 2 &middot; By the concept</div>
+          <h4 class="ap-h5" style="margin:6px 0 0;">Creative Production Fee</h4>
+          <div class="ce-fee-price">$100&ndash;$500<span>/concept</span></div>
+          <p class="ap-p-sm">You pay per concept &mdash; one sellable creative idea &mdash; priced by type. Every concept ships with multiple variations (cuts, ratios, hooks) at no extra charge. Volume scales with your testing budget.</p>
+        </div>
+        <div class="ap-card" style="border-top:2px solid var(--yellow);">
+          <div class="ce-fee-tag">Fee 3 &middot; Aligned to results</div>
+          <h4 class="ap-h5" style="margin:6px 0 0;">Performance Fee</h4>
+          <div class="ce-fee-price">5%<span> of creative spend</span></div>
+          <p class="ap-p-sm">5% of the ad spend running our creatives. It&rsquo;s absorbed &mdash; your base fees credit against it, so you pay the greater of base fees or 5% of spend, never both stacked.</p>
+        </div>
+      </div>
+
+      <div class="ce-eyebrow">Your inputs</div>
+      <div class="ap-card" style="margin-bottom:24px;">
+        <div class="ce-controls" style="margin-bottom:0;">
+          <div class="ce-field">
+            <label>Creative strategy</label>
+            <div class="ce-chips" id="ci-strategy">
+              <button class="ce-chip active" data-v="yes">Yes &mdash; include</button>
+              <button class="ce-chip" data-v="no">No &mdash; we brief</button>
+            </div>
+          </div>
+          <div class="ce-field">
+            <label>Monthly ad spend</label>
+            <select class="ce-select" id="ci-spend"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="ce-summary">
+        <div class="ap-card ci-card"><div class="ci-num blue" id="ci-concepts">&mdash;</div><div class="ci-label">Concepts / month</div></div>
+        <div class="ap-card ci-card"><div class="ci-num blue" id="ci-variations">&mdash;</div><div class="ci-label">Variations / month (delivered cuts)</div></div>
+        <div class="ap-card ci-card"><div class="ci-num" id="ci-costconcept">&mdash;</div><div class="ci-label">Client cost / concept</div></div>
+        <div class="ap-card ci-card"><div class="ci-num" id="ci-costvar">&mdash;</div><div class="ci-label">Client cost / variation</div></div>
+        <div class="ap-card ci-card"><div class="ci-num" id="ci-strategyfee">&mdash;</div><div class="ci-label">Creative strategy fee / mo</div></div>
+        <div class="ap-card ci-card"><div class="ci-num" id="ci-prodfee">&mdash;</div><div class="ci-label">Creative production fee / mo</div></div>
+        <div class="ap-card ci-card"><div class="ci-num" id="ci-perffee">&mdash;</div><div class="ci-label">Performance fee / mo (5% of spend)</div></div>
+        <div class="ap-card ci-card emph"><div class="ci-num" id="ci-total">&mdash;</div><div class="ci-label">Total / mo (greater of base or 5%)</div></div>
+      </div>
+      <p class="ce-note" id="ci-caption"></p>
     </section>
 
     <!-- CREDIT MENU -->
@@ -310,7 +379,7 @@
       <div class="te-legend"><span class="swatch"></span> Blue = input</div>
       <p class="ce-note">Concepts / month = total spend &times; testing % &divide; 30 &divide; CPA &divide; budget-per-test multiplier &times; 4 weeks. Variations / month = concepts &times; variations per concept. Daily budget per test = target CPA &times; the multiplier.</p>
       <div style="margin-top:24px;">
-        <a class="btn-primary" href="https://adpros.com/apply" target="_blank" rel="noopener">Apply to work with Ad Pros &rarr;</a>
+        <a class="btn-primary" href="https://adpros.com" target="_blank" rel="noopener">Apply to work with Ad Pros &rarr;</a>
       </div>
     </section>
 
@@ -320,7 +389,7 @@
       <svg width="36" height="36" style="opacity:0.5"><use href="#ap-logo"/></svg>
       <p>Ad Pros &mdash; Creative Engine</p>
     </div>
-    <p class="ap-footer-meta">Published by Nehal &middot; June 22, 2026</p>
+    <p class="ap-footer-meta">Published by Nehal &middot; June 23, 2026</p>
   </footer>
 </div>
 <script>
@@ -376,6 +445,7 @@
   var panels = {
     overview:document.getElementById('tab-overview'),
     how:document.getElementById('tab-how'),
+    cost:document.getElementById('tab-cost'),
     menu:document.getElementById('tab-menu'),
     builder:document.getElementById('tab-builder'),
     testing:document.getElementById('tab-testing')
@@ -552,7 +622,59 @@
       body.appendChild(tr);
     });
   }
-  renderTE();
+  /* ---------- Cost Investment ---------- */
+  (function(){
+    var SPENDS = [30000,50000,100000,250000,500000,750000,1000000,1500000,2000000,2500000,3000000];
+    var DEFAULT = 500000;
+    var FIX = { testPct:0.20, cpa:100, mult:2, weeks:4, days:30, avgPrice:150, avgVars:3, perf:0.05, apShare:1.0 };
+    var ci = { strategy:true, spend:DEFAULT };
+    function money2(n){ return '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    function spendLabel(s){ return s>=1000000 ? '$'+(s/1000000)+'M/mo' : '$'+(s/1000)+'k/mo'; }
+    function set(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+
+    var sel = document.getElementById('ci-spend');
+    SPENDS.forEach(function(s){
+      var o=document.createElement('option'); o.value=s; o.textContent=spendLabel(s);
+      if(s===DEFAULT) o.selected=true; sel.appendChild(o);
+    });
+    sel.addEventListener('change', function(){ ci.spend=parseInt(sel.value,10); renderCI(); });
+
+    var chips = document.getElementById('ci-strategy');
+    Array.prototype.forEach.call(chips.children, function(b){
+      b.addEventListener('click', function(){
+        ci.strategy = (b.getAttribute('data-v')==='yes');
+        Array.prototype.forEach.call(chips.children,function(x){x.classList.remove('active');});
+        b.classList.add('active'); renderCI();
+      });
+    });
+
+    function renderCI(){
+      var spend = ci.spend;
+      var concepts = Math.round(spend*FIX.testPct/FIX.days/FIX.cpa/FIX.mult*FIX.weeks);
+      var variations = concepts*FIX.avgVars;
+      var strategyFee = ci.strategy ? (concepts>25?5000:2500) : 0;
+      var prodFee = concepts*FIX.avgPrice;
+      var perfFee = spend*FIX.apShare*FIX.perf;
+      var base = strategyFee + prodFee;
+      var total = Math.max(base, perfFee);
+      set('ci-concepts', concepts);
+      set('ci-variations', variations);
+      set('ci-costconcept', money2(FIX.avgPrice));
+      set('ci-costvar', money2(FIX.avgPrice/FIX.avgVars));
+      set('ci-strategyfee', ci.strategy ? money(strategyFee) : '\u2014');
+      set('ci-prodfee', money(prodFee));
+      set('ci-perffee', money(perfFee));
+      set('ci-total', money(total));
+      var fiveWins = perfFee >= base;
+      var cap = "At " + spendLabel(spend) + " spend you\u2019d run ~" + concepts + " concepts ("
+        + variations + " delivered cuts). Base fees " + money(base) + " ("
+        + (ci.strategy ? "strategy + production" : "production only") + ") vs 5% of creative spend "
+        + money(perfFee) + " \u2014 you pay the greater: " + money(total) + "/mo "
+        + (fiveWins ? "(the 5% performance fee applies)." : "(your base fees apply).");
+      set('ci-caption', cap);
+    }
+    renderCI();
+  })();
 
 })();
 </script>
