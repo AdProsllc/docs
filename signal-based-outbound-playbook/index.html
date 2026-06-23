@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Tyler Gillespie">
+  <title>AdPros Signal-Based Outbound Playbook | Ad Pros</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; }
+    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
+    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
+    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
+    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+    .ap-value { display: grid; grid-template-columns: 72px 1fr; gap: 20px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+    .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .ap-value-body { padding: 20px 24px; }
+    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .ap-value-body p  { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
+    .btn-primary:hover { background: var(--yellow-dim); }
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+    .toast-warn { background: rgba(249,217,0,0.08); border-left: 3px solid var(--yellow); color: #ffe57d; display:flex; gap:12px; padding:12px 16px; border-radius:8px; font-size:13px; }
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+    /* table */
+    .ap-table-wrap { overflow-x: auto; border: 1px solid var(--card-border); border-radius: var(--radius); }
+    table.ap-rank { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 760px; }
+    table.ap-rank th { background: var(--navy-deep); color: var(--grey-200); text-align: left; padding: 12px 14px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--card-border-strong); }
+    table.ap-rank td { padding: 12px 14px; border-bottom: 1px solid var(--card-border); color: var(--grey-100); vertical-align: middle; }
+    table.ap-rank tr:last-child td { border-bottom: none; }
+    table.ap-rank td.r { text-align: center; color: var(--grey-300); font-family: "JetBrains Mono", monospace; }
+    table.ap-rank td.score { text-align: center; font-weight: 700; color: var(--yellow); }
+    table.ap-rank td.name { color: #fff; font-weight: 600; }
+    table.ap-rank tr.w1 td.r { color: var(--yellow); }
+    .wave-tag { display:inline-block; font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing:0.4px; white-space:nowrap; }
+    .w-now { background: rgba(249,217,0,0.14); color: var(--yellow); }
+    .w-next { background: rgba(26,111,212,0.16); color: var(--blue-light); }
+    .w-build { background: rgba(255,255,255,0.07); color: var(--grey-100); }
+    .w-comp { background: rgba(15,151,61,0.14); color: #6fdc97; }
+    .w-later { background: rgba(255,255,255,0.04); color: var(--grey-300); }
+    /* campaign card */
+    .camp { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 12px; }
+    .camp:hover { border-color: var(--card-border-strong); }
+    .camp-head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .camp-rank { background: var(--yellow); color: var(--navy); font-weight: 800; font-size: 14px; width: 30px; height: 30px; border-radius: 7px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .camp-name { color:#fff; font-size:17px; font-weight:700; margin:0; flex:1; line-height:1.25; }
+    .camp-score { font-size:11px; color: var(--grey-300); border:1px solid var(--card-border-strong); padding:3px 9px; border-radius:20px; white-space:nowrap; }
+    .camp-row { font-size:13.5px; line-height:1.5; margin-bottom:6px; color: var(--grey-100); }
+    .camp-row:last-child { margin-bottom:0; }
+    .camp-row .lbl { display:inline-block; min-width:104px; color: var(--grey-300); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; vertical-align:top; }
+    .camp-row .lbl.untapped { color: var(--yellow); }
+    .ref-card h4 { color:#fff; font-size:15px; font-weight:700; margin-bottom:10px; }
+    .ref-card ul { list-style:none; padding:0; margin:0; }
+    .ref-card li { font-size:13.5px; color: var(--grey-100); padding:5px 0; border-bottom:1px solid var(--card-border); line-height:1.45; }
+    .ref-card li:last-child { border-bottom:none; }
+    .ref-card li span.k { color: var(--grey-300); }
+    .pill-have { font-size:10px; font-weight:700; color: var(--success); background: rgba(15,151,61,0.13); padding:1px 7px; border-radius:20px; margin-left:6px; letter-spacing:0.4px; }
+    .pill-new { font-size:10px; font-weight:700; color: var(--yellow); background: rgba(249,217,0,0.12); padding:1px 7px; border-radius:20px; margin-left:6px; letter-spacing:0.4px; }
+    .ap-toc { position: fixed; top: 130px; right: 32px; z-index: 50; width: 200px; max-height: calc(100vh - 180px); overflow-y: auto; padding: 4px 0 4px 18px; border-left: 1px solid var(--card-border); display: none; }
+    .ap-toc.visible { display: block; }
+    .ap-toc-label { font-size: 11px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
+    .ap-toc-item { display: block; padding: 7px 0 7px 16px; font-size: 12.5px; line-height: 1.35; color: var(--grey-300); text-decoration: none; border-left: 2px solid transparent; margin-left: -20px; transition: color .15s, border-color .15s; }
+    .ap-toc-item:hover { color: #fff; }
+    .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); font-weight: 500; }
+    @media (min-width: 1280px) { body.ap-has-toc { padding-right: 232px; transition: padding-right .25s ease; } }
+    @media (max-width: 1279px) { .ap-toc { display: none !important; } }
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
+      .ap-footer { margin-left: 28px; margin-right: 28px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+      .camp-row .lbl { display:block; min-width:0; margin-bottom:2px; }
+    }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <div style="margin:0 auto 32px;display:flex;justify-content:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="64" height="64">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    </div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-internal";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1'){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',reveal);}else{reveal();}}}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+  <nav class="ap-toc" id="ap-toc" aria-label="On this page">
+    <div class="ap-toc-label">On this page</div>
+    <ol class="ap-toc-list" id="ap-toc-list"></ol>
+  </nav>
+  <header class="ap-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Signal-Based Outbound Playbook</h1>
+      <p>20 signal campaigns for AdPros, ranked by priority and value</p>
+    </div>
+  </header>
+  <div class="ap-content">
+
+    <!-- HERO -->
+    <div style="padding: 12px 0 8px;">
+      <div class="ap-kicker">AdPros Outbound &middot; Internal Strategy</div>
+      <h2 class="ap-display" style="max-width: 14ch;">Stop sending to lists. <em>Send to signals.</em></h2>
+      <p class="ap-p-lg" style="max-width: 70ch; margin-top: 22px;">
+        Today we capture leads in Apollo, verify an active Meta ad library, personalize, and send in Instantly. That works. But cold reply rates have roughly halved since 2019, and copy is no longer the lever. <strong style="color:#fff;">Timing is.</strong> The teams winning in 2026 find the brand the week something changed, then write to that change.
+      </p>
+      <p class="ap-p-lg" style="max-width: 70ch; margin-top: 16px;">
+        This is the full menu of signal-based campaigns we can run, scored and ranked by value, built to launch one at a time. Our unfair advantage that no competitor has: <strong style="color:#fff;">BIE</strong>. Every campaign leads with a free, signal-specific teardown instead of a pitch.
+      </p>
+      <div class="ap-grid-4" style="margin-top: 36px;">
+        <div class="ap-stat"><div class="ap-stat-num">20</div><div class="ap-stat-label">Signal campaigns</div></div>
+        <div class="ap-stat"><div class="ap-stat-num">5</div><div class="ap-stat-label">Launch waves</div></div>
+        <div class="ap-stat"><div class="ap-stat-num">9</div><div class="ap-stat-label">New lead sources</div></div>
+        <div class="ap-stat"><div class="ap-stat-num">1</div><div class="ap-stat-label">Activation brain</div></div>
+      </div>
+    </div>
+
+    <!-- SHIFT -->
+    <section class="ap-section" id="shift" data-toc-title="The shift">
+      <div class="ap-section-label"><span class="num">01</span> / The shift</div>
+      <h3 class="ap-h2" style="margin-bottom:18px;">Signal-first, not sender-first</h3>
+      <p class="ap-p" style="max-width:72ch;">Most outbound is built sender-first: buy the tool, load a list, start sending, treat timing as an afterthought. That is exactly why replies dry up. Built the other way, we find the company that changed something this week and write the message as our reaction to it. Get the order right and we stop needing a bigger list.</p>
+      <p class="ap-p" style="max-width:72ch; margin-top:14px;">Two upgrades to our current motion deliver almost all of the gain:</p>
+      <div class="ap-grid-2" style="margin-top:16px;">
+        <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:8px;">A signal layer in front</h4><p class="ap-p-sm">An active ad library tells us a brand <em>could</em> be a buyer. A signal tells us they are a buyer <em>right now</em>. We add sources that surface the trigger.</p></div>
+        <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:8px;">A judgment layer in the middle</h4><p class="ap-p-sm">Instead of a binary "has a library" check, an LLM reads every lead, scores fit and timing, and routes it to the right signal-specific sequence.</p></div>
+      </div>
+      <div class="ap-callout" style="margin-top:20px; max-width:80ch;"><strong>The number that matters</strong>Value-first campaigns, built around the signal that put the lead on the list, run double-digit reply rates against the 3 to 5 percent baseline of pitch-first blasts. The give is the lever, and BIE is the give.</div>
+    </section>
+
+    <!-- SPINE -->
+    <section class="ap-section" id="spine" data-toc-title="Build the brain first">
+      <div class="ap-section-label"><span class="num">02</span> / Build the brain first</div>
+      <h3 class="ap-h2" style="margin-bottom:8px;">Capturing signals is easy. Activating them is 90% of the work.</h3>
+      <p class="ap-p" style="max-width:72ch; margin-bottom:24px;">One activation layer sits under all 20 campaigns. Build it before campaign two, or every new source just becomes another blast competing for the same domains. This is a Claude Code / Catalina job we can stand up in days on top of the existing <code>cold-email</code> pipeline.</p>
+      <div class="ap-value"><div class="ap-value-num">1</div><div class="ap-value-body"><h4>Qualify</h4><p>An LLM reads each lead (store, products, ad creative, the hiring JD) and returns keep or drop with a written reason. The reasons feed back to sharpen the ICP every run.</p></div></div>
+      <div class="ap-value"><div class="ap-value-num">2</div><div class="ap-value-body"><h4>Score</h4><p>Tier each qualified lead 1, 2, or 3 on fit plus timing. Saying no is most of the job.</p></div></div>
+      <div class="ap-value"><div class="ap-value-num">3</div><div class="ap-value-body"><h4>Dedupe</h4><p>One brand often fires three signals in a week. Normalize and act once, instead of mailing them three cold emails.</p></div></div>
+      <div class="ap-value"><div class="ap-value-num">4</div><div class="ap-value-body"><h4>Route</h4><p>Tier 1 gets a manual BIE teardown plus a short Loom from Nehal. Tier 2 and 3 drop into automated Instantly sequences.</p></div></div>
+      <div class="ap-value"><div class="ap-value-num">5</div><div class="ap-value-body"><h4>Score awareness, then loop</h4><p>Accumulate signals per account. When an account gets hot enough, escalate to a human touch. Pipe every reply and outcome back so next month's list starts smarter.</p></div></div>
+    </section>
+
+    <!-- RANKING -->
+    <section class="ap-section" id="ranking" data-toc-title="The ranked 20">
+      <div class="ap-section-label"><span class="num">03</span> / The ranked 20</div>
+      <h3 class="ap-h2" style="margin-bottom:10px;">Every campaign, scored</h3>
+      <p class="ap-p" style="max-width:72ch; margin-bottom:22px;">Scored 1 to 5 on <strong style="color:#fff;">Intent</strong> (how hot), <strong style="color:#fff;">Volume</strong> (how many leads), <strong style="color:#fff;">Ease</strong> (buildable on what we run today), and <strong style="color:#fff;">Edge</strong> (how well the BIE teardown fits the offer). Total out of 20. Ranking breaks ties toward what we can ship now and where BIE is sharpest.</p>
+      <div class="ap-table-wrap">
+        <table class="ap-rank">
+          <thead><tr><th style="text-align:center;">#</th><th>Campaign</th><th style="text-align:center;">Int</th><th style="text-align:center;">Vol</th><th style="text-align:center;">Ease</th><th style="text-align:center;">Edge</th><th style="text-align:center;">Total</th><th>Wave</th></tr></thead>
+          <tbody>
+            <tr class="w1"><td class="r">1</td><td class="name">Creative fatigue</td><td>5</td><td>4</td><td>5</td><td>5</td><td class="score">19</td><td><span class="wave-tag w-now">Now</span></td></tr>
+            <tr class="w1"><td class="r">2</td><td class="name">New advertiser ramp</td><td>4</td><td>4</td><td>5</td><td>4</td><td class="score">17</td><td><span class="wave-tag w-now">Now</span></td></tr>
+            <tr class="w1"><td class="r">3</td><td class="name">Hiring for paid roles</td><td>4</td><td>5</td><td>5</td><td>3</td><td class="score">17</td><td><span class="wave-tag w-now">Now</span></td></tr>
+            <tr class="w1"><td class="r">4</td><td class="name">Email re-engagement</td><td>4</td><td>4</td><td>5</td><td>3</td><td class="score">16</td><td><span class="wave-tag w-now">Now</span></td></tr>
+            <tr><td class="r">5</td><td class="name">High creative velocity</td><td>3</td><td>3</td><td>5</td><td>4</td><td class="score">15</td><td><span class="wave-tag w-next">Next</span></td></tr>
+            <tr><td class="r">6</td><td class="name">Channel expansion</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="score">15</td><td><span class="wave-tag w-next">Next</span></td></tr>
+            <tr><td class="r">7</td><td class="name">Website de-anonymization</td><td>5</td><td>3</td><td>3</td><td>4</td><td class="score">15</td><td><span class="wave-tag w-next">Next</span></td></tr>
+            <tr><td class="r">8</td><td class="name">Q4 / BFCM ramp <span style="color:var(--grey-300);font-weight:400;">(timed)</span></td><td>3</td><td>5</td><td>4</td><td>3</td><td class="score">15</td><td><span class="wave-tag w-next">Next</span></td></tr>
+            <tr><td class="r">9</td><td class="name">Reposted paid role</td><td>5</td><td>2</td><td>4</td><td>3</td><td class="score">14</td><td><span class="wave-tag w-build">Build</span></td></tr>
+            <tr><td class="r">10</td><td class="name">New growth exec hire</td><td>4</td><td>3</td><td>4</td><td>3</td><td class="score">14</td><td><span class="wave-tag w-build">Build</span></td></tr>
+            <tr><td class="r">11</td><td class="name">New product / campaign launch</td><td>3</td><td>3</td><td>4</td><td>4</td><td class="score">14</td><td><span class="wave-tag w-build">Build</span></td></tr>
+            <tr><td class="r">12</td><td class="name">Lookalike to best clients</td><td>3</td><td>4</td><td>3</td><td>4</td><td class="score">14</td><td><span class="wave-tag w-build">Build</span></td></tr>
+            <tr><td class="r">13</td><td class="name">Engagement mining</td><td>3</td><td>4</td><td>3</td><td>3</td><td class="score">13</td><td><span class="wave-tag w-build">Build</span></td></tr>
+            <tr><td class="r">14</td><td class="name">Agency churn <span style="color:var(--grey-300);font-weight:400;">(always-on)</span></td><td>5</td><td>2</td><td>2</td><td>4</td><td class="score">13</td><td><span class="wave-tag w-comp">Compounding</span></td></tr>
+            <tr><td class="r">15</td><td class="name">DTC funding</td><td>3</td><td>3</td><td>4</td><td>3</td><td class="score">13</td><td><span class="wave-tag w-comp">Compounding</span></td></tr>
+            <tr><td class="r">16</td><td class="name">Customer alumni movement</td><td>4</td><td>2</td><td>3</td><td>4</td><td class="score">13</td><td><span class="wave-tag w-comp">Compounding</span></td></tr>
+            <tr><td class="r">17</td><td class="name">Partner referral flywheel</td><td>5</td><td>1</td><td>2</td><td>5</td><td class="score">13</td><td><span class="wave-tag w-comp">Compounding</span></td></tr>
+            <tr><td class="r">18</td><td class="name">Tool / tech install</td><td>3</td><td>3</td><td>2</td><td>3</td><td class="score">11</td><td><span class="wave-tag w-later">Later</span></td></tr>
+            <tr><td class="r">19</td><td class="name">New Shopify launch / replatform</td><td>2</td><td>4</td><td>3</td><td>2</td><td class="score">11</td><td><span class="wave-tag w-later">Later</span></td></tr>
+            <tr><td class="r">20</td><td class="name">Review / traffic growth spike</td><td>2</td><td>3</td><td>3</td><td>2</td><td class="score">10</td><td><span class="wave-tag w-later">Later</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CAMPAIGNS -->
+    <section class="ap-section" id="campaigns" data-toc-title="The 20, in detail">
+      <div class="ap-section-label"><span class="num">04</span> / The 20, in detail</div>
+      <h3 class="ap-h2" style="margin-bottom:8px;">Each campaign, with the trigger, the offer, the tech, and the data we're ignoring</h3>
+      <p class="ap-p" style="max-width:72ch; margin-bottom:8px;">Every card carries the four things we need to launch it: the <strong style="color:#fff;">signal</strong> that fires it, the <strong style="color:#fff;">BIE offer</strong> we lead with, the <strong style="color:#fff;">tech and source</strong> that detects it, and the <strong style="color:var(--yellow);">untapped data</strong> point we have access to but aren't using today.</p>
+
+      <h4 class="ap-h4" style="margin:36px 0 4px; display:flex; align-items:center; gap:10px;">Wave 1 <span class="wave-tag w-now">Launch now</span></h4>
+      <p class="ap-caption" style="margin-bottom:16px;">Runs on the ad-library infrastructure and owned data we already have.</p>
+
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">1</span><h5 class="camp-name">Creative fatigue</h5><span class="camp-score">Total 19</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Running Meta ads, but the same creatives have been live 60+ days, or fewer than ~5 active ads. Visible stagnation.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A free teardown of the exact stale ads, plus three fresh angles we'd test.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Meta Ad Library API (metapi, already running) reading creative age and count; Foreplay or Atria for creative-level depth.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Creative age and active-creative count. We check has / has-not a library and ignore the fields where fatigue actually shows.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">2</span><h5 class="camp-name">New advertiser ramp</h5><span class="camp-score">Total 17</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>First Meta ad appeared in the last 30 to 90 days. Scaling, and no agency locked in yet.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A read on what tends to break at their spend level, plus a starter testing plan.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>A first-seen date filter on the existing Meta Ad Library pull.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Advertiser first-seen date. We never read it, so we can't tell a three-year advertiser from a three-week one.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">3</span><h5 class="camp-name">Hiring for paid roles</h5><span class="camp-score">Total 17</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>An open req for a media buyer, performance / growth marketer, creative strategist, UGC lead, or AI video creator. Budget plus intent in one signal.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A teardown of what that role struggles with in its first 90 days, and how we'd cover it now.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Greenhouse, Lever, and Ashby public boards (free, no auth), LinkedIn Jobs, Indeed, Apify job scrapers.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>The job-description text, not just the title. The JD names their actual pain in their own words.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">4</span><h5 class="camp-name">Email re-engagement</h5><span class="camp-score">Total 16</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A past Instantly recipient who opened or clicked but never replied. Already warm, costs nothing.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>"You opened this last month, here's the teardown I mentioned."</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Instantly engagement logs we already own.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Our own open and click data. We treat past sends as spent; they're a warm list sitting right there.</div>
+      </div>
+
+      <h4 class="ap-h4" style="margin:36px 0 4px; display:flex; align-items:center; gap:10px;">Wave 2 <span class="wave-tag w-next">Next</span></h4>
+      <p class="ap-caption" style="margin-bottom:16px;">Light new build, high intent.</p>
+
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">5</span><h5 class="camp-name">High creative velocity</h5><span class="camp-score">Total 15</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>20+ active creatives. A sophisticated, creative-hungry advertiser. Best-fit, highest-LTV account.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A competitive creative benchmark against their category leaders.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Meta Ad Library creative count; Foreplay or Magicbrief to rank by volume.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Creative count as a fit score. High velocity means they value creative, which makes them an ideal client.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">6</span><h5 class="camp-name">Channel expansion</h5><span class="camp-score">Total 15</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A Meta-only brand that just started running TikTok ads, or the reverse. Expanding paid footprint, needs multi-channel help.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A read on porting their winning Meta angles to the new channel without burning spend.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Cross-reference the Meta Ad Library against the TikTok Creative Center.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Channel count. We look at one platform; the second-channel start is the buying moment.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">7</span><h5 class="camp-name">Website de-anonymization</h5><span class="camp-score">Total 15</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A brand that visited adpros.com but didn't book. The highest-intent first-party signal there is.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>"Saw your team looking at us, here's a teardown so the trip was worth it."</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>RB2B on adpros.com for company-level de-anonymization.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Our own site traffic. We don't know who's already shopping us.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">8</span><h5 class="camp-name">Q4 / BFCM ramp</h5><span class="camp-score">Total 15 &middot; timed</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Spend and creative count climbing into peak season. Launch this in August.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A BFCM creative and offer audit before the window closes.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Meta Ad Library spend and creative trend, gated to seasonal timing.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Spend trend over time. A point-in-time check misses the ramp entirely.</div>
+      </div>
+
+      <h4 class="ap-h4" style="margin:36px 0 4px; display:flex; align-items:center; gap:10px;">Wave 3 <span class="wave-tag w-build">Build</span></h4>
+      <p class="ap-caption" style="margin-bottom:16px;">More enrichment or a new source to wire in.</p>
+
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">9</span><h5 class="camp-name">Reposted paid role</h5><span class="camp-score">Total 14</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>The same paid req posted twice. The first hire fell through, so the pain is more acute than a single post. Run as a hot filter on top of campaign 3.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>"Bridge the gap while you hire, here's the plan."</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Greenhouse / Lever / Ashby plus LinkedIn, diffing repost dates.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Repost detection. We'd never see the duplicate without tracking posting history.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">10</span><h5 class="camp-name">New growth exec hire</h5><span class="camp-score">Total 14</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A CMO, VP Growth, or Head of Performance who joined a DTC brand in the last 90 days. Wants a quick win, open to new agencies.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A 90-day paid plan tailored to the brand they just inherited.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>LinkedIn job-change feed via Trigify or Clay; Apollo for the title.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Exec tenure. The under-90-days window is the opening, and we don't track it.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">11</span><h5 class="camp-name">New product / campaign launch</h5><span class="camp-score">Total 14</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A fresh creative cluster in the ad library this month. A new product or a new push.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A launch-creative teardown with angles to scale the winner.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Meta Ad Library creative-cluster detection (batch of new creatives, dated).</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Creative launch clusters. We see that ads exist, not that a batch just dropped.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">12</span><h5 class="camp-name">Lookalike to best clients</h5><span class="camp-score">Total 14</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Direct competitors of our closed-won brands. Account-based targeting by category.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>"We run [category leader]. Here's what we'd do for you," plus a comparative teardown.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Storeleads or Charm.io category and competitor sets; Meta Ad Library competitive sets.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>A competitor graph anchored on our own client roster. We don't mine our wins for lookalikes.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">13</span><h5 class="camp-name">Engagement mining</h5><span class="camp-score">Total 13</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Liked or commented on a competitor agency's or ad influencer's post about creative, CAC, or scaling.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A teardown that picks up the exact thread they engaged with.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Gojiberry or Trigify; PhantomBuster or Apify on LinkedIn post engagers.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>The engagement graph. We don't watch who reacts to our category's content.</div>
+      </div>
+
+      <h4 class="ap-h4" style="margin:36px 0 4px; display:flex; align-items:center; gap:10px;">Wave 4 <span class="wave-tag w-comp">Compounding</span></h4>
+      <p class="ap-caption" style="margin-bottom:16px;">Owned and always-on motions that build an asset over time.</p>
+
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">14</span><h5 class="camp-name">Agency churn</h5><span class="camp-score">Total 13 &middot; always-on</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Dropped an agency's UTM or pixel, or a public "looking for a new agency" post. The hottest moment that exists. Low volume, premium, manual Tier 1 touch.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A same-week BIE teardown plus a transition plan, ideally a short Loom from Nehal.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>BuiltWith or Wappalyzer pixel changes; Reddit, X, and LinkedIn keyword monitors.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Tech-stack change over time and social complaint monitoring. We capture neither today.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">15</span><h5 class="camp-name">DTC funding</h5><span class="camp-score">Total 13</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Just raised seed or Series A. Fresh budget with a growth mandate.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A category growth benchmark and where the new budget compounds fastest.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Crunchbase or Tracxn; funding news feeds.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Funding events. Not in our current pull at all.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">16</span><h5 class="camp-name">Customer alumni movement</h5><span class="camp-score">Total 13</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A marketer who worked at a happy AdPros client just landed at a new brand. A warm intro disguised as a cold lead.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>"We drove results for you at [prior brand], let's do it here."</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>LinkedIn job-change tracking mapped against the client roster.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>The client-alumni graph. We don't track where past contacts go.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">17</span><h5 class="camp-name">Partner referral flywheel</h5><span class="camp-score">Total 13</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A warm lead surfaced through the partner / ecosystem network. Highest trust, lowest volume to start.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A co-branded teardown delivered through the referring partner.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>A structured partner program plus CRM referral tracking.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>A partner-referral motion feeding outbound. It doesn't exist yet, and it's squarely in TG's wheelhouse.</div>
+      </div>
+
+      <h4 class="ap-h4" style="margin:36px 0 4px; display:flex; align-items:center; gap:10px;">Wave 5 <span class="wave-tag w-later">Later</span></h4>
+      <p class="ap-caption" style="margin-bottom:16px;">More tooling to wire in, or lower intent and volume.</p>
+
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">18</span><h5 class="camp-name">Tool / tech install</h5><span class="camp-score">Total 11</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Just added Triple Whale, Northbeam, or a new attribution / Klaviyo stack. Scaling paid and measurement-minded.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A read on what the new data will reveal and how to act on it.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>BuiltWith, Wappalyzer, or HG Insights technographics.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Technographic change detection. Not wired in.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">19</span><h5 class="camp-name">New Shopify launch / replatform</h5><span class="camp-score">Total 11</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>A new Shopify store, or a migration to Shopify Plus. Investing in infrastructure to scale.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A launch ad strategy, or a scale-up audit for the replatform.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Storeleads or BuiltWith new-store and platform-tier detection.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Platform-tier and store-age data. Not in our pull.</div>
+      </div>
+      <div class="camp">
+        <div class="camp-head"><span class="camp-rank">20</span><h5 class="camp-name">Review / traffic growth spike</h5><span class="camp-score">Total 10</span></div>
+        <div class="camp-row"><span class="lbl">Signal</span>Fast-climbing review counts or a traffic spike. A brand visibly scaling and likely outgrowing its current setup.</div>
+        <div class="camp-row"><span class="lbl">Offer</span>A "you're scaling, here's where paid breaks next" teardown.</div>
+        <div class="camp-row"><span class="lbl">Detect with</span>Trustpilot, Yotpo, or Okendo review velocity; SimilarWeb traffic trend.</div>
+        <div class="camp-row"><span class="lbl untapped">Untapped</span>Review-count and traffic trendlines. We don't track momentum.</div>
+      </div>
+    </section>
+
+    <!-- TECH -->
+    <section class="ap-section" id="tech" data-toc-title="The tech stack">
+      <div class="ap-section-label"><span class="num">05</span> / The tech</div>
+      <h3 class="ap-h2" style="margin-bottom:10px;">The stack, by function</h3>
+      <p class="ap-p" style="max-width:72ch; margin-bottom:22px;">Tools cluster into eight jobs. Green means we already run it. Yellow means it's a net-new add. We don't need all of these; we need the few that each feed a campaign above.</p>
+      <div class="ap-grid-2">
+        <div class="ap-card ref-card"><h4>Ad intelligence</h4><ul>
+          <li>Meta Ad Library API <span class="pill-have">have</span></li>
+          <li>TikTok Creative Center <span class="pill-new">new</span></li>
+          <li>Foreplay / Atria / Magicbrief <span class="k">— creative-level depth</span> <span class="pill-new">new</span></li>
+          <li>AdSpy / PiPiADS <span class="k">— ad-spy breadth</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>DTC store databases</h4><ul>
+          <li>Storeleads <span class="k">— revenue, tech, growth</span> <span class="pill-new">new</span></li>
+          <li>Charm.io <span class="k">— DTC brand intelligence</span> <span class="pill-new">new</span></li>
+          <li>BuiltWith / Wappalyzer <span class="k">— tech targeting</span></li>
+          <li>SimilarWeb / myip.ms <span class="k">— traffic</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Contact + firmographic</h4><ul>
+          <li>Apollo <span class="pill-have">have</span></li>
+          <li>Clay <span class="k">— orchestration spine</span> <span class="pill-new">new</span></li>
+          <li>Findymail / BetterContact <span class="k">— find + verify</span></li>
+          <li>In-house find-email / verify tooling <span class="pill-have">have</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Hiring</h4><ul>
+          <li>Greenhouse / Lever / Ashby <span class="k">— free, no auth</span> <span class="pill-new">new</span></li>
+          <li>LinkedIn Jobs / Indeed</li>
+          <li>Apify job scrapers</li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Engagement + social</h4><ul>
+          <li>Gojiberry / Trigify <span class="k">— LinkedIn engagement</span> <span class="pill-new">new</span></li>
+          <li>RB2B <span class="k">— website de-anon</span> <span class="pill-new">new</span></li>
+          <li>PhantomBuster / Apify <span class="k">— LinkedIn scrape</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Funding + reviews</h4><ul>
+          <li>Crunchbase / Tracxn <span class="k">— funding</span> <span class="pill-new">new</span></li>
+          <li>Trustpilot / Yotpo / Okendo <span class="k">— reviews</span></li>
+          <li>G2 / Capterra <span class="k">— competitor reviews</span></li>
+          <li>Reddit / X <span class="k">— complaint monitoring</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Orchestration + brain</h4><ul>
+          <li>Clay + Claygent <span class="k">— signal aggregation</span></li>
+          <li>Apify <span class="k">— scraping</span> &middot; n8n / Make <span class="k">— glue</span></li>
+          <li>Claude Code / Catalina <span class="k">— qualify + score</span> <span class="pill-have">have</span></li>
+          <li>AdPros BIE pipeline <span class="k">— the offer engine</span> <span class="pill-have">have</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Sending + owned data</h4><ul>
+          <li>Instantly <span class="k">— email</span> <span class="pill-have">have</span></li>
+          <li>HeyReach <span class="k">— LinkedIn DMs</span> <span class="pill-new">new</span></li>
+          <li>Resend nurturing hub <span class="pill-have">have</span></li>
+          <li>Stripe Directory <span class="k">— lead source</span> <span class="pill-have">have</span></li>
+        </ul></div>
+      </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section class="ap-section" id="sources" data-toc-title="Places & sources">
+      <div class="ap-section-label"><span class="num">06</span> / Places &amp; sources</div>
+      <h3 class="ap-h2" style="margin-bottom:10px;">Where the signals live, and what we tap to get them</h3>
+      <div class="ap-grid-2">
+        <div class="ap-card ref-card"><h4>The places (where a signal shows up)</h4><ul>
+          <li>Meta Ad Library &amp; TikTok Creative Center <span class="k">— active ads</span></li>
+          <li>Job boards <span class="k">— Greenhouse, Lever, Ashby, LinkedIn, Indeed</span></li>
+          <li>LinkedIn <span class="k">— posts, ads, profiles, job-change feed</span></li>
+          <li>The Shopify ecosystem &amp; tech graph <span class="k">— BuiltWith, Storeleads</span></li>
+          <li>Crunchbase &amp; the press cycle <span class="k">— funding</span></li>
+          <li>Review sites &amp; communities <span class="k">— Trustpilot, G2, Reddit, X</span></li>
+          <li>Our own surfaces <span class="k">— adpros.com, the Instantly inbox, the Resend list, the Stripe directory, the client roster</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Lead sources to tap beyond Apollo</h4><ul>
+          <li>Storeleads + Charm.io <span class="k">— the biggest single unlock for a DTC ICP</span></li>
+          <li>Meta Ad Library direct + TikTok Creative Center <span class="k">— pull whole advertiser sets</span></li>
+          <li>Foreplay / Atria / Magicbrief <span class="k">— rank brands by creative volume</span></li>
+          <li>Greenhouse / Lever / Ashby <span class="k">— hiring, free</span></li>
+          <li>Gojiberry / Trigify <span class="k">— engagement</span></li>
+          <li>RB2B <span class="k">— our own site visitors</span></li>
+          <li>Crunchbase &middot; BuiltWith &middot; Stripe Directory <span class="k">— funding, tech, payments</span></li>
+        </ul></div>
+      </div>
+    </section>
+
+    <!-- UNTAPPED -->
+    <section class="ap-section" id="untapped" data-toc-title="What we're not using">
+      <div class="ap-section-label"><span class="num">07</span> / What we're not using yet</div>
+      <h3 class="ap-h2" style="margin-bottom:10px;">The data sitting right there that we ignore</h3>
+      <p class="ap-p" style="max-width:72ch; margin-bottom:22px;">Today the ad-library check is binary: has a library, or doesn't. The same pull, and a few cheap enrichments, carry far more. This is the raw material for almost every campaign above.</p>
+      <div class="ap-grid-2">
+        <div class="ap-card ref-card"><h4>Inside the ad data we already pull</h4><ul>
+          <li>Advertiser first-seen date <span class="k">— new vs established</span></li>
+          <li>Creative count, age, and refresh cadence <span class="k">— fatigue and velocity</span></li>
+          <li>Creative format mix <span class="k">— static vs video vs UGC, what they lack</span></li>
+          <li>The ad's actual offer, angle, and landing page</li>
+          <li>Estimated spend / impressions tier <span class="k">— qualify by size</span></li>
+          <li>Number of channels they run <span class="k">— Meta-only vs multi</span></li>
+          <li>Creative launch clusters <span class="k">— a batch just dropped</span></li>
+        </ul></div>
+        <div class="ap-card ref-card"><h4>Cheap enrichments and our own exhaust</h4><ul>
+          <li>Store revenue band + employee count <span class="k">— Storeleads / Charm</span></li>
+          <li>Tech-stack signals <span class="k">— Triple Whale, Northbeam, replatform</span></li>
+          <li>Review-count growth + traffic trend <span class="k">— momentum</span></li>
+          <li>The hiring JD text <span class="k">— pain in their words</span></li>
+          <li>Reposted-role flag &middot; new-exec tenure</li>
+          <li>The LinkedIn engagement graph <span class="k">— who reacts to our category</span></li>
+          <li>Our first-party exhaust <span class="k">— opens, clicks, site visits, the Resend list, client alumni</span></li>
+        </ul></div>
+      </div>
+    </section>
+
+    <!-- LAUNCH -->
+    <section class="ap-section" id="launch" data-toc-title="The launch sequence">
+      <div class="ap-section-label"><span class="num">08</span> / The launch sequence</div>
+      <h3 class="ap-h2" style="margin-bottom:18px;">Walk down this, one at a time</h3>
+      <div class="ap-value"><div class="ap-value-num" style="font-size:15px;">W1</div><div class="ap-value-body"><h4>Now &middot; runs on what we have</h4><p>Creative fatigue, new advertiser ramp, hiring for paid roles. Email re-engagement runs in parallel this week because it costs nothing. All four ride the ad-library pull and owned data.</p></div></div>
+      <div class="ap-value"><div class="ap-value-num" style="font-size:15px;">W2</div><div class="ap-value-body"><h4>Next &middot; light new build</h4><p>High creative velocity, channel expansion, website de-anonymization, and the Q4 / BFCM ramp (timed to start in August).</p></div></div>
+      <div class="ap-value"><div class="ap-value-num" style="font-size:15px;">W3</div><div class="ap-value-body"><h4>Build &middot; more enrichment</h4><p>Reposted paid role (a filter on top of hiring), new growth exec, new product launches, lookalike to best clients, and engagement mining (the Mindflow play; start with one competitor and one influencer).</p></div></div>
+      <div class="ap-value"><div class="ap-value-num" style="font-size:15px;">W4</div><div class="ap-value-body"><h4>Compounding &middot; build the asset</h4><p>Agency churn as an always-on alert with a manual touch, DTC funding, customer alumni, and the partner-referral flywheel started small in parallel.</p></div></div>
+      <div class="ap-value"><div class="ap-value-num" style="font-size:15px;">W5</div><div class="ap-value-body"><h4>Later &middot; more tooling</h4><p>Tool installs, new Shopify launches, and review / traffic spikes. Prioritized by what pipeline-by-source tells us after the earlier waves run.</p></div></div>
+      <div class="toast-warn" style="margin-top:18px; max-width:80ch;">Measure pipeline-by-signal-source, not meetings booked. Meetings are the easiest number to inflate and the least connected to revenue. Pipeline-by-source tells us which signal to pour into and which to kill.</div>
+    </section>
+
+    <!-- START -->
+    <section class="ap-section" id="start" data-toc-title="Start here">
+      <div class="ap-section-label"><span class="num">09</span> / Start here</div>
+      <h3 class="ap-h2" style="margin-bottom:14px;">Creative fatigue, this week</h3>
+      <p class="ap-p" style="max-width:72ch;">It's the highest-scoring campaign, it runs on infrastructure we already have, and it's the cleanest proof that the BIE-as-offer thesis works before we invest in new signal sources.</p>
+      <div class="ap-grid-3" style="margin-top:22px;">
+        <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:8px;">1. Add the filter</h4><p class="ap-p-sm">Extend the metapi pull to read creative age and active-creative count. Flag brands with stale or thin creative.</p></div>
+        <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:8px;">2. Build the give</h4><p class="ap-p-sm">A thin BIE creative teardown of their flat ads, with three angles to test. This is the email, not a pitch.</p></div>
+        <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:8px;">3. Ship 200</h4><p class="ap-p-sm">A small, high-intent list through the qualification brain into Instantly. Read pipeline-by-source, then walk down the list.</p></div>
+      </div>
+    </section>
+
+  </div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36" style="opacity:0.5">
+        <rect width="81" height="81" fill="#040735"/>
+        <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+        <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+        <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+        <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+        <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+        <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+        <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+      </svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Tyler Gillespie &middot; June 23, 2026</p>
+  </footer>
+  <script>
+  (function(){
+    var toc = document.getElementById('ap-toc');
+    var list = document.getElementById('ap-toc-list');
+    if(!toc || !list) return;
+    var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
+    if(sections.length < 4) return;
+    sections.forEach(function(sec){
+      var label = sec.getAttribute('data-toc-title')
+        || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.className = 'ap-toc-item';
+      a.href = '#' + sec.id;
+      a.textContent = label;
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    toc.classList.add('visible');
+    document.body.classList.add('ap-has-toc');
+    list.addEventListener('click', function(ev){
+      var a = ev.target.closest('.ap-toc-item');
+      if(!a) return;
+      ev.preventDefault();
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if(!el) return;
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+      history.replaceState(null, '', '#' + id);
+    });
+    var items = Array.from(list.querySelectorAll('.ap-toc-item'));
+    function setActive(id){
+      items.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+    }
+    var observer = new IntersectionObserver(function(entries){
+      var visible = entries.filter(function(e){ return e.isIntersecting; })
+                           .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
+      if(visible.length > 0) setActive(visible[0].target.id);
+    }, { rootMargin: '-100px 0px -70% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+    var initialActive = sections.find(function(s){
+      var r = s.getBoundingClientRect();
+      return r.top < window.innerHeight * 0.3 && r.bottom > 0;
+    });
+    if(initialActive) setActive(initialActive.id);
+  })();
+  </script>
+</div>
+</body>
+</html>
