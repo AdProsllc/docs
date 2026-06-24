@@ -136,6 +136,30 @@
     .ap-loop-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
     .ap-loop-tag { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--navy); background: var(--yellow); padding: 4px 10px; border-radius: 6px; font-weight: 600; }
 
+    /* VISUAL MAP */
+    .ap-foundation { background: linear-gradient(180deg, rgba(249,217,0,0.06), rgba(7,11,61,0.45)); border: 1px solid rgba(249,217,0,0.35); border-radius: var(--radius); padding: 18px; }
+    .ap-foundation .ribbon { display: inline-block; background: var(--yellow); color: var(--navy); font-size: 10.5px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 11px; border-radius: 999px; margin-bottom: 13px; }
+    .ap-found-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 560px) { .ap-found-grid { grid-template-columns: 1fr; } }
+    .ap-found-card { background: var(--navy-deep); border: 1px solid var(--card-border-strong); border-radius: 8px; padding: 14px; }
+    .ap-found-card h5 { color: var(--yellow); font-size: 13px; margin-bottom: 6px; }
+    .ap-found-card p { font-size: 12.5px; color: var(--grey-200); line-height: 1.5; }
+    .ap-flowdown { text-align: center; color: var(--yellow); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin: 14px 0; }
+    .ap-loopnode { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 16px; }
+    .ap-loopnode .tag { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--navy); background: var(--yellow); padding: 2px 9px; border-radius: 5px; font-weight: 700; }
+    .ap-loopnode h4 { color: #fff; font-size: 16px; margin: 9px 0 3px; }
+    .ap-loopnode .role { font-size: 13px; color: var(--grey-200); margin-bottom: 10px; }
+    .ap-chip { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--card-border-strong); color: var(--grey-200); margin: 3px 4px 0 0; }
+    .ap-chip.gate { border-color: rgba(212,38,32,0.45); color: #ffbdbb; background: rgba(212,38,32,0.08); }
+    .ap-chip.trig { border-color: rgba(249,217,0,0.45); color: #ffe57d; background: rgba(249,217,0,0.08); }
+    .ap-chip.feed { border-color: rgba(26,111,212,0.45); color: #b1d5ff; background: rgba(26,111,212,0.1); }
+    .ap-shape { display: flex; align-items: center; gap: 18px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 10px; flex-wrap: wrap; }
+    .ap-shape svg { flex: 0 0 auto; }
+    .ap-shape .meta { min-width: 160px; flex: 1; }
+    .ap-shape .meta h4 { color: #fff; font-size: 15px; margin-bottom: 3px; }
+    .ap-shape .meta h4 span { font-family: "JetBrains Mono", monospace; color: var(--yellow); font-size: 13px; margin-right: 6px; }
+    .ap-shape .meta p { font-size: 13px; color: var(--grey-200); line-height: 1.5; }
+
     @media (max-width: 640px) {
       .ap-header, .ap-content { padding-left: 22px; padding-right: 22px; }
       .ap-footer { margin-left: 22px; margin-right: 22px; }
@@ -161,6 +185,7 @@
       <button class="ap-tab" role="tab" onclick="apShowTab('panel-b1', this)">B1 &middot; Detector</button>
       <button class="ap-tab" role="tab" onclick="apShowTab('panel-b2', this)">B2 &middot; Diagnostician</button>
       <button class="ap-tab" role="tab" onclick="apShowTab('panel-c', this)">C &middot; Strategy Engine</button>
+      <button class="ap-tab" role="tab" onclick="apShowTab('panel-viz', this)">Visual Map</button>
       <button class="ap-tab" role="tab" onclick="apShowTab('panel-faq', this)">FAQ &amp; Paper Trail</button>
     </div>
 
@@ -459,6 +484,120 @@
           <li>Max regeneration iterations before it escalates to a human?</li>
           <li>Does its testing-plan output feed back into Loop A's reporting and B1's thresholds — closing the loop?</li>
         </ul>
+      </div>
+    </div>
+
+    <!-- ============ PANEL: VISUAL MAP ============ -->
+    <div class="ap-panel" id="panel-viz" role="tabpanel">
+      <div class="ap-section">
+        <div class="ap-kicker">Visual map</div>
+        <h2 class="ap-h2" style="margin-bottom:6px;">How the loops fit together</h2>
+        <p class="ap-p">One shared foundation feeds four loops. Two are deterministic workflows (A, B1); two are agentic and form the moat (B2, C). B1 triggers B2; C feeds creative production. Every loop ends at a human gate.</p>
+      </div>
+
+      <div class="ap-section">
+        <h3 class="ap-h4" style="margin-bottom:14px;">The system</h3>
+        <div class="ap-foundation">
+          <span class="ribbon">Keystone &middot; build once, reuse</span>
+          <div class="ap-found-grid">
+            <div class="ap-found-card"><h5>Structured data</h5><p>Media Intelligence Pipeline &middot; BigQuery &middot; AdManage &middot; Northbeam / Triple Whale &middot; offer &amp; funnel via naming conventions</p></div>
+            <div class="ap-found-card"><h5>Grounding / retrieval layer</h5><p>9 Dimensions &middot; breakthrough classification &middot; brand copy guides &middot; methodology SOPs &middot; ad-matrix guide &middot; customer-voice &middot; win-data</p></div>
+          </div>
+        </div>
+
+        <div class="ap-flowdown">&darr;&nbsp;&nbsp;feeds&nbsp;&nbsp;&darr;</div>
+
+        <div class="ap-grid-2">
+          <div class="ap-loopnode">
+            <span class="tag">A</span>
+            <h4>Report Assembly</h4>
+            <p class="role">Pull + join data &rarr; render the draft report.</p>
+            <span class="ap-chip">Fed by: data</span>
+            <span class="ap-chip gate">Human gate: before client send</span>
+          </div>
+          <div class="ap-loopnode">
+            <span class="tag">B1</span>
+            <h4>Detector</h4>
+            <p class="role">Every 1&ndash;3 hrs, threshold check &rarr; Slack alert.</p>
+            <span class="ap-chip">Fed by: data</span>
+            <span class="ap-chip trig">Triggers &rarr; B2</span>
+            <span class="ap-chip">Notify only &middot; no write</span>
+          </div>
+          <div class="ap-loopnode">
+            <span class="tag">B2</span>
+            <h4>Diagnostician</h4>
+            <p class="role">Fan out 6 domain checks &rarr; cause + fix.</p>
+            <span class="ap-chip">Fed by: data + B1 alert</span>
+            <span class="ap-chip gate">Human gate: at the fix</span>
+          </div>
+          <div class="ap-loopnode">
+            <span class="tag">C</span>
+            <h4>Strategy Synthesis Engine</h4>
+            <p class="role">Generate angles / briefs / test plan &rarr; critic loop.</p>
+            <span class="ap-chip">Fed by: grounding + research</span>
+            <span class="ap-chip feed">Feeds &rarr; creative production</span>
+            <span class="ap-chip gate">Human gate: before production</span>
+          </div>
+        </div>
+
+        <div class="ap-flowdown" style="margin-top:18px;">&darr;&nbsp;&nbsp;every loop ends with a human&nbsp;&nbsp;&darr;</div>
+        <div class="ap-callout">A &rarr; client report &middot; B1 &rarr; alert in Slack &middot; B2 &rarr; you execute the fix &middot; C &rarr; you edit the briefs. Nothing touches spend, launch, or a client without a person in the loop.</div>
+      </div>
+
+      <div class="ap-section">
+        <h3 class="ap-h4" style="margin-bottom:14px;">Each loop's shape</h3>
+
+        <div class="ap-shape">
+          <svg width="185" height="70" viewBox="0 0 185 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><marker id="va1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8A8B93"/></marker></defs>
+            <g stroke="#8A8B93" stroke-width="2" marker-end="url(#va1)">
+              <line x1="27" y1="35" x2="48" y2="35"/><line x1="67" y1="35" x2="88" y2="35"/><line x1="107" y1="35" x2="128" y2="35"/><line x1="147" y1="35" x2="157" y2="35"/>
+            </g>
+            <g fill="#02041f" stroke="#F9D900" stroke-width="2"><circle cx="18" cy="35" r="9"/><circle cx="58" cy="35" r="9"/><circle cx="98" cy="35" r="9"/><circle cx="138" cy="35" r="9"/></g>
+            <rect x="159" y="23" width="14" height="24" rx="3" fill="#F9D900"/>
+          </svg>
+          <div class="meta"><h4><span>A</span>Sequential pipeline</h4><p>Fixed left-to-right steps, ending at a human gate (the yellow bar). Deterministic — no branching.</p></div>
+        </div>
+
+        <div class="ap-shape">
+          <svg width="150" height="80" viewBox="0 0 150 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><marker id="vb1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8A8B93"/></marker></defs>
+            <path d="M45,15 A25,25 0 1 1 20,40" fill="none" stroke="#8A8B93" stroke-width="2.5" marker-end="url(#vb1)"/>
+            <circle cx="45" cy="40" r="6" fill="#F9D900"/>
+            <line x1="76" y1="40" x2="103" y2="40" stroke="#8A8B93" stroke-width="2" marker-end="url(#vb1)"/>
+            <path d="M122,26 L135,52 L109,52 Z" fill="#02041f" stroke="#F9D900" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="120.5" y="36" width="3" height="8" rx="1.5" fill="#F9D900"/><circle cx="122" cy="48" r="1.7" fill="#F9D900"/>
+          </svg>
+          <div class="meta"><h4><span>B1</span>Recurring tripwire</h4><p>Runs on a cycle (every 1&ndash;3 hrs), and when a threshold trips it emits an alert. No reasoning — just detection.</p></div>
+        </div>
+
+        <div class="ap-shape">
+          <svg width="190" height="115" viewBox="0 0 190 115" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g stroke="#8A8B93" stroke-width="1.5">
+              <line x1="95" y1="29" x2="22" y2="52"/><line x1="95" y1="29" x2="51" y2="52"/><line x1="95" y1="29" x2="80" y2="52"/><line x1="95" y1="29" x2="110" y2="52"/><line x1="95" y1="29" x2="139" y2="52"/><line x1="95" y1="29" x2="168" y2="52"/>
+              <line x1="22" y1="68" x2="95" y2="89"/><line x1="51" y1="68" x2="95" y2="89"/><line x1="80" y1="68" x2="95" y2="89"/><line x1="110" y1="68" x2="95" y2="89"/><line x1="139" y1="68" x2="95" y2="89"/><line x1="168" y1="68" x2="95" y2="89"/>
+            </g>
+            <circle cx="95" cy="16" r="12" fill="#F9D900"/>
+            <g fill="#02041f" stroke="#F9D900" stroke-width="2"><circle cx="22" cy="60" r="8"/><circle cx="51" cy="60" r="8"/><circle cx="80" cy="60" r="8"/><circle cx="110" cy="60" r="8"/><circle cx="139" cy="60" r="8"/><circle cx="168" cy="60" r="8"/></g>
+            <circle cx="95" cy="100" r="12" fill="#02041f" stroke="#F9D900" stroke-width="2"/>
+          </svg>
+          <div class="meta"><h4><span>B2</span>Orchestrator &middot; fan-out / fan-in</h4><p>A lead agent (top) splits the job across 6 parallel domain sub-agents, then synthesizes their findings back into one answer (bottom).</p></div>
+        </div>
+
+        <div class="ap-shape">
+          <svg width="180" height="80" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><marker id="vd1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8A8B93"/></marker><marker id="vd2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#F9D900"/></marker></defs>
+            <path d="M58,32 Q82,18 106,32" fill="none" stroke="#8A8B93" stroke-width="2" marker-end="url(#vd1)"/>
+            <path d="M106,48 Q82,62 58,48" fill="none" stroke="#F9D900" stroke-width="2" marker-end="url(#vd2)"/>
+            <circle cx="45" cy="40" r="15" fill="#02041f" stroke="#F9D900" stroke-width="2"/>
+            <circle cx="120" cy="40" r="15" fill="#02041f" stroke="#F9D900" stroke-width="2"/>
+            <text x="45" y="44" text-anchor="middle" fill="#fff" font-size="9.5" font-family="JetBrains Mono, monospace">Gen</text>
+            <text x="120" y="44" text-anchor="middle" fill="#fff" font-size="9.5" font-family="JetBrains Mono, monospace">Critic</text>
+            <line x1="137" y1="40" x2="166" y2="40" stroke="#8A8B93" stroke-width="2" marker-end="url(#vd1)"/>
+          </svg>
+          <div class="meta"><h4><span>C</span>Generator&ndash;critic cycle</h4><p>The generator drafts, the critic scores it, and the yellow arrow loops back to regenerate until it passes &mdash; then it exits to the human.</p></div>
+        </div>
+
       </div>
     </div>
 
