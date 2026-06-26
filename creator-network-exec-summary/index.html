@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Creator Performance Network — Ad Pros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #06080d; margin: 0; }
+    #app { min-height: 100vh; }
+    input[type="range"] { -webkit-appearance: none; appearance: none; }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #F9D900; cursor: pointer; margin-top: -5px;
+    }
+    input[type="range"]::-webkit-slider-runnable-track { height: 5px; border-radius: 3px; background: #1a2030; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const C = {
+  bg: "#06080d", surface: "#0d1017", border: "#1a2030", white: "#f0ece4",
+  offWhite: "#b0ac9f", muted: "#5c5f6a", accent: "#F9D900",
+  accentDim: "rgba(249,217,0,0.12)", accentBorder: "rgba(249,217,0,0.25)",
+  green: "#34d399", greenDim: "rgba(52,211,153,0.1)", blue: "#60a5fa",
+  blueDim: "rgba(96,165,250,0.1)", purple: "#a78bfa",
+  purpleDim: "rgba(167,139,250,0.1)", red: "#f87171", orange: "#fb923c",
+  orangeDim: "rgba(251,146,60,0.1)",
+};
+const F = {
+  display: "'Instrument Serif', Georgia, serif",
+  body: "'DM Sans', 'Helvetica Neue', sans-serif",
+  mono: "'JetBrains Mono', 'SF Mono', monospace",
+};
+
+function useBp() {
+  const [w, setW] = useState(typeof window !== "undefined" ? window.innerWidth : 800);
+  useEffect(() => { const h = () => setW(window.innerWidth); window.addEventListener("resize", h); return () => window.removeEventListener("resize", h); }, []);
+  return { m: w < 640 };
+}
+
+function FadeIn({ children, delay = 0, style = {} }) {
+  const ref = useRef(null); const [v, setV] = useState(false);
+  useEffect(() => { const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setV(true); o.disconnect(); } }, { threshold: 0.08 }); if (ref.current) o.observe(ref.current); return () => o.disconnect(); }, []);
+  return <div ref={ref} style={{ opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(16px)", transition: `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`, ...style }}>{children}</div>;
+}
+
+const SL = ({ num, text, m }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: m ? 8 : 10, marginBottom: m ? 14 : 18 }}>
+    <span style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 700, color: C.accent, letterSpacing: "0.15em" }}>{num}</span>
+    <div style={{ height: 1, flex: 1, background: C.border }} />
+    <span style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted }}>{text}</span>
+  </div>
+);
+
+const Surf = ({ children, m, style = {} }) => <div style={{ background: C.surface, borderRadius: 14, border: `1px solid ${C.border}`, padding: m ? 16 : 22, ...style }}>{children}</div>;
+const ML = ({ children }) => <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 4 }}>{children}</div>;
+const Callout = ({ children, color = C.accent, bg = C.accentDim, m }) => <div style={{ padding: m ? "12px 14px" : "14px 18px", borderRadius: 12, background: bg, borderLeft: `3px solid ${color}`, fontSize: m ? 12 : 13, lineHeight: 1.7, color: C.offWhite }}>{children}</div>;
+
+const Slider = ({ label, value, onChange, min, max, step = 1, format, m, color = C.accent }) => {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState("");
+  const handleStart = () => { setDraft(String(value)); setEditing(true); };
+  const handleEnd = () => {
+    const parsed = parseFloat(draft.replace(/[^0-9.\-]/g, ""));
+    if (!isNaN(parsed)) onChange(Math.min(max, Math.max(min, Math.round(parsed / step) * step)));
+    setEditing(false);
+  };
+  return (
+    <div style={{ marginBottom: m ? 10 : 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
+        <span style={{ fontSize: 12, color: C.offWhite }}>{label}</span>
+        {editing ? (
+          <input type="text" value={draft} onChange={e => setDraft(e.target.value)}
+            onBlur={handleEnd} onKeyDown={e => { if (e.key === "Enter") handleEnd(); }}
+            autoFocus
+            style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color, background: C.bg, border: `1px solid ${color}`, borderRadius: 4, padding: "2px 6px", width: m ? 90 : 110, textAlign: "right", outline: "none" }} />
+        ) : (
+          <span onClick={handleStart} style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color, cursor: "pointer", padding: "2px 6px", borderRadius: 4, border: `1px solid transparent`, transition: "border-color 0.15s" }}
+            onMouseEnter={e => e.target.style.borderColor = `${color}50`}
+            onMouseLeave={e => e.target.style.borderColor = "transparent"}>
+            {format ? format(value) : value}
+          </span>
+        )}
+      </div>
+      <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(Number(e.target.value))}
+        style={{ width: "100%", height: 5, appearance: "none", background: C.border, borderRadius: 3, outline: "none", cursor: "pointer", accentColor: color }} />
+    </div>
+  );
+};
+
+// ============ TAB: OVERVIEW ============
+function OverviewTab({ m }) {
+  const fmt = n => n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : "$" + (n / 1e3).toFixed(0) + "K";
+  const data = [
+    { p: "Launch", b: 5, s: 50000, g: 100000 },
+    { p: "Growth", b: 15, s: 100000, g: 200000 },
+    { p: "Scale", b: 30, s: 250000, g: 500000 },
+    { p: "Mature", b: 50, s: 500000, g: 1000000 },
+  ];
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.7, color: C.offWhite, marginBottom: 20 }}>
+          Brands pay a <strong style={{ color: C.white }}>$5K/mo flat base</strong> funding organic creator content.
+          Ad Pros earns on <strong style={{ color: C.green }}>two axes</strong>: <strong style={{ color: C.accent }}>10% of creator network GMV</strong> (network management fee)
+          and <strong style={{ color: C.accent }}>10% of ad spend</strong> on creator content (7% kept, 3% to creators as bonus).
+        </p>
+
+        {/* KPI BAR */}
+        <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr 1fr", gap: m ? 8 : 2, padding: m ? 0 : "22px 10px", background: m ? "transparent" : C.surface, borderRadius: 14, border: m ? "none" : `1px solid ${C.border}`, marginBottom: 24 }}>
+          {[
+            { v: "$5K", l: "Base", s: "break-even", c: C.white },
+            { v: "10%", l: "Of GMV", s: "network fee", c: C.green },
+            { v: "10%", l: "Of Spend", s: "mgmt fee", c: C.accent },
+            { v: "7%", l: "AP Keeps", s: "of spend", c: C.white },
+            { v: "3%", l: "Creators", s: "bonus", c: C.offWhite },
+          ].map((k, i) => (
+            <div key={i} style={{ textAlign: "center", padding: m ? "14px 8px" : "6px 6px", background: m ? C.surface : "transparent", borderRadius: m ? 12 : 0, border: m ? `1px solid ${C.border}` : "none", borderRight: !m && i < 4 ? `1px solid ${C.border}` : "none" }}>
+              <div style={{ fontFamily: F.display, fontSize: m ? 24 : 30, fontStyle: "italic", color: k.c, lineHeight: 1 }}>{k.v}</div>
+              <div style={{ fontFamily: F.mono, fontSize: 8, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginTop: 6 }}>{k.l}</div>
+              <div style={{ fontSize: 10, color: C.offWhite, marginTop: 2 }}>{k.s}</div>
+            </div>
+          ))}
+        </div>
+      </FadeIn>
+
+      {/* HOW IT WORKS */}
+      <FadeIn delay={0.05} style={{ marginBottom: m ? 24 : 32 }}>
+        <SL num="01" text="How It Works" m={m} />
+        <Surf m={m}>
+          {[
+            { n: "1", t: "Base Fee → Content", d: "Brand pays $5,000/mo → funds ~33 creators × 30 posts = 990 organic UGC posts/month. Break-even for Ad Pros.", last: false },
+            { n: "2", t: "Creators Drive Sales", d: "Content drives purchases through TTS (in-app) and organic links (Shopify/Amazon). Creators earn 10-30% commission on sales directly from brand.", last: false },
+            { n: "3", t: "Ad Pros Earns 10% of GMV", d: "Network management fee. Ad Pros built the network, recruits/manages creators, handles QA, compliance, and optimization. 10% of total creator-driven GMV.", last: false },
+            { n: "4", t: "Brand Boosts Content → 10% of Spend", d: "When brand puts ad spend behind creator content (partnership ads/whitelisting), Ad Pros earns 10%. 7% kept as margin, 3% paid to creators as performance bonus.", last: true },
+          ].map((s, i) => (
+            <div key={i} style={{ display: "flex", gap: m ? 10 : 14, marginBottom: s.last ? 0 : m ? 16 : 20 }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div style={{ width: m ? 28 : 34, height: m ? 28 : 34, borderRadius: "50%", flexShrink: 0, background: C.accentDim, border: `1px solid ${C.accentBorder}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.accent }}>{s.n}</div>
+                {!s.last && <div style={{ width: 1, flex: 1, background: C.border, marginTop: 4 }} />}
+              </div>
+              <div style={{ paddingTop: m ? 2 : 5, minWidth: 0 }}>
+                <div style={{ fontSize: m ? 13 : 14, fontWeight: 700, color: C.white, marginBottom: 2 }}>{s.t}</div>
+                <div style={{ fontSize: m ? 12 : 13, lineHeight: 1.6, color: C.offWhite }}>{s.d}</div>
+              </div>
+            </div>
+          ))}
+        </Surf>
+      </FadeIn>
+
+      {/* UNIT ECONOMICS */}
+      <FadeIn delay={0.05} style={{ marginBottom: m ? 24 : 32 }}>
+        <SL num="02" text="Unit Economics (Per Brand)" m={m} />
+        <Surf m={m}>
+          <div style={{ fontSize: 11, color: C.muted, marginBottom: 12 }}>Example: brand with $100K/mo creator GMV + $100K/mo ad spend on creator content</div>
+          {[
+            { l: "10% of $100K GMV", v: "$10,000", c: C.green, sub: "network fee → 100% margin" },
+            { l: "10% of $100K Spend", v: "$10,000", c: C.accent, sub: "7% AP ($7K) + 3% creator ($3K)" },
+          ].map((r, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
+              <div>
+                <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>{r.l}</span>
+                <span style={{ fontSize: 10, color: C.muted, marginLeft: 8 }}>{r.sub}</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 700, color: r.c }}>{r.v}</span>
+            </div>
+          ))}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
+            <div>
+              <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>Base Retainer</span>
+              <span style={{ fontSize: 10, color: C.muted, marginLeft: 8 }}>pass-through to creators</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 400, color: C.muted }}>$5,000</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, paddingTop: 12, borderTop: `2px solid ${C.accent}` }}>
+            <div>
+              <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>AP Revenue</span>
+              <span style={{ fontSize: 11, color: C.muted, marginLeft: 8 }}>$17K margin</span>
+            </div>
+            <span style={{ fontFamily: F.display, fontSize: m ? 26 : 30, fontStyle: "italic", color: C.accent }}>$20,000</span>
+          </div>
+
+          {/* Margin split bar */}
+          <div style={{ marginTop: 14 }}>
+            <div style={{ display: "flex", height: 10, borderRadius: 5, overflow: "hidden" }}>
+              <div style={{ width: "50%", background: C.green }} title="GMV fee (100% margin)" />
+              <div style={{ width: "35%", background: C.accent }} title="AP spend margin (7%)" />
+              <div style={{ width: "15%", background: C.purple }} title="Creator bonus (3%)" />
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 10, flexWrap: "wrap", gap: 4 }}>
+              <span style={{ color: C.green }}>GMV $10K</span>
+              <span style={{ color: C.accent }}>AP $7K</span>
+              <span style={{ color: C.purple }}>Creator $3K</span>
+            </div>
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* SCALE PROJECTIONS */}
+      <FadeIn delay={0.05}>
+        <SL num="03" text="Monthly Scale Projections" m={m} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {data.map((r, i) => {
+            const totalSpend = r.b * r.s;
+            const totalGmv = r.b * r.g;
+            const baseFees = r.b * 5000;
+            const gmvRev = totalGmv * 0.10;
+            const spendRev = totalSpend * 0.10;
+            const rev = gmvRev + spendRev;
+            const margin = gmvRev + (totalSpend * 0.07);
+            const last = i === 3;
+            return (
+              <Surf key={i} m={m} style={{ background: last ? C.accentDim : C.surface, borderColor: last ? C.accentBorder : C.border, padding: m ? 14 : 18 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: last ? C.accent : C.white }}>{r.p}</span>
+                  <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>{r.b} brands</span>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr 1fr", gap: m ? 8 : 4, marginBottom: 10 }}>
+                  {[
+                    { l: "GMV", v: fmt(totalGmv), c: C.offWhite },
+                    { l: "Ad Spend", v: fmt(totalSpend), c: C.offWhite },
+                    { l: "AP Revenue", v: fmt(rev), c: C.green },
+                    { l: "AP Margin", v: fmt(margin), c: last ? C.accent : C.white },
+                    { l: "Base (P/T)", v: fmt(baseFees), c: C.muted },
+                  ].map((d, j) => (
+                    <div key={j}>
+                      <ML>{d.l}</ML>
+                      <div style={{ fontFamily: F.mono, fontSize: m ? 14 : 15, fontWeight: 700, color: d.c }}>{d.v}</div>
+                    </div>
+                  ))}
+                </div>
+                {/* Revenue composition mini-bar */}
+                <div style={{ display: "flex", height: 4, borderRadius: 2, overflow: "hidden" }}>
+                  <div style={{ width: `${(baseFees / rev) * 100}%`, background: `${C.white}20` }} />
+                  <div style={{ width: `${(gmvRev / rev) * 100}%`, background: C.green }} />
+                  <div style={{ width: `${(spendRev / rev) * 100}%`, background: C.accent }} />
+                </div>
+                <div style={{ display: "flex", gap: 12, marginTop: 6, fontSize: 10 }}>
+                  <span style={{ color: C.muted }}>Base {fmt(baseFees)}</span>
+                  <span style={{ color: C.green }}>GMV {fmt(gmvRev)}</span>
+                  <span style={{ color: C.accent }}>Spend {fmt(spendRev)}</span>
+                </div>
+              </Surf>
+            );
+          })}
+        </div>
+
+        <div style={{ marginTop: 12 }}>
+          <Callout m={m} color={C.green} bg={C.greenDim}>
+            <strong style={{ color: C.white }}>At 50 brands:</strong> $50M creator GMV + $25M ad spend = $7.5M/mo AP revenue, $6.75M/mo AP margin.
+            GMV fee is the dominant revenue driver — 100% margin with no creator split. Base retainers ($250K) pass through to creators.
+          </Callout>
+        </div>
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ TAB: CREATOR PAYOUTS ============
+function CreatorTab({ m }) {
+  const streams = [
+    { n: "01", t: "TikTok Shop Commission", rate: "10–30%", c: C.accent, d: C.accentDim, desc: "Standard TTS affiliate commission. Creator earns from TikTok on GMV through affiliate links. In-app checkout — highest conversion channel.", mech: "Video → viewer taps product tag → buys in TikTok Shop → 30% commission", ex: "$150 AOV × 30% = $45/sale" },
+    { n: "02", t: "Organic Sales Commission", rate: "10–30%", c: C.green, d: C.greenDim, desc: "Commission on sales via creator's link to Shopify/Amazon. Same video, different purchase path. Lower conversion but higher AOV potential.", mech: "Video → profile visit → bio link → Shopify/Amazon purchase → 30% commission", ex: "$150 AOV × 30% = $45/sale" },
+    { n: "03", t: "Fixed Base Pay", rate: "$5/video", c: C.blue, d: C.blueDim, desc: "$150/mo floor for 30 videos. $300/mo for 60 videos. Guaranteed regardless of sales. Paid from brand's base retainer (pass-through).", mech: "Creator delivers videos → receives guaranteed base → funded by brand retainer", ex: "30 videos × $5 = $150/mo | 150 videos × $5 = $750/mo" },
+    { n: "04", t: "Ad Spend Bonus", rate: "3% of spend", c: C.purple, d: C.purpleDim, desc: "When brand boosts content via partnership ads or whitelisting, creator earns 3% of spend. No cap. Whitelisting required.", mech: "Brand boosts video → $10K ad spend → creator earns $300", ex: "$50K spend × 3% = $1,500 bonus" },
+  ];
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.7, color: C.offWhite, marginBottom: 6 }}>
+          Every video unlocks <strong style={{ color: C.white }}>4 simultaneous revenue streams</strong>. Streams 1–2 reward sales. Streams 3–4 reward content production.
+        </p>
+        <Callout m={m}><strong style={{ color: C.white }}>All 4 stack on the same video.</strong> TTS commission from shop sales + organic commission from link sales + $5 base + 3% ad spend if boosted.</Callout>
+      </FadeIn>
+      {streams.map((s, i) => (
+        <FadeIn key={i} delay={0.03 * i} style={{ marginTop: m ? 14 : 18 }}>
+          <Surf m={m} style={{ borderLeft: `3px solid ${s.c}` }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexWrap: "wrap", gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, color: s.c }}>{s.n}</span>
+                <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>{s.t}</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontSize: 11, fontWeight: 700, color: s.c, padding: "3px 8px", background: s.d, borderRadius: 5 }}>{s.rate}</span>
+            </div>
+            <p style={{ fontSize: m ? 12 : 13, lineHeight: 1.6, color: C.offWhite, marginBottom: 10 }}>{s.desc}</p>
+            <div style={{ background: C.bg, borderRadius: 8, padding: "8px 12px", marginBottom: 6, fontSize: m ? 11 : 12, color: C.offWhite }}><span style={{ color: C.muted }}>Flow:</span> {s.mech}</div>
+            <div style={{ background: s.d, borderRadius: 8, padding: "8px 12px", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 600, color: s.c }}>{s.ex}</div>
+          </Surf>
+        </FadeIn>
+      ))}
+    </>
+  );
+}
+
+// ============ FUNNEL CALCULATOR (shared) ============
+function FunnelCalc({ m, brandCount = 1 }) {
+  const multi = brandCount > 1;
+  const [vidsPerMo, setVidsPerMo] = useState(multi ? 30 : 30);
+  const [viewsPerVid, setViewsPerVid] = useState(1000);
+  const [aov, setAov] = useState(150);
+  const [comm, setComm] = useState(30);
+  const [brands, setBrands] = useState(brandCount);
+  // TTS funnel (affiliate creator defaults — higher than general content)
+  const [ttsViewToClick, setTtsViewToClick] = useState(3);
+  const [ttsClickToPurch, setTtsClickToPurch] = useState(5);
+  // Organic funnel (affiliate creator defaults)
+  const [orgViewToProfile, setOrgViewToProfile] = useState(5);
+  const [orgProfileToClick, setOrgProfileToClick] = useState(20);
+  const [orgClickToPurch, setOrgClickToPurch] = useState(1.5);
+  // Ad spend
+  const [boostPct, setBoostPct] = useState(30);
+  const [spendPerBoosted, setSpendPerBoosted] = useState(500);
+  // Advanced toggle
+  const [showAdv, setShowAdv] = useState(false);
+
+  const b = multi ? brands : 1;
+  const totalVids = vidsPerMo * b;
+  const totalViews = totalVids * viewsPerVid;
+  const base = vidsPerMo * 5 * b;
+  const commPerSale = aov * (comm / 100);
+
+  // TTS funnel
+  const ttsClicks = totalViews * (ttsViewToClick / 100);
+  const ttsSales = Math.round(ttsClicks * (ttsClickToPurch / 100));
+  const ttsIncome = ttsSales * commPerSale;
+
+  // Organic funnel
+  const orgProfiles = totalViews * (orgViewToProfile / 100);
+  const orgClicks = orgProfiles * (orgProfileToClick / 100);
+  const orgSales = Math.round(orgClicks * (orgClickToPurch / 100));
+  const orgIncome = orgSales * commPerSale;
+
+  // Ad spend
+  const boostedVids = Math.round(totalVids * (boostPct / 100));
+  const totalAdSpend = boostedVids * spendPerBoosted;
+  const adBonus = totalAdSpend * 0.03;
+
+  const total = base + ttsIncome + orgIncome + adBonus;
+  const targets = [1000, 2500, 5000, 10000];
+
+  const streams = [
+    { label: "TTS Commission", val: Math.round(ttsIncome), sub: `${ttsSales} sales`, color: C.accent },
+    { label: "Organic Commission", val: Math.round(orgIncome), sub: `${orgSales} sales`, color: C.green },
+    { label: "Base Pay", val: Math.round(base), sub: `${totalVids} vids × $5`, color: C.blue },
+    { label: "Ad Spend Bonus", val: Math.round(adBonus), sub: `$${(totalAdSpend / 1000).toFixed(0)}K spend`, color: C.purple },
+  ];
+
+  const GroupLabel = ({ children, color = C.muted }) => (
+    <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color, marginBottom: 8, marginTop: 16 }}>{children}</div>
+  );
+
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          {multi
+            ? <>Full funnel model across <strong style={{ color: C.white }}>multiple brands</strong>. Same output per brand — base pay stacks, sales compound.</>
+            : <>Full funnel model for <strong style={{ color: C.white }}>a single brand</strong>. Views → clicks → sales for TTS and organic separately.</>
+          }
+        </p>
+      </FadeIn>
+
+      {/* ASSUMPTIONS */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <Surf m={m}>
+          <ML>Core Assumptions</ML>
+          {multi && <Slider m={m} label="Number of Brands" value={brands} onChange={setBrands} min={2} max={15} format={v => `${v} brands`} color={C.orange} />}
+          <Slider m={m} label="Videos / Month (per brand)" value={vidsPerMo} onChange={setVidsPerMo} min={10} max={150} step={5} format={v => `${v} (${(v / 30).toFixed(1)}/day)`} />
+          <Slider m={m} label="Avg Views / Video" value={viewsPerVid} onChange={setViewsPerVid} min={500} max={50000} step={500} format={v => v >= 1000 ? `${(v / 1000).toFixed(1)}K` : v} />
+          <Slider m={m} label="AOV" value={aov} onChange={setAov} min={20} max={500} step={10} format={v => `$${v}`} />
+          <Slider m={m} label="Commission Rate" value={comm} onChange={setComm} min={5} max={200} format={v => `${v}%`} />
+
+          {/* Advanced toggle */}
+          <button onClick={() => setShowAdv(!showAdv)} style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%",
+            background: "none", border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px",
+            cursor: "pointer", color: C.offWhite, fontFamily: F.body, fontSize: 12, marginTop: 8,
+          }}>
+            <span>Funnel Rates <span style={{ color: C.muted }}>(affiliate creator defaults)</span></span>
+            <span style={{ color: C.muted, transition: "transform 0.2s", transform: showAdv ? "rotate(180deg)" : "rotate(0)" }}>▾</span>
+          </button>
+
+          {showAdv && (
+            <div style={{ marginTop: 8 }}>
+              <GroupLabel color={C.accent}>TikTok Shop Funnel</GroupLabel>
+              <Slider m={m} label="View → Product Click" value={ttsViewToClick} onChange={setTtsViewToClick} min={0.5} max={8} step={0.1} format={v => `${v}%`} color={C.accent} />
+              <Slider m={m} label="Click → Purchase" value={ttsClickToPurch} onChange={setTtsClickToPurch} min={0.5} max={15} step={0.5} format={v => `${v}%`} color={C.accent} />
+              <div style={{ fontSize: 10, color: C.muted, marginBottom: 12 }}>Click→Purchase: {ttsClickToPurch}% · View→Purchase: {(ttsViewToClick * ttsClickToPurch / 100).toFixed(3)}% · Affiliate benchmark: 3-5% CTR, 4-8% CVR (sub-$80), 2-5% CVR ($80-200)</div>
+
+              <GroupLabel color={C.green}>Organic → External Funnel</GroupLabel>
+              <Slider m={m} label="View → Profile Visit" value={orgViewToProfile} onChange={setOrgViewToProfile} min={1} max={10} step={0.5} format={v => `${v}%`} color={C.green} />
+              <Slider m={m} label="Profile → Link Click" value={orgProfileToClick} onChange={setOrgProfileToClick} min={5} max={40} step={1} format={v => `${v}%`} color={C.green} />
+              <Slider m={m} label="Link Click → Purchase" value={orgClickToPurch} onChange={setOrgClickToPurch} min={0.1} max={5} step={0.1} format={v => `${v}%`} color={C.green} />
+              <div style={{ fontSize: 10, color: C.muted, marginBottom: 12 }}>Click→Purchase: {orgClickToPurch}% · View→Purchase: {(orgViewToProfile * orgProfileToClick * orgClickToPurch / 10000).toFixed(4)}% · Affiliate audiences convert 2-3x general TikTok traffic</div>
+
+              <GroupLabel color={C.purple}>Ad Spend</GroupLabel>
+              <Slider m={m} label="% Content Boosted" value={boostPct} onChange={setBoostPct} min={0} max={100} step={5} format={v => `${v}% (${Math.round(totalVids * v / 100)} videos)`} color={C.purple} />
+              <Slider m={m} label="Avg Spend / Boosted Video" value={spendPerBoosted} onChange={setSpendPerBoosted} min={100} max={5000} step={100} format={v => `$${v.toLocaleString()}`} color={C.purple} />
+            </div>
+          )}
+        </Surf>
+      </FadeIn>
+
+      {/* FUNNEL VISUALIZATION */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 10 : 12 }}>
+          {/* TTS Funnel */}
+          <Surf m={m} style={{ borderTop: `3px solid ${C.accent}` }}>
+            <ML>TikTok Shop Funnel</ML>
+            {[
+              { l: "Monthly Views", v: totalViews.toLocaleString() },
+              { l: `→ Product Clicks (${ttsViewToClick}%)`, v: Math.round(ttsClicks).toLocaleString() },
+              { l: `→ Purchases (${ttsClickToPurch}%)`, v: ttsSales.toLocaleString(), bold: true },
+              { l: `Commission (${comm}% × $${aov})`, v: `$${Math.round(ttsIncome).toLocaleString()}`, bold: true, color: C.accent },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: m ? 11 : 12, borderBottom: i < 3 ? `1px solid ${C.border}` : "none" }}>
+                <span style={{ color: C.offWhite }}>{r.l}</span>
+                <span style={{ fontFamily: F.mono, fontWeight: r.bold ? 700 : 400, color: r.color || (r.bold ? C.white : C.muted) }}>{r.v}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", gap: m ? 8 : 12, marginTop: 10 }}>
+              <div style={{ flex: 1, background: C.accentDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>CLICK→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.accent }}>{ttsClickToPurch}%</div>
+              </div>
+              <div style={{ flex: 1, background: C.accentDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>VIEW→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.accent }}>{(ttsViewToClick * ttsClickToPurch / 100).toFixed(2)}%</div>
+              </div>
+            </div>
+          </Surf>
+
+          {/* Organic Funnel */}
+          <Surf m={m} style={{ borderTop: `3px solid ${C.green}` }}>
+            <ML>Organic → Shopify/Amazon</ML>
+            {[
+              { l: "Monthly Views", v: totalViews.toLocaleString() },
+              { l: `→ Profile Visits (${orgViewToProfile}%)`, v: Math.round(orgProfiles).toLocaleString() },
+              { l: `→ Link Clicks (${orgProfileToClick}%)`, v: Math.round(orgClicks).toLocaleString() },
+              { l: `→ Purchases (${orgClickToPurch}%)`, v: orgSales.toLocaleString(), bold: true },
+              { l: `Commission (${comm}% × $${aov})`, v: `$${Math.round(orgIncome).toLocaleString()}`, bold: true, color: C.green },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: m ? 11 : 12, borderBottom: i < 4 ? `1px solid ${C.border}` : "none" }}>
+                <span style={{ color: C.offWhite }}>{r.l}</span>
+                <span style={{ fontFamily: F.mono, fontWeight: r.bold ? 700 : 400, color: r.color || (r.bold ? C.white : C.muted) }}>{r.v}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", gap: m ? 8 : 12, marginTop: 10 }}>
+              <div style={{ flex: 1, background: C.greenDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>CLICK→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.green }}>{orgClickToPurch}%</div>
+              </div>
+              <div style={{ flex: 1, background: C.greenDim, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em", marginBottom: 2 }}>VIEW→PURCHASE</div>
+                <div style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.green }}>{(orgViewToProfile * orgProfileToClick * orgClickToPurch / 10000).toFixed(3)}%</div>
+              </div>
+            </div>
+          </Surf>
+        </div>
+      </FadeIn>
+
+      {/* TOTAL BREAKDOWN */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <Surf m={m} style={{ borderTop: `3px solid ${C.white}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+            <ML>Monthly Earnings{multi ? ` (${b} brands)` : ""}</ML>
+            <div style={{ fontFamily: F.display, fontSize: m ? 30 : 36, fontStyle: "italic", color: C.accent }}>${Math.round(total).toLocaleString()}</div>
+          </div>
+
+          {/* Stacked bar */}
+          <div style={{ display: "flex", height: 10, borderRadius: 5, overflow: "hidden", marginBottom: 14 }}>
+            {streams.map((s, i) => <div key={i} style={{ width: `${(s.val / Math.max(total, 1)) * 100}%`, background: s.color, minWidth: s.val > 0 ? 2 : 0 }} />)}
+          </div>
+
+          {streams.map((s, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", fontSize: m ? 12 : 13, borderBottom: i < 3 ? `1px solid ${C.border}` : "none" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 7, height: 7, borderRadius: 2, background: s.color, flexShrink: 0 }} />
+                <span style={{ color: C.offWhite }}>{s.label}</span>
+                <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>({s.sub})</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: s.color }}>${s.val.toLocaleString()}</span>
+            </div>
+          ))}
+
+          {multi && (
+            <div style={{ fontSize: 11, color: C.muted, marginTop: 10 }}>
+              Per brand: ${Math.round(total / b).toLocaleString()}/mo · {Math.round((ttsSales + orgSales) / b)} sales/brand · {(((ttsSales + orgSales) / b) / vidsPerMo).toFixed(1)} sales/video
+            </div>
+          )}
+        </Surf>
+      </FadeIn>
+
+      {/* TARGET MILESTONES */}
+      <FadeIn delay={0.03}>
+        <SL num="—" text="Income Targets" m={m} />
+        {(() => {
+          const ttsRevPerView = (ttsViewToClick / 100) * (ttsClickToPurch / 100) * commPerSale;
+          const orgRevPerView = (orgViewToProfile / 100) * (orgProfileToClick / 100) * (orgClickToPurch / 100) * commPerSale;
+          const revenuePerView = ttsRevPerView + orgRevPerView;
+          const incomePerVid = 5 + viewsPerVid * revenuePerView + (boostPct / 100) * spendPerBoosted * 0.03;
+
+          return (
+            <div style={{ display: "flex", flexDirection: "column", gap: m ? 10 : 12 }}>
+              {targets.map((t, i) => {
+                const hit = total >= t;
+                const gap = t - total;
+                const pct = Math.min((total / t) * 100, 100);
+
+                // Blended plan: allocate gap across levers proportionally
+                const splits = [
+                  { pct: 0.25, icon: "🎬", label: "videos/mo", color: C.blue },
+                  { pct: 0.20, icon: "👁", label: "views/video", color: C.offWhite },
+                  { pct: 0.25, icon: "🛒", label: "TTS sales", color: C.accent },
+                  { pct: 0.10, icon: "🔗", label: "organic sales", color: C.green },
+                  { pct: 0.20, icon: "📈", label: "ad spend", color: C.purple },
+                ];
+                const plan = splits.map(s => {
+                  const amt = gap * s.pct;
+                  let units = 0, action = "", desc = "";
+                  if (s.label === "videos/mo") {
+                    units = Math.ceil(amt / Math.max(incomePerVid, 0.01));
+                    action = `+${units} videos/mo`;
+                    desc = `${vidsPerMo + units} total (${((vidsPerMo + units) / 30).toFixed(1)}/day)`;
+                  } else if (s.label === "views/video") {
+                    units = revenuePerView > 0 ? Math.ceil(amt / (totalVids * revenuePerView)) : 0;
+                    action = `+${units >= 1000 ? (units / 1000).toFixed(1) + "K" : units} views/video`;
+                    desc = `${((viewsPerVid + units) / 1000).toFixed(1)}K avg views`;
+                  } else if (s.label === "TTS sales") {
+                    units = Math.ceil(amt / commPerSale);
+                    action = `+${units} TTS sales`;
+                    desc = `${ttsSales + units} total (${((ttsSales + units) / totalVids).toFixed(1)}/video)`;
+                  } else if (s.label === "organic sales") {
+                    units = Math.ceil(amt / commPerSale);
+                    action = `+${units} organic sales`;
+                    desc = `${orgSales + units} total`;
+                  } else {
+                    units = Math.ceil(amt / 0.03);
+                    action = `+$${(units / 1000).toFixed(0)}K ad spend`;
+                    desc = `$${((totalAdSpend + units) / 1000).toFixed(0)}K total on creator content`;
+                  }
+                  return { ...s, amt, action, desc };
+                });
+                const colors = [C.accent, C.green, C.blue, C.purple];
+
+                return (
+                  <Surf key={t} m={m} style={{ borderLeft: hit ? `3px solid ${C.green}` : `3px solid ${colors[i]}`, padding: m ? 14 : 18 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: hit ? 0 : 12 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <div style={{ fontFamily: F.display, fontSize: m ? 24 : 28, fontStyle: "italic", color: hit ? C.green : colors[i] }}>${(t / 1000).toFixed(0)}K</div>
+                        <span style={{ fontSize: 12, color: C.muted }}>/mo</span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        {!hit && (
+                          <div style={{ textAlign: "right" }}>
+                            <div style={{ fontFamily: F.mono, fontSize: 9, color: C.muted, letterSpacing: "0.08em" }}>GAP</div>
+                            <div style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 800, color: C.red }}>${Math.round(gap).toLocaleString()}</div>
+                          </div>
+                        )}
+                        <div style={{
+                          fontFamily: F.mono, fontSize: 10, fontWeight: 700, padding: "4px 10px", borderRadius: 6,
+                          background: hit ? C.greenDim : `${colors[i]}18`, color: hit ? C.green : colors[i],
+                        }}>{hit ? "✓ HIT" : `${Math.round(pct)}%`}</div>
+                      </div>
+                    </div>
+
+                    {/* Progress bar */}
+                    <div style={{ height: 4, background: C.border, borderRadius: 2, overflow: "hidden", marginBottom: hit ? 0 : 12 }}>
+                      <div style={{ height: "100%", width: `${pct}%`, background: hit ? C.green : colors[i], borderRadius: 2, transition: "width 0.3s" }} />
+                    </div>
+
+                    {/* Delta paths — only show for unlocked */}
+                    {!hit && (
+                      <div style={{ background: C.bg, borderRadius: 10, padding: m ? "10px 12px" : "12px 14px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                          <div style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", color: C.muted }}>BLENDED PLAN TO CLOSE GAP</div>
+                          <div style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, color: C.red }}>${Math.round(gap).toLocaleString()}</div>
+                        </div>
+                        {plan.map((p, j) => {
+                          const labels = ["Videos", "Views", "TTS Sales", "Organic", "Ad Spend"];
+                          return (
+                          <div key={j} style={{
+                            display: "flex", alignItems: m ? "flex-start" : "center",
+                            flexWrap: m ? "wrap" : "nowrap", gap: m ? 4 : 8,
+                            padding: "7px 0", fontSize: m ? 11 : 12,
+                            borderBottom: j < 4 ? `1px solid ${C.border}` : "none",
+                          }}>
+                            <span style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, color: p.color, minWidth: m ? 58 : 68, whiteSpace: "nowrap" }}>{labels[j]}</span>
+                            <span style={{ fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.accent, minWidth: m ? 48 : 58 }}>+${Math.round(p.amt).toLocaleString()}</span>
+                            <span style={{ color: C.white, fontWeight: 600 }}>{p.action}</span>
+                            <span style={{ color: C.muted, fontSize: m ? 10 : 11 }}>→ {p.desc}</span>
+                          </div>
+                          );
+                        })}
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8, paddingTop: 8, borderTop: `1px solid ${C.border}` }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: C.white }}>Total</span>
+                          <span style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 800, color: C.green }}>+${Math.round(gap).toLocaleString()}</span>
+                        </div>
+                        <div style={{ fontSize: 10, color: C.muted, marginTop: 6, fontStyle: "italic" }}>Balanced across all levers. Shift weight to whichever is most achievable.</div>
+                      </div>
+                    )}
+                  </Surf>
+                );
+              })}
+            </div>
+          );
+        })()}
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ TAB: SALES SUMMARY ============
+function SalesTab({ m }) {
+  const [revenue, setRevenue] = useState(300000);
+  const [spend, setSpend] = useState(180000);
+  const [aov, setAov] = useState(62.50);
+  const [targetRoas, setTargetRoas] = useState(1.8);
+  const [baseRetainer, setBaseRetainer] = useState(5000);
+  const [orgPct, setOrgPct] = useState(20);
+  const [adPct, setAdPct] = useState(20);
+
+  const fmt = n => n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : n >= 1000 ? "$" + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "K" : "$" + n.toFixed(0);
+  const fmtFull = n => "$" + Math.round(n).toLocaleString();
+  const pct = (n, d) => d > 0 ? ((n / d) * 100).toFixed(1) + "%" : "0%";
+
+  // ORGANIC MODEL
+  const orgRevenue = revenue * (orgPct / 100);
+  const orgSales = Math.round(orgRevenue / aov);
+  const apMgmtPctOrg = 10;
+  const platformPct = 3.5;
+  const totalApPctOrg = apMgmtPctOrg + platformPct; // 13.5%
+  const targetCpa = aov / targetRoas;
+  const affiliatePctOrg = Math.round(((targetCpa - (aov * totalApPctOrg / 100)) / aov) * 100); // derived from CPA gap
+  const brandKeepsPctOrg = 100 - totalApPctOrg - affiliatePctOrg;
+  const apOrgRev = orgRevenue * (apMgmtPctOrg / 100);
+  const platformFee = orgRevenue * (platformPct / 100);
+  const affiliateOrgPay = orgRevenue * (affiliatePctOrg / 100);
+  const brandKeepsOrg = orgRevenue * (brandKeepsPctOrg / 100);
+  const orgCpa = orgSales > 0 ? (orgRevenue - brandKeepsOrg) / orgSales : 0;
+  const orgPerSaleAffiliate = (affiliatePctOrg / 100) * aov;
+  const orgPerSaleBrand = (brandKeepsPctOrg / 100) * aov;
+
+  // AD MODEL
+  const adSpendCreator = spend * (adPct / 100);
+  const adRevCreator = adSpendCreator * targetRoas;
+  const adSales = Math.round(adRevCreator / aov);
+  const apAdFee = adSpendCreator * 0.10;
+  const creatorAdBonus = adSpendCreator * 0.03;
+  const apAdKeeps = apAdFee - creatorAdBonus; // 7%
+  const brandKeepsAd = adRevCreator - adSpendCreator - apAdFee;
+  const adCpa = adSales > 0 ? adSpendCreator / adSales : 0;
+  const adAllInCpa = adSales > 0 ? (adSpendCreator + apAdFee) / adSales : 0;
+
+  // BASE RETAINER — pass through to creators
+  const retainerToCreators = baseRetainer;
+
+  // COMBINED
+  const totalBrandRev = orgRevenue + adRevCreator;
+  const totalBrandCosts = (orgRevenue - brandKeepsOrg) + adSpendCreator + apAdFee + baseRetainer;
+  const totalBrandNet = totalBrandRev - totalBrandCosts;
+  const totalSales = orgSales + adSales;
+  const blendedCpa = totalSales > 0 ? totalBrandCosts / totalSales : 0;
+
+  // AD PROS VIEW
+  const apTotalRev = apOrgRev + apAdFee;
+  const apMargin = apOrgRev + apAdKeeps; // org fee is 100% margin, ad fee is 7% margin
+
+  const Row = ({ label, value, color = C.offWhite, bold, sub, border = true }) => (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: m ? "7px 0" : "8px 0", borderBottom: border ? `1px solid ${C.border}` : "none" }}>
+      <div>
+        <span style={{ fontSize: m ? 12 : 13, color: bold ? C.white : C.offWhite, fontWeight: bold ? 700 : 400 }}>{label}</span>
+        {sub && <span style={{ fontSize: 10, color: C.muted, marginLeft: 6 }}>{sub}</span>}
+      </div>
+      <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: bold ? 800 : 600, color }}>{value}</span>
+    </div>
+  );
+
+  const BigStat = ({ label, value, sub, color = C.white }) => (
+    <div style={{ textAlign: "center", flex: 1, minWidth: m ? 80 : 100 }}>
+      <div style={{ fontFamily: F.display, fontSize: m ? 24 : 30, fontStyle: "italic", color, lineHeight: 1 }}>{value}</div>
+      <div style={{ fontFamily: F.mono, fontSize: 8, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginTop: 6 }}>{label}</div>
+      {sub && <div style={{ fontSize: 10, color: C.muted, marginTop: 2 }}>{sub}</div>}
+    </div>
+  );
+
+  return (
+    <>
+      {/* INPUTS */}
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          Plug in any brand's numbers to model the <strong style={{ color: C.white }}>Creator Performance Network</strong> economics.
+          Two revenue models: organic affiliate sales and boosted creator content — both profitable on order 1.
+        </p>
+        <Surf m={m} style={{ marginBottom: m ? 18 : 24 }}>
+          <ML>Brand Metrics</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Monthly Revenue" value={revenue} onChange={setRevenue} min={50000} max={2000000} step={10000} format={v => fmtFull(v)} />
+            <Slider m={m} label="Monthly Ad Spend" value={spend} onChange={setSpend} min={10000} max={1000000} step={5000} format={v => fmtFull(v)} />
+            <Slider m={m} label="New Customer AOV" value={aov} onChange={setAov} min={20} max={300} step={2.5} format={v => `$${v.toFixed(2)}`} />
+            <Slider m={m} label="Target ROAS" value={targetRoas} onChange={setTargetRoas} min={1.2} max={4.0} step={0.1} format={v => `${v.toFixed(1)}x`} />
+          </div>
+          <ML>Creator Network Allocation</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="% Revenue via Organic Affiliates" value={orgPct} onChange={setOrgPct} min={5} max={50} step={5} format={v => `${v}% (${fmtFull(revenue * v / 100)})`} color={C.green} />
+            <Slider m={m} label="% Spend on Creator Content (Ads)" value={adPct} onChange={setAdPct} min={5} max={50} step={5} format={v => `${v}% (${fmtFull(spend * v / 100)})`} color={C.accent} />
+            <Slider m={m} label="Base Retainer (Creator Content)" value={baseRetainer} onChange={setBaseRetainer} min={2500} max={10000} step={500} format={v => fmtFull(v)} color={C.blue} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* ORDER 1 ECONOMICS */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="01" text="Order 1 Economics" m={m} />
+
+        {/* Per-sale cards side by side */}
+        <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 10 : 12, marginBottom: 14 }}>
+          {/* Organic per sale */}
+          <Surf m={m} style={{ borderTop: `3px solid ${C.green}` }}>
+            <ML>Organic Sale — Per Order</ML>
+            <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.white, marginBottom: 12 }}>${aov.toFixed(2)} <span style={{ fontSize: 13, color: C.muted, fontFamily: F.body, fontStyle: "normal" }}>AOV</span></div>
+            <Row label="Ad Pros (10% mgmt)" value={`$${(aov * 0.10).toFixed(2)}`} color={C.accent} sub="management" />
+            <Row label="Platform Fee (3.5%)" value={`$${(aov * 0.035).toFixed(2)}`} color={C.muted} sub="processing" />
+            <Row label="Affiliate (43%)" value={`$${orgPerSaleAffiliate.toFixed(2)}`} color={C.green} sub="commission" />
+            <Row label="Brand Keeps (43.5%)" value={`$${orgPerSaleBrand.toFixed(2)}`} color={C.white} bold border={false} />
+            <div style={{ background: C.greenDim, borderRadius: 8, padding: "8px 12px", marginTop: 10, textAlign: "center" }}>
+              <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>EFFECTIVE CPA </span>
+              <span style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.green }}>${orgCpa.toFixed(2)}</span>
+            </div>
+          </Surf>
+
+          {/* Ad per sale */}
+          <Surf m={m} style={{ borderTop: `3px solid ${C.accent}` }}>
+            <ML>Boosted Sale — Per Order</ML>
+            <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.white, marginBottom: 12 }}>${aov.toFixed(2)} <span style={{ fontSize: 13, color: C.muted, fontFamily: F.body, fontStyle: "normal" }}>AOV</span></div>
+            <Row label="Ad Spend (CPA)" value={`$${adCpa.toFixed(2)}`} color={C.offWhite} sub={`at ${targetRoas.toFixed(1)}x ROAS`} />
+            <Row label="Ad Pros (10% of spend)" value={`$${adSales > 0 ? (apAdFee / adSales).toFixed(2) : "0"}`} color={C.accent} sub="includes 3% creator" />
+            <Row label="Brand Keeps" value={`$${adSales > 0 ? (brandKeepsAd / adSales).toFixed(2) : "0"}`} color={C.white} bold border={false} />
+            <div style={{ background: C.accentDim, borderRadius: 8, padding: "8px 12px", marginTop: 10, textAlign: "center" }}>
+              <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>ALL-IN CPA </span>
+              <span style={{ fontFamily: F.mono, fontSize: m ? 16 : 18, fontWeight: 800, color: C.accent }}>${adAllInCpa.toFixed(2)}</span>
+            </div>
+          </Surf>
+        </div>
+
+        <Callout m={m} color={C.green} bg={C.greenDim}>
+          <strong style={{ color: C.white }}>Both models profitable on order 1.</strong> Organic CPA: ${orgCpa.toFixed(2)} (hits ${targetCpa.toFixed(2)} target).
+          Ad model: brand pays ${adCpa.toFixed(2)} CPA at {targetRoas.toFixed(1)}x ROAS + {apAdFee > 0 && adSales > 0 ? `$${(apAdFee / adSales).toFixed(2)}` : "$0"} AP management fee.
+          No risk — brand pays on results only.
+        </Callout>
+      </FadeIn>
+
+      {/* CLIENT VIEW — MONTHLY */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="02" text="Client View — Monthly" m={m} />
+
+        {/* Organic block */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.green}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>Organic Creator Sales</span>
+            <span style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color: C.green }}>{orgSales} sales/mo</span>
+          </div>
+          <Row label="Revenue" value={fmtFull(orgRevenue)} color={C.green} bold />
+          <Row label="Ad Pros Management (10%)" value={fmtFull(apOrgRev)} color={C.accent} />
+          <Row label="Platform Fee (3.5%)" value={fmtFull(platformFee)} color={C.muted} />
+          <Row label="Affiliate Commission (43%)" value={fmtFull(affiliateOrgPay)} color={C.offWhite} />
+          <Row label="Brand Keeps" value={fmtFull(brandKeepsOrg)} color={C.green} bold sub={pct(brandKeepsOrg, orgRevenue)} border={false} />
+        </Surf>
+
+        {/* Ad block */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.accent}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>Boosted Creator Content</span>
+            <span style={{ fontFamily: F.mono, fontSize: 12, fontWeight: 700, color: C.accent }}>{adSales} sales/mo</span>
+          </div>
+          <Row label="Ad Spend on Creator Content" value={fmtFull(adSpendCreator)} color={C.offWhite} />
+          <Row label={`Revenue at ${targetRoas.toFixed(1)}x ROAS`} value={fmtFull(adRevCreator)} color={C.green} bold />
+          <Row label="Ad Pros Fee (10% of spend)" value={fmtFull(apAdFee)} color={C.accent} sub="3% to creators" />
+          <Row label="Brand Keeps" value={fmtFull(brandKeepsAd)} color={C.accent} bold sub={pct(brandKeepsAd, adRevCreator)} border={false} />
+        </Surf>
+
+        {/* Base retainer */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.blue}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>Base Retainer</span>
+              <span style={{ fontSize: 11, color: C.muted, marginLeft: 8 }}>passes through to creators</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: 700, color: C.blue }}>{fmtFull(baseRetainer)}</span>
+          </div>
+        </Surf>
+
+        {/* Combined */}
+        <Surf m={m} style={{ borderTop: `3px solid ${C.white}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+            <span style={{ fontSize: m ? 15 : 16, fontWeight: 800, color: C.white }}>Combined Monthly</span>
+          </div>
+          <Row label="Total Incremental Revenue" value={fmtFull(totalBrandRev)} color={C.green} bold />
+          <Row label="Total Brand Costs" value={fmtFull(totalBrandCosts)} color={C.red} sub="all-in" />
+          <Row label="Total Sales" value={totalSales.toLocaleString()} color={C.offWhite} />
+          <Row label="Blended CPA" value={`$${blendedCpa.toFixed(2)}`} color={C.accent} />
+          <Row label="Brand Net Revenue" value={fmtFull(totalBrandNet)} color={C.green} bold border={false} />
+        </Surf>
+      </FadeIn>
+
+      {/* AD PROS VIEW */}
+      <FadeIn delay={0.03}>
+        <SL num="03" text="Ad Pros View — Monthly" m={m} />
+        <Surf m={m} style={{ borderTop: `3px solid ${C.accent}` }}>
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr", gap: m ? 8 : 12, marginBottom: 16 }}>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "14px 12px", textAlign: "center" }}>
+              <ML>Revenue</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.accent }}>{fmtFull(apTotalRev)}</div>
+            </div>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "14px 12px", textAlign: "center" }}>
+              <ML>Margin</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.green }}>{fmtFull(apMargin)}</div>
+            </div>
+            {!m && (
+              <div style={{ background: C.bg, borderRadius: 10, padding: "14px 12px", textAlign: "center" }}>
+                <ML>Margin %</ML>
+                <div style={{ fontFamily: F.display, fontSize: 26, fontStyle: "italic", color: C.white }}>{pct(apMargin, apTotalRev)}</div>
+              </div>
+            )}
+          </div>
+
+          <Row label="Organic Mgmt (10% of creator revenue)" value={fmtFull(apOrgRev)} color={C.green} sub="100% margin" />
+          <Row label="Ad Fee (10% of spend)" value={fmtFull(apAdFee)} color={C.accent} sub="gross" />
+          <Row label="Creator Bonus (3% of spend)" value={`-${fmtFull(creatorAdBonus)}`} color={C.red} sub="pass-through" />
+          <Row label="Ad Fee Net (7% of spend)" value={fmtFull(apAdKeeps)} color={C.accent} sub="margin" />
+          <Row label="Base Retainer" value={fmtFull(baseRetainer)} color={C.blue} sub="pass-through to creators" border={false} />
+
+          <div style={{ background: C.accentDim, borderRadius: 10, padding: m ? "12px 14px" : "14px 18px", marginTop: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <div style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>Ad Pros Monthly Margin</div>
+                <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Excluding base retainer (pass-through)</div>
+              </div>
+              <div style={{ fontFamily: F.display, fontSize: m ? 26 : 32, fontStyle: "italic", color: C.accent }}>{fmtFull(apMargin)}</div>
+            </div>
+          </div>
+        </Surf>
+
+        {/* THE PITCH */}
+        <div style={{ marginTop: m ? 14 : 18 }}>
+          <Callout m={m}>
+            <strong style={{ color: C.white }}>The pitch:</strong> Zero risk. Brand pays only on results — {affiliatePctOrg}% to creators who drive organic sales, {totalApPctOrg}% management + platform fee (CPA stays at ${targetCpa.toFixed(2)} target).
+            On boosted content, 10% of spend as management fee. Base retainer ({fmtFull(baseRetainer)}/mo) covers creator content — passes straight through.
+          </Callout>
+        </div>
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ TAB: PER-CLIENT TARGET ============
+function ClientTargetTab({ m }) {
+  const [brandRev, setBrandRev] = useState(500000);
+  const [brandSpend, setBrandSpend] = useState(300000);
+  const [orgAlloc, setOrgAlloc] = useState(25);
+  const [adAlloc, setAdAlloc] = useState(25);
+  const [apTarget, setApTarget] = useState(20000);
+
+  const fmt = n => n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : n >= 1000 ? "$" + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "K" : "$" + n.toFixed(0);
+  const fmtFull = n => "$" + Math.round(n).toLocaleString();
+
+  const orgGmv = brandRev * (orgAlloc / 100);
+  const adOnCreator = brandSpend * (adAlloc / 100);
+  const apFromOrg = orgGmv * 0.10;
+  const apFromAd = adOnCreator * 0.10;
+  const apTotal = apFromOrg + apFromAd;
+  const creatorBonus = adOnCreator * 0.03;
+  const apMargin = apFromOrg + (adOnCreator * 0.07);
+  const needTotal = apTarget / 0.10;
+  const hit = apTotal >= apTarget;
+  const gap = apTarget - apTotal;
+  const pctToTarget = (apTotal / apTarget) * 100;
+
+  const Th = ({ children, align = "right" }) => (
+    <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: align, fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{children}</th>
+  );
+  const Td = ({ children, color = C.offWhite, bold, align = "right" }) => (
+    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: align, fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: bold ? 700 : 400, color, borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{children}</td>
+  );
+
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          What does it take to earn <strong style={{ color: C.accent }}>{fmtFull(apTarget)}/mo</strong> from a single client?
+          AP earns 10% on both streams — organic GMV + creator ad spend must total <strong style={{ color: C.white }}>{fmtFull(needTotal)}</strong>.
+        </p>
+
+        <Surf m={m} style={{ marginBottom: m ? 16 : 20 }}>
+          <ML>Client Profile</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Client Monthly Revenue" value={brandRev} onChange={setBrandRev} min={100000} max={3000000} step={50000} format={v => fmtFull(v)} />
+            <Slider m={m} label="Client Monthly Ad Spend" value={brandSpend} onChange={setBrandSpend} min={50000} max={2000000} step={25000} format={v => fmtFull(v)} />
+          </div>
+          <ML>Creator Network Allocation</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="% Revenue via Organic Affiliates" value={orgAlloc} onChange={setOrgAlloc} min={5} max={60} step={5} format={v => `${v}% (${fmt(brandRev * v / 100)} GMV)`} color={C.green} />
+            <Slider m={m} label="% Spend on Creator Content" value={adAlloc} onChange={setAdAlloc} min={5} max={60} step={5} format={v => `${v}% (${fmt(brandSpend * v / 100)} spend)`} color={C.accent} />
+            <Slider m={m} label="AP Revenue Target" value={apTarget} onChange={setApTarget} min={5000} max={50000} step={1000} format={v => fmtFull(v)} color={C.purple} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* RESULTS */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <Surf m={m} style={{ borderTop: hit ? `3px solid ${C.green}` : `3px solid ${C.accent}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+            <div>
+              <ML>AP Monthly Revenue</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 30 : 38, fontStyle: "italic", color: hit ? C.green : C.accent }}>{fmtFull(apTotal)}</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, padding: "4px 10px", borderRadius: 6, background: hit ? C.greenDim : `${C.red}18`, color: hit ? C.green : C.red }}>
+                {hit ? `✓ +${fmtFull(apTotal - apTarget)} OVER` : `${fmtFull(gap)} TO GO`}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ height: 6, background: C.border, borderRadius: 3, overflow: "hidden", marginBottom: 14 }}>
+            <div style={{ height: "100%", width: `${Math.min(pctToTarget, 100)}%`, background: hit ? C.green : C.accent, borderRadius: 3, transition: "width 0.3s" }} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 8 : 12 }}>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, color: C.green, fontWeight: 600 }}>Organic GMV</span>
+                <span style={{ fontFamily: F.mono, fontSize: 12, color: C.offWhite }}>{fmt(orgGmv)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: 12, color: C.muted }}>AP Revenue (10%)</span>
+                <span style={{ fontFamily: F.mono, fontSize: 13, fontWeight: 700, color: C.green }}>{fmtFull(apFromOrg)}</span>
+              </div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>100% margin</div>
+            </div>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, color: C.accent, fontWeight: 600 }}>Creator Ad Spend</span>
+                <span style={{ fontFamily: F.mono, fontSize: 12, color: C.offWhite }}>{fmt(adOnCreator)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: 12, color: C.muted }}>AP Revenue (10%)</span>
+                <span style={{ fontFamily: F.mono, fontSize: 13, fontWeight: 700, color: C.accent }}>{fmtFull(apFromAd)}</span>
+              </div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>70% margin (3% → creators)</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: 14, paddingTop: 14, borderTop: `2px solid ${C.accent}` }}>
+            <div>
+              <span style={{ fontSize: m ? 13 : 14, fontWeight: 700, color: C.white }}>AP Margin</span>
+              <span style={{ fontSize: 11, color: C.muted, marginLeft: 6 }}>(after creator bonus)</span>
+            </div>
+            <span style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.green }}>{fmtFull(apMargin)}</span>
+          </div>
+        </Surf>
+
+        {!hit && (
+          <Callout m={m} color={C.red} bg={`${C.red}10`}>
+            <strong style={{ color: C.white }}>Gap: {fmtFull(gap)}</strong> — need {fmtFull(gap / 0.10)} more flowing through the network.
+            Increase organic to {Math.min(60, Math.ceil(((orgGmv + gap / 0.10 * 0.6) / brandRev) * 100))}% or ad allocation to {Math.min(60, Math.ceil(((adOnCreator + gap / 0.10 * 0.4) / brandSpend) * 100))}%, or both.
+          </Callout>
+        )}
+      </FadeIn>
+
+      {/* TABLE 1: Combinations */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="01" text={`Organic + Ad Mix = ${fmt(apTarget)} AP`} m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+            <thead>
+              <tr>
+                <Th align="left">Organic GMV</Th>
+                <Th>Creator Ad Spend</Th>
+                <Th>AP from Organic</Th>
+                <Th>AP from Ads</Th>
+                <Th>AP Total</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                [1.0, 0], [0.8, 0.2], [0.6, 0.4], [0.5, 0.5], [0.4, 0.6], [0.2, 0.8], [0, 1.0],
+              ].map(([orgPct, adPct], i) => {
+                const orgV = needTotal * orgPct;
+                const adV = needTotal * adPct;
+                const isBalanced = orgPct === 0.6 || orgPct === 0.5;
+                return (
+                  <tr key={i} style={{ background: isBalanced ? C.accentDim : "transparent" }}>
+                    <Td align="left" bold={isBalanced} color={isBalanced ? C.white : C.offWhite}>{fmt(orgV)}</Td>
+                    <Td bold={isBalanced} color={isBalanced ? C.white : C.offWhite}>{fmt(adV)}</Td>
+                    <Td color={C.green}>{fmtFull(orgV * 0.10)}</Td>
+                    <Td color={C.accent}>{fmtFull(adV * 0.10)}</Td>
+                    <Td bold color={C.white}>{fmtFull(apTarget)}</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+      </FadeIn>
+
+      {/* TABLE 2: Client sizes */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="02" text="Client Size Required" m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: m ? 500 : 580 }}>
+            <thead>
+              <tr>
+                <Th align="left">Client Rev</Th>
+                <Th>Client Spend</Th>
+                <Th>Org %</Th>
+                <Th>Ad %</Th>
+                <Th>Org GMV</Th>
+                <Th>Creator Spend</Th>
+                <Th>AP Revenue</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                [1000000, 600000, 15, 10],
+                [1000000, 600000, 10, 15],
+                [750000, 450000, 20, 15],
+                [750000, 450000, 15, 20],
+                [500000, 300000, 25, 25],
+                [500000, 300000, 30, 20],
+                [500000, 300000, 20, 30],
+                [400000, 240000, 35, 25],
+                [300000, 180000, 50, 30],
+                [300000, 180000, 40, 40],
+                [250000, 150000, 50, 40],
+                [200000, 120000, 60, 50],
+              ].map(([rev, sp, oP, aP], i) => {
+                const oGmv = rev * (oP / 100);
+                const aSpend = sp * (aP / 100);
+                const apRev = oGmv * 0.10 + aSpend * 0.10;
+                const hitsTarget = apRev >= apTarget;
+                return (
+                  <tr key={i} style={{ background: hitsTarget ? C.accentDim : "transparent" }}>
+                    <Td align="left" color={C.white} bold>{fmt(rev)}</Td>
+                    <Td color={C.offWhite}>{fmt(sp)}</Td>
+                    <Td color={C.green}>{oP}%</Td>
+                    <Td color={C.accent}>{aP}%</Td>
+                    <Td color={C.offWhite}>{fmt(oGmv)}</Td>
+                    <Td color={C.offWhite}>{fmt(aSpend)}</Td>
+                    <Td bold color={hitsTarget ? C.green : C.muted}>{fmtFull(apRev)}{hitsTarget ? " ✓" : ""}</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+      </FadeIn>
+
+      {/* TABLE 3: Margin by mix */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="03" text={`AP Margin by Mix (on ${fmt(apTarget)} Revenue)`} m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+            <thead>
+              <tr>
+                <Th align="left">Mix</Th>
+                <Th>Organic Rev</Th>
+                <Th>Ad Rev</Th>
+                <Th>Creator Bonus</Th>
+                <Th>AP Margin</Th>
+                <Th>Margin %</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["100% organic", 1.0, 0],
+                ["80/20", 0.8, 0.2],
+                ["60/40", 0.6, 0.4],
+                ["50/50", 0.5, 0.5],
+                ["40/60", 0.4, 0.6],
+                ["20/80", 0.2, 0.8],
+                ["100% ads", 0, 1.0],
+              ].map(([label, orgR, adR], i) => {
+                const orgAmt = apTarget * orgR;
+                const adAmt = apTarget * adR;
+                const bonus = (adAmt / 0.10) * 0.03;
+                const margin = orgAmt + adAmt - bonus;
+                const marginPct = ((margin / apTarget) * 100).toFixed(0);
+                const best = orgR >= 0.6;
+                return (
+                  <tr key={i} style={{ background: best ? C.greenDim : "transparent" }}>
+                    <Td align="left" color={C.white} bold>{label}</Td>
+                    <Td color={C.green}>{fmtFull(orgAmt)}</Td>
+                    <Td color={C.accent}>{fmtFull(adAmt)}</Td>
+                    <Td color={C.red}>{fmtFull(bonus)}</Td>
+                    <Td bold color={best ? C.green : C.white}>{fmtFull(margin)}</Td>
+                    <Td bold color={best ? C.green : C.offWhite}>{marginPct}%</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+
+        <div style={{ marginTop: 14 }}>
+          <Callout m={m}>
+            <strong style={{ color: C.white }}>Key insight:</strong> Organic GMV is 2.5x more margin-efficient.
+            Each $1 of organic GMV generates $0.10 at 100% margin. Each $1 of ad spend generates $0.10 at 70% margin.
+            Weight the mix toward organic for maximum profitability.
+          </Callout>
+        </div>
+      </FadeIn>
+
+      {/* MOST REALISTIC PATH */}
+      <FadeIn delay={0.03}>
+        <SL num="—" text={`Most Realistic Path to ${fmt(apTarget)}/Client`} m={m} />
+        <Surf m={m}>
+          <ML>By Client Size</ML>
+          <div style={{ marginTop: 10 }}>
+            {[
+              { size: "$1M/mo", path: "Conservative: 15% organic + 10% ad", ap: "$21K ✓", color: C.green },
+              { size: "$750K/mo", path: "Moderate: 20% organic + 15% ad", ap: "$21.8K ✓", color: C.green },
+              { size: "$500K/mo", path: "Sweet spot: 25% organic + 25% ad", ap: "$20K ✓", color: C.green },
+              { size: "$400K/mo", path: "Aggressive: 35% organic + 25% ad", ap: "$20K ✓", color: C.green },
+              { size: "$300K/mo", path: "Creator-first: 50% organic + 30% ad", ap: "$20.4K ✓", color: C.green },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: m ? 8 : 14, padding: "10px 0", borderBottom: i < 4 ? `1px solid ${C.border}` : "none", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: m ? 8 : 12, minWidth: 0 }}>
+                  <span style={{ fontFamily: F.mono, fontSize: m ? 12 : 14, fontWeight: 800, color: r.color === C.green ? C.green : C.accent, minWidth: m ? 65 : 80 }}>{r.size}</span>
+                  <span style={{ fontSize: m ? 11 : 12, color: C.offWhite }}>{r.path}</span>
+                </div>
+                <span style={{ fontFamily: F.mono, fontSize: m ? 12 : 13, fontWeight: 700, color: r.color }}>{r.ap}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: C.accentDim, borderRadius: 10, padding: m ? "12px 14px" : "14px 18px", marginTop: 14 }}>
+            <div style={{ fontSize: m ? 12 : 13, lineHeight: 1.6, color: C.offWhite }}>
+              <strong style={{ color: C.white }}>Sweet spot:</strong> A <strong style={{ color: C.accent }}>$500K/mo brand</strong> allocating 25% organic + 25% ad spend hits {fmtFull(apTarget)}/mo AP revenue
+              with {fmtFull(500000 * 0.25)} creator GMV + {fmtFull(300000 * 0.25)} creator ad spend = {fmtFull(200000)} total network flow.
+            </div>
+          </div>
+        </Surf>
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ TAB: PRODUCT CALC ============
+function ProductCalcTab({ m }) {
+  const [aov, setAov] = useState(62.50);
+  const [maxCpa, setMaxCpa] = useState(34.72);
+
+  const apPct = 10;
+  const levantaPct = 3.5;
+  const apDollar = aov * (apPct / 100);
+  const levantaDollar = aov * (levantaPct / 100);
+  const totalFees = apDollar + levantaDollar;
+  const totalFeesPct = apPct + levantaPct;
+  const remaining = maxCpa - totalFees;
+  const affiliatePct = remaining > 0 ? (remaining / aov) * 100 : 0;
+  const affiliateDollar = remaining > 0 ? remaining : 0;
+  const brandKeeps = aov - maxCpa;
+  const brandKeepsPct = (brandKeeps / aov) * 100;
+  const valid = remaining > 0;
+
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          Input any product's AOV and target CPA to see the <strong style={{ color: C.white }}>max affiliate commission</strong> after Ad Pros and Levanta fees.
+        </p>
+
+        <Surf m={m} style={{ marginBottom: m ? 18 : 24 }}>
+          <ML>Product Inputs</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Average Order Value" value={aov} onChange={setAov} min={10} max={1000} step={2.5} format={v => `$${v.toFixed(2)}`} />
+            <Slider m={m} label="Max All-In CPA (Affiliate)" value={maxCpa} onChange={setMaxCpa} min={10} max={1000} step={1} format={v => `$${v.toFixed(2)}`} color={C.green} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* WATERFALL */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="01" text="Per-Order Breakdown" m={m} />
+        <Surf m={m} style={{ borderTop: `3px solid ${valid ? C.green : C.red}` }}>
+
+          {/* AOV header */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div>
+              <ML>AOV</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 30 : 38, fontStyle: "italic", color: C.white }}>${aov.toFixed(2)}</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <ML>Max CPA</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 30 : 38, fontStyle: "italic", color: C.accent }}>${maxCpa.toFixed(2)}</div>
+            </div>
+          </div>
+
+          {/* Stacked bar */}
+          <div style={{ height: 12, borderRadius: 6, overflow: "hidden", display: "flex", marginBottom: 16, background: C.border }}>
+            {valid && <div style={{ width: `${(apDollar / aov) * 100}%`, background: C.accent }} />}
+            {valid && <div style={{ width: `${(levantaDollar / aov) * 100}%`, background: C.purple }} />}
+            {valid && <div style={{ width: `${(affiliateDollar / aov) * 100}%`, background: C.green }} />}
+            <div style={{ width: `${Math.max(brandKeepsPct, 0)}%`, background: `${C.white}20` }} />
+          </div>
+
+          {/* Line items */}
+          {[
+            { label: "Ad Pros Management", pct: `${apPct}%`, dollar: apDollar, color: C.accent, sub: "network fee" },
+            { label: "Levanta Platform Fee", pct: `${levantaPct}%`, dollar: levantaDollar, color: C.purple, sub: "processing" },
+          ].map((r, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: r.color, flexShrink: 0 }} />
+                <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>{r.label}</span>
+                <span style={{ fontSize: 10, color: C.muted }}>({r.pct})</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 600, color: r.color }}>${r.dollar.toFixed(2)}</span>
+            </div>
+          ))}
+
+          {/* Subtotal fees */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: "transparent", flexShrink: 0 }} />
+              <span style={{ fontSize: m ? 12 : 13, color: C.muted, fontStyle: "italic" }}>Total Fees</span>
+              <span style={{ fontSize: 10, color: C.muted }}>({totalFeesPct}%)</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 600, color: C.muted }}>${totalFees.toFixed(2)}</span>
+          </div>
+
+          {/* MAX AFFILIATE COMMISSION */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: `2px solid ${valid ? C.green : C.red}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: valid ? C.green : C.red, flexShrink: 0 }} />
+              <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>Max Affiliate Commission</span>
+              <span style={{ fontSize: 10, color: C.muted }}>({valid ? affiliatePct.toFixed(1) : "0"}%)</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 18 : 22, fontWeight: 800, color: valid ? C.green : C.red }}>{valid ? `$${affiliateDollar.toFixed(2)}` : "N/A"}</span>
+          </div>
+
+          {/* Brand keeps */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: `${C.white}30`, flexShrink: 0 }} />
+              <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>Brand Keeps</span>
+              <span style={{ fontSize: 10, color: C.muted }}>({brandKeepsPct.toFixed(1)}%)</span>
+            </div>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 600, color: C.offWhite }}>${brandKeeps.toFixed(2)}</span>
+          </div>
+
+          {!valid && (
+            <div style={{ background: `${C.red}10`, borderRadius: 8, padding: "10px 14px", marginTop: 10, borderLeft: `3px solid ${C.red}`, fontSize: 12, color: C.offWhite }}>
+              <strong style={{ color: C.red }}>CPA too low.</strong> The max CPA (${maxCpa.toFixed(2)}) doesn't cover Ad Pros + Levanta fees (${totalFees.toFixed(2)}). Increase CPA or lower AOV.
+            </div>
+          )}
+        </Surf>
+      </FadeIn>
+
+      {/* SUMMARY CARDS */}
+      {valid && (
+        <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr 1fr", gap: m ? 8 : 10 }}>
+            {[
+              { label: "Ad Pros", value: `$${apDollar.toFixed(2)}`, sub: `${apPct}% of AOV`, color: C.accent },
+              { label: "Levanta", value: `$${levantaDollar.toFixed(2)}`, sub: `${levantaPct}% of AOV`, color: C.purple },
+              { label: "Affiliate", value: `$${affiliateDollar.toFixed(2)}`, sub: `${affiliatePct.toFixed(1)}% of AOV`, color: C.green },
+              { label: "Brand", value: `$${brandKeeps.toFixed(2)}`, sub: `${brandKeepsPct.toFixed(1)}% of AOV`, color: C.white },
+            ].map((c, i) => (
+              <Surf key={i} m={m} style={{ textAlign: "center", padding: m ? 14 : 16 }}>
+                <ML>{c.label}</ML>
+                <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: c.color, marginTop: 4 }}>{c.value}</div>
+                <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{c.sub}</div>
+              </Surf>
+            ))}
+          </div>
+        </FadeIn>
+      )}
+
+      {/* QUICK REFERENCE TABLE */}
+      {valid && (
+        <FadeIn delay={0.03}>
+          <SL num="02" text="Quick Reference by AOV" m={m} />
+          <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+              <thead>
+                <tr>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "left", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>AOV</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>CPA</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Ad Pros</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Levanta</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Max Affiliate</th>
+                  <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}` }}>Aff %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  [30, 15], [50, 25], [62.50, 34.72], [80, 44], [100, 55], [150, 83], [200, 111], [300, 167], [500, 278],
+                ].map(([a, c], i) => {
+                  const ap = a * 0.10;
+                  const lev = a * 0.035;
+                  const aff = c - ap - lev;
+                  const affPct = ((aff / a) * 100).toFixed(1);
+                  const isMatch = a === aov;
+                  return (
+                    <tr key={i} style={{ background: isMatch ? C.accentDim : "transparent" }}>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "left", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.white, borderBottom: `1px solid ${C.border}` }}>${a.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.offWhite, borderBottom: `1px solid ${C.border}` }}>${c.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.accent, borderBottom: `1px solid ${C.border}` }}>${ap.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.purple, borderBottom: `1px solid ${C.border}` }}>${lev.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.green, borderBottom: `1px solid ${C.border}` }}>${aff.toFixed(2)}</td>
+                      <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.green, borderBottom: `1px solid ${C.border}` }}>{affPct}%</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Surf>
+
+          <div style={{ marginTop: 14 }}>
+            <Callout m={m}>
+              <strong style={{ color: C.white }}>Formula:</strong> Max Affiliate = CPA − (AOV × 10%) − (AOV × 3.5%).
+              At ${aov.toFixed(2)} AOV and ${maxCpa.toFixed(2)} CPA: ${maxCpa.toFixed(2)} − ${apDollar.toFixed(2)} − ${levantaDollar.toFixed(2)} = <strong style={{ color: C.green }}>${affiliateDollar.toFixed(2)} ({affiliatePct.toFixed(1)}%)</strong>
+            </Callout>
+          </div>
+        </FadeIn>
+      )}
+    </>
+  );
+}
+
+// ============ TAB: OUTREACH MODEL ============
+function OutreachTab({ m }) {
+  const [identPerDay, setIdentPerDay] = useState(5000);
+  const [msgPerDay, setMsgPerDay] = useState(500);
+  const [workDays, setWorkDays] = useState(22);
+  const [touchpoints, setTouchpoints] = useState(3);
+  const [replyRate, setReplyRate] = useState(15);
+  const [positiveRate, setPositiveRate] = useState(50);
+  const [acceptRate, setAcceptRate] = useState(70);
+  const [signRate, setSignRate] = useState(85);
+  const [productRate, setProductRate] = useState(90);
+  const [postRate, setPostRate] = useState(80);
+
+  // Cost inputs — Identification
+  const [scrapingTools, setScrapingTools] = useState(300);
+  const [enrichmentCost, setEnrichmentCost] = useState(0.02);
+  const [validationCost, setValidationCost] = useState(0.01);
+  const [identVa, setIdentVa] = useState(1000);
+  // Cost inputs — Outreach
+  const [outreachTools, setOutreachTools] = useState(400);
+  const [costPerMsg, setCostPerMsg] = useState(0.03);
+  const [outreachVa, setOutreachVa] = useState(1500);
+  // Cost inputs — Activation
+  const [productCost, setProductCost] = useState(25);
+  const [shippingCost, setShippingCost] = useState(8);
+  const [activationOps, setActivationOps] = useState(500);
+
+  const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1) + "M" : n >= 1000 ? (n / 1000).toFixed(1) + "K" : n.toFixed(0);
+  const fmtD = n => "$" + (n >= 1000 ? (n / 1000).toFixed(1) + "K" : n.toFixed(0));
+
+  // Funnel math
+  const identMo = identPerDay * workDays;
+  const msgMo = msgPerDay * workDays;
+  const totalMsgs = msgMo * touchpoints;
+  const replies = Math.round(msgMo * (replyRate / 100));
+  const positive = Math.round(replies * (positiveRate / 100));
+  const accepted = Math.round(positive * (acceptRate / 100));
+  const signed = Math.round(accepted * (signRate / 100));
+  const productSent = Math.round(signed * (productRate / 100));
+  const posted = Math.round(productSent * (postRate / 100));
+
+  // End-to-end rates
+  const e2eFromMsg = msgMo > 0 ? (posted / msgMo * 100) : 0;
+  const e2eFromIdent = identMo > 0 ? (posted / identMo * 100) : 0;
+
+  // Costs — Identification
+  const enrichmentTotal = identMo * enrichmentCost;
+  const validationTotal = msgMo * validationCost;
+  const identCost = scrapingTools + enrichmentTotal + validationTotal + identVa;
+  // Costs — Outreach
+  const msgCostTotal = totalMsgs * costPerMsg;
+  const outreachCost = outreachTools + msgCostTotal + outreachVa;
+  // Costs — Activation
+  const productCostTotal = productSent * productCost;
+  const shippingTotal = productSent * shippingCost;
+  const activationCost = productCostTotal + shippingTotal + activationOps;
+  // Total
+  const totalCost = identCost + outreachCost + activationCost;
+  const costPerCreator = posted > 0 ? totalCost / posted : 0;
+
+  const stages = [
+    { label: "Creators Identified", value: identMo, rate: null, color: C.offWhite, desc: `${identPerDay.toLocaleString()}/day × ${workDays} days` },
+    { label: "Quality Contacts Sent", value: msgMo, rate: identMo > 0 ? (msgMo / identMo * 100).toFixed(1) : 0, color: C.accent, desc: `${msgPerDay}/day × ${workDays} days` },
+    { label: "Total Messages", value: totalMsgs, rate: null, color: C.muted, desc: `${msgMo.toLocaleString()} contacts × ${touchpoints} touchpoints` },
+    { label: "Replies", value: replies, rate: replyRate, color: C.blue, desc: `${replyRate}% of contacts` },
+    { label: "Positive Replies", value: positive, rate: positiveRate, color: C.green, desc: `${positiveRate}% of replies` },
+    { label: "Accepted / Interested", value: accepted, rate: acceptRate, color: C.green, desc: `${acceptRate}% of positive` },
+    { label: "Signed Contract", value: signed, rate: signRate, color: C.accent, desc: `${signRate}% of accepted` },
+    { label: "Product Sent", value: productSent, rate: productRate, color: C.accent, desc: `${productRate}% of signed` },
+    { label: "Creator Posted Content", value: posted, rate: postRate, color: C.green, desc: `${postRate}% of product sent` },
+  ];
+
+  return (
+    <>
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          Model the creator recruitment funnel from identification to first post.
+          <strong style={{ color: C.white }}> {msgPerDay}/day quality contacts</strong> from <strong style={{ color: C.white }}>{identPerDay.toLocaleString()}/day identified</strong> over {workDays} working days.
+        </p>
+      </FadeIn>
+
+      {/* VOLUME INPUTS */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 16 : 20 }}>
+        <Surf m={m}>
+          <ML>Volume</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Creators Identified / Day" value={identPerDay} onChange={setIdentPerDay} min={500} max={10000} step={500} format={v => v.toLocaleString()} />
+            <Slider m={m} label="Quality Contacts Sent / Day" value={msgPerDay} onChange={setMsgPerDay} min={50} max={2000} step={50} format={v => v.toLocaleString()} />
+            <Slider m={m} label="Working Days / Month" value={workDays} onChange={setWorkDays} min={15} max={30} format={v => `${v} days`} />
+            <Slider m={m} label="Touchpoints per Contact" value={touchpoints} onChange={setTouchpoints} min={1} max={7} format={v => `${v} (DM + ${v - 1} follow-ups)`} color={C.blue} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* CONVERSION RATES */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 16 : 20 }}>
+        <Surf m={m}>
+          <ML>Conversion Rates</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Reply Rate (of contacts)" value={replyRate} onChange={setReplyRate} min={5} max={50} format={v => `${v}%`} color={C.blue} />
+            <Slider m={m} label="Positive Reply Rate (of replies)" value={positiveRate} onChange={setPositiveRate} min={20} max={80} format={v => `${v}%`} color={C.green} />
+            <Slider m={m} label="Accepted / Interested" value={acceptRate} onChange={setAcceptRate} min={30} max={95} format={v => `${v}%`} color={C.green} />
+            <Slider m={m} label="Signed Contract" value={signRate} onChange={setSignRate} min={50} max={100} format={v => `${v}%`} color={C.accent} />
+            <Slider m={m} label="Product Sent Successfully" value={productRate} onChange={setProductRate} min={50} max={100} format={v => `${v}%`} color={C.accent} />
+            <Slider m={m} label="Creator Posted Content" value={postRate} onChange={setPostRate} min={50} max={100} format={v => `${v}%`} color={C.green} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* FUNNEL VISUALIZATION */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="01" text="Monthly Funnel" m={m} />
+        <Surf m={m}>
+          {stages.map((s, i) => {
+            const maxVal = identMo;
+            const barW = maxVal > 0 ? Math.max((s.value / maxVal) * 100, 1) : 0;
+            const isLast = i === stages.length - 1;
+            const isHeader = i <= 2;
+            return (
+              <div key={i} style={{ padding: "8px 0", borderBottom: isLast ? "none" : `1px solid ${C.border}` }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ fontSize: m ? 12 : 13, fontWeight: isLast ? 800 : isHeader ? 600 : 400, color: isLast ? C.white : C.offWhite }}>{s.label}</span>
+                    {s.rate !== null && <span style={{ fontFamily: F.mono, fontSize: 10, color: C.muted }}>({s.rate}%)</span>}
+                  </div>
+                  <span style={{ fontFamily: F.mono, fontSize: m ? 14 : 16, fontWeight: isLast ? 800 : 600, color: isLast ? s.color : C.white }}>{s.value.toLocaleString()}</span>
+                </div>
+                <div style={{ height: isLast ? 6 : 3, background: C.border, borderRadius: 2, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${barW}%`, background: s.color, borderRadius: 2, transition: "width 0.3s" }} />
+                </div>
+                <div style={{ fontSize: 10, color: C.muted, marginTop: 2 }}>{s.desc}</div>
+              </div>
+            );
+          })}
+
+          {/* End-to-end summary */}
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr 1fr" : "1fr 1fr 1fr", gap: m ? 8 : 12, marginTop: 16, paddingTop: 16, borderTop: `2px solid ${C.green}` }}>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px", textAlign: "center" }}>
+              <ML>Active Creators</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 28 : 34, fontStyle: "italic", color: C.green }}>{posted.toLocaleString()}</div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 2 }}>per month</div>
+            </div>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px", textAlign: "center" }}>
+              <ML>Contact → Active</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 28 : 34, fontStyle: "italic", color: C.accent }}>{e2eFromMsg.toFixed(1)}%</div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 2 }}>end-to-end</div>
+            </div>
+            {!m && (
+              <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px", textAlign: "center" }}>
+                <ML>Identified → Active</ML>
+                <div style={{ fontFamily: F.display, fontSize: m ? 28 : 34, fontStyle: "italic", color: C.offWhite }}>{e2eFromIdent.toFixed(2)}%</div>
+                <div style={{ fontSize: 10, color: C.muted, marginTop: 2 }}>end-to-end</div>
+              </div>
+            )}
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* COST MODEL */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="02" text="Monthly Cost Model" m={m} />
+
+        {/* IDENTIFICATION */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.blue}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>1. Identification</span>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.blue }}>{fmtD(identCost)}</span>
+          </div>
+          <Slider m={m} label="Scraping Tools (Kalodata, FastMoss, EchoTik)" value={scrapingTools} onChange={setScrapingTools} min={50} max={1000} step={50} format={v => fmtD(v)} color={C.blue} />
+          <Slider m={m} label="Profile Enrichment (per profile)" value={enrichmentCost} onChange={setEnrichmentCost} min={0.005} max={0.10} step={0.005} format={v => `$${v.toFixed(3)}`} color={C.blue} />
+          <Slider m={m} label="Email Validation (per contact)" value={validationCost} onChange={setValidationCost} min={0.003} max={0.05} step={0.001} format={v => `$${v.toFixed(3)}`} color={C.blue} />
+          <Slider m={m} label="Identification VA / Month" value={identVa} onChange={setIdentVa} min={0} max={5000} step={250} format={v => fmtD(v)} color={C.blue} />
+          <div style={{ background: C.bg, borderRadius: 8, padding: m ? "8px 10px" : "10px 14px", marginTop: 8 }}>
+            {[
+              { l: "Scraping Tools", v: scrapingTools, s: "monthly" },
+              { l: "Profile Enrichment", v: enrichmentTotal, s: `$${enrichmentCost.toFixed(3)} × ${identMo.toLocaleString()} profiles` },
+              { l: "Email Validation", v: validationTotal, s: `$${validationCost.toFixed(3)} × ${msgMo.toLocaleString()} contacts` },
+              { l: "Identification VA", v: identVa, s: "monthly" },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: i < 3 ? `1px solid ${C.border}` : "none", fontSize: m ? 11 : 12 }}>
+                <div><span style={{ color: C.offWhite }}>{r.l}</span> <span style={{ fontSize: 10, color: C.muted }}>{r.s}</span></div>
+                <span style={{ fontFamily: F.mono, fontWeight: 600, color: C.blue }}>{fmtD(r.v)}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 8, marginTop: 4, borderTop: `1px solid ${C.blue}30`, fontSize: m ? 12 : 13 }}>
+              <span style={{ fontWeight: 700, color: C.white }}>Subtotal</span>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: C.blue }}>{fmtD(identCost)}</span>
+            </div>
+          </div>
+        </Surf>
+
+        {/* OUTREACH */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.accent}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>2. Outreach</span>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.accent }}>{fmtD(outreachCost)}</span>
+          </div>
+          <Slider m={m} label="Outreach Tools (Cruva, Instantly, Smartlead)" value={outreachTools} onChange={setOutreachTools} min={50} max={1500} step={50} format={v => fmtD(v)} color={C.accent} />
+          <Slider m={m} label="Cost per Message Sent" value={costPerMsg} onChange={setCostPerMsg} min={0.01} max={0.25} step={0.01} format={v => `$${v.toFixed(2)}`} color={C.accent} />
+          <Slider m={m} label="Outreach VA / Month" value={outreachVa} onChange={setOutreachVa} min={0} max={5000} step={250} format={v => fmtD(v)} color={C.accent} />
+          <div style={{ background: C.bg, borderRadius: 8, padding: m ? "8px 10px" : "10px 14px", marginTop: 8 }}>
+            {[
+              { l: "Outreach Tools", v: outreachTools, s: "monthly" },
+              { l: "Message Costs", v: msgCostTotal, s: `$${costPerMsg.toFixed(2)} × ${totalMsgs.toLocaleString()} msgs` },
+              { l: "Outreach VA", v: outreachVa, s: "monthly" },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: i < 2 ? `1px solid ${C.border}` : "none", fontSize: m ? 11 : 12 }}>
+                <div><span style={{ color: C.offWhite }}>{r.l}</span> <span style={{ fontSize: 10, color: C.muted }}>{r.s}</span></div>
+                <span style={{ fontFamily: F.mono, fontWeight: 600, color: C.accent }}>{fmtD(r.v)}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 8, marginTop: 4, borderTop: `1px solid ${C.accent}30`, fontSize: m ? 12 : 13 }}>
+              <span style={{ fontWeight: 700, color: C.white }}>Subtotal</span>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: C.accent }}>{fmtD(outreachCost)}</span>
+            </div>
+          </div>
+        </Surf>
+
+        {/* ACTIVATION */}
+        <Surf m={m} style={{ borderLeft: `3px solid ${C.green}`, marginBottom: m ? 10 : 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 700, color: C.white }}>3. Activation</span>
+            <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 14, fontWeight: 700, color: C.green }}>{fmtD(activationCost)}</span>
+          </div>
+          <Slider m={m} label="Product Sample Cost (per unit)" value={productCost} onChange={setProductCost} min={5} max={200} step={5} format={v => `$${v}`} color={C.green} />
+          <Slider m={m} label="Shipping per Sample" value={shippingCost} onChange={setShippingCost} min={0} max={50} step={1} format={v => `$${v}`} color={C.green} />
+          <Slider m={m} label="Onboarding / Contract Ops" value={activationOps} onChange={setActivationOps} min={0} max={3000} step={100} format={v => fmtD(v)} color={C.green} />
+          <div style={{ background: C.bg, borderRadius: 8, padding: m ? "8px 10px" : "10px 14px", marginTop: 8 }}>
+            {[
+              { l: "Product Samples", v: productCostTotal, s: `$${productCost} × ${productSent.toLocaleString()} units` },
+              { l: "Shipping", v: shippingTotal, s: `$${shippingCost} × ${productSent.toLocaleString()} units` },
+              { l: "Onboarding / Contract Ops", v: activationOps, s: "monthly" },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: i < 2 ? `1px solid ${C.border}` : "none", fontSize: m ? 11 : 12 }}>
+                <div><span style={{ color: C.offWhite }}>{r.l}</span> <span style={{ fontSize: 10, color: C.muted }}>{r.s}</span></div>
+                <span style={{ fontFamily: F.mono, fontWeight: 600, color: C.green }}>{fmtD(r.v)}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 8, marginTop: 4, borderTop: `1px solid ${C.green}30`, fontSize: m ? 12 : 13 }}>
+              <span style={{ fontWeight: 700, color: C.white }}>Subtotal</span>
+              <span style={{ fontFamily: F.mono, fontWeight: 700, color: C.green }}>{fmtD(activationCost)}</span>
+            </div>
+          </div>
+        </Surf>
+
+        {/* TOTAL */}
+        <Surf m={m}>
+          {[
+            { label: "Identification", value: identCost, color: C.blue },
+            { label: "Outreach", value: outreachCost, color: C.accent },
+            { label: "Activation", value: activationCost, color: C.green },
+          ].map((r, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderBottom: `1px solid ${C.border}`, fontSize: m ? 12 : 13 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: r.color, flexShrink: 0 }} />
+                <span style={{ color: C.offWhite }}>{r.label}</span>
+              </div>
+              <span style={{ fontFamily: F.mono, fontWeight: 600, color: r.color }}>{fmtD(r.value)}</span>
+            </div>
+          ))}
+
+          {/* Stacked bar */}
+          <div style={{ display: "flex", height: 8, borderRadius: 4, overflow: "hidden", margin: "12px 0" }}>
+            <div style={{ width: `${totalCost > 0 ? (identCost / totalCost) * 100 : 0}%`, background: C.blue }} />
+            <div style={{ width: `${totalCost > 0 ? (outreachCost / totalCost) * 100 : 0}%`, background: C.accent }} />
+            <div style={{ width: `${totalCost > 0 ? (activationCost / totalCost) * 100 : 0}%`, background: C.green }} />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderTop: `2px solid ${C.accent}` }}>
+            <span style={{ fontSize: m ? 14 : 15, fontWeight: 800, color: C.white }}>Total Monthly Cost</span>
+            <span style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.accent }}>{fmtD(totalCost)}</span>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: m ? 8 : 12, marginTop: 14 }}>
+            <div style={{ background: C.accentDim, borderRadius: 10, padding: "12px 14px", textAlign: "center" }}>
+              <ML>Cost per Active Creator</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.accent }}>${costPerCreator.toFixed(2)}</div>
+            </div>
+            <div style={{ background: C.greenDim, borderRadius: 10, padding: "12px 14px", textAlign: "center" }}>
+              <ML>Creators per $1,000</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.green }}>{costPerCreator > 0 ? Math.round(1000 / costPerCreator) : 0}</div>
+            </div>
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* TIMELINE TABLE */}
+      <FadeIn delay={0.03}>
+        <SL num="03" text="Cumulative Growth" m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+            <thead>
+              <tr>
+                {["Month", "Contacted", "Replies", "Active", "Cumulative", "Total Cost"].map(h => (
+                  <th key={h} style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: h === "Month" ? "left" : "right", fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[1, 2, 3, 4, 5, 6, 9, 12].map((mo, i) => {
+                const cumActive = posted * mo;
+                const cumCost = totalCost * mo;
+                const isQ = mo === 3 || mo === 6 || mo === 12;
+                return (
+                  <tr key={mo} style={{ background: isQ ? C.accentDim : "transparent" }}>
+                    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "left", fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: 700, color: C.white, borderBottom: `1px solid ${C.border}` }}>{mo}</td>
+                    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.offWhite, borderBottom: `1px solid ${C.border}` }}>{(msgMo * mo).toLocaleString()}</td>
+                    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.blue, borderBottom: `1px solid ${C.border}` }}>{(replies * mo).toLocaleString()}</td>
+                    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.green, fontWeight: 700, borderBottom: `1px solid ${C.border}` }}>{(posted * mo).toLocaleString()}</td>
+                    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.accent, fontWeight: 700, borderBottom: `1px solid ${C.border}` }}>{cumActive.toLocaleString()}</td>
+                    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: "right", fontFamily: F.mono, fontSize: m ? 11 : 12, color: C.offWhite, borderBottom: `1px solid ${C.border}` }}>{fmtD(cumCost)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+
+        <div style={{ marginTop: 14 }}>
+          <Callout m={m}>
+            <strong style={{ color: C.white }}>At current rates:</strong> {posted.toLocaleString()} new active creators/month at ${costPerCreator.toFixed(2)} each.
+            After 6 months: {(posted * 6).toLocaleString()} cumulative active creators from {(msgMo * 6).toLocaleString()} contacts.
+            End-to-end conversion: {e2eFromMsg.toFixed(1)}% of contacts → active creator.
+          </Callout>
+        </div>
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ TAB: SCALE PLANNING ============
+function ScaleTab({ m }) {
+  const [brandRev, setBrandRev] = useState(3000000);
+  const [brandSpend, setBrandSpend] = useState(1800000);
+  const [orgAlloc, setOrgAlloc] = useState(20);
+  const [adAlloc, setAdAlloc] = useState(20);
+  const [apTarget, setApTarget] = useState(100000);
+
+  const fmt = n => n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : n >= 1000 ? "$" + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "K" : "$" + n.toFixed(0);
+  const fmtFull = n => "$" + Math.round(n).toLocaleString();
+
+  const orgGmv = brandRev * (orgAlloc / 100);
+  const adOnCreator = brandSpend * (adAlloc / 100);
+  const apFromOrg = orgGmv * 0.10;
+  const apFromAd = adOnCreator * 0.10;
+  const apTotal = apFromOrg + apFromAd;
+  const creatorBonus = adOnCreator * 0.03;
+  const apMargin = apFromOrg + (adOnCreator * 0.07);
+  const totalFlow = orgGmv + adOnCreator;
+  const pctToTarget = (apTotal / apTarget) * 100;
+  const gap = apTarget - apTotal;
+  const needTotal = apTarget / 0.10;
+  const hit = apTotal >= apTarget;
+
+  const Th = ({ children, align = "right" }) => (
+    <th style={{ padding: m ? "8px 6px" : "8px 10px", textAlign: align, fontFamily: F.mono, fontSize: m ? 8 : 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{children}</th>
+  );
+  const Td = ({ children, color = C.offWhite, bold, align = "right" }) => (
+    <td style={{ padding: m ? "7px 6px" : "8px 10px", textAlign: align, fontFamily: F.mono, fontSize: m ? 11 : 12, fontWeight: bold ? 700 : 400, color, borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{children}</td>
+  );
+
+  return (
+    <>
+      {/* INTERACTIVE SECTION */}
+      <FadeIn>
+        <p style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: C.offWhite, marginBottom: 16 }}>
+          Model the path to <strong style={{ color: C.accent }}>{fmtFull(apTarget)}/mo</strong> Ad Pros revenue from a single client.
+          AP earns 10% on both streams — so organic GMV + creator ad spend must total <strong style={{ color: C.white }}>{fmtFull(needTotal)}</strong>.
+        </p>
+
+        <Surf m={m} style={{ marginBottom: m ? 16 : 20 }}>
+          <ML>Brand Profile</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="Brand Monthly Revenue" value={brandRev} onChange={setBrandRev} min={500000} max={10000000} step={100000} format={v => fmtFull(v)} />
+            <Slider m={m} label="Brand Monthly Ad Spend" value={brandSpend} onChange={setBrandSpend} min={100000} max={5000000} step={50000} format={v => fmtFull(v)} />
+          </div>
+          <ML>Creator Network Allocation</ML>
+          <div style={{ marginTop: 8 }}>
+            <Slider m={m} label="% Revenue via Organic Affiliates" value={orgAlloc} onChange={setOrgAlloc} min={5} max={60} step={5} format={v => `${v}% (${fmt(brandRev * v / 100)} GMV)`} color={C.green} />
+            <Slider m={m} label="% Spend on Creator Content" value={adAlloc} onChange={setAdAlloc} min={5} max={60} step={5} format={v => `${v}% (${fmt(brandSpend * v / 100)} spend)`} color={C.accent} />
+            <Slider m={m} label="AP Revenue Target" value={apTarget} onChange={setApTarget} min={10000} max={500000} step={10000} format={v => fmtFull(v)} color={C.purple} />
+          </div>
+        </Surf>
+      </FadeIn>
+
+      {/* RESULTS */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <Surf m={m} style={{ borderTop: hit ? `3px solid ${C.green}` : `3px solid ${C.accent}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+            <div>
+              <ML>AP Monthly Revenue</ML>
+              <div style={{ fontFamily: F.display, fontSize: m ? 30 : 38, fontStyle: "italic", color: hit ? C.green : C.accent }}>{fmtFull(apTotal)}</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 700, padding: "4px 10px", borderRadius: 6, background: hit ? C.greenDim : `${C.red}18`, color: hit ? C.green : C.red }}>
+                {hit ? `✓ +${fmtFull(apTotal - apTarget)} OVER TARGET` : `${fmtFull(gap)} TO GO`}
+              </div>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div style={{ height: 6, background: C.border, borderRadius: 3, overflow: "hidden", marginBottom: 14 }}>
+            <div style={{ height: "100%", width: `${Math.min(pctToTarget, 100)}%`, background: hit ? C.green : C.accent, borderRadius: 3, transition: "width 0.3s" }} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 8 : 12 }}>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, color: C.green, fontWeight: 600 }}>Organic GMV</span>
+                <span style={{ fontFamily: F.mono, fontSize: 12, color: C.offWhite }}>{fmt(orgGmv)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: 12, color: C.muted }}>AP Revenue (10%)</span>
+                <span style={{ fontFamily: F.mono, fontSize: 13, fontWeight: 700, color: C.green }}>{fmtFull(apFromOrg)}</span>
+              </div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>100% margin</div>
+            </div>
+            <div style={{ background: C.bg, borderRadius: 10, padding: "12px 14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, color: C.accent, fontWeight: 600 }}>Creator Ad Spend</span>
+                <span style={{ fontFamily: F.mono, fontSize: 12, color: C.offWhite }}>{fmt(adOnCreator)}</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: 12, color: C.muted }}>AP Revenue (10%)</span>
+                <span style={{ fontFamily: F.mono, fontSize: 13, fontWeight: 700, color: C.accent }}>{fmtFull(apFromAd)}</span>
+              </div>
+              <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>70% margin (3% → creators)</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: 14, paddingTop: 14, borderTop: `2px solid ${C.accent}` }}>
+            <div>
+              <span style={{ fontSize: m ? 13 : 14, fontWeight: 700, color: C.white }}>AP Margin</span>
+              <span style={{ fontSize: 11, color: C.muted, marginLeft: 6 }}>(after creator bonus)</span>
+            </div>
+            <span style={{ fontFamily: F.display, fontSize: m ? 22 : 26, fontStyle: "italic", color: C.green }}>{fmtFull(apMargin)}</span>
+          </div>
+        </Surf>
+
+        {!hit && (
+          <Callout m={m} color={C.red} bg={`${C.red}10`}>
+            <strong style={{ color: C.white }}>Gap: {fmtFull(gap)}</strong> — need {fmtFull(gap / 0.10)} more flowing through the network.
+            Either increase organic allocation to {Math.ceil(((orgGmv + gap / 0.10 * 0.6) / brandRev) * 100)}% or ad allocation to {Math.ceil(((adOnCreator + gap / 0.10 * 0.4) / brandSpend) * 100)}%, or both.
+          </Callout>
+        )}
+      </FadeIn>
+
+      {/* TABLE 1: Combinations that hit $100K */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="01" text={`Combinations That Hit ${fmt(apTarget)}`} m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+            <thead>
+              <tr>
+                <Th align="left">Organic GMV</Th>
+                <Th>Creator Ad Spend</Th>
+                <Th>AP from Organic</Th>
+                <Th>AP from Ads</Th>
+                <Th>AP Total</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                [1.0, 0], [0.8, 0.2], [0.6, 0.4], [0.5, 0.5], [0.4, 0.6], [0.2, 0.8], [0, 1.0],
+              ].map(([orgPct, adPct], i) => {
+                const orgV = needTotal * orgPct;
+                const adV = needTotal * adPct;
+                const isBalanced = orgPct === 0.6 || orgPct === 0.5;
+                return (
+                  <tr key={i} style={{ background: isBalanced ? C.accentDim : "transparent" }}>
+                    <Td align="left" bold={isBalanced} color={isBalanced ? C.white : C.offWhite}>{fmt(orgV)}</Td>
+                    <Td bold={isBalanced} color={isBalanced ? C.white : C.offWhite}>{fmt(adV)}</Td>
+                    <Td color={C.green}>{fmtFull(orgV * 0.10)}</Td>
+                    <Td color={C.accent}>{fmtFull(adV * 0.10)}</Td>
+                    <Td bold color={C.white}>{fmtFull(apTarget)}</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+      </FadeIn>
+
+      {/* TABLE 2: Brand sizes that get there */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="02" text="Brand Size Required" m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: m ? 500 : 580 }}>
+            <thead>
+              <tr>
+                <Th align="left">Brand Rev</Th>
+                <Th>Brand Spend</Th>
+                <Th>Org %</Th>
+                <Th>Ad %</Th>
+                <Th>Org GMV</Th>
+                <Th>Creator Spend</Th>
+                <Th>AP Revenue</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                [5000000, 3000000, 10, 10],
+                [5000000, 3000000, 15, 10],
+                [3000000, 1800000, 20, 20],
+                [3000000, 1800000, 25, 20],
+                [2000000, 1200000, 30, 20],
+                [2000000, 1200000, 30, 30],
+                [2000000, 1200000, 35, 30],
+                [1500000, 900000, 40, 30],
+                [1500000, 900000, 50, 30],
+                [1000000, 600000, 50, 50],
+              ].map(([rev, sp, oP, aP], i) => {
+                const oGmv = rev * (oP / 100);
+                const aSpend = sp * (aP / 100);
+                const apRev = oGmv * 0.10 + aSpend * 0.10;
+                const hitsTarget = apRev >= apTarget;
+                return (
+                  <tr key={i} style={{ background: hitsTarget ? C.accentDim : "transparent" }}>
+                    <Td align="left" color={C.white} bold>{fmt(rev)}</Td>
+                    <Td color={C.offWhite}>{fmt(sp)}</Td>
+                    <Td color={C.green}>{oP}%</Td>
+                    <Td color={C.accent}>{aP}%</Td>
+                    <Td color={C.offWhite}>{fmt(oGmv)}</Td>
+                    <Td color={C.offWhite}>{fmt(aSpend)}</Td>
+                    <Td bold color={hitsTarget ? C.green : C.muted}>{fmtFull(apRev)}{hitsTarget ? " ✓" : ""}</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+      </FadeIn>
+
+      {/* TABLE 3: Margin by mix */}
+      <FadeIn delay={0.03} style={{ marginBottom: m ? 18 : 24 }}>
+        <SL num="03" text={`AP Margin by Mix (on ${fmt(apTarget)} Revenue)`} m={m} />
+        <Surf m={m} style={{ padding: m ? 8 : 12, overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+            <thead>
+              <tr>
+                <Th align="left">Mix</Th>
+                <Th>Organic Rev</Th>
+                <Th>Ad Rev</Th>
+                <Th>Creator Bonus</Th>
+                <Th>AP Margin</Th>
+                <Th>Margin %</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["100% organic", 1.0, 0],
+                ["80/20", 0.8, 0.2],
+                ["60/40", 0.6, 0.4],
+                ["50/50", 0.5, 0.5],
+                ["40/60", 0.4, 0.6],
+                ["20/80", 0.2, 0.8],
+                ["100% ads", 0, 1.0],
+              ].map(([label, orgR, adR], i) => {
+                const orgAmt = apTarget * orgR;
+                const adAmt = apTarget * adR;
+                const bonus = (adAmt / 0.10) * 0.03;
+                const margin = orgAmt + adAmt - bonus;
+                const marginPct = ((margin / apTarget) * 100).toFixed(0);
+                const best = orgR >= 0.6;
+                return (
+                  <tr key={i} style={{ background: best ? C.greenDim : "transparent" }}>
+                    <Td align="left" color={C.white} bold>{label}</Td>
+                    <Td color={C.green}>{fmtFull(orgAmt)}</Td>
+                    <Td color={C.accent}>{fmtFull(adAmt)}</Td>
+                    <Td color={C.red}>{fmtFull(bonus)}</Td>
+                    <Td bold color={best ? C.green : C.white}>{fmtFull(margin)}</Td>
+                    <Td bold color={best ? C.green : C.offWhite}>{marginPct}%</Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Surf>
+
+        <div style={{ marginTop: 14 }}>
+          <Callout m={m}>
+            <strong style={{ color: C.white }}>Key insight:</strong> Organic GMV is 2.5x more margin-efficient.
+            Each $1 of organic GMV generates $0.10 at 100% margin. Each $1 of ad spend generates $0.10 at 70% margin.
+            Weight the mix toward organic for maximum profitability.
+          </Callout>
+        </div>
+      </FadeIn>
+
+      {/* BOTTOM LINE */}
+      <FadeIn delay={0.03}>
+        <SL num="—" text="Bottom Line" m={m} />
+        <Surf m={m}>
+          <ML>Most Realistic Path by Brand Size</ML>
+          <div style={{ marginTop: 10 }}>
+            {[
+              { size: "$5M/mo", path: "Conservative: 15% organic + 10% ad", color: C.green },
+              { size: "$3M/mo", path: "Moderate: 25% organic + 20% ad", color: C.accent },
+              { size: "$2M/mo", path: "Aggressive: 35% organic + 30% ad", color: C.blue },
+              { size: "$1.5M/mo", path: "Creator-first: 50% organic + 30% ad", color: C.purple },
+            ].map((r, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: m ? 10 : 14, padding: "10px 0", borderBottom: i < 3 ? `1px solid ${C.border}` : "none" }}>
+                <span style={{ fontFamily: F.mono, fontSize: m ? 13 : 15, fontWeight: 800, color: r.color, minWidth: m ? 70 : 90 }}>{r.size}</span>
+                <span style={{ fontSize: m ? 12 : 13, color: C.offWhite }}>{r.path}</span>
+              </div>
+            ))}
+          </div>
+        </Surf>
+      </FadeIn>
+    </>
+  );
+}
+
+// ============ MAIN ============
+function App() {
+  const { m } = useBp();
+  const [tab, setTab] = useState("overview");
+  const tabs = [
+    { id: "overview", label: "Overview" },
+    { id: "creator", label: "Creator Payouts" },
+    { id: "single", label: "1-Brand Calc" },
+    { id: "portfolio", label: "Portfolio Calc" },
+    { id: "sales", label: "Sales Model" },
+    { id: "product", label: "Product Model" },
+    { id: "outreach", label: "Outreach Model" },
+    { id: "client", label: "Per-Client $20K" },
+    { id: "scale", label: "Scale $100K" },
+  ];
+
+  return (
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: F.body, color: C.white, WebkitFontSmoothing: "antialiased", overflowX: "hidden" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+      <div style={{ padding: m ? "24px 18px 0" : "32px 40px 0", maxWidth: 760, margin: "0 auto" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: m ? 16 : 24, flexWrap: "wrap", gap: 10 }}>
+          <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: m ? 28 : 34, width: "auto" }}>
+            <text x="0" y="30" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">ad</text>
+            <text x="0" y="58" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">pros</text>
+            <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900" />
+          </svg>
+          <span style={{ fontFamily: F.mono, fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Confidential</span>
+        </div>
+        <h1 style={{ fontFamily: F.display, fontSize: m ? 30 : 44, fontWeight: 400, lineHeight: 1.08, margin: 0 }}>
+          Creator Performance{m ? <br /> : " "}<em style={{ color: C.accent }}>Network</em>
+        </h1>
+      </div>
+
+      <div style={{ position: "sticky", top: 0, zIndex: 50, background: C.bg, borderBottom: `1px solid ${C.border}`, marginTop: m ? 16 : 24 }}>
+        <div style={{ display: "flex", maxWidth: 760, margin: "0 auto", padding: m ? "0 18px" : "0 40px", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)} style={{
+              padding: m ? "11px 12px" : "13px 18px", fontSize: m ? 11 : 12.5, fontWeight: 600,
+              color: tab === t.id ? C.accent : C.muted, background: tab === t.id ? C.accentDim : "transparent",
+              border: "none", borderBottom: tab === t.id ? `2px solid ${C.accent}` : "2px solid transparent",
+              borderRadius: "8px 8px 0 0", cursor: "pointer", whiteSpace: "nowrap", fontFamily: F.body,
+            }}>{t.label}</button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: m ? "20px 18px 36px" : "28px 40px 44px" }}>
+        {tab === "overview" && <OverviewTab m={m} />}
+        {tab === "creator" && <CreatorTab m={m} />}
+        {tab === "single" && <FunnelCalc m={m} brandCount={1} />}
+        {tab === "portfolio" && <FunnelCalc m={m} brandCount={10} />}
+        {tab === "sales" && <SalesTab m={m} />}
+        {tab === "product" && <ProductCalcTab m={m} />}
+        {tab === "outreach" && <OutreachTab m={m} />}
+        {tab === "client" && <ClientTargetTab m={m} />}
+        {tab === "scale" && <ScaleTab m={m} />}
+      </div>
+
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: m ? "0 18px 28px" : "0 40px 36px" }}>
+        <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <svg viewBox="0 0 108 72" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 20, width: "auto", opacity: 0.3 }}>
+            <text x="0" y="30" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">ad</text>
+            <text x="0" y="58" fontFamily="DM Sans, sans-serif" fontWeight="800" fontSize="30" fill="white" letterSpacing="-0.5">pros</text>
+            <rect x="0" y="64" width="96" height="7" rx="1.5" fill="#F9D900" />
+          </svg>
+          <span style={{ fontFamily: F.mono, fontSize: 9, color: C.muted }}>April 2026</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(React.createElement(App));
+
+  </script>
+</body>
+</html>

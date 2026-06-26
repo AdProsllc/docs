@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Nehal — Daily Pulse — Ad Pros</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --navy-card-2: #0a1050;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --card-border: #0e1358;
+      --green: #4ade80;
+      --amber: #facc15;
+      --red: #f87171;
+      --business: #1A6FD4;
+      --health: #4ade80;
+      --marriage: #f9a8d4;
+    }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Inter","Helvetica Neue",Arial,sans-serif;
+      min-height: 100vh; font-size: 14px; line-height: 1.5;
+    }
+
+    /* ============ AP SHELL ============ */
+    .ap-header {
+      background: var(--navy); border-bottom: 4px solid var(--yellow);
+      padding: 22px 40px; display: flex; align-items: center;
+      gap: 18px; flex-wrap: wrap;
+    }
+    .ap-header-divider { width: 1px; height: 38px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 12px; color: var(--grey-300); margin-top: 2px; }
+    .ap-header-actions { margin-left: auto; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .ap-content { padding: 28px 40px; max-width: 1200px; margin: 0 auto; display: grid; gap: 16px; }
+    .ap-footer {
+      margin: 40px 40px 24px; padding-top: 20px;
+      border-top: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    /* ============ INPUTS ============ */
+    input[type=date], input[type=text], input[type=number], textarea, select {
+      background: var(--navy-card); color: var(--white);
+      border: 1px solid var(--card-border);
+      padding: 7px 11px; border-radius: 6px;
+      font-size: 13px; font-family: inherit; outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--blue); }
+    textarea { resize: vertical; min-height: 40px; line-height: 1.45; }
+
+    button {
+      background: var(--navy-card); color: var(--white);
+      border: 1px solid var(--card-border);
+      padding: 7px 13px; border-radius: 6px;
+      cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 500;
+      transition: all 0.15s;
+    }
+    button:hover { background: var(--navy-card-2); border-color: var(--blue); }
+    button.primary {
+      background: var(--yellow); color: var(--navy);
+      border-color: var(--yellow); font-weight: 700;
+    }
+    button.primary:hover { background: #ffe41a; border-color: #ffe41a; }
+    button.small { padding: 3px 8px; font-size: 12px; }
+    .save-indicator { font-size: 11px; color: var(--grey-300); margin-left: 4px; }
+    .save-indicator.saved { color: var(--green); }
+
+    /* ============ SECTIONS ============ */
+    section {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 18px 22px;
+    }
+    section h2 {
+      margin: 0 0 14px 0;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--yellow); font-weight: 700;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    section h2 .hint-inline {
+      font-size: 10px; color: var(--grey-300); font-weight: 500;
+      letter-spacing: 0.06em; text-transform: none;
+    }
+    .hint { color: var(--grey-300); font-size: 12px; margin-top: 6px; font-style: italic; }
+
+    /* ============ TOP 3 ============ */
+    .big-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .obj-card {
+      background: var(--navy-card-2);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--grey-300);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .obj-card.business { border-left-color: var(--business); }
+    .obj-card.health { border-left-color: var(--health); }
+    .obj-card.marriage { border-left-color: var(--marriage); }
+    .obj-card .label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em;
+      color: var(--grey-300); margin-bottom: 6px; font-weight: 700;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .obj-card .label .yesterday {
+      font-size: 10px; color: var(--grey-300); text-transform: none;
+      letter-spacing: 0; font-weight: 400; font-style: italic; opacity: 0.75;
+    }
+    .obj-card textarea {
+      width: 100%; background: transparent; border: none; color: var(--white);
+      font-size: 15px; resize: none; min-height: 42px; padding: 0;
+      font-weight: 500;
+    }
+    .obj-card textarea::placeholder { color: #4a526e; font-weight: 400; }
+    .status-row { display: flex; gap: 6px; margin-top: 10px; }
+    .status-btn {
+      flex: 1; padding: 7px 4px; font-size: 11px; text-align: center;
+      background: transparent; border: 1px solid var(--card-border);
+      color: var(--grey-300); border-radius: 5px; cursor: pointer;
+      letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;
+    }
+    .status-btn:hover { color: var(--white); }
+    .status-btn.active.not-started { background: #2d2817; border-color: var(--amber); color: var(--amber); }
+    .status-btn.active.in-progress { background: #0d1f3a; border-color: var(--blue); color: var(--blue); }
+    .status-btn.active.done { background: #10301e; border-color: var(--green); color: var(--green); }
+    .status-btn.active.blocked { background: #3a1a1e; border-color: var(--red); color: var(--red); }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+    .dot.business { background: var(--business); }
+    .dot.health { background: var(--health); }
+    .dot.marriage { background: var(--marriage); }
+
+    /* ============ WEEK AT A GLANCE ============ */
+    .week-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .week-card {
+      background: var(--navy-card-2);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .week-card .top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .week-card .name { font-size: 12px; font-weight: 700; color: var(--white); letter-spacing: 0.05em; text-transform: uppercase; }
+    .week-card .name.business { color: var(--business); }
+    .week-card .name.health { color: var(--health); }
+    .week-card .name.marriage { color: var(--marriage); }
+    .week-card .count {
+      font-size: 13px; font-weight: 600; color: var(--white);
+      font-variant-numeric: tabular-nums;
+    }
+    .week-card .count .target { color: var(--grey-300); font-weight: 400; }
+    .progress { height: 6px; background: var(--card-border); border-radius: 3px; overflow: hidden; }
+    .progress .bar { height: 100%; background: var(--green); transition: width 0.2s; }
+    .progress .bar.behind { background: var(--amber); }
+    .progress .bar.at-risk { background: var(--red); }
+
+    details.week-detail { margin-top: 12px; }
+    details.week-detail summary {
+      cursor: pointer; color: var(--grey-300); font-size: 12px;
+      padding: 6px 0; list-style: none;
+    }
+    details.week-detail summary::-webkit-details-marker { display: none; }
+    details.week-detail summary:before { content: "▸ "; }
+    details.week-detail[open] summary:before { content: "▾ "; }
+    details.week-detail summary:hover { color: var(--yellow); }
+    .metric-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px; margin-top: 10px;
+    }
+    .metric {
+      background: var(--navy); border: 1px solid var(--card-border);
+      border-radius: 6px; padding: 8px 11px;
+    }
+    .metric .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 6px; }
+    .metric .name { font-size: 12px; color: var(--white); }
+    .metric .count {
+      font-size: 12px; color: var(--grey-300); white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric .count .actual { color: var(--white); font-weight: 700; }
+
+    /* ============ TABLES ============ */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      text-align: left; padding: 8px 10px; font-weight: 700; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.08em; color: var(--grey-300);
+      border-bottom: 1px solid var(--card-border);
+    }
+    td { padding: 3px; border-bottom: 1px solid var(--card-border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    td input, td textarea, td select {
+      width: 100%; background: transparent;
+      border: 1px solid transparent; color: var(--white);
+      font-size: 13px; padding: 5px 7px; border-radius: 4px;
+    }
+    td input:focus, td textarea:focus, td select:focus {
+      background: var(--navy-card-2); border-color: var(--blue);
+    }
+    td select option { background: var(--navy-card); color: var(--white); }
+    .row-del {
+      color: #4a526e; background: none; border: none; cursor: pointer;
+      padding: 4px 8px; font-size: 17px; font-weight: 400;
+    }
+    .row-del:hover { color: var(--red); background: transparent; border-color: transparent; }
+    .add-row {
+      margin-top: 6px; font-size: 12px; color: var(--grey-300);
+      background: transparent; border: 1px dashed var(--card-border);
+      width: 100%; padding: 7px; border-radius: 5px;
+    }
+    .add-row:hover { color: var(--yellow); border-color: var(--yellow); background: transparent; }
+
+    /* ============ TWO COLUMN ============ */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ============ WRAP ============ */
+    .wrap-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 14px; align-items: start;
+    }
+    .wrap-score {
+      background: var(--navy-card-2); border: 1px solid var(--card-border);
+      border-radius: 8px; padding: 14px; text-align: center;
+    }
+    .wrap-score label {
+      display: block; font-size: 11px; color: var(--yellow); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 8px;
+    }
+    .wrap-score input {
+      width: 72px; font-size: 22px; font-weight: 700; text-align: center;
+      background: var(--navy); padding: 8px;
+    }
+    .wrap-score .scale {
+      display: block; font-size: 10px; color: var(--grey-300); margin-top: 6px;
+    }
+    .wrap-notes {
+      background: var(--navy-card-2); border: 1px solid var(--card-border);
+      border-radius: 8px; padding: 14px;
+    }
+    .wrap-notes label {
+      display: block; font-size: 11px; color: var(--yellow); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 6px;
+    }
+    .wrap-notes textarea {
+      width: 100%; background: transparent; border: none; color: var(--white);
+      font-size: 13px; resize: vertical; min-height: 50px; padding: 0;
+    }
+
+    /* ============ KILL LIST (collapsible) ============ */
+    details.kill-section summary {
+      cursor: pointer; color: var(--red); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.09em; font-weight: 700;
+      padding: 6px 0; list-style: none;
+    }
+    details.kill-section summary::-webkit-details-marker { display: none; }
+    details.kill-section summary:before { content: "▸ "; }
+    details.kill-section[open] summary:before { content: "▾ "; }
+
+    /* ============ HISTORY ============ */
+    .history-panel {
+      background: var(--navy-card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px 22px; display: none;
+    }
+    .history-panel.open { display: block; }
+    .history-row {
+      display: grid; grid-template-columns: 110px 1fr 1fr 1fr auto;
+      gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--card-border);
+      font-size: 13px; align-items: center; cursor: pointer;
+    }
+    .history-row:hover { background: var(--navy-card-2); }
+    .history-row:last-child { border-bottom: none; }
+    .history-row .date { color: var(--grey-300); font-variant-numeric: tabular-nums; padding-left: 8px; }
+    .pill {
+      display: inline-block; padding: 2px 8px; font-size: 11px; border-radius: 10px;
+      background: var(--navy-card-2); color: var(--grey-300);
+      border: 1px solid var(--card-border);
+    }
+
+    @media (max-width: 900px) {
+      .ap-header, .ap-content { padding-left: 18px; padding-right: 18px; }
+      .ap-footer { margin-left: 18px; margin-right: 18px; }
+      .big-three, .week-summary, .two-col { grid-template-columns: 1fr; }
+      .wrap-row { grid-template-columns: 1fr; }
+    }
+
+    /* ============ PRINT / PDF ============ */
+    @media print {
+      @page { margin: 14mm; }
+      body { background: white !important; color: #111 !important; }
+      .ap-header {
+        background: white !important; border-bottom: 3px solid #F9D900 !important;
+        padding: 14px 20px !important; break-after: avoid;
+      }
+      .ap-header svg text { fill: #040735 !important; }
+      .ap-header-text h1 { color: #040735 !important; }
+      .ap-header-text p { color: #555 !important; }
+      .ap-header-divider { background: #ccc !important; }
+      .ap-header-actions { display: none !important; }
+      .ap-content { padding: 16px 20px !important; max-width: 100% !important; }
+      section {
+        background: white !important; border: 1px solid #ccc !important;
+        color: #111 !important; break-inside: avoid; page-break-inside: avoid;
+        padding: 14px 16px !important;
+      }
+      section h2 { color: #040735 !important; }
+      section h2 .hint-inline { display: none !important; }
+      .hint { color: #666 !important; }
+      .obj-card, .week-card, .wrap-score, .wrap-notes, .metric {
+        background: #fafafa !important; color: #111 !important;
+        border: 1px solid #ddd !important;
+      }
+      .obj-card .label, .wrap-score label, .wrap-notes label { color: #040735 !important; }
+      .obj-card textarea, .wrap-notes textarea, .wrap-score input { color: #111 !important; }
+      .status-btn { display: none !important; }
+      .status-btn.active {
+        display: inline-block !important; color: #111 !important;
+        background: #f4f4f4 !important; border: 1px solid #111 !important;
+      }
+      th { color: #333 !important; border-bottom: 1px solid #333 !important; }
+      td { border-bottom: 1px solid #ddd !important; }
+      td input, td textarea, td select {
+        color: #111 !important; background: transparent !important; border: none !important;
+      }
+      .add-row, .row-del { display: none !important; }
+      #ap-gate { display: none !important; }
+      #ap-content { display: block !important; }
+      .history-panel { display: none !important; }
+      details.kill-section { break-inside: avoid; }
+      details.kill-section summary { color: #b91c1c !important; }
+      details.kill-section[open] summary { color: #b91c1c !important; }
+      details.week-detail[open] summary { color: #040735 !important; }
+      .ap-footer {
+        background: white !important; color: #666 !important;
+        border-top: 1px solid #ccc !important; margin: 24px 20px 0 !important;
+      }
+      .ap-footer svg text { fill: #040735 !important; }
+      .ap-footer p { color: #666 !important; }
+      .week-card .name.business { color: #1A6FD4 !important; }
+      .week-card .name.health { color: #16a34a !important; }
+      .week-card .name.marriage { color: #db2777 !important; }
+      .week-card .count, .week-card .count .target, .metric .name, .metric .count, .metric .count .actual { color: #111 !important; }
+      .progress { background: #eee !important; }
+      .progress .bar { background: #040735 !important; }
+      .progress .bar.behind { background: #b45309 !important; }
+      .progress .bar.at-risk { background: #b91c1c !important; }
+    }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:56px;width:56px;margin:0 auto 32px;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-nehal-daily-pulse";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{
+    if(sessionStorage.getItem(K)==='1'){
+      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',reveal);}
+      else{reveal();}
+    }
+  }catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+
+<header class="ap-header">
+  <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:44px;width:44px;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+  <div class="ap-header-divider"></div>
+  <div class="ap-header-text">
+    <h1>Nehal — Daily Pulse</h1>
+    <p>10-minute check-in. Confirm, answer, move on.</p>
+  </div>
+  <div class="ap-header-actions">
+    <input type="date" id="pulseDate">
+    <button id="newPulseBtn">+ Next Day</button>
+    <button id="rollBtn" title="Copy unfinished items from yesterday">⟲ Roll over</button>
+    <button id="historyBtn">History</button>
+    <button id="exportBtn">Export PDF</button>
+    <button class="primary" id="saveBtn">Save</button>
+    <span class="save-indicator" id="saveIndicator"></span>
+  </div>
+</header>
+
+<main class="ap-content">
+
+  <!-- 1. TOP 3 -->
+  <section>
+    <h2>Top 3 Today <span class="hint-inline">Confirm / edit / click status</span></h2>
+    <div class="big-three">
+      <div class="obj-card business">
+        <div class="label"><span><span class="dot business"></span>Business</span><span class="yesterday" id="yBiz"></span></div>
+        <textarea data-field="biz_priority" placeholder="The ONE business action today"></textarea>
+        <div class="status-row" data-status-field="biz_status">
+          <button class="status-btn not-started">Not started</button>
+          <button class="status-btn in-progress">In progress</button>
+          <button class="status-btn done">Done</button>
+          <button class="status-btn blocked">Blocked</button>
+        </div>
+      </div>
+      <div class="obj-card health">
+        <div class="label"><span><span class="dot health"></span>Health</span><span class="yesterday" id="yHealth"></span></div>
+        <textarea data-field="health_priority" placeholder="The ONE health action today"></textarea>
+        <div class="status-row" data-status-field="health_status">
+          <button class="status-btn not-started">Not started</button>
+          <button class="status-btn in-progress">In progress</button>
+          <button class="status-btn done">Done</button>
+          <button class="status-btn blocked">Blocked</button>
+        </div>
+      </div>
+      <div class="obj-card marriage">
+        <div class="label"><span><span class="dot marriage"></span>Marriage</span><span class="yesterday" id="yMarriage"></span></div>
+        <textarea data-field="marriage_priority" placeholder="The ONE connection action today"></textarea>
+        <div class="status-row" data-status-field="marriage_status">
+          <button class="status-btn not-started">Not started</button>
+          <button class="status-btn in-progress">In progress</button>
+          <button class="status-btn done">Done</button>
+          <button class="status-btn blocked">Blocked</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. WEEK AT A GLANCE -->
+  <section>
+    <h2>Week at a glance <span class="hint-inline">Auto-tallied · 7-day window</span></h2>
+    <div class="week-summary" id="weekSummary"></div>
+    <details class="week-detail">
+      <summary>Show individual metrics</summary>
+      <div class="metric-grid" id="metricGrid"></div>
+    </details>
+  </section>
+
+  <!-- 3. CALENDAR + DECISIONS -->
+  <section>
+    <h2>Calendar &amp; Decisions <span class="hint-inline">Live during pulse</span></h2>
+    <div class="two-col">
+      <div>
+        <table id="calendarTable">
+          <thead>
+            <tr>
+              <th style="width:70px">Time</th>
+              <th>Meeting</th>
+              <th style="width:110px">Verdict</th>
+              <th style="width:34px"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button class="add-row" data-add="calendar">+ Add meeting</button>
+      </div>
+      <div>
+        <table id="decisionsTable">
+          <thead>
+            <tr>
+              <th>Decision owed</th>
+              <th>Answer</th>
+              <th style="width:34px"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button class="add-row" data-add="decisions">+ Add decision</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ACTION ITEMS (now includes blockers via Owner=Nehal) -->
+  <section>
+    <h2>Action items <span class="hint-inline">Owner = Nehal means I'm blocked on him</span></h2>
+    <table id="actionsTable">
+      <thead>
+        <tr>
+          <th style="width:28px">#</th>
+          <th>Action</th>
+          <th style="width:100px">Owner</th>
+          <th style="width:100px">Due</th>
+          <th style="width:110px">Status</th>
+          <th style="width:34px"></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button class="add-row" data-add="actions">+ Add action</button>
+  </section>
+
+  <!-- 5. WRAP -->
+  <section>
+    <h2>Wrap <span class="hint-inline">30 seconds</span></h2>
+    <div class="wrap-row">
+      <div class="wrap-score">
+        <label>Connection<br>score</label>
+        <input type="number" min="1" max="10" data-field="connection_score" placeholder="—">
+        <span class="scale">1–10 · target 8+</span>
+      </div>
+      <div class="wrap-notes">
+        <label>Notes — one line</label>
+        <textarea data-field="notes" placeholder="e.g. 'Shipped ads, skipped sauna. Tomorrow: board prep 10am.'"></textarea>
+      </div>
+    </div>
+    <details class="kill-section" style="margin-top:14px;">
+      <summary>Kill list — what we're NOT doing this week</summary>
+      <table id="killTable" style="margin-top:10px;">
+        <thead>
+          <tr>
+            <th>Meeting / task / ask</th>
+            <th style="width:200px">Why it's dying</th>
+            <th style="width:34px"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button class="add-row" data-add="kill">+ Add to kill list</button>
+    </details>
+  </section>
+
+  <div class="history-panel" id="historyPanel">
+    <h2>History — saved pulses <button class="small" id="closeHistory" style="float:right">Close</button></h2>
+    <div id="historyList"></div>
+  </div>
+</main>
+
+<footer class="ap-footer">
+  <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:32px;opacity:0.5">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+  <p>Ad Pros &mdash; Internal Use</p>
+</footer>
+
+<script>
+/* =======================================================================
+   STATE
+   ======================================================================= */
+const STORAGE_KEY = 'nehal-daily-pulse-v1';
+const todayStr = () => new Date().toISOString().slice(0,10);
+
+// Weekly metrics rolled up into 3 objectives
+const METRICS = [
+  { group: 'Business', key: 'ads_shipped', name: 'Ad creatives shipped', target: 6 },
+  { group: 'Business', key: 'tests_launched', name: 'New tests launched', target: 2 },
+  { group: 'Business', key: 'funnel_improvements', name: 'Funnel improvements', target: 1 },
+  { group: 'Business', key: 'coaching_push', name: 'Coaching conversion push', target: 1 },
+  { group: 'Business', key: 'delegated_outcomes', name: 'Delegated outcomes', target: 1 },
+  { group: 'Business', key: 'ceo_review', name: 'Weekly CEO review', target: 1 },
+  { group: 'Health', key: 'lifts', name: 'Weightlifting sessions', target: 3 },
+  { group: 'Health', key: 'saunas', name: 'Sauna sessions', target: 5 },
+  { group: 'Health', key: 'macros_tracked', name: 'Days macros tracked', target: 7 },
+  { group: 'Health', key: 'detox_days', name: 'Days on detox protocol', target: 6 },
+  { group: 'Marriage', key: 'date_nights', name: 'Date nights', target: 1 },
+  { group: 'Marriage', key: 'hobby_sessions', name: 'Hobby sessions together', target: 1 },
+];
+
+const STATUS_OPTS = ['not-started','in-progress','done','blocked'];
+
+function blankDay(date) {
+  return {
+    date: date || todayStr(),
+    biz_priority: '', biz_status: '',
+    health_priority: '', health_status: '',
+    marriage_priority: '', marriage_status: '',
+    weekly: Object.fromEntries(METRICS.map(s => [s.key, 0])),
+    calendar: [], decisions: [], actions: [], kill: [],
+    connection_score: '', notes: '',
+    savedAt: null,
+  };
+}
+
+function loadStore() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { days: {} };
+    return JSON.parse(raw);
+  } catch(e) { return { days: {} }; }
+}
+function saveStore(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+let store = loadStore();
+let currentDate = todayStr();
+let current = store.days[currentDate] || blankDay(currentDate);
+
+/* =======================================================================
+   RENDER
+   ======================================================================= */
+function render() {
+  document.getElementById('pulseDate').value = current.date;
+  document.querySelectorAll('[data-field]').forEach(el => {
+    const f = el.dataset.field;
+    el.value = current[f] ?? '';
+  });
+  document.querySelectorAll('[data-status-field]').forEach(row => {
+    const f = row.dataset.statusField;
+    row.querySelectorAll('.status-btn').forEach(btn => {
+      btn.classList.remove('active');
+      const cls = [...btn.classList].find(c => STATUS_OPTS.includes(c));
+      if (current[f] === cls) btn.classList.add('active', cls);
+    });
+  });
+  renderYesterdayHints();
+  renderTable('calendar', ['time','meeting','verdict'], [
+    {type:'input', ph:'8:00'},
+    {type:'input', ph:'Meeting name + who'},
+    {type:'select', opts:['','Ready','Prep needed','Shorten','Decline','Async']},
+  ]);
+  renderTable('decisions', ['item','answer'], [
+    {type:'input', ph:'What decision?'},
+    {type:'input', ph:'Yes / No / Defer'},
+  ]);
+  renderTable('actions', ['action','owner','due','status'], [
+    {type:'input', ph:'Action (verb first)'},
+    {type:'select', opts:['','Danna','Daniela','Nehal']},
+    {type:'input', ph:'Date'},
+    {type:'select', opts:['','Open','Doing','Waiting','Done']},
+  ], true);
+  renderTable('kill', ['item','why'], [
+    {type:'input', ph:'Thing to kill / decline / cancel'},
+    {type:'input', ph:'Reason'},
+  ]);
+  renderWeek();
+}
+
+function renderYesterdayHints() {
+  const dates = Object.keys(store.days).filter(d => d < current.date).sort().reverse();
+  const prev = dates.length ? store.days[dates[0]] : null;
+  const labels = {
+    biz: document.getElementById('yBiz'),
+    health: document.getElementById('yHealth'),
+    marriage: document.getElementById('yMarriage'),
+  };
+  ['biz','health','marriage'].forEach(obj => {
+    if (!prev) { labels[obj].textContent = ''; return; }
+    const p = prev[`${obj}_priority`] || '';
+    const s = prev[`${obj}_status`] || '';
+    if (!p) { labels[obj].textContent = ''; return; }
+    const tag = s === 'done' ? '✓' : s === 'blocked' ? '⊘' : '…';
+    labels[obj].textContent = `yesterday: ${tag} ${p.slice(0, 36)}${p.length > 36 ? '…' : ''}`;
+  });
+}
+
+function renderTable(key, cols, colSpecs, numbered) {
+  const tbody = document.querySelector(`#${key}Table tbody`);
+  tbody.innerHTML = '';
+  const rows = current[key] || [];
+  rows.forEach((row, idx) => {
+    const tr = document.createElement('tr');
+    if (numbered) {
+      const numTd = document.createElement('td');
+      numTd.style.color = 'var(--grey-300)';
+      numTd.style.textAlign = 'center';
+      numTd.style.fontSize = '12px';
+      numTd.textContent = idx + 1;
+      tr.appendChild(numTd);
+    }
+    cols.forEach((c, i) => {
+      const td = document.createElement('td');
+      const spec = colSpecs[i];
+      let el;
+      if (spec.type === 'select') {
+        el = document.createElement('select');
+        spec.opts.forEach(o => {
+          const op = document.createElement('option');
+          op.value = o; op.textContent = o || '—';
+          if (row[c] === o) op.selected = true;
+          el.appendChild(op);
+        });
+      } else {
+        el = document.createElement('input');
+        el.type = 'text';
+        el.placeholder = spec.ph || '';
+        el.value = row[c] ?? '';
+      }
+      el.addEventListener('input', () => { row[c] = el.value; save(); });
+      el.addEventListener('change', () => { row[c] = el.value; save(); });
+      td.appendChild(el);
+      tr.appendChild(td);
+    });
+    const delTd = document.createElement('td');
+    const delBtn = document.createElement('button');
+    delBtn.className = 'row-del';
+    delBtn.textContent = '×';
+    delBtn.title = 'Delete row';
+    delBtn.onclick = () => { current[key].splice(idx, 1); save(); render(); };
+    delTd.appendChild(delBtn);
+    tr.appendChild(delTd);
+    tbody.appendChild(tr);
+  });
+}
+
+function renderWeek() {
+  const summary = document.getElementById('weekSummary');
+  const grid = document.getElementById('metricGrid');
+  summary.innerHTML = '';
+  grid.innerHTML = '';
+
+  const todays = new Date(current.date);
+  const weekDays = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(todays);
+    d.setDate(d.getDate() - i);
+    weekDays.push(d.toISOString().slice(0,10));
+  }
+  const totals = {};
+  METRICS.forEach(m => { totals[m.key] = 0; });
+  weekDays.forEach(ds => {
+    const day = store.days[ds];
+    if (!day) return;
+    METRICS.forEach(m => { totals[m.key] += Number(day.weekly?.[m.key] || 0); });
+    if (ds === current.date) {
+      METRICS.forEach(m => {
+        totals[m.key] -= Number(day.weekly?.[m.key] || 0);
+        totals[m.key] += Number(current.weekly[m.key] || 0);
+      });
+    }
+  });
+
+  const dayOfWeek = new Date(current.date).getDay();
+  const weekDayIdx = dayOfWeek === 0 ? 7 : dayOfWeek;
+  const expectedPct = (weekDayIdx / 7) * 100;
+
+  // 3 rollup cards
+  ['Business','Health','Marriage'].forEach(g => {
+    const mets = METRICS.filter(m => m.group === g);
+    const totalActual = mets.reduce((s, m) => s + totals[m.key], 0);
+    const totalTarget = mets.reduce((s, m) => s + m.target, 0);
+    const pct = Math.min(100, (totalActual / totalTarget) * 100);
+    let barClass = '';
+    if (pct < expectedPct - 30) barClass = 'at-risk';
+    else if (pct < expectedPct - 10) barClass = 'behind';
+
+    const el = document.createElement('div');
+    el.className = 'week-card';
+    const top = document.createElement('div');
+    top.className = 'top';
+    const name = document.createElement('div');
+    name.className = 'name ' + g.toLowerCase();
+    name.textContent = g;
+    const count = document.createElement('div');
+    count.className = 'count';
+    const a = document.createElement('span');
+    a.textContent = totalActual;
+    const t = document.createElement('span');
+    t.className = 'target';
+    t.textContent = '/' + totalTarget;
+    count.appendChild(a); count.appendChild(t);
+    top.appendChild(name); top.appendChild(count);
+    const prog = document.createElement('div');
+    prog.className = 'progress';
+    const bar = document.createElement('div');
+    bar.className = 'bar' + (barClass ? ' ' + barClass : '');
+    bar.style.width = pct + '%';
+    prog.appendChild(bar);
+    el.appendChild(top); el.appendChild(prog);
+    summary.appendChild(el);
+  });
+
+  // Individual metric detail (only rendered when details panel is open)
+  METRICS.forEach(m => {
+    const actual = totals[m.key];
+    const pct = Math.min(100, (actual / m.target) * 100);
+    let barClass = '';
+    if (pct < expectedPct - 30) barClass = 'at-risk';
+    else if (pct < expectedPct - 10) barClass = 'behind';
+
+    const el = document.createElement('div');
+    el.className = 'metric';
+    const top = document.createElement('div');
+    top.className = 'top';
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = m.name;
+    const count = document.createElement('div');
+    count.className = 'count';
+    const a = document.createElement('span');
+    a.className = 'actual';
+    a.textContent = actual;
+    count.appendChild(a);
+    count.appendChild(document.createTextNode('/' + m.target + ' '));
+    const incBtn = document.createElement('button');
+    incBtn.className = 'small'; incBtn.textContent = '+';
+    incBtn.style.marginLeft = '4px'; incBtn.style.padding = '1px 6px';
+    incBtn.onclick = () => { current.weekly[m.key] = (current.weekly[m.key] || 0) + 1; save(); renderWeek(); };
+    const decBtn = document.createElement('button');
+    decBtn.className = 'small'; decBtn.textContent = '−';
+    decBtn.style.padding = '1px 6px';
+    decBtn.onclick = () => { current.weekly[m.key] = Math.max(0, (current.weekly[m.key] || 0) - 1); save(); renderWeek(); };
+    count.appendChild(incBtn); count.appendChild(decBtn);
+    top.appendChild(name); top.appendChild(count);
+    const prog = document.createElement('div');
+    prog.className = 'progress';
+    const bar = document.createElement('div');
+    bar.className = 'bar' + (barClass ? ' ' + barClass : '');
+    bar.style.width = pct + '%';
+    prog.appendChild(bar);
+    el.appendChild(top); el.appendChild(prog);
+    grid.appendChild(el);
+  });
+}
+
+/* =======================================================================
+   EVENTS
+   ======================================================================= */
+document.querySelectorAll('[data-field]').forEach(el => {
+  el.addEventListener('input', () => { current[el.dataset.field] = el.value; save(); });
+});
+document.querySelectorAll('[data-status-field]').forEach(row => {
+  row.querySelectorAll('.status-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const f = row.dataset.statusField;
+      const cls = [...btn.classList].find(c => STATUS_OPTS.includes(c));
+      current[f] = current[f] === cls ? '' : cls;
+      save(); render();
+    });
+  });
+});
+document.querySelectorAll('[data-add]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.add;
+    if (!current[key]) current[key] = [];
+    current[key].push({});
+    save(); render();
+  });
+});
+document.getElementById('pulseDate').addEventListener('change', e => { loadDate(e.target.value); });
+document.getElementById('newPulseBtn').addEventListener('click', () => {
+  const cur = new Date(current.date + 'T00:00:00');
+  cur.setDate(cur.getDate() + 1);
+  loadDate(cur.toISOString().slice(0,10));
+});
+document.getElementById('rollBtn').addEventListener('click', () => {
+  const dates = Object.keys(store.days).filter(d => d < current.date).sort().reverse();
+  if (!dates.length) { alert('No previous day to roll from.'); return; }
+  const prev = store.days[dates[0]];
+  (prev.actions || []).filter(a => a.status !== 'Done').forEach(a => { current.actions.push({ ...a }); });
+  (prev.decisions || []).filter(d => !d.answer).forEach(d => { current.decisions.push({ ...d }); });
+  ['biz','health','marriage'].forEach(obj => {
+    if (!current[`${obj}_priority`] && prev[`${obj}_status`] !== 'done') {
+      current[`${obj}_priority`] = prev[`${obj}_priority`] || '';
+    }
+  });
+  save(); render();
+});
+document.getElementById('saveBtn').addEventListener('click', () => {
+  current.savedAt = new Date().toISOString();
+  save(); flashSaved('Archived ✓');
+});
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const origTitle = document.title;
+  document.title = `Nehal Daily Pulse — ${current.date}`;
+  const restore = () => { document.title = origTitle; window.removeEventListener('afterprint', restore); };
+  window.addEventListener('afterprint', restore);
+  setTimeout(() => window.print(), 50);
+});
+document.getElementById('historyBtn').addEventListener('click', () => {
+  const panel = document.getElementById('historyPanel');
+  renderHistory();
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+document.getElementById('closeHistory').addEventListener('click', () => {
+  document.getElementById('historyPanel').classList.remove('open');
+});
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  list.innerHTML = '';
+  const dates = Object.keys(store.days).sort().reverse();
+  if (!dates.length) {
+    const hint = document.createElement('div');
+    hint.className = 'hint';
+    hint.textContent = 'No saved pulses yet.';
+    list.appendChild(hint);
+    return;
+  }
+  dates.forEach(d => {
+    const day = store.days[d];
+    const row = document.createElement('div');
+    row.className = 'history-row';
+    const shippedCount = ['biz','health','marriage'].filter(o => day[`${o}_status`] === 'done').length;
+    const actionCount = (day.actions || []).length;
+    const dateEl = document.createElement('div'); dateEl.className = 'date'; dateEl.textContent = d;
+    const bizEl = document.createElement('div'); bizEl.textContent = day.biz_priority || '—';
+    if (!day.biz_priority) bizEl.style.color = 'var(--grey-300)';
+    const healthEl = document.createElement('div'); healthEl.textContent = day.health_priority || '—';
+    if (!day.health_priority) healthEl.style.color = 'var(--grey-300)';
+    const mEl = document.createElement('div'); mEl.textContent = day.marriage_priority || '—';
+    if (!day.marriage_priority) mEl.style.color = 'var(--grey-300)';
+    const pillsEl = document.createElement('div');
+    const p1 = document.createElement('span'); p1.className = 'pill'; p1.textContent = `${shippedCount}/3 shipped`;
+    const p2 = document.createElement('span'); p2.className = 'pill'; p2.textContent = `${actionCount} actions`;
+    p2.style.marginLeft = '6px';
+    pillsEl.appendChild(p1); pillsEl.appendChild(p2);
+    row.appendChild(dateEl); row.appendChild(bizEl); row.appendChild(healthEl); row.appendChild(mEl); row.appendChild(pillsEl);
+    row.onclick = () => { loadDate(d); document.getElementById('historyPanel').classList.remove('open'); };
+    list.appendChild(row);
+  });
+}
+
+function loadDate(d) {
+  store.days[current.date] = current;
+  saveStore(store);
+  currentDate = d;
+  current = store.days[d] || blankDay(d);
+  ['calendar','decisions','actions','kill'].forEach(k => {
+    if (!current[k] || !current[k].length) current[k] = [{}];
+  });
+  render();
+}
+
+function save() {
+  store.days[current.date] = current;
+  saveStore(store);
+  flashSaved('Saved');
+}
+
+let saveTimer;
+function flashSaved(msg) {
+  const el = document.getElementById('saveIndicator');
+  el.textContent = msg;
+  el.classList.add('saved');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { el.textContent = ''; el.classList.remove('saved'); }, 1200);
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+    e.preventDefault();
+    document.getElementById('saveBtn').click();
+  }
+});
+
+['calendar','decisions','actions','kill'].forEach(k => {
+  if (!current[k] || !current[k].length) current[k] = [{}];
+});
+render();
+</script>
+</div>
+</body>
+</html>
