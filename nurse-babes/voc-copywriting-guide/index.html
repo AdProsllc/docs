@@ -159,23 +159,7 @@ a{color:var(--blue-light);text-decoration:none}a:hover{color:var(--yellow)}
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
-<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
-  <div style="max-width:380px;width:100%;text-align:center;">
-    <div style="margin:0 auto 28px;display:flex;justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="44" height="44"><rect width="81" height="81" fill="#040735"/><path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544Z" fill="#fff"/><path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/></svg></div>
-    <h2 style="color:#fff;font-size:19px;font-weight:700;margin-bottom:6px;">Nurse Babes &mdash; Client Portal</h2>
-    <p style="color:#B0B1B6;font-size:14px;margin-bottom:22px;">Enter your password to access this document.</p>
-    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
-      style="width:100%;padding:13px 15px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:14px;font-family:inherit;outline:none;margin-bottom:10px;"
-      onkeydown="if(event.key==='Enter')ap_check()">
-    <button onclick="ap_check()"
-      style="width:100%;padding:13px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;">
-      Unlock
-    </button>
-    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:10px;min-height:16px;"></p>
-  </div>
-</div>
-<div id="ap-content" style="display:none;">
+
 
 <!-- SIDEBAR -->
 <aside class="ap-sidebar" id="ap-sidebar">
@@ -1072,37 +1056,9 @@ a{color:var(--blue-light);text-decoration:none}a:hover{color:var(--yellow)}
   <span style="font-size:12px;color:var(--grey-400)">Confidential &mdash; Client Use Only</span>
 </footer>
 
-</div><!-- end #ap-content -->
 
 <script>
-// ── PASSWORD GATE ──────────────────────────────────────────────────────────
-const SCOPE_KEY = 'nurse-babes';
-const CORRECT_HASH = 'e6d4d327dd0b29f6279e9ea1321c5e38e519af83622d3fbb6021ec8e09f60b89';
-async function sha256hex(msg) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-}
-async function ap_check() {
-  const pw = document.getElementById('ap-pw').value;
-  if (!pw) return;
-  const h = await sha256hex(pw);
-  if (h === CORRECT_HASH) {
-    sessionStorage.setItem('ap_auth_' + SCOPE_KEY, '1');
-    document.getElementById('ap-gate').style.display = 'none';
-    document.getElementById('ap-content').style.display = 'block';
-    initPage();
-  } else {
-    document.getElementById('ap-err').textContent = 'Incorrect password. Please try again.';
-    document.getElementById('ap-pw').select();
-  }
-}
-(function() {
-  if (sessionStorage.getItem('ap_auth_' + SCOPE_KEY) === '1') {
-    document.getElementById('ap-gate').style.display = 'none';
-    document.getElementById('ap-content').style.display = 'block';
-    initPage();
-  }
-})();
+document.addEventListener("DOMContentLoaded", initPage);
 
 // ── VOC TABS ───────────────────────────────────────────────────────────────
 function switchTab(group, id) {
