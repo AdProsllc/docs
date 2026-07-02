@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <title>The Always-On Intelligence Layer — Ad Pros</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735;
+      --navy-card: #070b3d;
+      --navy-deeper: #020523;
+      --yellow: #F9D900;
+      --blue: #1A6FD4;
+      --white: #FFFFFF;
+      --grey-300: #8A8B93;
+      --grey-200: #B0B1B6;
+      --grey-100: #D8D9DE;
+      --card-border: #0e1358;
+      --agency: #7aa8ff;
+      --brand: #f9d900;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--grey-200); font-family: "Inter","Helvetica Neue",Arial,sans-serif; min-height: 100vh; line-height: 1.6; }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+
+    /* Hero */
+    .hero { padding: 48px 0 64px; border-bottom: 1px solid var(--card-border); margin-bottom: 64px; }
+    .hero-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); padding: 6px 12px; border: 1px solid var(--yellow); border-radius: 4px; margin-bottom: 24px; }
+    .hero h1 { font-size: 56px; font-weight: 800; color: var(--white); letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 24px; }
+    .hero h1 .yellow { color: var(--yellow); }
+    .hero .lede { font-size: 20px; color: var(--grey-100); max-width: 820px; line-height: 1.5; font-weight: 400; }
+
+    h2 { font-size: 32px; font-weight: 700; color: var(--white); letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.2; }
+    h3 { font-size: 20px; font-weight: 700; color: var(--white); letter-spacing: -0.2px; margin-bottom: 12px; }
+    .section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
+    .section { margin-bottom: 72px; }
+    .section-lede { font-size: 17px; color: var(--grey-100); max-width: 820px; margin-bottom: 32px; }
+
+    p { margin-bottom: 16px; }
+    strong { color: var(--white); font-weight: 600; }
+
+    /* The one-liner block */
+    .thesis { background: linear-gradient(135deg, var(--navy-card) 0%, var(--navy-deeper) 100%); border: 1px solid var(--card-border); border-radius: 16px; padding: 40px; margin-bottom: 64px; position: relative; overflow: hidden; }
+    .thesis::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--yellow); }
+    .thesis-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
+    .thesis p { font-size: 22px; color: var(--white); font-weight: 500; line-height: 1.5; margin-bottom: 0; letter-spacing: -0.2px; }
+
+    /* Two-mode split */
+    .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .mode { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; }
+    .mode-icon { width: 48px; height: 48px; background: rgba(249,217,0,0.1); border: 1px solid rgba(249,217,0,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+    .mode h3 { margin-bottom: 8px; }
+    .mode-subtitle { font-size: 13px; color: var(--yellow); font-weight: 600; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+    .mode p { font-size: 15px; color: var(--grey-200); }
+
+    /* 8-step mapping */
+    .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px; }
+    .step { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px; position: relative; transition: all 0.2s; }
+    .step.active { border-color: var(--yellow); background: linear-gradient(135deg, rgba(249,217,0,0.08) 0%, var(--navy-card) 100%); }
+    .step-num { font-size: 11px; font-weight: 700; color: var(--grey-300); letter-spacing: 2px; margin-bottom: 8px; }
+    .step.active .step-num { color: var(--yellow); }
+    .step-name { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .step-role { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .step-note { font-size: 12px; color: var(--grey-200); line-height: 1.4; }
+    .step.active .step-note { color: var(--white); }
+    .step-indicator { position: absolute; top: 12px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: var(--grey-300); opacity: 0.4; }
+    .step.active .step-indicator { background: var(--yellow); opacity: 1; box-shadow: 0 0 12px var(--yellow); }
+
+    /* Use case split */
+    .use-cases { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 24px; }
+    .use-case { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; }
+    .use-case-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; border-radius: 4px; margin-bottom: 20px; }
+    .use-case.agency .use-case-label { background: rgba(122,168,255,0.1); color: var(--agency); border: 1px solid rgba(122,168,255,0.3); }
+    .use-case.brand .use-case-label { background: rgba(249,217,0,0.1); color: var(--yellow); border: 1px solid rgba(249,217,0,0.3); }
+    .use-case h3 { font-size: 22px; margin-bottom: 16px; }
+    .use-case-scenarios { margin-top: 24px; }
+    .scenario { padding: 16px 0; border-top: 1px solid var(--card-border); }
+    .scenario:first-child { border-top: none; padding-top: 0; }
+    .scenario-trigger { font-size: 13px; font-weight: 600; color: var(--yellow); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+    .use-case.agency .scenario-trigger { color: var(--agency); }
+    .scenario-body { font-size: 15px; color: var(--grey-100); line-height: 1.5; }
+
+    /* Flow diagram */
+    .flow { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; margin-top: 24px; }
+    .flow-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; align-items: center; }
+    .flow-node { background: var(--navy-deeper); border: 1px solid var(--card-border); border-radius: 8px; padding: 16px 12px; text-align: center; }
+    .flow-node.highlight { border-color: var(--yellow); background: linear-gradient(135deg, rgba(249,217,0,0.08) 0%, var(--navy-deeper) 100%); }
+    .flow-node-label { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .flow-node-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .flow-arrow { color: var(--yellow); font-size: 20px; text-align: center; }
+    .flow-note { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--grey-300); text-align: center; font-style: italic; }
+
+    /* Interface callouts */
+    .interfaces { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+    .interface { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px; }
+    .interface-name { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .interface-desc { font-size: 12px; color: var(--grey-300); line-height: 1.4; }
+
+    /* Principles */
+    .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .principle { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 10px; padding: 24px; border-left: 3px solid var(--yellow); }
+    .principle-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--yellow); margin-bottom: 8px; }
+    .principle-title { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .principle-body { font-size: 14px; color: var(--grey-200); line-height: 1.5; }
+
+    /* What changes table */
+    .changes-table { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; margin-top: 24px; }
+    .changes-row { display: grid; grid-template-columns: 240px 1fr 1fr; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--card-border); align-items: start; }
+    .changes-row:last-child { border-bottom: none; }
+    .changes-row.header { background: var(--navy-deeper); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-300); padding: 16px 24px; }
+    .changes-who { font-size: 14px; font-weight: 700; color: var(--white); }
+    .changes-before { font-size: 14px; color: var(--grey-300); }
+    .changes-after { font-size: 14px; color: var(--grey-100); }
+    .changes-after strong { color: var(--yellow); font-weight: 600; }
+
+    /* CTA */
+    .cta { background: linear-gradient(135deg, var(--navy-card) 0%, var(--navy-deeper) 100%); border: 1px solid var(--yellow); border-radius: 16px; padding: 48px; text-align: center; margin-top: 48px; }
+    .cta h2 { margin-bottom: 16px; }
+    .cta p { font-size: 17px; color: var(--grey-100); max-width: 600px; margin: 0 auto; }
+
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 40px; }
+      .hero .lede { font-size: 17px; }
+      .modes, .use-cases, .principles { grid-template-columns: 1fr; }
+      .step-grid { grid-template-columns: repeat(2, 1fr); }
+      .interfaces { grid-template-columns: repeat(2, 1fr); }
+      .flow-row { grid-template-columns: 1fr; gap: 8px; }
+      .flow-arrow { transform: rotate(90deg); }
+      .changes-row { grid-template-columns: 1fr; gap: 8px; }
+      .changes-row.header { display: none; }
+      .changes-before::before { content: 'Before: '; color: var(--grey-300); font-weight: 600; }
+      .changes-after::before { content: 'After: '; color: var(--yellow); font-weight: 600; }
+    }
+    @media (max-width: 640px) {
+      .ap-header, .ap-content, .ap-footer { padding-left: 20px; padding-right: 20px; }
+      .hero h1 { font-size: 32px; }
+      h2 { font-size: 24px; }
+      .thesis { padding: 28px; }
+      .thesis p { font-size: 18px; }
+      .step-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ad Pros" style="height:48px;width:48px;display:block">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>The Always-On Intelligence Layer</h1>
+      <p>Executive Summary &middot; Voice + Copilot, one unified system</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+
+    <!-- HERO -->
+    <section class="hero">
+      <span class="hero-eyebrow">Executive Summary</span>
+      <h1>An intelligence layer that <span class="yellow">listens, thinks, and remembers</span> — across every call, every brainstorm, every brand.</h1>
+      <p class="lede">One system. Two modes of conversation. Built on the memory and orchestration infrastructure Ad Pros already operates — extended so the entire team and every client brand can think with it in real time.</p>
+    </section>
+
+    <!-- THESIS -->
+    <div class="thesis">
+      <div class="thesis-label">The Thesis</div>
+      <p>Your data stack, your client history, your creative library, and your institutional knowledge should be available in the moment you need them — whether you're walking into a pitch, on a live client call, brainstorming a creative angle, or debriefing after a meeting. The interface shouldn't matter. The intelligence should be there.</p>
+    </div>
+
+    <!-- TWO MODES -->
+    <section class="section">
+      <div class="section-eyebrow">What It Is</div>
+      <h2>Two modes. One brain.</h2>
+      <p class="section-lede">Most AI tools force a choice: a chatbot you type at, a meeting recorder that reads to you after the fact, a voice assistant that can't access your business. This system collapses them into a single agent with two ways of showing up.</p>
+
+      <div class="modes">
+        <div class="mode">
+          <div class="mode-icon">🎙</div>
+          <div class="mode-subtitle">Mode 1</div>
+          <h3>Voice Conversations</h3>
+          <p>Talk to it. Ask questions about any client, campaign, creative test, or performance pattern. Brainstorm strategy hands-free. Prep for calls on the walk to the meeting. It speaks back, pulling from the same memory the entire team writes to.</p>
+        </div>
+        <div class="mode">
+          <div class="mode-icon">👁</div>
+          <div class="mode-subtitle">Mode 2</div>
+          <h3>Silent Call Copilot</h3>
+          <p>Sits quietly on live calls — internal, client, pitch, strategy. Listens to both sides. Surfaces relevant context to you visually, never audibly. Recalls the last conversation, the current numbers, the contract terms, the pattern it's seen before. You stay present. It handles the recall.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT FITS THE 8-STEP MODEL -->
+    <section class="section">
+      <div class="section-eyebrow">Where It Fits</div>
+      <h2>Inside the 8-step model.</h2>
+      <p class="section-lede">This is not a new system. It is a new set of inputs and outputs to the intelligence infrastructure already designed in the Ad Pros operating model. Here is exactly where voice + copilot touches each step.</p>
+
+      <div class="step-grid">
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">01</div>
+          <div class="step-name">Collect</div>
+          <div class="step-role">Input Layer</div>
+          <div class="step-note">Voice conversations and live-call audio become two new signal sources — alongside GA4, Shopify, Slack, and CRM. Every spoken interaction is captured and flows upstream.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">02</div>
+          <div class="step-name">Organize</div>
+          <div class="step-role">Ingestion Layer</div>
+          <div class="step-note">The Librarian routes audio signals the same way it routes other inputs — tagged by client, brand, participant, topic, and intent.</div>
+        </div>
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">03</div>
+          <div class="step-name">Remember</div>
+          <div class="step-role">Context Layer</div>
+          <div class="step-note">Conversations become permanent memory. BigQuery holds the structured outcomes, pgvector holds the semantic embeddings. Every future conversation can reference every past one.</div>
+        </div>
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">04</div>
+          <div class="step-name">Think</div>
+          <div class="step-role">Intelligence Layer</div>
+          <div class="step-note">A new Conversation Agent joins Noor in the intelligence layer. Fast model for real-time listening, Claude for reasoning. Noor routes between them.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">05</div>
+          <div class="step-name">Plan</div>
+          <div class="step-role">Planning Layer</div>
+          <div class="step-note">Insights surfaced during calls and decisions made in voice sessions feed directly into ClickUp and Linear as the plans they become.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">06</div>
+          <div class="step-name">Assign</div>
+          <div class="step-role">Delegation Layer</div>
+          <div class="step-note">"Voice → assign task" and "copilot flag → task" become first-class paths into the same human / AI / hybrid delegation model.</div>
+        </div>
+        <div class="step">
+          <div class="step-indicator"></div>
+          <div class="step-num">07</div>
+          <div class="step-name">Action</div>
+          <div class="step-role">Execution Layer</div>
+          <div class="step-note">Work gets done. The conversation that triggered it is linked as context, so the executor knows why — not just what.</div>
+        </div>
+        <div class="step active">
+          <div class="step-indicator"></div>
+          <div class="step-num">08</div>
+          <div class="step-name">Review</div>
+          <div class="step-role">Audit Layer</div>
+          <div class="step-note">Every conversation becomes auditable. Did the call land? Did the brainstorm ship? Did the copilot's recommendation improve the outcome? Closed loop.</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; padding: 20px 24px; background: var(--navy-card); border: 1px solid var(--card-border); border-left: 3px solid var(--yellow); border-radius: 8px;">
+        <p style="font-size: 13px; color: var(--grey-300); margin: 0;"><strong style="color: var(--yellow);">Primary insertion points:</strong> Steps 1, 3, 4, and 8. The system captures (1), remembers (3), thinks with the team (4), and feeds the audit loop (8). It runs across the whole system rather than living inside any one step — a machine-level capability, consistent with how Noor operates.</p>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="section">
+      <div class="section-eyebrow">Who It Serves</div>
+      <h2>Built for two audiences. Same system.</h2>
+      <p class="section-lede">Ad Pros operates on both sides of the performance marketing relationship. This system is designed to serve both.</p>
+
+      <div class="use-cases">
+        <div class="use-case agency">
+          <span class="use-case-label">Agency Side</span>
+          <h3>For Ad Pros strategists, media buyers, creative teams, and leadership.</h3>
+          <p style="color: var(--grey-200); font-size: 15px;">The agency runs on conversations — client QBRs, pitch calls, internal pod syncs, creative reviews, retention conversations. Every one of those is a decision moment, and today the context lives in separate heads and scattered tools.</p>
+
+          <div class="use-case-scenarios">
+            <div class="scenario">
+              <div class="scenario-trigger">Pitch call</div>
+              <div class="scenario-body">Prospect mentions a competitor's creative approach. Copilot surfaces competitive intel from your ad library data — no scrambling, no "I'll follow up on that."</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Client QBR</div>
+              <div class="scenario-body">Client asks about a campaign from three months ago. Copilot pulls the performance data, the creative, and the decision rationale from the last QBR deck — all before you finish your sentence.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Retention conversation</div>
+              <div class="scenario-body">Client signals hesitation. Copilot flags patterns from prior clients who used similar language, with retention plays that worked historically.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Between calls</div>
+              <div class="scenario-body">Walking between meetings, strategist says: "Prep me for the 47 Skin call in twenty minutes." Voice mode walks through recent performance, open concerns, and the last meeting's follow-ups.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="use-case brand">
+          <span class="use-case-label">Brand Side</span>
+          <h3>For DTC founders, ecommerce operators, and in-house marketing teams.</h3>
+          <p style="color: var(--grey-200); font-size: 15px;">Brands live inside their own data — Shopify, Meta Ads, Google Ads, Klaviyo, Triple Whale, Northbeam. The copilot collapses that fragmented stack into one conversational layer. Ask anything. Be prepared for every meeting. Never lose institutional context when someone leaves.</p>
+
+          <div class="use-case-scenarios">
+            <div class="scenario">
+              <div class="scenario-trigger">Agency review call</div>
+              <div class="scenario-body">Founder on a call with their agency. Copilot surfaces real-time performance against targets, flags anomalies in the current spend pattern, and recalls the creative directions agreed to last quarter.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Strategic planning</div>
+              <div class="scenario-body">Operator asks voice mode: "Which of our top ten SKUs have degraded in ROAS over the last sixty days, and what creative angles did we retire?" Answer in seconds, with sources.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Vendor negotiation</div>
+              <div class="scenario-body">On a call with a supplier or partner, copilot pulls the contract terms, the historical performance of this relationship, and flags commitments made in prior conversations.</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-trigger">Post-meeting debrief</div>
+              <div class="scenario-body">Founder leaves a board call. Voice mode: "Walk me through the decisions we just made and draft the follow-up." The conversation is already transcribed, categorized, and ready to action.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOW -->
+    <section class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>The audio-to-action loop.</h2>
+      <p class="section-lede">Both modes run the same pipeline. Only the inputs and outputs differ.</p>
+
+      <div class="flow">
+        <div class="flow-row">
+          <div class="flow-node">
+            <div class="flow-node-label">Capture</div>
+            <div class="flow-node-name">Voice or Call Audio</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node highlight">
+            <div class="flow-node-label">Understand</div>
+            <div class="flow-node-name">Conversation Agent</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node highlight">
+            <div class="flow-node-label">Retrieve</div>
+            <div class="flow-node-name">Memory Layer</div>
+          </div>
+        </div>
+        <div class="flow-row" style="margin-top: 20px;">
+          <div class="flow-node highlight">
+            <div class="flow-node-label">Reason</div>
+            <div class="flow-node-name">Claude + Noor</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="flow-node-label">Surface</div>
+            <div class="flow-node-name">Voice or Visual</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="flow-node-label">Write Back</div>
+            <div class="flow-node-name">Memory + ClickUp</div>
+          </div>
+        </div>
+        <div class="flow-note">Every interaction — voice or copilot — reads from and writes to the same session memory. The system gets smarter about your business every time it's used.</div>
+      </div>
+    </section>
+
+    <!-- INTERFACES -->
+    <section class="section">
+      <div class="section-eyebrow">Where It Lives</div>
+      <h2>Four surfaces. One agent.</h2>
+      <p class="section-lede">The same intelligence shows up wherever the conversation is happening.</p>
+
+      <div class="interfaces">
+        <div class="interface">
+          <div class="interface-name">📱 Mobile Voice App</div>
+          <div class="interface-desc">Talk to it anywhere. Prep, brainstorm, query, debrief. Hands-free, context-aware.</div>
+        </div>
+        <div class="interface">
+          <div class="interface-name">💻 Desktop Copilot Overlay</div>
+          <div class="interface-desc">Silent sidebar during calls. Insights appear visually. Stays out of the way until relevant.</div>
+        </div>
+        <div class="interface">
+          <div class="interface-name">💬 Slack Integration</div>
+          <div class="interface-desc">Continue conversations in Slack. Ask the same questions in text. Same memory, different channel.</div>
+        </div>
+        <div class="interface">
+          <div class="interface-name">📞 Meeting Bot</div>
+          <div class="interface-desc">Joins Zoom, Meet, and Teams calls automatically. Captures, categorizes, and remembers.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section class="section">
+      <div class="section-eyebrow">How It Behaves</div>
+      <h2>The operating principles.</h2>
+      <p class="section-lede">A copilot that speaks out of turn breaks the call. A copilot that never speaks is just a recorder. These principles draw the line.</p>
+
+      <div class="principles">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div class="principle-title">Silent by default on calls</div>
+          <div class="principle-body">Copilot never speaks during live conversations. All output is visual and only to the operator. The call belongs to the humans.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Facts before opinions</div>
+          <div class="principle-body">The system surfaces what's known — performance data, contract terms, prior conversations, patterns. Strategic suggestions are rare, reserved for clear signal, and always cite their source.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Consent and disclosure first</div>
+          <div class="principle-body">Every call where the copilot is active is disclosed and consented to. For client calls, consent is baked into agreements. Trust is the product.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div class="principle-title">One memory, every interface</div>
+          <div class="principle-body">Ask about last Tuesday's call on your phone while you're walking, and the system answers from the same memory the copilot wrote to during the call. No re-briefing, ever.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">05</div>
+          <div class="principle-title">Scoped to calls that matter</div>
+          <div class="principle-body">Not every call gets the copilot. QBRs, pitches, retention conversations, strategic reviews — yes. Standups and quick syncs — no. The surface area is curated, not maximal.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">06</div>
+          <div class="principle-title">Privacy-first multi-tenant</div>
+          <div class="principle-body">Agency data and brand data are strictly isolated. A client brand's copilot sees only that brand's universe. Ad Pros operators see only what they're permissioned for.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT CHANGES -->
+    <section class="section">
+      <div class="section-eyebrow">What Changes</div>
+      <h2>Day-to-day, before and after.</h2>
+      <p class="section-lede">The difference isn't the technology. It's what the team stops doing — and what becomes possible.</p>
+
+      <div class="changes-table">
+        <div class="changes-row header">
+          <div>Who</div>
+          <div>Before</div>
+          <div>After</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Strategist prepping for a client call</div>
+          <div class="changes-before">Digs through Slack, old decks, and the CRM for fifteen minutes. Half the context is in someone else's head.</div>
+          <div class="changes-after">Asks voice mode on the walk to the meeting: <strong>"Prep me on this account."</strong> Gets the full picture in ninety seconds.</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Media buyer on a QBR</div>
+          <div class="changes-before">Has to remember or re-verify every number the client references. Moments of hesitation erode credibility.</div>
+          <div class="changes-after">Copilot surfaces the numbers as they come up. The buyer stays <strong>engaged with the client</strong>, not the spreadsheet.</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Account lead after a tense retention call</div>
+          <div class="changes-before">Writes recap notes from memory. Half the nuance is lost by the time it hits ClickUp.</div>
+          <div class="changes-after">Transcript, categorized insights, and <strong>draft follow-ups ready before the tab closes.</strong></div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">DTC founder on a strategy call with Ad Pros</div>
+          <div class="changes-before">Relies on the agency to know the brand's own history. Context gaps become friction.</div>
+          <div class="changes-after">The founder's copilot knows the brand. The agency's copilot knows the engagement. Both surfaces <strong>align the conversation in real time.</strong></div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">Ops lead auditing call quality</div>
+          <div class="changes-before">Random-sample a few Fathom recordings. Hope the patterns are representative.</div>
+          <div class="changes-after">Every conversation is searchable, categorized, and <strong>scored against outcomes.</strong> Patterns across hundreds of calls, not five.</div>
+        </div>
+        <div class="changes-row">
+          <div class="changes-who">New hire onboarding to a client account</div>
+          <div class="changes-before">Weeks of reading old docs and shadowing calls to absorb the relationship history.</div>
+          <div class="changes-after">Voice mode becomes the onboarding partner. <strong>"Walk me through this client."</strong> The history is institutional, not tribal.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGIC FRAMING -->
+    <section class="section">
+      <div class="section-eyebrow">Why It Matters</div>
+      <h2>The strategic frame.</h2>
+      <p class="section-lede">The compounding value is not in any single conversation — it's in the system that accumulates.</p>
+
+      <p style="font-size: 16px; color: var(--grey-100); max-width: 820px; margin-bottom: 20px;">Today, institutional knowledge at an agency — and at most brands — lives in people's heads, scattered Slack threads, old decks, and half-transcribed Fathom recordings. When a strategist leaves, the context leaves with them. When a client asks about a decision made nine months ago, someone has to go hunting. When a pitch goes sideways because a small detail was missed, that failure doesn't become a pattern the next pitch can learn from.</p>
+
+      <p style="font-size: 16px; color: var(--grey-100); max-width: 820px; margin-bottom: 20px;">An always-on intelligence layer — listening, remembering, retrievable on demand — changes the nature of what the organization is. The agency becomes harder to leave (the context stays). The brand becomes faster to scale (every new operator inherits the full history). Calls get better because the humans are freed to be present rather than scrambling to recall.</p>
+
+      <p style="font-size: 16px; color: var(--grey-100); max-width: 820px; margin-bottom: 0;">This is the same memory layer that powers the data stack, extended to a new class of interfaces. One agent. Many surfaces. Every conversation, accumulating.</p>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta">
+      <h2>One system. Team-wide. Client-wide.</h2>
+      <p>Voice and copilot are not two products. They are two interfaces to the intelligence layer Ad Pros is already building — extended across every conversation the agency and its brands have.</p>
+    </div>
+
+  </div>
+
+  <footer class="ap-footer">
+    <svg viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:32px;opacity:0.5">
+      <rect width="81" height="81" fill="#040735"/>
+      <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+      <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+      <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+      <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+      <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+      <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+      <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+    </svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </footer>
+
+</body>
+</html>
