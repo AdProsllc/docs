@@ -138,29 +138,27 @@
     .callout p { font-size: 14.5px; color: var(--grey-100); }
     .callout strong { color: var(--yellow); }
 
-    /* Floating TOC */
-    .ap-toc { position: fixed; top: 140px; right: 24px; width: 190px; display: none; z-index: 50; }
-    .ap-toc.visible { display: block; }
-    .ap-toc-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-400); margin-bottom: 10px; }
-    .ap-toc-list { list-style: none; }
-    .ap-toc-item { display: block; font-size: 12.5px; color: var(--grey-300); text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid var(--card-border); line-height: 1.35; }
-    .ap-toc-item:hover { color: #fff; }
-    .ap-toc-item.active { color: var(--yellow); border-left-color: var(--yellow); }
-    @media (min-width: 1280px) { .ap-toc.visible { display: block; } body.ap-has-toc .ap-content { padding-right: 232px; } }
-    @media (max-width: 1279px) { .ap-toc { display: none !important; } }
 
     @media (max-width: 640px) {
       .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
       .ap-footer { margin-left: 28px; margin-right: 28px; }
       .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
     }
+    /* === TABS === */
+    .ap-tabs { position: sticky; top: 0; z-index: 100; background: var(--navy-deep); border-bottom: 1px solid var(--card-border-strong); padding: 0 48px; display: flex; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .ap-tabs::-webkit-scrollbar { display: none; }
+    .ap-tab { appearance: none; background: none; border: none; border-bottom: 3px solid transparent; color: var(--grey-300); font-family: inherit; font-size: 13.5px; font-weight: 600; padding: 16px 16px 13px; cursor: pointer; white-space: nowrap; letter-spacing: 0.2px; transition: color .15s; }
+    .ap-tab:hover { color: #fff; }
+    .ap-tab.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+    .ap-tab .tnum { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--grey-400); margin-right: 6px; }
+    .ap-tab.active .tnum { color: var(--yellow); }
+    .ap-section { display: none; border-top: none; padding-top: var(--space-10); }
+    .ap-section.active { display: block; }
+    .tab-nav-btns { display: flex; justify-content: space-between; gap: 12px; margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--card-border); }
+    @media (max-width: 640px) { .ap-tabs { padding: 0 16px; } }
   </style>
 </head>
 <body>
-  <nav class="ap-toc" id="ap-toc" aria-label="On this page">
-    <div class="ap-toc-label">On this page</div>
-    <ol class="ap-toc-list" id="ap-toc-list"></ol>
-  </nav>
   <header class="ap-header">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
   <rect width="81" height="81" fill="#040735"/>
@@ -179,6 +177,15 @@
       <p>How we collect 1M+ Meta ads per month, what each stack costs all-in, and where the margin lives</p>
     </div>
   </header>
+  <nav class="ap-tabs" id="ap-tabs" role="tablist" aria-label="Document sections">
+    <button class="ap-tab" role="tab" data-tab="executive-summary"><span class="tnum">01</span>Executive Summary</button>
+    <button class="ap-tab" role="tab" data-tab="problem-scale"><span class="tnum">02</span>Problem &amp; Scale</button>
+    <button class="ap-tab" role="tab" data-tab="ingestion-waterfall"><span class="tnum">03</span>Ingestion Waterfall</button>
+    <button class="ap-tab" role="tab" data-tab="stack-profiles"><span class="tnum">04</span>Stack Profiles</button>
+    <button class="ap-tab" role="tab" data-tab="cost-comparison"><span class="tnum">05</span>Cost Comparison</button>
+    <button class="ap-tab" role="tab" data-tab="financial-model"><span class="tnum">06</span>Financial Model</button>
+    <button class="ap-tab" role="tab" data-tab="recommendation"><span class="tnum">07</span>Roadmap</button>
+  </nav>
   <div class="ap-content">
 
     <!-- ===== 01 EXEC SUMMARY ===== -->
@@ -415,49 +422,57 @@
   </footer>
   <script>
 (function(){
-  var toc = document.getElementById('ap-toc');
-  var list = document.getElementById('ap-toc-list');
-  if(!toc || !list) return;
+  var tabs = Array.from(document.querySelectorAll('.ap-tab'));
   var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
-  if(sections.length < 4) return;
-  sections.forEach(function(sec){
-    var label = sec.getAttribute('data-toc-title')
-      || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
-    var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.className = 'ap-toc-item';
-    a.href = '#' + sec.id;
-    a.textContent = label;
-    li.appendChild(a);
-    list.appendChild(li);
-  });
-  toc.classList.add('visible');
-  document.body.classList.add('ap-has-toc');
-  list.addEventListener('click', function(ev){
-    var a = ev.target.closest('.ap-toc-item');
-    if(!a) return;
-    ev.preventDefault();
-    var id = a.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if(!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
-    history.replaceState(null, '', '#' + id);
-  });
-  var items = Array.from(list.querySelectorAll('.ap-toc-item'));
-  function setActive(id){
-    items.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+  var order = tabs.map(function(t){ return t.getAttribute('data-tab'); });
+
+  function activate(id, push){
+    if(order.indexOf(id) === -1) id = order[0];
+    tabs.forEach(function(t){
+      var on = t.getAttribute('data-tab') === id;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    sections.forEach(function(s){ s.classList.toggle('active', s.id === id); });
+    if(push){ history.replaceState(null, '', '#' + id); }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    var active = tabs.find(function(t){ return t.classList.contains('active'); });
+    if(active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'center' });
   }
-  var observer = new IntersectionObserver(function(entries){
-    var visible = entries.filter(function(e){ return e.isIntersecting; })
-                         .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
-    if(visible.length > 0) setActive(visible[0].target.id);
-  }, { rootMargin: '-100px 0px -70% 0px' });
-  sections.forEach(function(s){ observer.observe(s); });
-  var initialActive = sections.find(function(s){
-    var r = s.getBoundingClientRect();
-    return r.top < window.innerHeight * 0.3 && r.bottom > 0;
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ activate(t.getAttribute('data-tab'), true); });
   });
-  if(initialActive) setActive(initialActive.id);
+
+  // Prev / Next buttons appended to each section
+  sections.forEach(function(sec){
+    var i = order.indexOf(sec.id);
+    var wrap = document.createElement('div');
+    wrap.className = 'tab-nav-btns';
+    var prev = document.createElement('button');
+    prev.className = 'btn-ghost';
+    prev.textContent = i > 0 ? '\u2190 ' + tabTitle(i-1) : '';
+    prev.style.visibility = i > 0 ? 'visible' : 'hidden';
+    prev.addEventListener('click', function(){ if(i>0) activate(order[i-1], true); });
+    var next = document.createElement('button');
+    next.className = 'btn-primary';
+    next.textContent = i < order.length-1 ? tabTitle(i+1) + ' \u2192' : '';
+    next.style.visibility = i < order.length-1 ? 'visible' : 'hidden';
+    next.addEventListener('click', function(){ if(i<order.length-1) activate(order[i+1], true); });
+    wrap.appendChild(prev); wrap.appendChild(next);
+    sec.appendChild(wrap);
+  });
+  function tabTitle(i){
+    var t = tabs[i];
+    return t ? t.textContent.replace(/^\s*\d+\s*/, '').trim() : '';
+  }
+
+  var initial = (location.hash || '').slice(1);
+  activate(initial || order[0], false);
+  window.addEventListener('hashchange', function(){
+    var id = (location.hash || '').slice(1);
+    if(order.indexOf(id) !== -1) activate(id, false);
+  });
 })();
   </script>
 </body>
