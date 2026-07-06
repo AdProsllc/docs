@@ -260,73 +260,7 @@
   </style>
 </head>
 <body>
-  <nav class="ap-toc" id="ap-toc" aria-label="On this page">
-  <div class="ap-toc-label">On this page</div>
-  <ol class="ap-toc-list" id="ap-toc-list"></ol>
-</nav>
-<script>
-(function(){
-  var toc = document.getElementById('ap-toc');
-  var list = document.getElementById('ap-toc-list');
-  if(!toc || !list) return;
-
-  // Auto-discover sections — any .ap-section with an id attribute.
-  // Override the auto-detected label by setting data-toc-title on the section.
-  var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
-
-  // Hide TOC entirely if there aren't enough sections to justify navigation.
-  if(sections.length < 4) return;
-
-  sections.forEach(function(sec){
-    var label = sec.getAttribute('data-toc-title')
-      || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
-    var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.className = 'ap-toc-item';
-    a.href = '#' + sec.id;
-    a.textContent = label;
-    li.appendChild(a);
-    list.appendChild(li);
-  });
-
-  toc.classList.add('visible');
-  document.body.classList.add('ap-has-toc');
-
-  // Smooth-scroll on click, with an 80px header offset.
-  list.addEventListener('click', function(ev){
-    var a = ev.target.closest('.ap-toc-item');
-    if(!a) return;
-    ev.preventDefault();
-    var id = a.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if(!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
-    history.replaceState(null, '', '#' + id);
-  });
-
-  // Scrollspy — highlight the section whose top is closest to the activation band.
-  var items = Array.from(list.querySelectorAll('.ap-toc-item'));
-  function setActive(id){
-    items.forEach(function(a){
-      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-    });
-  }
-  var observer = new IntersectionObserver(function(entries){
-    var visible = entries.filter(function(e){ return e.isIntersecting; })
-                         .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
-    if(visible.length > 0) setActive(visible[0].target.id);
-  }, { rootMargin: '-100px 0px -70% 0px' });
-  sections.forEach(function(s){ observer.observe(s); });
-
-  // Set initial active state on load (highest visible section, or first one).
-  var initialActive = sections.find(function(s){
-    var r = s.getBoundingClientRect();
-    return r.top < window.innerHeight * 0.3 && r.bottom > 0;
-  });
-  if(initialActive) setActive(initialActive.id);
-})();
-</script>
-
+  
   <header class="ap-header">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
   <rect width="81" height="81" fill="#040735"/>
@@ -347,19 +281,25 @@
   </header>
   <div class="ap-content">
     
-<div style="margin:0 0 8px;"><a href="./adpros_cold_email_sequences.xlsx" download style="display:inline-block;background:#F9D900;color:#040735;padding:12px 22px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;">⬇ Download the Excel workbook</a><span style="margin-left:12px;font-size:12px;color:#8A8B93;">Executive Summary + 7 sequence tabs · ready for Bison import prep</span></div>
-<section class="ap-section" id="executive-summary" data-toc-title="Executive Summary">
-  <div class="ap-section-label"><span class="num">01</span> EXECUTIVE SUMMARY</div>
+<style>
+.ap-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 28px; border-bottom:1px solid var(--card-border); padding-bottom:14px; }
+.ap-tab-btn { background:var(--navy-card); color:var(--grey-200); border:1px solid var(--card-border-strong); padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; transition:all .15s; }
+.ap-tab-btn:hover { border-color:var(--yellow); color:#fff; }
+.ap-tab-btn.active { background:var(--yellow); color:var(--navy); border-color:var(--yellow); }
+.ap-tab-panel { display:none; }
+.ap-tab-panel.active { display:block; }
+</style><div style="margin:0 0 20px;"><a href="./adpros_cold_email_sequences.xlsx" download style="display:inline-block;background:#F9D900;color:#040735;padding:12px 22px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;">⬇ Download the Excel workbook</a><span style="margin-left:12px;font-size:12px;color:#8A8B93;">Executive Summary + 7 sequence tabs</span></div><div class="ap-tabs"><button class="ap-tab-btn active" data-tab="executive-summary" onclick="apTab('executive-summary')">Executive Summary</button><button class="ap-tab-btn" data-tab="competitor-ad-spy" onclick="apTab('competitor-ad-spy')">Competitor Ad Spy</button><button class="ap-tab-btn" data-tab="white-space-finder" onclick="apTab('white-space-finder')">White Space Finder</button><button class="ap-tab-btn" data-tab="category-hook-database" onclick="apTab('category-hook-database')">Category Hook Database</button><button class="ap-tab-btn" data-tab="creative-scorecard" onclick="apTab('creative-scorecard')">Creative Scorecard</button><button class="ap-tab-btn" data-tab="ad-diversity-audit" onclick="apTab('ad-diversity-audit')">Ad Diversity Audit</button><button class="ap-tab-btn" data-tab="competitor-creator-spy" onclick="apTab('competitor-creator-spy')">Competitor Creator Spy</button><button class="ap-tab-btn" data-tab="flagship-audit" onclick="apTab('flagship-audit')">Flagship Audit</button></div>
+<div class="ap-tab-panel active" id="panel-executive-summary">
   <h2 class="ap-h2" style="margin-bottom:16px;">Seven sequences, one mechanism</h2>
   <p class="ap-p" style="max-width:860px;margin-bottom:12px;">Persona: ecommerce leadership and ad teams, $5M+ revenue, active on Meta, focused on growth. Founder voice, reply-based CTAs, Day 1 / Day 3 / Day 7 cadence. Every sequence offers a personalized deliverable generated from our ad intelligence pipeline — the prospect replies with one word or a competitor name and receives a pre-filled, instant-load link. Every breakup email gives away one real data point as proof.</p>
   <div class="ap-callout" style="margin-bottom:24px;"><strong>Optional P.S. for any email</strong>“P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free.”</div>
   <div class="ap-grid-3" style="margin-bottom:24px;"><div class="ap-card ap-card-hover"><h4 class="ap-h5" style="margin-bottom:6px;">Competitor Ad Spy</h4><p class="ap-caption" style="color:var(--yellow);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Rivalry + curiosity</p><p class="ap-p-sm">Full breakdown of 1–3 competitors’ live ad libraries, 30+ day winners flagged. Strongest opener — first A/B test candidate.</p></div><div class="ap-card ap-card-hover"><h4 class="ap-h5" style="margin-bottom:6px;">White Space Finder</h4><p class="ap-caption" style="color:var(--yellow);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Opportunity / greed</p><p class="ap-p-sm">Proven angles nobody in their niche is running. Works on confident brands who ignore fear-based angles.</p></div><div class="ap-card ap-card-hover"><h4 class="ap-h5" style="margin-bottom:6px;">Category Hook Database</h4><p class="ap-caption" style="color:var(--yellow);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Relief</p><p class="ap-p-sm">Top 20 hooks scaling in their category by prevalence + lifespan. A month of testing, pre-validated by competitors’ spend.</p></div><div class="ap-card ap-card-hover"><h4 class="ap-h5" style="margin-bottom:6px;">Creative Scorecard</h4><p class="ap-caption" style="color:var(--yellow);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Vanity + vulnerability</p><p class="ap-p-sm">Their live ads scored on the 9-Dimensions framework vs. the category leader. Most personal sequence — second A/B candidate.</p></div><div class="ap-card ap-card-hover"><h4 class="ap-h5" style="margin-bottom:6px;">Ad Diversity Audit</h4><p class="ap-caption" style="color:var(--yellow);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Insider knowledge</p><p class="ap-p-sm">X ads but only Y real angles — the Andromeda-era mechanism behind rising CPMs. Strong Jun–Sep with the Q4 urgency close.</p></div><div class="ap-card ap-card-hover"><h4 class="ap-h5" style="margin-bottom:6px;">Competitor Creator Spy</h4><p class="ap-caption" style="color:var(--yellow);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Secret intel</p><p class="ap-p-sm">Every creator competitors run partnership ads through. Doubles as the Creator Performance Network pitch.</p></div><div class="ap-card ap-card-hover"><h4 class="ap-h5" style="margin-bottom:6px;">Flagship Audit</h4><p class="ap-caption" style="color:var(--yellow);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Audacity</p><p class="ap-p-sm">The 100-page competitor creative strategy audit — all magnets combined, closed with the 3-page downgrade offer. Reserve for highest-value targets.</p></div></div>
   <div class="ap-callout"><strong>Launch plan</strong>Start with Competitor Ad Spy vs. Creative Scorecard head-to-head (rivalry vs. vanity) and let reply data pick the winning psychological angle before rolling out the rest. All merge fields must be populated with real pipeline data — the specificity is the mechanism.</div>
-</section>
-<section class="ap-section" id="competitor-ad-spy" data-toc-title="Competitor Ad Spy">
-  <div class="ap-section-label"><span class="num">02</span> SEQUENCE</div>
+</div>
+<div class="ap-tab-panel" id="panel-competitor-ad-spy">
   <h2 class="ap-h3" style="margin-bottom:8px;">MAGNET #1 — COMPETITOR AD SPY REPORT (they pick 1 or 3 competitors)</h2>
-  <p class="ap-p-sm" style="margin-bottom:20px;color:var(--grey-300);"><em>Curiosity + rivalry. We already track their competitors’ entire live ad libraries. Reply = we send the full report on the competitor(s) they choose.</em></p>
+  <p class="ap-p-sm" style="margin-bottom:12px;color:var(--grey-300);"><em>Curiosity + rivalry. We already track their competitors’ entire live ad libraries. Reply = we send the full report on the competitor(s) they choose.</em></p>
+  <div class="ap-callout" style="margin-bottom:20px;"><strong>Optional P.S.</strong>"P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free."</div>
   
     <div class="ap-card" style="margin-bottom:16px;">
       <p class="ap-kicker" style="margin-bottom:12px;">THE OFFER · Day 1</p>
@@ -379,11 +319,11 @@
       <p class="ap-p-sm" style="border-left:2px solid var(--card-border-strong);padding-left:16px;margin-bottom:12px;">{{first_name}} — last note from me.<br><br>I’ll leave you with one thing for free: {{competitor}}’s longest-running ad right now is a {{format}} that leads with “{{hook_snippet}}…” — it’s been live {{days}} days.<br><br>That’s one ad. The full report covers all of them, plus the two other competitors of your choice.<br><br>If the timing’s off, no problem — reply “later” and I’ll check back next quarter.<br><br>Nehal<br>Founder, Ad Pros</p>
       <p class="ap-caption"><span style="color:var(--yellow);">Notes:</span> Gives one real insight as the goodbye gift — proves the report is real, not vapor. “Reply later” gives a low-friction out that still generates replies.</p>
     </div>
-</section>
-<section class="ap-section" id="white-space-finder" data-toc-title="White Space Finder">
-  <div class="ap-section-label"><span class="num">03</span> SEQUENCE</div>
+</div>
+<div class="ap-tab-panel" id="panel-white-space-finder">
   <h2 class="ap-h3" style="margin-bottom:8px;">MAGNET #3 — WHITE SPACE FINDER (angles nobody in their niche is running)</h2>
-  <p class="ap-p-sm" style="margin-bottom:20px;color:var(--grey-300);"><em>Opportunity framing instead of fear. Everyone copies competitors; we show what NOBODY is doing — the uncontested angles.</em></p>
+  <p class="ap-p-sm" style="margin-bottom:12px;color:var(--grey-300);"><em>Opportunity framing instead of fear. Everyone copies competitors; we show what NOBODY is doing — the uncontested angles.</em></p>
+  <div class="ap-callout" style="margin-bottom:20px;"><strong>Optional P.S.</strong>"P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free."</div>
   
     <div class="ap-card" style="margin-bottom:16px;">
       <p class="ap-kicker" style="margin-bottom:12px;">THE OFFER · Day 1</p>
@@ -403,11 +343,11 @@
       <p class="ap-p-sm" style="border-left:2px solid var(--card-border-strong);padding-left:16px;margin-bottom:12px;">{{first_name}} — I’ll stop here, but here’s one from the map, free:<br><br>No one in {{niche}} is running “{{example_white_space_angle}}” — even though it’s a top-3 performer in {{adjacent_category}} right now.<br><br>There are {{Y_minus_1}} more like that in the full map, specific to {{brand}}.<br><br>Want it? One-word reply does it. Otherwise — good luck out there, genuinely.<br><br>Nehal<br>Founder, Ad Pros</p>
       <p class="ap-caption"><span style="color:var(--yellow);">Notes:</span> The free angle must be genuinely good — it’s the proof-of-quality moment. Pull from your white space analysis, not generic.</p>
     </div>
-</section>
-<section class="ap-section" id="category-hook-database" data-toc-title="Category Hook Database">
-  <div class="ap-section-label"><span class="num">04</span> SEQUENCE</div>
+</div>
+<div class="ap-tab-panel" id="panel-category-hook-database">
   <h2 class="ap-h3" style="margin-bottom:8px;">MAGNET #6 — CATEGORY HOOK DATABASE (top hooks across 20–50 brands in their space)</h2>
-  <p class="ap-p-sm" style="margin-bottom:20px;color:var(--grey-300);"><em>Speaks directly to creative teams and the 2026 velocity problem: they need 10–15 new creatives/week and are starving for proven hooks.</em></p>
+  <p class="ap-p-sm" style="margin-bottom:12px;color:var(--grey-300);"><em>Speaks directly to creative teams and the 2026 velocity problem: they need 10–15 new creatives/week and are starving for proven hooks.</em></p>
+  <div class="ap-callout" style="margin-bottom:20px;"><strong>Optional P.S.</strong>"P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free."</div>
   
     <div class="ap-card" style="margin-bottom:16px;">
       <p class="ap-kicker" style="margin-bottom:12px;">THE OFFER · Day 1</p>
@@ -427,11 +367,11 @@
       <p class="ap-p-sm" style="border-left:2px solid var(--card-border-strong);padding-left:16px;margin-bottom:12px;">{{first_name}} — last one from me.<br><br>If you’re not the right person for this, would you forward it to whoever runs creative? The hook list saves them a genuinely painful part of the week — staring at a blank brief.<br><br>Either way, the offer stands: reply “hooks” and the {{niche}} top-20 is yours, no call required.<br><br>After this I’ll leave you alone — promise.<br><br>Nehal<br>Founder, Ad Pros</p>
       <p class="ap-caption"><span style="color:var(--yellow);">Notes:</span> “No call required” lowers defenses and paradoxically increases call bookings. Forward-ask works well at $5M+ orgs where the opener isn’t the end user.</p>
     </div>
-</section>
-<section class="ap-section" id="creative-scorecard" data-toc-title="Creative Scorecard">
-  <div class="ap-section-label"><span class="num">05</span> SEQUENCE</div>
+</div>
+<div class="ap-tab-panel" id="panel-creative-scorecard">
   <h2 class="ap-h3" style="margin-bottom:8px;">MAGNET #11 — 9-DIMENSIONS CREATIVE SCORECARD (their live ads scored on your framework)</h2>
-  <p class="ap-p-sm" style="margin-bottom:20px;color:var(--grey-300);"><em>Personal + proprietary. We scored THEIR actual ads on our named framework. The vulnerability angle: everyone wonders how good their ads really are.</em></p>
+  <p class="ap-p-sm" style="margin-bottom:12px;color:var(--grey-300);"><em>Personal + proprietary. We scored THEIR actual ads on our named framework. The vulnerability angle: everyone wonders how good their ads really are.</em></p>
+  <div class="ap-callout" style="margin-bottom:20px;"><strong>Optional P.S.</strong>"P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free."</div>
   
     <div class="ap-card" style="margin-bottom:16px;">
       <p class="ap-kicker" style="margin-bottom:12px;">THE OFFER · Day 1</p>
@@ -451,11 +391,11 @@
       <p class="ap-p-sm" style="border-left:2px solid var(--card-border-strong);padding-left:16px;margin-bottom:12px;">{{first_name}} — final note, and I’ll give you the headline for free:<br><br>Your weakest dimension is {{weak_dimension}}. {{one_sentence_diagnosis}}.<br><br>That’s 1 of 9. The full scorecard covers the rest, ad by ad, with fixes.<br><br>If you want it, reply “score.” If not — fix that one thing anyway. It’s costing you more than you think.<br><br>Nehal<br>Founder, Ad Pros</p>
       <p class="ap-caption"><span style="color:var(--yellow);">Notes:</span> Giving away the #1 weakness in the breakup is counterintuitive but powerful — if the diagnosis lands, the reply comes even after silence.</p>
     </div>
-</section>
-<section class="ap-section" id="ad-diversity-audit" data-toc-title="Ad Diversity Audit">
-  <div class="ap-section-label"><span class="num">06</span> SEQUENCE</div>
+</div>
+<div class="ap-tab-panel" id="panel-ad-diversity-audit">
   <h2 class="ap-h3" style="margin-bottom:8px;">MAGNET #14 — AD DIVERSITY / ASC READINESS AUDIT (are they feeding the algorithm enough variety?)</h2>
-  <p class="ap-p-sm" style="margin-bottom:20px;color:var(--grey-300);"><em>The most 2026-native angle: Andromeda-era Meta rewards creative diversity. Frames their problem as feeding the machine wrong, not bad ads.</em></p>
+  <p class="ap-p-sm" style="margin-bottom:12px;color:var(--grey-300);"><em>The most 2026-native angle: Andromeda-era Meta rewards creative diversity. Frames their problem as feeding the machine wrong, not bad ads.</em></p>
+  <div class="ap-callout" style="margin-bottom:20px;"><strong>Optional P.S.</strong>"P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free."</div>
   
     <div class="ap-card" style="margin-bottom:16px;">
       <p class="ap-kicker" style="margin-bottom:12px;">THE OFFER · Day 1</p>
@@ -475,11 +415,11 @@
       <p class="ap-p-sm" style="border-left:2px solid var(--card-border-strong);padding-left:16px;margin-bottom:12px;">{{first_name}} — last one.<br><br>Here’s the free takeaway: the accounts winning in {{niche}} right now average {{benchmark_angles}} distinct angles live at once. {{brand}} has {{Y}}.<br><br>Closing that gap before Q4 CPMs spike is the difference between scaling into the season and paying the sameness tax at the worst possible time.<br><br>The audit shows exactly which angles to add, in what order. Reply “audit” if you want it — otherwise, good luck in Q4.<br><br>Nehal<br>Founder, Ad Pros</p>
       <p class="ap-caption"><span style="color:var(--yellow);">Notes:</span> Seasonal urgency (Q4/BFCM lead times) makes this evergreen sequence spike in Jun–Sep sends. Adjust the season reference per send window.</p>
     </div>
-</section>
-<section class="ap-section" id="competitor-creator-spy" data-toc-title="Competitor Creator Spy">
-  <div class="ap-section-label"><span class="num">07</span> SEQUENCE</div>
+</div>
+<div class="ap-tab-panel" id="panel-competitor-creator-spy">
   <h2 class="ap-h3" style="margin-bottom:8px;">MAGNET #42 — COMPETITOR CREATOR SPY (which creators rivals run ads through)</h2>
-  <p class="ap-p-sm" style="margin-bottom:20px;color:var(--grey-300);"><em>Whitelisting/partnership ads intel. Ties to Creator Performance Network — the report doubles as the CPN pitch. Persona skew: brands already doing or considering creator marketing.</em></p>
+  <p class="ap-p-sm" style="margin-bottom:12px;color:var(--grey-300);"><em>Whitelisting/partnership ads intel. Ties to Creator Performance Network — the report doubles as the CPN pitch. Persona skew: brands already doing or considering creator marketing.</em></p>
+  <div class="ap-callout" style="margin-bottom:20px;"><strong>Optional P.S.</strong>"P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free."</div>
   
     <div class="ap-card" style="margin-bottom:16px;">
       <p class="ap-kicker" style="margin-bottom:12px;">THE OFFER · Day 1</p>
@@ -499,11 +439,11 @@
       <p class="ap-p-sm" style="border-left:2px solid var(--card-border-strong);padding-left:16px;margin-bottom:12px;">{{first_name}} — closing this out, but here’s one for free:<br><br>{{competitor}}’s workhorse creator right now is {{creator_handle}} — {{Z}} active ads running through their handle, longest live {{days}} days. That’s not a test; that’s a proven channel.<br><br>The full report has the rest — every creator, every competitor you pick, plus the format patterns.<br><br>Reply “creators” if you want it. Either way, worth following that handle.<br><br>Nehal<br>Founder, Ad Pros</p>
       <p class="ap-caption"><span style="color:var(--yellow);">Notes:</span> Naming a real creator handle is the strongest proof-of-data moment in any of these sequences. Verify the handle is genuinely running partnership ads before send.</p>
     </div>
-</section>
-<section class="ap-section" id="flagship-audit" data-toc-title="Flagship Audit">
-  <div class="ap-section-label"><span class="num">08</span> SEQUENCE</div>
+</div>
+<div class="ap-tab-panel" id="panel-flagship-audit">
   <h2 class="ap-h3" style="margin-bottom:8px;">FLAGSHIP — THE 100-PAGE COMPETITOR CREATIVE STRATEGY AUDIT (all magnets combined)</h2>
-  <p class="ap-p-sm" style="margin-bottom:20px;color:var(--grey-300);"><em>The big swing. Audacious free offer on their biggest competitor. Reply chooses the competitor; audit generates from pipeline. Best for highest-value targets and leadership personas.</em></p>
+  <p class="ap-p-sm" style="margin-bottom:12px;color:var(--grey-300);"><em>The big swing. Audacious free offer on their biggest competitor. Reply chooses the competitor; audit generates from pipeline. Best for highest-value targets and leadership personas.</em></p>
+  <div class="ap-callout" style="margin-bottom:20px;"><strong>Optional P.S.</strong>"P.S. Reply and I’ll also show you how to talk to any brand’s ads library inside Claude or Slack — takes 10 minutes to set up and it’s free."</div>
   
     <div class="ap-card" style="margin-bottom:16px;">
       <p class="ap-kicker" style="margin-bottom:12px;">THE OFFER · Day 1</p>
@@ -523,7 +463,18 @@
       <p class="ap-p-sm" style="border-left:2px solid var(--card-border-strong);padding-left:16px;margin-bottom:12px;">{{first_name}} — I get it, “100 free pages” from a stranger pattern-matches to spam.<br><br>So, smaller offer: reply “mini” and I’ll send just the 3-page executive summary — {{competitor}}’s winning ads, their biggest vulnerability, and the one angle you should steal this month.<br><br>If that’s useful, the other 97 pages are waiting.<br><br>Either way, this is my last email. The audit offer doesn’t expire — my follow-ups do.<br><br>Nehal<br>Founder, Ad Pros</p>
       <p class="ap-caption"><span style="color:var(--yellow);">Notes:</span> The downgrade close is the highest-converting breakup pattern for big offers — it removes the “too much to engage with” objection. “My follow-ups expire, the offer doesn’t” is a clean exit line.</p>
     </div>
-</section>
+</div>
+<script>
+function apTab(id){
+  document.querySelectorAll('.ap-tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.ap-tab-btn').forEach(function(b){b.classList.remove('active');});
+  var p=document.getElementById('panel-'+id); if(p)p.classList.add('active');
+  var b=document.querySelector('.ap-tab-btn[data-tab="'+id+'"]'); if(b)b.classList.add('active');
+  history.replaceState(null,'','#'+id);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+(function(){ var h=location.hash.slice(1); if(h&&document.getElementById('panel-'+h))apTab(h); })();
+</script>
   </div>
   <footer class="ap-footer">
     <div class="ap-footer-left">
