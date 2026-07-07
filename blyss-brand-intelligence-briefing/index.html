@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Omar">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blyss - Brand Intelligence Briefing | Ad Pros</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; color: #b0b1b6; background: #000212; line-height: 1.5; padding: 40px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .header { display: flex; align-items: flex-start; gap: 20px; padding-bottom: 24px; border-bottom: none; }
+    .header-logo { flex-shrink: 0; }
+    .header-content { flex: 1; }
+    .header h1 { font-size: 32px; font-weight: 700; color: #ffffff; line-height: 1.2; margin-bottom: 8px; }
+    .header .meta { font-size: 13px; color: #545560; }
+    .header .brand-badge { display: inline-block; background: #F8D908; color: #000212; padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; margin-top: 12px; letter-spacing: 0.02em; }
+    .tab-nav { display: flex; align-items: center; gap: 0; border-bottom: 1px solid #282932; margin-bottom: 48px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-nav .tab { font-family: 'Inter', 'Geist', -apple-system, sans-serif; font-size: 14px; font-weight: 500; color: #545560; padding: 14px 20px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; border-bottom: 2px solid transparent; background: none; border-top: none; border-left: none; border-right: none; }
+    .tab-nav .tab:hover { color: #f3f4ff; }
+    .tab-nav .tab.active { color: #f3f4ff; border-bottom-color: #F8D908; font-weight: 600; }
+    .tab-nav .tab-actions { margin-left: auto; display: flex; gap: 8px; padding: 8px 0; flex-shrink: 0; }
+    .btn-export { background: transparent; color: #545560; font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 50px; border: 1px solid #282932; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+    .btn-export:hover { color: #f3f4ff; border-color: #F8D908; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    h2 { font-size: 22px; font-weight: 700; color: #ffffff; margin: 48px 0 20px; border-left: 3px solid #F8D908; padding-left: 16px; }
+    .tab-panel h2:first-child { margin-top: 0; }
+    h3 { font-size: 17px; font-weight: 700; color: #f3f4ff; margin: 28px 0 12px; }
+    p { margin: 8px 0; font-size: 15px; line-height: 1.6; }
+    strong { color: #f3f4ff; }
+    ul { margin: 8px 0 8px 22px; font-size: 15px; line-height: 1.6; }
+    li { margin: 5px 0; }
+    .card { background: #0b0d17; border: 1px solid #282932; border-radius: 16px; padding: 28px; margin: 16px 0; }
+    .card-elevated { background: #1a1c2e; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 28px; margin: 16px 0; }
+    .callout { background: rgba(77, 101, 255, 0.08); border-left: 3px solid #4d65ff; padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 20px 0; color: #f3f4ff; font-size: 14px; }
+    .callout-yellow { background: rgba(248, 217, 8, 0.06); border-left: 3px solid #F8D908; padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 20px 0; color: #f3f4ff; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0; }
+    thead th { color: #545560; font-weight: 600; padding: 12px 20px; text-align: left; border-bottom: 1px solid #282932; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+    tbody td { padding: 12px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); color: #f3f4ff; vertical-align: top; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+    tr.total td, tfoot td { color: #F8D908; font-weight: 700; border-top: 1px solid #282932; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 700; }
+    .badge-green { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+    .badge-amber { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+    .badge-red { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+    .badge-blue { background: rgba(77,101,255,0.15); color: #4d65ff; border: 1px solid rgba(77,101,255,0.3); }
+    .badge-yellow { background: rgba(248,217,8,0.1); color: #F8D908; border: 1px solid rgba(248,217,8,0.25); }
+    .metric-value { font-size: 32px; font-weight: 700; color: #F8D908; line-height: 1.2; }
+    .metric-label { font-size: 13px; color: #545560; margin-top: 4px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+    .footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #282932; font-size: 12px; color: #545560; display: flex; justify-content: space-between; align-items: center; }
+    .footer-brand { font-weight: 700; color: #ffffff; font-size: 14px; }
+    @media (max-width: 768px) { body { padding: 20px; } .header { flex-direction: column; } .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } h1 { font-size: 24px; } h2 { font-size: 18px; } .tab-nav .tab { padding: 12px 14px; font-size: 13px; } }
+    @media print { body { background: #000212; padding: 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .tab-nav { display: none; } .tab-panel { display: block !important; page-break-before: always; } .tab-panel:first-of-type { page-break-before: avoid; } .tab-panel::before { content: attr(data-tab-label); display: block; font-size: 18px; font-weight: 700; color: #F8D908; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #F8D908; } .card, .card-elevated { break-inside: avoid; } }
+    body.print-single .tab-panel { display: none !important; }
+    body.print-single .tab-panel.print-target { display: block !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-logo">
+        <svg width="48" height="48" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0)">
+            <path d="M45.32 0.58C45.83 0.94 45.77 1.47 45.77 1.98C45.77 10.63 45.67 19.29 45.82 27.94C45.87 31.33 45.7 34.75 46.3 38.12C46.49 39.21 46 39.7 44.85 39.73C43.81 39.75 42.77 39.74 41.74 39.73C40.25 39.73 40.1 39.63 39.66 38.3C39.61 38.16 39.57 38.02 39.54 37.9C39.21 37.85 39.1 38.07 38.96 38.21C37.47 39.68 35.62 40.24 33.53 40.3C31.34 40.37 29.3 40.04 27.51 38.7C25.39 37.12 24.47 34.88 24.04 32.37C23.39 28.57 23.55 24.79 24.83 21.12C26.18 17.26 29.02 15.27 33.02 15.14C35.1 15.07 36.93 15.59 38.46 17.04C38.64 17.21 38.77 17.56 39.15 17.39C39.15 12.3 39.15 7.2 39.15 2.1C39.15 1.56 39.09 0.99 39.55 0.58C41.47 0.58 43.4 0.58 45.32 0.58Z" fill="white"/>
+            <path d="M17.95 15.36C18.82 15.36 19.68 15.39 20.55 15.36C21.84 15.3 22.31 15.77 22.26 17.04C22.17 19.24 22.24 21.44 22.23 23.64C22.23 24.14 22.38 24.74 21.73 25.11C19.56 25.11 17.39 25.11 15.22 25.11C14.78 24.68 14.84 24.14 14.84 23.63C14.84 21.43 14.93 19.22 14.8 17.02C14.73 15.75 15.24 15.29 16.49 15.36C16.98 15.39 17.46 15.36 17.95 15.36Z" fill="white"/>
+            <path d="M0.59 28.2C1.12 27.68 1.8 27.79 2.44 27.79C5.66 27.79 8.88 27.79 12.1 27.79C14.1 27.79 14.84 28.53 14.84 30.54C14.84 33.73 14.84 36.92 14.84 40.11C14.84 40.54 14.92 41.01 14.41 41.32C9.76 41.32 5.11 41.32 0.47 41.32C0.59 36.95 0.59 32.57 0.59 28.2Z" fill="white"/>
+            <path d="M14.84 30.54C14.84 28.53 14.1 27.79 12.1 27.79C8.88 27.79 5.66 27.79 2.44 27.79C1.8 27.79 1.12 27.68 0.59 28.2C0.59 23.83 0.59 19.46 0.59 15.09C0.59 15.09 0.75 15.06 0.83 15.09C4.26 15.55 7.71 15.27 11.14 15.36C13.67 15.43 14.84 16.73 14.84 19.28C14.84 23.03 14.84 26.79 14.84 30.54Z" fill="#F8D908"/>
+          </g>
+          <defs><clipPath id="clip0"><rect width="80.17" height="80.17" fill="white" transform="translate(0.47 0.58)"/></clipPath></defs>
+        </svg>
+      </div>
+      <div class="header-content">
+        <h1>Blyss Brand Intelligence Briefing</h1>
+        <div class="meta">7 of 7 steps complete &bull; Generated July 6, 2026</div>
+        <span class="brand-badge">Ad Pros Brand Intelligence</span>
+      </div>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab" onclick="showTab('prep')">Prep</button>
+      <button class="tab" onclick="showTab('step1')">1. Brand Profile</button>
+      <button class="tab" onclick="showTab('step2')">2. Market Research</button>
+      <button class="tab" onclick="showTab('step3')">3. Competitor Intel</button>
+      <button class="tab" onclick="showTab('step4')">4. Assessment</button>
+      <button class="tab" onclick="showTab('step5')">5. Decisions</button>
+      <button class="tab" onclick="showTab('step6')">6. Creative Strategy</button>
+      <button class="tab active" onclick="showTab('step7')">7. Creative Briefs</button>
+      <div class="tab-actions">
+        <button class="btn-export" onclick="exportAll()">Export All PDF</button>
+        <button class="btn-export" onclick="exportCurrent()">Export This Step</button>
+      </div>
+    </div>
+
+    <!-- ================= PREP ================= -->
+    <div id="prep" class="tab-panel" data-tab-label="Prep">
+      <h2>Engagement Snapshot</h2>
+      <div class="grid-4">
+        <div class="card"><div class="metric-value">$7.5K</div><div class="metric-label">Monthly retainer (base)</div></div>
+        <div class="card"><div class="metric-value">Creative</div><div class="metric-label">Scope (strategy + production, no media buying)</div></div>
+        <div class="card"><div class="metric-value">Meta</div><div class="metric-label">Primary channel</div></div>
+        <div class="card"><div class="metric-value">&lt;$60</div><div class="metric-label">Blended CAC target</div></div>
+      </div>
+
+      <h2>Brand</h2>
+      <div class="card">
+        <p><strong>Blyss</strong> &mdash; <a href="https://blyssofficial.com" style="color:#4d65ff;">blyssofficial.com</a>. Scent-forward DTC home-cleaning brand. Hero product is a plant-based, pH-balanced <strong>scented mop / floor soap</strong> (~14 luxury scents). Sold via Shopify (primary) + Amazon. The selling point is the <strong>luxury fragrance that lingers</strong>, not just cleaning.</p>
+        <p style="margin-top:12px;"><strong>Founders:</strong> Kaelam (founder), Eric Gray (co-founder, oversees creative). &nbsp; <strong>Entity:</strong> Blyss LLC (Delaware); team in Toronto. &nbsp; <strong>Social:</strong> IG @officialblyss.</p>
+      </div>
+
+      <h2>Tool Status</h2>
+      <table>
+        <thead><tr><th>Tool</th><th>Role</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Supabase (adpros-production)</td><td>Data store for all steps</td><td><span class="badge badge-green">Connected</span></td></tr>
+          <tr><td>Web fetch + Chrome</td><td>Scraping (Apify/FireCrawl fallback)</td><td><span class="badge badge-green">Available</span></td></tr>
+          <tr><td>Google Drive</td><td>Docs / uploads</td><td><span class="badge badge-green">Connected</span></td></tr>
+          <tr><td>Slack</td><td>Team sharing</td><td><span class="badge badge-amber">Needs auth</span></td></tr>
+          <tr><td>Apify / FireCrawl</td><td>Dedicated scrapers</td><td><span class="badge badge-amber">Not connected</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Goal &amp; Context</h2>
+      <div class="card">
+        <p><strong>Primary goal:</strong> Break creative fatigue and unlock new winning ads / angles / avatars to scale Meta back up &mdash; more volume <em>and</em> real diversity (not just swapping scripts or creator skin color). Short-term: front-end profitability. Long-term: a real brand thriving on subscription / MRR.</p>
+        <p style="margin-top:12px;"><strong>Scope:</strong> Creative-only. Creative strategy ($2,500/mo) + creative production ($5,000/mo) + UGC/creator management + listicle/advertorial landing pages + performance reporting. <strong>No media buying, no AI infra.</strong></p>
+        <p style="margin-top:12px;"><strong>Ad Pros team:</strong> Nehal (lead), Daniela (PM), + Creative Strategist / Production Manager / Head of AI Generation.</p>
+      </div>
+
+      <div class="callout-yellow"><strong>Open items to confirm at kickoff:</strong>
+        <ul>
+          <li><strong>Spend discrepancy:</strong> onboarding form says ~$600K/mo (target 90-day $1M); sales calls referenced ~$1M/mo, peak $3&ndash;3.5M in March. Confirm the true current number.</li>
+          <li><strong>&gt;$150K managed-spend clause:</strong> retainers convert to 5% of managed spend. Clarify how "managed spend" is defined for a creative-only deal.</li>
+          <li><strong>Admin:</strong> MSA on file is unsigned; Recharm creative-asset invite errored on gabriel@adpros.com (manual fix needed).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ================= STEP 1 ================= -->
+    <div id="step1" class="tab-panel" data-tab-label="Step 1: Brand Profile">
+      <h2>Brand Profile &mdash; Executive Summary</h2>
+      <div class="card-elevated">
+        <p>Blyss took a commodity category &mdash; floor cleaner &mdash; and re-framed it as a <strong>luxury fragrance product you happen to mop with</strong>. The moat isn't cleaning performance; it's the emotional promise that <em>your whole home smells like a resort</em>. That single insight drove a peak of ~$3&ndash;3.5M/mo in Meta spend and ~$7M revenue in March, off essentially <strong>one creative format (UGC mopping) and one landing page</strong>. That concentration is now the problem: creative fatigue, rising CAC/CPMs, and a slide back to ~$1M/mo.</p>
+      </div>
+
+      <div class="grid-4">
+        <div class="card"><div class="metric-value">~14</div><div class="metric-label">Scent SKUs</div></div>
+        <div class="card"><div class="metric-value">$49</div><div class="metric-label">1 bottle ($34/mo sub)</div></div>
+        <div class="card"><div class="metric-value">~$60</div><div class="metric-label">AOV (LTV est. &gt;$100)</div></div>
+        <div class="card"><div class="metric-value">10K+</div><div class="metric-label">5-star reviews</div></div>
+      </div>
+
+      <h2>Positioning &amp; Brand DNA</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>More of this</h3>
+          <ul><li>Luxury scent (fragrance is the hero)</li><li>Protects floors &mdash; pH 6.7&ndash;7 neutral</li><li>Zero residue / streak-free shine</li><li>Plant-based, "clean" ingredients</li><li>Subscription convenience</li></ul>
+        </div>
+        <div class="card">
+          <h3>Less of this</h3>
+          <ul><li>Harsh chemicals</li><li>Strong chemical odors</li><li>Artificial fragrance</li><li>Generic commodity mop soap</li></ul>
+        </div>
+      </div>
+      <div class="card">
+        <p><strong>Tone:</strong> Aspirational, sensory, feminine, warm &mdash; scent-as-luxury storytelling. DTC/UGC-native and, per the client, willing to go bold / unhinged ("as long as it's legal").</p>
+        <p style="margin-top:10px;"><strong>Associations:</strong> designer perfume &bull; luxury hotel lobby &bull; resort at golden hour &bull; hosting / a home people love being in.</p>
+        <p style="margin-top:10px;"><strong>Taglines in market:</strong> "Natural Mop Soap That Smells Like Luxury" &bull; "Seven New Scents. Same Blyss." &bull; "Every home has a scent. Find yours."</p>
+        <p style="margin-top:10px;"><strong>Brand color:</strong> <span style="display:inline-block;width:12px;height:12px;background:#D3CEDD;border-radius:3px;vertical-align:middle;"></span> #D3CEDD (soft lilac).</p>
+      </div>
+
+      <h2>Offer &amp; Pricing Ladder</h2>
+      <table>
+        <thead><tr><th>Offer</th><th>Price</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>1 bottle</td><td>$49</td><td>Hero SKU (16oz)</td></tr>
+          <tr><td>2 bottles</td><td>$88</td><td>$44/ea</td></tr>
+          <tr><td>3 bottles</td><td>$147</td><td>$39/ea</td></tr>
+          <tr><td>4+ bottles</td><td>$196</td><td>$34/ea &mdash; best unit price</td></tr>
+          <tr><td>Subscription</td><td>$34/mo</td><td>Ships every 30 days</td></tr>
+          <tr><td>Blyss Mist Spray</td><td>$11.99</td><td>Take-the-scent-with-you add-on</td></tr>
+          <tr><td>Mop head replacements</td><td>$24.99&ndash;$34.99</td><td>4-pack / 8-pack accessories</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Scents:</strong> Brazilian Waves, HeartBreaker, Sunwashed Linen, Imported Mahogany, Pink Grapefruit, Royalty, Baja, Apple &amp; Honey, Candy Apple, Candy Peach, Golden Citrus, Lavender Dreams, Mahogany Cherry, Pink Champagne. Each carries a Notes / Description / Vibe story (perfume-style merchandising).</p>
+
+      <h2>Funnel, Tracking &amp; Tech Stack</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Funnel</h3>
+          <p><strong>Primary channel:</strong> Meta. Others: AppLovin, YouTube, Google, minimal Snapchat, Amazon. <strong>Not on TikTok</strong> (no US SSN for TikTok Shop; never tried ads).</p>
+          <p style="margin-top:8px;"><strong>Landing pages:</strong> weak &mdash; mostly the product page. New "5 Reasons" listicle just launched and is admittedly not good. Page builder: Intelligems. Separate CRO agency owns buy-box/offer testing (not listicles/copy).</p>
+        </div>
+        <div class="card">
+          <h3>Tracking &amp; Targets</h3>
+          <p><strong>Attribution:</strong> Northbeam. KPIs are business-wide/blended, not in-platform.</p>
+          <ul><li>Blended CAC/CPA: <strong>&lt;$60</strong></li><li>In-platform Meta CPA: <strong>~$80</strong></li><li>AOV ~$60 &bull; LTV est. &gt;$100 (unconfirmed)</li></ul>
+          <p style="margin-top:8px;"><strong>Stack:</strong> Shopify + Intelligems + Recharm (reviews/UGC) + Northbeam. Also selling on Amazon.</p>
+        </div>
+      </div>
+
+      <h2>SWOT</h2>
+      <div class="grid-2">
+        <div class="card"><h3 style="color:#10b981;">Strengths</h3><ul>
+          <li>Differentiated scent-as-luxury angle in a commodity category</li>
+          <li>Proven scale: peaked ~$3&ndash;3.5M/mo Meta, ~$7M rev in March</li>
+          <li>Deep scent catalog enabling seasonal/bundle upsells</li>
+          <li>10K+ 5-star reviews; subscription LTV upside</li>
+          <li>Strong in-house AI/AI-UGC capability; not brand-precious</li>
+        </ul></div>
+        <div class="card"><h3 style="color:#ef4444;">Weaknesses</h3><ul>
+          <li>Severe creative fatigue on a single UGC mopping format</li>
+          <li>Weak landing pages (product page only; bad listicle)</li>
+          <li>Low UGC quality (blurry, poor lighting, slow product intro, women-only)</li>
+          <li>Claim conflict: markets "sulfate-free" but FAQ lists Sodium Laureth Sulfate</li>
+          <li>Meta over-reliance; thin funnel diversity</li>
+        </ul></div>
+        <div class="card"><h3 style="color:#4d65ff;">Opportunities</h3><ul>
+          <li>Untapped avatars: cat vs dog owners, husband/male POV, unappreciated wife, hosts, gen-z</li>
+          <li>New formats: long-form native/VSL, ASMR/OCD, street interviews, advertorials</li>
+          <li>Listicle/advertorial LPs + quiz funnel + unbranded persona sub-pages</li>
+          <li>Lean into African-American audience authentically (consistently overperforms)</li>
+          <li>Category call-outs (Pine-Sol/Fabuloso); steal from detergent/diffuser/candle</li>
+        </ul></div>
+        <div class="card"><h3 style="color:#f59e0b;">Threats</h3><ul>
+          <li>Rising CAC/CPMs eroding front-end profitability</li>
+          <li>Compliance exposure on "non-toxic / sulfate-free" claims</li>
+          <li>Agency fatigue &mdash; history of firing fast on no results</li>
+          <li>Low-cost commodity + private-label competition on Amazon</li>
+        </ul></div>
+      </div>
+
+      <h2>What's Worked / Client Signal</h2>
+      <div class="callout"><strong>Working now:</strong> scent-anchored story / call-out ads (someone noticing the smell), cleaning-lady / authority-figure testimonials, and simple UGC creators mopping. Notable: <strong>Black creators consistently overperform</strong> &mdash; the "why" isn't fully understood and is worth digging into in Step 2/3.</div>
+
+      <div class="callout-yellow"><strong>&#9873; Strategist flag &mdash; claim conflict:</strong> The site markets Blyss as sulfate-free / "no sulfates," but the FAQ explicitly lists <strong>Sodium Laureth Sulfate</strong> among the surfactants. This is a live compliance/messaging risk for any "clean / non-toxic" creative angle. Recommend legal/formulation confirmation before we build ingredient-led ads.</div>
+
+      <h2>Data Gaps to Close</h2>
+      <table>
+        <thead><tr><th>Gap</th><th>Needed for</th></tr></thead>
+        <tbody>
+          <tr><td>True current monthly spend + revenue</td><td>Assessment (Step 4), roadmap math</td></tr>
+          <tr><td>Confirmed LTV / repeat &amp; subscription retention</td><td>Offer economics, front-end profit target</td></tr>
+          <tr><td>Actual ad-account performance export (top spenders, CPAs)</td><td>Competitor/creative audit (Step 3)</td></tr>
+          <tr><td>Full ingredient list + claim substantiation</td><td>Compliance for "clean" angles</td></tr>
+          <tr><td>Email/SMS nurture setup (currently unknown)</td><td>Nurturing scorecard category</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- ================= STEP 2 ================= -->
+    <div id="step2" class="tab-panel" data-tab-label="Step 2: Market Research">
+      <h2>Market Intelligence &mdash; Executive Summary</h2>
+      <div class="card-elevated">
+        <p>Blyss is riding three tailwinds at once: a growing floor/surface-cleaner market, an industry-wide shift where <strong>fragrance is now a core purchase driver</strong> (not an afterthought), and the DTC/subscription channel that is out-growing everything else. The sharpest strategic insight: Blyss's real <strong>job-to-be-done is emotional and social</strong> &mdash; "make my home smell luxurious and safe to host in" &mdash; which means its true competitive set is <em>candles, diffusers and plug-ins</em>, not just mop soaps. That reframe is where the creative white space lives.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card"><div class="metric-value">$2.4B</div><div class="metric-label">US floor cleaner by 2033 (6.4% CAGR)</div></div>
+        <div class="card"><div class="metric-value">~8.2%</div><div class="metric-label">US surface cleaner CAGR to 2032</div></div>
+        <div class="card"><div class="metric-value">~28%</div><div class="metric-label">Online/DTC channel share (fastest lane)</div></div>
+        <div class="card"><div class="metric-value">11.5%</div><div class="metric-label">Eco/plant-based cleaning CAGR</div></div>
+      </div>
+
+      <h2>1. Market Landscape (TAM / Growth / Lifecycle)</h2>
+      <div class="card">
+        <ul>
+          <li><strong>US floor cleaner:</strong> $1.39B (2024) &rarr; $2.42B (2033), 6.4% CAGR. Residential = 60%+ of revenue; multi-surface leads (~30%).</li>
+          <li><strong>US surface cleaner (broader):</strong> $4.32B (2025) &rarr; $7.34B (2032), ~8.2% CAGR. Americans spent ~$1.9B on surface cleaners in 2023 alone.</li>
+          <li><strong>Eco / plant-based home care:</strong> ~$13.2B global (2025), ~11.5% CAGR &mdash; the premium, "clean" tier Blyss lives in.</li>
+          <li><strong>Lifecycle:</strong> mature core category, but the <em>scented-premium DTC</em> sub-segment is in growth phase &mdash; where Blyss competes.</li>
+        </ul>
+        <div class="callout">Blyss sits in the <strong>fastest-growing lane</strong> (premium + plant-based + DTC + subscription). The category headwinds are competitive intensity and CAC, not demand.</div>
+      </div>
+
+      <h2>2. Customer Voice &amp; Jobs-to-be-Done</h2>
+      <p style="color:#b0b1b6;font-size:14px;">Deep-mined from Trustpilot (2,398 reviews, verbatims pulled live) + Amazon + review blogs + your first-party call notes.</p>
+      <div class="grid-4">
+        <div class="card"><div class="metric-value">3.2</div><div class="metric-label">Trustpilot score (2,398 reviews)</div></div>
+        <div class="card"><div class="metric-value" style="color:#10b981;">41%</div><div class="metric-label">5-star</div></div>
+        <div class="card"><div class="metric-value" style="color:#ef4444;">38%</div><div class="metric-label">1-star</div></div>
+        <div class="card"><div class="metric-value">Sub</div><div class="metric-label">#1 complaint driver</div></div>
+      </div>
+      <div class="callout"><strong>The score is bimodal, not mediocre.</strong> 41% love it, 38% hate it &mdash; a polarized experience. That split is the single most important finding in Step 2: the product isn't the problem, the <em>expectations and billing around it</em> are.</div>
+      <div class="grid-2">
+        <div class="card"><h3 style="color:#10b981;">What they love (verbatim themes)</h3><ul>
+          <li>"Smells great / house smells amazing"</li>
+          <li>Scent <strong>descriptions make choosing easy</strong> (repeated constantly &mdash; merchandising is a real asset)</li>
+          <li>Floors clean and shiny, no residue</li>
+          <li>Off-label love: one buyer put "Candy Apple drops in a spray bottle for surface cleaning" &mdash; multi-use angle</li>
+        </ul></div>
+        <div class="card"><h3 style="color:#ef4444;">Friction / risk (verbatim)</h3><ul>
+          <li><strong>Subscription auto-enroll / surprise charges</strong> = the #1 1-star driver (not the product)</li>
+          <li>"Smell amazing but doesn't last long, <strong>especially for the price/size</strong>" &mdash; Jami</li>
+          <li>"Ads showed how strong it smells&hellip; saw no difference vs other cleaners" &mdash; Lw</li>
+          <li>Slow delivery (~2 weeks / "half a month")</li>
+        </ul></div>
+      </div>
+      <div class="callout-yellow"><strong>&#9873; Two front-end leaks (creative-fixable):</strong> (1) Ads <strong>over-promise scent strength</strong> ("neighbors will smell it") &rarr; disappointment &rarr; refunds &amp; 1-star. (2) <strong>Subscription mechanics</strong> generate surprise-charge anger. Both inflate effective CAC and both are fixable with honest expectation-setting and transparent subscription framing in the creative &amp; LP. This compounds the fatigue problem &mdash; we're not just out of angles, we're leaking trust at the offer.</div>
+      <div class="callout"><strong>JTBD (Christensen / Levitt):</strong> Customers don't hire Blyss to clean floors &mdash; they hire it to make their home feel <strong>luxurious, cared-for, and socially safe</strong>. Cleaning is table stakes; the emotional/social payoff is the product. True competitive frame = home fragrance, not mop soap.</div>
+      <div class="callout"><strong>Nose-blindness (validated + confirmed in reviews):</strong> people literally <em>cannot smell their own home</em>; one reviewer only noticed the scent "after I left and came back." Guests notice instantly; <strong>pets are the #1 offender</strong>. Direct fuel for the pet + social-judgment angles.</div>
+      <div class="callout-yellow"><strong>&#9873; Amazon copycat threat (full detail in Step 3):</strong> searching "Blyss mop soap" on Amazon surfaces <em>no clear official storefront</em> &mdash; instead a swarm of generic copycats reusing Blyss's own scent names ("Brazilian Bliss/Waves," "Royalty," "Santorini," "Hotel Luxe") at <strong>~$1.10/oz (32oz for ~$37) vs Blyss's ~$3/oz ($49/16oz)</strong>. The top copycat has 2.1K ratings and 7K+ bought/month. Brand-protection + price-transparency exposure.</div>
+
+      <h2>3. Trends Shaping the Category</h2>
+      <table>
+        <thead><tr><th>Trend</th><th>Signal</th><th>Blyss fit</th></tr></thead>
+        <tbody>
+          <tr><td>Fragrance as a core feature</td><td>Scent now drives loyalty &amp; satisfaction</td><td><span class="badge badge-green">Core strength</span></td></tr>
+          <tr><td>Luxury / designer scented cleaning</td><td>Homecourt, Bondi Wash premiumizing the aisle</td><td><span class="badge badge-green">On-trend</span></td></tr>
+          <tr><td>Sweet / edible scents</td><td>Vanilla, caramel, sugar cookie rising</td><td><span class="badge badge-green">Candy Apple/Peach, Apple&amp;Honey</span></td></tr>
+          <tr><td>Wellness fragrances</td><td>Lavender, eucalyptus for calm</td><td><span class="badge badge-green">Lavender Dreams</span></td></tr>
+          <tr><td>CleanTok</td><td>Mopping is now a content genre</td><td><span class="badge badge-blue">UGC-native fit</span></td></tr>
+          <tr><td>Non-gendered scents</td><td>Amber, cedar, citrus for inclusivity</td><td><span class="badge badge-green">Imported Mahogany, Golden Citrus</span></td></tr>
+          <tr><td>Premium non-toxic scrutiny</td><td>Gen Z/Millennials research ingredients</td><td><span class="badge badge-amber">Watch claim conflict</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2>4. White Space (Blue Ocean / ERRC)</h2>
+      <div class="grid-2">
+        <div class="card"><h3>Eliminate / Reduce</h3><ul><li><strong>Eliminate:</strong> chemical / clinical cleaning messaging</li><li><strong>Reduce:</strong> reliance on efficacy proof and generic "before/after" floor shots</li></ul></div>
+        <div class="card"><h3>Raise / Create</h3><ul><li><strong>Raise:</strong> scent-as-luxury, emotional &amp; social payoff, UGC production quality</li><li><strong>Create:</strong> scent-match quiz, persona sub-pages, and a "home fragrance you mop with" category story</li></ul></div>
+      </div>
+      <div class="callout"><strong>Validated by the ad-library scrape (see Step 3):</strong> the nose-blindness, pain-first, and "home fragrance" (candle-frame) angles above aren't hypothetical &mdash; they're <em>already among Blyss's longest-running ads</em>, just under-funded. The white space is less "invent new angles" and more "scale the proven ones and diversify formats &amp; personas."</div>
+
+      <h2>5. Segment Hypotheses (validated in data)</h2>
+      <table>
+        <thead><tr><th>Segment</th><th>Core pain / driver</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pet parents (dog vs cat)</strong></td><td>"My house smells like dog / litter and I can't tell"</td><td>Pets = #1 odor offender; nose-blindness</td></tr>
+          <tr><td><strong>The Host / status home</strong></td><td>Fear of being judged when guests enter</td><td>VOC "put-together"; jealous-neighbor angle</td></tr>
+          <tr><td><strong>Under-appreciated wife</strong></td><td>Wants to feel valued; home as care</td><td>Husband-POV angle; emotional bank</td></tr>
+          <tr><td><strong>Clean-girl Gen-Z / Millennial</strong></td><td>Cleaning as sensory self-care ritual</td><td>CleanTok; premium non-toxic willingness</td></tr>
+          <tr><td><strong>Holistic / non-toxic mom</strong></td><td>Safe for kids &amp; pets, plant-based</td><td><span class="badge badge-amber">Hold ingredient claims</span></td></tr>
+          <tr><td><strong>African-American house-pride</strong></td><td>Hospitality &amp; scent-as-care culture</td><td>Black creators consistently overperform</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>On the "why do Black creators overperform" question:</strong> the data points to authentic house-pride / hospitality culture and higher-energy delivery &mdash; not the creator's appearance. The lesson for Step 6 is to match <em>language, energy and cultural specificity</em>, not just cast for diversity. We'll pressure-test this in competitor intel.</div>
+
+      <div class="callout-yellow"><strong>Sources:</strong> Grand View Research (US floor cleaner), MarkNtel (US surface cleaner), GMInsights (eco-friendly), Mintel, FreeYourself &amp; Univar (scent trends), CNN Underscored (luxury cleaning), Tom's Guide / Healthline (nose blindness), Blyss reviews &amp; Trustpilot (VOC). Full links in chat.</div>
+    </div>
+
+    <!-- ================= STEP 3 ================= -->
+    <div id="step3" class="tab-panel" data-tab-label="Step 3: Competitor Intel">
+      <h2>Competitor Intel &mdash; Executive Summary</h2>
+      <div class="card-elevated">
+        <p>A full ad-library scrape (~113 active ads, sorted by run-duration) reframes the story. <strong>Blyss's spend is a monoculture, but its proven winners are diverse.</strong> ~80% of volume rides three fatigued pleasure hooks (59 "cheat code / model home," 22 "scent is addictive," 12 "official website"), and <strong>86% of ads point at the raw product page</strong> (no true advertorial exists &mdash; just a weak listicle + a long-form PDP). But the longest-running, most durable ads &mdash; the ones that have <em>survived</em> &mdash; are exactly the angles the client wants: <strong>pain-first, nose-blindness, competitor-takedown, candle-frame, dog-owner, educational.</strong> They exist, they work, and they're starved of budget. The unlock isn't inventing diversity &mdash; it's <strong>scaling and systematizing the winners Blyss already has</strong> and fixing the funnel.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card"><div class="metric-value">~113</div><div class="metric-label">Active Blyss ads</div></div>
+        <div class="card"><div class="metric-value">80%</div><div class="metric-label">Spend on 3 fatigued hooks</div></div>
+        <div class="card"><div class="metric-value">86%</div><div class="metric-label">Ads &rarr; raw product page</div></div>
+        <div class="card"><div class="metric-value">5/10</div><div class="metric-label">Ad Creative scorecard</div></div>
+      </div>
+
+      <h2>Blyss Creative Audit &mdash; Volume vs. Durability</h2>
+      <div class="grid-2">
+        <div class="card"><h3 style="color:#ef4444;">Where the spend goes (fatigued)</h3><ul>
+          <li><strong>59 ads</strong> &mdash; "cheat code to make your house smell like a model home"</li>
+          <li><strong>22 ads</strong> &mdash; "Warning: our scent is addictive! / my husband loves it"</li>
+          <li><strong>12 ads</strong> &mdash; "actually works &mdash; get it from the official website" <span class="badge badge-amber">copycat defense</span></li>
+          <li>Nearly all UGC video, headline "Up to 36% Off," pointed at the product page</li>
+        </ul></div>
+        <div class="card"><h3 style="color:#10b981;">What actually endures (proven, starved)</h3><ul>
+          <li>Pain-first: "house smells like <strong>dog, garbage truck juice, corn chips</strong>"</li>
+          <li>Nose-blindness: "your house <strong>stank and you don't even know it</strong>"</li>
+          <li>Competitor takedown: rates <strong>Pine-Sol / Fabuloso / Mr. Clean 1/10</strong> (male authority)</li>
+          <li>Candle-frame: "smell like you're <strong>burning a candle 24/7</strong>"</li>
+          <li>Dog-owner, educational ("Mopping before vacuuming?"), TikTok-review</li>
+        </ul></div>
+      </div>
+      <div class="callout-yellow"><strong>&#9873; The reframe that matters:</strong> Blyss's <em>longest-running</em> ads are the diverse, pain-first, and category-reframe angles &mdash; the exact things the client wants to "test." They've already been proven durable; they're just under-funded while ~80% of budget recycles three tired pleasure hooks. <strong>This de-risks the whole roadmap: we scale winners, we don't gamble on unknowns.</strong></div>
+      <div class="card">
+        <h3>Structural gaps still real</h3>
+        <ul>
+          <li><strong>Format monoculture:</strong> ~95% short UGC video + 2 statics. No AI/motion, no polished brand video, no long-form native/VSL, no true ASMR, no street interviews.</li>
+          <li><strong>Narrow casting:</strong> women 25&ndash;45, married/moms. Lone male only as "authority." No true husband-POV, no cat-owner, no gen-z, no older/African-American-led at volume.</li>
+          <li><strong>Discount dependency:</strong> headlines are almost all "Up to 36&ndash;60% off" &mdash; margin erosion + trains buyers to wait for sales.</li>
+        </ul>
+      </div>
+
+      <h2>Funnel / Landing-Page Reality (hard numbers)</h2>
+      <table>
+        <thead><tr><th>Destination</th><th>Ads pointed there</th><th>Read</th></tr></thead>
+        <tbody>
+          <tr><td>Raw product page (/products/ms)</td><td><strong>97 (86%)</strong></td><td><span class="badge badge-red">Massive leak</span></td></tr>
+          <tr><td>"5 Reasons" listicle (/pages/5rw)</td><td>9 (8%)</td><td><span class="badge badge-amber">Exists, barely used, admitted weak</span></td></tr>
+          <tr><td>Long-form PDP (/pages/newadvertorial-3)*</td><td>3 (3%)</td><td><span class="badge badge-amber">A product page, not a true advertorial</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">*Despite the URL, <strong>/pages/newadvertorial-3 is a long-form PDP, not a true advertorial.</strong> So Blyss has a weak listicle and a raw product page &mdash; and <strong>no real advertorial / editorial pre-sell page at all.</strong> 86% of traffic lands on the product page. Fix: rebuild the listicle (AG1 "8 Reasons" bar), <strong>build genuine advertorials/natives from scratch</strong>, and add a scent-match quiz funnel + persona sub-pages.</div>
+
+      <h2>Competitor Comparison Matrix</h2>
+      <table>
+        <thead><tr><th>Brand</th><th>Type</th><th>Positioning</th><th>Emotional hook</th><th>Notable gap</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Blyss</strong></td><td>&mdash;</td><td>Luxury scent + residue-free</td><td>Pride / compliment</td><td>No pain, personas, or format diversity</td></tr>
+          <tr><td>Fabuloso</td><td>Direct (budget)</td><td>Cheap, scented, versatile</td><td>Value</td><td>No premium/DTC/plant story</td></tr>
+          <tr><td>Pine-Sol</td><td>Direct (legacy)</td><td>Powerful clean + germs</td><td>Trust/power</td><td>Harsh; no emotional/luxury angle</td></tr>
+          <tr><td>Mrs. Meyer's</td><td>Closest twin</td><td>Premium plant-based garden scents</td><td>Wholesome</td><td>Retail-led, little UGC/story</td></tr>
+          <tr><td>Method</td><td>Direct</td><td>Design + plant-based convenience</td><td>Aesthetic</td><td>Scent secondary; low story</td></tr>
+          <tr><td>Home fragrance (Pura, B&amp;BW)</td><td>Indirect (true JTBD)</td><td>Scent = mood/identity</td><td>Emotion/ambiance</td><td>Not cleaning; no mop ritual</td></tr>
+          <tr><td>Amazon copycats</td><td>Price threat</td><td>Same scents, half price/oz</td><td>Value</td><td>No brand, no LTV, thin trust</td></tr>
+          <tr><td>Truly Free / Branch Basics</td><td>Adjacent (model)</td><td>Non-toxic DTC subscription</td><td>Safety/mission</td><td>Scent not hero; less indulgent</td></tr>
+        </tbody>
+      </table>
+
+      <h2>White Space &mdash; Top Plays</h2>
+      <div class="grid-2">
+        <div class="card"><h3>1. Scale the pain-first &amp; persona angles that already win <span class="badge badge-green">High fit</span></h3><p>The shame&rarr;relief arc ("dog, garbage truck juice, corn chips"; "your house stank and you don't know it") is <strong>already durable but under-funded</strong>. Pour budget in, then extend into <strong>cat vs dog</strong> splits and a real <strong>husband-POV</strong> (the man speaking, not just referenced).</p></div>
+        <div class="card"><h3>2. Format break-out <span class="badge badge-green">High fit</span></h3><p>Long-form native/advertorial, 60s educational VSL, true ASMR/OCD cleaning, street interviews. Opens TOF/MOF and ends the 100%-BOF discount dependency.</p></div>
+        <div class="card"><h3>3. Funnel + LP system <span class="badge badge-green">High fit</span></h3><p>Listicle/advertorial LPs (AG1 "8 Reasons" quality bar), a scent-match quiz ("which scent / how much"), and unbranded persona sub-pages (pet-owner, relationship).</p></div>
+        <div class="card"><h3>4. Trust &amp; brand defense <span class="badge badge-green">High fit</span></h3><p>Honest scent-strength framing + transparent subscription (fixes the 38% 1-star leak) and an "only the real Blyss" anti-copycat angle vs the Amazon knockoffs.</p></div>
+      </div>
+      <div class="callout-yellow"><strong>Category-frame play (decision at Step 5, now de-risked):</strong> the "home fragrance you mop with" reframe is <strong>already validated</strong> &mdash; a durable ad runs "a non-toxic way to make your house smell like you're burning a candle 24/7." Scaling it deliberately (compete with candles/diffusers on cost-per-day of scent) is a proven lane, not a gamble.</div>
+
+      <h2>Creative Gaps &mdash; Quick Wins vs Medium-Term</h2>
+      <table>
+        <thead><tr><th>Gap</th><th>Fix</th><th>Impact</th><th>Effort</th></tr></thead>
+        <tbody>
+          <tr><td>Pain-first winners under-funded (~80% spend on pleasure hooks)</td><td>Shift budget into proven shame&rarr;relief ads; iterate them</td><td><span class="badge badge-green">High</span></td><td>Low</td></tr>
+          <tr><td>Personas barely segmented (women/moms only)</td><td>Extend to cat / dog / true husband-POV / gen-z</td><td><span class="badge badge-green">High</span></td><td>Low</td></tr>
+          <tr><td>Scent over-promise (1-star driver)</td><td>Honest "lingers / re-notice when you return" claim</td><td><span class="badge badge-green">High</span></td><td>Low</td></tr>
+          <tr><td>Format monoculture (~95% UGC)</td><td>Native/advertorial, VSL, ASMR, street</td><td><span class="badge badge-green">High</span></td><td>Medium</td></tr>
+          <tr><td>100% BOF discount dependency</td><td>Add TOF story + MOF education</td><td><span class="badge badge-green">High</span></td><td>Medium</td></tr>
+          <tr><td>Copycats + weak LPs</td><td>Anti-copycat angle + listicle rewrite + quiz funnel</td><td><span class="badge badge-green">High</span></td><td>Medium</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Method note:</strong> Blyss's own ads were analyzed from a full Meta Ad Library scrape (~113 active ads, ranked by run-duration, with hooks/angles/creator profiles and landing-page destinations). Competitor <em>positioning</em> and review sentiment are synthesized from Amazon, web research, and the market pass; granular competitor ad-by-ad scraping can be deepened later via the Meta Ad Library or Atria.</div>
+    </div>
+
+    <!-- ================= STEP 4 ================= -->
+    <div id="step4" class="tab-panel" data-tab-label="Step 4: Assessment">
+      <h2>Growth Assessment &mdash; Readiness Scorecard</h2>
+      <div class="card-elevated">
+        <p><strong>Overall readiness: 6.2/10 &mdash; but ~9/10 for a <em>creative</em> engagement.</strong> The two biggest fixable problems, <strong>Funnel (Red)</strong> and <strong>Ad Creative (Yellow)</strong>, are precisely what Ad Pros was hired to fix. The market opportunity is strong and validated; the leak is downstream execution &mdash; where our scope lives. Translation for the client: you don't have a demand problem, you have a creative-and-funnel problem, and that's the good kind.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card"><div class="metric-value">6.2</div><div class="metric-label">Overall readiness /10</div></div>
+        <div class="card"><div class="metric-value" style="color:#ef4444;">1</div><div class="metric-label">Red (Funnel)</div></div>
+        <div class="card"><div class="metric-value" style="color:#f59e0b;">4</div><div class="metric-label">Yellow categories</div></div>
+        <div class="card"><div class="metric-value" style="color:#10b981;">1</div><div class="metric-label">Green (Market)</div></div>
+      </div>
+
+      <h2>Scorecard Summary</h2>
+      <table>
+        <thead><tr><th>Category</th><th>Rating</th><th>Key issue</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Funnel</strong></td><td><span class="badge badge-red">Red &middot; 3</span></td><td>86% of ads hit the raw product page; weak listicle + long-form PDP only; no true advertorial</td></tr>
+          <tr><td><strong>Ad Creative</strong></td><td><span class="badge badge-amber">Yellow &middot; 5</span></td><td>~80% spend on 3 fatigued hooks; proven-diverse winners starved</td></tr>
+          <tr><td><strong>Offer</strong></td><td><span class="badge badge-amber">Yellow &middot; 6</span></td><td>Thin front-end margin; subscription auto-enroll drives 1-stars</td></tr>
+          <tr><td><strong>Ad Optimization</strong></td><td><span class="badge badge-amber">Yellow &middot; 5</span></td><td>Discount-dependent scaling; mostly media-agency owned (out of scope)</td></tr>
+          <tr><td><strong>Tracking</strong></td><td><span class="badge badge-amber">Yellow &middot; 6</span></td><td>Northbeam solid; LTV unconfirmed, spend discrepancy unreconciled</td></tr>
+          <tr><td><strong>Market Research</strong></td><td><span class="badge badge-green">Green &middot; 8</span></td><td>Strong: TAM, 2,398 reviews mined, 6 segments, JTBD, white space</td></tr>
+          <tr><td><strong>Nurturing</strong></td><td><span class="badge badge-blue">TBD</span></td><td>No visibility into email/SMS sequences or retention &mdash; data gap</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Priority Stack (by impact)</h2>
+      <div class="grid-2">
+        <div class="card"><h3 style="color:#F8D908;">Tier 1 &mdash; Now (Ad Pros core)</h3><ul>
+          <li>Rebuild the funnel: listicle (AG1 bar) + advertorials + <strong>quiz funnel</strong> + persona sub-pages</li>
+          <li>Scale the <strong>proven-durable creative winners</strong> + expand formats &amp; personas</li>
+        </ul></div>
+        <div class="card"><h3 style="color:#F8D908;">Tier 2 &mdash; Fast trust fixes</h3><ul>
+          <li>Transparent subscription framing (kills the 38% 1-star driver)</li>
+          <li>Honest scent-strength claim (stops refund leak, lowers effective CAC)</li>
+        </ul></div>
+        <div class="card"><h3>Tier 3 &mdash; Needs data</h3><ul>
+          <li>Tracking hygiene: confirm LTV, reconcile true current spend</li>
+          <li>Nurturing: email/SMS audit + retention program</li>
+        </ul></div>
+        <div class="card"><h3>Tier 4 &mdash; Coordinate</h3><ul>
+          <li>Ad optimization &mdash; owned by the media agency; sync creative testing cadence &amp; winner/kill signals</li>
+        </ul></div>
+      </div>
+
+      <h2>Data Gaps to Close at Kickoff</h2>
+      <div class="callout-yellow">
+        <ul>
+          <li><strong>True current spend/revenue</strong> (form ~$600K/mo vs calls ~$1M/mo, peak $3.5M)</li>
+          <li><strong>Confirmed LTV &amp; subscription retention</strong> (only est. &gt;$100 today)</li>
+          <li><strong>Email/SMS nurture setup</strong> (Nurturing can't be scored without it)</li>
+          <li><strong>Full ingredient list / claim substantiation</strong> (sulfate-free vs FAQ conflict &mdash; ingredient angles on hold)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ================= STEP 5 ================= -->
+    <div id="step5" class="tab-panel" data-tab-label="Step 5: Strategic Decisions">
+      <h2>Strategic Decisions &mdash; The Creative Contract</h2>
+      <div class="callout-yellow"><strong>&#128274; LOCKED.</strong> Everything below governs all creative production in Steps 6&ndash;7. 90-day cycle. Approved by Omar, July 6, 2026.</div>
+
+      <h2>The Core Creative Architecture</h2>
+      <div class="card-elevated">
+        <p><strong>Lead frame = the category-reveal <em>surprise</em>, not generic scent-luxury.</strong> The proven scroll mechanic is the reveal: <em>"Not candles. Not diffusers. It's literally my floor cleaner."</em> We run it at <strong>two emotional temperatures</strong>:</p>
+        <div class="grid-2" style="margin-top:16px;">
+          <div class="card"><h3 style="color:#10b981;">Warm traffic &mdash; Aspirational reveal</h3><p>"Not candles, not diffusers &mdash; it's my floor cleaner." Model-home / luxury payoff. Retargeting &amp; warm audiences.</p></div>
+          <div class="card"><h3 style="color:#ef4444;">Cold traffic &mdash; Crude problem-state</h3><p>"Your house smells like dog and you're noseblind to it." The scroll-stopper &mdash; carries the untested whitespace lanes (cat, chemical-fear, jealous-neighbor).</p></div>
+        </div>
+      </div>
+
+      <h2>Locked Decisions</h2>
+      <table>
+        <thead><tr><th>Area</th><th>Decision</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Product focus</strong></td><td>Hero mop soap, <strong>full-price-first</strong> (dial back 36&ndash;60% off), subscription pushed with <strong>honest</strong> auto-enroll framing; multi-use ("+ spray bottle") secondary; scarcity on sunsetting scents</td></tr>
+          <tr><td><strong>Primary avatars</strong></td><td><strong>Pet parents (dog + cat, split)</strong> + <strong>true Husband-POV / under-appreciated wife</strong> (man on camera). Verified whitespace: cat = 0 in library; husband never speaks on camera today</td></tr>
+          <tr><td><strong>Secondary avatar</strong></td><td>The Host / jealous-neighbor + guest-judgment (sharpens the 47-day guest-reaction champion)</td></tr>
+          <tr><td><strong>Phase 2 (deferred)</strong></td><td>Chemical-fear / holistic mom &mdash; coldest register, hardest to scroll-stop cold</td></tr>
+          <tr><td><strong>Funnel</strong></td><td>Rebuild listicle (AG1 bar) &bull; <strong>build first true advertorials</strong> &bull; scent-match quiz &bull; pet + relationship persona sub-pages &bull; move traffic off the raw PDP</td></tr>
+          <tr><td><strong>Formats</strong></td><td>Lead UGC video (higher production) ~40% + native/advertorial, 60s VSL, true ASMR, street interview, man-on-camera; AI-UGC supporting (client's strength)</td></tr>
+          <tr><td><strong>Platform</strong></td><td>Meta lead; <strong>test TikTok</strong> (untapped channel)</td></tr>
+          <tr><td><strong>Volume &amp; cadence</strong></td><td><strong>Weekly delivery</strong>; ramp 15 &rarr; 40 net-new concepts/mo over 60 days; each hero spun into variants to feed the 500&ndash;1,000/mo test goal</td></tr>
+          <tr><td><strong>Goals / KPI</strong></td><td>North star: <strong>blended CAC &lt;$60</strong>, scale Meta toward $2&ndash;3M/mo profitably; secondary: Meta CPA ~$80, front-end profit, test velocity</td></tr>
+          <tr><td><strong>Tone</strong></td><td>Bold, sensory, willing-to-go-unhinged &mdash; but <strong>honest on scent strength</strong></td></tr>
+          <tr><td><strong>Compliance</strong></td><td>Aggressive on humor/crude/competitor call-out (legal check direct-name vs adjacent). <strong>Conservative:</strong> ingredient / non-toxic / sulfate-free claims <span class="badge badge-red">ON HOLD</span>; subscription disclosure must be transparent</td></tr>
+        </tbody>
+      </table>
+
+      <h2>30-Day Quick Wins (front-loaded &mdash; client fires fast)</h2>
+      <div class="callout"><ol style="margin:0 0 0 18px;">
+        <li><strong>Scale the proven-durable winners</strong> (pain-first, nose-blindness, competitor-takedown, candle-frame) that are currently starved of budget.</li>
+        <li><strong>Ship the cat-owner + man-on-camera concepts</strong> &mdash; verified zero-competition whitespace.</li>
+        <li><strong>Fix the trust leak:</strong> honest scent-strength claim + transparent subscription framing (attacks the 38% 1-star driver).</li>
+        <li><strong>Build the first true advertorial + rebuild the listicle</strong> to stop the 86% raw-PDP leak.</li>
+      </ol></div>
+      <div class="callout-yellow"><strong>Engagement guardrail (client's #1 concern):</strong> senior creative strategist stays <em>on</em> the account &mdash; no hand-off to a junior. Scope is creative-only ($7,500/mo); media buying stays with the client's agency, and we sync testing cadence + winner/kill signals with them.</div>
+    </div>
+
+    <!-- ================= STEP 6 ================= -->
+    <div id="step6" class="tab-panel" data-tab-label="Step 6: Creative Strategy">
+      <h2>Creative Strategy &mdash; Avatars &amp; Scored Angles</h2>
+      <div class="card-elevated"><p>Four hero narrator lanes, then a 14-angle matrix scored on the AdPros 5-factor rubric (white space 25% &middot; avatar fit 20% &middot; goal 20% &middot; feasibility 18% &middot; historical 17%). Every angle serves the locked frame &mdash; the category-reveal surprise at two temperatures.</p></div>
+
+      <h2>Hero Avatars</h2>
+      <div class="grid-2">
+        <div class="card"><h3>&#128054; Pet-Parent Paige (dog + cat split)</h3><p><strong>Lane:</strong> cold problem-state. <strong>Fear:</strong> guests think her house smells like her pets and she's noseblind. <strong>Says:</strong> "My house smells like dog and I couldn't even tell until my friend mentioned it." <strong>Objection:</strong> does it fade / is it pet-safe?</p></div>
+        <div class="card"><h3>&#128105; Under-appreciated Ashley (she narrates)</h3><p><strong>Lane:</strong> warm relationship. Husband is the validator/prize. <strong>Says:</strong> "I stopped telling him I cleaned &mdash; now he just asks why it smells so good in here." <strong>Drive:</strong> her invisible effort finally seen.</p></div>
+        <div class="card"><h3>&#128104; Husband-POV Marcus (he narrates &mdash; whitespace)</h3><p><strong>Lane:</strong> skeptic-to-believer, man on camera (never done). <strong>Says:</strong> "I'm a guy, I didn't think a floor cleaner mattered &mdash; then everyone asked what smells so good." <strong>Objection:</strong> "a cleaner's a cleaner, why care?"</p></div>
+        <div class="card"><h3>&#127968; The Host / jealous-neighbor <span class="badge badge-blue">secondary</span></h3><p><strong>Lane:</strong> social flex. Guest compliments + neighbor envy. Sharpens the existing 47-day guest-reaction champion.</p></div>
+      </div>
+
+      <h2>Angle Matrix &mdash; Tier 1 (produce now)</h2>
+      <table>
+        <thead><tr><th>#</th><th>Hook</th><th>Avatar</th><th>Pillar</th><th>Score</th></tr></thead>
+        <tbody>
+          <tr><td>A1</td><td>"Your house doesn't smell like 'cat.' It smells like a litter box &mdash; and you went noseblind to it."</td><td>Paige (cat)</td><td>Problem-solution</td><td><span class="badge badge-green">9.1</span></td></tr>
+          <tr><td>A2</td><td>"If your house smells like dog, garbage truck juice, and corn chips &mdash; get in here." <em>(scale winner)</em></td><td>Paige (dog)</td><td>Problem-solution</td><td><span class="badge badge-green">9.05</span></td></tr>
+          <tr><td>A4</td><td>"Not candles. Not a diffuser. Your floor is why your house smells &mdash; good or bad."</td><td>All / reveal</td><td>Category reveal</td><td><span class="badge badge-green">8.72</span></td></tr>
+          <tr><td>A5</td><td>"Your friends aren't 'busy.' They just don't love how your house smells. And you can't tell."</td><td>Paige / Host</td><td>Problem-solution</td><td><span class="badge badge-green">8.63</span></td></tr>
+          <tr><td>A3</td><td>"I'm a guy. I thought a floor cleaner was a floor cleaner. Then everyone asked what smells so good."</td><td>Marcus</td><td>Storytelling</td><td><span class="badge badge-green">8.53</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Tier 2 (secondary production)</h2>
+      <table>
+        <thead><tr><th>#</th><th>Hook</th><th>Avatar</th><th>Score</th></tr></thead>
+        <tbody>
+          <tr><td>A6</td><td>"I stopped telling him I cleaned. Now he just asks 'why does it smell so good in here?'"</td><td>Ashley</td><td><span class="badge badge-amber">8.13</span></td></tr>
+          <tr><td>A12</td><td>"My place used to smell like a frat house. One bottle later, guests think we're fancy."</td><td>Marcus</td><td><span class="badge badge-amber">7.88</span></td></tr>
+          <tr><td>A7</td><td>"A luxury candle burns out in days. This makes your whole house smell like that for weeks &mdash; off your floor."</td><td>Ashley / Host</td><td><span class="badge badge-amber">7.83</span></td></tr>
+          <tr><td>A10</td><td>"Whatever you cooked Tuesday is still hanging around on Friday. Guests smell it. You don't."</td><td>General</td><td><span class="badge badge-amber">7.81</span></td></tr>
+          <tr><td>A8</td><td>"I rated the big floor cleaners. Pine-Sol, Fabuloso, Mr. Clean &mdash; here's why they all lose." <em>(scale winner)</em></td><td>Marcus</td><td><span class="badge badge-amber">7.74</span></td></tr>
+          <tr><td>A11</td><td>"Even my dog thinks the house smelled like dog."</td><td>Paige (dog)</td><td><span class="badge badge-amber">7.63</span></td></tr>
+          <tr><td>A9</td><td>"The sound &mdash; and smell &mdash; of a house that finally doesn't smell like pets." (true ASMR)</td><td>Paige</td><td><span class="badge badge-amber">7.45</span></td></tr>
+          <tr><td>A14</td><td>"My neighbor asked what candle I use. It's not a candle. I let her keep guessing."</td><td>Host</td><td><span class="badge badge-amber">7.01</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Tier 3 (backup)</h2>
+      <table>
+        <thead><tr><th>#</th><th>Hook</th><th>Avatar</th><th>Score</th></tr></thead>
+        <tbody>
+          <tr><td>A13</td><td>"You've been cleaning your floors in the wrong order your whole life." <em>(scale winner)</em></td><td>General</td><td><span class="badge badge-blue">6.9</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">Highest scorers cluster where <strong>verified whitespace meets proven mechanic</strong>: the cat lane (zero competition), the dog pain-first winner (scale it), and the man-on-camera reveal (never done). All 14 are editable &mdash; select, reorder, or ask for more before we brief.</div>
+    </div>
+
+    <!-- ================= STEP 7 ================= -->
+    <div id="step7" class="tab-panel active" data-tab-label="Step 7: Creative Briefs">
+      <h2>Production Briefs &mdash; 5 Tier-1 Concepts</h2>
+      <div class="card-elevated"><p>Production-ready briefs for the five Tier-1 angles. Each includes headline variants, body copy, visual direction, a 9-component image/video prompt, platform specs, and a performance hypothesis. All copy is editable before handoff. Guardrails from Step 5 apply: honest scent claims, no ingredient/sulfate-free claims, transparent subscription.</p></div>
+
+      <!-- BRIEF 1 -->
+      <h2>Brief 1 &mdash; "Litter Box Noseblind" (A1)</h2>
+      <div class="card">
+        <p><span class="badge badge-green">Tier 1 &middot; 9.1</span> &nbsp; <strong>Avatar:</strong> Pet-Parent Paige (cat) &bull; <strong>Funnel:</strong> TOF cold &bull; <strong>Pillar:</strong> Problem-Solution &bull; <strong>Emotion:</strong> shame &rarr; relief</p>
+        <h3>Headline variants</h3>
+        <ul>
+          <li><strong>A (emotional):</strong> "Your house doesn't smell like 'cat.' It smells like a litter box." &nbsp;<span class="badge badge-yellow">recommended</span></li>
+          <li><strong>B (benefit):</strong> "The reason cat owners can't smell their own house &mdash; and the fix."</li>
+          <li><strong>C (curiosity):</strong> "Cat people: your guests notice something you literally can't."</li>
+        </ul>
+        <h3>Body copy (&le;50 words)</h3>
+        <p style="color:#f3f4ff;">"You love your cat. But your nose stopped noticing the litter box months ago &mdash; your guests didn't. Blyss doesn't mask it; it replaces it with a scent that lingers for days. Mop once, and your house smells like you don't even own a cat."</p>
+        <p><strong>CTA:</strong> "Find your scent" &bull; <em>secondary:</em> "Smell the difference"</p>
+        <h3>Visual direction</h3>
+        <p>Candid UGC, real cat in frame. Warm home lighting, soft lilac (#D3CEDD) accents. Start on the litter area / cat, resolve to a glowing clean floor. Vertical, subject center-left.</p>
+        <h3>Image/Video prompt (9-component)</h3>
+        <p style="font-size:13px;color:#b0b1b6;"><strong>1 Subject:</strong> real cat owner, 30s, at home with her cat &bull; <strong>2 Action:</strong> catches herself smelling the air, then mops &bull; <strong>3 Expression:</strong> mild disgust &rarr; relief/delight &bull; <strong>4 Wardrobe:</strong> casual loungewear, authentic &bull; <strong>5 Environment:</strong> lived-in living room, litter box visible early &bull; <strong>6 Lighting:</strong> natural window light, warm &bull; <strong>7 Camera:</strong> handheld selfie/UGC, vertical 9:16 &bull; <strong>8 Palette:</strong> warm neutrals + lilac accent &bull; <strong>9 Mood:</strong> relatable, honest, a little funny.</p>
+        <p><strong>Specs:</strong> Meta 4:5 + 9:16; TikTok 9:16. <strong>Hypothesis:</strong> zero-competition cat lane + specific shame hook → above-benchmark TOF CTR and cheap cold reach.</p>
+      </div>
+
+      <!-- BRIEF 2 -->
+      <h2>Brief 2 &mdash; "Dog, Garbage Truck Juice &amp; Corn Chips" (A2)</h2>
+      <div class="card">
+        <p><span class="badge badge-green">Tier 1 &middot; 9.05</span> &nbsp; <strong>Avatar:</strong> Pet-Parent Paige (dog) &bull; <strong>Funnel:</strong> TOF cold &bull; <strong>Pillar:</strong> Problem-Solution &bull; <strong>Emotion:</strong> crude humor &rarr; relief &bull; <em>Scale a proven durable winner.</em></p>
+        <h3>Headline variants</h3>
+        <ul>
+          <li><strong>A:</strong> "If your house smells like dog, garbage truck juice, and corn chips &mdash; get in here." <span class="badge badge-yellow">recommended</span></li>
+          <li><strong>B:</strong> "Dog owners: this is why your house smells, and what fixes it."</li>
+          <li><strong>C:</strong> "The 3 smells every dog owner is noseblind to."</li>
+        </ul>
+        <h3>Body copy</h3>
+        <p style="color:#f3f4ff;">"Wet dog. That corn-chip paw smell. The mystery funk by the back door. You stopped noticing &mdash; everyone else didn't. One mop with Blyss and your whole house smells like a luxury hotel for days. Even the dog seems impressed."</p>
+        <p><strong>CTA:</strong> "Fix the funk" &bull; <em>secondary:</em> "Shop scents"</p>
+        <h3>Visual direction</h3>
+        <p>High-energy, direct-to-camera UGC with dog cameo. Fast cuts, punchy captions on the "smells" list. Keep production a step above their current blurry UGC.</p>
+        <h3>Image/Video prompt</h3>
+        <p style="font-size:13px;color:#b0b1b6;"><strong>1</strong> dog owner, direct to cam, red nails/expressive &bull; <strong>2</strong> gestures at dog, lists smells, then mops &bull; <strong>3</strong> playful disgust &rarr; triumphant &bull; <strong>4</strong> casual, real &bull; <strong>5</strong> kitchen/entryway with dog bed &bull; <strong>6</strong> bright natural &bull; <strong>7</strong> handheld 9:16 &bull; <strong>8</strong> warm + lilac accent &bull; <strong>9</strong> funny, blunt, shareable.</p>
+        <p><strong>Specs:</strong> Meta 4:5 + 9:16; TikTok 9:16. <strong>Hypothesis:</strong> already durable at low spend → scaling budget + fresh variants extends a proven winner without new risk.</p>
+      </div>
+
+      <!-- BRIEF 3 -->
+      <h2>Brief 3 &mdash; "Not Candles. Not a Diffuser." (A4)</h2>
+      <div class="card">
+        <p><span class="badge badge-green">Tier 1 &middot; 8.72</span> &nbsp; <strong>Avatar:</strong> All lanes (the master reveal) &bull; <strong>Funnel:</strong> TOF &bull; <strong>Pillar:</strong> Category reveal &bull; <strong>Emotion:</strong> curiosity/surprise</p>
+        <h3>Headline variants</h3>
+        <ul>
+          <li><strong>A:</strong> "Not candles. Not a diffuser. Your floor is why your house smells." <span class="badge badge-yellow">recommended</span></li>
+          <li><strong>B:</strong> "The thing making your house smell isn't what you think."</li>
+          <li><strong>C:</strong> "Stop buying candles. Your floor is the problem (and the fix)."</li>
+        </ul>
+        <h3>Body copy</h3>
+        <p style="color:#f3f4ff;">"Candles burn out. Diffusers fade. But the biggest surface in your home &mdash; your floor &mdash; is what everyone actually smells. Clean it with Blyss and your whole house smells like a luxury model home for days. It's the reveal every guest asks about."</p>
+        <p><strong>CTA:</strong> "See how it works" &bull; <em>secondary:</em> "Shop the reveal"</p>
+        <h3>Visual direction</h3>
+        <p>The reveal beat is the hero: candle/diffuser dismissed on-screen, camera pans down to the floor. Warm-traffic aspirational tone; can also cut a cold version with a problem edge.</p>
+        <h3>Image/Video prompt</h3>
+        <p style="font-size:13px;color:#b0b1b6;"><strong>1</strong> host-type woman in a beautiful room &bull; <strong>2</strong> blows out candle, waves off diffuser, gestures to floor &bull; <strong>3</strong> knowing, confident &bull; <strong>4</strong> elevated-casual &bull; <strong>5</strong> bright, aspirational living room &bull; <strong>6</strong> golden-hour warm &bull; <strong>7</strong> 9:16, pan-down move &bull; <strong>8</strong> cream + lilac, luxe &bull; <strong>9</strong> surprising, premium.</p>
+        <p><strong>Specs:</strong> Meta 4:5 + 9:16; TikTok 9:16; Native 16:9 for advertorial. <strong>Hypothesis:</strong> proven reveal mechanic → strong hook-rate; anchors the whole "home fragrance you mop with" reframe.</p>
+      </div>
+
+      <!-- BRIEF 4 -->
+      <h2>Brief 4 &mdash; "Your Friends Aren't Busy" (A5)</h2>
+      <div class="card">
+        <p><span class="badge badge-green">Tier 1 &middot; 8.63</span> &nbsp; <strong>Avatar:</strong> Paige / Host &bull; <strong>Funnel:</strong> TOF cold &bull; <strong>Pillar:</strong> Problem-Solution &bull; <strong>Emotion:</strong> fear &rarr; relief</p>
+        <h3>Headline variants</h3>
+        <ul>
+          <li><strong>A:</strong> "Your friends aren't 'busy.' They just don't love how your house smells." <span class="badge badge-yellow">recommended</span></li>
+          <li><strong>B:</strong> "Nobody will tell you your house smells. Your nose won't either."</li>
+          <li><strong>C:</strong> "The real reason people don't stay long at your place."</li>
+        </ul>
+        <h3>Body copy</h3>
+        <p style="color:#f3f4ff;">"Here's the uncomfortable truth: you can't smell your own home, and your friends will never tell you. Blyss fixes it at the source &mdash; mop once and your house smells so good people find reasons to stay. No candles required."</p>
+        <p><strong>CTA:</strong> "Never wonder again" &bull; <em>secondary:</em> "Find your scent"</p>
+        <h3>Visual direction</h3>
+        <p>Confessional UGC, direct address, slightly provocative. Text overlay drives the gut-punch line. Keep it honest, not mean.</p>
+        <h3>Image/Video prompt</h3>
+        <p style="font-size:13px;color:#b0b1b6;"><strong>1</strong> relatable woman, confessional framing &bull; <strong>2</strong> leans into cam, delivers the truth, then mops &bull; <strong>3</strong> knowing &rarr; reassuring &bull; <strong>4</strong> real, casual &bull; <strong>5</strong> normal home, entryway &bull; <strong>6</strong> natural &bull; <strong>7</strong> 9:16 handheld &bull; <strong>8</strong> warm neutral + lilac &bull; <strong>9</strong> a little uncomfortable, then relieving.</p>
+        <p><strong>Specs:</strong> Meta 4:5 + 9:16; TikTok 9:16. <strong>Hypothesis:</strong> social-fear hook = high scroll-stop; monitor comment sentiment, keep tone honest not shaming.</p>
+      </div>
+
+      <!-- BRIEF 5 -->
+      <h2>Brief 5 &mdash; "I'm a Guy, I Didn't Think It Mattered" (A3)</h2>
+      <div class="card">
+        <p><span class="badge badge-green">Tier 1 &middot; 8.53</span> &nbsp; <strong>Avatar:</strong> Husband-POV Marcus (man on camera &mdash; whitespace) &bull; <strong>Funnel:</strong> TOF &bull; <strong>Pillar:</strong> Storytelling &bull; <strong>Emotion:</strong> skeptic surprise &rarr; pride</p>
+        <h3>Headline variants</h3>
+        <ul>
+          <li><strong>A:</strong> "I'm a guy. I thought a floor cleaner was a floor cleaner. I was wrong." <span class="badge badge-yellow">recommended</span></li>
+          <li><strong>B:</strong> "My wife switched our floor cleaner. Now everyone asks what smells so good."</li>
+          <li><strong>C:</strong> "The one thing that made my house smell expensive &mdash; from a skeptic."</li>
+        </ul>
+        <h3>Body copy</h3>
+        <p style="color:#f3f4ff;">"I'll be honest &mdash; I thought all floor cleaners were the same. Then my wife started using Blyss and people literally stop and ask what smells so good in our house. Now I'm the guy recommending a mop soap. It's that noticeable."</p>
+        <p><strong>CTA:</strong> "See what changed" &bull; <em>secondary:</em> "Try it"</p>
+        <h3>Visual direction</h3>
+        <p>Man narrating to camera &mdash; deadpan, credible, slightly self-aware. This is the format Blyss has never run. Keep it real-guy, not polished-actor.</p>
+        <h3>Image/Video prompt</h3>
+        <p style="font-size:13px;color:#b0b1b6;"><strong>1</strong> everyday married man, 30s-40s &bull; <strong>2</strong> talks to cam, gestures around his home &bull; <strong>3</strong> skeptical &rarr; genuinely surprised &bull; <strong>4</strong> normal guy, casual &bull; <strong>5</strong> real home, kitchen/living room &bull; <strong>6</strong> natural &bull; <strong>7</strong> 9:16 handheld &bull; <strong>8</strong> warm, understated &bull; <strong>9</strong> credible, disarming, a bit funny.</p>
+        <p><strong>Specs:</strong> Meta 4:5 + 9:16; TikTok 9:16. <strong>Hypothesis:</strong> untapped male narrator opens a new audience + adds third-party credibility to a female-dominated feed; watch for cheaper incremental reach.</p>
+      </div>
+
+      <div class="callout-yellow"><strong>Handoff:</strong> These 5 briefs are the production hand-off doc. Each hero should be spun into hook/format variants (weekly cadence, ramp 15&rarr;40/mo) and paired with the new advertorial + listicle rebuild. Compliance re-check before launch: honest scent-strength, transparent subscription, and legal sign-off on the competitor call-out (Brief-adjacent, if used) &mdash; no ingredient/sulfate-free claims until formulation is confirmed.</div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-brand">Ad Pros</span>
+      <span>Brand Intelligence v4.0.0 &bull; July 6, 2026</span>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-nav .tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelectorAll('.tab-nav .tab').forEach(t => {
+        if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(tabId)) { t.classList.add('active'); }
+      });
+    }
+    function exportAll() {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('active'));
+      document.body.classList.remove('print-single');
+      setTimeout(() => { window.print(); }, 100);
+      setTimeout(() => {
+        const activeTab = document.querySelector('.tab-nav .tab.active');
+        if (activeTab && activeTab.getAttribute('onclick')) {
+          const match = activeTab.getAttribute('onclick').match(/showTab\('(.+?)'\)/);
+          if (match) showTab(match[1]);
+        }
+      }, 500);
+    }
+    function exportCurrent() {
+      const activePanel = document.querySelector('.tab-panel.active');
+      if (activePanel) {
+        activePanel.classList.add('print-target');
+        document.body.classList.add('print-single');
+        setTimeout(() => { window.print(); }, 100);
+        setTimeout(() => { document.body.classList.remove('print-single'); activePanel.classList.remove('print-target'); }, 500);
+      }
+    }
+  </script>
+</body>
+</html>
