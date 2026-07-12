@@ -143,6 +143,46 @@
       .ap-tab { padding:12px 14px; font-size:13px; }
       .ap-value { grid-template-columns: 56px 1fr; }
     }
+
+    /* === TABLES === */
+    .wrap-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--card-border); border-radius:var(--radius); margin:24px 0; }
+    .ap-table { width:100%; border-collapse:collapse; font-size:14px; min-width:680px; }
+    .ap-table th, .ap-table td { text-align:left; padding:13px 16px; border-bottom:1px solid var(--card-border); vertical-align:top; }
+    .ap-table th { color:var(--yellow); font-size:11px; text-transform:uppercase; letter-spacing:0.8px; font-weight:700; background:var(--navy-card); position:sticky; top:0; }
+    .ap-table td { color:var(--grey-200); line-height:1.5; }
+    .ap-table td strong { color:#fff; }
+    .ap-table tr:last-child td { border-bottom:none; }
+    .ap-table .w { font-family:"JetBrains Mono",monospace; color:var(--yellow); font-weight:600; white-space:nowrap; }
+    .ap-table .cmp { color:#fff; font-weight:600; white-space:nowrap; }
+
+    /* === COMP CARDS === */
+    .comp-tier { margin-bottom:28px; }
+    .comp-tier > h3 { color:#fff; font-size:20px; font-weight:700; margin-bottom:6px; }
+    .comp-tier > .tsub { color:var(--grey-300); font-size:13px; margin-bottom:16px; }
+    .comp-card { background:var(--navy-card); border:1px solid var(--card-border); border-radius:var(--radius); padding:24px; }
+    .comp-card .lens { font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:14px; font-weight:600; }
+    .comp-card .lens.us { color:var(--yellow); }
+    .comp-card .lens.latam { color:var(--blue-light); }
+    .comp-band { font-size:28px; font-weight:800; color:#fff; letter-spacing:-1px; line-height:1; margin-bottom:2px; }
+    .comp-band .cur { font-size:15px; color:var(--grey-300); font-weight:600; }
+    .comp-sub { font-size:12px; color:var(--grey-300); margin-bottom:16px; }
+    .comp-row { display:flex; justify-content:space-between; gap:16px; padding:9px 0; border-top:1px solid var(--card-border); }
+    .comp-row .k { color:var(--grey-300); font-size:13px; }
+    .comp-row .v { color:#fff; font-weight:600; font-size:13px; text-align:right; }
+    .est { display:inline-block; font-family:"JetBrains Mono",monospace; font-size:10px; color:var(--navy); background:var(--blue-light); border-radius:4px; padding:2px 6px; margin-left:8px; letter-spacing:0.4px; vertical-align:middle; }
+
+    /* === FLAG CARDS === */
+    .flag-card { border-radius:var(--radius); padding:20px 22px; border:1px solid var(--card-border); }
+    .flag-card h4 { font-size:15px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+    .flag-card.green { background:rgba(15,151,61,0.07); border-color:rgba(15,151,61,0.3); }
+    .flag-card.green h4 { color:#7ee2a4; }
+    .flag-card.red { background:rgba(212,38,32,0.06); border-color:rgba(212,38,32,0.3); }
+    .flag-card.red h4 { color:#ff9a95; }
+    .flag-card ul { list-style:none; }
+    .flag-card li { color:var(--grey-200); font-size:13.5px; line-height:1.5; padding:5px 0 5px 18px; position:relative; }
+    .flag-card li::before { content:""; position:absolute; left:0; top:12px; width:6px; height:6px; border-radius:50%; }
+    .flag-card.green li::before { background:var(--success); }
+    .flag-card.red li::before { background:var(--error); }
   </style>
 </head>
 <body>
@@ -160,8 +200,10 @@
       <button class="ap-tab active" data-tab="summary" role="tab"><span class="tnum">01</span>Executive Summary</button>
       <button class="ap-tab" data-tab="outline" role="tab"><span class="tnum">02</span>Senior Role</button>
       <button class="ap-tab" data-tab="junior" role="tab"><span class="tnum">03</span>Junior Role</button>
-      <button class="ap-tab" data-tab="perspectives" role="tab"><span class="tnum">04</span>Perspectives</button>
-      <button class="ap-tab" data-tab="faq" role="tab"><span class="tnum">05</span>FAQ</button>
+      <button class="ap-tab" data-tab="comp" role="tab"><span class="tnum">04</span>Comp &amp; Leveling</button>
+      <button class="ap-tab" data-tab="scorecard" role="tab"><span class="tnum">05</span>Hiring Scorecard</button>
+      <button class="ap-tab" data-tab="perspectives" role="tab"><span class="tnum">06</span>Perspectives</button>
+      <button class="ap-tab" data-tab="faq" role="tab"><span class="tnum">07</span>FAQ</button>
     </div>
 
     <!-- ===== TAB 1: EXECUTIVE SUMMARY ===== -->
@@ -376,7 +418,146 @@
       </div>
     </section>
 
-    <!-- ===== TAB 4: PERSPECTIVES ===== -->
+    <!-- ===== TAB 4: COMP & LEVELING ===== -->
+    <section class="ap-panel" id="comp" role="tabpanel">
+      <div class="ap-kicker">Compensation &amp; Leveling</div>
+      <h2 class="ap-h2" style="margin-bottom:12px;">What each tier is worth</h2>
+      <p class="lead">This role doesn't have a clean market rate yet — it's a hybrid. The bands below triangulate three adjacent 2026 benchmarks (tech growth engineer, performance-marketing manager, creative strategist) and split into two lenses: <strong style="color:#fff;">US-remote</strong>, grounded in current data, and <strong style="color:#fff;">LATAM / Medellín</strong> — the Ad Pros hiring reality, directional and worth validating against local offers.</p>
+
+      <div class="divider-note">
+        <p><strong>How to read it:</strong> base is annualized USD. Variable is a performance bonus tied to client outcomes (ROAS, retained revenue), not vanity metrics. The senior premium isn't for doing more levers by hand — it's for owning the economics and the connective layer. Everything tagged <span class="est">EST</span> is directional.</p>
+      </div>
+
+      <div class="comp-tier" style="margin-top:36px;">
+        <h3>Junior — AI Growth Engineer</h3>
+        <p class="tsub">Executor inside the system. Priced against entry/mid performance-marketing and associate growth-engineering benchmarks.</p>
+        <div class="ap-grid-2">
+          <div class="comp-card">
+            <div class="lens us">US-remote</div>
+            <div class="comp-band">$55K&ndash;$85K <span class="cur">base</span></div>
+            <div class="comp-sub">mid-band bridge: $85K&ndash;$115K once a lever is owned</div>
+            <div class="comp-row"><span class="k">Variable</span><span class="v">5&ndash;15%</span></div>
+            <div class="comp-row"><span class="k">Equity / upside</span><span class="v">Small or none</span></div>
+            <div class="comp-row"><span class="k">Priced like</span><span class="v">Perf. marketer, entry&ndash;mid</span></div>
+          </div>
+          <div class="comp-card">
+            <div class="lens latam">LATAM / Medellín <span class="est">EST</span></div>
+            <div class="comp-band">$18K&ndash;$36K <span class="cur">base</span></div>
+            <div class="comp-sub">bilingual talent serving US brands; validate locally</div>
+            <div class="comp-row"><span class="k">Variable</span><span class="v">5&ndash;10%</span></div>
+            <div class="comp-row"><span class="k">Equity / upside</span><span class="v">None typically</span></div>
+            <div class="comp-row"><span class="k">Vs US-remote</span><span class="v">~40&ndash;50%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-tier">
+        <h3>Senior — AI Growth Engineer</h3>
+        <p class="tsub">Orchestrator who owns outcomes. Priced against senior performance-marketing managers, creative strategists, and growth engineers — with a scarcity premium for the full-stack blend.</p>
+        <div class="ap-grid-2">
+          <div class="comp-card">
+            <div class="lens us">US-remote</div>
+            <div class="comp-band">$130K&ndash;$200K <span class="cur">base</span></div>
+            <div class="comp-sub">top orchestrators clear $200K+ total comp</div>
+            <div class="comp-row"><span class="k">Variable</span><span class="v">15&ndash;30% on results</span></div>
+            <div class="comp-row"><span class="k">Equity / upside</span><span class="v">Profit-share on productized lines</span></div>
+            <div class="comp-row"><span class="k">Priced like</span><span class="v">Sr. perf. mgr / growth eng.</span></div>
+          </div>
+          <div class="comp-card">
+            <div class="lens latam">LATAM / Medellín <span class="est">EST</span></div>
+            <div class="comp-band">$45K&ndash;$90K <span class="cur">base</span></div>
+            <div class="comp-sub">top of local market for this profile; validate locally</div>
+            <div class="comp-row"><span class="k">Variable</span><span class="v">15&ndash;25% on results</span></div>
+            <div class="comp-row"><span class="k">Equity / upside</span><span class="v">Profit-share possible</span></div>
+            <div class="comp-row"><span class="k">Vs US-remote</span><span class="v">~40&ndash;50%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="ap-h3" style="margin:40px 0 18px;">2026 benchmarks these bands lean on</h3>
+      <div class="wrap-scroll">
+        <table class="ap-table">
+          <thead><tr><th>Adjacent role</th><th>US range (2026)</th><th>What it anchors</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Tech growth engineer</strong> (SaaS/PLG)</td><td class="cmp">~$130K&ndash;$240K</td><td>The full-stack + systems premium; "output measured in lift, not hours"</td></tr>
+            <tr><td><strong>Performance marketing manager</strong></td><td class="cmp">~$75K&ndash;$131K</td><td>The media-buying / paid-acquisition core; IT-sector totals run higher</td></tr>
+            <tr><td><strong>Creative strategist</strong></td><td class="cmp">~$98K&ndash;$183K</td><td>The angle/hook/creative-judgment lever</td></tr>
+            <tr><td><strong>Performance marketer by level</strong></td><td class="cmp">$50K&ndash;$130K</td><td>Entry $50&ndash;60K · mid $70&ndash;90K · senior $100&ndash;130K — the leveling shape</td></tr>
+            <tr><td><strong>Sr. perf. mgr / growth strategist</strong></td><td class="cmp">~$120K&ndash;$210K</td><td>The senior ceiling before fractional-CMO territory</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ap-caption">Sources: Glassdoor, ZipRecruiter, Robert Half, Growth.Talent, GTME Pulse, EverestX, StarAgile — 2026. US figures grounded in these; LATAM/Medellín figures are directional estimates to validate against local offers.</p>
+
+      <h3 class="ap-h3" style="margin:40px 0 18px;">What moves someone up the band</h3>
+      <div class="prose">
+        <p>Within a tier, pay tracks <strong>proven results</strong> — a documented CAC reduction or ROAS lift moves a number far more than a longer tool list. Between tiers, the jump is <em>ownership</em>: a junior crosses into mid-band by owning a lever end-to-end, and into senior by owning the unit economics and the connective layer. The variable component should scale with how much client outcome the person is genuinely accountable for.</p>
+      </div>
+    </section>
+
+    <!-- ===== TAB 5: HIRING SCORECARD ===== -->
+    <section class="ap-panel" id="scorecard" role="tabpanel">
+      <div class="ap-kicker">Hiring Scorecard</div>
+      <h2 class="ap-h2" style="margin-bottom:12px;">Screen candidates against this</h2>
+      <p class="lead">Seven weighted competencies, each with a distinct bar for junior (execution) versus senior (ownership). Score every candidate 1&ndash;5 per row, weight, and compare against the thresholds below. The work sample is where most of the signal actually comes from.</p>
+
+      <div class="wrap-scroll">
+        <table class="ap-table">
+          <thead><tr><th>Competency</th><th>Weight</th><th>Junior bar (pass)</th><th>Senior bar (pass)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>AI tool fluency &amp; prompt craft</strong></td><td class="w">15%</td><td>Operates the core agents; iterates prompts to a usable result</td><td>Designs prompt systems &amp; agent workflows others run</td></tr>
+            <tr><td><strong>Unit economics literacy</strong></td><td class="w">15%</td><td>Reads CAC / ROAS / AOV and knows what they mean</td><td>Owns the model — payback, contribution margin, targets, forecasts</td></tr>
+            <tr><td><strong>Creative judgment</strong></td><td class="w">15%</td><td>Spots a strong hook; drafts credible angle lists</td><td>Sets creative strategy; predicts what scales before spend</td></tr>
+            <tr><td><strong>Measurement &amp; tracking rigor</strong></td><td class="w">15%</td><td>Keeps pixels/events clean; builds dashboards; flags discrepancies</td><td>Owns attribution &amp; incrementality; decides which signal is truth</td></tr>
+            <tr><td><strong>Systems &amp; automation instinct</strong></td><td class="w">10%</td><td>Follows and maintains the workflows reliably</td><td>Builds the connective layer; removes headcount with systems</td></tr>
+            <tr><td><strong>Ownership &amp; autonomy</strong></td><td class="w">15%</td><td>Delivers to spec; escalates at the right moments</td><td>Owns outcomes end-to-end; makes the scale/kill calls</td></tr>
+            <tr><td><strong>Communication under ambiguity</strong></td><td class="w">15%</td><td>Clear updates; asks the right questions</td><td>Frames the problem; defensible decisions on incomplete data</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="divider-note">
+        <p><strong>Scoring key:</strong> score each row 1&ndash;5, multiply by weight, sum to a 5-point weighted total. &nbsp;<strong style="color:#fff;">Junior hire:</strong> weighted &ge; 3.2, nothing below 2, clear strength on tool fluency, creative eye, and tracking. &nbsp;<strong style="color:#fff;">Senior hire:</strong> weighted &ge; 4.0, nothing below 3, and 4+ on both unit economics and ownership.</p>
+      </div>
+
+      <h3 class="ap-h3" style="margin:40px 0 18px;">Work sample (where the real signal is)</h3>
+      <div class="ap-grid-2">
+        <div class="ap-card">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--yellow);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">Junior · 48-hour take-home</div>
+          <p class="ap-p-sm" style="color:var(--grey-100);">Give them a competitor ad library and a brief. Ask for: a tagged hook/angle teardown, three AI-generated creative variants with rationale, and a QA checklist showing what they caught in the AI output. Tests tool fluency, creative eye, and — critically — the QA reflex.</p>
+        </div>
+        <div class="ap-card">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue-light);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">Senior · same + real account</div>
+          <p class="ap-p-sm" style="color:var(--grey-100);">Add a real ad-account export. Ask for: a launch/kill call with reasoning, a unit-economics read (is this profitable at target CAC?), and a 30-day scaling plan. Tests economics ownership, decision-making, and systems thinking under real constraints.</p>
+        </div>
+      </div>
+
+      <h3 class="ap-h3" style="margin:40px 0 18px;">Flags to screen on</h3>
+      <div class="ap-grid-2">
+        <div class="flag-card green">
+          <h4>Green flags</h4>
+          <ul>
+            <li>Describes impact in lift — "cut CAC 35%," not "ran Meta ads"</li>
+            <li>Ships 3&ndash;5 things a week and knows which 2 mattered</li>
+            <li>Strong QA eye — treats AI output as a draft, not a deliverable</li>
+            <li>Has owned a number and can defend the calls behind it</li>
+            <li>Pragmatic: a working POC in days beats a perfect plan in weeks</li>
+          </ul>
+        </div>
+        <div class="flag-card red">
+          <h4>Red flags</h4>
+          <ul>
+            <li>Lists tools and platforms but no quantified results</li>
+            <li>Can't read a dashboard or explain an attribution gap</li>
+            <li>Rubber-stamps AI output — no instinct for what's wrong with it</li>
+            <li>Needs weeks to architect; no bias toward shipping</li>
+            <li>Vague on economics; can't say what makes a campaign profitable</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 6: PERSPECTIVES ===== -->
     <section class="ap-panel" id="perspectives" role="tabpanel">
       <div class="ap-kicker">Different Perspectives</div>
       <h2 class="ap-h2" style="margin-bottom:12px;">Does the function actually collapse into one role?</h2>
@@ -433,7 +614,7 @@
       </div>
     </section>
 
-    <!-- ===== TAB 5: FAQ ===== -->
+    <!-- ===== TAB 7: FAQ ===== -->
     <section class="ap-panel" id="faq" role="tabpanel">
       <div class="ap-kicker">FAQ</div>
       <h2 class="ap-h2" style="margin-bottom:28px;">Questions this raises</h2>
