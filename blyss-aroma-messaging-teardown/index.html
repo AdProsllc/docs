@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Blyss Aroma — Ad Messaging Teardown</title>
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Ad Pros">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#040735; --navy-deep:#02041f; --card:#070b3d; --card-hover:#0a1050;
+    --yellow:#F9D900; --yellow-dim:#DFC200;
+    --blue:#1A6FD4; --blue-light:#3BA9F9;
+    --white:#fff;
+    --g400:#54556A; --g300:#8A8B93; --g200:#B0B1B6; --g100:#E6E6E7;
+    --border:#0e1358; --border-strong:#1a2375;
+    --success:#0F973D;
+    --radius:10px;
+    --pad:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--navy-deep);
+    color:var(--white);
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .kicker{
+    font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;
+    letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);
+    display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;
+  }
+  .kicker::before{content:"";width:18px;height:1px;background:var(--blue-light);display:inline-block}
+
+  /* progress rail */
+  .rail{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.06);z-index:50}
+  .rail__fill{height:100%;background:var(--yellow);width:0;transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+  /* deck */
+  .deck{
+    display:flex;height:100dvh;width:100%;
+    overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .deck::-webkit-scrollbar{display:none}
+  .slide{
+    min-width:100vw;width:100vw;height:100dvh;flex:0 0 100vw;
+    scroll-snap-align:center;scroll-snap-stop:always;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:calc(env(safe-area-inset-top) + 54px) var(--pad) calc(env(safe-area-inset-bottom) + 78px);
+    position:relative;
+    background:
+      radial-gradient(120% 80% at 85% -10%, rgba(26,111,212,.16), transparent 55%),
+      radial-gradient(90% 60% at -10% 110%, rgba(249,217,0,.05), transparent 50%),
+      var(--navy);
+  }
+  .slide__num{position:absolute;top:calc(env(safe-area-inset-top) + 20px);right:var(--pad);
+    font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--g400);letter-spacing:1px}
+  .slide__brand{position:absolute;top:calc(env(safe-area-inset-top) + 18px);left:var(--pad);
+    display:flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--g300);letter-spacing:1px}
+  .dot-mark{width:9px;height:9px;border-radius:50%;background:var(--yellow);display:inline-block}
+
+  h1{font-size:clamp(34px,10vw,52px);font-weight:900;line-height:1.02;letter-spacing:-1px}
+  h2{font-size:clamp(26px,7.4vw,38px);font-weight:800;line-height:1.08;letter-spacing:-.5px;margin-bottom:18px}
+  .lede{font-size:clamp(16px,4.4vw,19px);line-height:1.5;color:var(--g100);font-weight:400}
+  .hl{color:var(--yellow)}
+  .hl-b{color:var(--blue-light)}
+  strong{font-weight:800;color:#fff}
+
+  /* stat grid */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px}
+  .stat__n{font-size:clamp(28px,9vw,40px);font-weight:900;line-height:1;letter-spacing:-1px;color:#fff}
+  .stat__n.y{color:var(--yellow)}
+  .stat__l{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--g300);margin-top:8px;line-height:1.35;letter-spacing:.3px}
+
+  /* hook bars (signature element) */
+  .bars{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+  .bar{position:relative}
+  .bar__label{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;margin-bottom:6px;gap:12px}
+  .bar__label span:first-child{color:#fff;font-weight:600}
+  .bar__label span:last-child{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--g300);white-space:nowrap}
+  .bar__track{height:9px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden}
+  .bar__fill{height:100%;border-radius:6px;background:var(--blue);width:0;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+  .bar--hero .bar__fill{background:var(--yellow)}
+  .bar--hero .bar__label span:first-child{color:var(--yellow)}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 18px}
+  .card + .card{margin-top:10px}
+  .card__t{font-weight:700;font-size:15px;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+  .card__d{font-size:13.5px;color:var(--g200);line-height:1.45}
+  .tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;padding:3px 8px;border-radius:5px;text-transform:uppercase;font-weight:700}
+  .tag--gap{background:rgba(249,217,0,.12);color:var(--yellow)}
+  .tag--win{background:rgba(15,151,61,.14);color:#5fd98a}
+
+  .quote{font-size:clamp(20px,5.6vw,26px);line-height:1.32;font-weight:700;letter-spacing:-.3px}
+  .quote .mk{color:var(--yellow)}
+  .attr{margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--g300);letter-spacing:.5px}
+
+  .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:4px}
+  .vs__col{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 14px;text-align:center}
+  .vs__col.win{border-color:var(--border-strong);box-shadow:0 0 0 1px rgba(249,217,0,.25) inset}
+  .vs__score{font-size:40px;font-weight:900;line-height:1}
+  .vs__score.lo{color:var(--g400)}
+  .vs__score.hi{color:var(--yellow)}
+  .vs__name{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--g300);margin-top:8px;letter-spacing:.5px}
+  .vs__mid{display:flex;align-items:center;font-weight:800;color:var(--g400);font-size:13px}
+
+  .list{list-style:none;margin-top:4px}
+  .list li{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);font-size:14.5px;line-height:1.4;color:var(--g100)}
+  .list li:last-child{border-bottom:none}
+  .list .ix{font-family:"JetBrains Mono",monospace;color:var(--yellow);font-weight:700;font-size:13px;flex:0 0 auto}
+
+  .foot{position:absolute;left:var(--pad);right:var(--pad);bottom:calc(env(safe-area-inset-bottom) + 30px);
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--g400);letter-spacing:.5px;
+    display:flex;justify-content:space-between;align-items:center;gap:10px}
+
+  /* nav */
+  .nav{position:fixed;bottom:0;left:0;right:0;z-index:40;
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:14px var(--pad) calc(env(safe-area-inset-bottom) + 14px);
+    background:linear-gradient(to top, var(--navy-deep) 55%, transparent)}
+  .dots{display:flex;gap:7px;flex:1;justify-content:center;flex-wrap:wrap}
+  .dots button{width:7px;height:7px;border-radius:50%;border:none;background:rgba(255,255,255,.2);padding:0;cursor:pointer;transition:all .2s}
+  .dots button[aria-current="true"]{background:var(--yellow);width:20px;border-radius:4px}
+  .arrow{width:44px;height:44px;flex:0 0 44px;border-radius:50%;border:1px solid var(--border-strong);
+    background:var(--card);color:#fff;font-size:19px;cursor:pointer;display:grid;place-items:center;transition:.15s}
+  .arrow:hover{background:var(--card-hover);border-color:var(--blue)}
+  .arrow:disabled{opacity:.28;cursor:default}
+  .arrow:focus-visible,.dots button:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+
+  .hint{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 86px);left:0;right:0;text-align:center;
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--g400);letter-spacing:1px;
+    animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:.85}}
+
+  @media (min-width:720px){ :root{--pad:14vw} h1{font-size:60px} }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="rail"><div class="rail__fill" id="rail"></div></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span>
+    <div class="kicker">Ad Messaging Teardown</div>
+    <h1>Blyss Aroma — Messaging Teardown</h1>
+    <p class="lede" style="margin-top:20px;max-width:22ch">How a <strong>$39 mop soap</strong> sells like a <span class="hl">luxury candle</span> — 143 ads decoded.</p>
+    <div class="foot"><span>Full Meta ad library · via Ad Pros AI</span><span>10 slides</span></div>
+    <div class="hint">swipe →</div>
+  </section>
+
+  <!-- 2 MESSAGING DNA -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">01</span>
+    <div class="kicker">The DNA</div>
+    <h2>One product. One hook. Endless variations.</h2>
+    <div class="stats">
+      <div class="stat"><div class="stat__n">143</div><div class="stat__l">ads live + retired</div></div>
+      <div class="stat"><div class="stat__n">~65%</div><div class="stat__l">video-led (5s → 5min)</div></div>
+      <div class="stat"><div class="stat__n y">90+</div><div class="stat__l">ads run the SAME hook</div></div>
+      <div class="stat"><div class="stat__n y">14</div><div class="stat__l">scents, 1 hero product</div></div>
+    </div>
+    <p class="lede" style="margin-top:18px">They don't spray-and-pray creative. They find a winner and <span class="hl">flood the account with variants of it.</span></p>
+  </section>
+
+  <!-- 3 HOOK HIERARCHY (signature) -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">02</span>
+    <div class="kicker">Hook Hierarchy</div>
+    <h2>Everything ladders off one line.</h2>
+    <div class="bars" id="bars">
+      <div class="bar bar--hero"><div class="bar__label"><span>"Cheat code to make your house smell like a model home"</span><span>90+ ads</span></div><div class="bar__track"><div class="bar__fill" data-w="100"></div></div></div>
+      <div class="bar"><div class="bar__label"><span>"Warning: our scent is addictive"</span><span>~25</span></div><div class="bar__track"><div class="bar__fill" data-w="30"></div></div></div>
+      <div class="bar"><div class="bar__label"><span>"This mop soap actually works"</span><span>~8</span></div><div class="bar__track"><div class="bar__fill" data-w="14"></div></div></div>
+      <div class="bar"><div class="bar__label"><span>"Your house is about to smell expensive"</span><span>3</span></div><div class="bar__track"><div class="bar__fill" data-w="8"></div></div></div>
+      <div class="bar"><div class="bar__label"><span>"What about Pine-Sol?" (comparison)</span><span>4</span></div><div class="bar__track"><div class="bar__fill" data-w="9"></div></div></div>
+    </div>
+    <p class="lede" style="margin-top:18px;font-size:15px">Takeaway: <span class="hl">scale the proven hook first</span> — net-new angles are the minority bet.</p>
+  </section>
+
+  <!-- 4 WINNING ANGLE -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">03</span>
+    <div class="kicker">The Core Angle</div>
+    <h2>They sell a problem you didn't know you had.</h2>
+    <p class="quote">"Your house has a smell. <span class="mk">You just can't smell it anymore.</span>"</p>
+    <p class="attr">— Advertorial cold open · the "nose-blindness" play</p>
+    <p class="lede" style="margin-top:18px">The best-performing long-form creative teaches <strong>olfactory adaptation</strong> first, then positions Blyss as the fix. Education → discomfort → product.</p>
+  </section>
+
+  <!-- 5 COMPETITIVE ATTACK -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">04</span>
+    <div class="kicker">Category Indictment</div>
+    <h2>They win by scoring the shelf.</h2>
+    <div class="vs">
+      <div class="vs__col"><div class="vs__score lo">1/10</div><div class="vs__name">Pine-Sol · Lysol</div></div>
+      <div class="vs__mid">vs</div>
+      <div class="vs__col win"><div class="vs__score hi">10/10</div><div class="vs__name">Blyss · pH-neutral</div></div>
+    </div>
+    <p class="lede" style="margin-top:18px;font-size:15px">Attack lines: <span class="hl-b">"the clean smell is phenols,"</span> <span class="hl-b">"toxic to cats,"</span> <span class="hl-b">"200 chemicals hiding under one word."</span> Indict the category, then stand alone.</p>
+  </section>
+
+  <!-- 6 PROOF STACK -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">05</span>
+    <div class="kicker">Why It's Believable</div>
+    <h2>Proof does the closing.</h2>
+    <div class="stats">
+      <div class="stat"><div class="stat__n y">10k+</div><div class="stat__l">5-star reviews</div></div>
+      <div class="stat"><div class="stat__n">6.5–7</div><div class="stat__l">pH · won't strip floors</div></div>
+      <div class="stat"><div class="stat__n">0</div><div class="stat__l">residue · streaks · film</div></div>
+      <div class="stat"><div class="stat__n">days</div><div class="stat__l">scent lasts, not minutes</div></div>
+    </div>
+    <p class="lede" style="margin-top:18px">Plant-based + real essential oils. The claim is always <span class="hl">"fragrance resting on a clean floor — not fighting a dirty one."</span></p>
+  </section>
+
+  <!-- 7 OFFER -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">06</span>
+    <div class="kicker">Offer Architecture</div>
+    <h2>Built to raise cart size.</h2>
+    <div class="card"><div class="card__t">Bundle ladder</div><div class="card__d">1 bottle 13% off → 4+ bottles 36% off. Per-bottle drops $34 → $25.</div></div>
+    <div class="card"><div class="card__t">Subscribe &amp; save</div><div class="card__d">~$21.40/ea, refills every 30 days, "Try it once for $0.00."</div></div>
+    <div class="card"><div class="card__t">30-day guarantee <span class="tag tag--gap">underused</span></div><div class="card__d">Real risk-reversal exists on-site — but surfaces in only <strong>1 of 143 ads.</strong></div></div>
+  </section>
+
+  <!-- 8 WHAT'S WORKING -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">07</span>
+    <div class="kicker">What's Working</div>
+    <h2>The proven core.</h2>
+    <ul class="list">
+      <li><span class="ix">01</span><span><strong>Tenured winners run 43–51 days.</strong> The "model home" video is the anchor — study it, don't retire it.</span></li>
+      <li><span class="ix">02</span><span><strong>UGC + demo format.</strong> Mop-wringing in the first 3s, guest-reaction payoff.</span></li>
+      <li><span class="ix">03</span><span><strong>Scent-as-luxury language.</strong> "Smell expensive," "model home," named gourmand scents.</span></li>
+    </ul>
+  </section>
+
+  <!-- 9 WHITESPACE -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">08</span>
+    <div class="kicker">Whitespace</div>
+    <h2>The gaps are the roadmap.</h2>
+    <div class="card"><div class="card__t"><span class="tag tag--gap">empty</span> Origin story</div><div class="card__d">No founder / "why we built this" narrative anywhere. Pairs perfectly with the anti-chemical angle.</div></div>
+    <div class="card"><div class="card__t"><span class="tag tag--gap">thin</span> Guarantee in-ad</div><div class="card__d">Push "love the scent or your money back" into hooks + LP heroes.</div></div>
+    <div class="card"><div class="card__t"><span class="tag tag--gap">thin</span> Own-ingredient video</div><div class="card__d">Ingredients are only told by attacking rivals — tell Blyss's own story on camera.</div></div>
+  </section>
+
+  <!-- 10 NEXT MOVES -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">09</span>
+    <div class="kicker">Recommended Next Moves</div>
+    <h2>Three tests to ship.</h2>
+    <ul class="list">
+      <li><span class="ix">→</span><span><strong>Founder-origin UGC</strong> using the "cabinet of poison" spoken hook already proven in-feed.</span></li>
+      <li><span class="ix">→</span><span><strong>Guarantee-led variant</strong> of the top "model home" ad — same creative, risk-reversal hook.</span></li>
+      <li><span class="ix">→</span><span><strong>"What's actually in it"</strong> demo to own the ingredient story vs. only indicting rivals.</span></li>
+    </ul>
+    <p class="lede" style="margin-top:16px;font-size:14px;color:var(--g300)">Each maps to a documented gap — low-risk, on-brand, ready to brief.</p>
+  </section>
+
+  <!-- 11 CLOSE -->
+  <section class="slide">
+    <span class="slide__brand"><i class="dot-mark"></i> AD PROS</span><span class="slide__num">10</span>
+    <div class="kicker">Appendix</div>
+    <h2>The full playbook is on file.</h2>
+    <p class="lede">This deck is the read-out. The complete <strong>32-block Script Building Blocks</strong> library — every real hook, claim, CTA, and swipe line — is the working reference behind it.</p>
+    <div class="card" style="margin-top:22px"><div class="card__t"><i class="dot-mark"></i> Blyss Aroma — Copy Guide</div><div class="card__d">Hook · Claim · Problem · Proof · Offer · CTA · +26 more blocks, each filled from real ads &amp; landing pages.</div></div>
+    <div class="foot"><span>Built via Ad Pros AI</span><span>143 ads · 3 landing pages</span></div>
+  </section>
+
+</div>
+
+<nav class="nav">
+  <button class="arrow" id="prev" aria-label="Previous slide">‹</button>
+  <div class="dots" id="dots" role="tablist" aria-label="Slides"></div>
+  <button class="arrow" id="next" aria-label="Next slide">›</button>
+</nav>
+
+<script>
+(function(){
+  var deck=document.getElementById('deck');
+  var slides=Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var dotsWrap=document.getElementById('dots');
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  var rail=document.getElementById('rail');
+  var n=slides.length, cur=0, animated={};
+
+  slides.forEach(function(_,i){
+    var b=document.createElement('button');
+    b.setAttribute('role','tab');
+    b.setAttribute('aria-label','Go to slide '+(i+1));
+    b.addEventListener('click',function(){go(i)});
+    dotsWrap.appendChild(b);
+  });
+  var dots=Array.prototype.slice.call(dotsWrap.children);
+
+  function go(i){ i=Math.max(0,Math.min(n-1,i)); deck.scrollTo({left:i*deck.clientWidth,behavior:'smooth'}); }
+
+  function animateBars(slide){
+    slide.querySelectorAll('.bar__fill').forEach(function(f){ f.style.width=(f.getAttribute('data-w')||0)+'%'; });
+  }
+  function update(){
+    var i=Math.round(deck.scrollLeft/deck.clientWidth);
+    if(i!==cur){cur=i;}
+    dots.forEach(function(d,di){ d.setAttribute('aria-current', di===cur?'true':'false'); });
+    rail.style.width=((cur)/(n-1)*100)+'%';
+    prev.disabled=cur===0; next.disabled=cur===n-1;
+    if(!animated[cur]){ animated[cur]=true; animateBars(slides[cur]); }
+  }
+  deck.addEventListener('scroll',function(){ window.requestAnimationFrame(update); },{passive:true});
+  prev.addEventListener('click',function(){go(cur-1)});
+  next.addEventListener('click',function(){go(cur+1)});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+    if(e.key==='Home'){e.preventDefault();go(0);}
+    if(e.key==='End'){e.preventDefault();go(n-1);}
+  });
+  window.addEventListener('resize',function(){ deck.scrollLeft=cur*deck.clientWidth; });
+  update();
+})();
+</script>
+</body>
+</html>

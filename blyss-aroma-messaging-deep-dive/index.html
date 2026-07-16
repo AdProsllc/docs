@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Blyss Aroma — Deep Dive (32 Dimensions)</title>
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Ad Pros">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#040735;--navy-deep:#02041f;--card:#070b3d;--card-hover:#0a1050;
+    --yellow:#F9D900;--blue:#1A6FD4;--blue-light:#3BA9F9;--white:#fff;
+    --g400:#54556A;--g300:#8A8B93;--g200:#B0B1B6;--g100:#E6E6E7;
+    --border:#0e1358;--border-strong:#1a2375;--success:#0F973D;--radius:10px;--pad:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--navy-deep);color:var(--white);font-family:"Inter","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .rail{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.06);z-index:60}
+  .rail__fill{height:100%;background:var(--yellow);width:0;transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+  .deck{display:flex;height:100dvh;width:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .deck::-webkit-scrollbar{display:none}
+  .slide{min-width:100vw;width:100vw;height:100dvh;flex:0 0 100vw;scroll-snap-align:center;scroll-snap-stop:always;position:relative;
+    overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+    padding:calc(env(safe-area-inset-top) + 56px) var(--pad) calc(env(safe-area-inset-bottom) + 96px);
+    background:radial-gradient(120% 70% at 88% -8%, rgba(26,111,212,.14), transparent 55%), var(--navy)}
+  .slide::-webkit-scrollbar{width:0}
+  .slide--center{display:flex;flex-direction:column;justify-content:center}
+
+  .top{position:fixed;top:calc(env(safe-area-inset-top) + 16px);left:var(--pad);right:var(--pad);z-index:55;
+    display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--g300);letter-spacing:1px;pointer-events:none}
+  .top .brand{display:flex;align-items:center;gap:8px}
+  .dot-mark{width:9px;height:9px;border-radius:50%;background:var(--yellow);display:inline-block}
+
+  .kicker{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);display:inline-flex;align-items:center;gap:8px;margin-bottom:14px}
+  .kicker::before{content:"";width:18px;height:1px;background:var(--blue-light);display:inline-block}
+  .kicker.gap{color:var(--yellow)}.kicker.gap::before{background:var(--yellow)}
+
+  h1{font-size:clamp(34px,10vw,54px);font-weight:900;line-height:1.02;letter-spacing:-1px}
+  h2{font-size:clamp(25px,7vw,36px);font-weight:800;line-height:1.08;letter-spacing:-.5px}
+  .lede{font-size:clamp(16px,4.4vw,19px);line-height:1.5;color:var(--g100)}
+  .hl{color:var(--yellow)}
+
+  .insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:8px;
+    padding:14px 16px;margin:14px 0 20px;font-size:15px;line-height:1.4;color:var(--g100)}
+  .insight.gap{border-left-color:var(--yellow)}
+  .insight b{color:#fff;font-weight:700}
+
+  .grp{margin-bottom:18px}
+  .grp__label{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+  .grp__label::after{content:"";flex:1;height:1px;background:var(--border)}
+  ul.lines{list-style:none}
+  ul.lines li{position:relative;padding:9px 0 9px 20px;font-size:14.5px;line-height:1.5;color:var(--g100);border-bottom:1px solid rgba(14,19,88,.55)}
+  ul.lines li:last-child{border-bottom:none}
+  ul.lines li::before{content:"";position:absolute;left:2px;top:16px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+  ul.lines li.warn::before{background:var(--yellow)}
+  .note{color:var(--g400);font-style:normal;font-family:"JetBrains Mono",monospace;font-size:11.5px}
+  strong{color:#fff;font-weight:700}
+  .flag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:5px;margin-left:8px;vertical-align:middle}
+  .flag.gap{background:rgba(249,217,0,.12);color:var(--yellow)}
+  .flag.fixed{background:rgba(15,151,61,.14);color:#5fd98a}
+
+  /* nav */
+  .nav{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:12px;
+    padding:14px var(--pad) calc(env(safe-area-inset-bottom) + 14px);
+    background:linear-gradient(to top, var(--navy-deep) 60%, transparent)}
+  .arrow{width:46px;height:46px;flex:0 0 46px;border-radius:50%;border:1px solid var(--border-strong);background:var(--card);color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;transition:.15s}
+  .arrow:hover{background:var(--card-hover);border-color:var(--blue)}
+  .arrow:disabled{opacity:.28;cursor:default}
+  .jump{flex:1;height:46px;border-radius:23px;border:1px solid var(--border-strong);background:var(--card);color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.5px;transition:.15s;padding:0 14px;overflow:hidden}
+  .jump:hover{border-color:var(--blue)}
+  .jump .pos{color:var(--yellow);font-weight:700}
+  .jump .lbl{color:var(--g200);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .arrow:focus-visible,.jump:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+
+  /* index overlay */
+  .index{position:fixed;inset:0;z-index:80;background:rgba(2,4,31,.97);backdrop-filter:blur(4px);
+    padding:calc(env(safe-area-inset-top) + 20px) 18px calc(env(safe-area-inset-bottom) + 20px);
+    display:none;flex-direction:column}
+  .index.open{display:flex}
+  .index__hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .index__hd h3{font-size:18px;font-weight:800}
+  .index__close{background:var(--card);border:1px solid var(--border-strong);color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer}
+  .index__grid{overflow-y:auto;display:grid;grid-template-columns:1fr;gap:7px;-webkit-overflow-scrolling:touch}
+  .index__item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:#fff;cursor:pointer;text-align:left;font-size:14.5px;font-weight:600;transition:.12s}
+  .index__item:hover{background:var(--card-hover);border-color:var(--blue)}
+  .index__item .n{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--yellow);flex:0 0 auto;width:22px}
+  .index__item.special{border-color:var(--border-strong);background:rgba(26,111,212,.12)}
+  .index__item .mini{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:4px;margin-left:auto}
+  .mini.gap{background:rgba(249,217,0,.14);color:var(--yellow)}
+  .mini.fixed{background:rgba(15,151,61,.16);color:#5fd98a}
+
+  /* infinite page */
+  .lib__intro{margin-bottom:26px}
+  .lib__block{margin-bottom:30px;scroll-margin-top:70px}
+  .lib__h{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;padding-bottom:10px;border-bottom:1px solid var(--border-strong)}
+  .lib__h .n{font-family:"JetBrains Mono",monospace;color:var(--yellow);font-size:13px;font-weight:700}
+  .lib__h .nm{font-size:19px;font-weight:800}
+  .lib__ins{font-size:13.5px;color:var(--g300);margin:8px 0 12px;line-height:1.4}
+
+  .hint{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 104px);left:0;right:0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--g400);letter-spacing:1px;z-index:45;pointer-events:none;animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.3}50%{opacity:.8}}
+  @media (min-width:720px){:root{--pad:12vw}.index__grid{grid-template-columns:1fr 1fr}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="rail"><div class="rail__fill" id="rail"></div></div>
+<div class="top"><span class="brand"><i class="dot-mark"></i> AD PROS</span><span id="topright">DEEP DIVE</span></div>
+
+<div class="deck" id="deck"></div>
+
+<div class="hint" id="hint">swipe →</div>
+
+<nav class="nav">
+  <button class="arrow" id="prev" aria-label="Previous">‹</button>
+  <button class="jump" id="jump" aria-label="Jump to dimension"><span class="pos" id="pos">01</span><span class="lbl" id="lbl">Cover</span></button>
+  <button class="arrow" id="next" aria-label="Next">›</button>
+</nav>
+
+<div class="index" id="index" role="dialog" aria-label="Jump to a dimension">
+  <div class="index__hd"><h3>32 Dimensions</h3><button class="index__close" id="idxClose" aria-label="Close">×</button></div>
+  <div class="index__grid" id="idxGrid"></div>
+</div>
+
+<script id="data" type="application/json">[{"n": "01", "name": "Hook", "insight": "One line does 90% of the lifting — everything else is a variant of it.", "flag": "", "groups": [{"label": "Copy / caption hooks", "lines": ["\"This is a cheat code to make your house smell like a model home ✨ I switched to Blyss and never looked back!\" *(#1 hook — 90+ ads)*", "\"Warning: Our scent is addictive! 😊 My husband can't get enough of it!\"", "\"Your House Is About To Smell Expensive ✨\"", "\"Every single time someone walks into my house they ask: 'Wait… what smells SO good in here?' Not candles. Not diffusers. It's literally my floor cleaner 😭✨\"", "\"This Blyss Mop Soap actually works. Make sure you're getting it from the official website!\"", "\"Amazing scents that last for days!\"", "\"Smells so good! 😊 Even my husband loves it!\"", "\"I have the best smelling house!\"", "\"We're saying goodbye to Brazilian Waves, Heartbreaker & Royalty 💔\" *(loss-aversion)*"]}, {"label": "Spoken openers (0–3s)", "lines": ["\"I've been cleaning houses for 18 years…\"", "\"When I first started cleaning houses, I just used whatever was on the shelves.\"", "\"I counted the bottles under my kitchen sink — nine of them: Pine-Sol, Fabuloso, Mr. Clean…\"", "\"I did the math on what I've spent on cleaning solutions over the years, and it honestly made me sick.\"", "\"I finally did an audit on all my cleaning supplies.\"", "\"As a mother of three and two dogs, I got tired of a cabinet of poison under our sink.\"", "\"I had a full cabinet of cleaning products and couldn't tell you what half of them actually did.\"", "\"Your floor cleaner is slowly destroying your $4,000 floors.\"", "\"Nobody can smell their own house.\"", "\"I hate to break it to you, but if you have dogs, your house smells like dog.\"", "\"Folks out here talking about your house stank and you don't even know it.\"", "\"If your house smells like dog, garbage truck juice, and corn chips, get in here.\"", "\"What about Pine-Sol?\" *(scored-comparison cold open)*", "\"Stop using Pine-Sol and Fabuloso.\"", "\"Can we talk about the biggest mistake people make with this stuff?\"", "\"So I finally figured out why some people say this stuff doesn't last.\"", "\"Been brought to my attention that many of you don't actually know how to use the mop soap.\"", "\"Twenty bucks to see if this actually works.\"", "\"I'm about to tell you something your friends won't tell you.\"", "\"We are on vacation in Orlando…\" *(lifestyle cold open)*", "\"$150 in three hours — let's get this clean done.\"", "\"Here's a few things I got from the TikTok shop that I love and a few things I actually hate…\"", "\"If a house is stinky, it's over.\"", "\"Every time somebody comes to visit me, it's always: 'oh my gosh, it smells so good in here.'\"", "\"I did not expect a floor cleaner to make my house smell this good.\"", "\"With four kids, I'll take any win that makes my house feel cleaner.\"", "\"If you want a non-toxic way to make your house smell like you're burning a candle 24/7, you need this in your life.\"", "\"If you want the best smelling house in 2025, you need the highly scented mop soap.\""]}, {"label": "On-screen text (overlay, 0–3s)", "lines": ["\"My ADHD brain at 2:00am\" · \"at 9:00am I didn't think anything about it\" · \"With four kids\"", "\"One cap = whole house smelling LUXURY\" · \"Half a bottle\" · \"9 of them\"", "\"1/10\" *(rival-scoring card)* · \"Stop using Pine-Sol and Fabuloso ❌\"", "\"POV: when is mother-in-law coming tomorrow 🥲\" · \"it don't smell like roaches in here or nothin'\"", "\"Is this good for wood floors? Laminate?\" *(reply-to-comment)* · \"Mopping before vacuuming?\"", "\"HONEST TIKTOK SHOP REVIEWS\" · \"What would you charge for this clean?\" · \"asthma\"", "\"Blyss Mop Soap. The clean you notice. The scent everyone notices.\"", "\"POV: How to keep your house smelling good for a long time 🧼✨\"", "\"smells like a candle's burning all day 🕯️\" · \"If a house is stinky, it's over 👎\""]}]}, {"n": "02", "name": "Claim", "insight": "Always the same promise: cleans better AND smells like luxury that lasts.", "flag": "", "groups": [{"label": "", "lines": ["\"This Blyss Mop Soap actually works.\"", "\"Amazing scents that last for days.\"", "\"It actually cleans better.\"", "\"Makes your house smell like a model home.\"", "\"One cap = whole house smelling luxury.\"", "\"The scent locks into the floor and releases for days — plant-based, no harsh chemicals.\"", "\"I mop once a week and this scent lasts all week long.\"", "\"What you're smelling after mopping with Blyss isn't fragrance fighting a dirty floor — it's fragrance resting on a clean one.\" *(LP)*", "\"It removes the source. It doesn't mask the smell with something louder.\" *(LP)*", "\"The professional standard for clean floors.\" *(LP)*", "\"The best way to describe this is pure luxury.\""]}]}, {"n": "03", "name": "Transitions", "insight": "Structural, not verbal — they never reuse a signature transition line. Lock one in.", "flag": "gap", "groups": [{"label": "", "lines": ["Demo → product reveal → result shot (dominant video structure).", "Problem → payoff pivot: \"But here's what's insane: it actually cleans better.\"", "Scent-to-scent handoff: \"It smells just like that popular candle, and then I also have Brazilian Waves, which is also a 10/10.\"", "Scored-comparison format: rival cleaner → \"one out of ten\" → Blyss → \"10/10, pH neutral.\"", "LP narrative pivot: \"This is where Blyss does something genuinely different.\"", "Listicle step-to-step: \"Next, why pH quietly steers whether that finish stays clear — or starts to cloud.\"", "⚠️ No single reused *verbal* transition line across scripts — worth locking one in."]}]}, {"n": "04", "name": "Actions", "insight": "The demo is the ad: mop, pour, wring, and the guest reaction.", "flag": "", "groups": [{"label": "", "lines": ["Mopping hardwood / tile with foamy solution; wringing out the spin mop.", "Pouring concentrate into the bucket (\"I just put it in that mop water right there\").", "Reaching into a cabinet and pulling out the labeled bottle.", "Dusting high/overlooked surfaces (walls, baseboards, door frames).", "Walking a guest (or filming a neighbor) reacting to the scent.", "Cleaning a toilet bowl / other surfaces to show versatility.", "Counting the bottles under the sink (visual proof of clutter/waste)."]}]}, {"n": "05", "name": "Discovery", "insight": "Framed as a secret shortcut you stumbled onto — the 'cheat code.'", "flag": "", "groups": [{"label": "", "lines": ["\"I switched to Blyss and never looked back.\"", "\"This is the viral mop soap that's been selling out like crazy — and baby, it got the nerve to be on sale.\"", "\"99% of cleaners aren't powerful enough to cover up pet smells, so I was so happy when I finally found this.\"", "\"POV: how to keep your house smelling good for a long time.\"", "\"I did not expect a floor cleaner to make my house smell this good.\"", "Framed as stumbling onto a secret shortcut / \"cheat code\" the rest of us missed."]}]}, {"n": "06", "name": "Brand Mentions", "insight": "Name, URL, scents — plus a repeated anti-dupe 'official website' steer.", "flag": "", "groups": [{"label": "", "lines": ["Blyss / Blyss Aroma / Blyss Mop Soap Concentrate / Natural Scented Mop Soap.", "blyssofficial.com (+ /products/ms, /pages/5rw, /pages/newadvertorial-3).", "Legacy / borrowed handle in older creative: \"R&W Mop Soap\" / \"R&W Co.\"", "Companion products: Blyss Mist Spray, 4-Pack & 8-Pack Spin Mop Head Replacements."]}]}, {"n": "07", "name": "Benefits", "insight": "Smells amazing for days, protects floors, peace of mind, replaces the clutter.", "flag": "", "groups": [{"label": "", "lines": ["Your whole house smells amazing — and stays that way for days, not minutes.", "Guests notice and ask what it is, every time.", "Clean, shiny floors: no streaks, no sticky film, no cloudy residue.", "Protects floors — pH-neutral, won't strip the finish (safe for LVP, hardwood, tile, laminate, natural stone).", "Peace of mind: non-toxic, plant-based, safe for immediate family & pet use (no rinsing needed).", "Replaces multiple products — \"one bottle, one dilution, fewer bottles under the sink.\"", "Skip the candles/air fresheners — many customers stop buying them entirely.", "Goes a long way: \"the bottle lasted me five weeks and there's still over half left.\"", "Save money + free shipping when you stock up."]}]}, {"n": "08", "name": "Features", "insight": "Plant-based, pH-neutral, zero residue, highly concentrated, 14 scents.", "flag": "", "groups": [{"label": "", "lines": ["Plant-derived surfactants + real essential oils (fragrance extracted from plants, not made in a lab). *(LP)*", "pH-balanced at **6.5–7** (neutral) — deep-cleans without stripping the protective finish.", "Zero residue: no streaks, no film, no buildup; quick-dry, no rinsing.", "Highly concentrated — \"a little goes a long way,\" ~one cap per bucket.", "Non-toxic, pet-safe, family-safe for immediate use.", "Safe for LVP, sealed hardwood, tile, laminate & natural stone.", "**14 scents** (marketed as \"six signature\"): HeartBreaker, Brazilian Waves, Royalty, Baja, Imported Mahogany, Sunwashed Linen + Golden Citrus, Apple & Honey, Candy Peach, Pink Champagne, Mahogany Cherry, Pink Grapefruit, Lavender Dreams, Candy Apple.", "Companion line: Blyss Mist Spray, Spin Mop Head Replacements (4-pack / 8-pack)."]}]}, {"n": "09", "name": "Unique Factors", "insight": "Luxury scent from a floor cleaner — and it fixes odor at the source, not the air.", "flag": "", "groups": [{"label": "", "lines": ["Luxury / gourmand scent profiles you don't expect from a cleaner (mahogany, champagne, cherry, \"Blue Lava,\" candy apple).", "\"Fragrance resting on a clean floor\" — cleans *and* deodorizes at the source vs. candles that only mask.", "Highly scented **and** long-lasting (days), vs. typical \"clean but odorless\" or \"fades in 20 minutes.\"", "pH-neutral positioning as a floor-*protecting* cleaner, not just a floor-cleaning one.", "The \"cheat code\" / \"model home\" / \"smell expensive\" brand language.", "\"I got the Royalty and that's exactly how it smells — like royalty.\"", "Scent-storytelling framework on-site: **The Notes / The Description / The Vibes** for each scent."]}]}, {"n": "10", "name": "Problems", "insight": "A smell you can't smell — and your current cleaner is making it worse.", "flag": "", "groups": [{"label": "", "lines": ["Your house has an odor you've gone nose-blind to — \"you just can't smell it anymore.\" *(LP)*", "\"That moment at the door after a vacation? That's the closest you'll get to smelling your home the way guests do.\" *(LP)*", "Floors are the real source — plus walls, baseboards, and a sour mop head. *(LP)*", "\"You're not cleaning your floors — you're reapplying yesterday's dirt with today's water.\" *(LP)*", "Conventional cleaners strip with harsh chemicals, then cover with synthetic fragrance that fades in ~20 minutes. *(LP)*", "Chemical residue actually traps more dirt over time — every mop adds a layer. *(LP)*", "\"99% of cleaners aren't powerful enough to cover up pet smells.\"", "\"House smells like dog, garbage truck juice, and corn chips.\""]}]}, {"n": "11", "name": "Competitors", "insight": "They win by indicting the entire shelf, then standing alone.", "flag": "", "groups": [{"label": "", "lines": ["**Scored head-to-head video** rating rivals \"out of ten\": Pine-Sol (1/10), Fabuloso (2/10), Lysol (1/10) → Blyss (10/10, pH-neutral).", "Attack lines: \"the clean smell is phenols,\" \"toxic to cats, harsh on dogs,\" \"your kids breathe it in for hours,\" \"the warning label exists for a reason,\" \"almost entirely synthetic fragrance — hiding up to 200 chemicals under one word.\"", "LP comparison table (Grocery-store cleaners vs. Blyss): residue & film, pH, formulation, floor compatibility, scent.", "\"Ammonia, bleach and synthetic solvents strip sealants and discolor grout.\" *(LP)*", "Rivals \"require 2–3 different products for different rooms and floor types.\" *(LP)*", "Named product \"R&W Co. mop soap\" referenced directly (incl. a \"how to actually use it\" corrective angle).", "Candles & air fresheners framed as a \"temporary volume war\" that reality wins the second they go out. *(LP)*"]}]}, {"n": "12", "name": "Results / Outcomes", "insight": "The proof is sensory: guests ask, and the scent's still there next morning.", "flag": "", "groups": [{"label": "", "lines": ["Clean, shiny, streak-free floors with zero residue.", "Guests asking \"what smells so good?\" every single time.", "House smells like a model home / like a candle's burning 24/7 / \"expensive.\"", "Scent still there the next morning: \"I mopped Sunday night; Monday I walked into the kitchen and stopped — it still smelled like Brazilian Waves.\" *(LP)*", "Covers dog, cat, and unwanted odors at the source — not just masks them.", "\"Smells like I picked up this floor and hung it outside to dry in the sun all day.\"", "Noticeable drop in roaches."]}]}, {"n": "13", "name": "Ingredients", "insight": "The real story exists (plant surfactants, oils, pH) — but only told by attacking rivals. Put it on camera.", "flag": "fixed", "groups": [{"label": "", "lines": ["Plant-derived surfactants that lift and remove odor-causing bacteria & grime. *(LP)*", "Real essential oils / plant-extracted fragrance (not lab-created). *(LP)*", "pH 6.5–7 (neutral); non-toxic; no wax, no oil, no synthetic film. *(LP)*", "Ad-level ingredient claim: \"Baking soda & white vinegar actively break down odor compounds — not just fragrance.\"", "Full scent-note breakdowns per variant, e.g. Brazilian Waves = sea salt, ocean air, white florals, driftwood, amber; Imported Mahogany = dark mahogany, black teakwood, cedar, soft lavender; HeartBreaker = rose, pink peony, white plum, vanilla musk.", "Contrast vs. rivals: \"no phenols, no ammonia/bleach, no synthetic fragrance hiding 200 chemicals.\""]}]}, {"n": "14", "name": "Application / Usage", "insight": "Three simple steps; a cap goes a long way. Doubles as an objection-handler.", "flag": "fixed", "groups": [{"label": "", "lines": ["**3-step (product page):** Step 1 — Add Blyss (concentrated; use more or less for scent/cleaning strength). Step 2 — Mop (dip, wring out excess, clean as usual). Step 3 — Enjoy (air dry, no rinsing; streak-free, safe for family & pets).", "\"All you need is two capfuls and hot water — it's super concentrated.\"", "Can be used on surfaces beyond floors (toilets, counters).", "Corrective angle: \"many of you don't actually know how to use mop soap\" → shows the right way."]}]}, {"n": "15", "name": "Process / How It Works", "insight": "Removes the source, then rests fragrance on a clean floor — why it lasts days.", "flag": "", "groups": [{"label": "", "lines": ["Concentrate → dilute (cap + hot water) → mop → air-dry, zero residue → scent locks in and releases for days.", "Mechanism vs. candles: surfactants remove odor at the floor (the source); essential oils then fill the space the odor used to occupy. *(LP)*", "\"That's why it lasts for days instead of minutes — no film trapping tomorrow's dirt.\" *(LP)*", "pH 6.5–7 cleans without fighting the floor's protective coating. *(LP)*"]}]}, {"n": "16", "name": "Guarantee / Warranty", "insight": "A 30-day guarantee exists — but surfaces in only 1 of 143 ads. Big, easy lever.", "flag": "gap", "groups": [{"label": "", "lines": ["**30-day guarantee** — on the product page and in one ad's on-screen overlay (ad 1884467262226630).", "Risk-reversal offers on-site: **\"Try it Once for $0.00 /ea\"** and subscription **\"Stop or Cancel Anytime.\"**", "⚠️ Present but *underused* in creative — only one ad surfaces it. Lead with \"love the scent or your money back\" in more hooks/LP heroes."]}]}, {"n": "17", "name": "Questions", "insight": "Open with a question they can't answer about their own home.", "flag": "", "groups": [{"label": "", "lines": ["\"Wait… what is that smell?\" / \"What smells SO good in here?\"", "\"Did you know your house has a smell you can't smell anymore?\"", "\"What does your house smell like to everyone else?\" *(LP)*", "\"Why do your floors look worse after you clean them?\"", "\"What about Pine-Sol?\" / \"Okay, what about Fabuloso?\"", "\"Is this good for wood floors? Laminate?\" *(reply-to-comment)*", "\"Mopping before vacuuming?\"", "\"Do you think I'm charging enough, or should I go up on my prices?\" *(engagement bait)*", "\"Ready to level up your freshness game?\""]}]}, {"n": "18", "name": "Controversial Statements", "insight": "Provocations that stop the scroll and make the problem personal.", "flag": "", "groups": [{"label": "", "lines": ["\"Your house stank and you don't even know it.\"", "\"If your house smells like dog, garbage truck juice, and corn chips…\"", "\"Our scent is addictive.\"", "\"Everybody is nose-blind to their own house.\"", "\"Your floor cleaner is slowly destroying your $4,000 floors.\"", "\"You're not cleaning your floors — you're reapplying yesterday's dirt with today's water.\" *(LP)*", "\"This is the most powerful mop soap I've smelled in my entire life.\"", "\"The smell went up to my neighbor's apartment and she wants me to keep using it.\"", "Rating trusted household brands (Pine-Sol, Lysol) \"1 out of 10.\""]}]}, {"n": "19", "name": "Testimonials / Social Proof", "insight": "Named reviews + the recurring 'guests always ask' proof.", "flag": "", "groups": [{"label": "", "lines": ["\"Every single time someone walks into my house they ask…\"", "Neighbor-knocks-on-the-door story (asked what she cleans her floors with).", "Text-message-style testimonial screenshots; UGC \"I switched and never looked back.\"", "**Named LP reviews:** \"The moment I tried the Blyss scent I knew I was hooked.\" — Jessie R., LA · \"The scent is amazing and it actually works. My hardwood floors are streak-free.\" — Taylor S., Austin · \"Cuts through tracked-in mess without that sticky film… mopping actually feels faster.\" — Sarah M., San Diego · \"The Royalty scent is perfect and it cleans better than anything I've used.\" — David K., Seattle · \"Finally found a mop soap that doesn't leave residue. My tile floors look brand new.\" — Emily R., Chicago · \"Worth every penny. One bottle lasts forever.\" — James T., NYC.", "\"Built on Customer Love\" + \"10,000+ verified 5-star reviews.\""]}]}, {"n": "20", "name": "Facts", "insight": "Hard anchors: 10k reviews, pH 6.5–7, one bottle lasts weeks.", "flag": "", "groups": [{"label": "", "lines": ["10,000+ verified 5-star reviews.", "Plant-based, pH 6.5–7, non-toxic, zero residue.", "Safe for LVP, hardwood, tile, laminate & natural stone.", "Highly concentrated — one bottle lasts ~5+ weeks of weekly mopping.", "Nose blindness / olfactory adaptation: the brain stops registering a constant smell after ~20 minutes. *(LP)*", "14 scents available; six positioned as \"signature.\""]}]}, {"n": "21", "name": "Trust Factors", "insight": "Reviews, on-pack badges, and 'breaks the cycle' authority language.", "flag": "", "groups": [{"label": "", "lines": ["10,000+ 5-star reviews (across ~48 ads + every LP).", "\"Selling out like crazy\" / \"viral for a reason.\"", "On-pack badge lockup: \"Non-Toxic · Naturally Scented · Deep-Cleaning.\"", "\"Professional Standard for Clean Floors\" / \"Blyss Breaks the Cycle.\" *(LP)*", "Reviews link in site nav; verified-buyer tags on testimonials.", "Subscription with \"cancel anytime\" + 30-day guarantee as trust anchors."]}]}, {"n": "22", "name": "Origin Story", "insight": "Empty — the single biggest open lane. No founder 'why' anywhere.", "flag": "gap", "groups": [{"label": "", "lines": ["⚠️ **Still largely untapped.** No true founder / brand-origin narrative.", "Closest is a first-person discovery moment in the advertorial (Jessica Wilson byline: \"The first time I used it, I mopped on a Sunday night… Monday morning I stopped.\").", "Opportunity: a real \"why we built a non-toxic, scent-first mop soap\" story to pair with the strong anti-competitor angle already in market."]}]}, {"n": "23", "name": "Change in Belief", "insight": "Clean isn't odorless — clean is luxurious. And candles don't fix smell.", "flag": "", "groups": [{"label": "", "lines": ["\"I switched to Blyss and never looked back.\"", "From \"clean = smells like nothing (or chemicals)\" → \"clean = smells luxurious.\"", "From \"candles/air fresheners fix smell\" → \"they only win a 20-minute volume war.\" *(LP)*", "Learning what's actually in Pine-Sol / Fabuloso and never going back."]}]}, {"n": "24", "name": "Realization / Aha", "insight": "The aha: your home has a smell you've simply stopped noticing.", "flag": "", "groups": [{"label": "", "lines": ["\"Your house has a smell — you just can't smell it anymore.\"", "\"That moment at the door after a trip is the closest you'll get to smelling your home like a guest does.\" *(LP)*", "\"Most of what we smell in a home isn't trash or laundry — it's the floors.\"", "\"It's been brought to my attention that many of you don't even know how to use mop soap.\"", "The moment a guest or neighbor reacts to the scent."]}]}, {"n": "25", "name": "Description (staging)", "insight": "Warm, expensive interiors + literal scent-cue props.", "flag": "", "groups": [{"label": "", "lines": ["White concentrate bottle staged on marble counters / polished hardwood / dark wood.", "Scent-cue props: fresh cherries, candy apples, champagne + berries, vetiver roots, driftwood, swirling smoke.", "Comparison staging: rival cans (Lysol, Pine-Sol) with red-flag overlays; dog licking paw on a wood floor; \"pH neutral 10/10\" score card.", "Dynamic mop-wringing / spin-bucket demo in the opening seconds.", "Warm, dimly lit, \"expensive\" home settings (leather furniture, bookshelves).", "Scent-page vibe language: \"warm, coastal, and clean — like stepping into a luxury beach resort at golden hour.\""]}]}, {"n": "26", "name": "Opinion", "insight": "Confident first-person 10/10 endorsement, never hedged.", "flag": "", "groups": [{"label": "", "lines": ["\"The best smelling house in 2025.\"", "\"This actually works.\"", "\"It's a 10/10 for me, easily.\"", "\"If I had to pick a favorite, it'd be Blue Lava or the seasonal scents — if you can get your hands on them.\"", "Confident, first-person, \"trust me\" endorsement tone throughout."]}]}, {"n": "27", "name": "Story", "insight": "POV skits, vacation returns, and the neighbor-knocks moment.", "flag": "", "groups": [{"label": "", "lines": ["\"We're on vacation in Orlando…\" lifestyle framing.", "A woman moving room to room — dining area, hallway, high surfaces, floors.", "Guest-reaction narrative (someone walks in, stops, asks about the smell).", "Neighbor knocks on the door: \"I thought she was mad — she just wanted to know what I clean my floors with.\"", "Roach-with-wings bit (\"nothing more terrifying… you go to get it and it takes off flying\").", "\"Things I got from the TikTok shop that I love / hate\" listicle.", "LP narrative arc: the vacation-return \"you could actually smell your house\" moment → nose-blindness science → the fix."]}]}, {"n": "28", "name": "CTA", "insight": "Shop now + stock-up + free-shipping nudge + official-site steer.", "flag": "", "groups": [{"label": "", "lines": ["\"Shop now.\" / \"Add to cart.\" / \"Proceed to checkout.\"", "\"Get in here.\" / \"You need this in your life.\"", "\"When I say run, I mean run and grab yours right now before it sells out again.\"", "\"Grab yours at the link and enjoy the best smelling home.\"", "\"Make sure you grab enough that you get the free shipping.\"", "\"Try it once for $0.00.\" / \"Build your bundle.\"", "\"Make sure you're getting it from the official website.\" *(anti-dupe steer)*"]}]}, {"n": "29", "name": "Recommendation", "insight": "Peer advice: 'you need this,' 'skip the candles.'", "flag": "", "groups": [{"label": "", "lines": ["\"You need this in your life.\"", "\"So if you want to be the best smelling house on the block, this is for you.\"", "\"Skip the extra candles and room sprays.\" *(LP)*", "\"Experience the professional standard for clean floors.\" *(LP)*", "Personal \"trust me, switch to this\" framing."]}]}, {"n": "30", "name": "PS (postscript)", "insight": "Missing — an easy advertorial/email add for urgency.", "flag": "gap", "groups": [{"label": "", "lines": ["⚠️ **Not surfaced.** No postscript block in any current script or advertorial.", "Easy add for the long-form pages, e.g. \"P.S. The sale ends soon and the Mist Spray keeps selling out — grab a bundle to lock in free shipping.\""]}]}, {"n": "31", "name": "Bonus / Offer Stack", "insight": "Bundle + subscribe stack engineered to raise cart size.", "flag": "", "groups": [{"label": "", "lines": ["Seasonal sales: 30–40% off across the line (Spring Cleaning, Summer, Fall, Black Friday 60%+).", "**Build-your-bundle tiers:** 1 bottle 13% off · 2 bottles 26% · 3 bottles 31% · 4+ bottles 36%.", "**Subscribe & Save:** ~$21.40/ea, refills every 30 days, cancel anytime; 2-month & 3-month \"Best Deal\" supply (up to $10 off per bottle).", "\"Try it Once for $0.00 /ea.\"", "Free shipping threshold; \"free samples and gifts\" with order.", "Companion add-ons: Blyss Mist Spray, Spin Mop Head Replacements.", "30-day guarantee attached to bundles."]}]}, {"n": "32", "name": "Pricing & Discounts", "insight": "Anchored discounts and a clean bundle ladder.", "flag": "", "groups": [{"label": "", "lines": ["Headlines: \"Up to 36% Off\" (workhorse) · \"Summer Sale up to 40%\" · \"Black Friday over 60%\" · \"Spring Cleaning Sale.\"", "Mop soap: from **$39–$49** regular; bundle per-bottle from **$34 → $25** (1→4+ bottles); subscription **$22.30 → $21.40/ea**.", "Companions: Spin Mop Heads 4-pack $24.99 (reg $39.99) · 8-pack $34.99 (reg $49.99) · Mist Spray $11.99 (reg $19.99).", "\"Save 36% + Free Shipping\" is the standing LP offer."]}]}]</script>
+<script>
+(function(){
+  var D=JSON.parse(document.getElementById('data').textContent);
+  var deck=document.getElementById('deck');
+
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function fmt(s){ s=esc(s);
+    s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    s=s.replace(/\*(.+?)\*/g,'<span class="note">$1</span>');
+    return s; }
+  function isWarn(s){return s.indexOf('⚠️')===0;}
+
+  var slides=[]; // {label}
+  function addSlide(html,label,center){
+    var el=document.createElement('section');
+    el.className='slide'+(center?' slide--center':'');
+    el.innerHTML=html; deck.appendChild(el); slides.push({label:label});
+  }
+
+  // Cover
+  addSlide(
+    '<div class="kicker">Deep Dive · 32 Dimensions</div>'+
+    '<h1>Blyss Aroma <br><span style="font-size:.46em;font-weight:800;color:var(--blue-light);letter-spacing:.5px;">Deep Dive</span></h1>'+
+    '<p class="lede" style="margin-top:20px;max-width:24ch">The full messaging teardown — <span class="hl">one dimension per slide</span>, every real line from 143 ads &amp; 3 landing pages.</p>'+
+    '<p class="lede" style="margin-top:16px;font-size:14px;color:var(--g300)">Tap the bar below to jump to any dimension. Last slide is the entire library, unedited.</p>',
+    'Cover', true);
+
+  // Dimension slides
+  D.forEach(function(d){
+    var groups=d.groups.map(function(g){
+      var lis=g.lines.map(function(l){return '<li class="'+(isWarn(l)?'warn':'')+'">'+fmt(l)+'</li>';}).join('');
+      var lab=g.label?('<div class="grp__label">'+esc(g.label)+'</div>'):'';
+      return '<div class="grp">'+lab+'<ul class="lines">'+lis+'</ul></div>';
+    }).join('');
+    var flag=d.flag?('<span class="flag '+d.flag+'">'+(d.flag==='gap'?'gap':'was gap')+'</span>'):'';
+    addSlide(
+      '<div class="kicker '+(d.flag==='gap'?'gap':'')+'">Dimension '+d.n+' / 32</div>'+
+      '<h2>'+esc(d.name)+flag+'</h2>'+
+      '<div class="insight '+(d.flag==='gap'?'gap':'')+'">'+fmt(d.insight)+'</div>'+
+      groups,
+      d.n+' · '+d.name, false);
+  });
+
+  // Infinite library page
+  var lib='<div class="kicker">The Full Library</div><div class="lib__intro"><h2>Everything, unedited.</h2>'+
+    '<p class="lede" style="margin-top:12px;font-size:15px;color:var(--g200)">All 32 dimensions in one scroll — the complete swipe corpus behind the read-out.</p></div>';
+  D.forEach(function(d){
+    var lis=d.groups.map(function(g){
+      var inner=g.lines.map(function(l){return '<li class="'+(isWarn(l)?'warn':'')+'">'+fmt(l)+'</li>';}).join('');
+      var lab=g.label?('<div class="grp__label">'+esc(g.label)+'</div>'):'';
+      return lab+'<ul class="lines">'+inner+'</ul>';
+    }).join('');
+    lib+='<div class="lib__block" id="lib-'+d.n+'"><div class="lib__h"><span class="n">'+d.n+'</span><span class="nm">'+esc(d.name)+'</span></div>'+
+      '<div class="lib__ins">'+fmt(d.insight)+'</div>'+lis+'</div>';
+  });
+  addSlide(lib,'Full Library', false);
+
+  // Nav
+  var n=slides.length,cur=0,rail=document.getElementById('rail'),
+      prev=document.getElementById('prev'),next=document.getElementById('next'),
+      pos=document.getElementById('pos'),lbl=document.getElementById('lbl'),
+      hint=document.getElementById('hint'),topright=document.getElementById('topright');
+  function go(i){i=Math.max(0,Math.min(n-1,i));deck.scrollTo({left:i*deck.clientWidth,behavior:'smooth'});}
+  function update(){
+    var i=Math.round(deck.scrollLeft/deck.clientWidth); if(i!==cur)cur=i;
+    rail.style.width=(cur/(n-1)*100)+'%';
+    pos.textContent=String(cur+1).padStart(2,'0');
+    lbl.textContent=slides[cur].label;
+    prev.disabled=cur===0;next.disabled=cur===n-1;
+    topright.textContent=(cur===0)?'DEEP DIVE':(cur===n-1?'LIBRARY':(cur)+' / 32');
+    if(cur>0)hint.style.display='none';
+  }
+  deck.addEventListener('scroll',function(){requestAnimationFrame(update);},{passive:true});
+  prev.onclick=function(){go(cur-1);};next.onclick=function(){go(cur+1);};
+  document.addEventListener('keydown',function(e){
+    if(document.getElementById('index').classList.contains('open')){if(e.key==='Escape')closeIdx();return;}
+    if(e.key==='ArrowRight'){e.preventDefault();go(cur+1);}
+    if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
+    if(e.key==='Home'){e.preventDefault();go(0);}
+    if(e.key==='End'){e.preventDefault();go(n-1);}
+  });
+  window.addEventListener('resize',function(){deck.scrollLeft=cur*deck.clientWidth;});
+
+  // Index overlay
+  var index=document.getElementById('index'),grid=document.getElementById('idxGrid');
+  D.forEach(function(d,di){
+    var b=document.createElement('button');b.className='index__item';
+    var mini=d.flag?('<span class="mini '+d.flag+'">'+(d.flag==='gap'?'gap':'fixed')+'</span>'):'';
+    b.innerHTML='<span class="n">'+d.n+'</span><span>'+d.name+'</span>'+mini;
+    b.onclick=function(){closeIdx();go(di+1);};grid.appendChild(b);
+  });
+  var libBtn=document.createElement('button');libBtn.className='index__item special';
+  libBtn.innerHTML='<span class="n">∞</span><span>Full Library (all text)</span>';
+  libBtn.onclick=function(){closeIdx();go(n-1);};grid.appendChild(libBtn);
+  function openIdx(){index.classList.add('open');}
+  function closeIdx(){index.classList.remove('open');}
+  document.getElementById('jump').onclick=openIdx;
+  document.getElementById('idxClose').onclick=closeIdx;
+  index.addEventListener('click',function(e){if(e.target===index)closeIdx();});
+
+  update();
+})();
+</script>
+</body>
+</html>
