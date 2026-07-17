@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal">
+  <title>The AI Growth Engineer — Ad Pros</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    .ap-content { padding: 40px 48px; max-width: 1120px; margin: 0 auto; }
+    .ap-section { padding: var(--space-12) 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; padding-top: var(--space-8); }
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .ap-grid-3 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-3 { grid-template-columns: 1fr; } }
+
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
+
+    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
+    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
+    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    .ap-value { display: grid; grid-template-columns: 72px 1fr; gap: 0; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+    .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .ap-value-body { padding: 20px 24px; }
+    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .ap-value-body p  { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+    .ap-value-body .tag { display:inline-block; margin-top:10px; font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--grey-300); border:1px solid var(--card-border-strong); border-radius:6px; padding:3px 8px; }
+
+    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
+    .btn-primary:hover { background: var(--yellow-dim); }
+
+    /* === TABS === */
+    .ap-tabs { display:flex; gap:4px; flex-wrap:wrap; border-bottom:1px solid var(--card-border); margin-bottom: var(--space-8); position:sticky; top:0; background:var(--navy); z-index:20; padding-top:8px; }
+    .ap-tab { appearance:none; background:transparent; border:none; border-bottom:3px solid transparent; color:var(--grey-300); font-family:inherit; font-size:14px; font-weight:600; letter-spacing:0.2px; padding:14px 20px; cursor:pointer; transition:color .15s, border-color .15s; white-space:nowrap; }
+    .ap-tab:hover { color:#fff; }
+    .ap-tab.active { color:var(--yellow); border-bottom-color:var(--yellow); }
+    .ap-tab .tnum { font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--grey-400); margin-right:8px; }
+    .ap-tab.active .tnum { color:var(--yellow); }
+    .ap-panel { display:none; animation: apFade .25s ease; }
+    .ap-panel.active { display:block; }
+    @keyframes apFade { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+
+    .lead { font-size:19px; line-height:1.6; color:var(--grey-100); max-width:760px; }
+    .prose p { margin-bottom: var(--space-4); max-width: 760px; }
+    .prose strong { color:#fff; font-weight:700; }
+    .prose em { color: var(--yellow); font-style: normal; }
+    .divider-note { border-left:3px solid var(--yellow); background:rgba(249,217,0,0.06); padding:16px 20px; border-radius:0 8px 8px 0; margin: var(--space-6) 0; max-width:760px; }
+    .divider-note p { color:var(--grey-100); font-size:15px; margin:0; }
+
+    .persp { border:1px solid var(--card-border); border-radius:var(--radius); background:var(--navy-card); padding:var(--space-6); margin-bottom:var(--space-4); }
+    .persp-head { display:flex; align-items:baseline; gap:12px; margin-bottom:10px; flex-wrap:wrap; }
+    .persp-head .pnum { font-family:"JetBrains Mono",monospace; color:var(--yellow); font-size:13px; font-weight:600; }
+    .persp-head h4 { color:#fff; font-size:18px; font-weight:700; }
+    .persp .stance { font-size:11px; text-transform:uppercase; letter-spacing:0.8px; font-weight:700; padding:3px 9px; border-radius:20px; }
+    .stance.consensus { background:rgba(15,151,61,0.14); color:#7ee2a4; }
+    .stance.dissent { background:rgba(212,38,32,0.14); color:#ff9a95; }
+    .stance.nuance { background:rgba(26,111,212,0.16); color:#7ab8f5; }
+    .persp p { color:var(--grey-200); font-size:15px; margin-bottom:8px; }
+    .persp .src { font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--grey-400); margin-top:8px; }
+
+    .faq { border-bottom:1px solid var(--card-border); }
+    .faq summary { cursor:pointer; list-style:none; padding:20px 4px; color:#fff; font-size:16px; font-weight:600; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:"+"; color:var(--yellow); font-size:22px; font-weight:400; line-height:1; flex-shrink:0; transition:transform .2s; }
+    .faq[open] summary::after { transform:rotate(45deg); }
+    .faq .faq-body { padding:0 4px 22px; max-width:820px; }
+    .faq .faq-body p { color:var(--grey-200); font-size:15px; margin-bottom:12px; }
+    .faq .faq-body p:last-child { margin-bottom:0; }
+    .faq .faq-body strong { color:#fff; }
+
+    .pillbar { display:flex; flex-wrap:wrap; gap:8px; margin:20px 0; }
+    .pill { font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--grey-200); border:1px solid var(--card-border-strong); border-radius:20px; padding:6px 14px; background:var(--navy-card); }
+    .pill em { color:var(--yellow); font-style:normal; }
+
+    .ap-footer { max-width:1120px; margin:0 auto; padding:28px 48px 48px; display:flex; align-items:center; justify-content:space-between; gap:16px; border-top:1px solid var(--card-border); flex-wrap:wrap; }
+    .ap-footer-left { display:flex; align-items:center; gap:14px; }
+    .ap-footer-left p { color:var(--grey-300); font-size:13px; }
+    .ap-footer-meta { color:var(--grey-400); font-size:12px; font-family:"JetBrains Mono",monospace; }
+
+    @media (max-width: 640px) {
+      .ap-header, .ap-content { padding-left: 24px; padding-right: 24px; }
+      .ap-footer { padding-left:24px; padding-right:24px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+      .ap-tab { padding:12px 14px; font-size:13px; }
+      .ap-value { grid-template-columns: 56px 1fr; }
+    }
+
+    /* === TABLES === */
+    .wrap-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--card-border); border-radius:var(--radius); margin:24px 0; }
+    .ap-table { width:100%; border-collapse:collapse; font-size:14px; min-width:680px; }
+    .ap-table th, .ap-table td { text-align:left; padding:13px 16px; border-bottom:1px solid var(--card-border); vertical-align:top; }
+    .ap-table th { color:var(--yellow); font-size:11px; text-transform:uppercase; letter-spacing:0.8px; font-weight:700; background:var(--navy-card); position:sticky; top:0; }
+    .ap-table td { color:var(--grey-200); line-height:1.5; }
+    .ap-table td strong { color:#fff; }
+    .ap-table tr:last-child td { border-bottom:none; }
+    .ap-table .w { font-family:"JetBrains Mono",monospace; color:var(--yellow); font-weight:600; white-space:nowrap; }
+    .ap-table .cmp { color:#fff; font-weight:600; white-space:nowrap; }
+
+    /* === COMP CARDS === */
+    .comp-tier { margin-bottom:28px; }
+    .comp-tier > h3 { color:#fff; font-size:20px; font-weight:700; margin-bottom:6px; }
+    .comp-tier > .tsub { color:var(--grey-300); font-size:13px; margin-bottom:16px; }
+    .comp-card { background:var(--navy-card); border:1px solid var(--card-border); border-radius:var(--radius); padding:24px; }
+    .comp-card .lens { font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:0.6px; text-transform:uppercase; margin-bottom:14px; font-weight:600; }
+    .comp-card .lens.us { color:var(--yellow); }
+    .comp-card .lens.latam { color:var(--blue-light); }
+    .comp-band { font-size:28px; font-weight:800; color:#fff; letter-spacing:-1px; line-height:1; margin-bottom:2px; }
+    .comp-band .cur { font-size:15px; color:var(--grey-300); font-weight:600; }
+    .comp-sub { font-size:12px; color:var(--grey-300); margin-bottom:16px; }
+    .comp-row { display:flex; justify-content:space-between; gap:16px; padding:9px 0; border-top:1px solid var(--card-border); }
+    .comp-row .k { color:var(--grey-300); font-size:13px; }
+    .comp-row .v { color:#fff; font-weight:600; font-size:13px; text-align:right; }
+    .est { display:inline-block; font-family:"JetBrains Mono",monospace; font-size:10px; color:var(--navy); background:var(--blue-light); border-radius:4px; padding:2px 6px; margin-left:8px; letter-spacing:0.4px; vertical-align:middle; }
+
+    /* === FLAG CARDS === */
+    .flag-card { border-radius:var(--radius); padding:20px 22px; border:1px solid var(--card-border); }
+    .flag-card h4 { font-size:15px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+    .flag-card.green { background:rgba(15,151,61,0.07); border-color:rgba(15,151,61,0.3); }
+    .flag-card.green h4 { color:#7ee2a4; }
+    .flag-card.red { background:rgba(212,38,32,0.06); border-color:rgba(212,38,32,0.3); }
+    .flag-card.red h4 { color:#ff9a95; }
+    .flag-card ul { list-style:none; }
+    .flag-card li { color:var(--grey-200); font-size:13.5px; line-height:1.5; padding:5px 0 5px 18px; position:relative; }
+    .flag-card li::before { content:""; position:absolute; left:0; top:12px; width:6px; height:6px; border-radius:50%; }
+    .flag-card.green li::before { background:var(--success); }
+    .flag-card.red li::before { background:var(--error); }
+  </style>
+</head>
+<body>
+  <header class="ap-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48"><rect width="81" height="81" fill="#040735"/><path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/><path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/><path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/><path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/><path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/><path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/><path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/></svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>The AI Growth Engineer</h1>
+      <p>What one AI-native growth role looks like for ecommerce — and whether the function really collapses</p>
+    </div>
+  </header>
+
+  <div class="ap-content">
+    <div class="ap-tabs" role="tablist">
+      <button class="ap-tab active" data-tab="summary" role="tab"><span class="tnum">01</span>Executive Summary</button>
+      <button class="ap-tab" data-tab="outline" role="tab"><span class="tnum">02</span>Senior Role</button>
+      <button class="ap-tab" data-tab="junior" role="tab"><span class="tnum">03</span>Junior Role</button>
+      <button class="ap-tab" data-tab="scorecard" role="tab"><span class="tnum">04</span>Hiring Scorecard</button>
+      <button class="ap-tab" data-tab="perspectives" role="tab"><span class="tnum">05</span>Perspectives</button>
+      <button class="ap-tab" data-tab="faq" role="tab"><span class="tnum">06</span>FAQ</button>
+    </div>
+
+    <!-- ===== TAB 1: EXECUTIVE SUMMARY ===== -->
+    <section class="ap-panel active" id="summary" role="tabpanel">
+      <div class="ap-kicker">Executive Summary</div>
+      <p class="lead">Growth for an ecommerce brand has always been split across a team, an agency, a freelancer bench, and a stack of tools. The question this page answers: what does it look like when AI compresses that entire function toward a single role — and, honestly, how far that compression actually goes.</p>
+
+      <div class="prose" style="margin-top:32px;">
+        <p><strong>The thesis.</strong> "Growth engineer" is a real, established title in tech — the intersection of software engineering and growth. Ported to ecommerce, it stops being about viral loops and becomes about the connected system that moves a brand from offer to acquisition to retention. AI is now capable enough to run most of the individual levers, which raises a live strategic question: does the whole growth department collapse into one AI-native operator?</p>
+
+        <p><strong>The honest answer.</strong> Not into a <em>person</em> — into a <em>system with a conductor on top</em>. The market consensus is that the surviving human role is an orchestrator who sets outcomes while agents execute across the levers. The individual capabilities (creative, media buying, landing pages, copy) are rapidly commoditizing. What does not commoditize is the connective layer that grounds those agents in a specific brand and keeps the whole thing from fragmenting.</p>
+      </div>
+
+      <div class="divider-note">
+        <p><strong>Bottom line:</strong> The equivalent of this role today is still an org chart — a Head of Growth coordinating 5–7 specialists and 10+ tools, at mid-six-figures a year in headcount and retainers, with seams between every function. The opportunity is to replace the seams, not just the seats.</p>
+      </div>
+
+      <h3 class="ap-h3" style="margin:44px 0 20px;">The seven components at a glance</h3>
+      <div class="pillbar">
+        <span class="pill"><em>01</em> Product, Offer &amp; Price Testing</span>
+        <span class="pill"><em>02</em> Creative Strategy</span>
+        <span class="pill"><em>03</em> Creator / Affiliate / UGC</span>
+        <span class="pill"><em>04</em> Content &amp; Copywriting</span>
+        <span class="pill"><em>05</em> Landing Pages</span>
+        <span class="pill"><em>06</em> Media Buying &amp; Channel</span>
+        <span class="pill"><em>07</em> Measurement &amp; Attribution</span>
+      </div>
+
+      <div class="ap-grid-3" style="margin-top:32px;">
+        <div class="ap-stat">
+          <div class="ap-stat-num">7</div>
+          <div class="ap-stat-label">Levers, one operator</div>
+        </div>
+        <div class="ap-stat">
+          <div class="ap-stat-num">5&ndash;7</div>
+          <div class="ap-stat-label">Roles it compresses today</div>
+        </div>
+        <div class="ap-stat">
+          <div class="ap-stat-num">1</div>
+          <div class="ap-stat-label">Durable moat: the connective layer</div>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:40px;">
+        <p><strong>Why it matters now.</strong> The historical bottleneck in performance marketing was creative volume — media buying could be automated for years, but feeding the algorithms enough creative required expensive human production. Generative AI broke that bottleneck. With the most labor-intensive lever suddenly cheap, single-operator scale across all seven components becomes structurally possible for the first time.</p>
+      </div>
+    </section>
+
+    <!-- ===== TAB 2: JOB OUTLINE ===== -->
+    <section class="ap-panel" id="outline" role="tabpanel">
+      <div class="ap-kicker">Senior Role</div>
+      <h2 class="ap-h2" style="margin-bottom:12px;">Senior AI Growth Engineer</h2>
+      <p class="lead">The orchestrator who owns the whole system: sets the strategy, directs the agents across all seven levers, and owns the economics and the connective layer running underneath. Below, the seven components in sequence — each framed through what AI now does inside it.</p>
+
+      <div style="margin-top:36px;">
+        <div class="ap-value">
+          <div class="ap-value-num">01</div>
+          <div class="ap-value-body">
+            <h4>Product, Offer &amp; Price Testing <span style="color:var(--yellow);font-weight:600;font-size:13px;">· lever zero</span></h4>
+            <p>Upstream of everything. AI for bundle, guarantee, and price-architecture testing; competitor offer scraping; simulating price points against margin. A strong offer makes mediocre media buying profitable; a weak one makes elite media buying lose money.</p>
+            <span class="tag">Pulse Offer agent</span>
+          </div>
+        </div>
+
+        <div class="ap-value">
+          <div class="ap-value-num">02</div>
+          <div class="ap-value-body">
+            <h4>Creative Strategy</h4>
+            <p>AI angle generation, hook mining from competitor libraries, avatar and messaging synthesis, and creative scoring or performance prediction before a dollar of spend is committed.</p>
+          </div>
+        </div>
+
+        <div class="ap-value">
+          <div class="ap-value-num">03</div>
+          <div class="ap-value-body">
+            <h4>Creator / Affiliate / UGC</h4>
+            <p>AI-driven creator sourcing and scoring. Sits between strategy and production because it is both a distribution channel and a creative-supply engine — UGC feeds directly back into content.</p>
+            <span class="tag">Creator Performance Network</span>
+          </div>
+        </div>
+
+        <div class="ap-value">
+          <div class="ap-value-num">04</div>
+          <div class="ap-value-body">
+            <h4>Content &amp; Copywriting <span style="color:var(--yellow);font-weight:600;font-size:13px;">· incl. generative AI</span></h4>
+            <p>Generative image and video, AI copy for ads, landing pages, and email, and variant production at volume. The horizontal medium that strategy, landing pages, and retention all express through.</p>
+            <span class="tag">Cinematic Ad Factory · AI twins</span>
+          </div>
+        </div>
+
+        <div class="ap-value">
+          <div class="ap-value-num">05</div>
+          <div class="ap-value-body">
+            <h4>Landing Pages</h4>
+            <p>AI landing-page generation, automated CRO and variant testing, and personalization by traffic source.</p>
+          </div>
+        </div>
+
+        <div class="ap-value">
+          <div class="ap-value-num">06</div>
+          <div class="ap-value-body">
+            <h4>Media Buying &amp; Channel Portfolio</h4>
+            <p>AI mix decisions across Meta, Google, TikTok, native, and marketplaces, plus budget allocation, automated launch/kill, bid and audience optimization, and cross-account orchestration.</p>
+            <span class="tag">AdManage · Noor</span>
+          </div>
+        </div>
+
+        <div class="ap-value">
+          <div class="ap-value-num">07</div>
+          <div class="ap-value-body">
+            <h4>Measurement &amp; Attribution <span style="color:var(--yellow);font-weight:600;font-size:13px;">· the nervous system</span></h4>
+            <p>Server-side tracking, incrementality, and AI surfacing which lever actually drove the result. Runs across all stages rather than sitting as one step in the chain.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-note">
+        <p><strong>How the sequence reads:</strong> 01&ndash;04 decide what you sell and what gets made · 05&ndash;06 get it in front of people · 07 runs underneath, telling you the truth about what worked. Financial modeling and retention fold into the system as connective logic and outcomes rather than standing as separate pillars.</p>
+      </div>
+
+      <h3 class="ap-h3" style="margin:44px 0 18px;">What the role actually is</h3>
+      <div class="prose">
+        <p><strong>An orchestrator, not an operator.</strong> The person does not personally do creative <em>or</em> media buying <em>or</em> copy. They set outcomes and direct a system of agents that execute across all seven levers. The value is in the connection and compounding, not in any single lever performed by hand.</p>
+        <p><strong>The skill profile</strong> blends a media buyer's grasp of unit economics (CAC, LTV, payback, contribution margin) with a data operator's fluency in tracking, feeds, and experimentation — plus the judgment to know when an AI-generated result is real and when it is noise. They think like a performance marketer and a systems builder at once.</p>
+        <p><strong>What it replaces:</strong> a Head of Growth, a creative strategist, a media buyer, a CRO specialist, a UGC/affiliate manager, a copywriter-designer-editor pod, and a marketing analyst — coordinated instead of siloed.</p>
+      </div>
+    </section>
+
+    <!-- ===== TAB 3: JUNIOR ROLE ===== -->
+    <section class="ap-panel" id="junior" role="tabpanel">
+      <div class="ap-kicker">Junior Role</div>
+      <h2 class="ap-h2" style="margin-bottom:12px;">Junior AI Growth Engineer</h2>
+      <p class="lead">The executor inside the system. Operates the agents, produces at volume, QAs the output, and keeps the plumbing clean — learning the levers one at a time under senior direction. The junior runs the machine; the senior designs it.</p>
+
+      <div class="ap-grid-2" style="margin-top:32px;">
+        <div class="ap-card">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--yellow);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">Senior owns</div>
+          <p class="ap-p-sm" style="color:var(--grey-100);">Strategy · the offer decision · budget allocation · scale/kill authority · the economic model · the connective layer itself. Sets outcomes.</p>
+        </div>
+        <div class="ap-card">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue-light);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">Junior operates</div>
+          <p class="ap-p-sm" style="color:var(--grey-100);">Agent execution · variant production · QA · test setup · tracking hygiene · dashboards · research. Delivers to spec.</p>
+        </div>
+      </div>
+
+      <h3 class="ap-h3" style="margin:44px 0 20px;">Responsibilities by lever</h3>
+      <div>
+        <div class="ap-value">
+          <div class="ap-value-num">01</div>
+          <div class="ap-value-body">
+            <h4>Product, Offer &amp; Price Testing</h4>
+            <p>Runs competitor offer scraping and logs findings; builds the test variants the senior designs; populates margin simulations with clean data. Surfaces patterns — doesn't decide the offer.</p>
+          </div>
+        </div>
+        <div class="ap-value">
+          <div class="ap-value-num">02</div>
+          <div class="ap-value-body">
+            <h4>Creative Strategy</h4>
+            <p>Mines hooks and angles from competitor libraries into a tagged, searchable library; runs the creative-scoring tool and compiles the rankings; drafts first-pass angle lists for senior review.</p>
+          </div>
+        </div>
+        <div class="ap-value">
+          <div class="ap-value-num">03</div>
+          <div class="ap-value-body">
+            <h4>Creator / Affiliate / UGC</h4>
+            <p>Sources and screens creators with the scoring tool; manages outreach lists and briefs; tracks deliverables and files incoming UGC into the creative-supply library.</p>
+          </div>
+        </div>
+        <div class="ap-value">
+          <div class="ap-value-num">04</div>
+          <div class="ap-value-body">
+            <h4>Content &amp; Copywriting</h4>
+            <p>Operates the generative image, video, and copy tools to produce variants at volume; QAs every output for brand fit, claims accuracy, and quality; versions and files assets cleanly. The highest-volume part of the junior day.</p>
+          </div>
+        </div>
+        <div class="ap-value">
+          <div class="ap-value-num">05</div>
+          <div class="ap-value-body">
+            <h4>Landing Pages</h4>
+            <p>Builds LP variants from templates; sets up and launches the CRO tests the senior specs; QAs rendering across devices and confirms tracking fires before pages go live.</p>
+          </div>
+        </div>
+        <div class="ap-value">
+          <div class="ap-value-num">06</div>
+          <div class="ap-value-body">
+            <h4>Media Buying &amp; Channel</h4>
+            <p>Launches and names campaigns to plan; monitors dashboards daily; flags fatigue and anomalies; executes the launch/kill rules the senior sets (does not set them); keeps naming and UTM hygiene airtight.</p>
+          </div>
+        </div>
+        <div class="ap-value">
+          <div class="ap-value-num">07</div>
+          <div class="ap-value-body">
+            <h4>Measurement &amp; Attribution</h4>
+            <p>Maintains pixel, CAPI, and event hygiene; builds and maintains dashboards; QAs tracking; pulls the numbers and flags discrepancies before they reach a decision.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-note">
+        <p><strong>What the junior does not own yet:</strong> strategy, the offer decision, budget allocation, scale/kill authority, the unit-economics targets, and the connective layer. Ownership of these is exactly what the progression to senior unlocks — earned one lever at a time.</p>
+      </div>
+
+      <h3 class="ap-h3" style="margin:44px 0 18px;">Skill profile</h3>
+      <div class="prose">
+        <p><strong>Core:</strong> fluent with AI tools and prompt iteration; a sharp QA eye and real attention to detail; basic data literacy (reads a dashboard, spots an anomaly); disciplined about asset, naming, and tracking hygiene; a fast learner willing to go deep on one lever at a time.</p>
+        <p><strong>Nice to have:</strong> light no-code or scripting ability, and familiarity with the Shopify and ad-platform UIs. The junior is hired for judgment-in-training and reliability, not for owning outcomes — that comes later.</p>
+      </div>
+
+      <h3 class="ap-h3" style="margin:44px 0 18px;">The path to senior</h3>
+      <div class="prose">
+        <p>Progression is lever-by-lever: the junior masters execution on one component under direction, earns ownership of it, then repeats across the stack. Seniority arrives when they can own the economics and the connective layer — the moment they shift from <em>running</em> the machine to <em>designing</em> it.</p>
+      </div>
+    </section>
+
+    <!-- ===== TAB 5: HIRING SCORECARD ===== -->
+    <section class="ap-panel" id="scorecard" role="tabpanel">
+      <div class="ap-kicker">Hiring Scorecard</div>
+      <h2 class="ap-h2" style="margin-bottom:12px;">Screen candidates against this</h2>
+      <p class="lead">Seven weighted competencies, each with a distinct bar for junior (execution) versus senior (ownership). Score every candidate 1&ndash;5 per row, weight, and compare against the thresholds below. The work sample is where most of the signal actually comes from.</p>
+
+      <div class="wrap-scroll">
+        <table class="ap-table">
+          <thead><tr><th>Competency</th><th>Weight</th><th>Junior bar (pass)</th><th>Senior bar (pass)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>AI tool fluency &amp; prompt craft</strong></td><td class="w">15%</td><td>Operates the core agents; iterates prompts to a usable result</td><td>Designs prompt systems &amp; agent workflows others run</td></tr>
+            <tr><td><strong>Unit economics literacy</strong></td><td class="w">15%</td><td>Reads CAC / ROAS / AOV and knows what they mean</td><td>Owns the model — payback, contribution margin, targets, forecasts</td></tr>
+            <tr><td><strong>Creative judgment</strong></td><td class="w">15%</td><td>Spots a strong hook; drafts credible angle lists</td><td>Sets creative strategy; predicts what scales before spend</td></tr>
+            <tr><td><strong>Measurement &amp; tracking rigor</strong></td><td class="w">15%</td><td>Keeps pixels/events clean; builds dashboards; flags discrepancies</td><td>Owns attribution &amp; incrementality; decides which signal is truth</td></tr>
+            <tr><td><strong>Systems &amp; automation instinct</strong></td><td class="w">10%</td><td>Follows and maintains the workflows reliably</td><td>Builds the connective layer; removes headcount with systems</td></tr>
+            <tr><td><strong>Ownership &amp; autonomy</strong></td><td class="w">15%</td><td>Delivers to spec; escalates at the right moments</td><td>Owns outcomes end-to-end; makes the scale/kill calls</td></tr>
+            <tr><td><strong>Communication under ambiguity</strong></td><td class="w">15%</td><td>Clear updates; asks the right questions</td><td>Frames the problem; defensible decisions on incomplete data</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="divider-note">
+        <p><strong>Scoring key:</strong> score each row 1&ndash;5, multiply by weight, sum to a 5-point weighted total. &nbsp;<strong style="color:#fff;">Junior hire:</strong> weighted &ge; 3.2, nothing below 2, clear strength on tool fluency, creative eye, and tracking. &nbsp;<strong style="color:#fff;">Senior hire:</strong> weighted &ge; 4.0, nothing below 3, and 4+ on both unit economics and ownership.</p>
+      </div>
+
+      <h3 class="ap-h3" style="margin:40px 0 18px;">Work sample (where the real signal is)</h3>
+      <div class="ap-grid-2">
+        <div class="ap-card">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--yellow);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">Junior · 48-hour take-home</div>
+          <p class="ap-p-sm" style="color:var(--grey-100);">Give them a competitor ad library and a brief. Ask for: a tagged hook/angle teardown, three AI-generated creative variants with rationale, and a QA checklist showing what they caught in the AI output. Tests tool fluency, creative eye, and — critically — the QA reflex.</p>
+        </div>
+        <div class="ap-card">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue-light);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">Senior · same + real account</div>
+          <p class="ap-p-sm" style="color:var(--grey-100);">Add a real ad-account export. Ask for: a launch/kill call with reasoning, a unit-economics read (is this profitable at target CAC?), and a 30-day scaling plan. Tests economics ownership, decision-making, and systems thinking under real constraints.</p>
+        </div>
+      </div>
+
+      <h3 class="ap-h3" style="margin:40px 0 18px;">Flags to screen on</h3>
+      <div class="ap-grid-2">
+        <div class="flag-card green">
+          <h4>Green flags</h4>
+          <ul>
+            <li>Describes impact in lift — "cut CAC 35%," not "ran Meta ads"</li>
+            <li>Ships 3&ndash;5 things a week and knows which 2 mattered</li>
+            <li>Strong QA eye — treats AI output as a draft, not a deliverable</li>
+            <li>Has owned a number and can defend the calls behind it</li>
+            <li>Pragmatic: a working POC in days beats a perfect plan in weeks</li>
+          </ul>
+        </div>
+        <div class="flag-card red">
+          <h4>Red flags</h4>
+          <ul>
+            <li>Lists tools and platforms but no quantified results</li>
+            <li>Can't read a dashboard or explain an attribution gap</li>
+            <li>Rubber-stamps AI output — no instinct for what's wrong with it</li>
+            <li>Needs weeks to architect; no bias toward shipping</li>
+            <li>Vague on economics; can't say what makes a campaign profitable</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 6: PERSPECTIVES ===== -->
+    <section class="ap-panel" id="perspectives" role="tabpanel">
+      <div class="ap-kicker">Different Perspectives</div>
+      <h2 class="ap-h2" style="margin-bottom:12px;">Does the function actually collapse into one role?</h2>
+      <p class="lead">The industry mostly agrees on the direction. It splits sharply on how far the collapse really goes. Four camps, including the dissent worth taking seriously.</p>
+
+      <div style="margin-top:36px;">
+        <div class="persp">
+          <div class="persp-head">
+            <span class="pnum">01</span>
+            <h4>Orchestrator, not operator</h4>
+            <span class="stance consensus">Dominant view</span>
+          </div>
+          <p>The prevailing take is that collapse is real, but the surviving role is a conductor rather than a doer. Practitioners describe running strategy through AI for velocity, then handing execution to agents across functions — the valuable marketer is no longer the one writing the best ad or building the prettiest dashboard, but the one directing the system.</p>
+          <p>Platform voices frame the same shift as marketers moving away from operational heavy lifting toward defining goals, with the system proposing the pathways to hit them.</p>
+          <p class="src">Sources: Predict / Medium (founder essay) · mParticle via MarTech</p>
+        </div>
+
+        <div class="persp">
+          <div class="persp-head">
+            <span class="pnum">02</span>
+            <h4>It's already a stack, not a role</h4>
+            <span class="stance nuance">Reframe</span>
+          </div>
+          <p>This camp argues the collapse already happened — but into an integrated four-layer system spanning acquisition, conversion, retention, and operations, each with its own tools and KPIs, not into a single person. The winners in 2025 were not the brands with better tools but the ones with the discipline to sequence, integrate, and operate them with strategic intent.</p>
+          <p>Their sharpest point: the old creative bottleneck broke in 2025, which is precisely what makes single-operator scale possible in the first place.</p>
+          <p class="src">Source: Advisable — AI-Powered Growth Stack for Ecommerce (2026)</p>
+        </div>
+
+        <div class="persp">
+          <div class="persp-head">
+            <span class="pnum">03</span>
+            <h4>It's repricing, not collapsing</h4>
+            <span class="stance dissent">The dissent</span>
+          </div>
+          <p>The most important counter-argument. What looks like collapse is better understood as repricing: AI slashes the cost of the coordination "wrappers" around tasks, but it does not slash the cost of carrying liability. The parts that survive are the ones absorbing real operational risk — governance, evidence, integration, compliance.</p>
+          <p>There's a nasty second-order effect too: when teams can spin up tools cheaply, they build <em>more</em> of them, each locally rational but globally disconnected. Cheap agents can quietly re-fragment the very function you were trying to consolidate.</p>
+          <p class="src">Source: MarTech — "AI is repricing the marketing stack, not collapsing it"</p>
+        </div>
+
+        <div class="persp">
+          <div class="persp-head">
+            <span class="pnum">04</span>
+            <h4>AI exposes, it doesn't fix</h4>
+            <span class="stance nuance">Reality check</span>
+          </div>
+          <p>A recurring warning: the bottleneck was never the tools. AI does not replace the need for strategy — it makes weak strategy easier to see. Consolidation is claimed far more often than it is real.</p>
+          <p>The maturity data backs this up: a large share of marketing leaders remain in an "at-risk" tier, using AI only to assist humans on isolated tasks, having piloted many use cases but never scaled them across the business or transformed their operating model. The gap between claimed and actual transformation is the real story.</p>
+          <p class="src">Sources: MJ Digital · BCG — agentic marketing transformation (2026)</p>
+        </div>
+      </div>
+
+      <div class="divider-note">
+        <p><strong>What survives all four critiques:</strong> the moat is not the seven levers — everyone can now spin up an AI creative tool or a media-buying agent. The moat is the connective layer that carries operational risk and prevents re-fragmentation: a brand-specific intelligence layer that grounds the agents and functions as the operating blueprint the whole system thinks through. The levers are what you <em>do</em>; the connective tissue is what you <em>own</em>.</p>
+      </div>
+    </section>
+
+    <!-- ===== TAB 7: FAQ ===== -->
+    <section class="ap-panel" id="faq" role="tabpanel">
+      <div class="ap-kicker">FAQ</div>
+      <h2 class="ap-h2" style="margin-bottom:28px;">Questions this raises</h2>
+
+      <details class="faq" open>
+        <summary>Is "growth engineer" even a real title?</summary>
+        <div class="faq-body">
+          <p>Yes — it's well-established in tech and startups, sitting at the intersection of software engineering and growth marketing. Classic growth engineers build the technical infrastructure behind acquisition, activation, retention, and monetization: A/B frameworks, referral systems, onboarding flows, analytics pipelines.</p>
+          <p>The ecommerce version reshapes the focus. Instead of in-product viral loops, it centers on the connected system that runs a store's offer, funnel, acquisition, and retention.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>How is this different from a Head of Growth?</summary>
+        <div class="faq-body">
+          <p>A Head of Growth is the closest existing title, but that person almost never <strong>executes</strong> across all seven levers — they <strong>manage</strong> specialists and stitch together vendors. They're a coordinator sitting on top of a fragmented org.</p>
+          <p>The AI-native version is defined by the opposite: one operator directing a system of agents that actually do the work across every lever, with the connective layer removing the seams a Head of Growth normally spends their time managing.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Can one person realistically do all seven?</summary>
+        <div class="faq-body">
+          <p>Not by hand — and that's the point. The role isn't a superhuman generalist doing seven jobs; it's an orchestrator setting outcomes while agents execute. This only became structurally possible once generative AI broke the creative-production bottleneck, which was historically the most labor-intensive lever.</p>
+          <p>The honest caveat: the dissenting view (see Perspectives) argues cheap tools can re-fragment the system unless someone owns the connective layer. One person plus a system works; one person plus ten disconnected tools does not.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>What's the split between a junior and senior version of this role?</summary>
+        <div class="faq-body">
+          <p>The <strong>senior</strong> is the orchestrator: sets strategy, directs the agents across all seven levers, and owns the economics and the connective layer. The <strong>junior</strong> is the executor: operates the agents, produces variants at volume, QAs output, runs the tests the senior designs, and keeps tracking and naming hygiene clean.</p>
+          <p>Put simply — the junior runs the machine, the senior designs it. Progression is lever-by-lever: master execution on one component, earn ownership of it, repeat. Seniority arrives when the person can own the economics and the connective layer themselves. See the Senior Role and Junior Role tabs for the full breakdown.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>If AI commoditizes the levers, where's the moat?</summary>
+        <div class="faq-body">
+          <p>Exactly in the part that <strong>isn't</strong> a lever. Anyone can spin up an AI creative tool or a media-buying agent. Almost no one has a grounded, brand-specific integration layer — the intelligence layer that encodes a brand's rules and context so agents interpret data correctly, and functions as the operating blueprint the whole system runs on.</p>
+          <p>Across every critique in the Perspectives tab, that connective layer is the one thing that survives as durable. The levers are what you do; the connective tissue is what you own.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Isn't this just an agency by another name?</summary>
+        <div class="faq-body">
+          <p>It can be sold three ways, and they're genuinely different: as a <strong>role</strong> (a fractional AI growth engineer), as <strong>software</strong> (the levers productized), or as an <strong>agency</strong> that quietly runs all seven on a brand's behalf.</p>
+          <p>The distinction that matters isn't the packaging — it's whether you're selling seven point solutions or the connective layer that makes them compound. The defensible position is "we are the integration layer," not "we have seven tools."</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Where did financial models and retention go?</summary>
+        <div class="faq-body">
+          <p>They were deliberately folded into the system rather than listed as standalone pillars. <strong>Financial modeling</strong> (CAC, LTV, payback, contribution margin) becomes the connective economic logic across all seven levers — every decision runs through it rather than it being a separate step. <strong>Retention</strong> becomes an outcome the system drives, not a discrete lever operated in isolation.</p>
+          <p>Measurement stayed explicit (as #7) because it's the nervous system the operator can't act without.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>What does the equivalent cost a brand right now?</summary>
+        <div class="faq-body">
+          <p>Today's equivalent is an org chart, not a hire: a Head of Growth coordinating 5–7 specialists plus agency retainers and a freelancer bench — commonly mid-six-figures a year in blended headcount and fees — and it still runs with seams between every function.</p>
+          <p>The strategic pitch hiding in this framing is that you're not describing a job. You're describing what replaces a department.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>What's the single biggest risk to the thesis?</summary>
+        <div class="faq-body">
+          <p>Re-fragmentation. The same low build costs that let one operator consolidate also let everyone spin up more disconnected tools — locally rational, globally messy. And AI doesn't reduce the cost of carrying liability (governance, compliance, evidence), so the risk-bearing parts don't vanish.</p>
+          <p>The mitigation is the same as the moat: own the connective layer that carries the risk and enforces a single source of truth. Without it, "one AI growth engineer" quietly becomes "one person babysitting ten tools."</p>
+        </div>
+      </details>
+    </section>
+  </div>
+
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36" style="opacity:0.5"><rect width="81" height="81" fill="#040735"/><path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/><path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/><path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/><path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/><path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/><path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/><path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/></svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal &middot; July 17, 2026</p>
+  </footer>
+
+  <script>
+  (function(){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.ap-tab'));
+    var panels = Array.prototype.slice.call(document.querySelectorAll('.ap-panel'));
+    function activate(id){
+      tabs.forEach(function(t){ t.classList.toggle('active', t.getAttribute('data-tab') === id); });
+      panels.forEach(function(p){ p.classList.toggle('active', p.id === id); });
+      try { history.replaceState(null, '', '#' + id); } catch(e){}
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){ activate(t.getAttribute('data-tab')); });
+    });
+    // Deep-link support: open the tab named in the hash on load.
+    var initial = (location.hash || '').replace('#','');
+    if (initial && document.getElementById(initial) && document.getElementById(initial).classList.contains('ap-panel')) {
+      activate(initial);
+    }
+  })();
+  </script>
+</body>
+</html>
