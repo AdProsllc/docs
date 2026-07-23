@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#040735">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<meta name="author" content="Omar">
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate icon" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="mask-icon" href="/favicon.svg" color="#040735">
+<title>TaxSolve: Voice of the Customer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#040735;
+  --navy-deep:#02041f;
+  --navy-card:#070b3d;
+  --navy-card-2:#0a1050;
+  --yellow:#F9D900;
+  --blue:#1A6FD4;
+  --blue-light:#3BA9F9;
+  --grey-100:#E6E6E7;
+  --grey-200:#B0B1B6;
+  --grey-300:#8A8B93;
+  --grey-400:#54556A;
+  --card-border:#0e1358;
+  --card-border-strong:#1a2375;
+  --success:#0F973D;
+  --success-light:#5fe39a;
+  --danger:#D42620;
+  --danger-light:#ff8d88;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--navy);
+  color:var(--grey-200);
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 12% -6%, rgba(26,111,212,0.20), transparent 60%),
+    radial-gradient(760px 480px at 92% 0%, rgba(249,217,0,0.07), transparent 55%);
+}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 22px}
+h1,h2,h3,h4{font-family:"Inter",sans-serif;font-weight:800;letter-spacing:-0.6px;color:#fff}
+.mono{font-family:"JetBrains Mono",monospace}
+em{font-style:normal;color:var(--yellow)}
+a{color:inherit}
+.muted{color:var(--grey-300)}
+
+/* ---------- HEADER ---------- */
+header{position:relative;z-index:2;padding:30px 0 8px}
+.brandrow{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{
+  width:42px;height:42px;border-radius:11px;flex:none;
+  background:var(--yellow);color:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  font-family:"Inter";font-weight:900;font-size:23px;letter-spacing:-1px;
+  box-shadow:0 6px 22px rgba(249,217,0,.22);
+}
+.brand .name{font-family:"Inter";font-weight:800;font-size:19px;line-height:1.1;color:#fff}
+.brand .name span{color:var(--grey-300);font-weight:500;font-size:14px}
+.brand .sub{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--grey-400);margin-top:3px}
+.kicker{
+  display:inline-flex;align-items:center;gap:9px;font-family:"JetBrains Mono",monospace;
+  font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-300);
+  border:1px solid var(--card-border-strong);border-radius:999px;padding:8px 14px;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 10px var(--yellow)}
+.btn-pdf{
+  font-family:"Inter";font-weight:600;font-size:13px;cursor:pointer;
+  background:transparent;color:var(--grey-100);
+  border:1px solid var(--card-border-strong);border-radius:9px;padding:9px 16px;
+  display:inline-flex;align-items:center;gap:8px;transition:.15s;
+}
+.btn-pdf:hover{border-color:var(--yellow);color:var(--yellow);background:rgba(249,217,0,.06)}
+
+.hero-title{margin:28px 0 8px;font-family:"Inter";font-weight:900;letter-spacing:-1.6px;font-size:clamp(30px,5vw,54px);line-height:1.02;color:#fff}
+.hero-sub{max-width:730px;color:var(--grey-200);font-size:15px}
+.rebrand{display:inline-block;margin-top:14px;font-size:12.5px;color:var(--grey-300);
+  border-left:3px solid var(--yellow);padding:2px 0 2px 12px;}
+.rebrand b{color:#fff;font-weight:600}
+
+/* ---------- AVATAR FILTER ---------- */
+.filterbar{margin:24px 0 6px;padding:16px 18px;background:var(--navy-card);border:1px solid var(--card-border);border-radius:14px}
+.filterbar .flabel{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--grey-300);margin-bottom:12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.filterbar .flabel .hint{text-transform:none;letter-spacing:0;color:var(--grey-400);font-size:12px;font-family:"Inter"}
+.chips{display:flex;gap:9px;flex-wrap:wrap}
+.chip{
+  font-family:"Inter";font-weight:500;font-size:13px;cursor:pointer;color:var(--grey-200);
+  background:transparent;border:1px solid var(--card-border-strong);border-radius:999px;
+  padding:8px 15px;transition:.15s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+}
+.chip .cdot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--grey-300)}
+.chip:hover{color:#fff;background:rgba(255,255,255,.04)}
+.chip.active{color:var(--navy);font-weight:700;background:var(--yellow);border-color:var(--yellow)}
+.chip.active .cdot{background:var(--navy)}
+.filter-note{margin-top:12px;font-size:12.5px;color:var(--yellow);display:none}
+.filter-note.show{display:block}
+.filter-note b{font-weight:700}
+
+/* ---------- TAB NAV ---------- */
+.tabsnav{position:sticky;top:0;z-index:20;margin:20px 0 4px;padding:8px 0;
+  background:linear-gradient(180deg,var(--navy) 62%,transparent);backdrop-filter:blur(4px)}
+.tabsnav-inner{display:flex;gap:5px;overflow-x:auto;padding:5px;background:var(--navy-card);
+  border:1px solid var(--card-border);border-radius:12px;scrollbar-width:none}
+.tabsnav-inner::-webkit-scrollbar{display:none}
+.tab-btn{
+  font-family:"Inter";font-weight:600;font-size:13.5px;cursor:pointer;white-space:nowrap;
+  color:var(--grey-300);background:transparent;border:none;border-radius:9px;padding:10px 15px;transition:.15s;
+  display:flex;align-items:center;gap:8px;
+}
+.tab-btn .num{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:12px;color:var(--grey-400)}
+.tab-btn:hover{color:#fff;background:rgba(255,255,255,.04)}
+.tab-btn.active{color:var(--navy);background:var(--yellow);font-weight:700}
+.tab-btn.active .num{color:var(--navy)}
+
+/* ---------- STRUCTURE ---------- */
+.panel{background:var(--navy-card);border:1px solid var(--card-border);border-radius:14px;padding:24px}
+.section{display:none;padding:16px 0 60px;animation:fade .3s ease}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--yellow);margin-bottom:11px}
+.sec-h{font-size:clamp(26px,3.6vw,40px);line-height:1.08;margin-bottom:10px;letter-spacing:-1px}
+.sec-lead{color:var(--grey-200);max-width:770px;margin-bottom:26px;font-size:14.5px}
+
+.spine{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 26px;
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3px;color:var(--grey-300);text-transform:uppercase}
+.spine b{color:#fff;font-weight:500}
+.spine .arw{color:var(--yellow);font-size:14px}
+.spine .step{padding:7px 12px;border:1px solid var(--card-border-strong);border-radius:999px;background:rgba(255,255,255,.02)}
+
+/* ---------- OVERVIEW ---------- */
+.herobox{position:relative;overflow:hidden;background:
+  linear-gradient(150deg,rgba(26,111,212,.18),rgba(249,217,0,.05) 72%),var(--navy-card);
+  border:1px solid var(--card-border-strong);border-radius:18px;padding:38px 34px}
+.herobox .tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--yellow);margin-bottom:16px}
+.herobox .big{font-family:"Inter";font-weight:800;font-size:clamp(26px,4.4vw,46px);line-height:1.1;max-width:900px;letter-spacing:-1.4px;color:#fff}
+.herobox .qmark{position:absolute;right:24px;top:-46px;font-family:"Inter";font-weight:900;font-size:230px;color:rgba(255,255,255,.035);line-height:1}
+.herobox .attrib{margin-top:20px;color:var(--grey-200);font-size:13.5px;max-width:820px}
+.herobox .attrib b{color:#fff;font-weight:600}
+
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+.subhead{font-family:"Inter";font-weight:800;font-size:20px;color:#fff;margin:38px 0 16px;display:flex;align-items:center;gap:12px;letter-spacing:-.4px}
+.subhead .ln{flex:1;height:1px;background:var(--card-border-strong)}
+
+.signal{background:var(--navy-card);border:1px solid var(--card-border);border-radius:12px;padding:20px;transition:.18s}
+.signal:hover{border-color:var(--card-border-strong);transform:translateY(-3px)}
+.signal .n{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:14px;color:var(--yellow);
+  border:1px solid rgba(249,217,0,.35);border-radius:8px;width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.signal h4{font-size:15.5px;font-weight:700;margin-bottom:7px;line-height:1.25}
+.signal p{font-size:13px;color:var(--grey-200)}
+
+.stat{background:var(--navy-card-2);border:1px solid var(--card-border);border-radius:12px;padding:22px 18px;text-align:center}
+.stat .num{font-family:"Inter";font-weight:800;font-size:44px;line-height:1;color:var(--yellow);letter-spacing:-2px}
+.stat .lbl{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--grey-300);margin-top:9px}
+
+.subs-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.subpill{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--grey-200);background:rgba(255,255,255,.03);
+  border:1px solid var(--card-border);border-radius:999px;padding:6px 13px}
+.subpill b{color:var(--yellow);font-weight:500}
+
+/* ---------- VOICES ---------- */
+.arc-legend{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
+.arc-step{flex:1;min-width:130px;text-align:center;padding:13px;border-radius:11px;border:1px solid var(--card-border);
+  background:rgba(255,255,255,.02);font-size:11.5px;color:var(--grey-300)}
+.arc-step b{display:block;font-family:"Inter";font-weight:800;font-size:16px;color:#fff;margin-bottom:3px;letter-spacing:-.3px}
+.arc-1 b{color:var(--danger-light)}.arc-2 b{color:var(--yellow)}.arc-3 b{color:var(--blue-light)}.arc-4 b{color:var(--success-light)}
+
+.arc-block{margin-bottom:30px}
+.arc-title{font-family:"Inter";font-weight:800;font-size:21px;color:#fff;margin-bottom:5px;display:flex;align-items:center;gap:11px;letter-spacing:-.4px}
+.arc-title .pip{width:11px;height:11px;border-radius:50%}
+.arc-1 .pip{background:var(--danger-light)}.arc-2 .pip{background:var(--yellow)}.arc-3 .pip{background:var(--blue-light)}.arc-4 .pip{background:var(--success-light)}
+.arc-cap{font-size:12.5px;color:var(--grey-300);margin-bottom:16px}
+
+.rcard{background:var(--navy-card);border:1px solid var(--card-border);border-radius:12px;padding:16px 18px;transition:.15s}
+.rcard:hover{border-color:var(--card-border-strong);transform:translateY(-2px)}
+.rcard .rtop{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--grey-300)}
+.rcard .up{color:var(--grey-400)}
+.rcard .sub{color:var(--yellow);font-weight:500}
+.rcard .quote{font-size:14.5px;color:var(--grey-100);line-height:1.5}
+.rcard .av{margin-top:12px;font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--grey-400);display:inline-flex;align-items:center;gap:7px}
+.rcard .av .cdot{width:8px;height:8px;border-radius:50%}
+.masonry{columns:2;column-gap:16px}
+.masonry .rcard{break-inside:avoid;margin-bottom:16px}
+@media(max-width:640px){.masonry{columns:1}}
+
+/* ---------- AVATARS ---------- */
+.avcard{background:var(--navy-card);border:1px solid var(--card-border);border-radius:14px;padding:24px;position:relative;overflow:hidden;transition:opacity .2s,border-color .2s}
+.avcard.isnew{border-color:rgba(15,151,61,.5)}
+.avcard .glow{position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,rgba(249,217,0,.12),transparent 70%)}
+.avcard.isnew .glow{background:radial-gradient(circle,rgba(15,151,61,.18),transparent 70%)}
+.av-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px;position:relative}
+.av-name{font-family:"Inter";font-weight:800;font-size:22px;line-height:1.1;color:#fff;letter-spacing:-.6px}
+.av-idx{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
+.badge{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.5px;text-transform:uppercase;font-weight:500;
+  padding:5px 10px;border-radius:999px;white-space:nowrap}
+.badge.exist{background:rgba(255,255,255,.05);color:var(--grey-300);border:1px solid var(--card-border-strong)}
+.badge.new{background:rgba(15,151,61,.15);color:var(--success-light);border:1px solid rgba(15,151,61,.55)}
+.av-who{font-size:13px;color:var(--grey-200);margin:10px 0 16px}
+.av-block{margin-bottom:15px}
+.av-block .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--grey-400);margin-bottom:8px}
+.av-quotes .qq{border-left:2px solid var(--yellow);padding:2px 0 2px 12px;margin-bottom:9px;font-size:13px;color:var(--grey-100)}
+.av-quotes .qq .s{color:var(--grey-400);font-family:"JetBrains Mono",monospace;font-size:10.5px;display:block;margin-top:3px}
+.frow{display:flex;gap:9px;margin-bottom:9px;font-size:13px}
+.frow .ico{flex:none;width:22px;text-align:center}
+.frow .ft{color:var(--grey-200)}
+.frow .ft b{color:#fff;font-weight:600}
+.av-angles{margin-top:16px;padding-top:16px;border-top:1px solid var(--card-border)}
+.angle-tag{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--grey-100);
+  background:rgba(26,111,212,.14);border:1px solid rgba(26,111,212,.4);border-radius:8px;
+  padding:5px 10px;margin:0 6px 6px 0}
+.angle-tag .cc{font-family:"JetBrains Mono",monospace;color:var(--blue-light);font-size:10.5px;font-weight:500}
+.angle-tag.tnew{background:rgba(15,151,61,.1);border-color:rgba(15,151,61,.4)}
+.angle-tag.tnew .cc{color:var(--success-light)}
+
+/* ---------- ANGLES ---------- */
+.ang-row{background:var(--navy-card);border:1px solid var(--card-border);border-radius:14px;padding:22px;margin-bottom:16px;
+  display:grid;grid-template-columns:1.15fr 1.3fr .9fr;gap:22px;align-items:start}
+.ang-row.isnew{border-color:rgba(15,151,61,.45);background:linear-gradient(120deg,rgba(15,151,61,.06),transparent 60%),var(--navy-card)}
+.ang-row.imported{border-color:rgba(212,38,32,.45);background:linear-gradient(120deg,rgba(212,38,32,.06),transparent 60%),var(--navy-card)}
+@media(max-width:820px){.ang-row{grid-template-columns:1fr;gap:16px}}
+.ang-name{font-family:"Inter";font-weight:800;font-size:20px;line-height:1.12;margin-bottom:9px;color:#fff;letter-spacing:-.5px}
+.ang-col .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--grey-400);margin-bottom:9px}
+.proofq{font-size:14px;color:var(--grey-100);border-left:2px solid var(--yellow);padding-left:13px;line-height:1.45}
+.proofq .s{display:block;color:var(--yellow);font-family:"JetBrains Mono",monospace;font-size:11px;margin-top:7px}
+.proofq.none{border-color:var(--danger-light);color:var(--grey-200)}
+.proofq.none .s{color:var(--danger-light)}
+.concept-pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--grey-100);
+  background:rgba(255,255,255,.04);border:1px solid var(--card-border-strong);border-radius:8px;padding:6px 10px;margin:0 5px 5px 0}
+.concept-pill .cc{font-family:"JetBrains Mono",monospace;color:var(--yellow);font-size:11.5px;font-weight:500}
+.wludge{margin-top:6px;font-size:11.5px;color:var(--success-light)}
+.av-mini{display:inline-block;font-size:11px;color:var(--grey-200);background:rgba(255,255,255,.03);
+  border:1px solid var(--card-border-strong);border-radius:7px;padding:4px 9px;margin:0 5px 5px 0}
+.callout{background:linear-gradient(130deg,rgba(212,38,32,.14),transparent 66%),var(--navy-card);
+  border:1px solid rgba(212,38,32,.5);border-left:3px solid var(--danger);border-radius:12px;padding:24px;margin:6px 0 30px}
+.callout .cx{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.callout .cx .ic{width:30px;height:30px;border-radius:8px;background:rgba(212,38,32,.2);
+  display:flex;align-items:center;justify-content:center;color:var(--danger-light);font-weight:800;font-size:16px;flex:none}
+.callout .cx h4{font-size:19px;color:#fff;letter-spacing:-.4px}
+.callout p{font-size:13.5px;color:var(--grey-200)}
+.callout p b{color:#fff;font-weight:600}
+.callout .fine{color:var(--danger-light)}
+
+/* ---------- WEDGE ---------- */
+.wedge-hero{background:linear-gradient(140deg,rgba(26,111,212,.18),rgba(249,217,0,.05) 72%),var(--navy-card);
+  border:1px solid var(--card-border-strong);border-radius:16px;padding:30px;margin-bottom:24px}
+.wedge-hero .tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--yellow);margin-bottom:14px}
+.wedge-hero .big{font-family:"Inter";font-weight:800;font-size:clamp(22px,3.2vw,33px);line-height:1.14;max-width:770px;color:#fff;letter-spacing:-.8px}
+.wq{background:var(--navy-card);border:1px solid var(--card-border);border-radius:12px;padding:17px 18px;margin-bottom:14px;break-inside:avoid}
+.wq .t{font-size:14px;color:var(--grey-100);line-height:1.5}
+.wq .m{margin-top:10px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--yellow)}
+.comp-box{background:var(--navy-card-2);border:1px solid var(--card-border);border-radius:14px;padding:24px;margin-top:8px}
+.comp-box h4{font-size:18px;margin-bottom:6px;letter-spacing:-.4px}
+.comp-line{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--card-border);font-size:13px}
+.comp-line:last-child{border-bottom:none}
+.comp-line .ic{flex:none;color:var(--yellow)}
+.comp-line .ct{color:var(--grey-200)}
+.comp-line .ct b{color:#fff;font-weight:600}
+.payoff{margin-top:26px;text-align:center;font-family:"Inter";font-weight:800;
+  font-size:clamp(21px,3vw,30px);line-height:1.2;color:#fff;letter-spacing:-.8px}
+
+/* ---------- VOICE -> ADS ---------- */
+.adcard{background:var(--navy-card);border:1px solid var(--card-border);border-radius:14px;overflow:hidden;transition:.18s}
+.adcard:hover{border-color:var(--card-border-strong);transform:translateY(-3px)}
+.adcard.imported{border-color:rgba(212,38,32,.5)}
+.ad-src{padding:18px 20px;background:rgba(26,111,212,.09);border-bottom:1px solid var(--card-border)}
+.ad-src .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--blue-light);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.ad-src .q{font-size:14.5px;color:var(--grey-100);line-height:1.45}
+.ad-src .s{margin-top:9px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--yellow)}
+.ad-arrow{text-align:center;color:var(--yellow);font-size:18px;padding:8px 0;background:rgba(255,255,255,.015)}
+.ad-body{padding:18px 20px}
+.ad-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ad-c{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:12px;color:var(--navy);background:var(--yellow);border-radius:6px;padding:3px 9px}
+.ad-t{font-size:11px;color:var(--grey-200);background:rgba(255,255,255,.04);border:1px solid var(--card-border-strong);border-radius:6px;padding:4px 9px}
+.ad-hook{font-size:15px;color:#fff;line-height:1.45;font-weight:500}
+.ad-hook::before{content:"“";color:var(--yellow);font-weight:800;font-size:19px;margin-right:2px}
+.ad-hook::after{content:"”";color:var(--yellow);font-weight:800;font-size:19px;margin-left:2px}
+.ad-note{margin-top:12px;font-size:11.5px;color:var(--danger-light);display:flex;gap:7px;align-items:flex-start;line-height:1.45}
+.closeline{margin-top:32px;text-align:center;font-family:"Inter";font-weight:800;
+  font-size:clamp(21px,3vw,31px);line-height:1.2;color:#fff;letter-spacing:-.8px}
+
+/* ---------- SOURCES ---------- */
+.src-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.src-table th{text-align:left;font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--grey-400);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--card-border-strong)}
+.src-table td{padding:11px 12px;border-bottom:1px solid var(--card-border);color:var(--grey-200);vertical-align:top}
+.src-table tr:hover td{background:rgba(255,255,255,.02)}
+.src-table a{color:var(--grey-100);text-decoration:none}
+.src-table a:hover{color:var(--yellow)}
+.src-sub{color:var(--yellow);font-family:"JetBrains Mono",monospace;white-space:nowrap;font-size:11.5px}
+.src-depth{font-family:"JetBrains Mono",monospace;font-size:10px;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.src-depth.full{background:rgba(15,151,61,.15);color:var(--success-light)}
+.src-depth.scan{background:rgba(255,255,255,.05);color:var(--grey-300)}
+.src-wrap{overflow-x:auto}
+
+.hidden-by-filter{display:none !important}
+footer{border-top:1px solid var(--card-border);padding:26px 0 60px;color:var(--grey-400);font-size:12px;text-align:center}
+footer b{color:var(--grey-300)}
+
+/* ---------- PRINT ---------- */
+@media print{
+  body{background:#fff;color:#111}
+  body::before,.tabsnav,.filterbar,.btn-pdf,.ad-arrow{display:none !important}
+  .section{display:block !important;padding:14px 0;page-break-before:always}
+  .section:first-of-type{page-break-before:avoid}
+  .panel,.signal,.rcard,.avcard,.ang-row,.adcard,.wq,.herobox,.wedge-hero,.stat,.comp-box,.callout{
+    background:#fff !important;border:1px solid #ccc !important;color:#111 !important;box-shadow:none !important}
+  h1,h2,h3,h4,.sec-h,.ang-name,.av-name,.arc-title,.hero-title,.herobox .big,.payoff,.closeline{color:#111 !important}
+  .muted,.rcard .quote,.av-who,.proofq,.signal p,.sec-lead,.callout p,.comp-line .ct{color:#333 !important}
+  em,.stat .num,.payoff em,.closeline em,.herobox .big em,.hero-title em{color:#9a7d00 !important}
+  .masonry{columns:2}
+  a{color:#111 !important}
+}
+
+/* ---- Ad Pros client sidebar (publish) ---- */
+.ap-sidebar{position:fixed;top:0;left:0;height:100vh;width:280px;background:var(--navy-deep);border-right:1px solid var(--card-border);z-index:100;display:flex;flex-direction:column;transform:translateX(0);transition:transform .25s ease;overflow-y:auto}
+.ap-sidebar.collapsed{transform:translateX(-100%)}
+.ap-sidebar-header{padding:24px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--card-border)}
+.ap-sidebar-brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.ap-sidebar-brand-name{font-family:"Inter";font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.2px;line-height:1.2}
+.ap-sidebar-brand-sub{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--grey-300);margin-top:4px;letter-spacing:.5px}
+.ap-sidebar-section{padding:18px 20px 8px;font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:500;color:var(--grey-300);text-transform:uppercase;letter-spacing:.8px}
+.ap-sidebar-list{padding:0 12px 20px;display:grid;gap:4px}
+.ap-sidebar-item{display:block;padding:12px 14px;border-radius:8px;color:var(--grey-100);text-decoration:none;transition:background .12s;border-left:2px solid transparent}
+.ap-sidebar-item:hover{background:rgba(255,255,255,0.04);color:#fff}
+.ap-sidebar-item.current{background:rgba(249,217,0,0.08);border-left-color:var(--yellow);padding-left:12px}
+.ap-sidebar-item-title{font-size:13.5px;font-weight:500;line-height:1.3;color:#fff}
+.ap-sidebar-item.current .ap-sidebar-item-title{color:var(--yellow)}
+.ap-sidebar-item-date{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--grey-300);margin-top:3px}
+.ap-sidebar-toggle{position:fixed;top:170px;left:280px;z-index:101;width:22px;height:56px;padding:0;background:var(--navy-card);color:var(--grey-200);border:1.5px solid rgba(249,217,0,0.4);border-left:none;border-radius:0 10px 10px 0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:left .25s ease,background .15s,color .15s}
+.ap-sidebar-toggle:hover{background:var(--yellow);color:var(--navy);border-color:var(--yellow)}
+.ap-sidebar-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s ease}
+body:not(.ap-has-sidebar) .ap-sidebar-toggle{left:0}
+body:not(.ap-has-sidebar) .ap-sidebar-toggle svg{transform:rotate(180deg)}
+body.ap-has-sidebar{padding-left:280px;transition:padding-left .25s ease}
+@media(max-width:900px){body.ap-has-sidebar{padding-left:0}.ap-sidebar{box-shadow:12px 0 32px rgba(0,0,0,0.5);width:min(320px,88vw)}body.ap-has-sidebar .ap-sidebar-toggle{left:min(320px,88vw)}}
+@media print{.ap-sidebar,.ap-sidebar-toggle{display:none !important}body.ap-has-sidebar{padding-left:0 !important}}
+</style>
+</head>
+<body>
+<aside class="ap-sidebar" id="ap-sidebar" aria-label="All pages for TaxQuotes">
+  <div class="ap-sidebar-header">
+    <div class="ap-sidebar-brand">
+      <div class="ap-sidebar-brand-text">
+        <div class="ap-sidebar-brand-name">TaxQuotes</div>
+        <div class="ap-sidebar-brand-sub">Prepared by Ad Pros</div>
+      </div>
+    </div>
+  </div>
+  <div class="ap-sidebar-section" id="ap-sidebar-section">All reports</div>
+  <nav class="ap-sidebar-list" id="ap-sidebar-list" role="navigation">
+    <span style="padding:12px 14px;color:var(--grey-300);font-size:13px;">Loading&hellip;</span>
+  </nav>
+</aside>
+<button class="ap-sidebar-toggle" id="ap-sidebar-toggle" onclick="apSidebarToggle()" aria-label="Toggle sidebar" title="Toggle sidebar">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg>
+</button>
+<script>
+(function(){
+  var STORAGE='ap-sb-taxquotes';
+  var sidebar=document.getElementById('ap-sidebar');
+  var toggleBtn=document.getElementById('ap-sidebar-toggle');
+  var section=document.getElementById('ap-sidebar-section');
+  var list=document.getElementById('ap-sidebar-list');
+  var current=location.pathname;
+  function fmtDate(iso){if(!iso)return "";var d=new Date(iso);if(isNaN(d))return "";return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});}
+  function hideAll(){if(sidebar)sidebar.style.display='none';if(toggleBtn)toggleBtn.style.display='none';document.body.classList.remove('ap-has-sidebar');}
+  function setOpen(open){if(!sidebar)return;if(open){sidebar.classList.remove('collapsed');document.body.classList.add('ap-has-sidebar');}else{sidebar.classList.add('collapsed');document.body.classList.remove('ap-has-sidebar');}if(toggleBtn)toggleBtn.setAttribute('aria-expanded',open?'true':'false');try{localStorage.setItem(STORAGE,open?'open':'closed');}catch(e){}}
+  function initialOpen(){try{var v=localStorage.getItem(STORAGE);if(v==='open')return true;if(v==='closed')return false;}catch(e){}return window.matchMedia('(min-width: 901px)').matches;}
+  function clearChildren(el){while(el.firstChild)el.removeChild(el.firstChild);}
+  setOpen(initialOpen());
+  window.apSidebarToggle=function(){var isOpen=!sidebar.classList.contains('collapsed');setOpen(!isOpen);};
+  document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!sidebar.classList.contains('collapsed'))setOpen(false);});
+  fetch('../pages.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(function(data){
+    var pages=(data&&data.pages)||[];
+    if(pages.length<2){hideAll();return;}
+    if(section)section.textContent='All reports · '+pages.length;
+    if(!list)return;clearChildren(list);
+    pages.forEach(function(p){var a=document.createElement('a');a.className='ap-sidebar-item'+(p.url===current?' current':'');a.href=p.url;var t=document.createElement('div');t.className='ap-sidebar-item-title';t.textContent=p.title||p.slug;a.appendChild(t);var d=document.createElement('div');d.className='ap-sidebar-item-date';d.textContent=fmtDate(p.date);a.appendChild(d);list.appendChild(a);});
+  }).catch(hideAll);
+})();
+</script>
+<div class="wrap">
+
+  <header>
+    <div class="brandrow">
+      <div class="brand">
+        <div class="logo">T</div>
+        <div>
+          <div class="name">TaxSolve <span>/ formerly TaxQuotes</span></div>
+          <div class="sub">Ad Pros · Brand Intelligence</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <span class="kicker"><span class="dot"></span> Voice-of-Customer Research</span>
+        <button class="btn-pdf" onclick="window.print()">⤓ Export PDF</button>
+      </div>
+    </div>
+
+    <h1 class="hero-title">The receipts behind <em>every</em> creative decision.</h1>
+    <p class="hero-sub">52 Reddit threads mined for how real people actually talk about owing the IRS, unfiled returns, garnishment, and relief-mill scams. Every quote ladders to the avatar it reveals, the angle it justifies, and the ad we're making.</p>
+    <div class="rebrand"><b>TaxQuotes is becoming TaxSolve.</b> This research locks the emotional core of the new brand: honesty, clarity, and the courage to open the envelope.</div>
+  </header>
+
+  <!-- AVATAR FILTER -->
+  <div class="filterbar">
+    <div class="flabel">Focus the whole story on one customer <span class="hint">(click an avatar to refocus the Voices, Angles and Ads tabs around that person)</span></div>
+    <div class="chips" id="chips"></div>
+    <div class="filter-note" id="filterNote"></div>
+  </div>
+
+  <!-- TAB NAV -->
+  <nav class="tabsnav">
+    <div class="tabsnav-inner" id="tabsnav"></div>
+  </nav>
+
+  <!-- SECTIONS -->
+  <main id="main"></main>
+
+  <footer>
+    Ad Pros Voice-of-Customer intelligence for <b>TaxSolve</b> (formerly TaxQuotes). Qualitative signal from 52 organic Reddit threads across 6 communities; verbatims lightly trimmed, meaning preserved. Directional research, not tax advice, and no client outcome is implied. Concept IDs reference the approved TaxQuotes Creative Matrix (July 2026). Sensitive-topic note: threads include financial distress and fear of enforcement.<div style="margin-top:14px;color:var(--grey-400);font-size:11px">Published by Omar · July 23, 2026</div>
+  </footer>
+
+</div>
+
+<script>
+/* ============================ DATA ============================ */
+const AVATARS = [
+  {id:"avoider", name:"Overwhelmed Avoider", color:"#F9D900", badge:"exist", idx:"Core · Matrix Priority 1",
+    who:"35 to 65. Ignored IRS letters for months or years out of fear until the problem got too big to avoid. Steady income and a real ability to pay something, but frozen by overwhelm and shame.",
+    quotes:[
+      {q:"After years of just being too scared to open the mail, I finally sat down with all the IRS notices.", s:"r/IRS"},
+      {q:"It is not the filing. It is the fear of what the number will be once they find out.", s:"r/tax"},
+      {q:"I want to get this resolved but I barely even know where to start.", s:"r/tax"},
+      {q:"I owe the IRS a little over $12K in taxes because I am an idiot.", s:"r/personalfinance"}
+    ],
+    fear:"The number itself. The dread of finding out how bad it really is.",
+    obj:"\"Scared of what the number is,\" plus a quiet fear of being scammed if they finally reach out.",
+    flip:"Reassurance that it's normal and fixable, a calm honest tone (not more fear), and one clear first step: a free, no-pressure diagnostic.",
+    angles:[{n:"It's Not Too Late",cc:"C008 · C010 · C013",new:false},{n:"Blindsided",cc:"C016",new:false},{n:"The AI IRS Is Coming",cc:"C001 · C002",new:false},{n:"No Debtor's Prison",cc:"data-driven",new:true}]},
+
+  {id:"skeptic", name:"The Skeptic", color:"#3BA9F9", badge:"exist", idx:"Core · Matrix Priority 2",
+    who:"35 to 60. Assumes every tax-relief company is a scam. Has already scrolled past or hung up on two or three firms promising to wipe out debt. Refuses to act until someone proves they're different.",
+    quotes:[
+      {q:"They all say 'settle for pennies!' but it feels too good to be true.", s:"r/IRS"},
+      {q:"I'm desperate for a real solution, but I'm even more scared of being taken advantage of when I'm this vulnerable.", s:"r/IRS"},
+      {q:"Avoid Optima. They will charge for nothing.", s:"r/personalfinance"},
+      {q:"We get at least 2 calls a week from people who used one of those companies and got burned.", s:"r/IRS"}
+    ],
+    fear:"Paying thousands and getting nothing. Being conned while at their most vulnerable.",
+    obj:"\"Is this a scam?\" It is the number-one objection in the whole category.",
+    flip:"The honesty USP: no promise before we review the case, naming the scam fear out loud, and live in-app proof they can't fake.",
+    angles:[{n:"The AI IRS Is Coming",cc:"C005 · C006",new:false},{n:"Not the Pennies-on-the-Dollar Guys",cc:"data-driven",new:true},{n:"No Debtor's Prison",cc:"data-driven",new:true}]},
+
+  {id:"helping", name:"Helping Someone You Love", color:"#5fe39a", badge:"exist", idx:"Core · Matrix Priority 3",
+    who:"30 to 50. An adult child stepping in for an overwhelmed parent buried in IRS letters. Tech-savvy, so they can run the 100% online process (form, appointment, doc upload) the parent can't.",
+    quotes:[
+      {q:"She hasn't filed her taxes in 3 years, and it's stressing me out. I've tried telling her.", s:"r/tax"},
+      {q:"…before the IRS puts a lien on the house, as it's her only asset.", s:"r/tax"},
+      {q:"She's too scared of what will happen. She thinks she's going under the radar.", s:"r/tax"},
+      {q:"Everything was done remotely from the comfort of my own home. They were there, every step.", s:"Client VOC"}
+    ],
+    fear:"The IRS seizing the parent's home, and a scammer preying on a vulnerable elder.",
+    obj:"The parent's pride and shame (\"he never told me\"), plus uncertainty about acting on someone else's behalf.",
+    flip:"Caregiver framing that makes the call an act of love, proof the whole thing runs remotely, and a live case-status app for peace of mind.",
+    angles:[{n:"For Someone You Love",cc:"C019 · C021 · C022",new:false},{n:"It's Not Too Late",cc:"C011",new:false},{n:"Blindsided",cc:"C017",new:false},{n:"For Someone You Love (App Demo)",cc:"C020",new:false}]},
+
+  {id:"selfemployed", name:"Self-Employed / Entrepreneur", color:"#1A6FD4", badge:"exist", idx:"Core · Matrix Priority 4",
+    who:"1099 contractors, freelancers and gig workers. Nobody withheld for them, so they never set aside for taxes or fell behind on quarterlies. Blindsided by a balance they can't pay at once.",
+    quotes:[
+      {q:"I earned around $50k as a 1099 consultant, but I did not pay taxes quarterly.", s:"r/tax"},
+      {q:"Underestimated my income and owe a big chunk of cash.", s:"r/freelance"},
+      {q:"Budgeting-wise I wasn't too smart. A portion of the profits I used to invest.", s:"r/personalfinance"},
+      {q:"I built a whole business but was too scared to open one IRS letter.", s:"r/tax"}
+    ],
+    fear:"A surprise balance they can't clear at once, while their books are a mess.",
+    obj:"\"Every company sounds the same and too good to be true,\" and \"my docs aren't ready.\"",
+    flip:"A relatable blindsided-1099 story, \"you don't need your books perfect first,\" and plain-English options (Fresh Start, Installment, PPIA).",
+    angles:[{n:"Blindsided",cc:"C014 · C015 · C018",new:false},{n:"It's Not Too Late",cc:"C012",new:false},{n:"The AI IRS Is Coming",cc:"C004 · C007",new:false},{n:"The Number Is Usually Lower",cc:"data-driven",new:true}]},
+
+  {id:"smallbiz", name:"Small-Business / Payroll-Tax Owner", color:"#FF9F6B", badge:"new", idx:"NEW: surfaced by the data",
+    who:"Owners behind on payroll (941 / trust-fund) taxes, staring down notices of intent to seize, and unable to even reach the IRS by phone. High-emotion, high-intent, and almost entirely un-spoken-to by the category.",
+    quotes:[
+      {q:"Behind on payroll tax.", s:"r/smallbusiness"},
+      {q:"The IRS started sending me some pretty scary notices (notices of intent to seize property).", s:"r/smallbusiness"},
+      {q:"It takes our staff CPAs 3 to 5 days of calling first thing in the morning just to reach the IRS.", s:"r/smallbusiness"},
+      {q:"Open a new business while owing back payroll taxes? The whole thing is an absolute cluster with fees and interest piling up.", s:"r/smallbusiness"}
+    ],
+    fear:"Property seizure and the trust-fund penalty, plus old debt blocking the next venture.",
+    obj:"\"I can't even get ahold of them,\" and \"this administration gutted the IRS.\"",
+    flip:"\"We absorb the hold time,\" resolving old debt so they can move forward, and handling federal, state and payroll together.",
+    angles:[{n:"We Wait on Hold So You Don't",cc:"white space",new:true},{n:"Small Business SOS",cc:"white space",new:true},{n:"File-First",cc:"data-driven",new:true}]}
+];
+
+const VOICES = [
+  {arc:1, name:"Dread", short:"the weight before action",
+   cap:"Before anyone acts, there is the weight: catastrophic debt, criminal fear, a number that feels bottomless.",
+   items:[
+    {q:"So, am I just waiting to go to jail at this point?", s:"r/personalfinance", up:"103", av:"avoider"},
+    {q:"It is not the filing. It is the fear of what the number will be once they find out.", s:"r/tax", up:"46", av:"avoider"},
+    {q:"How boned am I with the IRS?", s:"r/personalfinance", up:"178", av:"avoider"},
+    {q:"I owe more to the IRS than I will ever be able to pay.", s:"r/personalfinance", up:"3.0k", av:"avoider"},
+    {q:"I'm desperate for a real solution, but I'm even more scared of being taken advantage of when I'm this vulnerable.", s:"r/IRS", up:"32", av:"skeptic"},
+    {q:"…before the IRS puts a lien on the house, as it's her only asset.", s:"r/tax", up:"126", av:"helping"},
+    {q:"The interest and penalties accruing is going to make the amount owed financially devastating.", s:"r/tax", up:"23", av:"selfemployed"}
+   ]},
+  {arc:2, name:"Avoidance", short:"the unopened envelope",
+   cap:"The universal behavior. The unopened envelope is the category's defining image.",
+   items:[
+    {q:"After years of just being too scared to open the mail, I finally sat down with all the IRS notices.", s:"r/IRS", up:"", av:"avoider"},
+    {q:"I hadn't filed taxes in a decade.", s:"r/personalfinance", up:"", av:"avoider"},
+    {q:"She's too scared of what will happen. She thinks she's going under the radar.", s:"r/tax", up:"126", av:"helping"},
+    {q:"A return got rejected, that blocked me filing later years, so I just stopped doing it.", s:"r/personalfinance", up:"", av:"avoider"},
+    {q:"She hasn't filed her taxes in 3 years, and it's stressing me out.", s:"r/tax", up:"", av:"helping"},
+    {q:"Significant IRS debt being ignored. Head in the sand until it's unavoidable.", s:"r/tax", up:"9", av:"avoider"}
+   ]},
+  {arc:3, name:"Reckoning", short:"the number lands",
+   cap:"The moment they finally look, and the number lands by mail.",
+   items:[
+    {q:"It's bad. Like, 'sell the car'-level bad.", s:"r/IRS", up:"", av:"avoider"},
+    {q:"I just got my $90k bill from the IRS for 2022.", s:"r/tax", up:"", av:"selfemployed"},
+    {q:"The IRS says I owe them over $400,000. I make exactly $0 per year.", s:"r/personalfinance", up:"3.0k", av:"selfemployed"},
+    {q:"The IRS started sending me some pretty scary notices (notices of intent to seize property).", s:"r/smallbusiness", up:"19", av:"smallbiz"},
+    {q:"I earned around $50k as a 1099 consultant, but I did not pay taxes quarterly.", s:"r/tax", up:"", av:"selfemployed"},
+    {q:"Behind on payroll tax. And I can't even get ahold of them over the phone.", s:"r/smallbusiness", up:"8", av:"smallbiz"}
+   ]},
+  {arc:4, name:"Relief", short:"the weight lifts",
+   cap:"The promised land. Once they act, the weight lifts. Sell the after-state.",
+   items:[
+    {q:"A lot of stress went away.", s:"r/personalfinance", up:"", av:"avoider"},
+    {q:"This is exactly the kind of clear, no-BS roadmap I was hoping to find.", s:"r/IRS", up:"", av:"avoider"},
+    {q:"Your advice gave me somewhere to start to dig out of my feeling of defeat.", s:"r/tax", up:"", av:"avoider"},
+    {q:"He took care of it and I did not have to pay the IRS anything at all. Worth every penny.", s:"r/personalfinance", up:"", av:"skeptic"},
+    {q:"Between write-offs and credits, I was only left with a $1k bill.", s:"r/tax", up:"", av:"selfemployed"},
+    {q:"Went to their local office and they were by far the most helpful government employees I've ever worked with.", s:"r/personalfinance", up:"", av:"avoider"}
+   ]}
+];
+
+const SIGNALS = [
+  {h:"Fear of finding out is the engine", p:"People aren't blocked by filing. They're blocked by dread of the number. \"The fear of finding out is almost always worse than finding out.\""},
+  {h:"Avoidance is universal", p:"\"Too scared to open the mail,\" for years. The unopened envelope is the defining image of the entire category."},
+  {h:"Distrust of the relief mills runs deep", p:"Intense, repeated warnings against \"pennies on the dollar\" TV and radio firms (Optima, OIC mills, even astroturfing). Honesty is the sharpest wedge."},
+  {h:"File-first is the expert consensus", p:"The not-filing penalty is roughly 10x the not-paying penalty, and a real return usually beats the IRS's inflated SFR. A strong, ownable education angle."},
+  {h:"Relief is the promised land", p:"Once people act, \"a lot of stress went away.\" Sell the after-state, the lightness, not just the service."},
+  {h:"Two underserved segments", p:"1099 freelancers who never paid quarterly, and small-business owners behind on payroll taxes. Both are high-emotion, high-intent, and largely un-spoken-to."}
+];
+
+const EXISTING_ANGLES = [
+  {name:"It's Not Too Late", badge:"exist",
+   proof:"Getting life back together, haven't filed taxes the last few years… it's never too late to get compliant.", proofSub:"r/personalfinance",
+   avatars:["avoider","helping","selfemployed"],
+   concepts:[{c:"C008",t:"Confession / UGC"},{c:"C009",t:"Claymation / AI Animation"},{c:"C010",t:"Reassurance Card / Static"},{c:"C011",t:"Confession / UGC"},{c:"C012",t:"Confession / UGC"},{c:"C013",t:"Advertorial / Native"}]},
+  {name:"Blindsided", badge:"exist",
+   proof:"I earned around $50k as a 1099 consultant, but I did not pay taxes quarterly… I just got my $90k bill.", proofSub:"r/tax",
+   avatars:["selfemployed","avoider","helping"],
+   concepts:[{c:"C014",t:"Confession / UGC"},{c:"C015",t:"Street Interview / UGC"},{c:"C016",t:"Confession / UGC"},{c:"C017",t:"Confession / UGC"},{c:"C018",t:"Advertorial / Native"}]},
+  {name:"For Someone You Love", badge:"exist",
+   proof:"She hasn't filed in 3 years, and it's stressing me out. Everything was done remotely; they were there, every step.", proofSub:"r/tax, Client VOC",
+   avatars:["helping"],
+   concepts:[{c:"C019",t:"Confession / UGC"},{c:"C020",t:"App Demo / Screen Rec"},{c:"C021",t:"Text-Thread Drama"},{c:"C022",t:"Advertorial / Native"}]},
+  {name:"The AI IRS Is Coming", badge:"imported",
+   proof:"No organic buyer said this. Real buyers fear the number, jail, garnishment, and being taken advantage of, not AI.", proofSub:"Imported scroll-stopper. See the honesty callout below.",
+   avatars:["avoider","skeptic","helping","selfemployed"],
+   concepts:[{c:"C001",t:"News Reaction / UGC"},{c:"C002",t:"Myth vs Fact / Motion"},{c:"C003",t:"Confession / UGC"},{c:"C004",t:"Explainer / Whiteboard"},{c:"C005",t:"Myth vs Fact / UGC"},{c:"C006",t:"Shock-Stat / Static"},{c:"C007",t:"Advertorial / Native"}]}
+];
+
+const NEW_ANGLES = [
+  {name:"The Number Is Usually Lower", flagged:true,
+   proof:"The balance on a properly filed late return is lower than the SFR balance the IRS already has… once I did all the paperwork, it came out to $1,500 (from a bill near $1M).", proofSub:"r/tax, r/personalfinance",
+   avatars:["selfemployed","avoider"]},
+  {name:"File-First", flagged:true,
+   proof:"The penalty for owing and not filing is roughly 10x the penalty for owing and not paying.", proofSub:"r/IRS",
+   avatars:["avoider","selfemployed","smallbiz"]},
+  {name:"No Debtor's Prison", flagged:true,
+   proof:"The US doesn't have debtors' prison. You won't go to jail. It directly answers the buyer asking \"Am I just waiting to go to jail at this point?\"", proofSub:"r/personalfinance",
+   avatars:["avoider","skeptic"]},
+  {name:"We Wait on Hold So You Don't", flagged:true,
+   proof:"It takes our staff CPAs 3 to 5 days of calling first thing in the morning… I can't even get ahold of them.", proofSub:"r/smallbusiness",
+   avatars:["smallbiz","selfemployed"]},
+  {name:"Not the Pennies-on-the-Dollar Guys", flagged:false,
+   proof:"They all say 'settle for pennies!' but it feels too good to be true… we get 2 calls a week from people who got burned.", proofSub:"r/IRS",
+   avatars:["skeptic"]},
+  {name:"Free Diagnostic", flagged:false,
+   proof:"I don't have thousands to pay a retainer just to be told I don't qualify.", proofSub:"r/IRS",
+   avatars:["skeptic","avoider"]},
+  {name:"Stop the Garnishment", flagged:false,
+   proof:"I feel they may garnish my pay soon… paycheck already being garnished.", proofSub:"r/personalfinance, r/IRS",
+   avatars:["avoider","smallbiz"]},
+  {name:"Small Business SOS", flagged:false,
+   proof:"IRS is auditing my LLC and my accountant just retired. Who do I even call?", proofSub:"r/smallbusiness",
+   avatars:["smallbiz"]}
+];
+
+const ADS = [
+  {c:"C008", angle:"It's Not Too Late", av:"avoider", type:"Confession · UGC", imported:false,
+   quote:"After years of just being too scared to open the mail, I finally sat down with all the IRS notices.", qsub:"r/IRS",
+   hook:"I had a drawer full of IRS letters I was too scared to open, when I could have fixed it the whole time."},
+  {c:"C014", angle:"Blindsided", av:"selfemployed", type:"Confession · UGC", imported:false,
+   quote:"I earned around $50k as a 1099 consultant, but I did not pay taxes quarterly.", qsub:"r/tax",
+   hook:"I've been running my business for three years, and now I owe $22K I didn't know about."},
+  {c:"C019", angle:"For Someone You Love", av:"helping", type:"Confession · UGC", imported:false,
+   quote:"She hasn't filed her taxes in 3 years, and it's stressing me out. I've tried telling her.", qsub:"r/tax",
+   hook:"My dad's too proud to ask for help, so I handled his IRS mess from my phone."},
+  {c:"C010", angle:"It's Not Too Late", av:"avoider", type:"Reassurance Card · Static", imported:false,
+   quote:"The IRS isn't as scary as they sound.", qsub:"r/personalfinance",
+   hook:"Ignoring the IRS feels safer than it is, but it's more common, and easier to solve, than you think."},
+  {c:"C002", angle:"The AI IRS Is Coming", av:"avoider", type:"Myth vs Fact · Motion", imported:true,
+   quote:"No organic buyer said this.", qsub:"Not found in 52 threads",
+   hook:"Myth: IRS layoffs mean you're safe. Fact: about 25% fewer staff, yet roughly $12B MORE collected last year, powered by AI.",
+   note:"Imported scroll-stopper, not an emotional core. Use it as a top-of-funnel pattern-interrupt, then hand off fast to the fears buyers actually voiced (the number, jail, garnishment, being conned)."}
+];
+
+const SOURCES = [
+ ["1","r/personalfinance","I owe more to the IRS than I will ever be able to pay, now what?","3046","414","2020","Full","https://www.reddit.com/r/personalfinance/comments/f6vxtp/i_owe_more_to_the_irs_than_i_will_ever_be_able_to/"],
+ ["2","r/personalfinance","The IRS says I owe them $20,000. What do I do?","7660","891","2018","Full","https://www.reddit.com/r/personalfinance/comments/84cxwd/the_irs_says_i_owe_them_2000000_what_do_i_do/"],
+ ["3","r/personalfinance","Friend hasn't filed taxes in 10 years","1308","216","2026","Full","https://www.reddit.com/r/personalfinance/comments/1r42cx6/friend_hasnt_filed_taxes_in_10_years/"],
+ ["4","r/personalfinance","I owe $83k to the IRS at 23 and can't pay it, what do I do?","125","103","2023","Full","https://www.reddit.com/r/personalfinance/comments/106t09c/i_owe_83k_to_the_irs_at_the_age_of_23_and_cant/"],
+ ["5","r/personalfinance","Are tax relief companies legitimate?","3","13","2026","Full","https://www.reddit.com/r/personalfinance/comments/1qjdsev/are_tax_relief_companies_legitimate/"],
+ ["6","r/tax","Unfiled tax returns: what actually happens (CPA/CTRS, 40 yrs)","45","46","2026","Full","https://www.reddit.com/r/tax/comments/1rz207z/unfiled_tax_returns_what_actually_happens_what/"],
+ ["7","r/tax","How long does the IRS wait to go after unpaid & unfiled taxes?","23","62","2025","Full","https://www.reddit.com/r/tax/comments/1n95xyk/how_long_does_the_irs_wait_to_go_after_you_for/"],
+ ["8","r/IRS","Has anyone actually gotten an Offer in Compromise?","32","67","2026","Full","https://www.reddit.com/r/IRS/comments/1qi3n61/has_anyone_actually_gotten_an_offer_in_compromise/"],
+ ["9","r/smallbusiness","IRS sends me a tax-owed bill, can't even get ahold of them","19","48","2026","Full","https://www.reddit.com/r/smallbusiness/comments/1ufdtne/irs_sends_me_a_taxed_owed_billcant_even_get_ahold/"],
+ ["10","r/tax","Stories of people that never filed for years & got away with it?","15","53","2026","Scan","https://www.reddit.com/r/tax/comments/1qqqnev/stories_of_people_that_never_filed_taxes_for/"],
+ ["11","r/tax","Unfiled taxes 10 years","0","40","2025","Scan","https://www.reddit.com/r/tax/comments/1mx24oe/unfiled_taxes_10_years/"],
+ ["12","r/tax","Overdue unfiled taxes… I barely know where to start","2","13","2026","Scan","https://www.reddit.com/r/tax/comments/1usy2bu/over_due_unfiled_taxes_for_the_past_couple_years/"],
+ ["13","r/tax","Do you know anyone who went 15+ years and never filed?","126","305","2023","Scan","https://www.reddit.com/r/tax/comments/16jf31c/do_you_know_anyone_who_went_15_years_and_never/"],
+ ["14","r/tax","How far back can they look if you neglected to file?","1","9","2025","Scan","https://www.reddit.com/r/tax/comments/1j9kq3m/how_far_back_can_they_look_if_you_neglected_to/"],
+ ["15","r/tax","Tax debt hardship program, does it actually help?","20","14","2026","Scan","https://www.reddit.com/r/tax/comments/1qjps2b/tax_debt_hardship_program_does_it_actually_help/"],
+ ["16","r/tax","Currently Not Collectible","1","3","2026","Scan","https://www.reddit.com/r/tax/comments/1r15hvd/currently_not_collectible/"],
+ ["17","r/tax","$83,000 owed. Kicked out of CNC, CSED 14 months away.","1","43","2025","Scan","https://www.reddit.com/r/tax/comments/1nu6wbq/83000_owed_kicked_out_of_cnc_csed_is_14_months/"],
+ ["18","r/tax","CSED 7/10/2025: Is the nightmare over now?","1","7","2025","Scan","https://www.reddit.com/r/tax/comments/1m6nb1t/csed_7102025_is_the_nightmare_over_now/"],
+ ["19","r/tax","Significant IRS Debt Being Ignored, Options?","9","24","2025","Scan","https://www.reddit.com/r/tax/comments/1pyv27k/significant_irs_debt_being_ignored_options/"],
+ ["20","r/tax","I received a CP2000 notice for my 2024 return","30","41","2026","Scan","https://www.reddit.com/r/tax/comments/1u9qvk9/i_received_a_cp2000_notice_from_the_irs_for_my/"],
+ ["21","r/tax","CP2000, Disagreement & Response","8","11","2026","Scan","https://www.reddit.com/r/tax/comments/1ugrhex/cp2000_disagreement_response/"],
+ ["22","r/tax","CP2000, accused of $90k additional wages in 2023","14","13","2025","Scan","https://www.reddit.com/r/tax/comments/1pwky5f/received_cp2000_notice_accusing_me_of_receiving/"],
+ ["23","r/IRS","Offer in Compromise, what they don't tell you","0","21","2026","Scan","https://www.reddit.com/r/IRS/comments/1tdbh9l/irs_offer_in_compromise_what_they_dont_tell_you/"],
+ ["24","r/IRS","433-A (Offer in Compromise) success","2","19","2026","Scan","https://www.reddit.com/r/IRS/comments/1q224dq/433a_offer_in_compromise_success/"],
+ ["25","r/IRS","My Offer in Compromise was just rejected. Any tips?","6","21","2023","Scan","https://www.reddit.com/r/IRS/comments/15v3e9j/my_offer_in_compromise_was_just_rejected_im/"],
+ ["26","r/IRS","Forgiveness of penalties on back taxes","3","35","2025","Scan","https://www.reddit.com/r/IRS/comments/1ph396w/forgiveness_of_penalties_on_back_taxes/"],
+ ["27","r/IRS","Wage garnishment / Bank levy","6","15","2025","Scan","https://www.reddit.com/r/IRS/comments/1oh2zkf/wage_garnishmentbank_levy/"],
+ ["28","r/IRS","IRS possible levy / wage garnishment","4","20","2025","Scan","https://www.reddit.com/r/IRS/comments/1pnhi4b/irs_possible_levywage_garnishment/"],
+ ["29","r/IRS","IRS wage garnishment","5","39","2025","Scan","https://www.reddit.com/r/IRS/comments/1ocix57/irs_wage_garnishment/"],
+ ["30","r/IRS","IRS wage garnishment, not notified","2","6","2026","Scan","https://www.reddit.com/r/IRS/comments/1rkosp0/irs_wage_garnishment_not_notified/"],
+ ["31","r/IRS","Garnishment for back taxes, timeline?","1","6","2026","Scan","https://www.reddit.com/r/IRS/comments/1r0k55r/garnishment_for_back_taxes_timeline/"],
+ ["32","r/personalfinance","Just found out I owe 20k to the IRS I don't have. Now what?","25","42","2013","Scan","https://www.reddit.com/r/personalfinance/comments/1i1b4f/just_found_out_i_owe_20k_to_the_irs_i_dont_have/"],
+ ["33","r/personalfinance","I owe the IRS a little over $12K because I am an idiot.","1505","228","2018","Scan","https://www.reddit.com/r/personalfinance/comments/85kesu/i_owe_the_irs_a_little_over_12k_in_taxes_because/"],
+ ["34","r/personalfinance","How boned am I with the IRS?","178","188","2024","Scan","https://www.reddit.com/r/personalfinance/comments/1aktblv/how_boned_am_i_with_the_irs/"],
+ ["35","r/personalfinance","I owe the IRS $16000. Advice","0","14","2025","Scan","https://www.reddit.com/r/personalfinance/comments/1is487t/i_owe_the_irs_16000_advice/"],
+ ["36","r/personalfinance","Getting life back together, haven't filed the last few years.","0","6","2026","Scan","https://www.reddit.com/r/personalfinance/comments/1qpj9yq/getting_life_back_together_havent_filed_taxes_the/"],
+ ["37","r/personalfinance","Have not filed taxes since 2016, what can I expect?","0","27","2026","Scan","https://www.reddit.com/r/personalfinance/comments/1s4xfkq/have_not_filed_taxes_since_2016_what_can_i_expect/"],
+ ["38","r/personalfinance","Overwhelmed and scared about debt, taxes, no job at 21.","0","11","2026","Scan","https://www.reddit.com/r/personalfinance/comments/1svtxw4/overwhelmed_and_scared_about_debt_taxes_and_no/"],
+ ["39","r/personalfinance","Haven't filed in a few years, how bad is this going to hurt?","65","79","2014","Scan","https://www.reddit.com/r/personalfinance/comments/2anhj2/havent_filed_taxes_in_a_few_yearshow_bad_is_this/"],
+ ["40","r/personalfinance","I messed up. Haven't filed taxes for 3 years","101","88","2019","Scan","https://www.reddit.com/r/personalfinance/comments/dc91bp/i_messed_up_havent_filed_taxes_for_3_years/"],
+ ["41","r/personalfinance","I have not filed in 8 years. I make very little. How screwed?","11","14","2015","Scan","https://www.reddit.com/r/personalfinance/comments/3xsmb7/i_have_not_filed_taxes_in_8_years_i_make_very/"],
+ ["42","r/personalfinance","Repercussions of using a tax debt relief company?","0","2","2019","Scan","https://www.reddit.com/r/personalfinance/comments/aqhbh7/what_are_the_repercussions_if_any_of_using_a_tax/"],
+ ["43","r/personalfinance","Any good TaxRise Inc experiences?","0","13","2026","Scan","https://www.reddit.com/r/personalfinance/comments/1rxmqsh/any_good_taxrise_inc_experiences/"],
+ ["44","r/personalfinance","Spam calls about unresolved tax activity / obligations","4","12","2026","Scan","https://www.reddit.com/r/personalfinance/comments/1t7cj35/re_receiving_spam_calls_about_unresolved_tax/"],
+ ["45","r/personalfinance","Tax Relief Companies?","4","9","2024","Scan","https://www.reddit.com/r/personalfinance/comments/1biypps/tax_relief_companies/"],
+ ["46","r/freelance","Quarterly Taxes, missed Q1. Pay now?","8","3","2017","Scan","https://www.reddit.com/r/freelance/comments/6cx96s/quarterly_taxes_missed_q1_pay_now/"],
+ ["47","r/freelance","Underestimated my income and owe a big chunk of cash.","9","5","2016","Scan","https://www.reddit.com/r/freelance/comments/4eoae6/underestimated_my_income_and_owe_a_big_chunk_of/"],
+ ["48","r/freelance","Reporting Taxes When Paid Under the Table?","11","11","2018","Scan","https://www.reddit.com/r/freelance/comments/7py8zv/reporting_taxes_when_paid_under_the_table/"],
+ ["49","r/smallbusiness","Behind on payroll tax","8","19","2022","Scan","https://www.reddit.com/r/smallbusiness/comments/s9tbxb/behind_on_payroll_tax/"],
+ ["50","r/smallbusiness","Open new business while owing back payroll taxes","1","6","2026","Scan","https://www.reddit.com/r/smallbusiness/comments/1rwjnst/open_new_business_while_owing_back_payroll_taxes/"],
+ ["51","r/smallbusiness","IRS is auditing my LLC and my accountant just retired.","75","61","2026","Scan","https://www.reddit.com/r/smallbusiness/comments/1rs54bq/irs_is_auditing_my_llc_and_my_accountant_just/"],
+ ["52","r/legaladvice","IRS thinks we owe thousands","10","6","2026","Scan","https://www.reddit.com/r/legaladvice/comments/1sh9seo/irs_thinks_we_owe_thousands/"]
+];
+
+const WEDGE_QUOTES = [
+  {t:"They all say 'settle for pennies!' but it feels too good to be true.", s:"r/IRS"},
+  {t:"Avoid Optima. They will charge for nothing.", s:"r/personalfinance"},
+  {t:"There are several of these firms running astroturfing campaigns on Reddit right now.", s:"r/IRS"},
+  {t:"We get at least 2 calls a week from people who used one of those companies and got burned.", s:"r/IRS"},
+  {t:"They overpromise and underdeliver while trying to bill you in perpetuity.", s:"r/IRS"},
+  {t:"Do not engage one of those tax relief firms you hear advertised on TV or radio.", s:"r/IRS"},
+  {t:"I don't have thousands to pay a retainer just to be told I don't qualify.", s:"r/IRS"},
+  {t:"…even more scared of being taken advantage of when I'm this vulnerable.", s:"r/IRS"},
+  {t:"Don't hire the people that constantly run ads. Usually trash.", s:"r/IRS"},
+  {t:"After $3,500 they set up a payment plan for me, something I could've done myself.", s:"r/personalfinance"}
+];
+
+/* ============================ RENDER HELPERS ============================ */
+const avMap = Object.fromEntries(AVATARS.map(a=>[a.id,a]));
+const avName = id => avMap[id]?.name || id;
+const avColor = id => avMap[id]?.color || "#8A8B93";
+let activeAvatar = null;
+
+const TABS = [
+  {id:"overview", n:"01", label:"Overview"},
+  {id:"voices",   n:"02", label:"The Voices"},
+  {id:"avatars",  n:"03", label:"Avatars"},
+  {id:"angles",   n:"04", label:"Angles"},
+  {id:"wedge",    n:"05", label:"The Wedge"},
+  {id:"ads",      n:"06", label:"Voice to Ads"},
+  {id:"sources",  n:"07", label:"Sources"}
+];
+
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+/* ---- OVERVIEW ---- */
+function renderOverview(){
+  const sig = SIGNALS.map((s,i)=>`
+    <div class="signal">
+      <div class="n">${i+1}</div>
+      <h4>${s.h}</h4>
+      <p>${esc(s.p)}</p>
+    </div>`).join("");
+  return `
+  <div class="eyebrow">01 / The one big insight</div>
+  <div class="herobox">
+    <div class="qmark">”</div>
+    <div class="tag">What 52 threads actually told us</div>
+    <div class="big">They're not blocked by filing.<br>They're blocked by the <em>fear of the number.</em></div>
+    <div class="attrib">The blocker isn't logistics. It's dread. <b>"The fear of finding out is almost always worse than finding out."</b> Every avatar, angle and ad in this deck is built to walk one person from that dread to relief.</div>
+  </div>
+
+  <div class="subhead">The headline signals <span class="ln"></span></div>
+  <div class="grid g3">${sig}</div>
+
+  <div class="subhead">Coverage <span class="ln"></span></div>
+  <div class="grid g4">
+    <div class="stat"><div class="num">52</div><div class="lbl">Threads mined</div></div>
+    <div class="stat"><div class="num">9</div><div class="lbl">Mined full-comment</div></div>
+    <div class="stat"><div class="num">6</div><div class="lbl">Subreddits</div></div>
+    <div class="stat"><div class="num">300+</div><div class="lbl">Verbatims logged</div></div>
+  </div>
+  <div class="subs-strip">
+    <span class="subpill"><b>r/tax</b></span>
+    <span class="subpill"><b>r/IRS</b></span>
+    <span class="subpill"><b>r/personalfinance</b></span>
+    <span class="subpill"><b>r/freelance</b></span>
+    <span class="subpill"><b>r/smallbusiness</b></span>
+    <span class="subpill"><b>r/legaladvice</b></span>
+    <span class="subpill">51 pain · 50 emotional · 50 objections · 50 swipe-file rows</span>
+  </div>
+
+  <div class="spine" style="margin-top:34px">
+    <span class="step">Real customer voice</span><span class="arw">→</span>
+    <span class="step">the <b>Avatar</b> it reveals</span><span class="arw">→</span>
+    <span class="step">the <b>Angle</b> it justifies</span><span class="arw">→</span>
+    <span class="step">the <b>Ad</b> we're making</span>
+  </div>`;
+}
+
+/* ---- VOICES ---- */
+function renderVoices(){
+  const legend = VOICES.map(v=>`<div class="arc-step arc-${v.arc}"><b>${v.name}</b>${esc(v.short)}</div>`).join('<div style="align-self:center;color:var(--grey-400)">→</div>');
+  const blocks = VOICES.map(v=>{
+    const cards = v.items.map(it=>`
+      <div class="rcard" data-av="${it.av}">
+        <div class="rtop">${it.up?`<span class="up">▲ ${it.up}</span> · `:""}<span class="sub">${it.s}</span></div>
+        <div class="quote">${esc(it.q)}</div>
+        <div class="av"><span class="cdot" style="background:${avColor(it.av)}"></span> Reveals: ${esc(avName(it.av))}</div>
+      </div>`).join("");
+    return `
+    <div class="arc-block arc-${v.arc}">
+      <div class="arc-title"><span class="pip"></span>${v.name}</div>
+      <div class="arc-cap">${esc(v.cap)}</div>
+      <div class="masonry">${cards}</div>
+    </div>`;
+  }).join("");
+  return `
+  <div class="eyebrow">02 / Pure emotional impact</div>
+  <h2 class="sec-h">The Voices</h2>
+  <p class="sec-lead">Raw verbatims, grouped by the emotional arc every buyer travels: Dread, Avoidance, Reckoning, Relief. No analysis here. Just the sound of the customer. Each snippet is tagged with the avatar it reveals.</p>
+  <div class="arc-legend">${legend}</div>
+  ${blocks}`;
+}
+
+/* ---- AVATARS ---- */
+function renderAvatars(){
+  const cards = AVATARS.map(a=>{
+    const q = a.quotes.map(x=>`<div class="qq">${esc(x.q)}<span class="s">${x.s}</span></div>`).join("");
+    const ang = a.angles.map(x=>`<span class="angle-tag ${x.new?'tnew':''}">${esc(x.n)} <span class="cc">${x.cc}</span></span>`).join("");
+    return `
+    <div class="avcard ${a.badge==='new'?'isnew':''}" data-av="${a.id}">
+      <div class="glow"></div>
+      <div class="av-head">
+        <div>
+          <div class="av-idx" style="color:${a.color}">${esc(a.idx)}</div>
+          <div class="av-name">${esc(a.name)}</div>
+        </div>
+        <span class="badge ${a.badge==='new'?'new':'exist'}">${a.badge==='new'?'NEW / data-driven':'In the matrix'}</span>
+      </div>
+      <div class="av-who">${esc(a.who)}</div>
+      <div class="av-block">
+        <div class="k">In their own words</div>
+        <div class="av-quotes">${q}</div>
+      </div>
+      <div class="frow"><div class="ico">🎯</div><div class="ft"><b>Number-one fear.</b> ${esc(a.fear)}</div></div>
+      <div class="frow"><div class="ico">🛑</div><div class="ft"><b>Objection.</b> ${esc(a.obj)}</div></div>
+      <div class="frow"><div class="ico">🔑</div><div class="ft"><b>What flips them.</b> ${esc(a.flip)}</div></div>
+      <div class="av-angles">
+        <div class="k" style="margin-bottom:10px">Angles built for them</div>
+        ${ang}
+      </div>
+    </div>`;
+  }).join("");
+  return `
+  <div class="eyebrow">03 / Who the voices reveal</div>
+  <h2 class="sec-h">The Avatars</h2>
+  <p class="sec-lead">Four core avatars carried over from the approved matrix, plus one the data forced onto the board. No avatar here without real quotes behind it, and no avatar without the angles it earns.</p>
+  <div class="grid g2">${cards}</div>`;
+}
+
+/* ---- ANGLES ---- */
+function renderAngles(){
+  const rows = EXISTING_ANGLES.map(a=>{
+    const cls = a.badge==='imported' ? 'imported' : '';
+    const badge = a.badge==='imported'
+      ? `<span class="badge exist" style="color:var(--danger-light);border-color:rgba(212,38,32,.55)">Imported hook</span>`
+      : `<span class="badge exist">In the matrix</span>`;
+    const concepts = a.concepts.map(c=>`<span class="concept-pill"><span class="cc">${c.c}</span> ${esc(c.t)}</span>`).join("");
+    const avs = a.avatars.map(id=>`<span class="av-mini" data-av="${id}">● ${esc(avName(id))}</span>`).join("");
+    const proofCls = a.badge==='imported' ? 'proofq none' : 'proofq';
+    return `
+    <div class="ang-row ${cls}" data-avs="${a.avatars.join(' ')}">
+      <div class="ang-col">
+        <div class="ang-name">${esc(a.name)}</div>
+        ${badge}
+        <div style="margin-top:14px">${avs}</div>
+      </div>
+      <div class="ang-col">
+        <div class="k">The quote that proves it</div>
+        <div class="${proofCls}">${esc(a.proof)}<span class="s">${esc(a.proofSub)}</span></div>
+      </div>
+      <div class="ang-col">
+        <div class="k">Becomes these concepts</div>
+        ${concepts}
+      </div>
+    </div>`;
+  }).join("");
+
+  const newRows = NEW_ANGLES.map(a=>{
+    const avs = a.avatars.map(id=>`<span class="av-mini" data-av="${id}">● ${esc(avName(id))}</span>`).join("");
+    return `
+    <div class="ang-row isnew" data-avs="${a.avatars.join(' ')}">
+      <div class="ang-col">
+        <div class="ang-name">${esc(a.name)}</div>
+        <span class="badge new">${a.flagged?'NEW / data-driven':'NEW / white space'}</span>
+        <div style="margin-top:14px">${avs}</div>
+      </div>
+      <div class="ang-col">
+        <div class="k">The quote that surfaced it</div>
+        <div class="proofq">${esc(a.proof)}<span class="s">${esc(a.proofSub)}</span></div>
+      </div>
+      <div class="ang-col">
+        <div class="k">Status</div>
+        <span class="concept-pill" style="border-color:rgba(15,151,61,.5)"><span class="cc" style="color:var(--success-light)">NEW</span> Not in the matrix yet</span>
+        <div class="wludge">A lane the research opens up.</div>
+      </div>
+    </div>`;
+  }).join("");
+
+  return `
+  <div class="eyebrow">04 / What the voices justify</div>
+  <h2 class="sec-h">The Angles</h2>
+  <p class="sec-lead">Every angle in the approved matrix, matched to the customer quote that proves it and the real concept numbers it became. No angle without a proof-quote, and no concept without an angle.</p>
+
+  <div class="callout">
+    <div class="cx"><div class="ic">!</div><h4>One honest callout</h4></div>
+    <p>The <b>"AI IRS / enforcement"</b> angle, the single most-used angle in the matrix (7 of 22 concepts), <b>does not appear in organic buyer language anywhere in these 52 threads.</b> Real buyers fear the <b>number</b>, <b>jail</b>, <b>garnishment</b>, and <b>being taken advantage of</b>. <span class="fine">Treat AI-IRS as an imported scroll-stopper, not the emotional core: a pattern-interrupt at the top, then hand off fast to the fears buyers actually voiced.</span></p>
+  </div>
+
+  <div class="subhead">In the matrix, proven by the voice <span class="ln"></span></div>
+  ${rows}
+
+  <div class="subhead">What the data adds: net-new lanes <span class="ln"></span></div>
+  <p class="sec-lead" style="margin-bottom:18px">Angles the research surfaced that aren't in the matrix yet. The four flagged <span style="color:var(--success-light)">NEW / data-driven</span> are the ones we'd move on first.</p>
+  ${newRows}`;
+}
+
+/* ---- WEDGE ---- */
+function renderWedge(){
+  const wq = WEDGE_QUOTES.map(w=>`<div class="wq"><div class="t">${esc(w.t)}</div><div class="m">${w.s}</div></div>`).join("");
+  return `
+  <div class="eyebrow">05 / The positioning proof</div>
+  <h2 class="sec-h">The Wedge</h2>
+  <p class="sec-lead">The category's biggest weakness is its own reputation. Buyers don't just distrust the "pennies on the dollar" relief mills, they warn each other about them by name. That distrust is TaxSolve's sharpest, most ownable wedge.</p>
+
+  <div class="wedge-hero">
+    <div class="tag">The customers are asking for honesty</div>
+    <div class="big">Every rival opens on <em>"save up to 95%"</em> and a ticking-clock IRS letter. The buyer has already learned to distrust exactly that.</div>
+  </div>
+
+  <div class="masonry">${wq}</div>
+
+  <div class="comp-box">
+    <h4>Competitor sentiment: the white space is honesty</h4>
+    <div style="font-size:12.5px;color:var(--grey-300);margin:6px 0 14px">From the Ad Pros teardown of roughly 245 ads across 7 brands (July 2026):</div>
+    <div class="comp-line"><span class="ic">◆</span><div class="ct"><b>The "$10,000+ owed" gate and "Fresh Start Program" magic-word</b> open nearly every competitor ad. Saturated: we don't look like this.</div></div>
+    <div class="comp-line"><span class="ic">◆</span><div class="ct"><b>"Save / settle up to 95%"</b> plus big before-and-after numbers are the default "proof," the exact claim buyers call "too good to be true."</div></div>
+    <div class="comp-line"><span class="ic">◆</span><div class="ct"><b>A whole brand built on honesty and no-overpromise is uncontested.</b> Only Lifeline flirts with it ("No Investigation Fee Ever"). This is TaxSolve's lane.</div></div>
+    <div class="comp-line"><span class="ic">◆</span><div class="ct"><b>Roughly 55 to 60% of category ads lead with fear or urgency.</b> A calm, plan-first, anti-anxiety tone is a genuine pattern-interrupt.</div></div>
+    <div class="comp-line"><span class="ic">◆</span><div class="ct"><b>Nobody names the real programs</b> (OIC, CNC, PPIA, Installment Agreement), or shows a real case-status app. Both are wide open and ours to own.</div></div>
+  </div>
+
+  <div class="payoff">Honesty is the sharpest wedge.<br>And here's your customer <em>asking for it.</em></div>`;
+}
+
+/* ---- ADS ---- */
+function renderAds(){
+  const cards = ADS.map(ad=>{
+    const note = ad.note ? `<div class="ad-note">⚠ <span>${esc(ad.note)}</span></div>` : "";
+    return `
+    <div class="adcard ${ad.imported?'imported':''}" data-av="${ad.av}">
+      <div class="ad-src">
+        <div class="k"><span style="width:8px;height:8px;border-radius:50%;background:${avColor(ad.av)};display:inline-block"></span> The voice that birthed it · ${esc(avName(ad.av))}</div>
+        <div class="q">${esc(ad.quote)}</div>
+        <div class="s">${esc(ad.qsub)}</div>
+      </div>
+      <div class="ad-arrow">↓</div>
+      <div class="ad-body">
+        <div class="ad-meta">
+          <span class="ad-c">${ad.c}</span>
+          <span class="ad-t">${esc(ad.angle)}</span>
+          <span class="ad-t">${esc(ad.type)}</span>
+        </div>
+        <div class="ad-hook">${esc(ad.hook)}</div>
+        ${note}
+      </div>
+    </div>`;
+  }).join("");
+  return `
+  <div class="eyebrow">06 / The receipts</div>
+  <h2 class="sec-h">Voice to Ads</h2>
+  <p class="sec-lead">Approved concepts, placed next to the exact quote that birthed them. This is the whole spine in one view: real voice at the top, the real concept number at the bottom.</p>
+  <div class="grid g2">${cards}</div>
+  <div class="closeline">This is <em>why</em> the creative looks the way it does.</div>`;
+}
+
+/* ---- SOURCES ---- */
+function renderSources(){
+  const rows = SOURCES.map(r=>`
+    <tr>
+      <td>${r[0]}</td>
+      <td class="src-sub">${r[1]}</td>
+      <td><a href="${r[7]}" target="_blank" rel="noopener">${esc(r[2])}</a></td>
+      <td>${r[3]}</td>
+      <td>${r[4]}</td>
+      <td>${r[5]}</td>
+      <td><span class="src-depth ${r[6]==='Full'?'full':'scan'}">${r[6]==='Full'?'Full-comment':'Scanned'}</span></td>
+    </tr>`).join("");
+  return `
+  <div class="eyebrow">07 / The paper trail</div>
+  <h2 class="sec-h">Sources</h2>
+  <p class="sec-lead">All 52 threads, with links. Nine mined at full-comment depth (top-level page each), 43 scanned at title and original-post level across 6 communities. Every verbatim in this deck traces back to a thread on this list.</p>
+  <div class="panel src-wrap">
+    <table class="src-table">
+      <thead><tr><th>#</th><th>Community</th><th>Thread</th><th>▲</th><th>Cmts</th><th>Year</th><th>Depth</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
+/* ============================ BUILD DOM ============================ */
+function build(){
+  document.getElementById("tabsnav").innerHTML = TABS.map((t,i)=>`
+    <button class="tab-btn ${i===0?'active':''}" data-tab="${t.id}">
+      <span class="num">${t.n}</span>${t.label}
+    </button>`).join("");
+
+  const R = {overview:renderOverview,voices:renderVoices,avatars:renderAvatars,angles:renderAngles,wedge:renderWedge,ads:renderAds,sources:renderSources};
+  document.getElementById("main").innerHTML = TABS.map((t,i)=>`
+    <section class="section ${i===0?'active':''}" id="sec-${t.id}">${R[t.id]()}</section>`).join("");
+
+  const chips = [`<button class="chip active" data-av="all"><span class="cdot" style="background:var(--grey-100)"></span>All customers</button>`]
+    .concat(AVATARS.map(a=>`<button class="chip" data-av="${a.id}"><span class="cdot" style="background:${a.color}"></span>${esc(a.name)}${a.badge==='new'?' <span style="color:var(--success-light);font-size:10px;margin-left:2px">NEW</span>':''}</button>`));
+  document.getElementById("chips").innerHTML = chips.join("");
+
+  document.querySelectorAll(".tab-btn").forEach(b=>b.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    const id=b.dataset.tab;
+    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+    document.getElementById("sec-"+id).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }));
+
+  document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+    document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
+    c.classList.add("active");
+    const av=c.dataset.av;
+    activeAvatar = (av==="all") ? null : av;
+    applyFilter();
+  }));
+}
+
+function applyFilter(){
+  const note=document.getElementById("filterNote");
+  document.querySelectorAll(".rcard[data-av]").forEach(el=>{
+    el.classList.toggle("hidden-by-filter", activeAvatar && el.dataset.av!==activeAvatar);
+  });
+  document.querySelectorAll(".arc-block").forEach(block=>{
+    const any=[...block.querySelectorAll(".rcard[data-av]")].some(el=>!el.classList.contains("hidden-by-filter"));
+    block.classList.toggle("hidden-by-filter", !any);
+  });
+  document.querySelectorAll(".ang-row[data-avs]").forEach(el=>{
+    const list=el.dataset.avs.split(" ");
+    el.classList.toggle("hidden-by-filter", activeAvatar && !list.includes(activeAvatar));
+  });
+  document.querySelectorAll(".adcard[data-av]").forEach(el=>{
+    el.classList.toggle("hidden-by-filter", activeAvatar && el.dataset.av!==activeAvatar);
+  });
+  document.querySelectorAll(".avcard[data-av]").forEach(el=>{
+    el.style.opacity = (activeAvatar && el.dataset.av!==activeAvatar) ? ".32" : "1";
+    el.style.borderColor = (activeAvatar && el.dataset.av===activeAvatar) ? avColor(activeAvatar) : "";
+  });
+
+  if(activeAvatar){
+    note.classList.add("show");
+    note.innerHTML = `Focused on <b style="color:${avColor(activeAvatar)}">${esc(avName(activeAvatar))}</b>. The Voices, Angles and Ads tabs now show only this customer. Click "All customers" to reset.`;
+  }else{
+    note.classList.remove("show");
+    note.innerHTML="";
+  }
+}
+
+build();
+</script>
+</body>
+</html>
