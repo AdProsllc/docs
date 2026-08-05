@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<meta name="author" content="Daniela">
+<title>Blyss Creator Program · Brand 1-Pager · Ad Pros</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate icon" href="/favicon.svg">
+<link rel="mask-icon" href="/favicon.svg" color="#040735">
+<meta name="theme-color" content="#040735">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F1626; --navy-2:#0B0F1C; --card:#17213C; --card-2:#1B2643;
+    --yellow:#FEDE00; --white:#FFFFFF; --muted:#A8B2C4; --line:#2A3958;
+    --head:'Sora',sans-serif; --body:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body); color:var(--white); background:var(--navy);
+    line-height:1.6; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden;
+  }
+  /* faint grid + glow backdrop, matching the deck */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(42,57,88,.20) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42,57,88,.20) 1px, transparent 1px);
+    background-size:96px 96px; background-position:top left;
+    -webkit-mask-image:radial-gradient(120% 90% at 0% 0%, #000 0%, transparent 55%);
+            mask-image:radial-gradient(120% 90% at 0% 0%, #000 0%, transparent 55%);
+  }
+  body::after{
+    content:""; position:fixed; right:-15%; bottom:-25%; width:70vw; height:70vw; z-index:0;
+    pointer-events:none; border-radius:50%;
+    background:radial-gradient(circle, rgba(22,40,76,.85) 0%, rgba(15,22,38,0) 62%);
+  }
+  .wrap{position:relative; z-index:1; max-width:900px; margin:0 auto; padding:0 28px;}
+
+  /* nav */
+  nav{display:flex; align-items:center; justify-content:space-between; padding:26px 0 8px;}
+  .logo{display:inline-block; line-height:.92; font-family:var(--head); font-weight:800; font-size:20px; color:var(--white);}
+  .logo .pros{position:relative; display:inline-block;}
+  .logo .pros::after{content:""; position:absolute; left:0; right:0; bottom:-5px; height:3px; background:var(--yellow); border-radius:2px;}
+  .nav-tag{font-family:var(--body); font-weight:600; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);}
+
+  .eyebrow{font-family:var(--body); font-weight:700; font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--yellow);}
+
+  /* hero */
+  .hero{padding:64px 0 40px;}
+  .hero h1{font-family:var(--head); font-weight:800; font-size:clamp(34px,6vw,58px); line-height:1.04; letter-spacing:-.01em; margin:18px 0 20px; max-width:16ch;}
+  .hero h1 em{color:var(--yellow); font-style:normal;}
+  .hero p{font-size:clamp(16px,2.2vw,19px); color:var(--muted); max-width:56ch;}
+
+  /* generic section */
+  section{padding:30px 0; position:relative;}
+  .kicker{font-family:var(--body); font-weight:700; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--yellow); margin-bottom:12px;}
+  h2{font-family:var(--head); font-weight:700; font-size:clamp(24px,3.4vw,30px); line-height:1.12; letter-spacing:-.01em; margin-bottom:14px;}
+  section p.lead{font-size:clamp(15px,2vw,17px); color:#D5DBE6; max-width:62ch;}
+  .accent{color:var(--yellow); font-weight:600;}
+
+  /* how it works cards */
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:22px;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px 22px;}
+  .card .num{font-family:var(--head); font-weight:800; font-size:14px; color:var(--yellow); letter-spacing:.05em;}
+  .card h3{font-family:var(--head); font-weight:700; font-size:18px; margin:8px 0 8px;}
+  .card p{font-size:14.5px; color:var(--muted);}
+
+  /* look-for chips */
+  .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;}
+  .chip{background:var(--card-2); border:1px solid var(--line); border-radius:999px; padding:9px 16px; font-size:14px; font-weight:500; color:#E7ECF3;}
+  .note{margin-top:18px; color:var(--muted); font-size:15px; max-width:60ch;}
+
+  /* angles */
+  .angles{display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;}
+  .angle{border:1px solid var(--line); border-radius:12px; padding:12px 16px; background:rgba(23,33,60,.5); font-family:var(--head); font-weight:600; font-size:15px;}
+
+  /* CTA */
+  .cta{margin:26px 0 12px; background:linear-gradient(180deg,var(--card) 0%,var(--card-2) 100%); border:1px solid var(--line); border-radius:20px; padding:40px 34px; text-align:center;}
+  .cta h2{font-size:clamp(26px,4vw,36px); margin-bottom:12px;}
+  .cta p{color:var(--muted); max-width:52ch; margin:0 auto 24px;}
+  .btn{display:inline-block; background:var(--yellow); color:#0B0F1C; font-family:var(--head); font-weight:700; font-size:16px; text-decoration:none; padding:15px 30px; border-radius:12px; transition:transform .15s ease, box-shadow .15s ease;}
+  .btn:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(254,222,0,.22);}
+
+  footer{border-top:1px solid var(--line); margin-top:24px; padding:28px 0 46px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;}
+  footer .fnote{color:var(--muted); font-size:13px; letter-spacing:.04em;}
+
+  /* entrance polish */
+  .reveal{opacity:0; transform:translateY(14px); animation:rise .7s ease forwards;}
+  @keyframes rise{to{opacity:1; transform:none;}}
+  .d1{animation-delay:.05s;} .d2{animation-delay:.15s;} .d3{animation-delay:.25s;}
+  @media (prefers-reduced-motion:reduce){.reveal{animation:none; opacity:1; transform:none;}}
+
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr;}
+    .hero{padding:44px 0 28px;}
+    nav{padding-top:20px;}
+    .cta{padding:32px 22px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <span class="logo">ad<br><span class="pros">pros</span></span>
+    <span class="nav-tag">Creator Program</span>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow reveal d1">Blyss · Creator Program</span>
+    <h1 class="reveal d2">The mop soap the <em>whole room</em> notices.</h1>
+    <p class="reveal d3">Blyss makes a home smell incredible with a single pass. We're building a roster of creators to show real people why: real homes, real reactions, in your own voice.</p>
+  </header>
+
+  <section>
+    <div class="kicker">What is Blyss</div>
+    <h2>A clean home you can smell the second you walk in.</h2>
+    <p class="lead">Blyss is a scented mop soap that turns everyday mopping into a whole-home glow-up. One pass and the place smells clean, warm and lived-in, the kind of scent guests comment on before they even sit down.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Why you'll love making it</div>
+    <h2>Real moments, not ads.</h2>
+    <p class="lead">Blyss content is relatable, everyday and a little funny: the pet funk you went nose-blind to, the partner who finally says <span class="accent">"wow, it smells amazing in here,"</span> the friend whose place somehow always smells better than yours. You film it your way, in your real space, no scripts that sound like a commercial.</p>
+  </section>
+
+  <section>
+    <div class="kicker">How it works</div>
+    <h2>You film. We do the heavy lifting.</h2>
+    <div class="grid">
+      <div class="card"><span class="num">01</span><h3>You film raw</h3><p>Shoot simple talking-head clips to a quick brief. No editing on your end.</p></div>
+      <div class="card"><span class="num">02</span><h3>We handle the rest</h3><p>Our team edits, adds the hooks and produces the final ad.</p></div>
+      <div class="card"><span class="num">03</span><h3>Product's on us</h3><p>We ship you Blyss so you can film with it in hand.</p></div>
+      <div class="card"><span class="num">04</span><h3>You get paid</h3><p>$150 per concept, paid out through Youdji.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">What we look for</div>
+    <h2>Just you, your home and your phone.</h2>
+    <div class="chips">
+      <span class="chip">Natural on-camera energy</span>
+      <span class="chip">Your real home</span>
+      <span class="chip">Comfortable talking to camera</span>
+      <span class="chip">Reliable turnaround</span>
+    </div>
+    <p class="note">No pro gear or editing skills needed: your phone and your personality do the work.</p>
+  </section>
+
+  <section>
+    <div class="kicker">There's an angle for you</div>
+    <h2>We match you to the story that fits.</h2>
+    <div class="angles">
+      <span class="angle">The Pet Parent</span>
+      <span class="angle">The Host</span>
+      <span class="angle">The one who keeps the house running</span>
+      <span class="angle">The trusted cleaner</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <h2>Sounds like you?</h2>
+      <p>Reply here or reach out to your Ad Pros contact, and we'll get you set up with your first Blyss concept.</p>
+      <a class="btn" href="#">Let's talk</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="logo" style="font-size:18px;">ad<br><span class="pros">pros</span></span>
+    <span class="fnote">Blyss &times; Ad Pros · Creator Program</span>
+  </footer>
+
+</div>
+</body>
+</html>
