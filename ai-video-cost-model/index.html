@@ -92,13 +92,109 @@
     .ap-footer-left { display: flex; align-items: center; gap: 14px; }
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
-    @media (max-width: 640px) {
-      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
-      .ap-footer { margin-left: 28px; margin-right: 28px; }
-      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
-      .lv label { flex: 0 0 120px; font-size: 12px; }
-      .ap-value { grid-template-columns: 56px 1fr; gap: 14px; }
+
+    /* ---------- Desktop refinements ---------- */
+    @media (min-width: 1100px) {
+      .ap-content { padding: 56px 64px; }
+      .ap-section { padding: 88px 0; }
+      .ap-stat-num { font-size: 46px; }
+      .ap-table { font-size: 14px; }
+      .ap-table td { padding: 13px 10px; }
     }
+    @media (min-width: 1400px) {
+      .ap-content { max-width: 1320px; }
+    }
+
+    /* ---------- Tablet ---------- */
+    @media (max-width: 900px) {
+      .ap-content { padding: 32px 36px; }
+      .ap-section { padding: 48px 0; }
+      .ap-header { padding: 22px 36px; }
+      .ap-footer { margin-left: 36px; margin-right: 36px; }
+    }
+
+    /* ---------- Table to cards ---------- */
+    @media (max-width: 720px) {
+      .ap-table, .ap-table tbody, .ap-table tr, .ap-table td { display: block; width: 100%; }
+      .ap-table thead { display: none; }
+      .ap-table tr {
+        background: var(--navy); border: 1px solid var(--card-border-strong);
+        border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px;
+      }
+      .ap-table tr.on { border-color: var(--yellow); background: rgba(249,217,0,0.06); }
+      .ap-table tbody tr:hover { background: var(--navy); }
+      .ap-table tr.on:hover { background: rgba(249,217,0,0.06); }
+      .ap-table td {
+        display: flex; justify-content: space-between; align-items: baseline;
+        text-align: right; padding: 7px 0; border-bottom: 1px solid var(--card-border);
+        font-size: 14px;
+      }
+      .ap-table td:last-child { border-bottom: none; padding-bottom: 0; }
+      .ap-table td::before {
+        content: attr(data-label); float: left; text-align: left;
+        font-family: "Inter", sans-serif; font-size: 12px; font-weight: 500;
+        color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.6px;
+      }
+      .ap-table td.name {
+        display: block; font-size: 17px; padding: 0 0 12px;
+        border-bottom: 1px solid var(--card-border-strong); margin-bottom: 6px;
+      }
+      .ap-table td.name::before { content: none; }
+      .ap-table td.total { font-weight: 700; color: #fff; }
+      .ap-table tr.on td.total { color: var(--yellow); }
+      .ap-card { overflow-x: visible !important; }
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 640px) {
+      body { font-size: 15px; }
+      .ap-header { padding: 18px 20px; gap: 14px; }
+      .ap-header svg { width: 38px; height: 38px; }
+      .ap-header-divider { height: 32px; }
+      .ap-header-text h1 { font-size: 18px; }
+      .ap-header-text p { font-size: 12px; }
+      .ap-content { padding: 24px 20px; }
+      .ap-section { padding: 40px 0; }
+      .ap-footer { margin: 40px 20px 28px; flex-direction: column; align-items: flex-start; gap: 10px; }
+      .ap-h1 { font-size: 28px; } .ap-h2 { font-size: 24px; }
+      .ap-p-lg { font-size: 16px; }
+      .ap-card { padding: 20px 18px; }
+      .ap-stat { padding: 20px 14px; }
+      .ap-stat-num { font-size: 32px; }
+      .ap-stat-label { font-size: 11px; }
+      .ap-grid-3 { gap: 10px; }
+
+      /* Stacked slider rows with large touch targets */
+      .lv { display: block; margin-bottom: 20px; }
+      .lv label { display: block; float: none; font-size: 13px; margin-bottom: 2px; }
+      .lv span { display: block; float: none; text-align: left; font-size: 20px; margin-bottom: 8px; }
+      .lv input[type=range] { width: 100%; height: 6px; }
+      .lv input[type=range]::-webkit-slider-thumb { width: 28px; height: 28px; }
+      .lv input[type=range]::-moz-range-thumb { width: 28px; height: 28px; }
+      .gpu-btn { padding: 11px 16px; font-size: 14px; flex: 1 1 auto; min-width: 96px; }
+      .kv { font-size: 15px; padding: 9px 0; }
+
+      .ap-value { grid-template-columns: 1fr; gap: 0; }
+      .ap-value-num { padding: 8px 0; font-size: 18px; }
+      .ap-value-body { padding: 16px 18px; }
+      .ap-value-body h4 { font-size: 16px; }
+      .bar-head { font-size: 12px; }
+      .bar-legend { gap: 14px; }
+    }
+
+    @media (max-width: 380px) {
+      .ap-content { padding: 20px 14px; }
+      .ap-stat-num { font-size: 28px; }
+      .gpu-btn { width: 100%; }
+    }
+
+    /* ---------- Accessibility ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+    .lv input[type=range]:focus-visible,
+    .gpu-btn:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
     .lv { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
     .lv label { flex:0 0 168px; font-size:13px; color:var(--grey-300); }
@@ -344,18 +440,19 @@ function calc(){
     if(r.g.id===gpuId) tr.className='on';
     tr.onclick=function(){gpuId=r.g.id;paint();calc();};
     var cells=[
-      ['name', r.g.name],
-      ['', '$'+r.g.rate.toFixed(2)],
-      ['', r.hrs.toFixed(2)],
-      ['', money(r.gen)],
-      ['', money(r.tot)],
-      ['', big(r.week)],
-      ['', String(r.cards)]
+      ['name','', r.g.name],
+      ['','$/hr', '$'+r.g.rate.toFixed(2)],
+      ['','Hrs/video', r.hrs.toFixed(2)],
+      ['','Generation', money(r.gen)],
+      ['total','Total', money(r.tot)],
+      ['','Weekly', big(r.week)],
+      ['','Cards', String(r.cards)]
     ];
     cells.forEach(function(c,ci){
       var td=document.createElement('td');
       if(c[0]) td.className=c[0];
-      td.textContent=c[1];
+      if(c[1]) td.setAttribute('data-label',c[1]);
+      td.textContent=c[2];
       if(ci===0 && i===0){
         var s=document.createElement('span');
         s.className='badge-best'; s.textContent='BEST';
