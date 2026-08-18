@@ -93,6 +93,41 @@
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
 
+
+    /* ---------- Tabs ---------- */
+    .ap-tabs { display:flex; gap:6px; border-bottom:1px solid var(--card-border-strong); margin-bottom:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .ap-tab { background:transparent; border:none; border-bottom:3px solid transparent; color:var(--grey-300); padding:14px 20px; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer; white-space:nowrap; transition:color .15s, border-color .15s; }
+    .ap-tab:hover { color:var(--grey-100); }
+    .ap-tab.on { color:var(--yellow); border-bottom-color:var(--yellow); }
+    .ap-tab:focus-visible { outline:2px solid var(--yellow); outline-offset:-2px; }
+    .ap-panel { display:none; }
+    .ap-panel.on { display:block; }
+    .prov-note { display:inline-block; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; padding:4px 9px; border-radius:5px; margin-bottom:14px; }
+    .prov-note.secure { background:rgba(26,111,212,0.16); color:var(--blue-light); border:1px solid rgba(26,111,212,0.4); }
+    .prov-note.market { background:rgba(249,217,0,0.12); color:var(--yellow); border:1px solid rgba(249,217,0,0.35); }
+    .ap-static-table { width:100%; border-collapse:collapse; font-size:14px; }
+    .ap-static-table th { font-size:11px; text-transform:uppercase; letter-spacing:0.7px; color:var(--grey-300); font-weight:600; padding:10px 8px; text-align:right; border-bottom:1px solid var(--card-border-strong); }
+    .ap-static-table th:first-child { text-align:left; }
+    .ap-static-table td { padding:10px 8px; text-align:right; color:var(--grey-100); border-bottom:1px solid var(--card-border); font-family:"JetBrains Mono",monospace; font-size:13.5px; }
+    .ap-static-table td:first-child { text-align:left; font-family:"Inter",sans-serif; color:#fff; font-weight:500; }
+    .ap-static-table tr.hl td { background:rgba(249,217,0,0.07); color:var(--yellow); }
+    .ap-static-table tr.hl td:first-child { color:var(--yellow); }
+    .tag { display:inline-block; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; margin-left:6px; letter-spacing:0.4px; vertical-align:middle; }
+    .tag-v { background:rgba(15,151,61,0.2); color:#4ADE80; border:1px solid rgba(15,151,61,0.5); }
+    .tag-e { background:rgba(212,38,32,0.14); color:#F87171; border:1px solid rgba(212,38,32,0.4); }
+    @media (max-width:720px){
+      .ap-static-table, .ap-static-table tbody, .ap-static-table tr, .ap-static-table td { display:block; width:100%; }
+      .ap-static-table thead { display:none; }
+      .ap-static-table tr { background:var(--navy); border:1px solid var(--card-border-strong); border-radius:var(--radius); padding:14px 16px; margin-bottom:12px; }
+      .ap-static-table tr.hl { border-color:var(--yellow); }
+      .ap-static-table td { display:flex; justify-content:space-between; text-align:right; padding:7px 0; border-bottom:1px solid var(--card-border); }
+      .ap-static-table td:last-child { border-bottom:none; }
+      .ap-static-table td::before { content:attr(data-label); text-align:left; font-family:"Inter",sans-serif; font-size:12px; color:var(--grey-300); text-transform:uppercase; letter-spacing:0.6px; }
+      .ap-static-table td:first-child { display:block; font-size:17px; padding:0 0 10px; border-bottom:1px solid var(--card-border-strong); margin-bottom:6px; }
+      .ap-static-table td:first-child::before { content:none; }
+      .ap-tab { padding:12px 14px; font-size:14px; }
+    }
+
     /* ---------- Desktop refinements ---------- */
     @media (min-width: 1100px) {
       .ap-content { padding: 56px 64px; }
@@ -247,125 +282,270 @@
     </div>
   </header>
   <div class="ap-content" id="ap-content">
-    <section class="ap-section" id="s-model">
-      <div class="ap-section-label"><span class="num">01</span> Interactive model</div>
-      <div class="ap-kicker">AI video production economics</div>
-      <h2 class="ap-h2" style="margin-bottom:12px;">What it actually costs to generate video at scale</h2>
-      <p class="ap-p-lg" style="max-width:760px;margin-bottom:32px;">Self-hosted open-weight generation on rented GPUs versus hosted APIs. Move the levers to see cost per video, per week, and per month. Every figure recalculates live, including the GPU comparison table.</p>
+    <div class="ap-kicker" style="margin-bottom:12px;">AI video production economics</div>
+    <h2 class="ap-h2" style="margin-bottom:12px;">What it actually costs to generate video at scale</h2>
+    <p class="ap-p-lg" style="max-width:760px;margin-bottom:28px;">Self-hosted open-weight generation on rented GPUs versus hosted APIs. Move the levers to see cost per video, per week and per month. Every figure recalculates live, including the GPU comparison table.</p>
 
-      <div class="ap-grid-3" style="margin-bottom:24px;">
-        <div class="ap-stat">
-          <div class="ap-stat-num" id="m-gen">$3.28</div>
-          <div class="ap-stat-label">Generation / video</div>
-          <div class="ap-caption" id="m-gen-pct" style="margin-top:6px;">90% of total</div>
-        </div>
-        <div class="ap-stat">
-          <div class="ap-stat-num" id="m-edit">$0.38</div>
-          <div class="ap-stat-label">Editing / video</div>
-          <div class="ap-caption" id="m-edit-pct" style="margin-top:6px;">10% of total</div>
-        </div>
-        <div class="ap-stat">
-          <div class="ap-stat-num" id="m-tot">$3.65</div>
-          <div class="ap-stat-label">Total / video</div>
-          <div class="ap-caption" id="m-mult" style="margin-top:6px;">37x vs Higgsfield</div>
-        </div>
-      </div>
+    <div class="ap-tabs" role="tablist">
+      <button class="ap-tab on" role="tab" aria-selected="true" aria-controls="panel-runpod" data-panel="panel-runpod">RunPod model</button>
+      <button class="ap-tab" role="tab" aria-selected="false" aria-controls="panel-vast" data-panel="panel-vast">Vast.ai model</button>
+      <button class="ap-tab" role="tab" aria-selected="false" aria-controls="panel-analysis" data-panel="panel-analysis">Analysis</button>
+    </div>
 
-      <div class="ap-grid-2" style="margin-bottom:24px;">
-        <div class="ap-card">
-          <h4 class="ap-h5" style="margin-bottom:18px;">Generation levers</h4>
-          <label class="ap-input-label">GPU</label>
-          <div id="gpu-row" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;"></div>
-          <div class="lv"><label>Video duration</label><input type="range" min="15" max="120" step="15" value="60" id="dur"><span id="dur-out">60s</span></div>
-          <div class="lv"><label>Scene length</label><input type="range" min="3" max="12" step="1" value="3" id="scenelen"><span id="scenelen-out">3s</span></div>
-          <div class="lv"><label>Gens per scene</label><input type="range" min="1" max="10" step="1" value="10" id="gens"><span id="gens-out">10</span></div>
-          <div class="lv"><label>GPU sec / output sec</label><input type="range" min="8" max="45" step="1" value="17" id="tput"><span id="tput-out">17</span></div>
+    <div class="ap-panel on" id="panel-runpod" role="tabpanel">
+
+      <section class="ap-section" style="border-top:none;padding-top:36px;">
+        <div class="ap-kicker">RunPod &mdash; Secure &amp; Community</div>
+        <span class="prov-note secure">Verified 17 Aug 2026 &middot; SLA-backed</span>
+        <p class="ap-p-lg" style="max-width:760px;margin-bottom:32px;">RunPod&rsquo;s own datacenters with a 99 per cent uptime guarantee, EU regions and a signable data processing agreement. Community Cloud rates shown in the table are third-party hardware and preemptible.</p>
+
+        <div class="ap-grid-3" style="margin-bottom:24px;">
+          <div class="ap-stat"><div class="ap-stat-num" id="rp-gen">&mdash;</div><div class="ap-stat-label">Generation / video</div><div class="ap-caption" id="rp-genpct" style="margin-top:6px;"></div></div>
+          <div class="ap-stat"><div class="ap-stat-num" id="rp-edit">&mdash;</div><div class="ap-stat-label">Editing / video</div><div class="ap-caption" id="rp-editpct" style="margin-top:6px;"></div></div>
+          <div class="ap-stat"><div class="ap-stat-num" id="rp-tot">&mdash;</div><div class="ap-stat-label">Total / video</div><div class="ap-caption" id="rp-mult" style="margin-top:6px;"></div></div>
         </div>
-        <div class="ap-card">
-          <h4 class="ap-h5" style="margin-bottom:18px;">Editing &amp; volume levers</h4>
-          <div class="lv"><label>Editor hrs / 100 videos</label><input type="range" min="0" max="20" step="0.5" value="2.5" id="labor"><span id="labor-out">2.5</span></div>
-          <div class="lv"><label>Loaded hourly rate</label><input type="range" min="5" max="60" step="1" value="15" id="rate"><span id="rate-out">$15</span></div>
-          <div class="lv"><label>Videos per week</label><input type="range" min="10" max="300" step="10" value="100" id="vol"><span id="vol-out">100</span></div>
-          <div style="border-top:1px solid var(--card-border);margin-top:22px;padding-top:18px;">
-            <div class="kv"><span>Weekly total</span><strong id="m-week">$365</strong></div>
-            <div class="kv"><span>Monthly total</span><strong id="m-month">$1,580</strong></div>
-            <div class="kv"><span>GPU-hours / week</span><strong id="m-hrs">283</strong></div>
-            <div class="kv"><span>GPUs needed</span><strong id="m-cards">2</strong></div>
-            <div class="kv"><span>Annual saved vs Higgsfield</span><strong id="m-saved" style="color:var(--yellow);">$1.2M</strong></div>
+
+        <div class="ap-grid-2" style="margin-bottom:24px;">
+          <div class="ap-card">
+            <h4 class="ap-h5" style="margin-bottom:18px;">Generation levers</h4>
+            <label class="ap-input-label">GPU</label>
+            <div id="rp-gpurow" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;"></div>
+            <div class="lv"><label>Video duration</label><input type="range" min="15" max="120" step="15" value="60" id="rp-dur"><span id="rp-dur-out">60s</span></div>
+            <div class="lv"><label>Scene length</label><input type="range" min="3" max="12" step="1" value="3" id="rp-scenelen"><span id="rp-scenelen-out">3s</span></div>
+            <div class="lv"><label>Gens per scene</label><input type="range" min="1" max="10" step="1" value="10" id="rp-gens"><span id="rp-gens-out">10</span></div>
+            <div class="lv"><label>GPU sec / output sec</label><input type="range" min="8" max="45" step="1" value="17" id="rp-tput"><span id="rp-tput-out">17</span></div>
+          </div>
+          <div class="ap-card">
+            <h4 class="ap-h5" style="margin-bottom:18px;">Editing &amp; volume levers</h4>
+            <div class="lv"><label>Editor hrs / 100 videos</label><input type="range" min="0" max="20" step="0.5" value="2.5" id="rp-labor"><span id="rp-labor-out">2.5</span></div>
+            <div class="lv"><label>Loaded hourly rate</label><input type="range" min="5" max="60" step="1" value="15" id="rp-rate"><span id="rp-rate-out">$15</span></div>
+            <div class="lv"><label>Videos per week</label><input type="range" min="10" max="300" step="10" value="100" id="rp-vol"><span id="rp-vol-out">100</span></div>
+            <div style="border-top:1px solid var(--card-border);margin-top:22px;padding-top:18px;">
+              <div class="kv"><span>Weekly total</span><strong id="rp-week">&mdash;</strong></div>
+              <div class="kv"><span>Monthly total</span><strong id="rp-month">&mdash;</strong></div>
+              <div class="kv"><span>GPU-hours / week</span><strong id="rp-hrs">&mdash;</strong></div>
+              <div class="kv"><span>GPUs needed</span><strong id="rp-cards">&mdash;</strong></div>
+              <div class="kv"><span>Annual saved vs Higgsfield</span><strong id="rp-saved" style="color:var(--yellow);">&mdash;</strong></div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="ap-card" style="margin-bottom:24px;overflow-x:auto;">
-        <h4 class="ap-h5" style="margin-bottom:6px;">GPU comparison</h4>
-        <p class="ap-caption" style="margin-bottom:18px;">Ranked by total cost per video at current settings. Click a row to select.</p>
-        <table class="ap-table">
-          <thead><tr>
+        <div class="ap-card" style="margin-bottom:24px;">
+          <h4 class="ap-h5" style="margin-bottom:6px;">GPU comparison</h4>
+          <p class="ap-caption" style="margin-bottom:18px;">Ranked by total cost per video at current settings. Tap a row to select.</p>
+          <table class="ap-table"><thead><tr>
             <th style="text-align:left;">GPU</th><th>$/hr</th><th>Hrs/video</th><th>Generation</th><th>Total</th><th>Weekly</th><th>Cards</th>
-          </tr></thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </div>
+          </tr></thead><tbody id="rp-tbody"></tbody></table>
+        </div>
 
-      <div class="ap-card">
-        <h4 class="ap-h5" style="margin-bottom:6px;">Weekly cost by path</h4>
-        <p class="ap-caption" style="margin-bottom:18px;">Generation versus editing, self-hosted against hosted APIs.</p>
-        <div id="bars"></div>
-      </div>
-    </section>
+        <div class="ap-card">
+          <h4 class="ap-h5" style="margin-bottom:6px;">Weekly cost by path</h4>
+          <p class="ap-caption" style="margin-bottom:18px;">Generation versus editing, self-hosted against hosted APIs.</p>
+          <div id="rp-bars"></div>
+        </div>
+      </section>
 
-    <section class="ap-section" id="s-read">
-      <div class="ap-section-label"><span class="num">02</span> How to read it</div>
-      <h2 class="ap-h2" style="margin-bottom:28px;">Four things the model shows</h2>
-      <div class="ap-value">
-        <div class="ap-value-num">1</div>
-        <div class="ap-value-body">
+
+      <section class="ap-section">
+        <div class="ap-section-label"><span class="num">02</span> How to read it</div>
+        <h2 class="ap-h2" style="margin-bottom:28px;">Four things the model shows</h2>
+        <div class="ap-value"><div class="ap-value-num">1</div><div class="ap-value-body">
           <h4>Gens per scene is the biggest lever</h4>
-          <p>Moving from 10 takes per scene to 4 roughly halves total cost and can drop the GPU requirement to a single card. This is a creative-quality question, not a hardware one &mdash; measure the real usable-take rate before assuming you need ten.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">2</div>
-        <div class="ap-value-body">
+          <p>Moving from ten takes per scene to four roughly halves total cost and can drop the GPU requirement to a single card. This is a creative-quality question, not a hardware one &mdash; measure the real usable-take rate before assuming you need ten.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">2</div><div class="ap-value-body">
           <h4>The cheapest GPU per hour is rarely the cheapest per video</h4>
-          <p>What matters is dollars per hour divided by throughput. Slow cards win on paper and lose in practice, because hitting volume means running six pods instead of one. Always read the Cards column next to the cost.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">3</div>
-        <div class="ap-value-body">
+          <p>What matters is dollars per hour divided by throughput. Slow cards win on paper and lose in practice, because hitting volume means running six pods instead of one. Always read the Cards column next to the cost.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">3</div><div class="ap-value-body">
           <h4>Editing cost does not move when generation cost falls</h4>
-          <p>A reviewer takes the same time on 100 videos whether each cost four dollars or forty cents to produce. As generation is optimised down, the human share climbs on its own. Watch the two percentages flip.</p>
-        </div>
-      </div>
-      <div class="ap-value">
-        <div class="ap-value-num">4</div>
-        <div class="ap-value-body">
+          <p>A reviewer takes the same time on a hundred videos whether each cost four dollars or forty cents to produce. As generation is optimised down, the human share climbs on its own. Watch the two percentages flip.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">4</div><div class="ap-value-body">
           <h4>Throughput is the one assumption worth measuring</h4>
-          <p>The GPU seconds per output second slider drives the entire generation line. The default of 17 comes from a single published benchmark, not our hardware. One timed generation on the pod settles it, and every number downstream shifts proportionally.</p>
-        </div>
-      </div>
-    </section>
+          <p>The GPU seconds per output second slider drives the entire generation line. The default of seventeen comes from a single published benchmark, not our hardware. One timed generation on the pod settles it, and every number downstream shifts proportionally.</p></div></div>
+      </section>
 
-    <section class="ap-section" id="s-assumptions">
-      <div class="ap-section-label"><span class="num">03</span> Assumptions</div>
-      <h2 class="ap-h2" style="margin-bottom:20px;">What is measured and what is estimated</h2>
-      <div class="ap-grid-2">
-        <div class="ap-card">
-          <h4 class="ap-h5" style="margin-bottom:14px;">Verified</h4>
-          <p class="ap-p-sm">RunPod hourly rates taken from the live deploy screen. Higgsfield pricing at 4.5 credits per second at 720p, twenty credits to the dollar, matching the current billing sheet. ElevenLabs voice pricing from the published plan.</p>
-        </div>
-        <div class="ap-card">
-          <h4 class="ap-h5" style="margin-bottom:14px;">Estimated &mdash; verify before committing</h4>
-          <p class="ap-p-sm">Baseline throughput of 17 GPU seconds per output second. Relative speed multipliers between GPU models. Keyframe cost per image. Editor hours per hundred videos. All four are adjustable in the model and should be replaced with measured figures from the pilot.</p>
-        </div>
-      </div>
-      <div class="ap-callout" style="margin-top:20px;">
-        <strong>Scope</strong>
-        Generation covers GPU compute plus voice, scripting and keyframe API costs. Editing covers human review time only. Media spend, onboarding and platform build are modelled separately.
-      </div>
-    </section>
 
+      <section class="ap-section">
+        <div class="ap-section-label"><span class="num">03</span> Assumptions</div>
+        <h2 class="ap-h2" style="margin-bottom:20px;">What is measured and what is estimated</h2>
+        <div class="ap-grid-2">
+          <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:14px;">Verified <span class="tag tag-v">CHECKED</span></h4>
+            <p class="ap-p-sm">Provider hourly rates verified against a live multi-provider tracker on 17 August 2026 and cross-checked against the RunPod deploy console. Higgsfield pricing at four and a half credits per second at 720p, twenty credits to the dollar, matching the current billing sheet. ElevenLabs voice pricing from the published plan.</p></div>
+          <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:14px;">Estimated <span class="tag tag-e">VERIFY</span></h4>
+            <p class="ap-p-sm">Baseline throughput of seventeen GPU seconds per output second, taken from a single published benchmark. Relative speed multipliers between GPU models. Keyframe cost per image. Editor hours per hundred videos. All four are adjustable in the model and should be replaced with measured figures from the pilot.</p></div>
+        </div>
+        <div class="ap-callout" style="margin-top:20px;">
+          <strong>Scope</strong>
+          Generation covers GPU compute plus voice, scripting and keyframe API costs. Editing covers human review time only. Media spend, client onboarding and platform build are modelled separately.
+        </div>
+      </section>
+
+    </div>
+
+    <div class="ap-panel" id="panel-vast" role="tabpanel">
+
+      <section class="ap-section" style="border-top:none;padding-top:36px;">
+        <div class="ap-kicker">Vast.ai &amp; marketplace tiers</div>
+        <span class="prov-note market">Verified 17 Aug 2026 &middot; no SLA</span>
+        <p class="ap-p-lg" style="max-width:760px;margin-bottom:32px;">Peer-to-peer marketplace pricing at roughly a third of RunPod Secure rates. No uptime guarantee and instances can be reclaimed on short notice &mdash; acceptable here because segment-based generation re-queues rather than losing a batch. Host location varies, so avoid for workloads touching client data.</p>
+
+        <div class="ap-grid-3" style="margin-bottom:24px;">
+          <div class="ap-stat"><div class="ap-stat-num" id="vs-gen">&mdash;</div><div class="ap-stat-label">Generation / video</div><div class="ap-caption" id="vs-genpct" style="margin-top:6px;"></div></div>
+          <div class="ap-stat"><div class="ap-stat-num" id="vs-edit">&mdash;</div><div class="ap-stat-label">Editing / video</div><div class="ap-caption" id="vs-editpct" style="margin-top:6px;"></div></div>
+          <div class="ap-stat"><div class="ap-stat-num" id="vs-tot">&mdash;</div><div class="ap-stat-label">Total / video</div><div class="ap-caption" id="vs-mult" style="margin-top:6px;"></div></div>
+        </div>
+
+        <div class="ap-grid-2" style="margin-bottom:24px;">
+          <div class="ap-card">
+            <h4 class="ap-h5" style="margin-bottom:18px;">Generation levers</h4>
+            <label class="ap-input-label">GPU</label>
+            <div id="vs-gpurow" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;"></div>
+            <div class="lv"><label>Video duration</label><input type="range" min="15" max="120" step="15" value="60" id="vs-dur"><span id="vs-dur-out">60s</span></div>
+            <div class="lv"><label>Scene length</label><input type="range" min="3" max="12" step="1" value="3" id="vs-scenelen"><span id="vs-scenelen-out">3s</span></div>
+            <div class="lv"><label>Gens per scene</label><input type="range" min="1" max="10" step="1" value="10" id="vs-gens"><span id="vs-gens-out">10</span></div>
+            <div class="lv"><label>GPU sec / output sec</label><input type="range" min="8" max="45" step="1" value="17" id="vs-tput"><span id="vs-tput-out">17</span></div>
+          </div>
+          <div class="ap-card">
+            <h4 class="ap-h5" style="margin-bottom:18px;">Editing &amp; volume levers</h4>
+            <div class="lv"><label>Editor hrs / 100 videos</label><input type="range" min="0" max="20" step="0.5" value="2.5" id="vs-labor"><span id="vs-labor-out">2.5</span></div>
+            <div class="lv"><label>Loaded hourly rate</label><input type="range" min="5" max="60" step="1" value="15" id="vs-rate"><span id="vs-rate-out">$15</span></div>
+            <div class="lv"><label>Videos per week</label><input type="range" min="10" max="300" step="10" value="100" id="vs-vol"><span id="vs-vol-out">100</span></div>
+            <div style="border-top:1px solid var(--card-border);margin-top:22px;padding-top:18px;">
+              <div class="kv"><span>Weekly total</span><strong id="vs-week">&mdash;</strong></div>
+              <div class="kv"><span>Monthly total</span><strong id="vs-month">&mdash;</strong></div>
+              <div class="kv"><span>GPU-hours / week</span><strong id="vs-hrs">&mdash;</strong></div>
+              <div class="kv"><span>GPUs needed</span><strong id="vs-cards">&mdash;</strong></div>
+              <div class="kv"><span>Annual saved vs Higgsfield</span><strong id="vs-saved" style="color:var(--yellow);">&mdash;</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-card" style="margin-bottom:24px;">
+          <h4 class="ap-h5" style="margin-bottom:6px;">GPU comparison</h4>
+          <p class="ap-caption" style="margin-bottom:18px;">Ranked by total cost per video at current settings. Tap a row to select.</p>
+          <table class="ap-table"><thead><tr>
+            <th style="text-align:left;">GPU</th><th>$/hr</th><th>Hrs/video</th><th>Generation</th><th>Total</th><th>Weekly</th><th>Cards</th>
+          </tr></thead><tbody id="vs-tbody"></tbody></table>
+        </div>
+
+        <div class="ap-card">
+          <h4 class="ap-h5" style="margin-bottom:6px;">Weekly cost by path</h4>
+          <p class="ap-caption" style="margin-bottom:18px;">Generation versus editing, self-hosted against hosted APIs.</p>
+          <div id="vs-bars"></div>
+        </div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-section-label"><span class="num">02</span> Trade-offs</div>
+        <h2 class="ap-h2" style="margin-bottom:28px;">What the cheaper rate costs you</h2>
+        <div class="ap-value"><div class="ap-value-num">1</div><div class="ap-value-body">
+          <h4>No uptime guarantee</h4>
+          <p>Marketplace and spot instances carry no service level agreement and can be reclaimed with fifteen seconds notice. Jobs must checkpoint. Segment-based video generation does this naturally, so an interrupted run loses one segment rather than a batch.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">2</div><div class="ap-value-body">
+          <h4>Host location is not reliably compliant</h4>
+          <p>Machines are listed by individual hosts and the physical location varies. There is no data processing agreement available. Anything involving client brand assets, unreleased products or personal data should stay on an SLA-backed provider with a known jurisdiction.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">3</div><div class="ap-value-body">
+          <h4>Setup is repeated per instance</h4>
+          <p>Without a persistent network volume shared across pods, each new instance re-downloads model weights. At sixty to eighty gigabytes per environment this is a real time cost, and it argues for baking models into a container image before running at volume.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">4</div><div class="ap-value-body">
+          <h4>Prices float with supply and demand</h4>
+          <p>Marketplace rates are set by hosts and move continuously. The figures modelled here were accurate on 17 August 2026 and should be re-checked before any sustained commitment. Reserved tiers on fixed-price providers trade a small premium for rate certainty.</p></div></div>
+      </section>
+
+      <section class="ap-section">
+        <div class="ap-section-label"><span class="num">03</span> Assumptions</div>
+        <h2 class="ap-h2" style="margin-bottom:20px;">What is measured and what is estimated</h2>
+        <div class="ap-grid-2">
+          <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:14px;">Verified <span class="tag tag-v">CHECKED</span></h4>
+            <p class="ap-p-sm">Provider hourly rates verified against a live multi-provider tracker on 17 August 2026 and cross-checked against the RunPod deploy console. Higgsfield pricing at four and a half credits per second at 720p, twenty credits to the dollar, matching the current billing sheet. ElevenLabs voice pricing from the published plan.</p></div>
+          <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:14px;">Estimated <span class="tag tag-e">VERIFY</span></h4>
+            <p class="ap-p-sm">Baseline throughput of seventeen GPU seconds per output second, taken from a single published benchmark. Relative speed multipliers between GPU models. Keyframe cost per image. Editor hours per hundred videos. All four are adjustable in the model and should be replaced with measured figures from the pilot.</p></div>
+        </div>
+        <div class="ap-callout" style="margin-top:20px;">
+          <strong>Scope</strong>
+          Generation covers GPU compute plus voice, scripting and keyframe API costs. Editing covers human review time only. Media spend, client onboarding and platform build are modelled separately.
+        </div>
+      </section>
+
+    </div>
+
+    <div class="ap-panel" id="panel-analysis" role="tabpanel">
+
+      <section class="ap-section" style="border-top:none;padding-top:36px;">
+        <div class="ap-kicker">Provider analysis</div>
+        <h2 class="ap-h2" style="margin-bottom:12px;">Where the compute should actually run</h2>
+        <p class="ap-p-lg" style="max-width:760px;margin-bottom:32px;">Rates below were verified against a live multi-provider price tracker on 17 August 2026, cross-checked against the RunPod deploy console. GPU cloud pricing moves constantly &mdash; re-verify before committing to a long rental.</p>
+
+        <div class="ap-callout" style="margin-bottom:32px;">
+          <strong>Correction to an earlier version of this model</strong>
+          RunPod Community Cloud was modelled at $0.50/hr. The verified rate is $0.69/hr, so earlier Community-tier figures were understated by roughly 38 per cent. The Secure Cloud rate of $0.99/hr is confirmed correct.
+        </div>
+
+        <h3 class="ap-h3" style="margin-bottom:14px;">How RunPod prices</h3>
+        <div class="ap-grid-2" style="margin-bottom:32px;">
+          <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:12px;">Two clouds, one platform</h4>
+            <p class="ap-p-sm">Community Cloud runs on third-party hardware with no uptime guarantee and pods that can be preempted. Secure Cloud is RunPod&rsquo;s own infrastructure with a 99 per cent SLA. The gap between them is roughly thirty per cent.</p></div>
+          <div class="ap-card"><h4 class="ap-h5" style="margin-bottom:12px;">What stacks on top</h4>
+            <p class="ap-p-sm">Network volume storage runs five to seven cents per gigabyte per month, container disk ten cents per gigabyte while the pod is live. Billing is per second on pods. Serverless bills per second of execution with no idle charge.</p></div>
+        </div>
+
+        <h3 class="ap-h3" style="margin-bottom:6px;">Verified RTX 5090 rates</h3>
+        <p class="ap-caption" style="margin-bottom:18px;">Live on-demand and spot pricing across fourteen providers.</p>
+        <div class="ap-card" style="margin-bottom:32px;">
+          <table class="ap-static-table">
+            <thead><tr><th>Provider</th><th>$/hr</th><th>Billing</th><th>Per video</th><th>Monthly</th></tr></thead>
+            <tbody>
+              <tr><td>Nova Cloud</td><td data-label="$/hr">$0.15</td><td data-label="Billing">Spot</td><td data-label="Per video">$0.42</td><td data-label="Monthly">$184</td></tr>
+              <tr class="hl"><td>Vast.ai</td><td data-label="$/hr">$0.32</td><td data-label="Billing">On-demand</td><td data-label="Per video">$0.91</td><td data-label="Monthly">$392</td></tr>
+              <tr><td>GPU.ai</td><td data-label="$/hr">$0.33</td><td data-label="Billing">On-demand</td><td data-label="Per video">$0.93</td><td data-label="Monthly">$404</td></tr>
+              <tr><td>HyperAI</td><td data-label="$/hr">$0.35</td><td data-label="Billing">On-demand</td><td data-label="Per video">$0.99</td><td data-label="Monthly">$429</td></tr>
+              <tr><td>Nova Cloud</td><td data-label="$/hr">$0.43</td><td data-label="Billing">Reserved 6mo</td><td data-label="Per video">$1.22</td><td data-label="Monthly">$527</td></tr>
+              <tr><td>GPUhub</td><td data-label="$/hr">$0.46</td><td data-label="Billing">On-demand</td><td data-label="Per video">$1.30</td><td data-label="Monthly">$564</td></tr>
+              <tr><td>Hostiko</td><td data-label="$/hr">$0.47</td><td data-label="Billing">Reserved 1mo</td><td data-label="Per video">$1.33</td><td data-label="Monthly">$576</td></tr>
+              <tr><td>Nova Cloud</td><td data-label="$/hr">$0.57</td><td data-label="Billing">On-demand</td><td data-label="Per video">$1.61</td><td data-label="Monthly">$698</td></tr>
+              <tr class="hl"><td>RunPod Community</td><td data-label="$/hr">$0.69</td><td data-label="Billing">On-demand</td><td data-label="Per video">$1.95</td><td data-label="Monthly">$845</td></tr>
+              <tr><td>Sesterce</td><td data-label="$/hr">$0.71</td><td data-label="Billing">On-demand</td><td data-label="Per video">$2.01</td><td data-label="Monthly">$871</td></tr>
+              <tr class="hl"><td>RunPod Secure</td><td data-label="$/hr">$0.99</td><td data-label="Billing">On-demand</td><td data-label="Per video">$2.80</td><td data-label="Monthly">$1,213</td></tr>
+            </tbody>
+          </table>
+          <p class="ap-caption" style="margin-top:14px;">Per-video and monthly figures assume sixty-second videos, three-second scenes, ten generations per scene, seventeen GPU seconds per output second, one hundred videos per week. Market averages: on-demand $0.58, reserved $0.53, spot $0.22. The median on-demand rate has fallen about forty per cent since August 2025.</p>
+        </div>
+
+        <h3 class="ap-h3" style="margin-bottom:14px;">Managed ComfyUI platforms</h3>
+        <div class="ap-card" style="margin-bottom:20px;">
+          <table class="ap-static-table">
+            <thead><tr><th>Platform</th><th style="text-align:left;">Billing model</th><th style="text-align:left;">Fit</th></tr></thead>
+            <tbody>
+              <tr><td>Comfy Cloud (official)</td><td data-label="Billing" style="text-align:left;font-family:Inter,sans-serif;">Subscription plus credits</td><td data-label="Fit" style="text-align:left;font-family:Inter,sans-serif;">Curated node list only</td></tr>
+              <tr><td>RunComfy</td><td data-label="Billing" style="text-align:left;font-family:Inter,sans-serif;">Pay-as-you-go GPU hours</td><td data-label="Fit" style="text-align:left;font-family:Inter,sans-serif;">Interactive creative sessions</td></tr>
+              <tr><td>ComfyDeploy</td><td data-label="Billing" style="text-align:left;font-family:Inter,sans-serif;">Per execution</td><td data-label="Fit" style="text-align:left;font-family:Inter,sans-serif;">API-first with version pinning</td></tr>
+              <tr><td>ViewComfy</td><td data-label="Billing" style="text-align:left;font-family:Inter,sans-serif;">Serverless autoscaling</td><td data-label="Fit" style="text-align:left;font-family:Inter,sans-serif;">Enterprise, SSO, private S3</td></tr>
+              <tr><td>ComfyICU</td><td data-label="Billing" style="text-align:left;font-family:Inter,sans-serif;">Per run, shared pool</td><td data-label="Fit" style="text-align:left;font-family:Inter,sans-serif;">Low volume, queues when busy</td></tr>
+              <tr><td>RunPod Serverless</td><td data-label="Billing" style="text-align:left;font-family:Inter,sans-serif;">Per second of execution</td><td data-label="Fit" style="text-align:left;font-family:Inter,sans-serif;">Bring your own container</td></tr>
+            </tbody>
+          </table>
+          <p class="ap-caption" style="margin-top:14px;">Per-hour rates for these platforms could not be independently verified &mdash; published pricing pages show sample rates only or require an account. Treat this table as a category map rather than a price comparison.</p>
+        </div>
+        <div class="ap-callout" style="margin-bottom:32px;">
+          <strong>Why managed hosting does not fit here</strong>
+          Dedicated instances win on economics above roughly five hundred generations per day. At one hundred videos per week this pipeline runs closer to two thousand eight hundred per day. The pipeline also depends on pinned community custom nodes, which curated platforms may not support, and platforms using a different execution engine cannot import a ComfyUI workflow file at all.
+        </div>
+
+        <h3 class="ap-h3" style="margin-bottom:20px;">Recommendation</h3>
+        <div class="ap-value"><div class="ap-value-num">1</div><div class="ap-value-body">
+          <h4>Build on RunPod, batch on the marketplace</h4>
+          <p>Keep RunPod for development and for any workload touching client data &mdash; it has EU datacenters and will sign a data processing agreement, which marketplace providers cannot reliably offer. Move bulk overnight generation to Vast.ai or a spot tier, where the per-video cost falls by roughly two thirds.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">2</div><div class="ap-value-body">
+          <h4>Preemption is not a real risk for this workload</h4>
+          <p>Generation is queued and segment-based, so an interrupted job re-queues the unfinished segment rather than losing the batch. Spot and marketplace tiers carry no uptime guarantee and can reclaim an instance on fifteen seconds notice, which matters for training runs and not for batch inference that checkpoints naturally.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">3</div><div class="ap-value-body">
+          <h4>Check the consumer licence before standardising on a 5090</h4>
+          <p>The RTX 5090 is a consumer GeForce card with no error-correcting memory and is subject to Nvidia&rsquo;s consumer licence, which may restrict datacenter use. The L40S and RTX PRO 6000 are the datacenter-licensed alternatives and are worth confirming with counsel before a commercial pipeline depends on the cheaper card.</p></div></div>
+        <div class="ap-value"><div class="ap-value-num">4</div><div class="ap-value-body">
+          <h4>Provider choice is a second-order decision</h4>
+          <p>Every option in the table beats the hosted-API baseline by an order of magnitude. Moving from the most expensive tier to the cheapest saves around eight hundred dollars a month; moving off hosted APIs saves several thousand. Make the platform decision on data residency and operational fit, then optimise the rate.</p></div></div>
+      </section>
+
+    </div>
   </div>
   <footer class="ap-footer">
     <div class="ap-footer-left">
@@ -386,67 +566,86 @@
 
 <script>
 (function(){
-var GPUS=[
- {id:'5090',name:'RTX 5090',rate:0.99,mult:1.00},
- {id:'l40s',name:'L40S',rate:1.01,mult:1.67},
- {id:'4090',name:'RTX 4090',rate:0.74,mult:1.53},
- {id:'a5000',name:'RTX A5000',rate:0.27,mult:3.35},
- {id:'h100',name:'H100 SXM',rate:3.29,mult:0.67}
-];
-var gpuId='5090';
+var PROVIDERS = {
+  rp: [
+    {id:'5090s',name:'RTX 5090 Secure',rate:0.99,mult:1.00},
+    {id:'5090c',name:'RTX 5090 Community',rate:0.69,mult:1.00},
+    {id:'l40s', name:'L40S',            rate:1.01,mult:1.67},
+    {id:'4090', name:'RTX 4090',        rate:0.74,mult:1.53},
+    {id:'a5000',name:'RTX A5000',       rate:0.27,mult:3.35},
+    {id:'h100', name:'H100 SXM',        rate:3.29,mult:0.67}
+  ],
+  vs: [
+    {id:'v5090',name:'RTX 5090',        rate:0.32,mult:1.00},
+    {id:'v4090',name:'RTX 4090',        rate:0.29,mult:1.53},
+    {id:'v3090',name:'RTX 3090',        rate:0.15,mult:3.86},
+    {id:'nspot',name:'5090 Spot (Nova)',rate:0.15,mult:1.00},
+    {id:'gpuai',name:'5090 (GPU.ai)',   rate:0.33,mult:1.00},
+    {id:'vh100',name:'H100 SXM',        rate:2.13,mult:0.67}
+  ]
+};
+var sel = { rp:'5090s', vs:'v5090' };
+
 function $(id){return document.getElementById(id);}
 function money(n){return '$'+n.toFixed(2);}
 function big(n){return '$'+Math.round(n).toLocaleString();}
 
-var row=$('gpu-row');
-GPUS.forEach(function(g){
-  var b=document.createElement('button');
-  b.className='gpu-btn'; b.textContent=g.name; b.setAttribute('data-id',g.id);
-  b.onclick=function(){gpuId=g.id;paint();calc();};
-  row.appendChild(b);
-});
-function paint(){
-  var kids=row.children;
+function build(k){
+  var row=$(k+'-gpurow');
+  PROVIDERS[k].forEach(function(g){
+    var b=document.createElement('button');
+    b.className='gpu-btn'; b.textContent=g.name; b.setAttribute('data-id',g.id);
+    b.onclick=function(){ sel[k]=g.id; paint(k); calc(k); };
+    row.appendChild(b);
+  });
+  ['dur','scenelen','gens','tput','labor','rate','vol'].forEach(function(s){
+    $(k+'-'+s).addEventListener('input',function(){calc(k);});
+  });
+  paint(k); calc(k);
+}
+
+function paint(k){
+  var kids=$(k+'-gpurow').children;
   for(var i=0;i<kids.length;i++){
-    if(kids[i].getAttribute('data-id')===gpuId) kids[i].classList.add('on');
+    if(kids[i].getAttribute('data-id')===sel[k]) kids[i].classList.add('on');
     else kids[i].classList.remove('on');
   }
 }
 
-function calc(){
-  var dur=+$('dur').value, sl=+$('scenelen').value, gp=+$('gens').value, tp=+$('tput').value;
-  var vol=+$('vol').value, lh=+$('labor').value, rate=+$('rate').value;
-  $('dur-out').textContent=dur+'s'; $('scenelen-out').textContent=sl+'s';
-  $('gens-out').textContent=gp; $('tput-out').textContent=tp;
-  $('vol-out').textContent=vol; $('labor-out').textContent=lh.toFixed(1);
-  $('rate-out').textContent='$'+rate;
+function calc(k){
+  var dur=+$(k+'-dur').value, sl=+$(k+'-scenelen').value, gp=+$(k+'-gens').value, tp=+$(k+'-tput').value;
+  var vol=+$(k+'-vol').value, lh=+$(k+'-labor').value, rate=+$(k+'-rate').value;
+  $(k+'-dur-out').textContent=dur+'s'; $(k+'-scenelen-out').textContent=sl+'s';
+  $(k+'-gens-out').textContent=gp; $(k+'-tput-out').textContent=tp;
+  $(k+'-vol-out').textContent=vol; $(k+'-labor-out').textContent=lh.toFixed(1);
+  $(k+'-rate-out').textContent='$'+rate;
 
   var scenes=Math.ceil(dur/sl);
   var genSec=scenes*gp*sl;
   var apis=(dur/60)*0.29+0.18;
   var edit=(lh/100)*rate;
 
-  var rows=GPUS.map(function(g){
+  var rows=PROVIDERS[k].map(function(g){
     var hrs=(genSec*tp*g.mult)/3600;
     var gen=hrs*g.rate+apis;
     return {g:g,hrs:hrs,gen:gen,tot:gen+edit,week:(gen+edit)*vol,
             cards:Math.max(1,Math.ceil(hrs*vol/168))};
   }).sort(function(a,b){return a.tot-b.tot;});
 
-  var tb=$('tbody');
+  var tb=$(k+'-tbody');
   while(tb.firstChild) tb.removeChild(tb.firstChild);
   rows.forEach(function(r,i){
     var tr=document.createElement('tr');
-    if(r.g.id===gpuId) tr.className='on';
-    tr.onclick=function(){gpuId=r.g.id;paint();calc();};
+    if(r.g.id===sel[k]) tr.className='on';
+    tr.onclick=function(){ sel[k]=r.g.id; paint(k); calc(k); };
     var cells=[
-      ['name','', r.g.name],
-      ['','$/hr', '$'+r.g.rate.toFixed(2)],
-      ['','Hrs/video', r.hrs.toFixed(2)],
-      ['','Generation', money(r.gen)],
-      ['total','Total', money(r.tot)],
-      ['','Weekly', big(r.week)],
-      ['','Cards', String(r.cards)]
+      ['name','',r.g.name],
+      ['','$/hr','$'+r.g.rate.toFixed(2)],
+      ['','Hrs/video',r.hrs.toFixed(2)],
+      ['','Generation',money(r.gen)],
+      ['total','Total',money(r.tot)],
+      ['','Weekly',big(r.week)],
+      ['','Cards',String(r.cards)]
     ];
     cells.forEach(function(c,ci){
       var td=document.createElement('td');
@@ -463,31 +662,32 @@ function calc(){
     tb.appendChild(tr);
   });
 
-  var sel=null;
-  for(var k=0;k<rows.length;k++){ if(rows[k].g.id===gpuId) sel=rows[k]; }
+  var cur=null;
+  for(var j=0;j<rows.length;j++){ if(rows[j].g.id===sel[k]) cur=rows[j]; }
+  if(!cur) cur=rows[0];
   var hfGen=genSec*0.225+apis, sdGen=genSec*0.09+apis;
 
-  $('m-gen').textContent=money(sel.gen);
-  $('m-edit').textContent=money(edit);
-  $('m-tot').textContent=money(sel.tot);
-  $('m-gen-pct').textContent=Math.round(sel.gen/sel.tot*100)+'% of total';
-  $('m-edit-pct').textContent=Math.round(edit/sel.tot*100)+'% of total';
-  $('m-mult').textContent=Math.round((hfGen+edit)/sel.tot)+'x vs Higgsfield';
-  $('m-week').textContent=big(sel.week);
-  $('m-month').textContent=big(sel.tot*vol*4.33);
-  $('m-hrs').textContent=Math.round(sel.hrs*vol).toLocaleString();
-  $('m-cards').textContent=sel.cards;
-  var saved=(hfGen+edit-sel.tot)*vol*52;
-  $('m-saved').textContent= saved>=1000000 ? '$'+(saved/1000000).toFixed(1)+'M' : '$'+Math.round(saved/1000).toLocaleString()+'k';
+  $(k+'-gen').textContent=money(cur.gen);
+  $(k+'-edit').textContent=money(edit);
+  $(k+'-tot').textContent=money(cur.tot);
+  $(k+'-genpct').textContent=Math.round(cur.gen/cur.tot*100)+'% of total';
+  $(k+'-editpct').textContent=Math.round(edit/cur.tot*100)+'% of total';
+  $(k+'-mult').textContent=Math.round((hfGen+edit)/cur.tot)+'x vs Higgsfield';
+  $(k+'-week').textContent=big(cur.week);
+  $(k+'-month').textContent=big(cur.tot*vol*4.33);
+  $(k+'-hrs').textContent=Math.round(cur.hrs*vol).toLocaleString();
+  $(k+'-cards').textContent=cur.cards;
+  var saved=(hfGen+edit-cur.tot)*vol*52;
+  $(k+'-saved').textContent = saved>=1000000 ? '$'+(saved/1000000).toFixed(1)+'M' : '$'+Math.round(saved/1000).toLocaleString()+'k';
 
   var paths=[
-    {label:'Self-hosted', gen:sel.gen*vol, edit:edit*vol},
-    {label:'Seedance API', gen:sdGen*vol, edit:edit*vol},
-    {label:'Higgsfield', gen:hfGen*vol, edit:edit*vol}
+    {label:'Self-hosted', gen:cur.gen*vol, edit:edit*vol},
+    {label:'Seedance API',gen:sdGen*vol,   edit:edit*vol},
+    {label:'Higgsfield',  gen:hfGen*vol,   edit:edit*vol}
   ];
   var max=0;
   paths.forEach(function(p){ var t=p.gen+p.edit; if(t>max) max=t; });
-  var bars=$('bars');
+  var bars=$(k+'-bars');
   while(bars.firstChild) bars.removeChild(bars.firstChild);
   var lg=document.createElement('div');
   lg.className='bar-legend';
@@ -501,20 +701,36 @@ function calc(){
     var st=document.createElement('strong'); st.textContent=big(tot)+' / week';
     head.appendChild(s); head.appendChild(st);
     var track=document.createElement('div'); track.className='bar-track';
-    track.style.width=(max>0 ? (tot/max*100) : 0)+'%';
+    track.style.width=(max>0?(tot/max*100):0)+'%';
     var g=document.createElement('div'); g.className='bar-gen';
-    g.style.width=(tot>0 ? (p.gen/tot*100) : 0)+'%';
+    g.style.width=(tot>0?(p.gen/tot*100):0)+'%';
     var e=document.createElement('div'); e.className='bar-edit';
-    e.style.width=(tot>0 ? (p.edit/tot*100) : 0)+'%';
+    e.style.width=(tot>0?(p.edit/tot*100):0)+'%';
     track.appendChild(g); track.appendChild(e);
     wrap.appendChild(head); wrap.appendChild(track);
     bars.appendChild(wrap);
   });
 }
-['dur','scenelen','gens','tput','labor','rate','vol'].forEach(function(id){
-  $(id).addEventListener('input',calc);
-});
-paint(); calc();
+
+var tabs=document.querySelectorAll('.ap-tab');
+for(var t=0;t<tabs.length;t++){
+  tabs[t].addEventListener('click', function(){
+    var target=this.getAttribute('data-panel');
+    for(var i=0;i<tabs.length;i++){
+      var on = tabs[i]===this;
+      if(on) tabs[i].classList.add('on'); else tabs[i].classList.remove('on');
+      tabs[i].setAttribute('aria-selected', on?'true':'false');
+    }
+    var panels=document.querySelectorAll('.ap-panel');
+    for(var j=0;j<panels.length;j++){
+      if(panels[j].id===target) panels[j].classList.add('on');
+      else panels[j].classList.remove('on');
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
+
+build('rp'); build('vs');
 })();
 </script>
 
