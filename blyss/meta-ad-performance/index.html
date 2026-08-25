@@ -446,7 +446,7 @@ function spendBar(rows){
   const cpos=rows.map(r=>r.cpo);
   const minC=Math.min(...cpos,TARGET)*0.90, maxC=Math.max(...cpos)*1.08;
   const x=v=>PADL+(Math.log10(v+1)-Math.log10(1000))/(Math.log10(maxSpend*1.15)-Math.log10(1000))*(W-PADL-PADR);
-  const y=v=>PADT+(v-minC)/(maxC-minC)*(H-PADT-PADB);
+  const y=v=>PADT+(1-(v-minC)/(maxC-minC))*(H-PADT-PADB);
   const ty=y(TARGET);
   const colors={Angle:'#3BA9F9',Format:'#F9D900',USP:'#4ADE80'};
   const pts=rows.map(r=>{
@@ -459,7 +459,12 @@ function spendBar(rows){
   const cands=rows.filter(r=>r.spend>28000)
     .sort((a,b)=>b.spend-a.spend)
     .map(r=>({r,px:x(r.spend),py:y(r.cpo),rad:Math.max(5,Math.min(20,Math.sqrt(r.spend/maxSpend)*24))}));
-  const placed=[];
+  const placed=[
+    {bx:PADL+70,  by:ty-8,  bw:190},   // "$80 target" caption
+    {bx:W-PADR-46,by:ty-8,  bw:100},   // "over target" marker
+    {bx:W-PADR-52,by:ty+15, bw:112},   // "hitting target" marker
+    {bx:PADL+90,  by:18,    bw:210}    // legend strip
+  ];
   function fits(bx,by,bw){
     if(by-LBL_H/2<PADT-32||by+LBL_H/2>H-PADB) return false;
     if(bx-bw/2<4||bx+bw/2>W-4) return false;
@@ -505,18 +510,20 @@ function spendBar(rows){
       <td class="num">${r.roas.toFixed(3)}</td></tr>`;}).join('');
 
   document.getElementById('p-matrix').innerHTML=`
-  <div class="callout"><b>How to read this:</b> horizontal = how much you're spending (log scale), vertical = how efficiently it converts. Bubble size = spend. Anything <b>below</b> the yellow line beats the $80 target. Best place to be is bottom-right; most urgent problems are top-right &mdash; big spend, bad CPO. <b>Hover any bubble or table row</b> to highlight the match in the other.</div>
+  <div class="callout"><b>How to read this:</b> horizontal = how much you're spending (log scale), vertical = how efficiently it converts. Bubble size = spend. Cheaper CPO sits lower, so anything <b>below</b> the yellow line beats the $80 target. Best place to be is bottom-right &mdash; big spend, cheap acquisition. Most urgent problems are top-right: big spend, bad CPO. <b>Hover any bubble or table row</b> to highlight the match in the other.</div>
   <div class="quad"><svg class="quadsvg" id="quadsvg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
-    <rect x="${PADL}" y="${PADT}" width="${W-PADL-PADR}" height="${ty-PADT}" fill="#4ADE80" fill-opacity="0.04"/>
-    <rect x="${PADL}" y="${ty}" width="${W-PADL-PADR}" height="${H-PADB-ty}" fill="#F87171" fill-opacity="0.04"/>
+    <rect x="${PADL}" y="${PADT}" width="${W-PADL-PADR}" height="${ty-PADT}" fill="#F87171" fill-opacity="0.04"/>
+    <rect x="${PADL}" y="${ty}" width="${W-PADL-PADR}" height="${H-PADB-ty}" fill="#4ADE80" fill-opacity="0.04"/>
     ${xticks}${yticks}
     <line x1="${PADL}" y1="${ty.toFixed(1)}" x2="${W-PADR}" y2="${ty.toFixed(1)}" stroke="#F9D900" stroke-width="2" stroke-dasharray="6 4"/>
-    <text x="${PADL+6}" y="${(ty-8).toFixed(1)}" fill="#F9D900" font-size="10.5" text-anchor="start" font-family="JetBrains Mono">$80 target &mdash; below wins</text>
+    <text x="${PADL+6}" y="${(ty-8).toFixed(1)}" fill="#F9D900" font-size="10.5" text-anchor="start" font-family="JetBrains Mono">$80 target &mdash; below this line wins</text>
     ${pts}${labels}
+    <text x="${W-PADR-4}" y="${(ty+18).toFixed(1)}" fill="#4ADE80" font-size="10" text-anchor="end" font-family="Inter" opacity="0.8">&darr; hitting target</text>
+    <text x="${W-PADR-4}" y="${(ty-8).toFixed(1)}" fill="#F87171" font-size="10" text-anchor="end" font-family="Inter" opacity="0.8">&uarr; over target</text>
     <line x1="${PADL}" y1="${PADT}" x2="${PADL}" y2="${H-PADB}" stroke="#1a2375" stroke-width="1.5"/>
     <line x1="${PADL}" y1="${H-PADB}" x2="${W-PADR}" y2="${H-PADB}" stroke="#1a2375" stroke-width="1.5"/>
     <text x="${(W/2).toFixed(0)}" y="${H-10}" fill="#8A8B93" font-size="11" text-anchor="middle" font-family="Inter">Spend (log scale) &rarr;</text>
-    <text x="16" y="${(H/2).toFixed(0)}" fill="#8A8B93" font-size="11" text-anchor="middle" font-family="Inter" transform="rotate(-90 16 ${(H/2).toFixed(0)})">New-customer CPO &rarr;</text>
+    <text x="16" y="${(H/2).toFixed(0)}" fill="#8A8B93" font-size="11" text-anchor="middle" font-family="Inter" transform="rotate(-90 16 ${(H/2).toFixed(0)})">&larr; Cheaper CPO (better)</text>
     <circle cx="${PADL+8}" cy="18" r="5" fill="#3BA9F9" fill-opacity="0.5" stroke="#3BA9F9"/><text x="${PADL+18}" y="22" fill="#B0B1B6" font-size="10.5" font-family="Inter">Angle</text>
     <circle cx="${PADL+76}" cy="18" r="5" fill="#F9D900" fill-opacity="0.5" stroke="#F9D900"/><text x="${PADL+86}" y="22" fill="#B0B1B6" font-size="10.5" font-family="Inter">Format</text>
     <circle cx="${PADL+148}" cy="18" r="5" fill="#4ADE80" fill-opacity="0.5" stroke="#4ADE80"/><text x="${PADL+158}" y="22" fill="#B0B1B6" font-size="10.5" font-family="Inter">USP</text>
