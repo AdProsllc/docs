@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="slurp" content="noindex, nofollow">
+<meta name="duckduckbot" content="noindex, nofollow">
+<meta name="baiduspider" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<meta name="author" content="Nehal Kazim">
+<title>Meta Ad Performance — Blyss | Ad Pros</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate icon" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="mask-icon" href="/favicon.svg" color="#040735">
+<meta name="theme-color" content="#040735">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#040735; --navy-deep:#02041f; --navy-card:#070b3d; --navy-card-hover:#0a1050;
+  --yellow:#F9D900; --yellow-dim:#DFC200;
+  --blue:#1A6FD4; --blue-light:#3BA9F9;
+  --white:#FFFFFF;
+  --grey-400:#54556A; --grey-300:#8A8B93; --grey-200:#B0B1B6; --grey-100:#E6E6E7;
+  --card-border:#0e1358; --card-border-strong:#1a2375;
+  --success:#0F973D; --error:#D42620;
+  --moss-bg:rgba(15,151,61,0.12); --clay-bg:rgba(212,38,32,0.12); --amber-bg:rgba(249,217,0,0.10);
+  --radius:10px;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+  --space-12:48px; --space-16:64px;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--navy); color:var(--grey-200);
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:15px; line-height:1.6; min-height:100vh;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;}
+
+.ap-header{background:var(--navy);border-bottom:4px solid var(--yellow);padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.ap-header-divider{width:1px;height:32px;background:rgba(255,255,255,0.15);}
+.ap-header-text h1{font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.2px;}
+.ap-header-text p{font-size:12px;color:var(--grey-300);margin-top:2px;}
+
+.ap-content{padding:24px 20px 60px;max-width:1180px;margin:0 auto;}
+
+.ap-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--yellow);margin-bottom:12px;}
+.ap-kicker::before{content:"";width:18px;height:2px;background:var(--yellow);}
+.ap-h1{font-size:26px;font-weight:800;line-height:1.2;letter-spacing:-0.5px;color:#fff;}
+.ap-p{font-size:14px;line-height:1.6;color:var(--grey-200);}
+.ap-p-sm{font-size:12.5px;line-height:1.55;color:var(--grey-300);}
+
+.hero-meta{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--grey-300);margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px;}
+.hero-meta b{color:var(--yellow);font-weight:600;}
+
+.ap-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0;}
+@media (max-width:900px){.ap-grid-4{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.ap-grid-4{grid-template-columns:1fr;}}
+
+.ap-stat{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:18px 18px 16px;position:relative;}
+.ap-stat.winner{border-top:3px solid var(--success);}
+.ap-stat.loser{border-top:3px solid var(--error);}
+.ap-stat.neutral{border-top:3px solid var(--yellow);}
+.ap-stat.info{border-top:3px solid var(--blue-light);}
+.ap-stat-label{font-size:10px;color:var(--grey-300);text-transform:uppercase;letter-spacing:0.8px;font-family:"JetBrains Mono",monospace;}
+.ap-stat-num{font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1;margin-top:8px;}
+.ap-stat-num.y{color:var(--yellow);}
+.ap-stat-sub{font-size:11.5px;color:var(--grey-300);margin-top:6px;}
+
+.controls{
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  margin-bottom:12px;padding:12px 14px;background:var(--navy-card);
+  border:1px solid var(--card-border);border-radius:var(--radius);
+}
+.controls input[type=text]{
+  flex:1;min-width:160px;padding:9px 12px;border:1px solid var(--card-border-strong);
+  border-radius:8px;font-family:inherit;font-size:13px;background:var(--navy);
+  color:#fff;outline:none;
+}
+.controls input[type=text]::placeholder{color:var(--grey-400);}
+.controls input[type=text]:focus{border-color:var(--yellow);}
+.chip{
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:7px 13px;border-radius:20px;
+  border:1px solid var(--card-border-strong);background:var(--navy);cursor:pointer;color:var(--grey-300);
+  text-transform:uppercase;letter-spacing:0.03em;transition:all .12s ease;user-select:none;white-space:nowrap;
+}
+.chip:hover{border-color:var(--yellow);color:#fff;}
+.chip.active{background:var(--yellow);color:var(--navy);border-color:var(--yellow);font-weight:700;}
+.chip.w.active{background:var(--success);color:#fff;border-color:var(--success);}
+.chip.l.active{background:var(--error);color:#fff;border-color:var(--error);}
+
+.count-line{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--grey-300);margin-bottom:10px;}
+
+.tablewrap{border:1px solid var(--card-border);border-radius:var(--radius);overflow:auto;max-height:640px;background:var(--navy-card);}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:680px;}
+thead th{
+  position:sticky;top:0;background:var(--navy-deep);color:var(--yellow);
+  text-align:left;padding:10px 12px;font-family:"JetBrains Mono",monospace;font-size:10px;
+  text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;user-select:none;white-space:nowrap;
+  border-bottom:2px solid var(--yellow);
+}
+thead th:hover{color:#fff;}
+thead th.sorted::after{content:" \25be";opacity:.8;}
+thead th.sorted.asc::after{content:" \25b4";opacity:.8;}
+tbody tr{border-bottom:1px solid var(--card-border);}
+tbody tr:hover{background:var(--navy-card-hover);}
+tbody td{padding:9px 12px;vertical-align:top;color:var(--grey-200);}
+td.name{max-width:380px;}
+td.name .n{font-weight:600;font-size:12.5px;line-height:1.35;color:#fff;}
+td.num{font-family:"JetBrains Mono",monospace;text-align:right;white-space:nowrap;}
+td.status-cell{text-align:center;}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+.dot.active{background:var(--success);}
+.dot.inactive{background:var(--grey-400);}
+.badge{
+  display:inline-block;padding:3px 10px;border-radius:20px;font-family:"JetBrains Mono",monospace;
+  font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;white-space:nowrap;
+}
+.badge.winner{background:var(--moss-bg);color:#4ADE80;}
+.badge.loser{background:var(--clay-bg);color:#F87171;}
+.badge.undecided{background:var(--amber-bg);color:var(--yellow);}
+
+.footnote{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--grey-400);margin-top:18px;line-height:1.8;padding:14px 16px;border:1px solid var(--card-border);border-radius:var(--radius);background:var(--navy-card);}
+.footnote b{color:var(--grey-200);}
+
+.ap-footer{padding:24px 20px;text-align:center;font-size:11.5px;color:var(--grey-400);border-top:1px solid var(--card-border);}
+.ap-footer a{color:var(--yellow);text-decoration:none;}
+
+@media (max-width:640px){
+  .ap-header{padding:16px 16px;}
+  .ap-header-text h1{font-size:16px;}
+  .ap-content{padding:18px 12px 48px;}
+  .ap-h1{font-size:21px;}
+  thead th{padding:8px 8px;font-size:9px;}
+  tbody td{padding:7px 8px;font-size:11.5px;}
+  td.name{max-width:200px;}
+  td.name .n{font-size:11.5px;}
+}
+</style>
+</head>
+<body>
+
+<header class="ap-header">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="40" height="40">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+
+  <div class="ap-header-divider"></div>
+  <div class="ap-header-text">
+    <h1>Blyss — Meta Ad Performance</h1>
+    <p>Ad Pros &middot; Prepared for Blyss</p>
+  </div>
+</header>
+
+<div class="ap-content">
+
+  <div class="ap-kicker">Meta &middot; Clicks Only &middot; 7-Day Window</div>
+  <h1 class="ap-h1">217 Ads, Spend-to-Target Breakdown</h1>
+  <p class="ap-p" style="margin-top:10px;max-width:640px;">
+    Every Meta ad that spent in the last 30 days, scored against an $80 new-customer
+    CPO target. Sort, filter, and search below.
+  </p>
+  <div class="hero-meta">
+    <span>Window: <b>Jul 25 &ndash; Aug 23, 2026</b></span>
+    <span>Attribution: <b>Clicks Only, 7-day</b></span>
+    <span>Target: <b>$80.00 new CPO</b></span>
+    <span>Verdict gate: <b>$250 min spend</b></span>
+  </div>
+
+  <div class="ap-grid-4">
+    <div class="ap-stat info">
+      <div class="ap-stat-label">Total Spend Captured</div>
+      <div class="ap-stat-num y" id="cardSpend">$0</div>
+      <div class="ap-stat-sub">of $2,052,815 total (99.3%)</div>
+    </div>
+    <div class="ap-stat winner">
+      <div class="ap-stat-label">Winners</div>
+      <div class="ap-stat-num" id="cardWinners">0</div>
+      <div class="ap-stat-sub">CPO &le; $80, spend &ge; $250</div>
+    </div>
+    <div class="ap-stat loser">
+      <div class="ap-stat-label">Losers</div>
+      <div class="ap-stat-num" id="cardLosers">0</div>
+      <div class="ap-stat-sub" id="cardLosersSub">still live above target</div>
+    </div>
+    <div class="ap-stat neutral">
+      <div class="ap-stat-label">Killed Winners</div>
+      <div class="ap-stat-num" id="cardKilled">0</div>
+      <div class="ap-stat-sub">turned off despite hitting target</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search ad name&hellip;">
+    <div class="chip active" data-filter="all">All</div>
+    <div class="chip w" data-filter="winner">Winners</div>
+    <div class="chip l" data-filter="loser">Losers</div>
+    <div class="chip" data-filter="undecided">Undecided</div>
+    <div class="chip" data-filter="active">Live only</div>
+    <div class="chip" data-filter="inactive">Paused only</div>
+  </div>
+
+  <div class="count-line" id="countLine"></div>
+
+  <div class="tablewrap">
+  <table>
+    <thead>
+      <tr>
+        <th data-key="name">Ad</th>
+        <th data-key="status">Status</th>
+        <th data-key="spend" class="sorted">Spend</th>
+        <th data-key="orders">New Orders</th>
+        <th data-key="cpo">CPO</th>
+        <th data-key="verdict">Verdict</th>
+        <th data-key="days">Days Live</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  </div>
+
+  <div class="footnote">
+    <b>Reading this:</b> Verdict requires &ge;$250 spend to clear enough orders for a CPO reading to mean
+    something. Below that, an ad is <b>Undecided</b> &mdash; not enough signal yet either way.
+    Days Live is only reconstructed for ads that were actually paused during the window
+    (pulled from daily Northbeam spend); still-active ads show &ldquo;&mdash;&rdquo;.
+    CPO = spend &divide; new (first-time) customer transactions, Northbeam clicks-only attribution, 7-day window.
+  </div>
+
+</div>
+
+<footer class="ap-footer">
+  Ad Pros &middot; Prepared for Blyss &middot; Published by Nehal Kazim
+</footer>
+
+<script>
+const DATA = [{"name": "C1549_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 229964.34, "orders": 3006.46, "cpo": 76.49, "verdict": "winner", "days": -1}, {"name": "C1514_Blyss_Mop Soap_Evergreen_Video_Voiceover_Routine_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 194913.88, "orders": 2420.04, "cpo": 80.54, "verdict": "loser", "days": -1}, {"name": "C1465_Blyss_Mop Soap_Evergreen_Video_Solo_Review_Long Lasting Smell_Multiple Scents_Jacob_PDP", "status": "active", "spend": 191549.77, "orders": 2460.04, "cpo": 77.86, "verdict": "winner", "days": -1}, {"name": "C1494_Blyss_Mop Soap_Evergreen_Video_POV_Smell Reaction_Luxury Scent_Apple & Honey_Internal_PDP", "status": "active", "spend": 145208.91, "orders": 1872.48, "cpo": 77.55, "verdict": "winner", "days": -1}, {"name": "C1545_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Deep Clean_Multiple Scents_Internal_PDP", "status": "active", "spend": 119298.09, "orders": 1498.2, "cpo": 79.63, "verdict": "winner", "days": -1}, {"name": "C886_Blyss_Mop Soap_Evergreen_Video_Demo_Problem / Solution_Plant Based_Imported Mahogany_Internal_PDP", "status": "active", "spend": 58390.22, "orders": 638.35, "cpo": 91.47, "verdict": "loser", "days": -1}, {"name": "C1479_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem / Solution_Plant Based_Multiple Scents_Internal_Kaelam_PDP", "status": "active", "spend": 56873.08, "orders": 600.42, "cpo": 94.72, "verdict": "loser", "days": -1}, {"name": "Scaled_1.2_C1551_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 54961.85, "orders": 689.22, "cpo": 79.74, "verdict": "winner", "days": -1}, {"name": "C1559_Blyss_Mop Soap_Evergreen_Video_Talking Head_Problem : Solution_Odor Removal_Heartbreaker_Internal_PDP", "status": "active", "spend": 51979.87, "orders": 625.64, "cpo": 83.08, "verdict": "loser", "days": -1}, {"name": "C1551_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 50726.34, "orders": 686.43, "cpo": 73.9, "verdict": "winner", "days": -1}, {"name": "C1522_Blyss_Mop Soap_Sale_Video_Voiceover_Sale_Luxury Scent_Multiple Scents_Internal_PDP", "status": "active", "spend": 50453.73, "orders": 597.75, "cpo": 84.41, "verdict": "loser", "days": -1}, {"name": "C1547_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Multiple Scents_Internal_PDP", "status": "active", "spend": 44046.09, "orders": 487.39, "cpo": 90.37, "verdict": "loser", "days": -1}, {"name": "J626 5", "status": "active", "spend": 43286.87, "orders": 535.73, "cpo": 80.8, "verdict": "loser", "days": -1}, {"name": "C1104_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Candy Apple_COPIA_PDP", "status": "active", "spend": 36135.04, "orders": 417.6, "cpo": 86.53, "verdict": "loser", "days": -1}, {"name": "C1523_Blyss_Mop Soap_Sale_Video_Voiceover_Sale_Luxury Scent_Multiple Scents_Internal_PDP", "status": "active", "spend": 32485.7, "orders": 396.55, "cpo": 81.92, "verdict": "loser", "days": -1}, {"name": "C1100_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Golden Citrus_COPIA_PDP", "status": "active", "spend": 31726.36, "orders": 335.09, "cpo": 94.68, "verdict": "loser", "days": -1}, {"name": "C1466_Blyss_Mop Soap_Evergreen_Video_Solo_Review_Long Lasting Smell_Multiple Scents_Jacob_PDP", "status": "active", "spend": 29190.92, "orders": 302.59, "cpo": 96.47, "verdict": "loser", "days": -1}, {"name": "0112(6) - Copy", "status": "active", "spend": 28591.22, "orders": 345.07, "cpo": 82.86, "verdict": "loser", "days": -1}, {"name": "C1552_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Pink Champagne_Internal_PDP", "status": "active", "spend": 24850.19, "orders": 256.9, "cpo": 96.73, "verdict": "loser", "days": -1}, {"name": "Your house stink (hannah Fillpot) - Copy", "status": "active", "spend": 22965.85, "orders": 317.22, "cpo": 72.4, "verdict": "winner", "days": -1}, {"name": "0112(6) - Copy 2", "status": "active", "spend": 20330.46, "orders": 234.97, "cpo": 86.52, "verdict": "loser", "days": -1}, {"name": "C1570_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Heartbreaker_Internal_PDP", "status": "active", "spend": 18907.2, "orders": 190.86, "cpo": 99.06, "verdict": "loser", "days": -1}, {"name": "4 - Copy", "status": "inactive", "spend": 17687.58, "orders": 206.68, "cpo": 85.58, "verdict": "loser", "days": 22}, {"name": "J626 21", "status": "active", "spend": 16463.72, "orders": 231.2, "cpo": 71.21, "verdict": "winner", "days": -1}, {"name": "C1528_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Non-Toxic_Multiple Scents_Internal_PDP", "status": "active", "spend": 15239.18, "orders": 162.11, "cpo": 94.01, "verdict": "loser", "days": -1}, {"name": "C526_kayhart_Mop Soap_Evergreen_Video_Voiceover_Review_Fresh_Heartbreaker_BNGR_PDP", "status": "active", "spend": 13590.97, "orders": 125.23, "cpo": 108.53, "verdict": "loser", "days": -1}, {"name": "Your house stinks and heres why (Rw Clip) - Copy", "status": "inactive", "spend": 13280.13, "orders": 135.38, "cpo": 98.09, "verdict": "loser", "days": 12}, {"name": "C1358_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Brazilian Waves_COPIA_PDP", "status": "active", "spend": 13084.78, "orders": 127.53, "cpo": 102.6, "verdict": "loser", "days": -1}, {"name": "C1649_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Plant Based_Multiple Scents_Internal_PDP", "status": "active", "spend": 13017.8, "orders": 125.66, "cpo": 103.6, "verdict": "loser", "days": -1}, {"name": "C052_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Spring_Luxury Scent_Brazilian Waves_PDP - Copy 2", "status": "active", "spend": 12747.2, "orders": 141.51, "cpo": 90.08, "verdict": "loser", "days": -1}, {"name": "C1637_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 12739.94, "orders": 149.96, "cpo": 84.95, "verdict": "loser", "days": -1}, {"name": "Your House stinks and heres why (RW Clip 3)", "status": "active", "spend": 12069.97, "orders": 155.84, "cpo": 77.45, "verdict": "winner", "days": -1}, {"name": "C1496_Blyss_Mop Soap_Evergreen_Video_POV_Smell Reaction_Luxury Scent_Apple & Honey_Internal_PDP", "status": "active", "spend": 11146.26, "orders": 103.31, "cpo": 107.89, "verdict": "loser", "days": -1}, {"name": "C1543_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 10620.55, "orders": 92.29, "cpo": 115.07, "verdict": "loser", "days": -1}, {"name": "C525_kayhart_Mop Soap_Evergreen_Video_Voiceover_Review_Fresh_Heartbreaker_BNGR_PDP", "status": "active", "spend": 10382.44, "orders": 130.32, "cpo": 79.67, "verdict": "winner", "days": -1}, {"name": "BT - Copy", "status": "active", "spend": 10310.36, "orders": 116.32, "cpo": 88.63, "verdict": "loser", "days": -1}, {"name": "C589_Blyss_Mop Soap_Evergreen_Video_Podcast_Comparison_Plant Based_Multiple Scents_Internal_PDP", "status": "active", "spend": 10219.67, "orders": 105.6, "cpo": 96.77, "verdict": "loser", "days": -1}, {"name": "Your house stinks and heres why (Rw Clip)", "status": "active", "spend": 9883.27, "orders": 119.13, "cpo": 82.96, "verdict": "loser", "days": -1}, {"name": "Your house stink (hannah Fillpot) - Copy \u2013 Copy", "status": "active", "spend": 9177.08, "orders": 130.23, "cpo": 70.47, "verdict": "winner", "days": -1}, {"name": "C1596_melaniedeeugc_Mop Soap_Evergreen_Video_Voiceover_First Impression_Long Lasting Smell_Multiple Scents_BNGR_PDP", "status": "active", "spend": 8995.25, "orders": 84.06, "cpo": 107.01, "verdict": "loser", "days": -1}, {"name": "C1511_Blyss_Mop Soap_Evergreen_Video_POV_Routine_Deep Clean_Imported Mahogany_Internal_PDP", "status": "active", "spend": 8790.17, "orders": 77.72, "cpo": 113.1, "verdict": "loser", "days": -1}, {"name": "C559_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Plant Based_Brazilian Waves_Internal_PDP", "status": "active", "spend": 8262.94, "orders": 47.38, "cpo": 174.41, "verdict": "loser", "days": -1}, {"name": "C556_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Brazilian Waves_Internal_PDP", "status": "active", "spend": 7637.5, "orders": 80.45, "cpo": 94.93, "verdict": "loser", "days": -1}, {"name": "C1518_Blyss_Mop Soap_Sale_Video_Voiceover_Sale_Luxury Scent_Multiple Scents_Internal_PDP", "status": "active", "spend": 7398.33, "orders": 89.88, "cpo": 82.32, "verdict": "loser", "days": -1}, {"name": "C1103_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Candy Peach_COPIA_PDP", "status": "active", "spend": 6324.2, "orders": 62.96, "cpo": 100.44, "verdict": "loser", "days": -1}, {"name": "Scaled_1.2_C1545_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Deep Clean_Multiple Scents_Internal_PDP", "status": "active", "spend": 6271.84, "orders": 74.0, "cpo": 84.75, "verdict": "loser", "days": -1}, {"name": "RW Fall Scent - Copy", "status": "active", "spend": 6267.33, "orders": 71.82, "cpo": 87.27, "verdict": "loser", "days": -1}, {"name": "C421_Blyss_Mop Soap_Evergreen_Video_Narrative_Review_Long Lasting Smell_Multiple Scents_Internal_PDP - Copy", "status": "active", "spend": 6196.04, "orders": 75.82, "cpo": 81.72, "verdict": "loser", "days": -1}, {"name": "C1367_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Sunwashed Linen_COPIA_PDP", "status": "active", "spend": 6184.4, "orders": 31.57, "cpo": 195.87, "verdict": "loser", "days": -1}, {"name": "C1547_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Multiple Scents_Internal_PDP", "status": "inactive", "spend": 6177.53, "orders": 55.49, "cpo": 111.32, "verdict": "loser", "days": null}, {"name": "C1106_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 5878.33, "orders": 56.54, "cpo": 103.96, "verdict": "loser", "days": -1}, {"name": "C1236_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Lavendar Dreams_COPIA_PDP", "status": "active", "spend": 5633.89, "orders": 47.92, "cpo": 117.58, "verdict": "loser", "days": -1}, {"name": "Vacation Orlando (Cleaning Lady)", "status": "active", "spend": 5300.39, "orders": 68.56, "cpo": 77.31, "verdict": "winner", "days": -1}, {"name": "Hannahfillpot_C421_Blyss_Mop Soap_Evergreen_Video_Narrative_Review_Long Lasting Smell_Multiple Scents_Internal_PDP - Copy 3", "status": "inactive", "spend": 4925.55, "orders": 60.41, "cpo": 81.53, "verdict": "loser", "days": 13}, {"name": "C1510_Blyss_Mop Soap_Evergreen_Video_Narrative_Problem : Solution_Plant Based_Heartbreaker_Internal_PDP", "status": "active", "spend": 4875.15, "orders": 49.48, "cpo": 98.52, "verdict": "loser", "days": -1}, {"name": "C1369_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Royalty_COPIA_PDP", "status": "active", "spend": 4785.81, "orders": 40.8, "cpo": 117.31, "verdict": "loser", "days": -1}, {"name": "9", "status": "active", "spend": 4302.63, "orders": 50.89, "cpo": 84.55, "verdict": "loser", "days": -1}, {"name": "C1578_Blyss_Mop Soap_Evergreen_Video_Narrative_Story_Long Lasting Smell_Heartbreaker_DOJO_PDP", "status": "active", "spend": 4096.76, "orders": 32.13, "cpo": 127.49, "verdict": "loser", "days": -1}, {"name": "C797_Blyss_Mop Soap_Evergreen_GIF_Demo_Skeptic Try_Odor Removal_Multiple Scents_Internal_PDP", "status": "inactive", "spend": 4039.04, "orders": 33.81, "cpo": 119.46, "verdict": "loser", "days": null}, {"name": "4", "status": "active", "spend": 3941.88, "orders": 41.45, "cpo": 95.09, "verdict": "loser", "days": -1}, {"name": "J626 2", "status": "active", "spend": 3878.83, "orders": 39.79, "cpo": 97.48, "verdict": "loser", "days": -1}, {"name": "Your house stink (hannah Fillpot)", "status": "active", "spend": 3789.52, "orders": 51.92, "cpo": 72.99, "verdict": "winner", "days": -1}, {"name": "C1515_Blyss_Mop Soap_Evergreen_Video_Voiceover_Routine_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 3591.27, "orders": 20.43, "cpo": 175.82, "verdict": "loser", "days": -1}, {"name": "C1183_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Brazilian Waves_COPIA_PDP", "status": "active", "spend": 3554.43, "orders": 33.73, "cpo": 105.38, "verdict": "loser", "days": -1}, {"name": "Yo house smell like dog (rw clip 3) - Copy 2", "status": "active", "spend": 3216.77, "orders": 39.06, "cpo": 82.35, "verdict": "loser", "days": -1}, {"name": "C1335_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Imported Mahogany_COPIA_PDP", "status": "active", "spend": 3214.29, "orders": 27.49, "cpo": 116.91, "verdict": "loser", "days": -1}, {"name": "C1495_Blyss_Mop Soap_Evergreen_Video_POV_Smell Reaction_Luxury Scent_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 3144.86, "orders": 17.5, "cpo": 179.68, "verdict": "loser", "days": -1}, {"name": "C1561_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Multiple Scents_Internal_PDP", "status": "active", "spend": 3017.45, "orders": 24.12, "cpo": 125.11, "verdict": "loser", "days": -1}, {"name": "C1483_mramelrenell_Mop Soap_Evergreen_Video_Talking Head_Smell Reaction_Luxury Scent_Multiple Scents_Internal_PDP", "status": "active", "spend": 2874.0, "orders": 23.23, "cpo": 123.72, "verdict": "loser", "days": -1}, {"name": "C1516_Blyss_Mop Soap_Evergreen_Video_Voiceover_Routine_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 2846.41, "orders": 19.76, "cpo": 144.02, "verdict": "loser", "days": -1}, {"name": "I switched to blyss) Hook 3", "status": "active", "spend": 2745.19, "orders": 33.18, "cpo": 82.73, "verdict": "loser", "days": -1}, {"name": "C886_Blyss_Mop Soap_Evergreen_Video_Demo_Problem / Solution_Plant Based_Imported Mahogany_Internal_PDP (paused variant)", "status": "inactive", "spend": 2731.29, "orders": 23.86, "cpo": 114.45, "verdict": "loser", "days": null}, {"name": "C1572_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Luxury Scent_Brazilian Waves_Internal_PDP", "status": "active", "spend": 2579.42, "orders": 15.97, "cpo": 161.52, "verdict": "loser", "days": -1}, {"name": "C1333_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Imported Mahogany_COPIA_PDP", "status": "active", "spend": 2496.49, "orders": 20.68, "cpo": 120.74, "verdict": "loser", "days": -1}, {"name": "C1171_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Mahogany Cherry_COPIA_PDP", "status": "active", "spend": 2486.25, "orders": 22.6, "cpo": 110.01, "verdict": "loser", "days": -1}, {"name": "C1102_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Candy Peach_COPIA_PDP", "status": "active", "spend": 2456.73, "orders": 27.74, "cpo": 88.57, "verdict": "loser", "days": -1}, {"name": "C555_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Long Lasting Smell_Brazilian Waves_Internal_PDP", "status": "active", "spend": 2333.77, "orders": 25.16, "cpo": 92.77, "verdict": "loser", "days": -1}, {"name": "C1146_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 2330.36, "orders": 16.22, "cpo": 143.71, "verdict": "loser", "days": -1}, {"name": "Crystal D_Kalo BG Winner \u2013 Copy", "status": "active", "spend": 2281.5, "orders": 28.76, "cpo": 79.33, "verdict": "winner", "days": -1}, {"name": "C1377_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Imported Mahogany_COPIA_PDP", "status": "active", "spend": 2252.23, "orders": 22.82, "cpo": 98.72, "verdict": "loser", "days": -1}, {"name": "C1092_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Brazilian Waves_COPIA_PDP", "status": "active", "spend": 2216.28, "orders": 14.34, "cpo": 154.56, "verdict": "loser", "days": -1}, {"name": "C423_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Multiple Scents_Internal_PDP - Copy", "status": "inactive", "spend": 2166.85, "orders": 17.51, "cpo": 123.77, "verdict": "loser", "days": null}, {"name": "C1481_Whitelist_melaniedeeugc_Mop Soap_Evergreen_Video_Voiceover_Comparison_Luxury Scent_Multiple Scents_BNGR_PDP", "status": "active", "spend": 2102.76, "orders": 4.46, "cpo": 471.26, "verdict": "loser", "days": -1}, {"name": "C1584_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Luxury Scent_Multiple Scents_CBR_PDP", "status": "active", "spend": 2022.3, "orders": 17.43, "cpo": 116.03, "verdict": "loser", "days": -1}, {"name": "C423_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 1974.37, "orders": 17.13, "cpo": 115.24, "verdict": "loser", "days": -1}, {"name": "C1619_ItsMicheleElliott_Mop Soap_Evergreen_Video_Voiceover_Relatable_Long Lasting Smell_Multiple Scents_BNGR_PDP", "status": "active", "spend": 1961.02, "orders": 21.06, "cpo": 93.1, "verdict": "loser", "days": -1}, {"name": "C1376_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Royalty_COPIA_PDP", "status": "active", "spend": 1805.47, "orders": 12.26, "cpo": 147.24, "verdict": "loser", "days": -1}, {"name": "C341_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Brazilian Waves_Internal_PDP _04_24_26", "status": "active", "spend": 1794.49, "orders": 15.22, "cpo": 117.89, "verdict": "loser", "days": -1}, {"name": "C1517_Blyss_Mop Soap_Sale_Video_Voiceover_Sale_Luxury Scent_Multiple Scents_Internal_PDP", "status": "active", "spend": 1667.97, "orders": 14.03, "cpo": 118.85, "verdict": "loser", "days": -1}, {"name": "RW Fall Scent", "status": "active", "spend": 1548.77, "orders": 14.76, "cpo": 104.92, "verdict": "loser", "days": -1}, {"name": "C797_Blyss_Mop Soap_Evergreen_GIF_Demo_Skeptic Try_Odor Removal_Multiple Scents_Internal_PDP (active)", "status": "active", "spend": 1535.62, "orders": 16.14, "cpo": 95.12, "verdict": "loser", "days": -1}, {"name": "C1382_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 1497.88, "orders": 9.02, "cpo": 166.01, "verdict": "loser", "days": -1}, {"name": "C421_Blyss_Mop Soap_Evergreen_Video_Narrative_Review_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 1483.23, "orders": 17.26, "cpo": 85.94, "verdict": "loser", "days": -1}, {"name": "Kalo BG Winner", "status": "active", "spend": 1468.6, "orders": 20.54, "cpo": 71.51, "verdict": "winner", "days": -1}, {"name": "C1684_Blyss_Mop Soap_Evergreen_Video_Cartoon_Problem / Solution_Pet Safe_Mahogany Cherry_DOJO_PDP", "status": "active", "spend": 1443.27, "orders": 8.41, "cpo": 171.69, "verdict": "loser", "days": -1}, {"name": "Kalo BG Winner - Copy", "status": "inactive", "spend": 1437.76, "orders": 18.45, "cpo": 77.93, "verdict": "winner", "days": 19}, {"name": "Yo house smells like dog", "status": "active", "spend": 1429.37, "orders": 12.69, "cpo": 112.68, "verdict": "loser", "days": -1}, {"name": "C555_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Long Lasting Smell_Brazilian Waves_Internal_PDP \u2013 Copy", "status": "active", "spend": 1406.48, "orders": 16.28, "cpo": 86.37, "verdict": "loser", "days": -1}, {"name": "C1631_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Luxury Scent_Imported Mahogany_Internal_PDP", "status": "active", "spend": 1393.24, "orders": 10.28, "cpo": 135.57, "verdict": "loser", "days": -1}, {"name": "C1546_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Pet Safe_Multiple Scents_Internal_PDP", "status": "active", "spend": 1388.46, "orders": 13.38, "cpo": 103.78, "verdict": "loser", "days": -1}, {"name": "C1487_kelly.hutcheson_Mop Soap_Evergreen_Video_Talking Head_Story_Luxury Scent_Multiple Scents_Internal_PDP", "status": "active", "spend": 1365.36, "orders": 7.53, "cpo": 181.21, "verdict": "loser", "days": -1}, {"name": "4 - Copy (active variant)", "status": "active", "spend": 1337.28, "orders": 13.57, "cpo": 98.55, "verdict": "loser", "days": -1}, {"name": "C1488_mi_carli8_Mop Soap_Evergreen_Video_Voiceover_Story_Luxury Scent_Lavendar Dreams_Internal_PDP", "status": "active", "spend": 1327.33, "orders": 12.18, "cpo": 108.97, "verdict": "loser", "days": -1}, {"name": "C1212_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Baja_COPIA_PDP", "status": "active", "spend": 1285.44, "orders": 5.01, "cpo": 256.62, "verdict": "loser", "days": -1}, {"name": "Yo house smells like dog (RW Clips 2) - Copy 2", "status": "inactive", "spend": 1265.88, "orders": 11.24, "cpo": 112.61, "verdict": "loser", "days": null}, {"name": "Varient 1", "status": "inactive", "spend": 1265.65, "orders": 8.62, "cpo": 146.83, "verdict": "loser", "days": null}, {"name": "C1544_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 1242.01, "orders": 11.51, "cpo": 107.95, "verdict": "loser", "days": -1}, {"name": "C1580_Blyss_Mop Soap_Evergreen_Video_Narrative_Story_Luxury Scent_Multiple Scents_CBR_PDP", "status": "active", "spend": 1163.18, "orders": 11.27, "cpo": 103.23, "verdict": "loser", "days": -1}, {"name": "C1563_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Multiple Scents_Internal_PDP", "status": "active", "spend": 1064.07, "orders": 9.59, "cpo": 110.99, "verdict": "loser", "days": -1}, {"name": "BT - Copy 2", "status": "active", "spend": 1058.71, "orders": 19.51, "cpo": 54.26, "verdict": "winner", "days": -1}, {"name": "C1500_Blyss_Mop Soap_Evergreen_Video_Narrative_Smell Reaction_Long Lasting Smell_Heartbreaker_Internal_PDP", "status": "active", "spend": 1018.81, "orders": 8.25, "cpo": 123.45, "verdict": "loser", "days": -1}, {"name": "C1640_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 1016.53, "orders": 6.01, "cpo": 169.27, "verdict": "loser", "days": -1}, {"name": "C1320_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Sunwashed Linen_COPIA_PDP", "status": "active", "spend": 1004.73, "orders": 4.81, "cpo": 208.7, "verdict": "loser", "days": -1}, {"name": "C1609_diannamcruz_Mop Soap_Evergreen_Video_Voiceover_Relatable_Luxury Scent_Golden Citrus_BNGR_PDP", "status": "active", "spend": 1000.2, "orders": 6.89, "cpo": 145.17, "verdict": "loser", "days": -1}, {"name": "C1485_Kathy Bifulco_Mop Soap_Evergreen_Video_Talking Head_First Impression_Luxury Scent_Baja_Internal_PDP", "status": "active", "spend": 991.74, "orders": 8.05, "cpo": 123.18, "verdict": "loser", "days": -1}, {"name": "C556_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Brazilian Waves_Internal_PDP - Copy 2", "status": "active", "spend": 990.1, "orders": 7.59, "cpo": 130.41, "verdict": "loser", "days": -1}, {"name": "C1217_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Candy Apple_COPIA_PDP", "status": "active", "spend": 982.42, "orders": 8.51, "cpo": 115.38, "verdict": "loser", "days": -1}, {"name": "C1692_Blyss_Mop Soap_Sale_Video_Cartoon_Review_Luxury Scent_Royalty_Internal_PDP", "status": "active", "spend": 940.73, "orders": 5.28, "cpo": 178.12, "verdict": "loser", "days": -1}, {"name": "C1695_Blyss_Mop Soap_Evergreen_Video_Cartoon_First Impression_Odor Removal_Imported Mahogany_Internal_PDP", "status": "active", "spend": 931.35, "orders": 6.02, "cpo": 154.69, "verdict": "loser", "days": -1}, {"name": "C835_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Review_Luxury Scent_Candy Apple_Internal_PDP", "status": "active", "spend": 923.86, "orders": 10.42, "cpo": 88.64, "verdict": "loser", "days": -1}, {"name": "C1716_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Luxury Scent_Imported Mahogany_Roman_Marc_PDP", "status": "active", "spend": 887.63, "orders": 6.56, "cpo": 135.22, "verdict": "loser", "days": -1}, {"name": "Yo house smell like dog (rw clip 3)", "status": "active", "spend": 886.25, "orders": 8.77, "cpo": 101.1, "verdict": "loser", "days": -1}, {"name": "C1732_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Luxury Scent_Multiple Scents_Eric_Internal_PDP", "status": "active", "spend": 872.52, "orders": 11.1, "cpo": 78.6, "verdict": "winner", "days": -1}, {"name": "C1538_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Long Lasting Smell_Multiple Scents_Internal_PDP.mp4", "status": "active", "spend": 865.44, "orders": 7.09, "cpo": 122.02, "verdict": "loser", "days": -1}, {"name": "0112(6) - OG - Copy", "status": "active", "spend": 864.87, "orders": 8.41, "cpo": 102.79, "verdict": "loser", "days": -1}, {"name": "C1576_Blyss_Mop Soap_Evergreen_Video_Narrative_Story_Deep Clean_Heartbreaker_DOJO_PDP", "status": "active", "spend": 847.84, "orders": 6.3, "cpo": 134.57, "verdict": "loser", "days": -1}, {"name": "C1698_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Non-Toxic_Lavender Dreams_Internal_PDP", "status": "active", "spend": 837.93, "orders": 6.53, "cpo": 128.23, "verdict": "loser", "days": -1}, {"name": "C1512_Blyss_Mop Soap_Evergreen_Video_POV_Routine_Deep Clean_Imported Mahogany_Internal_PDP", "status": "active", "spend": 805.44, "orders": 9.73, "cpo": 82.81, "verdict": "loser", "days": -1}, {"name": "C1725_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Luxury Scent_Multiple Scents_Eric_Internal_PDP", "status": "active", "spend": 803.83, "orders": 6.95, "cpo": 115.71, "verdict": "loser", "days": -1}, {"name": "C1379_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 794.8, "orders": 5.97, "cpo": 133.15, "verdict": "loser", "days": -1}, {"name": "Yo house smells like dog (RW Clips 2)", "status": "active", "spend": 784.25, "orders": 5.45, "cpo": 143.79, "verdict": "loser", "days": -1}, {"name": "C1736_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Luxury Scent_Brazillian Waves_Eric_Internal_PDP", "status": "active", "spend": 775.73, "orders": 8.06, "cpo": 96.23, "verdict": "loser", "days": -1}, {"name": "C1229_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Golden Citrus_COPIA_PDP", "status": "active", "spend": 770.86, "orders": 2.46, "cpo": 313.82, "verdict": "loser", "days": -1}, {"name": "C1098_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Lavendar Dreams_COPIA_PDP", "status": "active", "spend": 747.87, "orders": 4.6, "cpo": 162.67, "verdict": "loser", "days": -1}, {"name": "C1711_Blyss_Mop Soap_Evergreen_Video_Cartoon_Problem:Solution_Pet Safe_Multiple Scents_Roman_Matheus_PDP", "status": "active", "spend": 743.5, "orders": 1.4, "cpo": 530.34, "verdict": "loser", "days": -1}, {"name": "C1353_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Royalty_COPIA_PDP", "status": "active", "spend": 736.23, "orders": 10.23, "cpo": 71.93, "verdict": "winner", "days": -1}, {"name": "C1527_Blyss_Mop Soap_Evergreen_Video_Talking Head_Problem : Solution_Deep Clean_Heartbreaker_Internal_PDP", "status": "active", "spend": 705.42, "orders": 2.04, "cpo": 345.06, "verdict": "loser", "days": -1}, {"name": "J626 4 \u2013 Copy", "status": "active", "spend": 704.9, "orders": 5.51, "cpo": 127.83, "verdict": "loser", "days": -1}, {"name": "C1703_Blyss_Mop Soap_Evergreen_Video_Cartoon_Story_Luxury Scent_Lavender Dreams_Internal_PDP", "status": "active", "spend": 704.49, "orders": 0.89, "cpo": 789.17, "verdict": "loser", "days": -1}, {"name": "C558_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Brazilian Waves_Internal_PDP", "status": "active", "spend": 697.99, "orders": 6.71, "cpo": 104.02, "verdict": "loser", "days": -1}, {"name": "C344_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Mixed Bundle_Internal_PDP _04_24_26", "status": "active", "spend": 697.76, "orders": 4.59, "cpo": 151.9, "verdict": "loser", "days": -1}, {"name": "C1505_Blyss_Mop Soap_Evergreen_Video_Narrative_Comparison_Deep Clean_Heartbreaker_Internal_PDP", "status": "active", "spend": 682.87, "orders": 3.02, "cpo": 226.25, "verdict": "loser", "days": -1}, {"name": "C449_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_No Residue_Heartbreaker_Internal_PDP", "status": "active", "spend": 676.84, "orders": 5.99, "cpo": 112.92, "verdict": "loser", "days": -1}, {"name": "C1742_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Smell Reaction_Plant Based_Candy Apple_COPIA_Internal_PDP", "status": "active", "spend": 674.04, "orders": 14.44, "cpo": 46.67, "verdict": "winner", "days": -1}, {"name": "0112(6)", "status": "active", "spend": 662.31, "orders": 13.76, "cpo": 48.14, "verdict": "winner", "days": -1}, {"name": "C1344_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Imported Mahogany_COPIA_PDP", "status": "active", "spend": 641.92, "orders": 5.54, "cpo": 115.84, "verdict": "loser", "days": -1}, {"name": "Your House stinks and heres why (rw clip 2)", "status": "active", "spend": 630.66, "orders": 2.89, "cpo": 218.07, "verdict": "loser", "days": -1}, {"name": "C1573_Blyss_Mop Soap_Evergreen_Video_Voiceover_Relatable_Luxury Scent_Brazilian Waves_Internal_PDP", "status": "active", "spend": 624.43, "orders": 2.97, "cpo": 210.03, "verdict": "loser", "days": -1}, {"name": "C1145_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Candy Apple_COPIA_PDP", "status": "active", "spend": 606.81, "orders": 3.21, "cpo": 189.17, "verdict": "loser", "days": -1}, {"name": "C1676_Blyss_Mop Soap_Evergreen_Video_Voiceover_Relatable_Pet Safe_Royalty_DOJO_PDP", "status": "active", "spend": 601.73, "orders": 5.82, "cpo": 103.47, "verdict": "loser", "days": -1}, {"name": "C1601_1erichouston_Mop Soap_Evergreen_Video_Voiceover_Routine_Luxury Scent_Multiple Scents_BNGR_PDP", "status": "active", "spend": 600.98, "orders": 3.52, "cpo": 170.74, "verdict": "loser", "days": -1}, {"name": "C1489_Blyss_Mop Soap_Evergreen_Video_Talking Head_Comparison_Plant Based_Multiple Scents_Internal_PDP", "status": "active", "spend": 594.2, "orders": 3.52, "cpo": 169.02, "verdict": "loser", "days": -1}, {"name": "C1539_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Long Lasting Smell_Multiple Scents_Internal_PDP.mp4", "status": "active", "spend": 594.11, "orders": 3.81, "cpo": 155.89, "verdict": "loser", "days": -1}, {"name": "C1533_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Relatable_Non-Toxic_Pink Champagne_Internal_PDP", "status": "active", "spend": 552.38, "orders": 2.97, "cpo": 185.84, "verdict": "loser", "days": -1}, {"name": "C589_Blyss_Mop Soap_Evergreen_Video_Podcast_Comparison_Plant Based_Multiple Scents_Internal_PDP - Copy", "status": "active", "spend": 541.17, "orders": 4.21, "cpo": 128.56, "verdict": "loser", "days": -1}, {"name": "C1318_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Sunwashed Linen_COPIA_PDP", "status": "active", "spend": 540.04, "orders": 1.98, "cpo": 272.49, "verdict": "loser", "days": -1}, {"name": "C1588_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Plant Based_Multiple Scents_CBR_PDP", "status": "active", "spend": 538.92, "orders": 2.61, "cpo": 206.81, "verdict": "loser", "days": -1}, {"name": "Scaled_1.1_C1514_Blyss_Mop Soap_Evergreen_Video_Voiceover_Routine_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 534.61, "orders": 4.9, "cpo": 109.01, "verdict": "loser", "days": -1}, {"name": "C1605_leone57_Mop Soap_Evergreen_Video_Voiceover_Routine_Luxury Scent_Golden Citrus_BNGR_PDP", "status": "active", "spend": 530.57, "orders": 4.88, "cpo": 108.63, "verdict": "loser", "days": -1}, {"name": "C1381_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 529.62, "orders": 4.06, "cpo": 130.42, "verdict": "loser", "days": -1}, {"name": "C1724_Blyss_Mop Soap_Evergreen_Video_Cartoon_Review_Luxury Scent_Blue Lava_Roman_Matheus_PDP", "status": "active", "spend": 527.63, "orders": 2.54, "cpo": 207.79, "verdict": "loser", "days": -1}, {"name": "C1761_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Problem  Solution_Non-Toxic_Pink Grapefruit_COPIA_Internal_PDP", "status": "active", "spend": 504.36, "orders": 3.44, "cpo": 146.53, "verdict": "loser", "days": -1}, {"name": "C858_Blyss_Mop Soap_Evergreen_Video_Demo_Problem-Solution_Multi Surface_Brazilian Waves_Internal_PDP", "status": "active", "spend": 503.03, "orders": 3.27, "cpo": 153.64, "verdict": "loser", "days": -1}, {"name": "C1750_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Smell Reaction_Plant Based_Champagne_COPIA_Internal_PDP", "status": "active", "spend": 498.95, "orders": 4.01, "cpo": 124.5, "verdict": "loser", "days": -1}, {"name": "C1746_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Smell Reaction_Plant Based_Brazilian Waves_COPIA_Internal_PDP", "status": "active", "spend": 496.65, "orders": 5.48, "cpo": 90.57, "verdict": "loser", "days": -1}, {"name": "C1385_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 496.55, "orders": 2.04, "cpo": 242.97, "verdict": "loser", "days": -1}, {"name": "C1655_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Luxury Scent_Apple & Honey_Internal_PDP", "status": "active", "spend": 494.11, "orders": 3.82, "cpo": 129.42, "verdict": "loser", "days": -1}, {"name": "C1148_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 489.96, "orders": 1.66, "cpo": 295.83, "verdict": "loser", "days": -1}, {"name": "C1701_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 478.31, "orders": 2.8, "cpo": 171.07, "verdict": "loser", "days": -1}, {"name": "C1754_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Smell Reaction_Fresh_Golden Citrus_COPIA_Internal_PDP", "status": "active", "spend": 465.57, "orders": 1.84, "cpo": 252.69, "verdict": "loser", "days": -1}, {"name": "C1625_JenaiRieann_Mop Soap_Evergreen_Video_Talking Head_Relatable_Deep Clean_Golden Citrus_BNGR_PDP", "status": "active", "spend": 461.77, "orders": 0.53, "cpo": 878.49, "verdict": "loser", "days": -1}, {"name": "C1532_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Relatable_Non-Toxic_Candy Peach_Internal_PDP", "status": "active", "spend": 460.86, "orders": 4.08, "cpo": 112.93, "verdict": "loser", "days": -1}, {"name": "C1667_Blyss_Mop Soap_Sale_Video_Cartoon_Smell Reaction_Pet Safe_Brazilian Waves_DOJO_PDP", "status": "active", "spend": 459.53, "orders": 1.09, "cpo": 422.02, "verdict": "loser", "days": -1}, {"name": "Everyday Clean_C405_Blyss_Mop Soap_Evergreen_Video_Voiceover_Review_Deep Clean_Brazilian Waves_Internal_PDP \u2013 Copy", "status": "active", "spend": 454.57, "orders": 6.35, "cpo": 71.58, "verdict": "winner", "days": -1}, {"name": "C1632_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 443.86, "orders": 1.24, "cpo": 356.72, "verdict": "loser", "days": -1}, {"name": "C1329_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Golden Citrus_COPIA_PDP", "status": "active", "spend": 443.65, "orders": 5.34, "cpo": 83.13, "verdict": "loser", "days": -1}, {"name": "C1541_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Long Lasting Smell_Multiple Scents_Internal_PDP", "status": "active", "spend": 435.4, "orders": 3.36, "cpo": 129.43, "verdict": "loser", "days": -1}, {"name": "C1213_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Mahogany Cherry_COPIA_PDP", "status": "active", "spend": 429.59, "orders": 5.89, "cpo": 72.96, "verdict": "winner", "days": -1}, {"name": "C1652_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Luxury Scent_Baja_Internal_PDP", "status": "active", "spend": 425.69, "orders": 2.68, "cpo": 158.76, "verdict": "loser", "days": -1}, {"name": "C1756_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Smell Reaction_Long Lasting Smell_Brazilian Waves_COPIA_Internal_PDP", "status": "active", "spend": 425.51, "orders": 2.33, "cpo": 182.36, "verdict": "loser", "days": -1}, {"name": "C1579_Blyss_Mop Soap_Evergreen_Video_Narrative_Story_Long Lasting Smell_Heartbreaker_DOJO_PDP", "status": "active", "spend": 423.45, "orders": 2.16, "cpo": 196.34, "verdict": "loser", "days": -1}, {"name": "C1665_Blyss_Mop Soap_Evergreen_Video_Cartoon_Sale_Plant Based_Multiple Scents_DOJO_PDP", "status": "active", "spend": 423.08, "orders": 3.41, "cpo": 123.98, "verdict": "loser", "days": -1}, {"name": "C567_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem / Solution_pH Balanced_Multiple Scents_Internal_PDP", "status": "active", "spend": 420.78, "orders": 1.34, "cpo": 314.46, "verdict": "loser", "days": -1}, {"name": "C1621_JenaiRieann_Mop Soap_Evergreen_Video_Voiceover_Relatable_Long Lasting Smell_Lavender Dreams_BNGR_PDP", "status": "active", "spend": 416.86, "orders": 0.76, "cpo": 550.26, "verdict": "loser", "days": -1}, {"name": "C1593_Blyss_Mop Soap_Evergreen_Video_Narrative_Story_Luxury Scent_Multiple Scents_CBR_PDP", "status": "active", "spend": 405.74, "orders": 2.02, "cpo": 200.45, "verdict": "loser", "days": -1}, {"name": "C1319_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Sunwashed Linen_COPIA_PDP", "status": "active", "spend": 393.25, "orders": 3.51, "cpo": 111.9, "verdict": "loser", "days": -1}, {"name": "C1627_JenaiRieann_Mop Soap_Evergreen_Video_Talking Head_Relatable_Deep Clean_Candy Peach_BNGR_PDP", "status": "active", "spend": 387.84, "orders": 2.58, "cpo": 150.13, "verdict": "loser", "days": -1}, {"name": "C1682_Blyss_Mop Soap_Evergreen_Video_Cartoon_Story_Plant Based_Brazilian Waves_DOJO_PDP", "status": "active", "spend": 383.75, "orders": 1.54, "cpo": 248.72, "verdict": "loser", "days": -1}, {"name": "C1531_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Relatable_Non-Toxic_Apple & Honey_Internal_PDP", "status": "active", "spend": 377.71, "orders": 2.9, "cpo": 130.19, "verdict": "loser", "days": -1}, {"name": "C1519_Blyss_Mop Soap_Sale_Video_Voiceover_Sale_Luxury Scent_Multiple Scents_Internal_PDP", "status": "active", "spend": 377.28, "orders": 3.06, "cpo": 123.17, "verdict": "loser", "days": -1}, {"name": "C1147_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Pink Grapefruit_COPIA_PDP", "status": "active", "spend": 372.86, "orders": 0.77, "cpo": 486.76, "verdict": "loser", "days": -1}, {"name": "C1663_Blyss_Mop Soap_Evergreen_Video_Cartoon_First Impression_pH Balanced_Multiple Scents_DOJO_PDP", "status": "active", "spend": 371.26, "orders": 3.19, "cpo": 116.22, "verdict": "loser", "days": -1}, {"name": "C422_Blyss_Mop Soap_Evergreen_Video_Narrative_Review_Long Lasting Smell_Multiple Scents_Internal_PDP - Copy", "status": "active", "spend": 371.14, "orders": 3.86, "cpo": 96.23, "verdict": "loser", "days": -1}, {"name": "C1644_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Odor Removal_Apple & Honey_Internal_PDP", "status": "active", "spend": 368.72, "orders": 2.27, "cpo": 162.17, "verdict": "loser", "days": -1}, {"name": "C1391_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Non-Toxic_Imported Mahogany_Internal_PDP", "status": "active", "spend": 360.08, "orders": 1.4, "cpo": 256.69, "verdict": "loser", "days": -1}, {"name": "C149_chelsealeigh_smith_Mop Soap_Evergreen_Video_Tutorial_Review_Deep Clean_Pink Grapefruit_Internal_PDP", "status": "active", "spend": 341.82, "orders": 1.84, "cpo": 185.88, "verdict": "loser", "days": -1}, {"name": "C797_Blyss_Mop Soap_Evergreen_GIF_Demo_Skeptic Try_Odor Removal_Multiple Scents_Internal_PDP - Copy", "status": "inactive", "spend": 329.94, "orders": 5.04, "cpo": 65.43, "verdict": "winner", "days": 5}, {"name": "C1642_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 328.52, "orders": 1.03, "cpo": 317.92, "verdict": "loser", "days": -1}, {"name": "C1478_amandaraeeveryday_Mop Soap_Evergreen_Video_Voiceover_Problem / Solution_Plant Based_Brazilian Waves_Internal_PDP", "status": "active", "spend": 321.39, "orders": 1.02, "cpo": 313.78, "verdict": "loser", "days": -1}, {"name": "C1107_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Apple & Honey_COPIA_PDP", "status": "active", "spend": 313.54, "orders": 7.82, "cpo": 40.11, "verdict": "winner", "days": -1}, {"name": "C1186_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Lavendar Dreams_COPIA_PDP", "status": "active", "spend": 307.29, "orders": 1.15, "cpo": 267.31, "verdict": "loser", "days": -1}, {"name": "C1769_Blyss_Mop Soap_Evergreen_Image_Studio Shot_Review_Luxury Scent_Mahogany Cherry_COPIA_PDP \u2013 Copy", "status": "active", "spend": 296.23, "orders": 1.8, "cpo": 164.64, "verdict": "loser", "days": -1}, {"name": "Yo house smells like dog (RW Clips 2) - Copy 2 (active)", "status": "active", "spend": 291.01, "orders": 2.93, "cpo": 99.21, "verdict": "loser", "days": -1}, {"name": "C1688_Blyss_Mop Soap_Evergreen_Video_Cartoon_Problem / Solution_Pet Safe_Brazilian Waves_DOJO_PDP", "status": "active", "spend": 287.91, "orders": 2.24, "cpo": 128.37, "verdict": "loser", "days": -1}, {"name": "C1082_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Fresh_Champagne_COPIA_PDP", "status": "active", "spend": 275.94, "orders": 4.06, "cpo": 67.92, "verdict": "winner", "days": -1}, {"name": "C1562_Blyss_Mop Soap_Evergreen_Video_Voiceover_Problem : Solution_Odor Removal_Mahogany Cherry_Internal_PDP", "status": "active", "spend": 274.02, "orders": 1.95, "cpo": 140.24, "verdict": "loser", "days": -1}, {"name": "2", "status": "active", "spend": 270.44, "orders": 2.38, "cpo": 113.61, "verdict": "loser", "days": -1}, {"name": "B Gyal Luxury - Copy", "status": "active", "spend": 270.2, "orders": 1.25, "cpo": 215.62, "verdict": "loser", "days": -1}, {"name": "C1093_Blyss_Mop Soap_Evergreen_Image_Solo_Review_Long Lasting Smell_Brazilian Waves_COPIA_PDP", "status": "active", "spend": 270.15, "orders": 3.92, "cpo": 68.97, "verdict": "winner", "days": -1}, {"name": "C1670_Blyss_Mop Soap_Evergreen_Video_Demo_Before After_Luxury Scent_Heartbreaker_DOJO_PDP", "status": "active", "spend": 268.46, "orders": 1.83, "cpo": 146.54, "verdict": "loser", "days": -1}, {"name": "C1338_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Heartbreaker_COPIA_PDP", "status": "active", "spend": 259.57, "orders": 0.34, "cpo": 752.64, "verdict": "loser", "days": -1}, {"name": "5 - Copy", "status": "inactive", "spend": 259.24, "orders": 1.83, "cpo": 141.4, "verdict": "loser", "days": 5}, {"name": "C507_Blyss_Mop Soap_Evergreen_Video_Voiceover_Story_Plant Based_Brazilian Waves_Internal_PDP - Copy 2", "status": "inactive", "spend": 247.6, "orders": 2.75, "cpo": 89.93, "verdict": "undecided", "days": null}, {"name": "C1364_Blyss_Mop Soap_Evergreen_Image_Solo_Review_No Residue_Sunwashed Linen_COPIA_PDP", "status": "active", "spend": 244.47, "orders": 1.76, "cpo": 139.1, "verdict": "undecided", "days": -1}, {"name": "C1719_Blyss_Mop Soap_Evergreen_Video_Voiceover_Cleaning Hack_Odor Removal_Multiple Scents_Roman_Marc_PDP", "status": "active", "spend": 242.52, "orders": 3.43, "cpo": 70.63, "verdict": "undecided", "days": -1}, {"name": "Everyday Clean_J626 5", "status": "active", "spend": 241.32, "orders": 2.78, "cpo": 86.92, "verdict": "undecided", "days": -1}, {"name": "C1647_Blyss_Mop Soap_Evergreen_Video_Voiceover_Comparison_Plant Based_Multiple Scents_Internal_PDP", "status": "active", "spend": 240.08, "orders": 2.2, "cpo": 108.89, "verdict": "undecided", "days": -1}];
+
+let filtered = DATA.slice();
+let sortKey = 'spend';
+let sortDir = 'desc';
+let activeFilter = 'all';
+let searchTerm = '';
+
+function fmtMoney(n){ return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0}); }
+function fmtCpo(n){ if(n===null||n===undefined) return '&mdash;'; return '$' + n.toFixed(2); }
+function fmtOrders(n){ return n.toFixed(1); }
+function fmtDays(d){
+  if(d===null) return 'not pulled';
+  if(d===-1) return '&mdash;';
+  return d + ' d';
+}
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function applyFilters(){
+  filtered = DATA.filter(r=>{
+    if(activeFilter==='winner' && r.verdict!=='winner') return false;
+    if(activeFilter==='loser' && r.verdict!=='loser') return false;
+    if(activeFilter==='undecided' && r.verdict!=='undecided') return false;
+    if(activeFilter==='active' && r.status!=='active') return false;
+    if(activeFilter==='inactive' && r.status!=='inactive') return false;
+    if(searchTerm && !r.name.toLowerCase().includes(searchTerm)) return false;
+    return true;
+  });
+  sortRows();
+}
+
+function sortRows(){
+  filtered.sort((a,b)=>{
+    let av=a[sortKey], bv=b[sortKey];
+    if(av===null||av===undefined) av = sortKey==='cpo' ? Infinity : -Infinity;
+    if(bv===null||bv===undefined) bv = sortKey==='cpo' ? Infinity : -Infinity;
+    if(typeof av==='string'){
+      return sortDir==='asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    }
+    return sortDir==='asc' ? av-bv : bv-av;
+  });
+  render();
+}
+
+function render(){
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = filtered.map(r=>{
+    const dotClass = r.status==='active' ? 'active':'inactive';
+    const statusLabel = r.status==='active' ? 'Live':'Paused';
+    return `<tr>
+      <td class="name"><div class="n">${escapeHtml(r.name)}</div></td>
+      <td class="status-cell"><span class="dot ${dotClass}"></span>${statusLabel}</td>
+      <td class="num">${fmtMoney(r.spend)}</td>
+      <td class="num">${fmtOrders(r.orders)}</td>
+      <td class="num">${fmtCpo(r.cpo)}</td>
+      <td class="status-cell"><span class="badge ${r.verdict}">${r.verdict}</span></td>
+      <td class="num">${fmtDays(r.days)}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('countLine').textContent =
+    `Showing ${filtered.length} of ${DATA.length} ads · $${filtered.reduce((s,r)=>s+r.spend,0).toLocaleString('en-US',{maximumFractionDigits:0})} spend in view`;
+
+  document.querySelectorAll('thead th').forEach(th=>{
+    th.classList.remove('sorted','asc');
+    if(th.dataset.key===sortKey){
+      th.classList.add('sorted');
+      if(sortDir==='asc') th.classList.add('asc');
+    }
+  });
+}
+
+function updateCards(){
+  const totalSpend = DATA.reduce((s,r)=>s+r.spend,0);
+  const gated = DATA.filter(r=>r.spend>=250 && r.cpo!==null && r.cpo!==undefined);
+  const winners = gated.filter(r=>r.cpo<=80);
+  const losers = gated.filter(r=>r.cpo>80);
+  const liveLosersSpend = losers.filter(r=>r.status==='active').reduce((s,r)=>s+r.spend,0);
+  const killedWinners = DATA.filter(r=>r.status==='inactive' && r.spend>=250 && r.cpo!==null && r.cpo<=80);
+
+  document.getElementById('cardSpend').textContent = fmtMoney(totalSpend);
+  document.getElementById('cardWinners').textContent = winners.length;
+  document.getElementById('cardLosers').textContent = losers.length;
+  document.getElementById('cardLosersSub').textContent = fmtMoney(liveLosersSpend) + ' still live above target';
+  document.getElementById('cardKilled').textContent = killedWinners.length;
+}
+
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFilter = chip.dataset.filter;
+    applyFilters();
+  });
+});
+
+document.querySelectorAll('thead th').forEach(th=>{
+  th.addEventListener('click', ()=>{
+    const key = th.dataset.key;
+    if(sortKey===key){ sortDir = sortDir==='asc' ? 'desc':'asc'; }
+    else { sortKey = key; sortDir = (key==='name'||key==='status'||key==='verdict') ? 'asc' : 'desc'; }
+    sortRows();
+  });
+});
+
+document.getElementById('search').addEventListener('input', (e)=>{
+  searchTerm = e.target.value.toLowerCase();
+  applyFilters();
+});
+
+updateCards();
+applyFilters();
+</script>
+</body>
+</html>
