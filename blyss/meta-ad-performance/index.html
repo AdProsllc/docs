@@ -74,10 +74,10 @@ p.secsub{font-size:12.5px;color:var(--grey-300);margin-bottom:14px;max-width:660
 .bars{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:18px 16px;}
 .barrow{display:grid;grid-template-columns:150px 1fr 74px;gap:12px;align-items:center;margin-bottom:11px;}
 .barrow:last-child{margin-bottom:0;}
-.barlab{font-size:12px;color:#fff;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.barlab{font-size:12px;color:#fff;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
 .bartrack{background:rgba(255,255,255,.05);border-radius:4px;height:22px;position:relative;overflow:hidden;}
 .barfill{height:100%;border-radius:4px;transition:width .5s ease;}
-.barval{font-family:"JetBrains Mono",monospace;font-size:11.5px;text-align:right;white-space:nowrap;}
+.barval{font-family:"JetBrains Mono",monospace;font-size:11.5px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
 .tgt-line{position:absolute;top:0;bottom:0;width:2px;background:var(--yellow);opacity:.85;z-index:2;}
 @media(max-width:640px){.barrow{grid-template-columns:104px 1fr 62px;gap:8px;}.barlab{font-size:11px;}.barval{font-size:10.5px;}}
 
@@ -130,17 +130,21 @@ td.num{font-family:"JetBrains Mono",monospace;text-align:right;white-space:nowra
 
 /* FUNNEL */
 .fn{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px 18px;}
-.fnrow{display:grid;grid-template-columns:158px 1fr 186px;gap:12px;align-items:center;margin-bottom:9px;}
+.fnrow{display:grid;grid-template-columns:150px 1fr 208px;gap:12px;align-items:center;margin-bottom:9px;}
 .fnrow:last-child{margin-bottom:0;}
 .fnlab{font-size:12.5px;font-weight:600;color:#fff;}
 .fnlab small{display:block;font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--grey-300);font-weight:400;}
-.fntrack{height:34px;background:rgba(255,255,255,.04);border-radius:5px;position:relative;overflow:hidden;}
-.fnfill{height:100%;display:flex;align-items:center;padding-left:11px;font-family:"JetBrains Mono",monospace;
- font-size:12px;font-weight:700;color:var(--navy);border-radius:5px;transition:width .55s ease;}
-.fnmeta{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--grey-200);text-align:right;line-height:1.55;}
+.fntrack{height:34px;background:rgba(255,255,255,.04);border-radius:5px;position:relative;}
+.fnfill{height:100%;display:flex;align-items:center;padding:0 10px;border-radius:5px;transition:width .55s ease;overflow:hidden;}
+.fnin,.fnout{font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;white-space:nowrap;}
+.fnin{color:var(--navy);overflow:hidden;text-overflow:ellipsis;}
+.fnout{position:absolute;top:50%;transform:translateY(-50%);pointer-events:none;}
+.fnmeta{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--grey-200);text-align:right;line-height:1.6;}
+.fnmeta .fnq{color:var(--grey-400);font-weight:400;}
 .fnmeta b{color:var(--yellow);}
-@media(max-width:660px){.fnrow{grid-template-columns:104px 1fr;gap:8px;}
- .fnmeta{grid-column:1/-1;text-align:left;padding-left:104px;margin-top:-4px;}}
+@media(max-width:700px){.fnrow{grid-template-columns:1fr;gap:5px;margin-bottom:16px;}
+ .fnmeta{text-align:left;padding-left:0;}
+ .fnlab small{display:inline;margin-left:6px;}}
 .btcard{border:1px solid var(--card-border);border-radius:var(--radius);padding:15px;background:var(--navy-card);border-left:4px solid;}
 .btgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;}
 @media(max-width:760px){.btgrid{grid-template-columns:1fr;}}
@@ -178,15 +182,15 @@ tbody tr.hl{background:rgba(249,217,0,.10);}
 .krow:last-child{margin-bottom:0;}
 .klab{font-size:12px;color:#fff;font-weight:600;}
 .ktrack{display:flex;height:26px;border-radius:5px;overflow:hidden;background:rgba(255,255,255,.05);}
-.kseg{display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--navy);}
+.kseg{display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;min-width:0;}
 .kval{font-family:"JetBrains Mono",monospace;font-size:11px;text-align:right;color:var(--grey-200);}
 @media(max-width:640px){.krow{grid-template-columns:78px 1fr 74px;gap:7px;}.klab{font-size:11px;}.kval{font-size:10px;}}
 
 /* SPEND HEALTH */
 .stackwrap{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px 18px;}
 .stackbar{display:flex;height:56px;border-radius:6px;overflow:hidden;margin-bottom:14px;}
-.stackseg{position:relative;display:flex;align-items:center;justify-content:center;transition:.5s;min-width:2px;}
-.stackseg span{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:var(--navy);}
+.stackseg{position:relative;display:flex;align-items:center;justify-content:center;transition:.5s;min-width:2px;overflow:hidden;}
+.stackseg span{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;}
 .stacklegend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
 @media(max-width:760px){.stacklegend{grid-template-columns:repeat(2,1fr);}}
 .legitem{border-left:3px solid;padding-left:10px;}
@@ -197,7 +201,7 @@ tbody tr.hl{background:rgba(249,217,0,.10);}
 .bandcard{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px;border-left:4px solid;}
 .bandhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
 .bandtitle{font-size:14px;font-weight:700;color:#fff;}
-.bandpct{font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:800;}
+.bandpct{font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:800;white-space:nowrap;}
 .bandbody{font-size:12.5px;color:var(--grey-200);line-height:1.55;}
 .bandmeta{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--grey-300);margin-top:8px;}
 .bandgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-bottom:22px;}
@@ -958,11 +962,21 @@ function spendBar(rows){
   const fnrows=F.map((f,i)=>{
     const pctAll=f.n/base*100;
     const w=Math.max(2.5,pctAll);
-    const winPctAll=f.win/base*100;
+    const winAll=f.win/base*100;
+    const winRung=f.n?f.win/f.n*100:0;
+    const inside=w>=22;
+    const cnt=`${f.n} ads &middot; ${pctAll.toFixed(1)}%`;
     return `<div class="fnrow">
       <div class="fnlab">${f.label}<small>${f.thr>=1000?'\u2265'+money(f.thr):(f.thr?'\u2265'+money(f.thr):'all launches')}</small></div>
-      <div class="fntrack"><div class="fnfill" style="width:${w}%;background:${cols[i]}">${f.n} ads \u00b7 ${pctAll.toFixed(1)}%</div></div>
-      <div class="fnmeta"><b>${pctAll.toFixed(1)}%</b> of ${base} launched<br>${f.win} hit target \u00b7 <b>${winPctAll.toFixed(1)}%</b> of ${base}<br><span style="color:var(--grey-400)">${money(f.spend)}</span></div>
+      <div class="fntrack">
+        <div class="fnfill" style="width:${w}%;background:${cols[i]}">${inside?`<span class="fnin">${cnt}</span>`:''}</div>
+        ${inside?'':`<span class="fnout" style="left:calc(${w}% + 9px);color:${cols[i]}">${cnt}</span>`}
+      </div>
+      <div class="fnmeta">
+        <div><b>${pctAll.toFixed(1)}%</b> <span class="fnq">of all ${base} launched</span></div>
+        <div>${f.win} hit target &middot; <b>${winRung.toFixed(0)}%</b> <span class="fnq">of this rung</span></div>
+        <div class="fnq">${winAll.toFixed(1)}% of all launches &middot; ${money(f.spend)}</div>
+      </div>
     </div>`;}).join('');
 
   const bmax=Math.max(...B.map(b=>b.n));
@@ -1001,8 +1015,9 @@ function spendBar(rows){
   <h2 class="sec">The launch funnel</h2>
   <p class="secsub">Every percentage below is out of the same ${M.totalNew} ads launched — bar width, reach, and target hits all share one denominator.</p>
   <div class="fn">${fnrows}</div>
-  <div class="note" style="margin-bottom:22px"><b>Read down the reach column:</b> of ${base} ads launched, ${F[2].n} (${(F[2].n/base*100).toFixed(0)}%) survived to $1K, ${F[3].n} (${(F[3].n/base*100).toFixed(0)}%) reached $5K, ${F[4].n} (${(F[4].n/base*100).toFixed(0)}%) reached $25K, and ${F[5].n} (${(F[5].n/base*100).toFixed(1)}%) hit breakthrough scale. Just ${F[6].n} ad (${(F[6].n/base*100).toFixed(1)}%) took 10%+ of the account.
-<br><br><b>And the target-hit column:</b> ${F[0].win} of ${base} launches (${(F[0].win/base*100).toFixed(1)}%) ever came in at or under $80 \u2014 but ${F[5].win} of those ${F[0].win} winners are breakthrough ads. Put differently, <b>roughly 1 in ${Math.round(base/F[5].n)} launches becomes a breakthrough, and 1 in ${Math.round(base/F[0].win)} becomes a winner of any size.</b> Those are the two capacity-planning numbers: to add one more breakthrough ad next month, the pipeline needs roughly ${Math.round(base/F[5].n)} more launches.</div>
+  <div class="note" style="margin-bottom:22px"><b>Two different percentages, deliberately:</b> the first is always out of all ${base} launches; the second is the hit rate <i>within</i> that rung. At $5K, for example, ${F[3].n} ads (${(F[3].n/base*100).toFixed(1)}% of all launches) reached that spend, and ${F[3].win} of those ${F[3].n} hit target \u2014 ${(F[3].win/F[3].n*100).toFixed(0)}% of the rung, but only ${(F[3].win/base*100).toFixed(1)}% of everything launched.
+<br><br><b>Reach falls, quality rises.</b> ${F[2].n} of ${base} survived to $1K, ${F[3].n} reached $5K, ${F[4].n} reached $25K, ${F[5].n} hit breakthrough, ${F[6].n} took 10%+ of the account. Meanwhile the in-rung hit rate climbs ${(F[0].win/F[0].n*100).toFixed(0)}% \u2192 ${(F[2].win/F[2].n*100).toFixed(0)}% \u2192 ${(F[3].win/F[3].n*100).toFixed(0)}% \u2192 ${(F[4].win/F[4].n*100).toFixed(0)}% \u2192 ${(F[5].win/F[5].n*100).toFixed(0)}%. Budget is finding the right ads.
+<br><br><b>The planning numbers:</b> roughly <b>1 in ${Math.round(base/F[5].n)} launches becomes a breakthrough</b> and <b>1 in ${Math.round(base/F[0].win)} becomes a winner of any size</b>. To add one more breakthrough next month, the pipeline needs about ${Math.round(base/F[5].n)} more launches.</div>
 
   <h2 class="sec">Breakthrough ads &mdash; did they hit target?</h2>
   <p class="secsub">Every new launch that took 5%+ of total account spend. ${b5.win} of ${b5.n} came in at or under $80.</p>
