@@ -88,7 +88,7 @@ p.secsub{font-size:12.5px;color:var(--grey-300);margin-bottom:14px;max-width:660
 
 /* QUADRANT */
 .quad{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px;overflow-x:auto;}
-.quadsvg{display:block;min-width:520px;width:100%;height:auto;}
+.quadsvg{display:block;min-width:660px;width:100%;height:auto;}
 
 /* TABLE */
 .tablewrap{border:1px solid var(--card-border);border-radius:var(--radius);overflow:auto;max-height:600px;background:var(--navy-card);}
@@ -441,10 +441,10 @@ function spendBar(rows){
     .concat([...L.formats].filter(a=>a.spend>10000).map(a=>({...a,dim:'Format'})))
     .concat([...L.usps].filter(a=>a.spend>15000).map(a=>({...a,dim:'USP'})));
   rows.forEach((r,i)=>r._id='pt'+i);
-  const W=760,H=440,PADL=64,PADB=52,PADT=22,PADR=22;
+  const W=860,H=580,PADL=68,PADB=54,PADT=52,PADR=30;
   const maxSpend=Math.max(...rows.map(r=>r.spend));
   const cpos=rows.map(r=>r.cpo);
-  const minC=Math.min(...cpos)*0.94, maxC=Math.max(...cpos)*1.04;
+  const minC=Math.min(...cpos,TARGET)*0.90, maxC=Math.max(...cpos)*1.08;
   const x=v=>PADL+(Math.log10(v+1)-Math.log10(1000))/(Math.log10(maxSpend*1.15)-Math.log10(1000))*(W-PADL-PADR);
   const y=v=>PADT+(v-minC)/(maxC-minC)*(H-PADT-PADB);
   const ty=y(TARGET);
@@ -454,8 +454,38 @@ function spendBar(rows){
     const rad=Math.max(5,Math.min(20,Math.sqrt(r.spend/maxSpend)*24));
     return `<circle data-id="${r._id}" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${rad.toFixed(1)}" fill="${colors[r.dim]}" fill-opacity="0.5" stroke="${colors[r.dim]}" stroke-width="1.5"/>`;
   }).join('');
-  const labels=rows.filter(r=>r.spend>90000).map(r=>
-    `<text x="${(x(r.spend)).toFixed(1)}" y="${(y(r.cpo)-14).toFixed(1)}" fill="#fff" font-size="10" text-anchor="middle" font-family="Inter" pointer-events="none">${esc(r.name)}</text>`).join('');
+  /* label placement with collision avoidance + leader lines */
+  const LBL_H=15, CHAR_W=5.6;
+  const cands=rows.filter(r=>r.spend>28000)
+    .sort((a,b)=>b.spend-a.spend)
+    .map(r=>({r,px:x(r.spend),py:y(r.cpo),rad:Math.max(5,Math.min(20,Math.sqrt(r.spend/maxSpend)*24))}));
+  const placed=[];
+  function fits(bx,by,bw){
+    if(by-LBL_H/2<PADT-32||by+LBL_H/2>H-PADB) return false;
+    if(bx-bw/2<4||bx+bw/2>W-4) return false;
+    return !placed.some(p=>Math.abs(p.by-by)<LBL_H && Math.abs(p.bx-bx)<(p.bw+bw)/2+7);
+  }
+  const labelParts=[];
+  cands.forEach(c=>{
+    const w=c.r.name.length*CHAR_W+4;
+    // try progressively further offsets: above, below, then diagonal
+    const tries=[[0,-(c.rad+11)],[0,c.rad+16],[0,-(c.rad+27)],[0,c.rad+32],
+                 [w/2+c.rad+10,-4],[-(w/2+c.rad+10),-4],
+                 [w/2+c.rad+10,-20],[-(w/2+c.rad+10),-20],
+                 [0,-(c.rad+43)],[0,c.rad+48]];
+    for(const [dx,dy] of tries){
+      const bx=c.px+dx, by=c.py+dy;
+      if(fits(bx,by,w)){
+        placed.push({bx,by,bw:w});
+        const needLine=Math.abs(dx)>0||Math.abs(dy)>c.rad+20;
+        labelParts.push(
+          (needLine?`<line x1="${c.px.toFixed(1)}" y1="${c.py.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${(by+(dy<0?4:-4)).toFixed(1)}" stroke="#54556A" stroke-width="1" opacity="0.55"/>`:'')+
+          `<text x="${bx.toFixed(1)}" y="${(by+3.5).toFixed(1)}" fill="#fff" font-size="10" text-anchor="middle" font-family="Inter" pointer-events="none" style="paint-order:stroke;stroke:#040735;stroke-width:3px;stroke-linejoin:round">${esc(c.r.name)}</text>`);
+        break;
+      }
+    }
+  });
+  const labels=labelParts.join('');
   const xticks=[10000,50000,200000,1000000].map(v=>
     `<text x="${x(v).toFixed(1)}" y="${H-PADB+18}" fill="#8A8B93" font-size="10" text-anchor="middle" font-family="JetBrains Mono">${money(v)}</text>
      <line x1="${x(v).toFixed(1)}" y1="${PADT}" x2="${x(v).toFixed(1)}" y2="${H-PADB}" stroke="#0e1358" stroke-width="1"/>`).join('');
@@ -481,15 +511,16 @@ function spendBar(rows){
     <rect x="${PADL}" y="${ty}" width="${W-PADL-PADR}" height="${H-PADB-ty}" fill="#F87171" fill-opacity="0.04"/>
     ${xticks}${yticks}
     <line x1="${PADL}" y1="${ty.toFixed(1)}" x2="${W-PADR}" y2="${ty.toFixed(1)}" stroke="#F9D900" stroke-width="2" stroke-dasharray="6 4"/>
-    <text x="${W-PADR-4}" y="${(ty-7).toFixed(1)}" fill="#F9D900" font-size="10.5" text-anchor="end" font-family="JetBrains Mono">$80 target &mdash; below this line wins</text>
+    <text x="${PADL+6}" y="${(ty-8).toFixed(1)}" fill="#F9D900" font-size="10.5" text-anchor="start" font-family="JetBrains Mono">$80 target &mdash; below wins</text>
     ${pts}${labels}
     <line x1="${PADL}" y1="${PADT}" x2="${PADL}" y2="${H-PADB}" stroke="#1a2375" stroke-width="1.5"/>
     <line x1="${PADL}" y1="${H-PADB}" x2="${W-PADR}" y2="${H-PADB}" stroke="#1a2375" stroke-width="1.5"/>
     <text x="${(W/2).toFixed(0)}" y="${H-10}" fill="#8A8B93" font-size="11" text-anchor="middle" font-family="Inter">Spend (log scale) &rarr;</text>
     <text x="16" y="${(H/2).toFixed(0)}" fill="#8A8B93" font-size="11" text-anchor="middle" font-family="Inter" transform="rotate(-90 16 ${(H/2).toFixed(0)})">New-customer CPO &rarr;</text>
-    <circle cx="${PADL+14}" cy="${PADT+10}" r="5" fill="#3BA9F9" fill-opacity="0.5" stroke="#3BA9F9"/><text x="${PADL+24}" y="${PADT+14}" fill="#B0B1B6" font-size="10" font-family="Inter">Angle</text>
-    <circle cx="${PADL+78}" cy="${PADT+10}" r="5" fill="#F9D900" fill-opacity="0.5" stroke="#F9D900"/><text x="${PADL+88}" y="${PADT+14}" fill="#B0B1B6" font-size="10" font-family="Inter">Format</text>
-    <circle cx="${PADL+148}" cy="${PADT+10}" r="5" fill="#4ADE80" fill-opacity="0.5" stroke="#4ADE80"/><text x="${PADL+158}" y="${PADT+14}" fill="#B0B1B6" font-size="10" font-family="Inter">USP</text>
+    <circle cx="${PADL+8}" cy="18" r="5" fill="#3BA9F9" fill-opacity="0.5" stroke="#3BA9F9"/><text x="${PADL+18}" y="22" fill="#B0B1B6" font-size="10.5" font-family="Inter">Angle</text>
+    <circle cx="${PADL+76}" cy="18" r="5" fill="#F9D900" fill-opacity="0.5" stroke="#F9D900"/><text x="${PADL+86}" y="22" fill="#B0B1B6" font-size="10.5" font-family="Inter">Format</text>
+    <circle cx="${PADL+148}" cy="18" r="5" fill="#4ADE80" fill-opacity="0.5" stroke="#4ADE80"/><text x="${PADL+158}" y="22" fill="#B0B1B6" font-size="10.5" font-family="Inter">USP</text>
+    <text x="${W-PADR}" y="22" fill="#54556A" font-size="10" text-anchor="end" font-family="Inter">Bubble size = spend &middot; hover for detail</text>
   </svg></div>
 
   <h2 class="sec">Every point, as a table</h2>
