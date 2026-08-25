@@ -130,14 +130,14 @@ td.num{font-family:"JetBrains Mono",monospace;text-align:right;white-space:nowra
 
 /* FUNNEL */
 .fn{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px 18px;}
-.fnrow{display:grid;grid-template-columns:158px 1fr 168px;gap:12px;align-items:center;margin-bottom:9px;}
+.fnrow{display:grid;grid-template-columns:158px 1fr 186px;gap:12px;align-items:center;margin-bottom:9px;}
 .fnrow:last-child{margin-bottom:0;}
 .fnlab{font-size:12.5px;font-weight:600;color:#fff;}
 .fnlab small{display:block;font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--grey-300);font-weight:400;}
 .fntrack{height:34px;background:rgba(255,255,255,.04);border-radius:5px;position:relative;overflow:hidden;}
 .fnfill{height:100%;display:flex;align-items:center;padding-left:11px;font-family:"JetBrains Mono",monospace;
  font-size:12px;font-weight:700;color:var(--navy);border-radius:5px;transition:width .55s ease;}
-.fnmeta{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--grey-200);text-align:right;line-height:1.4;}
+.fnmeta{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--grey-200);text-align:right;line-height:1.55;}
 .fnmeta b{color:var(--yellow);}
 @media(max-width:660px){.fnrow{grid-template-columns:104px 1fr;gap:8px;}
  .fnmeta{grid-column:1/-1;text-align:left;padding-left:104px;margin-top:-4px;}}
@@ -956,12 +956,13 @@ function spendBar(rows){
   const cols=['#3BA9F9','#3BA9F9','#22D3EE','#4ADE80','#F9D900','#FB923C','#F87171'];
 
   const fnrows=F.map((f,i)=>{
-    const w=Math.max(2.5,f.n/base*100);
-    const drop=i? (f.n/F[i-1].n*100):null;
+    const pctAll=f.n/base*100;
+    const w=Math.max(2.5,pctAll);
+    const winPctAll=f.win/base*100;
     return `<div class="fnrow">
-      <div class="fnlab">${f.label}<small>${f.thr>=1000?'\u2265'+money(f.thr):(f.thr?'\u2265'+money(f.thr):'all')}</small></div>
-      <div class="fntrack"><div class="fnfill" style="width:${w}%;background:${cols[i]}">${f.n} ads</div></div>
-      <div class="fnmeta">${money(f.spend)}<br>${f.win} win \u00b7 <b>${f.winrate.toFixed(0)}%</b>${drop!==null?` \u00b7 ${drop.toFixed(0)}% advance`:''}</div>
+      <div class="fnlab">${f.label}<small>${f.thr>=1000?'\u2265'+money(f.thr):(f.thr?'\u2265'+money(f.thr):'all launches')}</small></div>
+      <div class="fntrack"><div class="fnfill" style="width:${w}%;background:${cols[i]}">${f.n} ads \u00b7 ${pctAll.toFixed(1)}%</div></div>
+      <div class="fnmeta"><b>${pctAll.toFixed(1)}%</b> of ${base} launched<br>${f.win} hit target \u00b7 <b>${winPctAll.toFixed(1)}%</b> of ${base}<br><span style="color:var(--grey-400)">${money(f.spend)}</span></div>
     </div>`;}).join('');
 
   const bmax=Math.max(...B.map(b=>b.n));
@@ -998,9 +999,10 @@ function spendBar(rows){
   </div>
 
   <h2 class="sec">The launch funnel</h2>
-  <p class="secsub">How ${M.totalNew} launches narrow down to breakthrough. Win rate is the share of ads at that rung hitting the $80 target.</p>
+  <p class="secsub">Every percentage below is out of the same ${M.totalNew} ads launched — bar width, reach, and target hits all share one denominator.</p>
   <div class="fn">${fnrows}</div>
-  <div class="note" style="margin-bottom:22px"><b>The win rate climbs at every rung:</b> 9% at launch \u2192 14% at $1K \u2192 20% at $5K \u2192 <b>50% at $25K</b> \u2192 <b>75% at breakthrough</b>. That's the single most encouraging number in this analysis: budget allocation is broadly working. Ads that earn spend are ads that deserve it. The failure is at the bottom of the funnel, where ${B[3].n} ads burned ${money(B[3].spend)} without ever being switched off. The two biggest drop-offs are ${money(1000)} (only 47% advance) and $5K (42%) \u2014 that's where the real filtering happens, and it's happening by budget algorithm rather than by deliberate decision.</div>
+  <div class="note" style="margin-bottom:22px"><b>Read down the reach column:</b> of ${base} ads launched, ${F[2].n} (${(F[2].n/base*100).toFixed(0)}%) survived to $1K, ${F[3].n} (${(F[3].n/base*100).toFixed(0)}%) reached $5K, ${F[4].n} (${(F[4].n/base*100).toFixed(0)}%) reached $25K, and ${F[5].n} (${(F[5].n/base*100).toFixed(1)}%) hit breakthrough scale. Just ${F[6].n} ad (${(F[6].n/base*100).toFixed(1)}%) took 10%+ of the account.
+<br><br><b>And the target-hit column:</b> ${F[0].win} of ${base} launches (${(F[0].win/base*100).toFixed(1)}%) ever came in at or under $80 \u2014 but ${F[5].win} of those ${F[0].win} winners are breakthrough ads. Put differently, <b>roughly 1 in ${Math.round(base/F[5].n)} launches becomes a breakthrough, and 1 in ${Math.round(base/F[0].win)} becomes a winner of any size.</b> Those are the two capacity-planning numbers: to add one more breakthrough ad next month, the pipeline needs roughly ${Math.round(base/F[5].n)} more launches.</div>
 
   <h2 class="sec">Breakthrough ads &mdash; did they hit target?</h2>
   <p class="secsub">Every new launch that took 5%+ of total account spend. ${b5.win} of ${b5.n} came in at or under $80.</p>
