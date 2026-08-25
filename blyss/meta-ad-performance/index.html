@@ -127,6 +127,27 @@ td.num{font-family:"JetBrains Mono",monospace;text-align:right;white-space:nowra
 .note b{color:var(--grey-200);}
 .callout{border-left:3px solid var(--yellow);background:rgba(249,217,0,.05);padding:13px 15px;border-radius:0 8px 8px 0;margin-bottom:16px;font-size:13px;color:var(--grey-200);}
 .callout b{color:#fff;}
+
+/* SPEND HEALTH */
+.stackwrap{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:20px 18px;}
+.stackbar{display:flex;height:56px;border-radius:6px;overflow:hidden;margin-bottom:14px;}
+.stackseg{position:relative;display:flex;align-items:center;justify-content:center;transition:.5s;min-width:2px;}
+.stackseg span{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:var(--navy);}
+.stacklegend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:760px){.stacklegend{grid-template-columns:repeat(2,1fr);}}
+.legitem{border-left:3px solid;padding-left:10px;}
+.legname{font-size:12px;font-weight:700;color:#fff;}
+.legval{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;margin-top:3px;}
+.legsub{font-size:10.5px;color:var(--grey-300);margin-top:2px;line-height:1.45;}
+
+.bandcard{background:var(--navy-card);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px;border-left:4px solid;}
+.bandhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.bandtitle{font-size:14px;font-weight:700;color:#fff;}
+.bandpct{font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:800;}
+.bandbody{font-size:12.5px;color:var(--grey-200);line-height:1.55;}
+.bandmeta{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--grey-300);margin-top:8px;}
+.bandgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-bottom:22px;}
+@media(max-width:760px){.bandgrid{grid-template-columns:1fr;}}
 .ap-footer{padding:22px 18px;text-align:center;font-size:11.5px;color:var(--grey-400);border-top:1px solid var(--card-border);}
 @media(max-width:640px){
  .ap-content{padding:16px 12px 46px;}.ap-h1{font-size:20px;}
@@ -170,6 +191,7 @@ td.num{font-family:"JetBrains Mono",monospace;text-align:right;white-space:nowra
 
   <div class="tabbar" id="tabbar">
     <button class="tab active" data-tab="overview">Overview</button>
+    <button class="tab" data-tab="health">Spend Health</button>
     <button class="tab" data-tab="angle">Angle</button>
     <button class="tab" data-tab="format">Format &amp; Type</button>
     <button class="tab" data-tab="usp">USP &amp; Scent</button>
@@ -180,6 +202,7 @@ td.num{font-family:"JetBrains Mono",monospace;text-align:right;white-space:nowra
   </div>
 
   <div class="panel active" id="p-overview"></div>
+  <div class="panel" id="p-health"></div>
   <div class="panel" id="p-angle"></div>
   <div class="panel" id="p-format"></div>
   <div class="panel" id="p-usp"></div>
@@ -504,6 +527,96 @@ Spend ${money(r.spend)} · CPO ${money1(r.cpo)}</title></circle>`;
     sortNow();}));
   document.getElementById('search').addEventListener('input',e=>{term=e.target.value.toLowerCase();apply();});
   apply();
+})();
+
+/* ---------- SPEND HEALTH ---------- */
+(function(){
+  const total=ADS.reduce((s,a)=>s+a.spend,0);
+  const gated=ADS.filter(a=>a.spend>=250&&a.cpo!==null);
+  const win=gated.filter(a=>a.cpo<=TARGET);
+  const lose=gated.filter(a=>a.cpo>TARGET);
+  const und=ADS.filter(a=>a.spend<250||a.cpo===null);
+
+  const B=[
+    {k:'win',  name:'Winning',        color:'#4ADE80', ads:win,
+     rule:'CPO \u2264 $80',
+     say:'Already at or under target. Protect these \u2014 and where fatigue curves allow, push more budget in.',
+     act:'Scale / protect'},
+    {k:'rec',  name:'Recoverable',    color:'#F9D900', ads:lose.filter(a=>a.cpo<=90),
+     rule:'$80\u2013$90 CPO',
+     say:'Missing by 0\u201312%. Nearly all of these started under target and drifted up \u2014 this is fatigue, not bad creative.',
+     act:'Rotate / refresh'},
+    {k:'work', name:'Needs real work', color:'#FB923C', ads:lose.filter(a=>a.cpo>90&&a.cpo<=110),
+     rule:'$90\u2013$110 CPO',
+     say:'Missing by 13\u201338%. Rotation alone will not close this gap \u2014 needs a new hook, offer, or angle.',
+     act:'Rebuild / retest'},
+    {k:'off',  name:'Should be off',  color:'#F87171', ads:lose.filter(a=>a.cpo>110),
+     rule:'CPO > $110',
+     say:'Missing by 38%+. Many names, little money \u2014 the cost here is attention and account clutter more than dollars.',
+     act:'Kill'},
+  ];
+  B.forEach(b=>{
+    b.spend=b.ads.reduce((s,a)=>s+a.spend,0);
+    b.orders=b.ads.reduce((s,a)=>s+a.orders,0);
+    b.pct=b.spend/total*100;
+    b.cpo=b.orders?b.spend/b.orders:null;
+    b.live=b.ads.filter(a=>a.status==='active').length;
+  });
+
+  const rec=B[1];
+  const upsideOrders=(rec.spend/TARGET)-rec.orders;
+  const winPct=B[0].pct, recPct=B[1].pct;
+
+  const stack=B.map(b=>`<div class="stackseg" style="width:${b.pct}%;background:${b.color}" title="${b.name}: ${money(b.spend)} (${b.pct.toFixed(1)}%)">${b.pct>7?`<span>${b.pct.toFixed(0)}%</span>`:''}</div>`).join('');
+
+  const legend=B.map(b=>`<div class="legitem" style="border-color:${b.color}">
+    <div class="legname">${b.name}</div>
+    <div class="legval" style="color:${b.color}">${money(b.spend)}</div>
+    <div class="legsub">${b.pct.toFixed(1)}% \u00b7 ${b.ads.length} ads \u00b7 ${b.rule}</div></div>`).join('');
+
+  const cards=B.map(b=>`<div class="bandcard" style="border-left-color:${b.color}">
+    <div class="bandhead"><div class="bandtitle">${b.name} \u2014 ${b.act}</div>
+    <div class="bandpct" style="color:${b.color}">${b.pct.toFixed(0)}%</div></div>
+    <div class="bandbody">${b.say}</div>
+    <div class="bandmeta">${money(b.spend)} \u00b7 ${b.ads.length} ads (${b.live} live) \u00b7 blended CPO ${b.cpo?money1(b.cpo):'\u2014'}</div>
+  </div>`).join('');
+
+  const topRec=[...rec.ads].sort((a,b)=>b.spend-a.spend).slice(0,10);
+
+  document.getElementById('p-health').innerHTML=`
+  <div class="callout"><b>The one-line version:</b> you are not 43% good and 57% broken. You're <b>43% winning, 27% recoverable, 21% needing real work, and 8% that should simply be off</b> \u2014 and the recoverable slice is nearly all fatigue on ads that were winning three weeks ago.</div>
+
+  <h2 class="sec">Every dollar, sorted by how far off target it is</h2>
+  <p class="secsub">All ${money(total)} of analyzed Meta spend. Width = share of spend, not share of ads.</p>
+  <div class="stackwrap">
+    <div class="stackbar">${stack}</div>
+    <div class="stacklegend">${legend}</div>
+  </div>
+
+  <h2 class="sec">What each band actually needs</h2>
+  <p class="secsub">Different distances from target call for different interventions. Treating all $1.15M of missed spend the same way is the mistake.</p>
+  <div class="bandgrid">${cards}</div>
+
+  <h2 class="sec">The recoverable slice, in detail</h2>
+  <p class="secsub">${rec.ads.length} ads between $80 and $90 CPO, carrying ${money(rec.spend)} \u2014 more than half of all missed spend.</p>
+  <div class="ap-grid-3">
+    <div class="stat y"><div class="stat-l">Recoverable Spend</div><div class="stat-n yl">${money(rec.spend)}</div><div class="stat-s">${recPct.toFixed(1)}% of account</div></div>
+    <div class="stat y"><div class="stat-l">Band Blended CPO</div><div class="stat-n">${money1(rec.cpo)}</div><div class="stat-s">just ${((rec.cpo-TARGET)/TARGET*100).toFixed(1)}% over target</div></div>
+    <div class="stat g"><div class="stat-l">Upside If Closed</div><div class="stat-n">+${Math.round(upsideOrders)}</div><div class="stat-s">new customers, same spend</div></div>
+  </div>
+  <div class="tablewrap" style="max-height:420px"><table><thead><tr>
+    <th>Ad</th><th>Status</th><th>Spend</th><th>CPO</th><th>Over Target</th>
+  </tr></thead><tbody>
+  ${topRec.map(a=>`<tr>
+    <td class="name"><div class="n">${esc(a.name)}</div></td>
+    <td class="center"><span class="dot ${a.status}"></span>${a.status==='active'?'Live':'Paused'}</td>
+    <td class="num">${money(a.spend)}</td>
+    <td class="num" style="color:var(--yellow)">${money1(a.cpo)}</td>
+    <td class="num" style="color:var(--yellow)">+${((a.cpo-TARGET)/TARGET*100).toFixed(1)}%</td></tr>`).join('')}
+  </tbody></table></div>
+
+  <div class="note"><b>Why this band is the priority:</b> closing $80\u2013$90 back to target would put roughly <b>${(winPct+recPct).toFixed(0)}% of spend on target</b> \u2014 up from ${winPct.toFixed(0)}% \u2014 without commissioning a single new creative. The Fatigue tab shows why it's plausible: C1514 (the biggest ad in this band at ${money(194914)}) opened at $75.68 CPO and only drifted to $80.54 as it aged. These are winners that got held too long, not losers that need replacing.
+  <br><br><b>The honest counterweight:</b> ${money(B[2].spend)} in the $90\u2013$110 band is a real creative problem, not a scheduling one, and it won't respond to rotation. Budget for new concepts there.</div>`;
 })();
 
 /* ---------- TABS ---------- */
