@@ -112,7 +112,7 @@
 
     <div class="ap-card">
       <label class="label" for="spend-num">Monthly spend on our creative</label>
-      <input class="input" type="number" id="spend-num" min="0" max="10000000" step="10000" value="750000">
+      <input class="input" type="text" id="spend-num" inputmode="numeric" autocomplete="off" value="$750,000">
       <input class="slider" type="range" id="spend" min="0" max="5000000" step="10000" value="750000" aria-label="Monthly spend" style="margin-top:16px;">
       <div style="display:flex;justify-content:space-between;margin-top:6px;">
         <span class="ap-caption mono">$0</span><span class="ap-caption mono">$5M</span>
@@ -147,15 +147,6 @@
       </table>
     </div>
 
-    <h2>Reference</h2>
-    <p>Total invoice at each anchor.</p>
-    <div class="ap-card scroll">
-      <table>
-        <thead><tr><th>Spend</th><th>Retainer</th><th>Performance</th><th>Total</th><th>Rate</th></tr></thead>
-        <tbody id="ref-rows"></tbody>
-      </table>
-    </div>
-
   </div>
   <footer class="ap-footer">
     <div class="ap-footer-left">
@@ -184,12 +175,6 @@
     {lo:2000000, hi:5000000, r:0.02, label:'$2M \u2013 $5M',     note:''}
   ];
   function f(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
-  function gross(s){
-    var t = 0;
-    for (var i=0;i<bands.length;i++){ var b = bands[i]; t += Math.max(0, Math.min(s, b.hi) - b.lo) * b.r; }
-    if (s > 5000000) t += (s - 5000000) * 0.02;
-    return t;
-  }
   var slider = document.getElementById('spend'), num = document.getElementById('spend-num');
   var rows = document.getElementById('rows'), foot = document.getElementById('foot');
 
@@ -222,23 +207,27 @@
     document.getElementById('eff').textContent = s > 0 ? (total/s*100).toFixed(2) + '% of spend' : '\u2014';
     document.getElementById('credit-note').textContent = credit >= RET ? 'Fully credited' : f(RET - credit) + ' unused';
   }
+  function parseMoney(v){
+    var digits = String(v).replace(/[^0-9]/g, '');
+    return digits === '' ? 0 : parseInt(digits, 10);
+  }
   function sync(v, from){
     var s = Math.max(0, Math.min(10000000, Math.round(v || 0)));
     if (from !== 'slider') slider.value = Math.min(5000000, s);
-    if (from !== 'num') num.value = s;
+    if (from !== 'num') num.value = f(s);
     render(s);
   }
   slider.addEventListener('input', function(){ sync(+slider.value, 'slider'); });
-  num.addEventListener('input', function(){ sync(+num.value, 'num'); });
+  num.addEventListener('input', function(){
+    var caretFromEnd = num.value.length - num.selectionStart;
+    var s = Math.max(0, Math.min(10000000, parseMoney(num.value)));
+    num.value = f(s);
+    var pos = Math.max(1, num.value.length - caretFromEnd);
+    try { num.setSelectionRange(pos, pos); } catch(e) {}
+    slider.value = Math.min(5000000, s);
+    render(s);
+  });
   sync(750000, 'init');
-
-  var anchors = [150000, 250000, 500000, 1000000, 2000000, 5000000], ref = '';
-  for (var k=0;k<anchors.length;k++){
-    var a = anchors[k], g = gross(a), b2 = Math.max(0, g - RET), t2 = RET + b2;
-    ref += '<tr><td>'+f(a)+'</td><td>'+f(RET)+'</td><td>'+f(b2)+'</td><td style="color:#fff;">'
-      + f(t2)+'</td><td>'+(t2/a*100).toFixed(2)+'%</td></tr>';
-  }
-  document.getElementById('ref-rows').innerHTML = ref;
 })();
 </script>
 </body>
