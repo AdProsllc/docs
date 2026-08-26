@@ -14,113 +14,79 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="alternate icon" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/favicon.svg">
   <link rel="mask-icon" href="/favicon.svg" color="#040735">
   <meta name="theme-color" content="#040735">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
-      --yellow: #F9D900; --yellow-dim: #DFC200;
-      --blue: #1A6FD4; --blue-light: #3BA9F9;
-      --white: #FFFFFF;
+      --navy: #040735; --navy-card: #070b3d;
+      --yellow: #F9D900;
+      --blue-light: #3BA9F9;
       --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
       --card-border: #0e1358; --card-border-strong: #1a2375;
-      --success: #0F973D; --error: #D42620;
       --radius: 10px;
-      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
-      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
-      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
     }
-    html { scroll-behavior: smooth; }
     body {
       background: var(--navy); color: var(--grey-200);
       font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
       font-size: 15px; line-height: 1.6; min-height: 100vh;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
     }
-    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
-    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
-    .ap-display em { font-style: normal; color: var(--yellow); }
-    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
-    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
-    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
-    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
-    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
-    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
-    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
-    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
-    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
-    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
-    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
-    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
-    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
-    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
-    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
-    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
-    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
-    .ap-section:first-of-type { border-top: none; }
-    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
-    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
-    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
-    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
-    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
-    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
-    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
-    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
-    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
-    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
-    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
-    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
-    .btn-primary:hover { background: var(--yellow-dim); }
-    .btn-secondary { background: var(--navy); color: var(--yellow); border: 1.5px solid var(--yellow); padding: 10.5px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; transition: background .15s, color .15s; }
-    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
-    .btn-ghost { background: transparent; color: #fff; border: 1px solid var(--card-border-strong); padding: 10.5px 22px; border-radius: 8px; font-weight: 500; font-size: 14px; font-family: inherit; cursor: pointer; transition: border-color .15s; }
-    .btn-ghost:hover { border-color: var(--grey-300); }
-    .ap-input-label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
-    .ap-input { width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 14px; font-family: inherit; outline: none; transition: border-color .15s; }
-    .ap-input:focus { border-color: var(--blue); }
-    .toast { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 3px solid; }
-    .toast-success { background: rgba(15,151,61,0.1);  border-color: var(--success); color: #b6f2ce; }
-    .toast-error   { background: rgba(212,38,32,0.1);  border-color: var(--error);   color: #ffbdbb; }
-    .toast-warn    { background: rgba(249,217,0,0.08); border-color: var(--yellow);  color: #ffe57d; }
-    .toast-info    { background: rgba(26,111,212,0.1); border-color: var(--blue);    color: #b1d5ff; }
-    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
-    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
-    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
-    a:hover { color: var(--yellow); }
-    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 22px 32px; display: flex; align-items: center; gap: 16px; }
+    .ap-header-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 19px; font-weight: 700; color: #fff; letter-spacing: -0.3px; line-height: 1.2; }
+    .ap-header-text p  { font-size: 12.5px; color: var(--grey-300); margin-top: 2px; }
+    .ap-content { padding: 32px; max-width: 880px; margin: 0 auto; }
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 22px; }
+    .ap-caption { font-size: 12px; color: var(--grey-300); }
+    .label { display: block; font-size: 11px; color: var(--grey-300); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.7px; }
+    .input { width: 100%; padding: 11px 13px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 15px; font-family: "JetBrains Mono", monospace; outline: none; }
+    .input:focus { border-color: var(--blue-light); }
+    .slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 4px; background: var(--card-border-strong); outline: none; }
+    .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--yellow); cursor: pointer; border: 4px solid var(--navy); }
+    .slider::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--yellow); cursor: pointer; border: 4px solid var(--navy); }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+    .cell { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 18px; }
+    .cell.hero { border-color: var(--yellow); }
+    .cell-label { font-size: 11px; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.7px; }
+    .cell-num { font-family: "JetBrains Mono", monospace; font-size: 26px; font-weight: 500; color: #fff; letter-spacing: -0.8px; margin-top: 8px; line-height: 1.1; }
+    .cell.hero .cell-num { color: var(--yellow); }
+    .cell-sub { font-size: 11.5px; color: var(--grey-400); margin-top: 6px; }
+
+    h2 { font-size: 15px; font-weight: 600; color: #fff; margin: 40px 0 4px; }
+    h2 + p { font-size: 13px; color: var(--grey-300); margin-bottom: 14px; }
+
+    .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 480px; }
+    th { text-align: right; padding: 10px; font-size: 10.5px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.7px; border-bottom: 1px solid var(--card-border-strong); white-space: nowrap; }
+    td { text-align: right; padding: 11px 10px; border-bottom: 1px solid var(--card-border); font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--grey-100); white-space: nowrap; }
+    th:first-child, td:first-child { text-align: left; }
+    tr.dim td { color: var(--grey-400); }
+    tr.live td { background: rgba(249,217,0,0.06); }
+    tr.live td:first-child { box-shadow: inset 3px 0 0 var(--yellow); }
+    tfoot td { border-bottom: none; padding-top: 12px; font-family: "Inter", sans-serif; color: var(--grey-300); font-size: 13px; }
+    tfoot td.v { font-family: "JetBrains Mono", monospace; color: var(--grey-100); }
+    tfoot tr.total td { border-top: 1px solid var(--card-border-strong); color: #fff; font-weight: 500; }
+    .note { font-family: "Inter", sans-serif; font-size: 11px; color: var(--grey-400); display: block; }
+
+    .ap-footer { max-width: 880px; margin: 48px auto 28px; padding: 20px 32px 0; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
     .ap-footer p { font-size: 12px; color: var(--grey-300); }
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+    .ap-footer-left { display: flex; align-items: center; gap: 12px; }
 
-    /* === CALCULATOR === */
-    .calc-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 4px; background: var(--card-border-strong); outline: none; margin: 4px 0; }
-    .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--yellow); cursor: pointer; border: 3px solid var(--navy); }
-    .calc-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--yellow); cursor: pointer; border: 3px solid var(--navy); }
-    .calc-readout { font-family: "JetBrains Mono", monospace; font-size: 34px; font-weight: 500; color: #fff; letter-spacing: -1px; }
-    table.ap-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    table.ap-table th { text-align: right; padding: 12px 10px; font-size: 11px; font-weight: 600; color: var(--grey-300); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--card-border-strong); }
-    table.ap-table th:first-child, table.ap-table td:first-child { text-align: left; }
-    table.ap-table td { text-align: right; padding: 13px 10px; border-bottom: 1px solid var(--card-border); font-family: "JetBrains Mono", monospace; font-size: 13.5px; color: var(--grey-100); }
-    table.ap-table tr.dim td { color: var(--grey-400); }
-    table.ap-table tr.live td { background: rgba(249,217,0,0.06); }
-    table.ap-table tr.live td:first-child { box-shadow: inset 3px 0 0 var(--yellow); }
-    table.ap-table tfoot td { border-bottom: none; padding-top: 14px; }
-    table.ap-table tfoot tr.total td { border-top: 1px solid var(--card-border-strong); color: #fff; font-weight: 500; font-size: 15px; }
-    .band-note { display: block; font-family: "Inter", sans-serif; font-size: 11px; color: var(--grey-400); margin-top: 2px; letter-spacing: 0; }
-    .table-scroll { overflow-x: auto; }
-    @media (max-width: 640px) {
-      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
-      .ap-footer { margin-left: 28px; margin-right: 28px; }
-      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
-      .calc-readout { font-size: 26px; }
-      table.ap-table { min-width: 520px; }
+    @media (max-width: 720px) {
+      .ap-header { padding: 18px 20px; }
+      .ap-content { padding: 24px 20px; }
+      .cards { grid-template-columns: 1fr; gap: 10px; }
+      .cell { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 16px; }
+      .cell-num { margin-top: 0; font-size: 22px; }
+      .cell-sub { width: 100%; margin-top: 2px; }
+      .ap-footer { margin: 36px auto 24px; padding: 20px 20px 0; }
     }
   </style>
 </head>
@@ -139,106 +105,56 @@
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
       <h1>Creative Performance Calculator</h1>
-      <p>Retainer-credit model &middot; internal reference</p>
+      <p>$7,500/mo retainer, credited against a graduated fee</p>
     </div>
   </header>
   <div class="ap-content">
 
-    <section class="ap-section" id="calculator">
-      <div class="ap-kicker">Creative Performance</div>
-      <h2 class="ap-h2" style="margin-bottom:12px;">What a client actually pays</h2>
-      <p class="ap-p-lg" style="max-width:760px;margin-bottom:32px;">$7,500/month creative retainer, credited against a graduated performance fee on spend running through our creative. Move the slider or type a spend figure.</p>
-
-      <div class="ap-card" style="margin-bottom:24px;">
-        <div class="ap-grid-2" style="align-items:end;gap:32px;">
-          <div>
-            <label class="ap-input-label" for="spend-num">Monthly spend on our creative</label>
-            <input class="ap-input" type="number" id="spend-num" min="0" max="10000000" step="10000" value="750000" style="font-family:'JetBrains Mono',monospace;">
-          </div>
-          <div>
-            <div class="ap-caption" style="margin-bottom:6px;">Effective all-in rate</div>
-            <div class="calc-readout" id="eff-rate">4.67%</div>
-          </div>
-        </div>
-        <div style="margin-top:24px;">
-          <input class="calc-slider" type="range" id="spend" min="0" max="5000000" step="10000" value="750000" aria-label="Monthly spend on our creative">
-          <div style="display:flex;justify-content:space-between;margin-top:6px;">
-            <span class="ap-caption mono">$0</span>
-            <span class="ap-caption mono">$5M</span>
-          </div>
-        </div>
+    <div class="ap-card">
+      <label class="label" for="spend-num">Monthly spend on our creative</label>
+      <input class="input" type="number" id="spend-num" min="0" max="10000000" step="10000" value="750000">
+      <input class="slider" type="range" id="spend" min="0" max="5000000" step="10000" value="750000" aria-label="Monthly spend" style="margin-top:16px;">
+      <div style="display:flex;justify-content:space-between;margin-top:6px;">
+        <span class="ap-caption mono">$0</span><span class="ap-caption mono">$5M</span>
       </div>
+    </div>
 
-      <div class="ap-grid-3" style="margin-bottom:24px;">
-        <div class="ap-stat">
-          <div class="ap-stat-num" style="font-size:32px;">$7,500</div>
-          <div class="ap-stat-label">Creative retainer</div>
-          <div class="ap-caption" id="credit-note" style="margin-top:8px;">&mdash;</div>
-        </div>
-        <div class="ap-stat">
-          <div class="ap-stat-num" style="font-size:32px;" id="perf">&mdash;</div>
-          <div class="ap-stat-label">Performance billed</div>
-          <div class="ap-caption" style="margin-top:8px;">After retainer credit</div>
-        </div>
-        <div class="ap-stat" style="border-color:var(--yellow);">
-          <div class="ap-stat-num" style="font-size:32px;" id="total">&mdash;</div>
-          <div class="ap-stat-label">Total invoice</div>
-          <div class="ap-caption" id="total-note" style="margin-top:8px;">&mdash;</div>
-        </div>
+    <div class="cards">
+      <div class="cell">
+        <div class="cell-label">Retainer</div>
+        <div class="cell-num">$7,500</div>
+        <div class="cell-sub" id="credit-note">&mdash;</div>
       </div>
+      <div class="cell">
+        <div class="cell-label">Performance</div>
+        <div class="cell-num" id="perf">&mdash;</div>
+        <div class="cell-sub">After credit</div>
+      </div>
+      <div class="cell hero">
+        <div class="cell-label">Total invoice</div>
+        <div class="cell-num" id="total">&mdash;</div>
+        <div class="cell-sub" id="eff">&mdash;</div>
+      </div>
+    </div>
 
-      <div id="status" class="toast toast-info">&mdash;</div>
-    </section>
+    <h2>Band by band</h2>
+    <p>Each band charges only the slice of spend inside it.</p>
+    <div class="ap-card scroll">
+      <table>
+        <thead><tr><th>Band</th><th>Rate</th><th>Spend</th><th>Fee</th><th>Cumulative</th></tr></thead>
+        <tbody id="rows"></tbody>
+        <tfoot id="foot"></tfoot>
+      </table>
+    </div>
 
-    <section class="ap-section" id="breakdown">
-      <div class="ap-section-label"><span class="num">01</span> Band by band</div>
-      <h3 class="ap-h3" style="margin-bottom:8px;">Where every dollar of fee comes from</h3>
-      <p class="ap-p-sm" style="max-width:700px;margin-bottom:28px;color:var(--grey-300);">Each band only charges the slice of spend that falls inside it. The bill never drops when spend rises, and there is no cliff at the threshold.</p>
-      <div class="ap-card table-scroll">
-        <table class="ap-table">
-          <thead>
-            <tr>
-              <th>Band</th><th>Rate</th><th>Spend in band</th><th>Fee</th><th>Cumulative</th>
-            </tr>
-          </thead>
-          <tbody id="rows"></tbody>
-          <tfoot id="foot"></tfoot>
-        </table>
-      </div>
-    </section>
-
-    <section class="ap-section" id="reference">
-      <div class="ap-section-label"><span class="num">02</span> Reference points</div>
-      <h3 class="ap-h3" style="margin-bottom:28px;">What it bills at each anchor</h3>
-      <div class="ap-card table-scroll">
-        <table class="ap-table">
-          <thead>
-            <tr><th>Monthly spend</th><th>Retainer</th><th>Performance</th><th>Total invoice</th><th>Effective rate</th></tr>
-          </thead>
-          <tbody id="ref-rows"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="ap-section" id="how">
-      <div class="ap-section-label"><span class="num">03</span> How to say it</div>
-      <h3 class="ap-h3" style="margin-bottom:20px;">The pitch, in two sentences</h3>
-      <div class="ap-callout" style="max-width:820px;margin-bottom:28px;">
-        <strong>On a call</strong>
-        $7,500 a month for creative, credited against a 5% performance fee. Once you pass $150,000 in monthly spend on our creative, the rate steps down &mdash; 4% past $500k, 3% past $1M, 2% past $2M.
-      </div>
-      <div class="ap-grid-2">
-        <div class="ap-card">
-          <h4 class="ap-h5" style="margin-bottom:10px;">Why $150,000</h4>
-          <p class="ap-p-sm">$7,500 is exactly 5% of $150,000 &mdash; the same rate as the first paid band. The retainer covers the fee up to that point and the curve runs straight through the threshold with no jump and no kink.</p>
-        </div>
-        <div class="ap-card">
-          <h4 class="ap-h5" style="margin-bottom:10px;">Why not a flat rate per tier</h4>
-          <p class="ap-p-sm">Applying one rate to all spend puts a $7,500 cliff at the threshold and makes the bill fall at $500k, $1M and $2M &mdash; the client pays less for spending more. Graduated bands remove both.</p>
-        </div>
-      </div>
-      <div class="toast toast-warn" style="margin-top:24px;max-width:820px;">The effective rate floors around 2.7% at $5M, because the early bands keep their weight. To go lower at the top, the $2M+ band has to drop below 2%.</div>
-    </section>
+    <h2>Reference</h2>
+    <p>Total invoice at each anchor.</p>
+    <div class="ap-card scroll">
+      <table>
+        <thead><tr><th>Spend</th><th>Retainer</th><th>Performance</th><th>Total</th><th>Rate</th></tr></thead>
+        <tbody id="ref-rows"></tbody>
+      </table>
+    </div>
 
   </div>
   <footer class="ap-footer">
@@ -259,85 +175,53 @@
   </footer>
 <script>
 (function(){
-  var RET = 7500, THR = 150000;
+  var RET = 7500;
   var bands = [
-    {lo:0,       hi:150000,  r:0.05, label:'$0 &ndash; $150k',    note:'covered by the retainer'},
-    {lo:150000,  hi:500000,  r:0.05, label:'$150k &ndash; $500k', note:''},
-    {lo:500000,  hi:1000000, r:0.04, label:'$500k &ndash; $1M',   note:''},
-    {lo:1000000, hi:2000000, r:0.03, label:'$1M &ndash; $2M',     note:''},
-    {lo:2000000, hi:5000000, r:0.02, label:'$2M &ndash; $5M',     note:''}
+    {lo:0,       hi:150000,  r:0.05, label:'$0 \u2013 $150k',    note:'covered by retainer'},
+    {lo:150000,  hi:500000,  r:0.05, label:'$150k \u2013 $500k', note:''},
+    {lo:500000,  hi:1000000, r:0.04, label:'$500k \u2013 $1M',   note:''},
+    {lo:1000000, hi:2000000, r:0.03, label:'$1M \u2013 $2M',     note:''},
+    {lo:2000000, hi:5000000, r:0.02, label:'$2M \u2013 $5M',     note:''}
   ];
   function f(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
   function gross(s){
     var t = 0;
-    for (var i=0;i<bands.length;i++){
-      var b = bands[i];
-      t += Math.max(0, Math.min(s, b.hi) - b.lo) * b.r;
-    }
+    for (var i=0;i<bands.length;i++){ var b = bands[i]; t += Math.max(0, Math.min(s, b.hi) - b.lo) * b.r; }
     if (s > 5000000) t += (s - 5000000) * 0.02;
     return t;
   }
-
-  var slider = document.getElementById('spend');
-  var num    = document.getElementById('spend-num');
-  var rows   = document.getElementById('rows');
-  var foot   = document.getElementById('foot');
+  var slider = document.getElementById('spend'), num = document.getElementById('spend-num');
+  var rows = document.getElementById('rows'), foot = document.getElementById('foot');
 
   function render(s){
     var cum = 0, html = '';
     for (var i=0;i<bands.length;i++){
       var b = bands[i];
-      var inBand = Math.max(0, Math.min(s, b.hi) - b.lo);
-      var fee = inBand * b.r;
+      var inBand = Math.max(0, Math.min(s, b.hi) - b.lo), fee = inBand * b.r;
       cum += fee;
       var cls = inBand <= 0 ? 'dim' : ((s > b.lo && s <= b.hi) ? 'live' : '');
-      var note = b.note ? '<span class="band-note">' + b.note + '</span>' : '';
-      html += '<tr class="' + cls + '">'
-        + '<td>' + b.label + note + '</td>'
-        + '<td>' + (b.r*100).toFixed(1) + '%</td>'
-        + '<td>' + f(inBand) + '</td>'
-        + '<td>' + f(fee) + '</td>'
-        + '<td>' + f(cum) + '</td></tr>';
+      var note = b.note ? '<span class="note">' + b.note + '</span>' : '';
+      html += '<tr class="'+cls+'"><td>'+b.label+note+'</td><td>'+(b.r*100).toFixed(1)+'%</td><td>'
+        + f(inBand)+'</td><td>'+f(fee)+'</td><td>'+f(cum)+'</td></tr>';
     }
     if (s > 5000000){
-      var over = s - 5000000, ofee = over * 0.02;
-      cum += ofee;
-      html += '<tr class="live"><td>Above $5M<span class="band-note">held at the top rate</span></td><td>2.0%</td><td>'
-        + f(over) + '</td><td>' + f(ofee) + '</td><td>' + f(cum) + '</td></tr>';
+      var over = s - 5000000, ofee = over * 0.02; cum += ofee;
+      html += '<tr class="live"><td>Above $5M<span class="note">held at top rate</span></td><td>2.0%</td><td>'
+        + f(over)+'</td><td>'+f(ofee)+'</td><td>'+f(cum)+'</td></tr>';
     }
     rows.innerHTML = html;
 
-    var credit = Math.min(RET, cum);
-    var billed = Math.max(0, cum - RET);
-    var total  = RET + billed;
-
+    var credit = Math.min(RET, cum), billed = Math.max(0, cum - RET), total = RET + billed;
     foot.innerHTML =
-      '<tr><td colspan="3" style="font-family:Inter,sans-serif;color:var(--grey-300);">Gross performance fee</td>'
-      + '<td colspan="2">' + f(cum) + '</td></tr>'
-      + '<tr><td colspan="3" style="font-family:Inter,sans-serif;color:var(--grey-300);">Less retainer credit</td>'
-      + '<td colspan="2" style="color:#b6f2ce;">&minus; ' + f(credit) + '</td></tr>'
-      + '<tr class="total"><td colspan="3" style="font-family:Inter,sans-serif;">Retainer + performance billed</td>'
-      + '<td colspan="2">' + f(RET) + ' + ' + f(billed) + '</td></tr>';
+      '<tr><td colspan="3">Gross fee</td><td colspan="2" class="v">'+f(cum)+'</td></tr>'
+      + '<tr><td colspan="3">Less retainer credit</td><td colspan="2" class="v" style="color:#b6f2ce;">\u2212 '+f(credit)+'</td></tr>'
+      + '<tr class="total"><td colspan="3">Total invoice</td><td colspan="2" class="v" style="color:#fff;">'+f(total)+'</td></tr>';
 
-    document.getElementById('perf').textContent  = f(billed);
+    document.getElementById('perf').textContent = f(billed);
     document.getElementById('total').textContent = f(total);
-    document.getElementById('eff-rate').textContent = s > 0 ? (total/s*100).toFixed(2) + '%' : '&mdash;';
-    document.getElementById('total-note').textContent = s > 0 ? (total/s*100).toFixed(2) + '% of spend' : '—';
-    document.getElementById('credit-note').textContent = credit >= RET ? 'Fully credited' : f(RET - credit) + ' of credit unused';
-
-    var box = document.getElementById('status');
-    var cur = null;
-    for (var j=0;j<bands.length;j++){ if (s > bands[j].lo && s <= bands[j].hi) cur = bands[j]; }
-    if (!cur) cur = { r: s > 5000000 ? 0.02 : 0.05 };
-    if (cum <= RET){
-      box.className = 'toast toast-info';
-      box.textContent = 'The retainer is the floor. The 5% fee is fully absorbed until spend reaches $150,000.';
-    } else {
-      box.className = 'toast toast-success';
-      box.textContent = 'Retainer fully credited. Every extra $10,000 of spend adds ' + f(10000 * cur.r) + ' in fee.';
-    }
+    document.getElementById('eff').textContent = s > 0 ? (total/s*100).toFixed(2) + '% of spend' : '\u2014';
+    document.getElementById('credit-note').textContent = credit >= RET ? 'Fully credited' : f(RET - credit) + ' unused';
   }
-
   function sync(v, from){
     var s = Math.max(0, Math.min(10000000, Math.round(v || 0)));
     if (from !== 'slider') slider.value = Math.min(5000000, s);
@@ -348,13 +232,11 @@
   num.addEventListener('input', function(){ sync(+num.value, 'num'); });
   sync(750000, 'init');
 
-  var anchors = [150000, 250000, 500000, 750000, 1000000, 2000000, 3500000, 5000000];
-  var ref = '';
+  var anchors = [150000, 250000, 500000, 1000000, 2000000, 5000000], ref = '';
   for (var k=0;k<anchors.length;k++){
-    var a = anchors[k], g = gross(a);
-    var billedA = Math.max(0, g - RET), totalA = RET + billedA;
-    ref += '<tr><td>' + f(a) + '</td><td>' + f(RET) + '</td><td>' + f(billedA)
-      + '</td><td style="color:#fff;">' + f(totalA) + '</td><td>' + (totalA/a*100).toFixed(2) + '%</td></tr>';
+    var a = anchors[k], g = gross(a), b2 = Math.max(0, g - RET), t2 = RET + b2;
+    ref += '<tr><td>'+f(a)+'</td><td>'+f(RET)+'</td><td>'+f(b2)+'</td><td style="color:#fff;">'
+      + f(t2)+'</td><td>'+(t2/a*100).toFixed(2)+'%</td></tr>';
   }
   document.getElementById('ref-rows').innerHTML = ref;
 })();
