@@ -106,11 +106,35 @@
 .ce-risk b{color:var(--white)}
 .ce-tag{display:inline-block;background:var(--yellow-dim);color:var(--navy-deep);font-size:.72rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;margin-right:.4rem;text-transform:uppercase;letter-spacing:.04em}
 </style>
+
+<style>
+.ce-tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:.5px solid var(--border);padding-bottom:12px;margin-bottom:20px}
+.ce-tabbtn{font-size:13px;padding:7px 12px;border-radius:var(--radius);border:.5px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;font-family:var(--font-sans)}
+.ce-tabbtn[aria-selected="true"]{background:var(--bg-accent);color:var(--text-accent);border-color:var(--border-accent);font-weight:500}
+.ce-panel{display:none}.ce-panel.active{display:block}
+.ce-wrap h2{margin-top:.5rem}
+</style>
+
 <div class="ce-wrap">
+
 
 <p style="font-size:1.05rem"><strong style="color:var(--text-primary)">The Creator Engine business model, refined through a 20-question interview on August 29, 2026.</strong> This is the operating thesis: what the North Star actually means in net terms, the portfolio shape that hits it, the constraint chain with hire triggers, and the risks that kill it. It is the business model the <a href="/adpros-performance-system/">Master Performance System</a> tracks.</p>
 
-<h2>1. North Star — restated in net terms</h2>
+
+<div class="ce-tabs" role="tablist">
+<button class="ce-tabbtn" role="tab" data-panel="cep-0" aria-selected="true">North Star</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-1" aria-selected="false">Unit economics</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-2" aria-selected="false">Portfolio (B+)</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-3" aria-selected="false">Churn kill zone</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-4" aria-selected="false">Sales motion</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-5" aria-selected="false">Sales kit</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-6" aria-selected="false">Delivery guards</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-7" aria-selected="false">Pods & hires</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-8" aria-selected="false">Creator marketplace</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-9" aria-selected="false">OKR cascade</button>
+<button class="ce-tabbtn" role="tab" data-panel="cep-10" aria-selected="false">Pre-mortem</button>
+</div>
+<div class="ce-panel active" id="cep-0"><h2>1. North Star — restated in net terms</h2>
 <div class="ce-kpis">
 <div class="ce-kpi"><span class="n">$30M/mo</span><span class="l">Attributed revenue for brands ($1M/day)</span></div>
 <div class="ce-kpi"><span class="n">$3M/mo</span><span class="l">Gross to Ad Pros (10% of attributed)</span></div>
@@ -119,7 +143,8 @@
 </div>
 <p><strong>Pricing:</strong> $5K/month <em>or</em> 5% of attributed revenue net of creator split — whichever is greater, never stacked. The retainer is a floor that matters only during ramp; past ~$100K/month attributed, the rev share governs. Meta counts the money: attribution setting frozen at signing, ROAS target agreed upfront, dispute process defined so it never becomes a relationship blow-up. The headline-to-keep ratio is 20:1 — worth remembering when the $1M/day number is quoted.</p>
 
-<h2>2. Unit economics per client</h2>
+</div>
+<div class="ce-panel" id="cep-1"><h2>2. Unit economics per client</h2>
 <table>
 <tr><th>Attributed / mo</th><th>Gross (10%)</th><th>Net after creators</th><th>Ad Pros keeps</th></tr>
 <tr><td>$50–100K (ramp / S-tier)</td><td>$5–10K</td><td>$2.5–5K</td><td>$5K floor</td></tr>
@@ -130,7 +155,8 @@
 </table>
 <p><strong>Ramp:</strong> 60 days to $30–100K/month attributed, then performance economics take over. <strong>LTV:</strong> ~$260–290K net per client at 8% monthly churn (12.5-month average life); ~$600K at the 5% churn goal. Cutting churn 8%→5% literally doubles the business without one extra close. Creator payouts are the largest COGS line — watch cash timing if clients pay net-30 and creators expect faster.</p>
 
-<h2>3. Portfolio shape — Scenario B+ (60 clients)</h2>
+</div>
+<div class="ce-panel" id="cep-2"><h2>3. Portfolio shape — Scenario B+ (60 clients)</h2>
 <table>
 <tr><th>Tier</th><th>Brand profile</th><th>Clients</th><th>Avg attributed/mo</th><th>Total attributed</th><th>Net/mo</th></tr>
 <tr><td>S — proof/feeder</td><td>$1M/yr brands</td><td>15</td><td>$75K</td><td>$1.1M</td><td>$75K (floor)</td></tr>
@@ -141,11 +167,13 @@
 </table>
 <p>The 20 L/XL accounts carry two-thirds of the money; the 40 S/M accounts are the pipeline that produces them. S-tier exists as an audition, not an annuity: cross $100K attributed by day 90 or exit. The thesis is <strong>grow-with, not displace</strong> — land brands in the 20K-brand pond of $250K+/month revenue, scale them into $1M/month spenders, and capture the budget the engine itself creates. Two KRs under every client OKR: <strong>% of spend captured × attributed ROAS</strong> — their product is the money (1x vs 2x ROAS is the difference between needing 50% and 25% spend takeover).</p>
 
-<h2>4. Churn — the kill zone</h2>
+</div>
+<div class="ce-panel" id="cep-3"><h2>4. Churn — the kill zone</h2>
 <div class="ce-callout"><p>Churn concentrates at the <strong>90-day and 6-month marks, in brands doing sub-$100K/month attributed</strong>. The single highest-leverage survival OKR: <strong>time-to-$100K-attributed &lt; 90 days</strong>. Once a client crosses $100K they exit the kill zone and become an annuity. Client approval latency (scripts, creators, videos) is the leading indicator of churn — a brand taking 6 days to approve at week 3 is telegraphing the day-90 cancellation.</p></div>
 <p>Retention owner: <strong>Danna (interim)</strong>; a dedicated retention hire is a priority. Goal: 8% → 5% monthly. At 8%, holding a 60-book requires ~58 replacements/year; at 5%, ~36 — equivalent to adding half a closer without hiring anyone.</p>
 
-<h2>5. Sales motion &amp; constraint chain</h2>
+</div>
+<div class="ce-panel" id="cep-4"><h2>5. Sales motion &amp; constraint chain</h2>
 <p><strong>Binding constraint:</strong> packaging → pipeline → conversations. Current state: 4–6 leads/month against a need of ~12 qualified conversations/month (33% close rate, 4 closes/month founder capacity = ~48/year). Nehal is running at ~40% of his own closing throughput — doubling leads is the cheapest capacity unlock in the model.</p>
 <p><strong>Channels, ranked:</strong> ads, cold email, content, referral, partners, speaking, podcasts. Ads and cold email both depend on the same missing packaging. Pulse/AdScan spend-detection makes the outbound list literally the ICP screen run as a query — a capability almost no competing agency has. One forced referral experiment is owed: brands you made $2M/month for, plus hundreds of commission-aligned creators, all know DTC founders.</p>
 <h3>Intake criteria (qualification screen)</h3>
@@ -157,7 +185,8 @@
 <h3>Intro offer — the wedge</h3>
 <p><strong>3 UGC videos, client pays only the $300 creator fee.</strong> Ad Pros finds creators, handles legal, writes scripts (or client provides). No product shipping — green-screen and talking-head only. Gated behind the ICP screen, not before it. It converts the sale from "trust me" to "here's your product working," and tests the client's approval speed live before any contract. Judged on 48–72h leading indicators (hook rate, hold rate, CTR, CPM stability) with a spend floor per test ad — never "Meta didn't spend," never waiting weeks.</p>
 
-<h2>6. The sales kit (build order)</h2>
+</div>
+<div class="ce-panel" id="cep-5"><h2>6. The sales kit (build order)</h2>
 <ol>
 <li><span class="ce-tag">0</span><strong>Intro offer one-liner</strong> — the 3-videos-for-$300 wedge</li>
 <li><span class="ce-tag">1</span><strong>One-pager</strong> — claim, proof block ($2M/mo support-pets, $1M/mo Alterme), 4-step engine, deal in one line, open qualification bar, single CTA</li>
@@ -170,7 +199,8 @@
 <li><span class="ce-tag">8</span><strong>Cold email sequence</strong> — 4–6 touches off Pulse spend-detection</li>
 </ol>
 
-<h2>7. Delivery — what breaks and the guards</h2>
+</div>
+<div class="ce-panel" id="cep-6"><h2>7. Delivery — what breaks and the guards</h2>
 <p>Every break point except ad spend is a <em>client approval</em>, not a production step. The fix is contract design, not hiring:</p>
 <table>
 <tr><th>Break point</th><th>Guard</th></tr>
@@ -183,7 +213,8 @@
 </table>
 <p>Every client SLA violation pauses the performance clock — their delay can't become our churn.</p>
 
-<h2>8. The pod &amp; hire triggers</h2>
+</div>
+<div class="ce-panel" id="cep-7"><h2>8. The pod &amp; hire triggers</h2>
 <table>
 <tr><th>Seat</th><th>Now</th><th>Scaling behavior</th></tr>
 <tr><td>Creative strategist</td><td>Omar</td><td><strong>The barrel.</strong> Saturates at ~5–8 accounts; defines pod capacity</td></tr>
@@ -200,7 +231,8 @@
 <li><strong>Creator recruitment as a department</strong> — as roster demand approaches four figures (below)</li>
 </ol>
 
-<h2>9. Creator marketplace</h2>
+</div>
+<div class="ce-panel" id="cep-8"><h2>9. Creator marketplace</h2>
 <div class="ce-kpis">
 <div class="ce-kpi"><span class="n">50</span><span class="l">Creators per brand minimum</span></div>
 <div class="ce-kpi"><span class="n">3,000</span><span class="l">Creator slots at 60 clients</span></div>
@@ -209,7 +241,8 @@
 </div>
 <p>Creators are a full actor class in the performance system with their own funnel, win rates, and LTV — not a resource pool. Commission (50% of the rev share) is the loyalty mechanism: a proven creator routed across 2–3 non-competing brands earns more through Ad Pros than any single direct deal, so Ad Pros briefs jump their queue. Steady state is a barbell roster: a proven, heavily-reused core plus constant fresh-face intake for fatigue rotation and new verticals. <strong>The proven-creator roster is the durable asset of the business</strong> — brands churn; the data on what wins, the roster of who wins, and the routing that matches them is what a competitor can't copy.</p>
 
-<h2>10. OKR cascade for the performance system</h2>
+</div>
+<div class="ce-panel" id="cep-9"><h2>10. OKR cascade for the performance system</h2>
 <ol>
 <li><strong>North Star:</strong> $30M/month creator-engine attributed revenue (net $1.5M/month)</li>
 <li><strong>Survival OKR:</strong> time-to-$100K-attributed &lt; 90 days per client (kills the kill zone)</li>
@@ -220,7 +253,8 @@
 <li><strong>Roster OKRs:</strong> creator utilization (brands per proven creator), creator retention, recruitment throughput</li>
 </ol>
 
-<h2>11. Pre-mortem — what kills it</h2>
+</div>
+<div class="ce-panel" id="cep-10"><h2>11. Pre-mortem — what kills it</h2>
 <div class="ce-risk"><b>1. Creators don't perform</b> — win rate per video too low. The core delivery bet. <em>Mitigation:</em> casting spec + Pulse pattern data + proven-core routing; track winners-per-100-videos from day one. <em>Owner: Omar.</em></div>
 <div class="ce-risk"><b>2. Clients take it in-house</b> — success-driven churn, concentrating in the best accounts. <em>Mitigation:</em> the roster is Ad Pros' (non-circumvention + rev-share loyalty), pricing below in-house fully-loaded cost, and a designed "graduation" path — going in-house with Ad Pros creators licensed at a lower fee beats a clean loss. <em>Owner: Nehal/Danna.</em></div>
 <div class="ce-risk"><b>3. Creators get too expensive</b> — the 50/50 split's success paradox; top earners field direct offers. <em>Mitigation:</em> multi-brand routing pays them more in aggregate than any defector deal — which only works if creator-level utilization tracking works. <em>Owner: Daniela.</em></div>
@@ -229,7 +263,16 @@
 
 <p style="margin-top:2rem;color:var(--text-muted);font-size:.85rem">Companion to the <a href="/adpros-performance-system/">Master Performance System</a>, which tracks every number on this page. Synthesized from the 20-question model interview, August 29, 2026.</p>
 </div>
-
+</div>
+<script>
+const ceTabs=document.querySelectorAll('.ce-tabbtn');
+ceTabs.forEach(t=>t.addEventListener('click',()=>{
+ ceTabs.forEach(x=>x.setAttribute('aria-selected','false'));
+ document.querySelectorAll('.ce-panel').forEach(p=>p.classList.remove('active'));
+ t.setAttribute('aria-selected','true');
+ document.getElementById(t.dataset.panel).classList.add('active');
+}));
+</script>
   </div>
   <footer class="ap-footer">
     <div class="ap-footer-left">
