@@ -60,9 +60,39 @@
     .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
     a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
     a:hover { color: var(--yellow); }
+
     @media (max-width: 640px) {
-      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
-      .ap-footer { margin-left: 28px; margin-right: 28px; }
+      .ap-header, .ap-content { padding-left: 16px; padding-right: 16px; }
+      .ap-content { padding-top: 24px; }
+      .ap-footer { margin-left: 16px; margin-right: 16px; }
+      .ap-header-text h1 { font-size: 20px; line-height: 1.25; }
+      .ap-header-text p { font-size: 12px; }
+      .ap-header svg { width: 36px; height: 36px; }
+      /* horizontal scroll strip for tabs instead of wrapping into 4 rows */
+      .aps-tabs, .ce-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; margin-left: -16px; margin-right: -16px;
+        padding-left: 16px; padding-right: 16px; }
+      .aps-tabs::-webkit-scrollbar, .ce-tabs::-webkit-scrollbar { display: none; }
+      .aps-tab, .ce-tabbtn { flex: 0 0 auto; white-space: nowrap; font-size: 12px; padding: 8px 11px; }
+      /* diagrams: let SVGs shrink to viewport instead of overflowing */
+      .aps-card svg, .ce-wrap svg { max-width: 100%; height: auto; }
+      .aps-card { padding: 13px; }
+      .aps-grid3 { grid-template-columns: 1fr; }
+      /* tables become horizontally scrollable rather than crushing columns */
+      .ce-wrap table, .aps-card table { display: block; overflow-x: auto; white-space: nowrap;
+        -webkit-overflow-scrolling: touch; }
+      .ce-wrap th, .ce-wrap td { padding: .45rem .55rem; font-size: .82rem; }
+      .ce-kpis { grid-template-columns: 1fr 1fr; gap: .5rem; }
+      .ce-kpi { padding: .7rem; }
+      .ce-kpi .n { font-size: 1.15rem; }
+      .ce-kpi .l { font-size: .68rem; }
+      .ce-wrap h2 { font-size: 1.12rem; }
+      .ce-wrap h3 { font-size: .98rem; }
+      .ce-wrap p, .ce-wrap li { font-size: .9rem; }
+      .ce-wrap ol, .ce-wrap ul { padding-left: 18px; }
+      .aps-p, .aps-list { font-size: 13px; }
+      .aps-h2 { font-size: 16px; }
+      .ap-footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
