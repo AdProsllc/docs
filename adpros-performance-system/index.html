@@ -10,7 +10,7 @@
   <meta name="baiduspider" content="noindex, nofollow">
   <meta name="yandex" content="noindex, nofollow">
   <meta name="author" content="Nehal">
-  <title>Ad Pros Master Performance System — Ad Pros</title>
+  <title>agencyOS — Ad Pros</title>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="alternate icon" href="/favicon.svg">
@@ -112,8 +112,8 @@
 
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
-      <h1>Ad Pros Master Performance System</h1>
-      <p>Executive overview — OKR cascade, data model, pipeline, cadence, and self-improving loops</p>
+      <h1>agencyOS</h1>
+      <p>How Ad Pros runs itself — EOS as the human layer, Pulse as the instrumentation</p>
     </div>
   </header>
   <div class="ap-content">
@@ -168,6 +168,7 @@
 
 <div class="aps-tabs" role="tablist">
   <button class="aps-tab" role="tab" data-panel="p-exec" aria-selected="true">Executive summary</button>
+  <button class="aps-tab" role="tab" data-panel="p-eos" aria-selected="false">EOS mapping</button>
   <button class="aps-tab" role="tab" data-panel="p-okr" aria-selected="false">OKR cascade</button>
   <button class="aps-tab" role="tab" data-panel="p-erd" aria-selected="false">Data model</button>
   <button class="aps-tab" role="tab" data-panel="p-pipe" aria-selected="false">Pipeline</button>
@@ -184,7 +185,7 @@
     <p class="aps-p" style="margin:0"><strong>Update (Aug 29, 2026):</strong> The business model this system tracks is now fully defined. See the companion page — <a href="/creator-engine-model/" style="color:#F5C518;font-weight:700">Creator Engine — Business Model</a> — for the North Star in net terms, unit economics, the 60-client B+ portfolio, hire triggers, the OKR cascade, and the pre-mortem. That page supplies the company-wide OKR list this tracker's Phase 1 was blocked on.</p>
   </div>
   <div class="aps-card">
-    <div class="aps-h2">Ad Pros master performance system</div>
+    <div class="aps-h2">agencyOS &mdash; how Ad Pros runs itself</div>
     <p class="aps-p">A single system that defines valid outcomes from vision down to service level, logs all execution — human and AI — in one schema, continuously identifies the constraint limiting each outcome, and uses that record as the basis for performance management. It replaces activity tracking with outcome tracking, and replaces quarterly OKR theater with a daily habit.</p>
   </div>
 
@@ -224,6 +225,33 @@
 </div>
 
 <!-- OKR CASCADE -->
+<div class="aps-panel" id="p-eos">
+  <div class="aps-card">
+    <div class="aps-h2">agencyOS = EOS + Pulse</div>
+    <p class="aps-p">agencyOS is not a new management framework. It is <strong>EOS (Entrepreneurial Operating System)</strong> adopted as the human coordination layer, instrumented by <strong>Pulse</strong> for a company where a meaningful share of the workforce is AI agents. EOS is deliberately thin on measurement — it says "keep a weekly scorecard" and stops. At 60 clients, 2,100 creators and 1,200 videos per month, that scorecard cannot be typed in by hand. Everything built here fills the two components EOS leaves lightest: <strong>Data</strong> and <strong>Process</strong>.</p>
+    <p class="aps-p" style="margin:0"><strong>Naming:</strong> agencyOS is internal &mdash; how Ad Pros runs itself. <a href="/creator-engine-model/">growthOS</a> is the external system clients buy. Pulse is the software layer both run on, not a third system.</p>
+  </div>
+
+  <div class="aps-card">
+    <div class="aps-h3">The six key components</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">Component</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">Adopted from EOS</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">Built by us (Pulse)</th></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>Vision</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">V/TO: core values, core focus, 10-year target, 3-year picture, 1-year plan, quarterly Rocks</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">The validity rule &mdash; no outcome is tracked unless it ladders to a company OKR with a stated mechanism</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>People</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Accountability Chart, GWC, right-person-right-seat</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>Agents as seats.</b> Humans and agents in one actor table with ladder rung and time span. EOS has no concept of a non-human seat holder</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>Data</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Weekly scorecard: 5&ndash;15 numbers, one owner each</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>Nearly everything on this page.</b> Auto-logged activity and results in BigQuery, zero manual entry, flow metrics, agent traces</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>Issues</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">IDS &mdash; Identify, Discuss, Solve &mdash; on a live issues list</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">The constraint engine: DIKW loop, one constraint owner, controllability judgment, decisions versioned back into processes. IDS with a memory</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>Process</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">"Document your core processes, followed by all"</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Versioned process registry with Wardley stage (automation roadmap), Cynefin domain, and work-type classification</td></tr>
+      <tr><td style="padding:8px;color:#fff"><b>Traction</b></td><td style="padding:8px;color:var(--text-secondary)">Quarterly Rocks + the weekly Level 10 meeting</td><td style="padding:8px;color:var(--text-secondary)">Daily surfacing of OKRs in meetings that already happen, plus client SLA guards that pause the performance clock</td></tr>
+    </table>
+  </div>
+
+  <div class="aps-grid3">
+    <div class="aps-card"><div class="aps-h3">Deliberate deviation</div><p class="aps-p" style="margin:0">EOS runs a <b>weekly</b> L10. agencyOS runs a <b>daily</b> constraint surface. This is intentional &mdash; creative testing cycles move faster than a week &mdash; but it is a real departure and should be defended, not drifted into. The quarterly Rock cadence is kept unchanged.</p></div>
+    <div class="aps-card"><div class="aps-h3">What we do not rebuild</div><p class="aps-p" style="margin:0">Meeting structure, accountability chart, values discipline, quarterly planning, the issues-solving ritual. These are solved problems with a shared vocabulary that new hires often already speak. Building custom versions would be waste.</p></div>
+    <div class="aps-card"><div class="aps-h3">The failure mode to avoid</div><p class="aps-p" style="margin:0">Half-adopted EOS is worse than none &mdash; it works because of the discipline, not the templates. agencyOS assumes EOS is genuinely run, not borrowed as vocabulary for a custom system.</p></div>
+  </div>
+</div>
+
 <div class="aps-panel" id="p-okr">
   <div class="aps-card">
   <svg width="100%" viewBox="0 0 680 438" role="img"><title>OKR cascade tree</title><desc>Vision, mission, and values sit above a company OKR that fans into department OKRs, one of which fans into client OKRs, one of which fans into service OKRs</desc>
