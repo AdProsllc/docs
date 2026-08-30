@@ -76,11 +76,21 @@
       .aps-tab, .ce-tabbtn { flex: 0 0 auto; white-space: nowrap; font-size: 12px; padding: 8px 11px; }
       /* diagrams: let SVGs shrink to viewport instead of overflowing */
       .aps-card svg, .ce-wrap svg { max-width: 100%; height: auto; }
+      /* the accountability chart is too dense to squeeze into 360px —
+         give it a scroll container at near-desktop width instead */
+      .chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch;
+        margin-left: -13px; margin-right: -13px; padding: 0 13px; }
+      .chart-scroll svg { width: 760px; max-width: none; }
+      .mm { margin-left: -13px; margin-right: -13px; padding: 0 13px; }
       .aps-card { padding: 13px; }
       .aps-grid3 { grid-template-columns: 1fr; }
       /* tables become horizontally scrollable rather than crushing columns */
-      .ce-wrap table, .aps-card table { display: block; overflow-x: auto; white-space: nowrap;
-        -webkit-overflow-scrolling: touch; }
+      /* prose-heavy tables: keep them scrollable but let cells wrap so the
+         scroll distance stays sane; min-width keeps columns legible */
+      .ce-wrap table, .aps-card table { display: block; overflow-x: auto;
+        -webkit-overflow-scrolling: touch; white-space: normal; }
+      .aps-card th, .aps-card td { min-width: 110px; font-size: 12px; padding: 6px 8px !important; }
+      .aps-card td:last-child, .aps-card th:last-child { min-width: 150px; }
       .ce-wrap th, .ce-wrap td { padding: .45rem .55rem; font-size: .82rem; }
       .ce-kpis { grid-template-columns: 1fr 1fr; gap: .5rem; }
       .ce-kpi { padding: .7rem; }
@@ -120,6 +130,11 @@
     <style>
 .aps-wrap { font-family: var(--font-sans); color: var(--text-primary); }
 .mm { margin: 6px 0; overflow-x: auto; }
+.aps-card > svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.aps-card table { max-width: 100%; }
+.aps-card th, .aps-card td { vertical-align: top; }
+/* readable measure on very wide desktop screens */
+.aps-wrap .aps-p, .aps-wrap .aps-list { max-width: 78ch; }
 .mm svg { max-width: 100%; height: auto; }
 .aps-tabs { display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 0.5px solid var(--border); padding-bottom: 12px; margin-bottom: 20px; }
 .aps-tab { font-size: 13px; padding: 7px 12px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--surface-1); color: var(--text-secondary); cursor: pointer; }
@@ -127,7 +142,7 @@
 .aps-panel { display: none; }
 .aps-panel.active { display: block; }
 .aps-card { border: 0.5px solid var(--border); border-radius: 12px; padding: 16px; background: var(--surface-1); margin-bottom: 14px; }
-.aps-h2 { font-size: 18px; font-weight: 500; margin: 0 0 10px 0; }
+.aps-h2 { scroll-margin-top: 12px; font-size: 18px; font-weight: 500; margin: 0 0 10px 0; }
 .aps-h3 { font-size: 16px; font-weight: 500; margin: 0 0 6px 0; }
 .aps-p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin: 0 0 10px 0; }
 .aps-list { font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin: 0 0 10px 0; padding-left: 18px; }
@@ -189,7 +204,7 @@
 
 <div class="aps-card">
   <div class="aps-h3">The EOS model &mdash; six key components</div>
-  <svg viewBox="0 0 700 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six key components of EOS">
+  <svg viewBox="0 0 700 430" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six key components of EOS">
     <g class="c-blue"><rect x="250" y="10" width="200" height="58" rx="8"/>
       <text class="th" x="350" y="35" text-anchor="middle">VISION</text>
       <text class="ts" x="350" y="54" text-anchor="middle">Everyone sees the same picture</text></g>
@@ -372,7 +387,7 @@
 
   <div class="aps-card">
     <div class="aps-h3">Seat map</div>
-    <svg viewBox="0 0 980 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ad Pros accountability chart">
+    <div class="chart-scroll"><svg viewBox="0 0 980 640" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ad Pros accountability chart">
   <defs><marker id="sm" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 Z" fill="#8A8B93"/></marker></defs>
 
   <!-- CEO to five direct reports -->
@@ -476,7 +491,7 @@
   <text class="ts" x="490" y="500" text-anchor="middle">Solid lines = accountable to. Seats, not people &mdash; one person may hold several.</text>
   <text class="ts" x="490" y="520" text-anchor="middle">Every seat, human or agent, has exactly one accountable owner and appears in the actors table.</text>
   <text class="ts" x="490" y="546" text-anchor="middle">Open seats per the hire triggers: second creative strategist (~6 clients), dedicated retention owner, second closer (~35 clients), Integrator.</text>
-</svg>
+</svg></div>
   </div>
 
   <div class="aps-grid3">
@@ -951,6 +966,8 @@ tabs.forEach(tab => {
     document.querySelectorAll('.aps-panel').forEach(p => p.classList.remove('active'));
     tab.setAttribute('aria-selected', 'true');
     document.getElementById(tab.dataset.panel).classList.add('active');
+    const wrap = document.querySelector('.aps-tabs');
+    if (wrap) wrap.scrollIntoView({ block: 'start', behavior: 'smooth' });
   });
 });
 </script>
