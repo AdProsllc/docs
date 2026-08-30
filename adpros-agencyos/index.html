@@ -168,20 +168,14 @@
 
 <div class="aps-tabs" role="tablist">
   <button class="aps-tab" role="tab" data-panel="p-exec" aria-selected="true">Executive summary</button>
-  <button class="aps-tab" role="tab" data-panel="p-eos" aria-selected="false">EOS components</button>
-  <button class="aps-tab" role="tab" data-panel="p-eosproc" aria-selected="false">EOS processes</button>
-  <button class="aps-tab" role="tab" data-panel="p-chart" aria-selected="false">Accountability chart</button>
+  <button class="aps-tab" role="tab" data-panel="p-eos" aria-selected="false">EOS</button>
   <button class="aps-tab" role="tab" data-panel="p-okr" aria-selected="false">OKR cascade</button>
-  <button class="aps-tab" role="tab" data-panel="p-erd" aria-selected="false">Data model</button>
-  <button class="aps-tab" role="tab" data-panel="p-pipe" aria-selected="false">Pipeline</button>
-  <button class="aps-tab" role="tab" data-panel="p-cadence" aria-selected="false">Cadence loop</button>
-  <button class="aps-tab" role="tab" data-panel="p-dikw" aria-selected="false">DIKW loop</button>
-  <button class="aps-tab" role="tab" data-panel="p-loops" aria-selected="false">Improvement loops</button>
-  <button class="aps-tab" role="tab" data-panel="p-backlog" aria-selected="false">Backlog & considerations</button>
+  <button class="aps-tab" role="tab" data-panel="p-rhythm" aria-selected="false">Operating rhythm</button>
+  <button class="aps-tab" role="tab" data-panel="p-arch" aria-selected="false">Architecture</button>
+  <button class="aps-tab" role="tab" data-panel="p-backlog" aria-selected="false">Backlog &amp; considerations</button>
   <button class="aps-tab" role="tab" data-panel="p-faq" aria-selected="false">FAQ</button>
 </div>
 
-<!-- EXECUTIVE SUMMARY -->
 <div class="aps-panel active" id="p-exec">
   <div class="aps-card" style="border-left:4px solid #F5C518;background:rgba(245,197,24,0.06)">
     <p class="aps-p" style="margin:0"><strong>The stack, in one line:</strong> <b>EOS</b> is the human coordination layer we adopt wholesale. <b>agencyOS</b> is EOS instrumented by <b>Pulse</b> for a company where a share of the workforce is AI agents. <b>growthOS</b> is the sibling system clients buy — the business model behind it lives on the <a href="/creator-engine-model/" style="color:#F5C518;font-weight:700">growthOS</a> page, and it now supplies the company-wide OKR numbers this page cascades.</p>
@@ -265,7 +259,6 @@
   </div>
 </div>
 
-<!-- OKR CASCADE -->
 <div class="aps-panel" id="p-eos">
   <div class="aps-card">
     <div class="aps-h2">agencyOS = EOS + Pulse</div>
@@ -310,9 +303,8 @@
     <div class="aps-card"><div class="aps-h3">GWC</div><p class="aps-p" style="margin:0">A person keeps a seat only if they <b>Get it</b>, <b>Want it</b>, and have the <b>Capacity</b> to do it. All three, or the seat is wrong. In agencyOS this test extends to agent seats: capability, scope fit, and reliability.</p></div>
     <div class="aps-card"><div class="aps-h3">Rocks</div><p class="aps-p" style="margin:0">3&ndash;7 company priorities per 90 days, each with one owner. Anything not a Rock is not this quarter's work. This is the mechanism that stops the deep-work list from becoming an infinite queue.</p></div>
   </div>
-</div>
+  <div class="aps-card" style="background:var(--bg-accent);border-color:var(--border-accent)"><div class="aps-h2" style="margin:0">The EOS process &mdash; how it is installed and run</div></div>
 
-<div class="aps-panel" id="p-eosproc">
   <div class="aps-card">
     <div class="aps-h2">The EOS process &mdash; how it gets installed and run</div>
     <p class="aps-p" style="margin:0">EOS is a sequence of sessions and a repeating meeting rhythm, not a document. The install takes roughly two years to reach full strength; the rhythm never stops.</p>
@@ -351,9 +343,8 @@
     <div class="aps-card"><div class="aps-h3">The 3-Step Process Documenter</div><p class="aps-p" style="margin:0">Identify your core processes, name them, then document only the 20% of steps that drive 80% of the result &mdash; a handful of bullets per process, not a manual. Then get it followed by all.</p></div>
     <div class="aps-card"><div class="aps-h3">Meeting pulse</div><p class="aps-p" style="margin:0">Weekly L10 at every level, quarterly sessions, annual planning. The rhythm is the product; skipping it is how EOS installations quietly die.</p></div>
   </div>
-</div>
+  <div class="aps-card" style="background:var(--bg-accent);border-color:var(--border-accent)"><div class="aps-h2" style="margin:0">The Accountability Chart &mdash; with agent seats</div></div>
 
-<div class="aps-panel" id="p-chart">
   <div class="aps-card">
     <div class="aps-h2">The Accountability Chart &mdash; with agent seats</div>
     <p class="aps-p">EOS asks for seats before names: each seat has roughly five roles and exactly one accountable owner. agencyOS extends this in the one place EOS has no answer &mdash; a seat may be held by a human, by an AI agent, or by a human supervising a fleet of agents. The GWC test still applies: for an agent, <b>Gets it</b> is capability, <b>Wants it</b> is scope fit, and <b>Capacity</b> is reliability under load.</p>
@@ -456,51 +447,7 @@
   </div>
 </div>
 
-<!-- DATA MODEL -->
-<div class="aps-panel" id="p-erd">
-  <div class="aps-card"><div class="aps-h3">Where EOS lives in the schema</div><p class="aps-p" style="margin:0"><code>actors</code> holds EOS seats — humans and agents alike — with the GWC judgment and the accountable owner for every agent seat. <code>constraints</code> is the EOS issues list, persisted: each row is an identified issue with one owner, a controllability judgment, and a required decision, so a solved issue leaves a record instead of a memory. <code>okrs</code> feeds the weekly Scorecard directly.</p></div>
-
-  <div class="aps-card">
-    <div class="erd-embed" id="erd-target"></div>
-  </div>
-  <div class="aps-card">
-    <div class="aps-h3">What this shows</div>
-    <p class="aps-p"><code>okrs</code> is the schema's spine — activity, results, and constraints all key off an <code>okr_id</code>, so nothing in the system can exist without laddering to a valid outcome. <code>values_registry</code> is the one static reference table: it doesn't get written to by activity, only pointed at when a constraint fires as a values violation. <code>processes</code> is the registry that matters most day to day — it's versioned, tagged by Wardley stage (genesis / custom / product / commodity), and is the actual automation roadmap once populated.</p>
-  </div>
-</div>
-
-<!-- PIPELINE -->
-<div class="aps-panel" id="p-pipe">
-  <div class="aps-card">
-  <svg width="100%" viewBox="0 0 680 480" role="img"><title>Pipeline and system architecture</title><desc>Sources feed raw landing tables, transformed into clean BigQuery tables and dashboards, with pipeline runs and data quality checks branching off to a Slack alert</desc>
-  <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-  <g class="c-gray"><rect x="30" y="30" width="150" height="44" rx="8" stroke-width="0.5"/><text class="th" x="105" y="52" text-anchor="middle" dominant-baseline="central">Pulse agents</text></g>
-  <g class="c-gray"><rect x="200" y="30" width="150" height="44" rx="8" stroke-width="0.5"/><text class="th" x="275" y="52" text-anchor="middle" dominant-baseline="central">ClickUp</text></g>
-  <g class="c-gray"><rect x="370" y="30" width="150" height="44" rx="8" stroke-width="0.5"/><text class="th" x="445" y="52" text-anchor="middle" dominant-baseline="central">Northbeam / TW</text></g>
-  <line x1="105" y1="74" x2="105" y2="110" class="arr" marker-end="url(#a2)"/>
-  <line x1="275" y1="74" x2="275" y2="110" class="arr" marker-end="url(#a2)"/>
-  <line x1="445" y1="74" x2="445" y2="110" class="arr" marker-end="url(#a2)"/>
-  <g class="c-purple"><rect x="30" y="114" width="490" height="56" rx="8" stroke-width="0.5"/><text class="th" x="275" y="134" text-anchor="middle" dominant-baseline="central">Raw landing tables</text><text class="ts" x="275" y="152" text-anchor="middle" dominant-baseline="central">raw JSON, one per source</text></g>
-  <line x1="275" y1="170" x2="275" y2="186" class="arr" marker-end="url(#a2)"/>
-  <g class="c-teal"><rect x="30" y="190" width="490" height="56" rx="8" stroke-width="0.5"/><text class="th" x="275" y="210" text-anchor="middle" dominant-baseline="central">Scheduled SQL transforms</text><text class="ts" x="275" y="228" text-anchor="middle" dominant-baseline="central">only this layer breaks on schema change</text></g>
-  <line x1="275" y1="246" x2="275" y2="262" class="arr" marker-end="url(#a2)"/>
-  <g class="c-teal"><rect x="30" y="266" width="490" height="56" rx="8" stroke-width="0.5"/><text class="th" x="275" y="286" text-anchor="middle" dominant-baseline="central">Clean BigQuery tables</text><text class="ts" x="275" y="304" text-anchor="middle" dominant-baseline="central">okrs, activity_log, results, constraints...</text></g>
-  <line x1="200" y1="322" x2="200" y2="338" class="arr" marker-end="url(#a2)"/>
-  <line x1="350" y1="322" x2="350" y2="338" class="arr" marker-end="url(#a2)"/>
-  <g class="c-coral"><rect x="60" y="342" width="280" height="56" rx="8" stroke-width="0.5"/><text class="th" x="200" y="362" text-anchor="middle" dominant-baseline="central">Looker Studio dashboards</text><text class="ts" x="200" y="380" text-anchor="middle" dominant-baseline="central">views per level</text></g>
-  <g class="c-pink"><rect x="360" y="342" width="220" height="56" rx="8" stroke-width="0.5"/><text class="th" x="470" y="362" text-anchor="middle" dominant-baseline="central">pipeline_runs + dq_issues</text><text class="ts" x="470" y="380" text-anchor="middle" dominant-baseline="central">queryable error log</text></g>
-  <line x1="470" y1="398" x2="470" y2="414" class="arr" marker-end="url(#a2)"/>
-  <g class="c-red"><rect x="360" y="418" width="220" height="56" rx="8" stroke-width="0.5"/><text class="th" x="470" y="438" text-anchor="middle" dominant-baseline="central">Slack #ops alert</text><text class="ts" x="470" y="456" text-anchor="middle" dominant-baseline="central">failure or 24h silence</text></g>
-  </svg>
-  </div>
-  <div class="aps-card">
-    <div class="aps-h3">What this shows</div>
-    <p class="aps-p">The error path runs parallel to the dashboard path, not downstream of it — <code>pipeline_runs</code> and <code>dq_issues</code> are written at every stage, so a broken transform surfaces in Slack before it silently produces an empty or wrong dashboard. Silence detection matters more than failure detection: pipelines usually die quietly. The raw landing-zone layer is the single biggest anti-breakage decision — a source's schema change only ever breaks the transform, never the raw data itself, so a fix can always replay from the raw table.</p>
-  </div>
-</div>
-
-<!-- CADENCE LOOP -->
-<div class="aps-panel" id="p-cadence">
+<div class="aps-panel" id="p-rhythm">
   <div class="aps-card">
     <div style="display:flex; flex-direction:column; gap:0;">
       <div style="border:0.5px solid var(--border-strong); border-radius:16px; padding:16px; background:var(--surface-1);">
@@ -531,7 +478,7 @@
   </div>
 </div>
 
-<!-- DIKW LOOP -->
+
   <div class="aps-card">
     <div class="aps-h3">Mapped onto the EOS meeting pulse</div>
     <table style="width:100%;border-collapse:collapse;font-size:13px">
@@ -543,9 +490,8 @@
     </table>
     <p class="aps-p" style="margin:10px 0 0"><b>The deviation, stated plainly:</b> EOS runs weekly. agencyOS adds a daily layer on top and changes nothing else. This should be defended at each Quarterly Pulsing, not drifted into &mdash; if the daily layer becomes status theater rather than constraint surfacing, it should be cut.</p>
   </div>
-</div>
+  <div class="aps-card" style="background:var(--bg-accent);border-color:var(--border-accent)"><div class="aps-h2" style="margin:0">The constraint loop &mdash; DIKW</div></div>
 
-<div class="aps-panel" id="p-dikw">
   <div class="aps-card">
   <svg width="100%" viewBox="0 0 680 260" role="img"><title>DIKW loop as the constraint management engine</title><desc>Data from results and activity becomes information on dashboards, which constraint reviews convert to knowledge, which decisions convert to wisdom, which feeds back as next cycle's inputs</desc>
   <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
@@ -567,7 +513,7 @@
   </div>
 </div>
 
-<!-- IMPROVEMENT LOOPS -->
+
   <div class="aps-card" style="border-left:4px solid #F5C518;background:rgba(245,197,24,0.06)">
     <div class="aps-h3">This is IDS with a memory</div>
     <p class="aps-p">DIKW and EOS's <b>IDS</b> are the same motion at different resolutions, and they are not competing systems. IDS is what a room does in a meeting: <i>Identify</i> the real issue, <i>Discuss</i> it once, <i>Solve</i> it with an owner and a to-do. DIKW is what the system does underneath, continuously and with a record.</p>
@@ -575,7 +521,46 @@
   </div>
 </div>
 
-<div class="aps-panel" id="p-loops">
+<div class="aps-panel" id="p-arch">
+  <div class="aps-card"><div class="aps-h3">Where EOS lives in the schema</div><p class="aps-p" style="margin:0"><code>actors</code> holds EOS seats — humans and agents alike — with the GWC judgment and the accountable owner for every agent seat. <code>constraints</code> is the EOS issues list, persisted: each row is an identified issue with one owner, a controllability judgment, and a required decision, so a solved issue leaves a record instead of a memory. <code>okrs</code> feeds the weekly Scorecard directly.</p></div>
+
+  <div class="aps-card">
+    <div class="erd-embed" id="erd-target"></div>
+  </div>
+  <div class="aps-card">
+    <div class="aps-h3">What this shows</div>
+    <p class="aps-p"><code>okrs</code> is the schema's spine — activity, results, and constraints all key off an <code>okr_id</code>, so nothing in the system can exist without laddering to a valid outcome. <code>values_registry</code> is the one static reference table: it doesn't get written to by activity, only pointed at when a constraint fires as a values violation. <code>processes</code> is the registry that matters most day to day — it's versioned, tagged by Wardley stage (genesis / custom / product / commodity), and is the actual automation roadmap once populated.</p>
+  </div>
+  <div class="aps-card" style="background:var(--bg-accent);border-color:var(--border-accent)"><div class="aps-h2" style="margin:0">Ingestion pipeline</div></div>
+
+  <div class="aps-card">
+  <svg width="100%" viewBox="0 0 680 480" role="img"><title>Pipeline and system architecture</title><desc>Sources feed raw landing tables, transformed into clean BigQuery tables and dashboards, with pipeline runs and data quality checks branching off to a Slack alert</desc>
+  <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+  <g class="c-gray"><rect x="30" y="30" width="150" height="44" rx="8" stroke-width="0.5"/><text class="th" x="105" y="52" text-anchor="middle" dominant-baseline="central">Pulse agents</text></g>
+  <g class="c-gray"><rect x="200" y="30" width="150" height="44" rx="8" stroke-width="0.5"/><text class="th" x="275" y="52" text-anchor="middle" dominant-baseline="central">ClickUp</text></g>
+  <g class="c-gray"><rect x="370" y="30" width="150" height="44" rx="8" stroke-width="0.5"/><text class="th" x="445" y="52" text-anchor="middle" dominant-baseline="central">Northbeam / TW</text></g>
+  <line x1="105" y1="74" x2="105" y2="110" class="arr" marker-end="url(#a2)"/>
+  <line x1="275" y1="74" x2="275" y2="110" class="arr" marker-end="url(#a2)"/>
+  <line x1="445" y1="74" x2="445" y2="110" class="arr" marker-end="url(#a2)"/>
+  <g class="c-purple"><rect x="30" y="114" width="490" height="56" rx="8" stroke-width="0.5"/><text class="th" x="275" y="134" text-anchor="middle" dominant-baseline="central">Raw landing tables</text><text class="ts" x="275" y="152" text-anchor="middle" dominant-baseline="central">raw JSON, one per source</text></g>
+  <line x1="275" y1="170" x2="275" y2="186" class="arr" marker-end="url(#a2)"/>
+  <g class="c-teal"><rect x="30" y="190" width="490" height="56" rx="8" stroke-width="0.5"/><text class="th" x="275" y="210" text-anchor="middle" dominant-baseline="central">Scheduled SQL transforms</text><text class="ts" x="275" y="228" text-anchor="middle" dominant-baseline="central">only this layer breaks on schema change</text></g>
+  <line x1="275" y1="246" x2="275" y2="262" class="arr" marker-end="url(#a2)"/>
+  <g class="c-teal"><rect x="30" y="266" width="490" height="56" rx="8" stroke-width="0.5"/><text class="th" x="275" y="286" text-anchor="middle" dominant-baseline="central">Clean BigQuery tables</text><text class="ts" x="275" y="304" text-anchor="middle" dominant-baseline="central">okrs, activity_log, results, constraints...</text></g>
+  <line x1="200" y1="322" x2="200" y2="338" class="arr" marker-end="url(#a2)"/>
+  <line x1="350" y1="322" x2="350" y2="338" class="arr" marker-end="url(#a2)"/>
+  <g class="c-coral"><rect x="60" y="342" width="280" height="56" rx="8" stroke-width="0.5"/><text class="th" x="200" y="362" text-anchor="middle" dominant-baseline="central">Looker Studio dashboards</text><text class="ts" x="200" y="380" text-anchor="middle" dominant-baseline="central">views per level</text></g>
+  <g class="c-pink"><rect x="360" y="342" width="220" height="56" rx="8" stroke-width="0.5"/><text class="th" x="470" y="362" text-anchor="middle" dominant-baseline="central">pipeline_runs + dq_issues</text><text class="ts" x="470" y="380" text-anchor="middle" dominant-baseline="central">queryable error log</text></g>
+  <line x1="470" y1="398" x2="470" y2="414" class="arr" marker-end="url(#a2)"/>
+  <g class="c-red"><rect x="360" y="418" width="220" height="56" rx="8" stroke-width="0.5"/><text class="th" x="470" y="438" text-anchor="middle" dominant-baseline="central">Slack #ops alert</text><text class="ts" x="470" y="456" text-anchor="middle" dominant-baseline="central">failure or 24h silence</text></g>
+  </svg>
+  </div>
+  <div class="aps-card">
+    <div class="aps-h3">What this shows</div>
+    <p class="aps-p">The error path runs parallel to the dashboard path, not downstream of it — <code>pipeline_runs</code> and <code>dq_issues</code> are written at every stage, so a broken transform surfaces in Slack before it silently produces an empty or wrong dashboard. Silence detection matters more than failure detection: pipelines usually die quietly. The raw landing-zone layer is the single biggest anti-breakage decision — a source's schema change only ever breaks the transform, never the raw data itself, so a fix can always replay from the raw table.</p>
+  </div>
+  <div class="aps-card" style="background:var(--bg-accent);border-color:var(--border-accent)"><div class="aps-h2" style="margin:0">Self-improving loops</div></div>
+
   <div class="aps-card">
     <div style="display:flex; flex-direction:column; gap:0;">
       <div style="border:0.5px solid var(--border-strong); border-radius:16px; padding:16px; background:var(--surface-1);">
@@ -598,7 +583,6 @@
   </div>
 </div>
 
-<!-- BACKLOG -->
 <div class="aps-panel" id="p-backlog">
   <div class="aps-card">
     <div class="aps-h3">Blocking Phase 1</div>
@@ -632,7 +616,6 @@
   </div>
 </div>
 
-<!-- FAQ -->
 <div class="aps-panel" id="p-faq">
   <div class="aps-card">
     <div class="aps-h3">Are we running EOS, or building our own system?</div>
@@ -675,7 +658,6 @@
     <p class="aps-p">The system loop: dashboard view usage is instrumented, and views nobody reads get deleted monthly. The tracker is subject to its own constraint-identification discipline, not exempt from it.</p>
   </div>
 </div>
-
 </div>
 
 <script type="module">
