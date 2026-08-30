@@ -170,6 +170,7 @@
   <button class="aps-tab" role="tab" data-panel="p-exec" aria-selected="true">Executive summary</button>
   <button class="aps-tab" role="tab" data-panel="p-eos" aria-selected="false">EOS components</button>
   <button class="aps-tab" role="tab" data-panel="p-eosproc" aria-selected="false">EOS processes</button>
+  <button class="aps-tab" role="tab" data-panel="p-chart" aria-selected="false">Accountability chart</button>
   <button class="aps-tab" role="tab" data-panel="p-okr" aria-selected="false">OKR cascade</button>
   <button class="aps-tab" role="tab" data-panel="p-erd" aria-selected="false">Data model</button>
   <button class="aps-tab" role="tab" data-panel="p-pipe" aria-selected="false">Pipeline</button>
@@ -183,11 +184,11 @@
 <!-- EXECUTIVE SUMMARY -->
 <div class="aps-panel active" id="p-exec">
   <div class="aps-card" style="border-left:4px solid #F5C518;background:rgba(245,197,24,0.06)">
-    <p class="aps-p" style="margin:0"><strong>Update (Aug 29, 2026):</strong> The business model this system tracks is now fully defined. See the companion page — <a href="/creator-engine-model/" style="color:#F5C518;font-weight:700">Creator Engine — Business Model</a> — for the North Star in net terms, unit economics, the 60-client B+ portfolio, hire triggers, the OKR cascade, and the pre-mortem. That page supplies the company-wide OKR list this tracker's Phase 1 was blocked on.</p>
+    <p class="aps-p" style="margin:0"><strong>The stack, in one line:</strong> <b>EOS</b> is the human coordination layer we adopt wholesale. <b>agencyOS</b> is EOS instrumented by <b>Pulse</b> for a company where a share of the workforce is AI agents. <b>growthOS</b> is the sibling system clients buy — the business model behind it lives on the <a href="/creator-engine-model/" style="color:#F5C518;font-weight:700">growthOS</a> page, and it now supplies the company-wide OKR numbers this page cascades.</p>
   </div>
   <div class="aps-card">
     <div class="aps-h2">agencyOS &mdash; how Ad Pros runs itself</div>
-    <p class="aps-p">A single system that defines valid outcomes from vision down to service level, logs all execution — human and AI — in one schema, continuously identifies the constraint limiting each outcome, and uses that record as the basis for performance management. It replaces activity tracking with outcome tracking, and replaces quarterly OKR theater with a daily habit.</p>
+    <p class="aps-p">agencyOS runs EOS as its management framework and instruments it with Pulse. It defines valid outcomes from vision down to service level, logs all execution — human and AI — in one schema, continuously identifies the constraint limiting each outcome, and uses that record as the basis for performance management. EOS supplies the rituals: the Accountability Chart, quarterly Rocks, the Level 10 meeting, and IDS. Pulse supplies the two components EOS leaves thin — a Scorecard that fills itself, and a process registry that versions itself.</p>
   </div>
 
 <div class="aps-card">
@@ -255,7 +256,9 @@
   <div class="aps-card">
     <div class="aps-h3">How this document is organized</div>
     <ul class="aps-list">
-      <li>Six tabs walk through the system's architecture as diagrams — the OKR cascade, the data model, the pipeline, the review cadence, the constraint-to-input feedback loop, and the self-improving loops for AI agents and the tracker itself.</li>
+      <li><b>EOS components</b> and <b>EOS processes</b> cover the framework itself — what each of the six components does, and how EOS is installed and run.</li>
+      <li><b>Accountability chart</b> shows the seats, including agent seats — the part of EOS that has no standard answer for an AI-native company.</li>
+      <li>Six diagram tabs walk the architecture — the OKR cascade, the data model, the pipeline, the review cadence, the constraint-to-input feedback loop, and the self-improving loops.</li>
       <li>Backlog & considerations holds the open decisions blocking build, and the outside perspectives (Kersten, Goldratt, Bridgewater, Rabois, and others) that were used to pressure-test the design.</li>
       <li>FAQ answers the questions this system tends to raise the first time someone sees it.</li>
     </ul>
@@ -350,6 +353,59 @@
   </div>
 </div>
 
+<div class="aps-panel" id="p-chart">
+  <div class="aps-card">
+    <div class="aps-h2">The Accountability Chart &mdash; with agent seats</div>
+    <p class="aps-p">EOS asks for seats before names: each seat has roughly five roles and exactly one accountable owner. agencyOS extends this in the one place EOS has no answer &mdash; a seat may be held by a human, by an AI agent, or by a human supervising a fleet of agents. The GWC test still applies: for an agent, <b>Gets it</b> is capability, <b>Wants it</b> is scope fit, and <b>Capacity</b> is reliability under load.</p>
+  </div>
+
+  <div class="aps-card">
+    <div class="aps-h3">Seat map</div>
+    <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Accountability chart with human and agent seats">
+      <g class="c-amber"><rect x="260" y="8" width="180" height="52" rx="8"/>
+        <text class="th" x="350" y="30" text-anchor="middle">Visionary / Integrator</text>
+        <text class="ts" x="350" y="48" text-anchor="middle">Nehal (both seats, for now)</text></g>
+      <g class="c-blue"><rect x="20" y="100" width="150" height="52" rx="8"/>
+        <text class="th" x="95" y="122" text-anchor="middle">Sales</text>
+        <text class="ts" x="95" y="140" text-anchor="middle">Nehal &rarr; closer hire</text></g>
+      <g class="c-teal"><rect x="195" y="100" width="150" height="52" rx="8"/>
+        <text class="th" x="270" y="122" text-anchor="middle">Delivery</text>
+        <text class="ts" x="270" y="140" text-anchor="middle">Pod leads</text></g>
+      <g class="c-coral"><rect x="370" y="100" width="150" height="52" rx="8"/>
+        <text class="th" x="445" y="122" text-anchor="middle">Retention</text>
+        <text class="ts" x="445" y="140" text-anchor="middle">Danna (interim)</text></g>
+      <g class="c-purple"><rect x="545" y="100" width="135" height="52" rx="8"/>
+        <text class="th" x="612" y="122" text-anchor="middle">Pulse / Ops</text>
+        <text class="ts" x="612" y="140" text-anchor="middle">Platform</text></g>
+      <g class="c-teal"><rect x="150" y="192" width="145" height="48" rx="8"/>
+        <text class="th" x="222" y="212" text-anchor="middle">Creative strategy</text>
+        <text class="ts" x="222" y="229" text-anchor="middle">Omar &mdash; the barrel</text></g>
+      <g class="c-teal"><rect x="315" y="192" width="145" height="48" rx="8"/>
+        <text class="th" x="387" y="212" text-anchor="middle">Creator management</text>
+        <text class="ts" x="387" y="229" text-anchor="middle">Daniela</text></g>
+      <g class="c-teal"><rect x="480" y="192" width="145" height="48" rx="8"/>
+        <text class="th" x="552" y="212" text-anchor="middle">Production</text>
+        <text class="ts" x="552" y="229" text-anchor="middle">Rafael</text></g>
+      <g class="c-gray"><rect x="60" y="285" width="180" height="48" rx="8"/>
+        <text class="th" x="150" y="305" text-anchor="middle">Creator coordination</text>
+        <text class="ts" x="150" y="322" text-anchor="middle">Viviana + agents</text></g>
+      <g class="c-green"><rect x="260" y="285" width="180" height="48" rx="8"/>
+        <text class="th" x="350" y="305" text-anchor="middle">AGENT SEATS</text>
+        <text class="ts" x="350" y="322" text-anchor="middle">Logging, scoring, reporting</text></g>
+      <g class="c-green"><rect x="460" y="285" width="180" height="48" rx="8"/>
+        <text class="th" x="550" y="305" text-anchor="middle">AGENT SEATS</text>
+        <text class="ts" x="550" y="322" text-anchor="middle">Research, drafting, QA</text></g>
+      <text class="ts" x="350" y="370" text-anchor="middle">Every seat &mdash; human or agent &mdash; has one accountable owner and appears in the actors table</text>
+    </svg>
+  </div>
+
+  <div class="aps-grid3">
+    <div class="aps-card"><div class="aps-h3">One person, several seats</div><p class="aps-p" style="margin:0">Early on this is normal and healthy. The chart describes the company being built, not the one that exists. Hire triggers are written against seats, not headcount.</p></div>
+    <div class="aps-card"><div class="aps-h3">An agent seat is still accountable</div><p class="aps-p" style="margin:0">Every agent seat has a named human owner above it. When an agent seat misses, the constraint review asks whether the failure was capability, context, or supervision &mdash; and the answer versions the process, not the person.</p></div>
+    <div class="aps-card"><div class="aps-h3">Seats before names</div><p class="aps-p" style="margin:0">Draw the seat and its five roles first, then ask who fits. Reversing the order is how org charts calcify around the people who happen to be there.</p></div>
+  </div>
+</div>
+
 <div class="aps-panel" id="p-okr">
   <div class="aps-card">
   <svg width="100%" viewBox="0 0 680 438" role="img"><title>OKR cascade tree</title><desc>Vision, mission, and values sit above a company OKR that fans into department OKRs, one of which fans into client OKRs, one of which fans into service OKRs</desc>
@@ -377,10 +433,33 @@
     <div class="aps-h3">What this shows</div>
     <p class="aps-p">One branch is fully expanded (Department B → Client 1 → Service 1/2) for readability — Departments A and C fan out the same way underneath. Every downward arrow is a tested claim: a child OKR must state how it moves its parent, or the branch is invalid and doesn't get tracked. Vision and mission sit above the company OKR as a filter, not a poster — an OKR that hits its number while violating the mission or a value still fails.</p>
   </div>
+
+  <div class="aps-card">
+    <div class="aps-h3">The live cascade &mdash; actual numbers</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">Level</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">OKR</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">Mechanism to parent</th></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff">Company</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>$30M/month attributed revenue</b> for client brands (~$1.5M/month net)</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Root &mdash; the North Star</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff">Company</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>60 clients</b> in the B+ portfolio shape (15 S / 25 M / 15 L / 5 XL)</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">60 clients &times; ~$500K average attributed = the North Star</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff">Client (survival)</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>Time-to-$100K attributed &lt; 90 days</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Churn concentrates at day 90 and month 6 below $100K. Crossing it converts a client into an annuity</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff">Client (growth)</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>% of spend captured &times; attributed ROAS</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Their product <i>is</i> attributed revenue. 1x vs 2x ROAS halves the spend takeover needed</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff">Service (delivery)</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>Winners per 100 videos</b> &mdash; per creator, per vertical, per format</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Winner rate drives ROAS, which drives attributed revenue. The engine's true hit rate</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff">Department (sales)</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>12 qualified conversations/month</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">At 33% close = 4 closes/month = the client count. Currently at 4&ndash;6 leads &mdash; the binding constraint</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff">Department (retention)</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><b>Monthly churn 8% &rarr; 5%</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Cuts required replacements from ~58/yr to ~36/yr &mdash; worth half a closer without hiring one</td></tr>
+      <tr><td style="padding:8px;color:#fff">Department (roster)</td><td style="padding:8px;color:var(--text-secondary)"><b>Creator utilization</b> &mdash; brands per proven creator</td><td style="padding:8px;color:var(--text-secondary)">Reuse cuts the roster from 3,000 slots to ~2,100 people and is the loyalty mechanism</td></tr>
+    </table>
+  </div>
+
+  <div class="aps-card" style="border-left:4px solid #F5C518;background:rgba(245,197,24,0.06)">
+    <div class="aps-h3">OKRs vs. Rocks &mdash; not two goal systems</div>
+    <p class="aps-p">This is the single most likely source of confusion, so it is stated explicitly. <b>OKRs are the continuous measurement layer</b>: they always exist, they are always instrumented, and Pulse computes them without anyone typing a number. <b>Rocks are the 90-day subset the leadership team chooses to actively work on</b> &mdash; 3 to 7, one owner each, set at Quarterly Pulsing.</p>
+    <p class="aps-p" style="margin:0">Put plainly: every Rock must move a named OKR, but not every OKR has a Rock this quarter. An OKR without a Rock is being <i>watched</i>, not <i>worked</i>. If a watched OKR drifts off track, it surfaces on the Scorecard, becomes an Issue, and gets IDS'd &mdash; and if the fix is bigger than a to-do, it becomes next quarter's Rock. That is the whole relationship.</p>
+  </div>
 </div>
 
 <!-- DATA MODEL -->
 <div class="aps-panel" id="p-erd">
+  <div class="aps-card"><div class="aps-h3">Where EOS lives in the schema</div><p class="aps-p" style="margin:0"><code>actors</code> holds EOS seats — humans and agents alike — with the GWC judgment and the accountable owner for every agent seat. <code>constraints</code> is the EOS issues list, persisted: each row is an identified issue with one owner, a controllability judgment, and a required decision, so a solved issue leaves a record instead of a memory. <code>okrs</code> feeds the weekly Scorecard directly.</p></div>
+
   <div class="aps-card">
     <div class="erd-embed" id="erd-target"></div>
   </div>
@@ -453,6 +532,19 @@
 </div>
 
 <!-- DIKW LOOP -->
+  <div class="aps-card">
+    <div class="aps-h3">Mapped onto the EOS meeting pulse</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">Cadence</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">EOS equivalent</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:#fff">What happens</th></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>Daily</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)"><i>None &mdash; our deviation</i></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">OKRs surfaced in the team and department meetings that already happen; constraints logged on the spot with one owner each. Creative testing cycles move faster than a week &mdash; this is why the deviation exists</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>Weekly</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Level 10 Meeting</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Standard L10 agenda, with one change: the Scorecard segment reads numbers Pulse computed, so the five minutes are spent judging on/off track rather than collecting data. Constraint review feeds the issues list</td></tr>
+      <tr><td style="padding:8px;border-bottom:.5px solid var(--border);color:#fff"><b>Quarterly</b></td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Quarterly Pulsing</td><td style="padding:8px;border-bottom:.5px solid var(--border);color:var(--text-secondary)">Rocks reset from the OKRs that drifted, issues list cleared, six components re-scored 1&ndash;10, process registry audited against operating reality</td></tr>
+      <tr><td style="padding:8px;color:#fff"><b>Annual</b></td><td style="padding:8px;color:var(--text-secondary)">Annual Planning</td><td style="padding:8px;color:var(--text-secondary)">V/TO refreshed, portfolio shape re-tested against actuals, system loop audit &mdash; unused dashboard views deleted</td></tr>
+    </table>
+    <p class="aps-p" style="margin:10px 0 0"><b>The deviation, stated plainly:</b> EOS runs weekly. agencyOS adds a daily layer on top and changes nothing else. This should be defended at each Quarterly Pulsing, not drifted into &mdash; if the daily layer becomes status theater rather than constraint surfacing, it should be cut.</p>
+  </div>
+</div>
+
 <div class="aps-panel" id="p-dikw">
   <div class="aps-card">
   <svg width="100%" viewBox="0 0 680 260" role="img"><title>DIKW loop as the constraint management engine</title><desc>Data from results and activity becomes information on dashboards, which constraint reviews convert to knowledge, which decisions convert to wisdom, which feeds back as next cycle's inputs</desc>
@@ -476,6 +568,13 @@
 </div>
 
 <!-- IMPROVEMENT LOOPS -->
+  <div class="aps-card" style="border-left:4px solid #F5C518;background:rgba(245,197,24,0.06)">
+    <div class="aps-h3">This is IDS with a memory</div>
+    <p class="aps-p">DIKW and EOS's <b>IDS</b> are the same motion at different resolutions, and they are not competing systems. IDS is what a room does in a meeting: <i>Identify</i> the real issue, <i>Discuss</i> it once, <i>Solve</i> it with an owner and a to-do. DIKW is what the system does underneath, continuously and with a record.</p>
+    <p class="aps-p" style="margin:0"><b>Data</b> (activity and results rows) becomes <b>Information</b> when a gap is localized to a specific OKR &mdash; that is <i>Identify</i>, done by query rather than by memory. <b>Knowledge</b> is the constraint named, categorized, and judged for controllability &mdash; that is <i>Discuss</i>, with evidence instead of opinion. <b>Wisdom</b> is the decision, which becomes a versioned process change and next cycle's input &mdash; that is <i>Solve</i>, made permanent. The one thing DIKW adds to IDS is that the solve is written into the process registry, so a solved issue cannot quietly return.</p>
+  </div>
+</div>
+
 <div class="aps-panel" id="p-loops">
   <div class="aps-card">
     <div style="display:flex; flex-direction:column; gap:0;">
@@ -503,12 +602,15 @@
 <div class="aps-panel" id="p-backlog">
   <div class="aps-card">
     <div class="aps-h3">Blocking Phase 1</div>
+    <p class="aps-p">The company-wide OKR list is now resolved — see the OKR cascade tab and the <a href="/creator-engine-model/">growthOS</a> page. What remains blocking is the EOS install itself.</p>
     <ul class="aps-list">
-      <li>Final list of company-wide OKRs and their owners</li>
-      <li>Roles & responsibilities mapping, run as: role → OKRs owned → OKRs contributed to → orphan responsibilities</li>
-      <li>Values registry: which values, encoded as testable behaviors + violation definitions</li>
+      <li><strong style="font-weight:500;">The EOS install decision</strong> — is EOS genuinely being run, or borrowed as vocabulary? Half-adopted EOS is worse than none. If yes: schedule the Focus Day and both Vision Building days, which puts a complete V/TO in place within 60 days.</li>
+      <li><strong style="font-weight:500;">Accountability Chart, finalized</strong> — seats before names, five roles per seat, one owner each, agent seats included with their human owner named.</li>
+      <li><strong style="font-weight:500;">First quarter's Rocks</strong> — 3 to 7, drawn from the cascade on the OKR tab. Everything else is watched, not worked.</li>
+      <li>Values registry: which values, encoded as testable behaviors + violation definitions (this is the EOS People Analyzer, made queryable)</li>
       <li>Quality rubric per process family (creative, outreach, media buying)</li>
       <li>ClickUp → BigQuery sync method (webhook vs. scheduled pull)</li>
+      <li>The weekly Scorecard's 5–15 numbers, selected from the cascade — which OKRs earn a permanent line</li>
     </ul>
   </div>
   <div class="aps-card">
@@ -532,6 +634,18 @@
 
 <!-- FAQ -->
 <div class="aps-panel" id="p-faq">
+  <div class="aps-card">
+    <div class="aps-h3">Are we running EOS, or building our own system?</div>
+    <p class="aps-p">Running EOS. The Accountability Chart, V/TO, quarterly Rocks, Level 10 meeting, and IDS are adopted as written — they are solved problems with a shared vocabulary many hires already speak. agencyOS is what we add underneath: the Scorecard fills itself, the process registry versions itself, and agents can hold seats. We deviate in exactly one place — a daily constraint layer on top of the weekly L10.</p>
+  </div>
+  <div class="aps-card">
+    <div class="aps-h3">What is the difference between agencyOS and growthOS?</div>
+    <p class="aps-p"><b>agencyOS</b> is internal: how Ad Pros runs itself. <b>growthOS</b> is external: the system a client buys, installed in their ad account. Pulse is the software layer both run on — not a third system. agencyOS's Scorecard aggregates growthOS outcomes across the whole client book.</p>
+  </div>
+  <div class="aps-card">
+    <div class="aps-h3">Do Rocks replace OKRs?</div>
+    <p class="aps-p">No, and confusing them is the main failure risk. OKRs are the continuous measurement layer — always on, computed automatically. Rocks are the 3–7 priorities the leadership team chooses to actively work each quarter. Every Rock must move a named OKR; not every OKR gets a Rock. An OKR without a Rock is being watched, not worked — and if it drifts, it becomes an Issue, gets IDS'd, and may become next quarter's Rock.</p>
+  </div>
   <div class="aps-card">
     <div class="aps-h3">Why is this a performance management tool and not just an ops dashboard?</div>
     <p class="aps-p">Because it was explicitly designed to be one. That decision is what makes the outcome-attainment, scope-trajectory, and leverage metrics load-bearing rather than nice-to-have — and it's why values compliance is a veto, not a tiebreaker.</p>
