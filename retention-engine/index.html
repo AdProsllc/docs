@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Block search engines per-bot. NEVER use a blanket robots tag — that
+       blocks ClaudeBot/Claude-User/Claude-SearchBot, which we WANT so the
+       team can paste docs.adpros.com URLs into Claude chat. -->
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal Kazim">
+  <title>Retention Engine — Ad Pros</title>
+  <!-- Favicon: SVG (modern), Apple touch icon (iOS), and theme color (mobile
+       browser chrome). favicon.svg lives at the docs repo root; Step 7
+       guarantees it's present before push. Never remove these tags — the
+       AdPros mark in the tab is non-negotiable brand. -->
+  <!-- Same favicon files served at the root of docs.adpros.com — these are
+       the actual PNGs used by www.adpros.com, so the docs tab and the main
+       site tab show the exact same mark. Do not swap to /favicon.svg; the
+       SVG version of our logo has tighter letter-bounds padding than the
+       main-site PNG and renders visually larger in the browser tab. -->
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      /* Color tokens */
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      /* Spacing scale (4px base) */
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    /* Power Grotesk preferred (if installed locally), Inter is the loaded fallback */
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    /* === TYPE SCALE === */
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    /* === HEADER === */
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    /* === LAYOUT === */
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; }
+    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
+
+    /* === CARDS === */
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
+
+    /* === STAT === */
+    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
+    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
+    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    /* === VALUE / NUMBERED ROW === */
+    .ap-value { display: grid; grid-template-columns: 72px 1fr; gap: 20px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+    .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .ap-value-body { padding: 20px 24px; }
+    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .ap-value-body p  { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+
+    /* === BUTTONS === */
+    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
+    .btn-primary:hover { background: var(--yellow-dim); }
+    .btn-secondary { background: var(--navy); color: var(--yellow); border: 1.5px solid var(--yellow); padding: 10.5px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; transition: background .15s, color .15s; }
+    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid var(--card-border-strong); padding: 10.5px 22px; border-radius: 8px; font-weight: 500; font-size: 14px; font-family: inherit; cursor: pointer; transition: border-color .15s; }
+    .btn-ghost:hover { border-color: var(--grey-300); }
+
+    /* === FORM FIELDS === */
+    .ap-input-label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .ap-input { width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 14px; font-family: inherit; outline: none; transition: border-color .15s; }
+    .ap-input:focus { border-color: var(--blue); }
+    .ap-input.error { border-color: var(--error); }
+    .ap-input.success { border-color: var(--success); }
+
+    /* === TOASTS === */
+    .toast { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 3px solid; }
+    .toast-success { background: rgba(15,151,61,0.1);  border-color: var(--success); color: #b6f2ce; }
+    .toast-error   { background: rgba(212,38,32,0.1);  border-color: var(--error);   color: #ffbdbb; }
+    .toast-warn    { background: rgba(249,217,0,0.08); border-color: var(--yellow);  color: #ffe57d; }
+    .toast-info    { background: rgba(26,111,212,0.1); border-color: var(--blue);    color: #b1d5ff; }
+
+    /* === CALLOUT === */
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+
+    /* === LINKS === */
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    /* === FOOTER === */
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    /* === CLIENT SIDEBAR (collapsible left rail — only rendered on client pages) === */
+    .ap-sidebar {
+      position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
+      background: var(--navy-deep); border-right: 1px solid var(--card-border);
+      z-index: 100; display: flex; flex-direction: column;
+      transform: translateX(0); transition: transform .25s ease;
+      overflow-y: auto;
+    }
+    .ap-sidebar.collapsed { transform: translateX(-100%); }
+    .ap-sidebar-header {
+      padding: 24px 20px 16px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ap-sidebar-brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .ap-sidebar-brand-text { min-width: 0; }
+    .ap-sidebar-brand-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; line-height: 1.2; }
+    .ap-sidebar-brand-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .ap-sidebar-section {
+      padding: 18px 20px 8px;
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .ap-sidebar-list { padding: 0 12px 20px; display: grid; gap: 4px; }
+    .ap-sidebar-item {
+      display: block; padding: 12px 14px; border-radius: 8px;
+      color: var(--grey-100); text-decoration: none;
+      transition: background .12s;
+      border-left: 2px solid transparent;
+    }
+    .ap-sidebar-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .ap-sidebar-item.current { background: rgba(249,217,0,0.08); border-left-color: var(--yellow); padding-left: 12px; }
+    .ap-sidebar-item-title { font-size: 14px; font-weight: 500; line-height: 1.3; color: #fff; }
+    .ap-sidebar-item.current .ap-sidebar-item-title { color: var(--yellow); }
+    .ap-sidebar-item-date { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+
+    /* Chevron toggle — visible in BOTH states. Sits at the sidebar's right
+       edge when open, slides to viewport left edge when closed. Chevron flips
+       180° based on body state class. */
+    .ap-sidebar-toggle {
+      /* top: 170px sits well below the 108px-tall page header so the toggle
+         has clear vertical separation from the AdPros logo when the sidebar
+         is closed. Slim 22px width keeps it unobtrusive. */
+      position: fixed; top: 170px; left: 280px; z-index: 101;
+      width: 22px; height: 56px; padding: 0;
+      background: var(--navy-card); color: var(--grey-200);
+      border: 1.5px solid rgba(249,217,0,0.4);
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: left .25s ease, background .15s, color .15s, border-color .15s, box-shadow .15s;
+    }
+    .ap-sidebar-toggle:hover { background: var(--yellow); color: var(--navy); border-color: var(--yellow); box-shadow: 4px 0 0 0 rgba(249,217,0,0.15); }
+    .ap-sidebar-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle { left: 0; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle svg { transform: rotate(180deg); }
+
+    /* When sidebar is open on desktop, push the rest of the page right. */
+    body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
+
+    /* Mobile: sidebar overlays instead of pushing content; backdrop dims behind it. */
+    @media (max-width: 900px) {
+      body.ap-has-sidebar { padding-left: 0; }
+      .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); }
+      body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); }
+    }
+
+    /* === FLOATING TOC (auto-builds on viewport ≥1280px when 4+ .ap-section[id] elements exist) === */
+    .ap-toc {
+      position: fixed; top: 130px; right: 32px; z-index: 50;
+      width: 200px; max-height: calc(100vh - 180px); overflow-y: auto;
+      padding: 4px 0 4px 18px;
+      border-left: 1px solid var(--card-border);
+      display: none;
+    }
+    .ap-toc.visible { display: block; }
+    .ap-toc-label {
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
+    .ap-toc-item {
+      display: block; padding: 7px 0 7px 16px;
+      font-size: 12.5px; line-height: 1.35;
+      color: var(--grey-300); text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -20px;
+      transition: color .15s, border-color .15s;
+    }
+    .ap-toc-item:hover { color: #fff; }
+    .ap-toc-item.active {
+      color: var(--yellow);
+      border-left-color: var(--yellow);
+      font-weight: 500;
+    }
+    /* When TOC is rendered, body gets right-padding to make room for it (only at ≥1280px). */
+    @media (min-width: 1280px) {
+      body.ap-has-toc { padding-right: 232px; transition: padding-right .25s ease; }
+    }
+    @media (max-width: 1279px) {
+      .ap-toc { display: none !important; }
+    }
+
+    @media (max-width: 640px) {
+      /* Bump side padding from 20px to 28px so content has breathing room
+         on phones — text isn't flush against the viewport edge. */
+      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
+      .ap-footer { margin-left: 28px; margin-right: 28px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+    }
+
+    /* === TABS (not in the base shell; this page is tabbed) === */
+    .re-tabs { position: sticky; top: 0; z-index: 50; background: var(--navy-deep);
+      border-bottom: 1px solid var(--card-border); overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; margin: 0 -48px 40px; padding: 0 48px; }
+    .re-tabs::-webkit-scrollbar { display: none; }
+    .re-tablist { display: flex; gap: 2px; }
+    .re-tab { flex: 0 0 auto; background: none; border: none; color: var(--grey-300);
+      font-family: inherit; font-size: 13px; font-weight: 600; padding: 15px 16px; cursor: pointer;
+      border-bottom: 3px solid transparent; white-space: nowrap; transition: color .15s; }
+    .re-tab:hover { color: var(--grey-100); }
+    .re-tab[aria-selected="true"] { color: #fff; border-bottom-color: var(--yellow); }
+    .re-tab:focus-visible { outline: 2px solid var(--yellow); outline-offset: -2px; }
+    .re-panel[hidden] { display: none; }
+    @media (max-width: 700px) { .re-tabs { margin: 0 -28px 32px; padding: 0 28px; } }
+
+    /* === FIGURES === */
+    .re-fig { margin: 0 0 var(--space-8); }
+    .re-fig svg { width: 100%; height: auto; display: block;
+      background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); }
+    .re-fig figcaption { font-size: 13px; color: var(--grey-300); margin-top: 12px; line-height: 1.55; max-width: 72ch; }
+
+    /* === TABLES === */
+    .re-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 var(--space-8);
+      border: 1px solid var(--card-border); border-radius: var(--radius); background: var(--navy-card); }
+    .re-scroll table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 540px; }
+    .re-scroll th, .re-scroll td { padding: 11px 14px; text-align: left;
+      border-bottom: 1px solid var(--card-border); vertical-align: top; color: var(--grey-100); }
+    .re-scroll th { background: var(--navy-deep); font-weight: 700; font-size: 12px;
+      color: var(--grey-300); letter-spacing: .4px; }
+    .re-scroll tr:last-child td { border-bottom: none; }
+    .re-scroll td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .re-g { color: #6ee7a0; font-weight: 700; }
+    .re-a { color: var(--yellow); font-weight: 700; }
+    .re-r { color: #ff8480; font-weight: 700; }
+
+    .re-quote { border-left: 3px solid var(--yellow); padding: 4px 0 4px 20px;
+      margin: 0 0 var(--space-6); color: var(--grey-100); font-size: 15px; max-width: 70ch; }
+    .re-body p { margin-bottom: var(--space-4); max-width: 74ch; color: var(--grey-200); font-size: 15.5px; }
+    .re-body ul { margin: 0 0 var(--space-5) 20px; max-width: 74ch; }
+    .re-body li { margin-bottom: 8px; color: var(--grey-200); font-size: 15.5px; }
+    .re-body strong { color: #fff; font-weight: 700; }
+    .re-body h3 { font-size: 20px; font-weight: 700; color: #fff; margin: var(--space-10) 0 var(--space-4); }
+    .re-body h4 { font-size: 16px; font-weight: 700; color: #fff; margin: var(--space-6) 0 var(--space-2); }
+  </style>
+</head>
+<body>
+  
+  <header class="ap-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Retention Engine</h1>
+      <p>Why Creator Engine clients leave at three months — and the system that changes it</p>
+    </div>
+  </header>
+  <div class="ap-content">
+<div class="re-tabs"><div class="re-tablist" role="tablist" aria-label="Sections">
+      <button class="re-tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">One Page</button>
+      <button class="re-tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Constraint</button>
+      <button class="re-tab" role="tab" id="t3" aria-controls="p3" aria-selected="false">Scoreboard</button>
+      <button class="re-tab" role="tab" id="t4" aria-controls="p4" aria-selected="false">Mutual Contract</button>
+      <button class="re-tab" role="tab" id="t5" aria-controls="p5" aria-selected="false">Rhythm</button>
+      <button class="re-tab" role="tab" id="t6" aria-controls="p6" aria-selected="false">Health</button>
+      <button class="re-tab" role="tab" id="t7" aria-controls="p7" aria-selected="false">Missing</button>
+      <button class="re-tab" role="tab" id="t8" aria-controls="p8" aria-selected="false">90-Day Plan</button>
+    </div></div>
+
+<section class="re-panel" role="tabpanel" id="p1" aria-labelledby="t1">
+  <div class="ap-section-label"><span class="num">01</span> The model on one page</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">Forward this, not the document</h2>
+  <div class="re-body">
+
+    <div class="ap-card" style="border-left:3px solid var(--yellow);margin-bottom:var(--space-8)">
+      <p><strong>The problem.</strong> Creator Engine clients average three months. 80% of the ones we lost were hitting their targets. Most cancelled without warning.</p>
+      <p><strong>The cause.</strong> Not absence &mdash; we generate roughly 55 touchpoints per client life. The weekly call broadcasts Ad Pros' output across four functions and never asks about the client's business. There is no written definition of success, so the client evaluates us privately against a standard we have never seen. The first time that standard is spoken aloud is the cancellation.</p>
+      <p><strong>The fix.</strong> Two artifacts, not forty. A signed <strong>Scoreboard</strong> with falsifiable day-30/60/90 numbers, and a <strong>Mutual Contract</strong> that names what the client owes us. Everything else is adopted from work that already exists.</p>
+      <p style="margin-bottom:0"><strong>Next three actions.</strong> Ask every active client what number their boss judges them on &mdash; only Nehal is in the room to ask. Write the Scoreboard template from CPN's own figures. Name what comes off Danna's list to make room.</p>
+    </div>
+
+    <div class="ap-grid-4" style="margin-bottom:var(--space-8)">
+      <div class="ap-stat"><div class="ap-stat-num">3 mo</div><div class="ap-stat-label">Average client life</div></div>
+      <div class="ap-stat"><div class="ap-stat-num">80%</div><div class="ap-stat-label">Churned while hitting targets</div></div>
+      <div class="ap-stat"><div class="ap-stat-num">55</div><div class="ap-stat-label">Touchpoints per client life</div></div>
+      <div class="ap-stat"><div class="ap-stat-num">0</div><div class="ap-stat-label">Captured relationship signals</div></div>
+    </div>
+
+    <h3>What tenure is worth</h3>
+    <p>Same close rate, same delivery, same team. Only how long they stay.</p>
+    <div class="re-scroll"><table>
+      <tr><th>&nbsp;</th><th>Today</th><th>Halfway</th><th>Target</th></tr>
+      <tr><td>Monthly churn</td><td class="n re-r">33%</td><td class="n re-a">15%</td><td class="n re-g">8%</td></tr>
+      <tr><td>Average client life</td><td class="n">3.0 mo</td><td class="n">6.7 mo</td><td class="n">12.5 mo</td></tr>
+      <tr><td>Productive months after ramp</td><td class="n">1.9</td><td class="n">5.6</td><td class="n">11.4</td></tr>
+      <tr><td>Net margin per client</td><td class="n">$21.7K</td><td class="n">$59.2K</td><td class="n">$118K</td></tr>
+      <tr><td>Client ceiling at 8.7 closes/mo</td><td class="n">26</td><td class="n">58</td><td class="n">109</td></tr>
+    </table></div>
+
+    <p><strong>The bet is Halfway &mdash; 15% monthly.</strong> A 2x improvement reachable with the two artifacts alone, before any health scoring exists, and it breaks the 26-client ceiling that caps the business today. Plan supply for 8%; measure against 15%.</p>
+
+    <div class="ap-callout"><strong>The trap in the timing</strong>
+    Churn does not bind inside CPN's 90-day sprint. At month 3 all three scenarios sit within one client of each other, because nobody has been here long enough to leave. By month 12 it is 26 clients against 71. Retention will feel non-urgent for exactly as long as it takes to become structural.</div>
+
+  </div>
+</section>
+<section class="re-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+  <div class="ap-section-label"><span class="num">02</span> The binding constraint</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">A dense surface that emits nothing</h2>
+  <div class="re-body">
+
+    <p class="ap-p-lg" style="margin-bottom:var(--space-6)">The constraint moved four times during the interrogation. It did not land where anyone expected.</p>
+    <p>The first hypothesis was that retention had no owner. True, but downstream &mdash; the seat is now named and the problem did not move with it. The second was that the relationship surface was too thin to instrument. That turned out to be wrong in the opposite direction.</p>
+
+    <figure class="re-fig"><svg viewBox="0 0 820 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three contact channels merge into 55 touchpoints, which produce zero captured signal, ending in a cold cancellation.">
+<g font-family="Inter, Helvetica Neue, Arial, sans-serif">
+<rect x="8" y="14" width="176" height="52" fill="#02041f" stroke="#1a2375"/>
+<text x="96" y="38" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">13 weekly calls</text>
+<text x="96" y="56" font-size="12.5" text-anchor="middle" fill="#8A8B93">4 Ad Pros people each</text>
+<rect x="8" y="99" width="176" height="52" fill="#02041f" stroke="#1a2375"/>
+<text x="96" y="123" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">~39 Slack messages</text>
+<text x="96" y="141" font-size="12.5" text-anchor="middle" fill="#8A8B93">3 per week</text>
+<rect x="8" y="184" width="176" height="52" fill="#02041f" stroke="#1a2375"/>
+<text x="96" y="208" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">6&#8211;13 founder calls</text>
+<text x="96" y="226" font-size="12.5" text-anchor="middle" fill="#8A8B93">every 1&#8211;2 weeks</text>
+<path d="M184 40 L214 40 L214 125 M184 125 L214 125 M184 210 L214 210 L214 125 M214 125 L246 125" stroke="#54556A" fill="none" stroke-width="1.5"/>
+<path d="M246 125 l-9 -5 v10 z" fill="#54556A"/>
+<rect x="250" y="99" width="150" height="52" fill="#F9D900"/>
+<text x="325" y="123" font-size="16" font-weight="800" text-anchor="middle" fill="#040735">55 touchpoints</text>
+<text x="325" y="141" font-size="12.5" text-anchor="middle" fill="#040735">per client life</text>
+<path d="M400 125 L446 125" stroke="#54556A" fill="none" stroke-width="1.5"/>
+<path d="M446 125 l-9 -5 v10 z" fill="#54556A"/>
+<rect x="450" y="99" width="164" height="52" fill="none" stroke="#D42620" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="532" y="123" font-size="16" font-weight="700" text-anchor="middle" fill="#ff8480">0 captured signal</text>
+<text x="532" y="141" font-size="12.5" text-anchor="middle" fill="#8A8B93">no question is ever asked</text>
+<path d="M614 125 L660 125" stroke="#54556A" fill="none" stroke-width="1.5"/>
+<path d="M660 125 l-9 -5 v10 z" fill="#54556A"/>
+<rect x="664" y="99" width="148" height="52" fill="#D42620"/>
+<text x="738" y="123" font-size="15.5" font-weight="700" text-anchor="middle" fill="#ffffff">Cold cancellation</text>
+<text x="738" y="141" font-size="12.5" text-anchor="middle" fill="#ffd9d7">first honest conversation</text>
+</g></svg>
+    <figcaption>Contact is heavy, not thin. For a $13.5K/month account this is more attention than most agencies give a $50K account &mdash; and none of it produces a record of how the client feels about their own business.</figcaption></figure>
+
+    <h3>What the weekly call actually is</h3>
+    <p>The agenda is the org chart. Housekeeping, Performance Review, Next Steps, Creatives &mdash; four sections mapping onto the four people in the room, each presenting their function. It was never designed as a client conversation. It is a standup with the client watching.</p>
+    <p>The August 27 deck for one client runs 33 slides. Every one reports Ad Pros' work. The slide headed <em>Core Issues / Questions</em> lists fourteen items, all internal technical problems shown to the client: attribution and misattribution, a possible schedule-event CAPI issue, EMQ, ad dilution across ads, whether different messaging is producing wrong lead types.</p>
+    <div class="re-quote">22 concepts assigned and delivered until tomorrow EOD! The goal is still 12 concepts per week, but we are compensating for the first weeks that the engines were still heating up.</div>
+    <p>That is a slide defending our own throughput.</p>
+    <p><strong>Absent from all 33 slides:</strong> their revenue. Whether the appointments closed. What a deal is worth to them. Whether their sales team can absorb 351 appointments in a week. Their margin. Their internal target. Anything they are worried about. The single client-business question in the deck &mdash; variance in appointment quality &mdash; is marked <em>TBD</em>.</p>
+
+    <div class="toast toast-error" style="margin-bottom:var(--space-8);align-items:flex-start">
+      <div><strong style="color:#fff;display:block;margin-bottom:4px">The mechanism</strong>
+      A client cannot express dissatisfaction in a meeting that never asks them a question. There is no agenda item where <em>I'm not sure this is working for us</em> fits. So they attend, reply, hit targets, nod through thirteen performance readouts &mdash; and then cancel, because the first honest conversation about value is the one where they end it.</div>
+    </div>
+
+    <h3>The gap that produces it</h3>
+    <p>The sale is made on the client's business economics &mdash; the CPN plan is explicit that clients run around 1.5x ROAS and are sold on new-customer and LTV logic, never on first-order profit. Every conversation afterwards is conducted in spend, ROAS and asset volume. <strong>We sell on their number and report on ours.</strong></p>
+    <p>Compounding it: nothing is written down at the close. What a client sees at thirty days today is <em>assets, campaigns live, initial results</em> &mdash; three statements that cannot fail. Assets always exist. Campaigns are always live. Results are always initial. An unfalsifiable day-30 means neither side can ever detect that the relationship is off track.</p>
+
+    <div class="ap-card" style="border-left:3px solid var(--yellow)">
+      <h4 style="color:#fff;margin-bottom:8px">The binding constraint</h4>
+      <p>There is no falsifiable, mutually agreed definition of success &mdash; so the client evaluates us privately against a standard we have never seen, in a weekly meeting that broadcasts our output instead of asking about their business.</p>
+      <p style="margin-bottom:0"><strong>Amendment from the pressure-test:</strong> any definition that binds only Ad Pros makes the position worse, not better. The Scoreboard and the Mutual Contract are one artifact, not two.</p>
+    </div>
+
+    <h3>Two findings that reshape scope</h3>
+    <p><strong>Speed is a relationship input, not a parallel system.</strong> Retention Engine does not own win rate or creative velocity &mdash; CPN does. It owns how slowness is <em>experienced</em>: whether the client knows what is coming and when, whether a delay is named before they notice it, and whose delay it was. A 16% win rate instead of 20% churns nobody. Nine days of silence does.</p>
+    <p><strong>Volume is not the lever.</strong> 55 touchpoints, zero signal. Every instinct toward more contact should be resisted. The fix is stakes per touch and triggered contact, not frequency.</p>
+
+  </div>
+</section>
+<section class="re-panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+  <div class="ap-section-label"><span class="num">03</span> The first build</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">The Scoreboard</h2>
+  <div class="re-body">
+
+    <p class="ap-p-lg" style="margin-bottom:var(--space-6)">One page, signed before spend starts. It states what the client will see at day 30, 60 and 90 in numbers that can fail.</p>
+    <p>This is assembly, not invention. Every figure below already exists in the CPN model &mdash; 54 videos per client, a 20% win rate, 4% breakthrough, four days product-to-video, $5K attributed per video. They have simply never been pointed at the client as a promise.</p>
+
+    <h3>The template</h3>
+    <div class="re-scroll"><table>
+      <tr><th>Checkpoint</th><th>Videos live</th><th>Winners</th><th>Breakthroughs</th><th>Performance</th><th>Decision</th></tr>
+      <tr><td><strong>Day 30</strong></td><td class="n">12</td><td class="n">2</td><td class="n">&mdash;</td><td>Learn spend deployed, first signal readable</td><td>On track / off track &mdash; named aloud</td></tr>
+      <tr><td><strong>Day 60</strong></td><td class="n">30</td><td class="n">6</td><td class="n">1</td><td>Approaching 1.5x blended</td><td>Continue / intervene</td></tr>
+      <tr><td><strong>Day 90</strong></td><td class="n">54</td><td class="n">10</td><td class="n">2</td><td>&ge;1.5x steady, past the $5K floor</td><td>Renew / restructure / end well</td></tr>
+    </table></div>
+    <p>Numbers are per client and set at signature against their category and roster depth &mdash; these are model defaults, not a universal promise. What matters is that each row can be checked and can fail.</p>
+
+    <h3>The half that is not about us</h3>
+    <p>Alongside the delivery numbers, the Scoreboard records <strong>the client's own number</strong> &mdash; the one their boss judges them on. Not spend, not ROAS, not asset volume. Their close rate on the appointments we generate. What a closed deal is worth. What their internal target was for the quarter. Whether their sales team can absorb the volume.</p>
+
+    <div class="ap-callout"><strong>Only one person can collect this</strong>
+    Discovery cannot start with Danna. She has no access to a client's close rates or margins. Nehal is the only person in the room who can ask, and asking it is the single highest-leverage act in this document. Danna owns chasing the signature, tracking completion and firing triggers &mdash; not the discovery.</div>
+
+    <h3>Why it must be falsifiable</h3>
+    <p>The first winner already lands around day 21&ndash;30 under the current model, well before the cancellation decision forms at week 6&ndash;8. Clients are seeing proof and leaving anyway. That is the same fact as <em>80% were hitting targets</em>, arriving from a different direction &mdash; and it means the problem is not that proof arrives late. It is that nobody agreed in advance what proof would look like, so the client invents their own version privately and we never learn what it was.</p>
+
+    <h3>What the evidence says</h3>
+    <p>The strongest available data on why clients fire agencies comes from surveys that ask both sides the same question. Clients rank delivery and <em>the agency didn't understand our business</em> at the top; budget ranks near the bottom. Agencies believe the reverse &mdash; they rank budget cuts and leadership changes first. Budget is the polite exit.</p>
+
+  </div>
+</section>
+<section class="re-panel" role="tabpanel" id="p4" aria-labelledby="t4" hidden>
+  <div class="ap-section-label"><span class="num">04</span> The second build</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">The Mutual Contract</h2>
+  <div class="re-body">
+
+    <p class="ap-p-lg" style="margin-bottom:var(--space-6)">Agency retention literature assumes the client owes you nothing. Every framework treats the agency as the sole performer. That assumption does not survive a model with physical product and creator approvals.</p>
+    <p>The two genuinely new causes in the pre-mortem were <strong>products shipping slowly</strong> and <strong>slow approvals on creators and scripts</strong>. Both are client failures that produce our churn. At four days product-to-video inside a five-week ramp, a week of slow approvals is a 20% cut to the proof window.</p>
+
+    <h3>What each side owes</h3>
+    <div class="re-scroll"><table>
+      <tr><th>Ad Pros commits</th><th>The client commits</th></tr>
+      <tr><td>Videos live against the day-30/60/90 schedule</td><td>A named approver with a 48-hour window on scripts and creators</td></tr>
+      <tr><td>Winners produced at the agreed rate</td><td>Product shipped within 5 business days of creator approval</td></tr>
+      <tr><td>Learn spend deployed and reported</td><td>The economic buyer attends the three checkpoint calls</td></tr>
+      <tr><td>Any slip named before the client notices it</td><td>Access to their close rate, deal value and internal target</td></tr>
+    </table></div>
+
+    <div class="ap-card" style="border-left:3px solid var(--yellow);margin-bottom:var(--space-8)">
+      <h4 style="color:#fff;margin-bottom:8px">The mechanism: the ramp clock pauses</h4>
+      <p>When a client-side commitment slips, the day-30/60/90 dates move by the length of the delay. Not a penalty, not a confrontation &mdash; arithmetic both sides agreed to at signature.</p>
+      <p style="margin-bottom:0">This does the real work. It converts a one-way performance guarantee into a mutual commitment, which is the difference between a scoreboard that strengthens our position and one that becomes a rod for our own back. It also makes client-side delay <em>visible</em> at the moment it happens, rather than surfacing as disappointment at day 90.</p>
+    </div>
+
+    <h3>The objection this answers</h3>
+    <div class="re-quote">You're formalizing your own subordination. A signed scoreboard is a performance guarantee you volunteered, and it invites monthly referendum on numbers you don't fully control &mdash; Meta's algorithm, their sales team, their fulfilment.</div>
+    <p>That objection survives the pressure-test and is the reason these two artifacts ship together. A scoreboard alone hands the client a stick. A scoreboard with a mutual contract makes the engagement a joint operation with a shared clock.</p>
+
+    <h3>On term length</h3>
+    <p>Today, ninety days is described as the start, but clients leave inside it &mdash; which means there is no term at all. The arithmetic is unforgiving: a 13-week term with a 5-week ramp gives the client eight weeks of steady state to judge on, and their renewal decision covers a period that includes the weeks we told them would underperform. We are asking them to judge the marriage on the honeymoon and the hangover.</p>
+    <p><strong>We are not fixing this with a longer contract.</strong> Close rate is the most sensitive input in the CPN model, and trading it for term length is the wrong trade at this stage. The 12-month frame gets revisited at 20+ clients. The interior structure of the 90 days is the free fix.</p>
+
+  </div>
+</section>
+<section class="re-panel" role="tabpanel" id="p5" aria-labelledby="t5" hidden>
+  <div class="ap-section-label"><span class="num">05</span> Operating rhythm</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">Fewer touches, higher stakes</h2>
+  <div class="re-body">
+
+    <figure class="re-fig"><svg viewBox="0 0 840 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Client lifecycle from signed through ramp, three checkpoints and renewal, with an intervention route available at every checkpoint.">
+<g font-family="Inter, Helvetica Neue, Arial, sans-serif">
+<rect x="10" y="30" width="112" height="54" fill="#F9D900"/>
+<text x="66" y="53" font-size="14" font-weight="800" text-anchor="middle" fill="#040735">Signed</text>
+<text x="66" y="70" font-size="11.5" text-anchor="middle" fill="#040735">scoreboard live</text>
+<rect x="146" y="30" width="112" height="54" fill="#02041f" stroke="#1a2375"/>
+<text x="202" y="53" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">Ramp</text>
+<text x="202" y="70" font-size="11.5" text-anchor="middle" fill="#8A8B93">weeks 1&#8211;5</text>
+<rect x="282" y="30" width="112" height="54" fill="#02041f" stroke="#F9D900" stroke-width="2"/>
+<text x="338" y="53" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">Day 30</text>
+<text x="338" y="70" font-size="11.5" text-anchor="middle" fill="#8A8B93">12 live &middot; 2 winners</text>
+<rect x="418" y="30" width="112" height="54" fill="#02041f" stroke="#F9D900" stroke-width="2"/>
+<text x="474" y="53" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">Day 60</text>
+<text x="474" y="70" font-size="11.5" text-anchor="middle" fill="#8A8B93">30 live &middot; 6 winners</text>
+<rect x="554" y="30" width="112" height="54" fill="#02041f" stroke="#F9D900" stroke-width="2"/>
+<text x="610" y="53" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">Day 90</text>
+<text x="610" y="70" font-size="11.5" text-anchor="middle" fill="#8A8B93">renewal decision</text>
+<rect x="690" y="30" width="112" height="54" fill="#0F973D"/>
+<text x="746" y="53" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">Renewed</text>
+<text x="746" y="70" font-size="11.5" text-anchor="middle" fill="#cfe6d9">expansion play</text>
+<g stroke="#54556A" fill="none" stroke-width="1.5">
+<path d="M122 57 L142 57"/><path d="M258 57 L278 57"/><path d="M394 57 L414 57"/><path d="M530 57 L550 57"/><path d="M666 57 L686 57"/>
+</g>
+<g fill="#54556A">
+<path d="M142 57 l-8 -4.5 v9 z"/><path d="M278 57 l-8 -4.5 v9 z"/><path d="M414 57 l-8 -4.5 v9 z"/><path d="M550 57 l-8 -4.5 v9 z"/><path d="M686 57 l-8 -4.5 v9 z"/>
+</g>
+<rect x="336" y="180" width="168" height="54" fill="#02041f" stroke="#D42620" stroke-width="2"/>
+<text x="420" y="203" font-size="14" font-weight="700" text-anchor="middle" fill="#ff8480">Intervention</text>
+<text x="420" y="220" font-size="11.5" text-anchor="middle" fill="#8A8B93">named owner &middot; 48h</text>
+<rect x="654" y="180" width="148" height="54" fill="#02041f" stroke="#1a2375"/>
+<text x="728" y="203" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">Ended well</text>
+<text x="728" y="220" font-size="11.5" text-anchor="middle" fill="#8A8B93">exit interview &middot; coded</text>
+<g stroke="#D42620" fill="none" stroke-width="1.5" stroke-dasharray="5 4">
+<path d="M338 84 L338 207 L332 207"/><path d="M474 84 L474 130 L420 130 L420 176"/><path d="M610 84 L610 207 L508 207"/>
+</g>
+<g fill="#D42620">
+<path d="M332 207 l8 -4.5 v9 z"/><path d="M420 176 l-4.5 -8 h9 z"/><path d="M508 207 l-8 -4.5 v9 z"/>
+</g>
+<path d="M420 180 L420 150 L560 150 L560 90" stroke="#0F973D" fill="none" stroke-width="1.5"/>
+<path d="M560 90 l-4.5 8 h9 z" fill="#0F973D"/>
+<text x="576" y="146" font-size="11.5" fill="#6ee7a0" font-weight="700">recovers</text>
+<path d="M504 207 L650 207" stroke="#54556A" fill="none" stroke-width="1.5"/>
+<text x="18" y="272" font-size="12" fill="#8A8B93">Yellow outline = a checkpoint that can fail. Dashed red = the off-track route, available at every checkpoint rather than only at the end.</text>
+</g></svg>
+    <figcaption>The interior structure of the 90 days. Today there are no checkpoints, so the client evaluates continuously and privately; the only state transition available to them is cancellation.</figcaption></figure>
+
+    <h3>The call, redesigned</h3>
+    <p>Two changes, and the second matters more than the first.</p>
+    <p><strong>Attendance, not cadence.</strong> Four people on every weekly call at fifteen clients is sixty person-hours a week &mdash; and Nehal is fifteen of them, alongside the three people who own win rate, production and creator supply. That is the CPN sprint's own delivery bench sitting in meetings.</p>
+    <div class="re-scroll"><table>
+      <tr><th>Configuration</th><th>Person-hours/week at 15 clients</th></tr>
+      <tr><td>Weekly, four people &mdash; today</td><td class="n re-r">60</td></tr>
+      <tr><td>Biweekly, four people</td><td class="n re-a">30</td></tr>
+      <tr><td>Weekly, two people</td><td class="n re-a">30</td></tr>
+      <tr><td><strong>Biweekly, two people + written update in the off week</strong></td><td class="n re-g">15</td></tr>
+    </table></div>
+    <p>One account owner plus one rotating specialist. The last row is the destination &mdash; but only <em>after</em> the conversation changes. Halving a call that emits no signal produces a call that emits no signal half as often.</p>
+    <p><strong>The agenda opens with their number.</strong> Not spend, not ROAS, not asset volume. What happened in their business, whether the volume is absorbable, what their boss is asking. Our output moves to the back half, and to the written update.</p>
+
+    <h3>What the written update carries</h3>
+    <p>Weekly in the off-week, and it does the work the deck used to do badly: what shipped, what is queued, what slipped and whose slip it was, and the scoreboard position. Attempt the meeting twice; when it does not happen, the recap goes out anyway.</p>
+
+    <div class="toast toast-error" style="align-items:flex-start;margin-bottom:var(--space-6)">
+      <div><strong style="color:#fff;display:block;margin-bottom:4px">What we are deliberately not doing</strong>
+      More volume, more depth, more impromptu calls, more internal calls, more work sessions. There are already 55 touchpoints producing zero signal; adding to that channel produces more nothing, across four people, at fifteen clients. Unscheduled contact is an <em>output</em> of a working system &mdash; evidence that something surfaced &mdash; not an input that can be scheduled.</div>
+    </div>
+
+  </div>
+</section>
+<section class="re-panel" role="tabpanel" id="p6" aria-labelledby="t6" hidden>
+  <div class="ap-section-label"><span class="num">06</span> Health and triggers</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">The layer that comes third</h2>
+  <div class="re-body">
+
+    <p class="ap-p-lg" style="margin-bottom:var(--space-6)">A health score reads deviation from a baseline. With five clients and no scoreboard, there is neither. This ships after the first two artifacts, not alongside them.</p>
+    <p>The case for waiting is empirical. Analysis of 15,000 accounts found roughly 45% of manually assigned health ratings contradicted what the underlying data showed &mdash; accounts rated healthy while engagement declined, accounts flagged at risk while deepening. The mechanism is copying a template instead of backtesting against real outcomes. At five clients there is nothing yet to backtest, and a score that looks rigorous while predicting nothing is worse than no score.</p>
+
+    <h3>The index, when it ships</h3>
+    <div class="re-scroll"><table>
+      <tr><th>Dimension</th><th>Weight</th><th>What it reads</th></tr>
+      <tr><td><strong>Relationship depth</strong> &mdash; structural</td><td class="n">40%</td><td>Thread count, champion tenure, seniority of contact, new procurement or finance appearing, days since an economic-buyer conversation</td></tr>
+      <tr><td><strong>Engagement and sentiment</strong> &mdash; behavioural</td><td class="n">25%</td><td>Reply latency and attendance against that account's own trailing average, shaping the plan versus rubber-stamping, escalation language. Subjective input capped at 10 of the 25</td></tr>
+      <tr><td><strong>Delivered value</strong></td><td class="n">20%</td><td>Position against the signed scoreboard &mdash; never a generic benchmark</td></tr>
+      <tr><td><strong>Deliverables</strong> &mdash; throughput</td><td class="n">15%</td><td>Videos live, winners, brief-to-live latency, client-side approval latency</td></tr>
+    </table></div>
+    <p>The weighting is deliberate and it is a <em>survivability</em> index, not a performance index. Performance is already visible in Northbeam, Triple Whale and Pulse. This exists to measure what those cannot see.</p>
+
+    <h4>Mechanics that matter more than the weights</h4>
+    <ul>
+      <li>Every signal scored against that account's own trailing baseline. A client who has always replied in eighteen hours is not disengaging at eighteen hours.</li>
+      <li>Trend over snapshot. Three consecutive months of decline outranks any absolute number.</li>
+      <li>Recency decay. A missed call last week outweighs one in March.</li>
+      <li>Only the sentiment slice is human-adjustable. Whoever owns an account will nudge it green; capping the subjective portion caps the damage.</li>
+    </ul>
+
+    <h3>Overrides &mdash; force red regardless of composite</h3>
+    <p>With deliverables at 15%, the composite cannot detect a dead engine on its own. The override list is load-bearing, not a safety net.</p>
+    <ul>
+      <li>Champion departure, or a new marketing or growth lead arriving</li>
+      <li>Contract, notice or pause questions raised</li>
+      <li>Zero videos launched in 30 days</li>
+      <li>A checkpoint missed with no intervention logged</li>
+      <li>Procurement or finance appearing where they were not before</li>
+      <li>Payment overdue past threshold</li>
+    </ul>
+
+    <h3>Thresholds and pre-decided actions</h3>
+    <div class="re-scroll"><table>
+      <tr><th>Metric</th><th>Green</th><th>Yellow</th><th>Red</th><th>Action at red &mdash; decided now</th></tr>
+      <tr><td>Scoreboards signed</td><td class="re-g">100%</td><td class="re-a">80&ndash;99%</td><td class="re-r">&lt;80%</td><td>No new client starts until the backlog clears</td></tr>
+      <tr><td>Checkpoint completion</td><td class="re-g">100%</td><td class="re-a">90&ndash;99%</td><td class="re-r">Any miss</td><td>Nehal runs the checkpoint personally within 5 days</td></tr>
+      <tr><td>Client-side approval latency</td><td class="re-g">&le;48h</td><td class="re-a">48&ndash;96h</td><td class="re-r">&gt;96h twice</td><td>Ramp clock pauses; named in the written update</td></tr>
+      <tr><td>Monthly logo churn</td><td class="re-g">&le;8%</td><td class="re-a">8&ndash;15%</td><td class="re-r">&gt;15% for 2 mo</td><td>Rewrite this document against actual exit-interview causes</td></tr>
+      <tr><td>Cancellations seen coming</td><td class="re-g">&ge;75%</td><td class="re-a">50&ndash;75%</td><td class="re-r">&lt;50%</td><td>The surface is still silent &mdash; redesign the call, not the score</td></tr>
+    </table></div>
+
+    <div class="ap-callout"><strong>Measure in this order</strong>
+    Surprise elimination first, save rate second, churn rate last. Churn takes two quarters to move; judging the system on it in quarter one will produce the conclusion that it failed while it is working. The honest early metric is the ratio of cancellations we saw coming to cancellations that surprised us. Today that ratio is close to zero.</div>
+
+  </div>
+</section>
+<section class="re-panel" role="tabpanel" id="p7" aria-labelledby="t7" hidden>
+  <div class="ap-section-label"><span class="num">07</span> Absence</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">What doesn't exist</h2>
+  <div class="re-body">
+
+    <p class="ap-p-lg" style="margin-bottom:var(--space-6)">The likeliest failure points are the things with no owner. Two risks survived the pressure-test unmitigated, and the account-management function does not appear anywhere on the roster.</p>
+
+    <figure class="re-fig"><svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Filled boxes are seats and components that exist. Dashed boxes are the account owner seat, creator lead seat, and three unbuilt artifacts.">
+<g font-family="Inter, Helvetica Neue, Arial, sans-serif">
+<text x="14" y="26" font-size="12" font-weight="700" fill="#8A8B93">SEATS</text>
+<rect x="14" y="38" width="132" height="52" fill="#02041f" stroke="#1a2375"/>
+<text x="80" y="61" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ffffff">Nehal</text>
+<text x="80" y="78" font-size="11.5" text-anchor="middle" fill="#8A8B93">the relationship</text>
+<rect x="158" y="38" width="132" height="52" fill="#02041f" stroke="#1a2375"/>
+<text x="224" y="61" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ffffff">Danna</text>
+<text x="224" y="78" font-size="11.5" text-anchor="middle" fill="#8A8B93">the machine</text>
+<rect x="302" y="38" width="132" height="52" fill="#02041f" stroke="#1a2375"/>
+<text x="368" y="61" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ffffff">Omar &middot; Rafael</text>
+<text x="368" y="78" font-size="11.5" text-anchor="middle" fill="#8A8B93">rotating specialist</text>
+<rect x="446" y="38" width="150" height="52" fill="none" stroke="#D42620" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="521" y="61" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ff8480">Account owner</text>
+<text x="521" y="78" font-size="11.5" text-anchor="middle" fill="#8A8B93">unfilled &middot; Nehal interim</text>
+<rect x="608" y="38" width="150" height="52" fill="none" stroke="#D42620" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="683" y="61" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ff8480">Creator lead</text>
+<text x="683" y="78" font-size="11.5" text-anchor="middle" fill="#8A8B93">owns the supply risk</text>
+<line x1="14" y1="118" x2="806" y2="118" stroke="#1a2375"/>
+<text x="14" y="146" font-size="12" font-weight="700" fill="#8A8B93">ARTIFACTS</text>
+<rect x="14" y="158" width="176" height="52" fill="none" stroke="#D42620" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="102" y="181" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ff8480">Scoreboard</text>
+<text x="102" y="198" font-size="11.5" text-anchor="middle" fill="#8A8B93">gates everything below</text>
+<rect x="202" y="158" width="176" height="52" fill="none" stroke="#D42620" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="290" y="181" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ff8480">Mutual contract</text>
+<text x="290" y="198" font-size="11.5" text-anchor="middle" fill="#8A8B93">ships with it, never after</text>
+<rect x="390" y="158" width="176" height="52" fill="none" stroke="#D42620" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="478" y="181" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ff8480">Exit interview</text>
+<text x="478" y="198" font-size="11.5" text-anchor="middle" fill="#8A8B93">on three lists, never built</text>
+<rect x="578" y="158" width="180" height="52" fill="#02041f" stroke="#1a2375"/>
+<text x="668" y="181" font-size="13.5" font-weight="700" text-anchor="middle" fill="#ffffff">Health index</text>
+<text x="668" y="198" font-size="11.5" text-anchor="middle" fill="#8A8B93">designed &middot; deferred</text>
+<text x="14" y="240" font-size="12" fill="#8A8B93">Dashed = does not exist. Three of four artifacts on the critical path are unbuilt, and two seats own unmitigated risks.</text>
+</g></svg>
+    <figcaption>Exit interviews have appeared on three separate task lists &mdash; Nehal's Ops OS, Danna's Ops OS, and Danna's High priority &mdash; and have never been built. That is the empirical failure rate of retention artifacts at Ad Pros to date, and the reason the plan requires a named subtraction rather than an assignment.</figcaption></figure>
+
+    <h3>Risk register</h3>
+    <div class="re-scroll"><table>
+      <tr><th>Risk</th><th>Mechanism</th><th>Mitigation</th><th>Owner</th></tr>
+      <tr><td>Danna capacity</td><td>Retention lands ninth behind three Urgent and five High items, plus AW Canc&uacute;n</td><td>A named subtraction from her list, dated</td><td>Nehal</td></tr>
+      <tr><td>Scoreboard as one-way guarantee</td><td>Client holds us to numbers we don't fully control</td><td>Mutual contract ships with it, never after</td><td>Nehal</td></tr>
+      <tr><td>Built, never run</td><td>Novelty over completion; founder moves to the next breakthrough</td><td>Weekly review as Danna's owned recurring deliverable, with a template</td><td>Danna</td></tr>
+      <tr><td>Discovery has no source</td><td>Only Nehal can ask a client their close rate and margin</td><td>Asked on the next call, all active clients</td><td>Nehal</td></tr>
+      <tr><td>Retention succeeds, supply breaks</td><td>46 clients &asymp; 2,500 videos/mo against 600 planned</td><td>Flag to the CPN supply track by month 3</td><td class="re-r">Unowned &mdash; creator lead</td></tr>
+      <tr><td>Weak positioning</td><td>A volume promise is re-shoppable at any price</td><td>Out of scope here; CPN's brief loop owns it</td><td>Nehal</td></tr>
+    </table></div>
+
+    <h3>The objection we are choosing to carry</h3>
+    <div class="re-quote">You're solving a symptom. Clients cancel because there is nothing distinctive to stay for &mdash; 54 videos a month is a volume promise, and volume promises get re-shopped the moment someone quotes cheaper. A scoreboard just lets them measure a commodity more precisely.</div>
+    <p>This survives and is not answerable in ninety days. CPN already stakes the differentiation on the brief-to-feedback loop. It stays in the register rather than changing this plan &mdash; but if churn holds above 15% after two quarters with scoreboards signed and checkpoints running, this is the explanation to reach for next.</p>
+
+  </div>
+</section>
+<section class="re-panel" role="tabpanel" id="p8" aria-labelledby="t8" hidden>
+  <div class="ap-section-label"><span class="num">08</span> Operationalize</div>
+  <h2 class="ap-h2" style="margin-bottom:var(--space-6)">The 90-day plan</h2>
+  <div class="re-body">
+
+    <h3>Owners, first actions, dates</h3>
+    <div class="re-scroll"><table>
+      <tr><th>Action</th><th>Owner</th><th>First step, under 30 minutes</th><th>Date</th></tr>
+      <tr><td>Ask every active client the number their boss judges them on</td><td>Nehal</td><td>Add one question to this week's call agenda: what does your CEO ask you about this?</td><td>Sep 4</td></tr>
+      <tr><td>Write the Scoreboard template</td><td>Nehal</td><td>Fill the day-30/60/90 table for one live client from CPN's own figures</td><td>Sep 5</td></tr>
+      <tr><td>Name what comes off Danna's list</td><td>Nehal</td><td>Pick one item from her Urgent or High and reassign or kill it in writing</td><td>Sep 5</td></tr>
+      <tr><td>Draft the Mutual Contract clauses</td><td>Nehal</td><td>Write the four client commitments and the ramp-clock pause in one message</td><td>Sep 9</td></tr>
+      <tr><td>Backfill scoreboards for all active clients</td><td>Danna</td><td>Create the tracking sheet with one row per client and a signature column</td><td>Sep 15</td></tr>
+      <tr><td>Replace the weekly deck</td><td>Nehal</td><td>Delete the four functional sections; open the next call with their number</td><td>Sep 15</td></tr>
+      <tr><td>Cut call attendance to two people</td><td>Nehal</td><td>Tell Omar, Rafael and Daniela they rotate rather than all attend</td><td>Sep 18</td></tr>
+      <tr><td>Exit interview script</td><td>Danna</td><td>Write five questions, none of which is "why are you leaving"</td><td>Sep 25</td></tr>
+      <tr><td>Weekly health review on the calendar</td><td>Danna</td><td>Book a recurring 20 minutes, Mondays, with a template attached</td><td>Sep 29</td></tr>
+      <tr><td>Health index v1, manual</td><td>Danna</td><td>Score every client by hand; Nehal scores independently and compare</td><td>Oct 20</td></tr>
+      <tr><td>Flag the supply consequence to CPN</td><td class="re-r">Creator lead &mdash; Nehal interim</td><td>Add the 2,500-videos-per-month figure to the CPN supply track</td><td>Nov 15</td></tr>
+    </table></div>
+    <p>No owner means it is a hope. Interim owner is named where the seat is empty.</p>
+
+    <h3>Decision queue</h3>
+    <div class="re-scroll"><table>
+      <tr><th>Open question</th><th>Deadline</th><th>Default if undecided</th></tr>
+      <tr><td>What comes off Danna's list</td><td>Sep 5</td><td>Events and speaking follow-up moves to Gabriel; retention takes the slot</td></tr>
+      <tr><td>Account owner: hire, promote, or Nehal holds it</td><td>Oct 15</td><td>Nehal holds it; client count capped at 12 until filled</td></tr>
+      <tr><td>Biweekly calls plus written update, or stay weekly</td><td>Oct 1</td><td>Stay weekly until the agenda has changed for a full month, then move</td></tr>
+      <tr><td>Term length &mdash; 90 days or six months</td><td>Dec 1, at 20+ clients</td><td>Stay at 90 days; do not trade close rate for term</td></tr>
+      <tr><td>Health index automation from BigQuery</td><td>Dec 15</td><td>Stays manual; automate only after a full month scored by hand</td></tr>
+    </table></div>
+    <p>Undecided by the date means the default executes.</p>
+
+    <h3>Cadence for this document</h3>
+    <p><strong>Weekly, Mondays:</strong> scoreboards signed, checkpoint completion, client-side approval latency, and the count of concerns raised by clients before we noticed them. Twenty minutes, Danna's calendar, template attached. <strong>First review: Monday, September 7, 2026.</strong></p>
+    <p><strong>Section rewrite triggers:</strong> any metric red for its stated window; the first three exit interviews completed, which rewrites the Constraint tab against real causes rather than inferred ones; churn above 15% for two months with scoreboards signed and checkpoints running, which means the positioning objection was right and this document needs a different thesis.</p>
+
+    <div class="ap-card" style="border-left:3px solid var(--yellow)">
+      <p><strong>The binding constraint</strong> is that there is no falsifiable, mutually agreed definition of success &mdash; so the client evaluates us privately against a standard we have never seen.</p>
+      <p><strong>The single next action against it:</strong> ask every active client, on this week's call, what number their boss judges them on. Nobody else at Ad Pros is in the room to ask it.</p>
+      <p style="margin-bottom:0"><strong>Owner:</strong> Nehal.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.re-tab'));
+  var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  function show(i){
+    tabs.forEach(function(t,j){
+      t.setAttribute('aria-selected', j===i ? 'true' : 'false');
+      panels[j].hidden = (j!==i);
+    });
+    try{ history.replaceState(null,'','#'+tabs[i].getAttribute('aria-controls')); }catch(e){}
+    tabs[i].scrollIntoView({block:'nearest', inline:'center'});
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click', function(){ show(i); });
+    t.addEventListener('keydown', function(e){
+      var n=null;
+      if(e.key==='ArrowRight') n=(i+1)%tabs.length;
+      if(e.key==='ArrowLeft') n=(i-1+tabs.length)%tabs.length;
+      if(n!==null){ e.preventDefault(); show(n); tabs[n].focus(); }
+    });
+  });
+  var h=(location.hash||'').replace('#','');
+  if(h){ for(var k=0;k<tabs.length;k++){ if(tabs[k].getAttribute('aria-controls')===h){ show(k); break; } } }
+})();
+</script>
+
+  </div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg style="opacity:0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal Kazim &middot; August 31, 2026</p>
+  </footer>
+</body>
+</html>
