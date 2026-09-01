@@ -85,6 +85,10 @@
     .ap-kicker { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .5px; color: var(--grey-300); margin-bottom: 8px; }
     label { display: block; font-size: 13.5px; color: var(--grey-300); margin-bottom: 6px; }
     .row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+    .field { margin-bottom: 18px; }
+    .field .err { margin: 7px 0 0; font-size: 13.5px; }
+    input.bad { border-color: var(--error); }
+    .privacy { font-size: 13.5px; color: var(--grey-400); margin-top: 18px; }
     .f { flex: 1 1 190px; }
     input {
       width: 100%; background: var(--navy-deep); border: 1px solid var(--card-border-strong);
@@ -139,6 +143,35 @@
     <div class="nav">
       <button class="btn-ghost" id="back">Back</button>
     </div>
+  </section>
+
+  <section class="screen" id="capture">
+    <h2>Where should we send your result?</h2>
+    <p style="margin-bottom:28px">Your answers are in. Tell us where to send the breakdown and the playbook that goes with it.</p>
+
+    <div class="field">
+      <label for="lead-name">First name</label>
+      <input id="lead-name" type="text" autocomplete="given-name" placeholder="Jordan">
+      <div class="err" id="err-name" hidden>Enter your first name.</div>
+    </div>
+
+    <div class="field">
+      <label for="lead-email">Email</label>
+      <input id="lead-email" type="email" autocomplete="email" inputmode="email" placeholder="jordan@brand.com">
+      <div class="err" id="err-email" hidden>Enter a valid email address.</div>
+    </div>
+
+    <div class="field">
+      <label for="lead-phone">Phone</label>
+      <input id="lead-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 010-2233">
+      <div class="err" id="err-phone" hidden>Enter a phone number with at least 10 digits.</div>
+    </div>
+
+    <div class="nav" style="margin-top:26px">
+      <button class="btn-primary" id="submitLead">See my result</button>
+      <button class="btn-ghost" id="capBack">Back</button>
+    </div>
+    <p class="privacy">We use this to send your result and the playbook. No lists, no resale.</p>
   </section>
 
   <section class="screen" id="result">
@@ -218,7 +251,7 @@ var i = 0, ans = {}, sel = null, locked = false;
 var $ = function(id){ return document.getElementById(id); };
 
 function show(id){
-  ['intro','quiz','result'].forEach(function(s){ $(s).classList.toggle('on', s === id); });
+  ['intro','quiz','capture','result'].forEach(function(s){ $(s).classList.toggle('on', s === id); });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 function render(){
@@ -251,11 +284,41 @@ function render(){
 
 function advance(){
   if (i < Q.length - 1) { i++; render(); }
-  else { $('bar').style.width = '100%'; finish(); }
+  else { $('bar').style.width = '100%'; show('capture'); }
 }
+
+var lead = {};
+function markBad(input, errId, bad){
+  input.classList.toggle('bad', bad);
+  $(errId).hidden = !bad;
+  return !bad;
+}
+['lead-name','lead-email','lead-phone'].forEach(function(id){
+  $(id).oninput = function(){
+    this.classList.remove('bad');
+    $('err-' + id.split('-')[1]).hidden = true;
+  };
+});
+$('capBack').onclick = function(){ i = Q.length - 1; show('quiz'); render(); };
+$('submitLead').onclick = function(){
+  var name = $('lead-name').value.trim();
+  var email = $('lead-email').value.trim();
+  var phone = $('lead-phone').value.trim();
+  var okName  = markBad($('lead-name'),  'err-name',  name.length < 1);
+  var okEmail = markBad($('lead-email'), 'err-email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email));
+  var okPhone = markBad($('lead-phone'), 'err-phone', (phone.replace(/\D/g, '').length < 10));
+  if (!(okName && okEmail && okPhone)) return;
+  lead = { first_name: name, email: email, phone: phone, answers: ans, result: route() };
+  // TODO: POST `lead` to the CRM / ESP endpoint here.
+  finish();
+};
 $('start').onclick = function(){ i = 0; show('quiz'); render(); };
 $('back').onclick = function(){ if (i > 0) { i--; render(); } };
-$('restart').onclick = function(){ ans = {}; i = 0; show('intro'); $('bar').style.width = '0'; };
+$('restart').onclick = function(){
+  ans = {}; lead = {}; i = 0;
+  ['lead-name','lead-email','lead-phone'].forEach(function(id){ $(id).value = ''; });
+  show('intro'); $('bar').style.width = '0';
+};
 
 function route(){
   var rev = +ans.rev, spend = +ans.spend, budget = +ans.budget;
@@ -363,7 +426,7 @@ function calc(){
 function finish(){
   var key = route(), r = R[key];
   $('verdict').className = 'ap-card verdict ' + r.cls;
-  $('rkicker').textContent = r.kicker;
+  $('rkicker').textContent = lead.first_name ? (r.kicker + ' \u00b7 ' + lead.first_name) : r.kicker;
   $('rtitle').textContent = r.title;
   $('rbody').textContent = r.body;
   $('magTitle').textContent = r.magTitle;
