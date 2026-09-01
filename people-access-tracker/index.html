@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Danna Arrieta">
+  <title>People &amp; Access Tracker — Ad Pros</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:#040735; --navy-deep:#02041f; --navy-card:#070b3d; --navy-card-hover:#0a1050;
+      --yellow:#F9D900; --yellow-dim:#DFC200;
+      --blue:#1A6FD4; --blue-light:#3BA9F9; --white:#fff;
+      --grey-400:#54556A; --grey-300:#8A8B93; --grey-200:#B0B1B6; --grey-100:#E6E6E7;
+      --card-border:#0e1358; --card-border-strong:#1a2375;
+      --success:#0F973D; --error:#D42620;
+      --radius:10px;
+      --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px; --space-16:64px;
+    }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--navy); color:var(--grey-200);
+      font-family:"Power Grotesk","Inter","Helvetica Neue",Arial,sans-serif;
+      font-size:15px; line-height:1.6; min-height:100vh;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    code, .mono { font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12.5px;
+      background:rgba(255,255,255,.06); padding:1px 6px; border-radius:4px; color:var(--grey-100); }
+    a { color:var(--blue-light); text-decoration:none; transition:color .15s; }
+    a:hover { color:var(--yellow); }
+
+    .ap-header { background:var(--navy); border-bottom:4px solid var(--yellow);
+      padding:28px 48px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+    .ap-header-divider { width:1px; height:40px; background:rgba(255,255,255,.15); }
+    .ap-header-text h1 { font-size:22px; font-weight:700; color:#fff; letter-spacing:-.3px; }
+    .ap-header-text p { font-size:13px; color:var(--grey-300); margin-top:3px; }
+    .ap-content { padding:36px 48px; max-width:1200px; margin:0 auto; }
+    .ap-footer { margin:64px 48px 32px; padding-top:24px; border-top:1px solid var(--card-border);
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .ap-footer-left { display:flex; align-items:center; gap:14px; }
+    .ap-footer p { font-size:12px; color:var(--grey-300); }
+    .ap-footer-meta { font-size:11px; color:var(--grey-400); }
+
+    .ap-kicker { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:600;
+      letter-spacing:1.2px; text-transform:uppercase; color:var(--yellow); margin-bottom:14px; }
+    .ap-kicker::before { content:""; width:18px; height:2px; background:var(--yellow); }
+    .ap-card { background:var(--navy-card); border:1px solid var(--card-border);
+      border-radius:var(--radius); padding:var(--space-6); margin-bottom:var(--space-4); }
+    h3.sec { font-size:11px; margin:0 0 10px; text-transform:uppercase; letter-spacing:.8px;
+      color:var(--grey-300); font-weight:600; }
+
+    /* tabs */
+    .tabs { display:flex; gap:4px; border-bottom:1px solid var(--card-border);
+      margin:8px 0 24px; flex-wrap:wrap; }
+    .tab { background:none; border:0; border-bottom:2px solid transparent; padding:10px 15px;
+      font:inherit; font-size:14px; font-weight:500; color:var(--grey-300); cursor:pointer;
+      border-radius:6px 6px 0 0; transition:color .15s, background .15s; }
+    .tab:hover { background:var(--navy-card); color:#fff; }
+    .tab.on { color:var(--yellow); border-bottom-color:var(--yellow); }
+    .panel { display:none; }
+    .panel.on { display:block; }
+
+    /* tables */
+    table { width:100%; border-collapse:collapse; font-size:13.5px; }
+    th { text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.7px;
+      color:var(--grey-400); font-weight:600; padding:9px 10px;
+      border-bottom:1px solid var(--card-border-strong); }
+    td { padding:10px; border-bottom:1px solid var(--card-border); vertical-align:top; color:var(--grey-100); }
+    tr:last-child td { border-bottom:0; }
+    td b { color:#fff; font-weight:600; }
+
+    .pill { display:inline-block; font-size:10.5px; font-weight:600; padding:2px 9px;
+      border-radius:20px; white-space:nowrap; letter-spacing:.2px; }
+    .p-red { background:rgba(212,38,32,.16); color:#ffa9a5; }
+    .p-amber { background:rgba(249,217,0,.14); color:#ffe57d; }
+    .p-green { background:rgba(15,151,61,.18); color:#87e0aa; }
+    .p-blue { background:rgba(26,111,212,.18); color:#9dccff; }
+    .p-purple { background:rgba(155,110,255,.18); color:#cbb2ff; }
+    .p-grey { background:rgba(255,255,255,.07); color:var(--grey-300); }
+
+    select, input { font:inherit; padding:10px 13px; background:var(--navy);
+      border:1px solid var(--card-border-strong); border-radius:8px; color:#fff;
+      font-size:14px; outline:none; transition:border-color .15s; }
+    select:focus, input:focus { border-color:var(--blue); }
+    select { min-width:225px; cursor:pointer; }
+    input { width:100%; }
+    label.fl { display:block; font-size:10.5px; font-weight:600; color:var(--grey-400);
+      margin-bottom:6px; text-transform:uppercase; letter-spacing:.7px; }
+    .row { display:flex; gap:18px; flex-wrap:wrap; align-items:flex-end; margin-bottom:20px; }
+
+    .btn-primary { background:var(--yellow); color:var(--navy); border:none; padding:12px 22px;
+      border-radius:8px; font-weight:700; font-size:14px; font-family:inherit; cursor:pointer;
+      letter-spacing:.3px; transition:background .15s; }
+    .btn-primary:hover { background:var(--yellow-dim); }
+    .btn-primary:disabled { opacity:.45; cursor:default; }
+    .btn-ghost { background:transparent; color:#fff; border:1px solid var(--card-border-strong);
+      padding:11px 18px; border-radius:8px; font-weight:500; font-size:13.5px; font-family:inherit;
+      cursor:pointer; transition:border-color .15s; }
+    .btn-ghost:hover { border-color:var(--grey-300); }
+
+    /* checklist */
+    .phase { margin-bottom:22px; }
+    .phase-h { display:flex; align-items:baseline; gap:10px; margin:0 0 8px; padding-bottom:7px;
+      border-bottom:1px solid var(--card-border); }
+    .phase-h strong { font-size:14px; color:#fff; font-weight:700; }
+    .phase-h span { font-size:11px; color:var(--grey-400); }
+    .phase.crit .phase-h { border-bottom-color:rgba(155,110,255,.5); }
+    .phase.crit .phase-h strong { color:#cbb2ff; }
+    .item { display:flex; gap:12px; align-items:flex-start; padding:9px 11px; border-radius:8px;
+      transition:background .12s; }
+    .item:hover { background:var(--navy-card); }
+    .item input[type=checkbox] { margin-top:3px; width:15px; height:15px; cursor:pointer;
+      flex:none; accent-color:var(--yellow); }
+    .item.done .txt { opacity:.4; text-decoration:line-through; }
+    .txt { flex:1; min-width:0; }
+    .txt b { color:#fff; font-weight:600; font-size:14px; }
+    .meta { display:block; font-size:12px; color:var(--grey-300); margin-top:3px; }
+
+    .note, .warn, .amber-box, .purple-box {
+      padding:13px 16px; border-radius:0 8px 8px 0; font-size:13.5px; margin-bottom:16px;
+      color:var(--grey-100); border-left:3px solid; }
+    .note { background:rgba(26,111,212,.1); border-color:var(--blue); }
+    .warn { background:rgba(212,38,32,.1); border-color:var(--error); }
+    .amber-box { background:rgba(249,217,0,.07); border-color:var(--yellow); }
+    .purple-box { background:rgba(155,110,255,.1); border-color:#9b6eff; }
+    .note b, .warn b, .amber-box b, .purple-box b { color:#fff; }
+
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    @media (max-width:900px){ .grid2,.grid3 { grid-template-columns:1fr; } }
+    .stat { background:var(--navy-card); border:1px solid var(--card-border);
+      border-radius:var(--radius); padding:22px 18px; }
+    .stat b { display:block; font-size:30px; font-weight:800; color:var(--yellow);
+      letter-spacing:-1px; line-height:1; margin-bottom:8px; }
+    .stat span { font-size:11.5px; color:var(--grey-300); text-transform:uppercase; letter-spacing:.6px; }
+
+    .tiny { font-size:12px; color:var(--grey-300); }
+    .bar { height:5px; background:var(--card-border-strong); border-radius:4px; overflow:hidden; margin-top:6px; }
+    .bar i { display:block; height:100%; background:var(--yellow); width:0; transition:width .2s; }
+    .count { font-size:11.5px; color:var(--grey-300); font-weight:500; }
+    .money { font-variant-numeric:tabular-nums; white-space:nowrap; }
+    ul.tight { margin:6px 0 0; padding-left:19px; } ul.tight li { margin-bottom:6px; }
+    ol.tight { margin:6px 0 0; padding-left:20px; } ol.tight li { margin-bottom:7px; }
+    .tog { display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:600; color:#fff;
+      cursor:pointer; background:rgba(155,110,255,.1); border:1px solid rgba(155,110,255,.35);
+      padding:11px 15px; border-radius:9px; }
+    .tog input { width:16px; height:16px; cursor:pointer; accent-color:#9b6eff; }
+    .hero { background:rgba(249,217,0,.06); border:1px solid rgba(249,217,0,.3);
+      border-radius:10px; padding:18px 20px; margin-bottom:18px; color:var(--grey-100); font-size:14px; }
+    .hero b { color:var(--yellow); }
+    .status { font-size:13px; margin-top:10px; }
+    @media (max-width:640px){
+      .ap-header,.ap-content { padding-left:28px; padding-right:28px; }
+      .ap-footer { margin-left:28px; margin-right:28px; }
+    }
+  </style>
+</head>
+<body>
+<!-- AP-GATE START -->
+<div id="ap-gate" style="position:fixed;inset:0;background:#040735;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Inter,'Helvetica Neue',Arial,sans-serif;padding:20px;">
+  <div style="max-width:400px;width:100%;text-align:center;">
+    <div style="margin:0 auto 32px;display:flex;justify-content:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="64" height="64">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+    </div>
+    <h2 style="color:#fff;font-size:20px;font-weight:700;margin-bottom:8px;">Protected Page</h2>
+    <p style="color:#B0B1B6;font-size:14px;margin-bottom:24px;">Enter the password to continue.</p>
+    <input type="password" id="ap-pw" autocomplete="off" placeholder="Password"
+      style="width:100%;padding:14px 16px;background:#070b3d;border:1px solid #0e1358;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')ap_check()">
+    <button onclick="ap_check()"
+      style="width:100%;padding:14px;background:#F9D900;color:#040735;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+      Unlock
+    </button>
+    <p id="ap-err" style="color:#ff6b6b;font-size:13px;margin-top:12px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var H="eec01e3d12195f67b579f4a31b329ef434cd60e18fe55cdc64f8d50cf7428d5d";
+  var K="ap-ok-internal";
+  async function sha(s){var h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  window.ap_check=async function(){
+    var pw=document.getElementById('ap-pw').value;
+    if(await sha(pw)===H){try{sessionStorage.setItem(K,'1');}catch(e){}reveal();}
+    else{document.getElementById('ap-err').textContent='Incorrect password';}
+  };
+  function reveal(){
+    var g=document.getElementById('ap-gate');if(g)g.style.display='none';
+    var c=document.getElementById('ap-content');if(c)c.style.display='';
+  }
+  try{if(sessionStorage.getItem(K)==='1'){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',reveal);}else{reveal();}}}catch(e){}
+  setTimeout(function(){var p=document.getElementById('ap-pw');if(p)p.focus();},50);
+})();
+</script>
+<!-- AP-GATE END -->
+<div id="ap-content" style="display:none;">
+
+<header class="ap-header">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+  <div class="ap-header-divider"></div>
+  <div class="ap-header-text">
+    <h1>People &amp; Access Tracker</h1>
+    <p>Onboarding and offboarding, one map read in two directions</p>
+  </div>
+</header>
+
+<div class="ap-content">
+
+<div class="ap-kicker">Internal Process</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab on" data-p="onboard">Onboarding</button>
+  <button class="tab" data-p="intake">Intake email</button>
+  <button class="tab" data-p="offboard">Offboarding</button>
+  <button class="tab" data-p="roster">Roster</button>
+  <button class="tab" data-p="creds">Shared account</button>
+  <button class="tab" data-p="tools">Tool inventory</button>
+  <button class="tab" data-p="how">How to run this</button>
+</div>
+
+<div class="panel on" id="p-onboard">
+  <div class="note"><b>Pick a role, get the exact list.</b> Tools shown are only the ones actually being
+    paid for as of the July 2026 Mercury data. Ticks save in your browser only — a working aid, not the record.</div>
+  <div class="row">
+    <div><label class="fl" for="rolesel">Role</label><select id="rolesel"></select></div>
+    <div><label class="fl">Progress</label><div class="count" id="ob-count">—</div>
+      <div class="bar" style="width:190px"><i id="ob-bar"></i></div></div>
+    <div><button class="btn-ghost" id="ob-reset">Reset ticks</button></div>
+  </div>
+  <div id="ob-out"></div>
+</div>
+
+<div class="panel" id="p-intake">
+  <div class="note"><b>Step one of every hire.</b> Fill this in when an offer is accepted and it produces
+    the contract-and-payment-details request. Nothing sends — you review and send.</div>
+  <div class="ap-card">
+    <div class="grid2" style="margin-bottom:14px">
+      <div><label class="fl" for="i-name">Full name</label><input id="i-name" placeholder="Maria Silva"></div>
+      <div><label class="fl" for="i-email">Their personal email</label><input id="i-email" placeholder="maria@gmail.com"></div>
+    </div>
+    <div class="grid2" style="margin-bottom:16px">
+      <div><label class="fl" for="i-role">Role</label><select id="i-role"></select></div>
+      <div><label class="fl" for="i-start">Start date</label><input id="i-start" placeholder="15 September 2026"></div>
+    </div>
+    <button class="btn-primary" id="i-go">Create Gmail draft</button>
+    <button class="btn-ghost" id="i-prev" style="margin-left:8px">Show email text</button>
+    <div class="status" id="i-status"></div>
+  </div>
+  <div class="ap-card" id="i-preview" style="display:none">
+    <h3 class="sec">Email text</h3>
+    <div id="i-preview-body" style="font-size:13.5px;white-space:pre-wrap;color:var(--grey-100)"></div>
+  </div>
+  <div class="amber-box"><b>Why this email matters more than it looks.</b> Almost everyone invoices through
+    their own entity — Bruno via <code>BRUNO HELENO BARBOSA LTDA</code>, plus contractors across Colombia,
+    Brazil and Mexico. When the entity name on the contract doesn't match the bank account, the Mercury
+    payment bounces and you find out on payroll day. There's also a <b>Niural PEO/EOR agreement</b> on file
+    — decide direct-contract vs Niural here, not later.</div>
+</div>
+
+<div class="panel" id="p-offboard">
+  <div class="warn"><b>Open: Bruno Heleno Barbosa, left 31 Aug 2026.</b> Gone from Slack, but
+    <code>bruno@adpros.com</code>, Air and the RunPod environment are unconfirmed, and
+    <code>creatives@adpros.com</code> has not been rotated since he left.<br><br>
+    <b>Sequence:</b> fix the Google Workspace billing failure first. If Workspace suspends for non-payment
+    you lose the admin console — the exact tool you need to suspend his account and move his Drive.</div>
+  <div class="row">
+    <div><label class="fl" for="offsel">Role of person leaving</label><select id="offsel"></select></div>
+    <div style="flex:1;min-width:290px"><label class="fl">Seniority</label>
+      <label class="tog"><input type="checkbox" id="mgr-tog"> Manager — holds admin or owner rights</label></div>
+    <div><button class="btn-ghost" id="off-reset">Reset ticks</button></div>
+  </div>
+  <div id="mgr-note" style="display:none">
+    <div class="purple-box"><b>Manager exits are a different process, and the hard part is 2FA.</b>
+      Their phone is the second factor on accounts the company owns — Meta Business Manager, Google Ads,
+      Mercury, the Workspace super-admin role. Rotating the password doesn't help: the moment they hand back
+      the login you're locked out behind a code only their device can produce.<br><br>
+      <b>Every step in the purple block has to happen while they still work here and will still cooperate.</b>
+      After the last day it stops being an offboarding task and becomes an account-recovery ticket with Meta
+      or Google, which takes weeks and sometimes fails. The rest of the checklist can slip a day. That can't.</div>
+  </div>
+  <div id="off-out"></div>
+</div>
+
+<div class="panel" id="p-roster">
+  <div class="note">Slack <code>#general</code> is the anchor for who's currently here. Roles and exit path
+    are set by hand — nothing can infer those.</div>
+  <div class="row" id="sync-row">
+    <button class="btn-primary" id="r-sync">Sync from Slack #general</button>
+    <div class="status" id="r-status"></div>
+  </div>
+  <div id="r-drift"></div>
+  <div class="ap-card" style="padding:8px 10px"><table id="roster"></table></div>
+  <div class="ap-card" style="margin-top:18px">
+    <h3 class="sec">Laid off — July 2026</h3>
+    <p class="tiny" style="margin-bottom:10px">Twelve people came off payroll in the July round. They're out
+      of Slack, so that half is done. Kept here as the reference list for confirming the rest of each exit
+      closed out — particularly <code>creatives@adpros.com</code> rotation for anyone on the creative side.</p>
+    <div class="tiny" style="line-height:1.9" id="laidoff"></div>
+  </div>
+</div>
+
+<div class="panel" id="p-creds">
+  <div class="hero"><b>There is exactly one shared login: <code>creatives@adpros.com</code>.</b>
+    Every creative tool that isn't per-seat is registered under it — Higgsfield, ElevenLabs, Envato,
+    Sandcastles Pro, App Tyver. Rafael owns it.<br><br>
+    That's a good setup, and it's why this works without a password manager. Everywhere else in the company
+    runs on named accounts, so a departure is a <i>revoke</i>. Here it's a <i>rotate</i> — but it's one
+    rotation, not five, and only creative departures trigger it.</div>
+  <div class="ap-card">
+    <h3 class="sec">The rotation, when a creative leaves</h3>
+    <ol class="tight">
+      <li>Rafael changes the <code>creatives@adpros.com</code> password.</li>
+      <li>Check each tool below still signs in — some send a re-verification email to the shared inbox.</li>
+      <li>Redistribute to the creatives who remain.</li>
+      <li>Anything the leaver set up with 2FA on their own phone needs transferring <b>before</b> their last
+        day. Same rule as the manager path.</li>
+    </ol>
+  </div>
+  <div class="ap-card" style="padding:8px 10px"><table id="creds"></table></div>
+  <div class="warn" style="margin-top:16px"><b>Outstanding:</b> <code>creatives@adpros.com</code> hasn't been
+    rotated since Bruno left on 31 Aug.</div>
+  <div class="amber-box"><b>One legacy item to close.</b> The Drive doc <i>"Hayden: Ad Pros Accounts &amp;
+    Access"</i> (May 2024, still shared) contains old plaintext passwords and the default mailbox password
+    <code>AdPros123.</code> Restrict or delete it, and stop issuing shared default passwords to new hires —
+    the intake flow creates a unique one.</div>
+</div>
+
+<div class="panel" id="p-tools">
+  <div class="note"><b>From the July 2026 Mercury cashflow</b> — what's actually being paid for now.
+    <b>T1</b> dies when Workspace is suspended. <b>T2</b> is a named seat, revoke individually.
+    <b>T3</b> sits under <code>creatives@adpros.com</code> and is covered by one rotation.</div>
+  <div class="grid3" style="margin-bottom:20px">
+    <div class="stat"><b id="s-total">—</b><span>Monthly software spend</span></div>
+    <div class="stat"><b id="s-count">—</b><span>Tools needing individual revoke</span></div>
+    <div class="stat"><b id="s-dropped">—</b><span>2025 tools no longer paid</span></div>
+  </div>
+  <div class="row">
+    <div><label class="fl" for="tiersel">Tier</label><select id="tiersel"><option value="all">All</option>
+      <option value="1">T1 — dies with Workspace</option><option value="2">T2 — revoke individually</option>
+      <option value="3">T3 — under creatives@</option></select></div>
+    <div><label class="fl" for="catsel">Category</label><select id="catsel"><option value="all">All</option></select></div>
+  </div>
+  <div class="ap-card" style="padding:8px 10px"><table id="tools"></table></div>
+  <div class="amber-box" style="margin-top:18px"><b>Dropped since the 2025 sheet.</b> No July 2026 charge for
+    any of these — they're off every checklist.
+    <div class="tiny" style="margin-top:8px;line-height:1.7" id="dropped-list"></div></div>
+</div>
+
+<div class="panel" id="p-how">
+  <div class="ap-card">
+    <h3 class="sec">Using this</h3>
+    <ol class="tight">
+      <li><b>Someone accepts an offer</b> → Intake email tab. Send the request for contract and payment
+        details the same day.</li>
+      <li><b>Details come back</b> → Onboarding tab, pick their role, work the list top to bottom.</li>
+      <li><b>Someone resigns or is let go</b> → Offboarding tab. Tick the manager box if they hold admin
+        rights anywhere, and do the purple block <i>before</i> their last day.</li>
+      <li><b>Creative departure</b> → also rotate <code>creatives@adpros.com</code>.</li>
+      <li><b>Monthly</b> → check the tool inventory against the Mercury export.</li>
+    </ol>
+  </div>
+  <div class="grid2">
+    <div class="ap-card"><h3 class="sec">Fix as you go</h3>
+      <ul class="tight">
+        <li>Role templates are a starting point. When you grant something that isn't listed, it gets added.</li>
+        <li>Same for anything on a list that no longer exists — the July rebuild dropped 43 dead tools.</li>
+        <li>The tool inventory should be re-checked against Mercury monthly. That's the input that goes
+          stale fastest.</li>
+      </ul></div>
+    <div class="ap-card"><h3 class="sec">Still worth doing</h3>
+      <ul class="tight">
+        <li>Rotate <code>creatives@adpros.com</code> — outstanding since 31 Aug.</li>
+        <li>Restrict the 2024 "Accounts &amp; Access" Drive doc.</li>
+        <li>Identify two unknown vendors: <b>Shenduqrwea</b> and <b>App Tyver LTD</b>.</li>
+        <li>Rebuild or kill the Make scenario that still references ClickUp and is erroring unpaused.</li>
+      </ul></div>
+  </div>
+</div>
+
+</div>
+
+<footer class="ap-footer">
+  <div class="ap-footer-left">
+    <svg style="opacity:0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+    <p>Ad Pros &mdash; Internal Use</p>
+  </div>
+  <p class="ap-footer-meta">Published by Danna Arrieta &middot; September 1, 2026</p>
+</footer>
+
+</div>
+
+<script>
+"use strict";
+var HAS_COWORK = !!(window.cowork && window.cowork.callMcpTool);
+
+var CORE=[
+ {s:"Google Workspace account",o:"Nehal (admin)",t:1,ph:0},
+ {s:"Signed contract + NDA on file",o:"Danna",t:0,ph:0},
+ {s:"Payment + entity details collected",o:"Danna",t:0,ph:0},
+ {s:"Slack",o:"Nehal / Danna",t:2,ph:0},
+ {s:"Google Drive shared folders",o:"Danna",t:1,ph:1},
+ {s:"Notion",o:"Daniela",t:2,ph:1},
+ {s:"Recurring team calls on calendar",o:"Rafael / Daniela",t:1,ph:1},
+ {s:"Added to Mercury payee list",o:"Danna",t:2,ph:2}];
+
+var ROLES={
+ "Editor":[
+  {s:"creatives@adpros.com shared login",o:"Rafael",t:3},
+  {s:"Air (app.air.inc)",o:"Rafael",t:2},
+  {s:"Adobe Creative Cloud",o:"Nehal",t:2},
+  {s:"Creative review channels",o:"Rafael",t:2},
+  {s:"Client asset folders",o:"Daniela",t:1}],
+ "Creative Lead":[
+  {s:"creatives@adpros.com shared login",o:"Rafael",t:3},
+  {s:"Air — admin",o:"Rafael",t:2},
+  {s:"Adobe Creative Cloud",o:"Nehal",t:2},
+  {s:"Meta Business Manager — read",o:"Gabriel",t:2},
+  {s:"Client Slack channels",o:"Daniela",t:2}],
+ "Media Buyer":[
+  {s:"Meta Business Manager",o:"Gabriel",t:2},
+  {s:"Google Ads",o:"Gabriel",t:2},
+  {s:"TikTok Shop Partner Center",o:"Nehal",t:2},
+  {s:"Taboola / AppLovin",o:"Gabriel",t:2},
+  {s:"Metricool",o:"Daniela",t:2},
+  {s:"Client Slack channels",o:"Daniela",t:2}],
+ "AI Production":[
+  {s:"creatives@adpros.com shared login",o:"Rafael",t:3},
+  {s:"RunPod / Contabo / Alibaba Cloud",o:"Pedro",t:2},
+  {s:"ComfyUI environment",o:"Pedro",t:2},
+  {s:"Anthropic (Claude)",o:"Nehal",t:2},
+  {s:"Air",o:"Rafael",t:2},
+  {s:"Written pipeline documentation",o:"Pedro",t:0}],
+ "Engineering":[
+  {s:"GitHub — ad-pros org",o:"Fabian",t:2},
+  {s:"Vercel / Netlify",o:"Fabian",t:2},
+  {s:"Supabase / Upstash",o:"Fabian",t:2},
+  {s:"Hetzner / Contabo / Cloudflare",o:"Fabian",t:2},
+  {s:"Cursor",o:"Fabian",t:2},
+  {s:"Airbyte / Apify / Resend",o:"Fabian",t:2},
+  {s:"Google Cloud",o:"Fabian",t:2},
+  {s:"Production secrets and env vars",o:"Fabian",t:2}],
+ "Project Manager":[
+  {s:"Client Access Sheet template",o:"Daniela",t:1},
+  {s:"Creative + Growth Team Master Checklist",o:"Daniela",t:1},
+  {s:"Meta Business Manager — read",o:"Gabriel",t:2},
+  {s:"Client Slack channels",o:"Daniela",t:2},
+  {s:"Notion",o:"Daniela",t:2},
+  {s:"Zoom",o:"Danna",t:2}],
+ "SDR / Sales":[
+  {s:"Instantly (cold email)",o:"Nehal",t:2},
+  {s:"Apollo.io",o:"Nehal",t:2},
+  {s:"RB2B",o:"Nehal",t:2},
+  {s:"Scrape Creators",o:"Nehal",t:2},
+  {s:"Manychat",o:"Nehal",t:2}],
+ "Ops / Finance":[
+  {s:"Mercury",o:"Nehal",t:2},
+  {s:"QuickBooks",o:"Danna",t:2},
+  {s:"Sorren (bookkeeping)",o:"Danna",t:2},
+  {s:"Niural (PEO/EOR)",o:"Danna",t:2},
+  {s:"Card access",o:"Nehal",t:2}]};
+
+var PHASES=["Before day 1","Day 1","Week 1"];
+
+var ROLE_MAP={
+ "nehalkazim":["Nehal Kazim","CEO",1],"danna":["Danna Arrieta","Ops / Finance",1],
+ "rafael":["Rafael Zorzal","Creative Lead",1],"omar":["Omar Arif","Creative Lead",1],
+ "daniela":["Daniela Devis","Project Manager",1],"gabriel":["Gabriel Santana","Media Buyer",0],
+ "pedro":["Pedro Simões Ferreira","AI Production",0],"clara":["Clara Moraes","Editor",0],
+ "laura":["Laura Lopes","Editor",0],"gabriela":["Gabriela Solís","Editor",0],
+ "lucas":["Lucas Viol","Editor",0],"ronaldo":["Ronaldo Junior","Editor",0],
+ "raphaellages":["Raphael Lages","Editor",0],"viviana.londonoarroya":["Viviana Londoño","SDR / Sales",0],
+ "fabian":["Fabian Marin","Engineering",1],"davidb":["David Badillo","Engineering",0]};
+
+var DEPARTED=[{h:"bruno",n:"Bruno Heleno Barbosa",r:"AI Production",d:"31 Aug 2026"}];
+var LAID_OFF=["Kevin Rene James Watson","UNIQU LLC","Paola Katherine Osorio Gil","Alex McMahon",
+ "Nubya Fontes","Andressa Silva","Samanta Barbosa","Mikael Claro Nogueira","Sofia Del Pilar",
+ "Deyver Tejada","Stiven Díaz Ramírez","Muhammad TWH (Noman Ahmad)"];
+
+var CREDS=[
+ {s:"Higgsfield",c:"Creative / AI",n:"Largest tool under the shared account."},
+ {s:"ElevenLabs",c:"Creative / AI",n:"Voice generation."},
+ {s:"Envato",c:"Creative",n:"Stock assets."},
+ {s:"Sandcastles Pro",c:"Creative",n:""},
+ {s:"App Tyver LTD",c:"Unidentified",n:"Worth identifying — appears on the card but nobody has named it."}];
+
+var TOOLS=[
+ [1,"Google Workspace","Identity",1004.95,"Suspending takes all of T1. Payment currently failing — fix before offboarding anyone."],
+ [1,"Google Cloud","Identity",131.32,""],
+ [1,"Google (misc / domains)","Identity",11.35,""],
+ [2,"Adobe Creative Cloud","Creative",2089.66,"Largest software line. Named seats — reclaim on exit."],
+ [3,"Higgsfield","Creative / AI",1872.95,"Under creatives@adpros.com."],
+ [3,"ElevenLabs","Creative / AI",143.00,"Under creatives@adpros.com."],
+ [3,"Envato","Creative",40.95,"Under creatives@adpros.com."],
+ [3,"Sandcastles Pro","Creative",43.54,"Under creatives@adpros.com."],
+ [3,"App Tyver LTD","Creative",113.26,"Unidentified vendor."],
+ [2,"Anthropic (Claude)","AI",717.95,"Replaced OpenAI since the 2025 sheet."],
+ [2,"Cursor","Engineering",120.00,""],
+ [2,"Slack","Comms",206.00,"Deactivate, don't remove — preserves history."],
+ [2,"Zoom","Comms",129.66,"Named seat."],
+ [2,"Notion","Ops",24.00,"Replaced ClickUp."],
+ [2,"Instantly","Sales",257.00,""],
+ [2,"RB2B","Sales",214.00,"Third-party personal data — remove promptly on exit."],
+ [2,"Apollo","Sales",59.00,""],
+ [2,"Scrape Creators","Sales",47.00,""],
+ [2,"Manychat","Sales",45.00,""],
+ [2,"Metricool","Marketing",25.00,""],
+ [2,"Apify","Engineering",256.77,""],
+ [2,"Vercel","Engineering",182.63,""],
+ [2,"Zapier","Automation",178.50,""],
+ [2,"Upstash","Engineering",105.39,""],
+ [2,"Supabase","Engineering",91.89,""],
+ [2,"Hetzner Online","Engineering",59.19,""],
+ [2,"Contabo","Engineering",44.71,""],
+ [2,"Airbyte","Engineering",40.67,""],
+ [2,"Resend","Engineering",40.00,""],
+ [2,"Alibaba Cloud","Engineering",13.64,""],
+ [2,"GitHub","Engineering",10.00,"Remove from org AND rotate their tokens."],
+ [2,"Netlify","Engineering",9.00,""],
+ [2,"Cloudflare","Engineering",8.28,""],
+ [2,"Make","Automation",10.59,"Scenario currently erroring and unpaused."],
+ [2,"QuickBooks","Finance",31.00,""],
+ [2,"Mercury","Finance",36.00,"Highest privilege. Named accounts + 2FA."],
+ [2,"Shenduqrwea","Unidentified",108.12,"Unidentified vendor — worth chasing."],
+ [2,"Apple (subscriptions)","Devices",115.93,""],
+ [2,"Flypass","Ops",27.73,""],
+ [2,"Spotify","Ops",12.99,""],
+ [2,"Wompi","Finance",3.05,""]];
+
+var DROPPED=["ClickUp","Icon AI","MRI-Simmons","Stack Influence","LeverBrands","North Beam","Blotout",
+ "Hyros","Foreplay","AdPlexity","Clay Labs","Adyntel","Canva","Figma","Loom","Fathom","Reclaim.ai",
+ "Supermetrics","LinkedIn","SEO Software","The Native Hub","SPP.co","Youdji","WP Engine","Webflow",
+ "Squarespace","Jasper.ai","Runway","Dreamina","Suno","Captions","Submagic","Pond5","NeverBounce",
+ "n8n Cloud","Lemon Squeezy","Crunchbase","Baremetal","ExpressVPN","Matrix Mailbox","Remarkable",
+ "Visual Electric","OpenAI","LastPass"];
+
+function load(k){try{return JSON.parse(localStorage.getItem(k)||"{}");}catch(e){return {};}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function money(n){return n?"$"+n.toLocaleString("en-US",{maximumFractionDigits:0}):"—";}
+function tierPill(t){
+ if(t===3)return '<span class="pill p-red">T3 · creatives@</span>';
+ if(t===2)return '<span class="pill p-amber">T2 · revoke</span>';
+ if(t===1)return '<span class="pill p-green">T1 · auto</span>';
+ return '<span class="pill p-grey">Admin</span>';}
+
+function renderChecklist(host,items,key,cb){
+ var st=load(key),groups={};
+ items.forEach(function(it){var p=it.ph!==undefined?it.ph:1;(groups[p]=groups[p]||[]).push(it);});
+ var h="";
+ Object.keys(groups).map(Number).sort(function(a,b){return a-b;}).forEach(function(pi){
+  var g=groups[pi],crit=(pi===-1);
+  var title=crit?"Before their last day — 2FA and ownership":PHASES[pi];
+  h+='<div class="phase'+(crit?' crit':'')+'"><div class="phase-h"><strong>'+title+'</strong><span>'+g.length+' items</span></div>';
+  g.forEach(function(it){
+   var id=key+"::"+it.s,on=!!st[id];
+   h+='<div class="item'+(on?' done':'')+'"><input type="checkbox" data-id="'+encodeURIComponent(id)+'"'+(on?' checked':'')+'>'
+     +'<div class="txt"><b>'+esc(it.s)+'</b> '+(crit?'<span class="pill p-purple">2FA critical</span>':tierPill(it.t))
+     +'<span class="meta">Owner: '+esc(it.o)+(it.n?' · '+esc(it.n):'')+'</span></div></div>';});
+  h+='</div>';});
+ host.innerHTML=h;
+ Array.prototype.forEach.call(host.querySelectorAll('input[type=checkbox]'),function(c){
+  c.addEventListener('change',function(){
+   var s=load(key),id=decodeURIComponent(c.dataset.id);
+   if(c.checked)s[id]=1;else delete s[id];
+   save(key,s);c.closest('.item').classList.toggle('done',c.checked);if(cb)cb();});});}
+
+function obItems(r){return CORE.concat((ROLES[r]||[]).map(function(x){
+ return {s:x.s,o:x.o,t:x.t,ph:1};}));}
+function obRender(){var r=document.getElementById('rolesel').value;
+ renderChecklist(document.getElementById('ob-out'),obItems(r),'ob:'+r,obCount);obCount();}
+function obCount(){var r=document.getElementById('rolesel').value,items=obItems(r),st=load('ob:'+r);
+ var d=items.filter(function(i){return st['ob:'+r+'::'+i.s];}).length;
+ document.getElementById('ob-count').textContent=d+' of '+items.length+' complete';
+ document.getElementById('ob-bar').style.width=(items.length?d/items.length*100:0)+'%';}
+
+var MGR_STEPS=[
+ {s:"List every account where their phone is the 2FA device",o:"Nehal + them, together",ph:-1,n:"Screen-share their authenticator app. Only reliable way to find them all."},
+ {s:"Transfer Meta Business Manager admin + 2FA",o:"Gabriel",ph:-1,n:"Locked out here means losing client ad accounts. Meta recovery takes weeks."},
+ {s:"Transfer Google Ads admin",o:"Gabriel",ph:-1,n:""},
+ {s:"Transfer Mercury role + remove their 2FA device",o:"Nehal",ph:-1,n:"Bank access. Same session as the conversation, not later."},
+ {s:"Reassign Workspace super-admin if they hold it",o:"Nehal",ph:-1,n:"Never leave the org with one super-admin."},
+ {s:"Collect recovery codes for shared accounts they set up",o:"Rafael / Fabian",ph:-1,n:"Store where the next person can find them."},
+ {s:"Replace their phone/email as account recovery method",o:"Nehal",ph:-1,n:"Recovery contact is a back door that survives a password change."},
+ {s:"Transfer ownership of automations they built",o:"Fabian",ph:-1,n:"Zapier and Make scenarios die silently when the owner's account goes."},
+ {s:"Reassign client relationships in writing",o:"Nehal",ph:-1,n:"Tell the client before they find out from an auto-reply."}];
+
+function offItems(r,mgr){
+ var out=[];
+ if(mgr)MGR_STEPS.forEach(function(s){out.push({s:s.s,o:s.o,ph:s.ph,n:s.n,t:0});});
+ out.push({s:"Client-facing Slack channels",o:"Daniela",t:2,ph:0,n:"First. A departed contractor in a client channel is the worst discovery."});
+ (ROLES[r]||[]).filter(function(x){return x.t>=2;}).forEach(function(x){
+  out.push({s:x.s,o:x.o,t:x.t,ph:0,n:x.t===3?"Rafael rotates the shared password — covers every tool under it.":"Revoke individually."});});
+ out.push({s:"Transfer Google Drive ownership",o:"Nehal (admin)",t:1,ph:1,n:"BEFORE suspending. Deleting destroys everything they made."});
+ out.push({s:"Transfer calendar ownership",o:"Danna",t:1,ph:1,n:"Recurring meetings they created die with the account."});
+ out.push({s:"Suspend Google Workspace account",o:"Nehal (admin)",t:1,ph:1,n:"Suspend, don't delete."});
+ out.push({s:"Deactivate Slack",o:"Nehal / Danna",t:2,ph:1,n:"Deactivate preserves history."});
+ out.push({s:"Reclaim named seats",o:"Danna",t:2,ph:2,n:"Adobe and Zoom are the ones that cost real money."});
+ out.push({s:"Remove from Mercury payee list",o:"Danna",t:2,ph:2,n:"Stops a scheduled payment going out on autopilot."});
+ out.push({s:"Confirm final balance settled",o:"Danna",t:0,ph:2,n:"Final invoice in, agreement terminated in writing."});
+ out.push({s:"Written handover of anything undocumented",o:"Their lead",t:0,ph:2,n:"The Bruno lesson: the knowledge was the loss, not the seat."});
+ return out;}
+function offRender(){var r=document.getElementById('offsel').value,mgr=document.getElementById('mgr-tog').checked;
+ document.getElementById('mgr-note').style.display=mgr?'block':'none';
+ renderChecklist(document.getElementById('off-out'),offItems(r,mgr),'off:'+r+(mgr?':mgr':''));}
+
+function tbl(el,cols,rows){
+ el.innerHTML='<thead><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>'
+  +rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('')+'</tbody>';}
+
+var LIVE=null;
+function drawRoster(){
+ var rows=Object.keys(ROLE_MAP).map(function(h){
+  var v=ROLE_MAP[h],st='<span class="pill p-green">Active</span>';
+  if(LIVE&&LIVE.indexOf(h)===-1)st='<span class="pill p-amber">Not in Slack</span>';
+  return ['<b>'+esc(v[0])+'</b>','<code>@'+esc(h)+'</code>',esc(v[1]),
+   v[2]?'<span class="pill p-purple">Manager · 2FA</span>':'<span class="tiny">Standard</span>',st];});
+ DEPARTED.forEach(function(d){rows.push(['<b>'+esc(d.n)+'</b>','<code>@'+esc(d.h)+'</code>',esc(d.r),
+  '<span class="tiny">Standard</span>','<span class="pill p-red">Departed '+esc(d.d)+'</span>']);});
+ tbl(document.getElementById('roster'),['Person','Slack','Role','Exit path','Status'],rows);}
+
+function syncRoster(){
+ var st=document.getElementById('r-status'),btn=document.getElementById('r-sync');
+ btn.disabled=true;st.textContent='Pulling #general…';
+ window.cowork.callMcpTool("mcp__467fba77-3fcb-47d1-b778-8c63d0fd1a99__slack_list_channel_members",
+  {channel_id:"C02JK3CAU",response_format:"concise",limit:30})
+ .then(function(r){
+  if(r.isError)throw new Error("Slack returned an error");
+  var raw=r.structuredContent||JSON.parse(r.content[0].text);
+  var text=typeof raw==="string"?raw:(raw.members||JSON.stringify(raw));
+  var handles=(String(text).match(/@[A-Za-z0-9._-]+/g)||[]).map(function(m){return m.slice(1);});
+  LIVE=handles;
+  var unknown=handles.filter(function(h){return !(h in ROLE_MAP);});
+  var missing=Object.keys(ROLE_MAP).filter(function(h){return handles.indexOf(h)===-1;});
+  var d='';
+  if(unknown.length)d+='<div class="amber-box"><b>In Slack but not on the roster ('+unknown.length+'):</b> '
+   +unknown.map(function(h){return '<code>@'+esc(h)+'</code>';}).join(', ')+'. Assign a role or confirm external.</div>';
+  if(missing.length)d+='<div class="warn"><b>On the roster but not in #general ('+missing.length+'):</b> '
+   +missing.map(function(h){return '<code>@'+esc(h)+'</code>';}).join(', ')+'. Departed, or never added.</div>';
+  if(!d)d='<div class="note">Slack and the roster agree — no drift.</div>';
+  document.getElementById('r-drift').innerHTML=d;
+  st.innerHTML='<span class="pill p-green">Synced</span> '+handles.length+' members in #general';
+  drawRoster();btn.disabled=false;})
+ .catch(function(e){st.innerHTML='<span class="pill p-red">Sync failed</span> <span class="tiny">'+esc(e.message||e)+'</span>';btn.disabled=false;});}
+
+function intakeBody(name,role,start){
+ var first=(name||"there").trim().split(/\s+/)[0];
+ return "Hi "+first+",\n\nReally glad you're joining us"+(role?" as "+role:"")+(start?", starting "+start:"")+".\n\n"
+  +"Before your first day I need a few details so we can get your contract issued and make sure your first "
+  +"payment goes out on time. Most of our team invoices through their own company, and the one thing that "
+  +"trips up payments is a mismatch between the name on the contract and the name on the bank account — so "
+  +"please be exact.\n\nCould you send back:\n\n"
+  +"1. Full legal name, exactly as it appears on your ID\n"
+  +"2. Whether you'll invoice as an individual or through a company\n"
+  +"3. If through a company: registered entity name, registration number and country\n"
+  +"4. Tax ID / tax residency country\n"
+  +"5. Bank details — account holder name (must match the above), account and routing numbers or "
+  +"IBAN/SWIFT, bank name and country\n"
+  +"6. Your full mailing address\n"
+  +"7. Preferred invoicing cadence, and the email your invoices will come from\n"
+  +"8. A personal email address so I can send your Ad Pros account details\n\n"
+  +"Once I have these I'll send the contract and NDA for signature, and your Ad Pros email and tool access "
+  +"will be ready before day one.\n\nAny questions, just reply here.\n\nBest,\nDanna\nAd Pros";}
+function intakeSubject(){return "Welcome to Ad Pros — contract and payment details needed";}
+
+function makeDraft(){
+ var name=document.getElementById('i-name').value.trim();
+ var email=document.getElementById('i-email').value.trim();
+ var st=document.getElementById('i-status');
+ if(!name||!email){st.innerHTML='<span class="pill p-amber">Name and email are required</span>';return;}
+ var btn=document.getElementById('i-go');btn.disabled=true;st.textContent='Creating draft…';
+ window.cowork.callMcpTool("mcp__2459d002-3713-48ba-a290-bd1c218d3587__create_draft",
+  {to:[email],subject:intakeSubject(),
+   body:intakeBody(name,document.getElementById('i-role').value,document.getElementById('i-start').value)})
+ .then(function(r){
+  if(r.isError)throw new Error("Gmail returned an error");
+  st.innerHTML='<span class="pill p-green">Draft created</span> <span class="tiny">In Gmail drafts, addressed to '+esc(email)+'.</span>';
+  btn.disabled=false;})
+ .catch(function(e){st.innerHTML='<span class="pill p-red">Failed</span> <span class="tiny">'+esc(e.message||e)+'</span>';btn.disabled=false;});}
+
+function showPreview(){
+ document.getElementById('i-preview-body').textContent="Subject: "+intakeSubject()+"\n\n"
+  +intakeBody(document.getElementById('i-name').value,document.getElementById('i-role').value,
+              document.getElementById('i-start').value);
+ document.getElementById('i-preview').style.display='block';}
+
+function init(){
+ Object.keys(ROLES).forEach(function(r){
+  ['rolesel','offsel','i-role'].forEach(function(id){
+   document.getElementById(id).insertAdjacentHTML('beforeend','<option>'+r+'</option>');});});
+ document.getElementById('offsel').value="AI Production";
+
+ document.getElementById('rolesel').addEventListener('change',obRender);
+ document.getElementById('offsel').addEventListener('change',offRender);
+ document.getElementById('mgr-tog').addEventListener('change',offRender);
+ document.getElementById('ob-reset').addEventListener('click',function(){
+  save('ob:'+document.getElementById('rolesel').value,{});obRender();});
+ document.getElementById('off-reset').addEventListener('click',function(){
+  save('off:'+document.getElementById('offsel').value+(document.getElementById('mgr-tog').checked?':mgr':''),{});offRender();});
+ obRender();offRender();
+
+ document.getElementById('i-prev').addEventListener('click',showPreview);
+ if(HAS_COWORK){
+  document.getElementById('i-go').addEventListener('click',makeDraft);
+  document.getElementById('r-sync').addEventListener('click',syncRoster);
+ }else{
+  var g=document.getElementById('i-go');g.disabled=true;g.textContent="Create Gmail draft — Cowork only";
+  document.getElementById('i-status').innerHTML='<span class="tiny">Drafting straight into Gmail runs through Cowork. Here, use <b>Show email text</b> and paste it into a new message.</span>';
+  showPreview();
+  document.getElementById('sync-row').innerHTML='<div class="tiny">Live Slack sync runs in Cowork. This page shows the roster as last published — ask Claude to refresh it.</div>';
+ }
+
+ drawRoster();
+ document.getElementById('laidoff').textContent=LAID_OFF.join(" · ");
+
+ tbl(document.getElementById('creds'),['Tool under creatives@','Category','Notes'],
+  CREDS.map(function(c){return ['<b>'+esc(c.s)+'</b>','<span class="tiny">'+esc(c.c)+'</span>','<span class="tiny">'+esc(c.n)+'</span>'];}));
+
+ var cats=[];TOOLS.forEach(function(t){if(cats.indexOf(t[2])===-1)cats.push(t[2]);});cats.sort();
+ var cs=document.getElementById('catsel');
+ cats.forEach(function(c){cs.insertAdjacentHTML('beforeend','<option>'+c+'</option>');});
+ document.getElementById('s-total').textContent=money(TOOLS.reduce(function(a,t){return a+t[3];},0));
+ document.getElementById('s-count').textContent=TOOLS.filter(function(t){return t[0]===2;}).length;
+ document.getElementById('s-dropped').textContent=DROPPED.length;
+ document.getElementById('dropped-list').textContent=DROPPED.join(" · ");
+
+ function drawTools(){
+  var tf=document.getElementById('tiersel').value,cf=cs.value;
+  var rows=TOOLS.filter(function(t){return (tf==='all'||String(t[0])===tf)&&(cf==='all'||t[2]===cf);})
+   .sort(function(a,b){return b[3]-a[3];});
+  tbl(document.getElementById('tools'),['Tier','Tool','Category','Per month','Notes'],
+   rows.map(function(t){return [tierPill(t[0]),'<b>'+esc(t[1])+'</b>','<span class="tiny">'+esc(t[2])+'</span>',
+    '<span class="money">'+money(t[3])+'</span>','<span class="tiny">'+esc(t[4])+'</span>'];}));}
+ document.getElementById('tiersel').addEventListener('change',drawTools);
+ cs.addEventListener('change',drawTools);drawTools();
+
+ document.getElementById('tabs').addEventListener('click',function(e){
+  var b=e.target.closest('.tab');if(!b)return;
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){t.classList.toggle('on',t===b);});
+  Array.prototype.forEach.call(document.querySelectorAll('.panel'),function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.p);});});
+}
+init();
+</script>
+</body>
+</html>
