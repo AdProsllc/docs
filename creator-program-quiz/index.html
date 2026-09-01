@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Block search engines per-bot. NEVER use a blanket robots tag — that
-       blocks ClaudeBot/Claude-User/Claude-SearchBot, which we WANT so the
-       team can paste docs.adpros.com URLs into Claude chat. -->
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="bingbot" content="noindex, nofollow">
   <meta name="slurp" content="noindex, nofollow">
@@ -14,15 +11,6 @@
   <meta name="yandex" content="noindex, nofollow">
   <meta name="author" content="Nehal">
   <title>Creator Program Quiz &mdash; Ad Pros</title>
-  <!-- Favicon: SVG (modern), Apple touch icon (iOS), and theme color (mobile
-       browser chrome). favicon.svg lives at the docs repo root; Step 7
-       guarantees it's present before push. Never remove these tags — the
-       AdPros mark in the tab is non-negotiable brand. -->
-  <!-- Same favicon files served at the root of docs.adpros.com — these are
-       the actual PNGs used by www.adpros.com, so the docs tab and the main
-       site tab show the exact same mark. Do not swap to /favicon.svg; the
-       SVG version of our logo has tighter letter-bounds padding than the
-       main-site PNG and renders visually larger in the browser tab. -->
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="alternate icon" href="/favicon.svg">
@@ -35,7 +23,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      /* Color tokens */
       --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
       --yellow: #F9D900; --yellow-dim: #DFC200;
       --blue: #1A6FD4; --blue-light: #3BA9F9;
@@ -44,225 +31,90 @@
       --card-border: #0e1358; --card-border-strong: #1a2375;
       --success: #0F973D; --error: #D42620;
       --radius: 10px;
-      /* Spacing scale (4px base) */
-      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
-      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
-      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
     }
     html { scroll-behavior: smooth; }
-    /* Power Grotesk preferred (if installed locally), Inter is the loaded fallback */
     body {
-      background: var(--navy); color: var(--grey-200);
-      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
-      font-size: 15px; line-height: 1.6; min-height: 100vh;
-      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      background: var(--navy); color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
     }
-    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
-
-    /* === TYPE SCALE === */
-    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
-    .ap-display em { font-style: normal; color: var(--yellow); }
-    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
-    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
-    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
-    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
-    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
-    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
-    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
-    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
-    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
-    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
-    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
-    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
-
-    /* === HEADER === */
-    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
-    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
-    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
-
-    /* === LAYOUT === */
-    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
-    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
-    .ap-section:first-of-type { border-top: none; }
-    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
-    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
-    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
-    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
-    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
-    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
-
-    /* === CARDS === */
-    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
-    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
-
-    /* === STAT === */
-    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
-    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
-    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
-
-    /* === VALUE / NUMBERED ROW === */
-    .ap-value { display: grid; grid-template-columns: 72px 1fr; gap: 20px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
-    .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
-    .ap-value-body { padding: 20px 24px; }
-    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-    .ap-value-body p  { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
-
-    /* === BUTTONS === */
-    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
+    .ap-shell { max-width: 720px; margin: 0 auto; padding: 28px 20px 90px; }
+    .ap-head { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+    .ap-head .nm { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; }
+    .ap-bar { height: 3px; background: var(--card-border); border-radius: 3px; overflow: hidden; margin-bottom: 42px; }
+    .ap-bar i { display: block; height: 100%; width: 0; background: var(--yellow); transition: width .35s cubic-bezier(.4,0,.2,1); }
+    h1 { font-size: 40px; line-height: 1.1; font-weight: 800; letter-spacing: -1px; margin-bottom: 18px; }
+    h2 { font-size: 27px; line-height: 1.25; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 26px; }
+    h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.2px; }
+    p { color: var(--grey-200); margin-bottom: 18px; max-width: 62ch; }
+    p.lede { font-size: 18.5px; color: var(--grey-100); }
+    .opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .opt {
+      display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+      background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius);
+      color: var(--white); font: inherit; font-size: 16px; padding: 16px 18px; cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .opt:hover { background: var(--navy-card-hover); border-color: var(--card-border-strong); }
+    .opt:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+    .opt b {
+      flex: none; width: 24px; height: 24px; border: 1px solid var(--grey-400); border-radius: 50%;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+      color: var(--grey-300); display: grid; place-items: center;
+    }
+    .opt.sel { border-color: var(--yellow); background: var(--navy-card-hover); }
+    .opt.sel b { border-color: var(--yellow); background: var(--yellow); color: var(--navy); }
+    .nav { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--yellow); color: var(--navy); border: 0; border-radius: var(--radius);
+      font: inherit; font-weight: 700; font-size: 16px; padding: 15px 30px; cursor: pointer;
+      transition: background .15s;
+    }
     .btn-primary:hover { background: var(--yellow-dim); }
-    .btn-secondary { background: var(--navy); color: var(--yellow); border: 1.5px solid var(--yellow); padding: 10.5px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; transition: background .15s, color .15s; }
-    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
-    .btn-ghost { background: transparent; color: #fff; border: 1px solid var(--card-border-strong); padding: 10.5px 22px; border-radius: 8px; font-weight: 500; font-size: 14px; font-family: inherit; cursor: pointer; transition: border-color .15s; }
-    .btn-ghost:hover { border-color: var(--grey-300); }
-
-    /* === FORM FIELDS === */
-    .ap-input-label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
-    .ap-input { width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 14px; font-family: inherit; outline: none; transition: border-color .15s; }
-    .ap-input:focus { border-color: var(--blue); }
-    .ap-input.error { border-color: var(--error); }
-    .ap-input.success { border-color: var(--success); }
-
-    /* === TOASTS === */
-    .toast { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 3px solid; }
-    .toast-success { background: rgba(15,151,61,0.1);  border-color: var(--success); color: #b6f2ce; }
-    .toast-error   { background: rgba(212,38,32,0.1);  border-color: var(--error);   color: #ffbdbb; }
-    .toast-warn    { background: rgba(249,217,0,0.08); border-color: var(--yellow);  color: #ffe57d; }
-    .toast-info    { background: rgba(26,111,212,0.1); border-color: var(--blue);    color: #b1d5ff; }
-
-    /* === CALLOUT === */
-    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
-    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
-
-    /* === LINKS === */
-    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
-    a:hover { color: var(--yellow); }
-
-    /* === FOOTER === */
-    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
-    .ap-footer p { font-size: 12px; color: var(--grey-300); }
-    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
-
-    /* === CLIENT SIDEBAR (collapsible left rail — only rendered on client pages) === */
-    .ap-sidebar {
-      position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
-      background: var(--navy-deep); border-right: 1px solid var(--card-border);
-      z-index: 100; display: flex; flex-direction: column;
-      transform: translateX(0); transition: transform .25s ease;
-      overflow-y: auto;
+    .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-ghost {
+      background: transparent; color: var(--grey-200); border: 1px solid var(--card-border-strong);
+      border-radius: var(--radius); font: inherit; font-size: 16px; padding: 15px 26px; cursor: pointer;
     }
-    .ap-sidebar.collapsed { transform: translateX(-100%); }
-    .ap-sidebar-header {
-      padding: 24px 20px 16px;
-      display: flex; align-items: center; gap: 12px;
-      border-bottom: 1px solid var(--card-border);
+    .btn-ghost:hover { color: var(--white); }
+    .err { color: var(--error); font-size: 14px; margin: -16px 0 20px; }
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: 14px; padding: 24px; margin-bottom: 22px; }
+    .verdict { border-left: 4px solid var(--yellow); }
+    .verdict.alt { border-left-color: var(--blue-light); }
+    .verdict.no { border-left-color: var(--error); }
+    .ap-kicker { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .5px; color: var(--grey-300); margin-bottom: 8px; }
+    label { display: block; font-size: 13.5px; color: var(--grey-300); margin-bottom: 6px; }
+    .row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+    .f { flex: 1 1 190px; }
+    input {
+      width: 100%; background: var(--navy-deep); border: 1px solid var(--card-border-strong);
+      border-radius: 8px; color: var(--white); font: inherit; font-size: 16px; padding: 12px 14px;
+      font-variant-numeric: tabular-nums;
     }
-    .ap-sidebar-brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
-    .ap-sidebar-brand-text { min-width: 0; }
-    .ap-sidebar-brand-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; line-height: 1.2; }
-    .ap-sidebar-brand-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
-    .ap-sidebar-section {
-      padding: 18px 20px 8px;
-      font-size: 11px; font-weight: 600; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.8px;
-    }
-    .ap-sidebar-list { padding: 0 12px 20px; display: grid; gap: 4px; }
-    .ap-sidebar-item {
-      display: block; padding: 12px 14px; border-radius: 8px;
-      color: var(--grey-100); text-decoration: none;
-      transition: background .12s;
-      border-left: 2px solid transparent;
-    }
-    .ap-sidebar-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
-    .ap-sidebar-item.current { background: rgba(249,217,0,0.08); border-left-color: var(--yellow); padding-left: 12px; }
-    .ap-sidebar-item-title { font-size: 14px; font-weight: 500; line-height: 1.3; color: #fff; }
-    .ap-sidebar-item.current .ap-sidebar-item-title { color: var(--yellow); }
-    .ap-sidebar-item-date { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
-
-    /* Chevron toggle — visible in BOTH states. Sits at the sidebar's right
-       edge when open, slides to viewport left edge when closed. Chevron flips
-       180° based on body state class. */
-    .ap-sidebar-toggle {
-      /* top: 170px sits well below the 108px-tall page header so the toggle
-         has clear vertical separation from the AdPros logo when the sidebar
-         is closed. Slim 22px width keeps it unobtrusive. */
-      position: fixed; top: 170px; left: 280px; z-index: 101;
-      width: 22px; height: 56px; padding: 0;
-      background: var(--navy-card); color: var(--grey-200);
-      border: 1.5px solid rgba(249,217,0,0.4);
-      border-left: none;
-      border-radius: 0 10px 10px 0;
-      display: inline-flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: left .25s ease, background .15s, color .15s, border-color .15s, box-shadow .15s;
-    }
-    .ap-sidebar-toggle:hover { background: var(--yellow); color: var(--navy); border-color: var(--yellow); box-shadow: 4px 0 0 0 rgba(249,217,0,0.15); }
-    .ap-sidebar-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease; }
-    body:not(.ap-has-sidebar) .ap-sidebar-toggle { left: 0; }
-    body:not(.ap-has-sidebar) .ap-sidebar-toggle svg { transform: rotate(180deg); }
-
-    /* When sidebar is open on desktop, push the rest of the page right. */
-    body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
-
-    /* Mobile: sidebar overlays instead of pushing content; backdrop dims behind it. */
-    @media (max-width: 900px) {
-      body.ap-has-sidebar { padding-left: 0; }
-      .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); }
-      body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); }
-    }
-
-    /* === FLOATING TOC (auto-builds on viewport ≥1280px when 4+ .ap-section[id] elements exist) === */
-    .ap-toc {
-      position: fixed; top: 130px; right: 32px; z-index: 50;
-      width: 200px; max-height: calc(100vh - 180px); overflow-y: auto;
-      padding: 4px 0 4px 18px;
-      border-left: 1px solid var(--card-border);
-      display: none;
-    }
-    .ap-toc.visible { display: block; }
-    .ap-toc-label {
-      font-size: 11px; font-weight: 600; color: var(--grey-300);
-      text-transform: uppercase; letter-spacing: 0.8px;
-      margin-bottom: 10px;
-    }
-    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
-    .ap-toc-item {
-      display: block; padding: 7px 0 7px 16px;
-      font-size: 12.5px; line-height: 1.35;
-      color: var(--grey-300); text-decoration: none;
-      border-left: 2px solid transparent;
-      margin-left: -20px;
-      transition: color .15s, border-color .15s;
-    }
-    .ap-toc-item:hover { color: #fff; }
-    .ap-toc-item.active {
-      color: var(--yellow);
-      border-left-color: var(--yellow);
-      font-weight: 500;
-    }
-    /* When TOC is rendered, body gets right-padding to make room for it (only at ≥1280px). */
-    @media (min-width: 1280px) {
-      body.ap-has-toc { padding-right: 232px; transition: padding-right .25s ease; }
-    }
-    @media (max-width: 1279px) {
-      .ap-toc { display: none !important; }
-    }
-
-    @media (max-width: 640px) {
-      /* Bump side padding from 20px to 28px so content has breathing room
-         on phones — text isn't flush against the viewport edge. */
-      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
-      .ap-footer { margin-left: 28px; margin-right: 28px; }
-      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
-    }
+    input:focus { outline: none; border-color: var(--yellow); }
+    .out { border-top: 1px solid var(--card-border); padding-top: 18px; }
+    .line { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--card-border); font-size: 15.5px; }
+    .line:last-of-type { border-bottom: 0; }
+    .line span { color: var(--grey-200); }
+    .line strong { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .ap-stat { font-size: 34px; font-weight: 800; letter-spacing: -1px; color: var(--yellow); font-variant-numeric: tabular-nums; display: block; margin-top: 4px; }
+    .mags { list-style: none; }
+    .mags li { padding: 14px 0; border-bottom: 1px solid var(--card-border); }
+    .mags li:last-child { border-bottom: 0; }
+    .mags b { display: block; font-weight: 600; font-size: 16px; }
+    .mags em { font-style: normal; color: var(--grey-300); font-size: 14.5px; }
+    .screen { display: none; }
+    .screen.on { display: block; }
+    .foot-note { color: var(--grey-300); font-size: 14px; margin-top: 30px; }
+    footer { border-top: 1px solid var(--card-border); margin-top: 60px; padding-top: 22px; color: var(--grey-400); font-size: 13px; }
+    @media (max-width: 560px) { h1 { font-size: 30px; } h2 { font-size: 22px; } .ap-shell { padding: 20px 16px 60px; } }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
 </head>
 <body>
-  
-  <header class="ap-header">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+<div class="ap-shell" id="ap-content">
+
+  <div class="ap-head"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="40" height="40">
   <rect width="81" height="81" fill="#040735"/>
   <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
   <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
@@ -271,228 +123,279 @@
   <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
   <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
   <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
-</svg>
-    <div class="ap-header-divider"></div>
-    <div class="ap-header-text">
-      <h1>Creator Program Quiz</h1>
-      <p>Lead-gen funnel for the Creator Performance Network</p>
+</svg><div class="nm">Ad Pros</div></div>
+  <div class="ap-bar"><i id="bar"></i></div>
+
+  <section class="screen on" id="intro">
+    <h1>Should you launch a creator program for your brand?</h1>
+    <p class="lede">Ten questions. Two minutes. You'll get the one creator model that fits your business right now, plus the math on what it takes to hit your number.</p>
+    <p>Most brands pick the wrong model. They hire influencers when what they needed was ad creative, or build an affiliate program with no audience to affiliate to. The model should follow the constraint, not the trend.</p>
+    <div class="nav"><button class="btn-primary" id="start">Start the quiz</button></div>
+  </section>
+
+  <section class="screen" id="quiz">
+    <h2 id="qtext"></h2>
+    <div class="opts" id="opts"></div>
+    <div class="err" id="err" hidden>Pick an answer to continue.</div>
+    <div class="nav">
+      <button class="btn-primary" id="next">Continue</button>
+      <button class="btn-ghost" id="back">Back</button>
     </div>
-  </header>
-  <div class="ap-content">
-    
-<style>
-  .q-bar { height: 3px; background: var(--card-border-strong); border-radius: 3px; overflow: hidden; margin-bottom: var(--space-10); }
-  .q-bar i { display: block; height: 100%; width: 0; background: var(--yellow); transition: width .35s cubic-bezier(.4,0,.2,1); }
-  .q-screen { display: none; }
-  .q-screen.on { display: block; }
-  .q-opts { display: flex; flex-direction: column; gap: 9px; margin: 0 0 var(--space-6); max-width: 620px; }
-  .q-opt { display: flex; align-items: center; gap: 13px; width: 100%; text-align: left;
-    background: rgba(255,255,255,0.02); border: 1px solid var(--card-border-strong); border-radius: var(--radius);
-    color: #fff; font-family: inherit; font-size: 15px; padding: 15px 17px; cursor: pointer;
-    transition: border-color .15s, background .15s; }
-  .q-opt:hover { border-color: var(--yellow-dim); background: rgba(249,217,0,0.04); }
-  .q-opt:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
-  .q-opt b { flex: none; width: 22px; height: 22px; border: 1px solid var(--card-border-strong); border-radius: 50%;
-    font-size: 11px; font-weight: 600; color: var(--grey-300); display: grid; place-items: center; font-family: "JetBrains Mono", monospace; }
-  .q-opt.sel { border-color: var(--yellow); background: rgba(249,217,0,0.08); }
-  .q-opt.sel b { border-color: var(--yellow); background: var(--yellow); color: var(--navy); }
-  .q-nav { display: flex; align-items: center; gap: 12px; }
-  .q-err { color: var(--error); font-size: 13.5px; margin: -8px 0 var(--space-5); }
-  .q-verdict { border-left: 3px solid var(--yellow); }
-  .q-verdict.alt { border-left-color: var(--blue-light); }
-  .q-verdict.no { border-left-color: var(--error); }
-  .q-field label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; }
-  .q-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: var(--space-5); }
-  .q-field { flex: 1 1 190px; }
-  .q-line { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--card-border); font-size: 15px; }
-  .q-line:last-child { border-bottom: 0; }
-  .q-line span { color: var(--grey-200); }
-  .q-line strong { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .q-hero { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; color: var(--yellow); font-variant-numeric: tabular-nums; display: block; margin-top: 4px; }
-  .q-mags { list-style: none; }
-  .q-mags li { padding: 13px 0; border-bottom: 1px solid var(--card-border); }
-  .q-mags li:last-child { border-bottom: 0; }
-  .q-mags b { display: block; color: #fff; font-weight: 600; font-size: 15px; }
-  .q-mags em { font-style: normal; color: var(--grey-300); font-size: 13.5px; }
-</style>
+  </section>
 
-<div class="q-bar"><i id="qbar"></i></div>
-
-<section class="q-screen on" id="q-intro">
-  <div class="ap-kicker">Creator Performance Network</div>
-  <h1 class="ap-h1" style="margin-bottom:var(--space-5)">Should you launch a creator program for your brand?</h1>
-  <p class="ap-p-lg" style="max-width:640px;margin-bottom:var(--space-5)">Ten questions. Two minutes. At the end you get the one creator model that fits your business right now, plus the math on what it would actually take to hit your number.</p>
-  <p class="ap-p" style="max-width:640px;margin-bottom:var(--space-8)">Most brands pick the wrong model. They hire influencers when they needed ad creative, or build an affiliate program with no audience to affiliate to. The model follows the constraint, not the trend.</p>
-  <div class="q-nav"><button class="btn-primary" id="q-start">Start the quiz</button></div>
-</section>
-
-<section class="q-screen" id="q-quiz">
-  <h2 class="ap-h2" id="q-text" style="margin-bottom:var(--space-6);max-width:640px"></h2>
-  <div class="q-opts" id="q-opts"></div>
-  <div class="q-err" id="q-err" hidden>Pick an answer to continue.</div>
-  <div class="q-nav">
-    <button class="btn-primary" id="q-next">Continue</button>
-    <button class="btn-ghost" id="q-back">Back</button>
-  </div>
-</section>
-
-<section class="q-screen" id="q-result">
-  <div class="ap-card q-verdict" id="q-vcard" style="margin-bottom:var(--space-6)">
-    <div class="ap-section-label" id="q-kicker"></div>
-    <h2 class="ap-h3" id="q-title" style="margin-bottom:var(--space-4)"></h2>
-    <p class="ap-p" id="q-body" style="max-width:660px"></p>
-  </div>
-
-  <div class="ap-card" id="q-calc" style="margin-bottom:var(--space-6)">
-    <h3 class="ap-h4" style="margin-bottom:var(--space-2)">What your number actually requires</h3>
-    <p class="ap-p-sm" style="margin-bottom:var(--space-5)">Built from your answers. Change either field to re-run it.</p>
-    <div class="q-row">
-      <div class="q-field"><label for="q-spend">Monthly Meta ad spend</label>
-        <input class="ap-input" id="q-spend" type="number" min="0" step="1000" inputmode="numeric"></div>
-      <div class="q-field"><label for="q-target">Target added revenue / month</label>
-        <input class="ap-input" id="q-target" type="number" min="0" step="10000" inputmode="numeric"></div>
+  <section class="screen" id="result">
+    <div class="ap-card verdict" id="verdict">
+      <div class="ap-kicker" id="rkicker">Your result</div>
+      <h2 id="rtitle" style="margin-bottom:14px"></h2>
+      <p id="rbody" style="margin-bottom:0"></p>
     </div>
-    <div class="q-err" id="q-calcerr" hidden>Enter a number above zero.</div>
-    <div id="q-out" style="border-top:1px solid var(--card-border);padding-top:var(--space-4)"></div>
-    <p class="ap-caption" style="margin-top:var(--space-5)">Assumes $5K attributed revenue per winning video, a 20% win rate, a 95% recording rate, and 1.5x ROAS. Your real numbers will differ &mdash; that&rsquo;s what the call is for.</p>
-  </div>
 
-  <div class="ap-card" style="margin-bottom:var(--space-6)">
-    <h3 class="ap-h4" id="q-magtitle" style="margin-bottom:var(--space-2)"></h3>
-    <p class="ap-p-sm" id="q-magintro" style="margin-bottom:var(--space-3)"></p>
-    <ul class="q-mags" id="q-mags"></ul>
-    <div class="q-nav" style="margin-top:var(--space-5)"><button class="btn-primary" id="q-getmag">Send me the playbook</button></div>
-  </div>
-
-  <div class="ap-card" id="q-book" style="margin-bottom:var(--space-6)">
-    <h3 class="ap-h4" style="margin-bottom:var(--space-2)">Want us to run it?</h3>
-    <p class="ap-p-sm" style="margin-bottom:var(--space-5)">Watch the 12-minute breakdown of how the Creator Performance Network works, then book a call if the math holds up for your brand.</p>
-    <div class="q-nav">
-      <button class="btn-primary" id="q-watch">Watch the training</button>
-      <button class="btn-ghost" id="q-restart">Retake the quiz</button>
+    <div class="ap-card" id="calcCard">
+      <h3>What your number actually requires</h3>
+      <p style="font-size:15px;margin-bottom:22px">Built from your answers. Change either field to re-run it.</p>
+      <div class="row">
+        <div class="f">
+          <label for="spend">Monthly Meta ad spend</label>
+          <input id="spend" type="number" min="0" step="1000" inputmode="numeric">
+        </div>
+        <div class="f">
+          <label for="target">Target added revenue / month</label>
+          <input id="target" type="number" min="0" step="10000" inputmode="numeric">
+        </div>
+      </div>
+      <div class="err" id="calcErr" hidden>Enter a number above zero.</div>
+      <div class="out" id="out"></div>
+      <p style="font-size:13.5px;color:var(--grey-400);margin:20px 0 0">Assumes $5K attributed revenue per winning video, a 20% win rate, a 95% recording rate, and 1.5x ROAS. Your real numbers will differ. That's what the call is for.</p>
     </div>
-  </div>
 
-  <p class="ap-caption" id="q-foot"></p>
-</section>
-<script>var QDATA=[{"k": "cat", "q": "What do you sell?", "a": [["Health &amp; wellness", "wellness"], ["Beauty &amp; skincare", "beauty"], ["Supplements", "supps"], ["Apparel &amp; accessories", "apparel"], ["Food &amp; beverage", "food"], ["Home &amp; furniture", "home"], ["Something else", "other"]]}, {"k": "bottleneck", "q": "What&rsquo;s your biggest creative bottleneck right now?", "a": [["We can&rsquo;t produce enough new ads to test", "volume"], ["Ads work, then fatigue within weeks", "fatigue"], ["Creative is too slow and too expensive", "cost"], ["We don&rsquo;t really run ads", "noads"]]}, {"k": "want", "q": "What do you want most from creators?", "a": [["Lower cost per acquisition on paid", "cac"], ["Organic reach without ad spend", "organic"], ["Brand credibility and name recognition", "brand"], ["Sales from creators posting on commission", "commission"]]}, {"k": "history", "q": "Have you worked with creators before?", "a": [["Never", "never"], ["Some one-off gifting", "gifting"], ["We&rsquo;ve paid a few directly", "paid"], ["We run a program today", "program"]]}, {"k": "owner", "q": "Who would own this internally?", "a": [["Me", "me"], ["Someone on my team", "team"], ["Nobody yet", "nobody"], ["We&rsquo;d want it fully managed", "managed"]]}, {"k": "rev", "q": "What&rsquo;s your monthly revenue?", "a": [["Under $50K", "0"], ["$50K &ndash; $250K", "150000"], ["$250K &ndash; $1M", "600000"], ["$1M &ndash; $5M", "3000000"], ["$5M+", "7000000"]]}, {"k": "spend", "q": "How much are you spending on Meta ads per month?", "a": [["Nothing yet", "0"], ["Under $10K", "5000"], ["$10K &ndash; $50K", "30000"], ["$50K &ndash; $250K", "150000"], ["$250K+", "350000"]]}, {"k": "goal", "q": "How much additional monthly revenue do you want this program to generate?", "a": [["$30K", "30000"], ["$100K", "100000"], ["$500K", "500000"], ["$1M", "1000000"], ["$2M+", "2000000"]]}, {"k": "budget", "q": "What monthly budget could you commit to it?", "a": [["$0 right now", "0"], ["$5K", "5000"], ["$10K", "10000"], ["$20K", "20000"], ["$50K", "50000"], ["$100K+", "100000"]]}, {"k": "when", "q": "When do you want your first creator ad live?", "a": [["This month", "now"], ["Within 90 days", "90"], ["Just exploring", "explore"]]}],QRES={"cpn": {"cls": "", "kicker": "Your result", "title": "Content creators &mdash; creators who make ads, not posts", "body": "You&rsquo;re already buying media, and your constraint is creative supply, not audience. The right move is a roster of creators producing ad-native video you own and run as paid, where the winners get scaled with budget instead of hoping a post travels. Follower count is irrelevant here. Output volume and win rate are everything.", "magTitle": "Your free playbook", "magIntro": "The four things you need before you can put a single creator ad live.", "mags": [["The Creator Ad Math Guide", "How videos become winners become spend, with the calculator built in"], ["50 Creator Outreach Templates", "The messages that get replies, by platform"], ["The Creator Agreement Template", "Usage rights, whitelisting, exclusivity, payment terms"], ["Creative Brief + Feedback Loop", "How one winner becomes ten variants"]]}, "affiliate": {"cls": "alt", "kicker": "Your result", "title": "Affiliate creators &mdash; pay for performance, not for posts", "body": "You&rsquo;re not spending enough on paid yet for a creative-supply program to pay for itself. Affiliate is the right entry point: creators post organically, you pay a commission on tracked sales, and your downside is capped at zero. It builds the content library and the relationships you&rsquo;ll need later, so when you do have ad budget you already know which creators convert.", "magTitle": "Your free playbook", "magIntro": "How to stand up an affiliate program creators actually want to join.", "mags": [["Commission Structures That Convert Creators", "What rates work by category, and when to add a flat fee"], ["Affiliate Tracking Setup Guide", "Links, codes, and attribution without a six-figure platform"], ["50 Creator Outreach Templates", "The messages that get replies, by platform"]]}, "influencer": {"cls": "alt", "kicker": "Your result", "title": "Influencer / ambassador program &mdash; buying credibility", "body": "You said the thing you want most is recognition and trust, not a lower CPA. That&rsquo;s a different program with different economics: fewer creators, larger fees, longer terms, and success measured in brand lift and search volume rather than tracked revenue. It works, but go in knowing it&rsquo;s a brand investment on a longer payback, not a performance channel.", "magTitle": "Your free playbook", "magIntro": "How to spend on influence without lighting money on fire.", "mags": [["The Vetting Checklist", "How to spot bought followers and dead engagement in 90 seconds"], ["The Gifting-to-Paid Ladder", "How to test a creator cheaply before you sign a term"], ["Ambassador Agreement Essentials", "Exclusivity, deliverables, and renewal triggers"]]}, "nofit": {"cls": "no", "kicker": "Straight answer", "title": "Not yet &mdash; and paying someone to run it would be the wrong spend", "body": "Based on what you told us, a managed creator program wouldn&rsquo;t pay for itself right now. That&rsquo;s not a soft no to creators, it&rsquo;s a no to outsourcing them. At your stage the version that works is you or one person doing it manually: ten outreaches a day, gifted product, and whatever content comes back. Come back when you&rsquo;re consistently spending on paid and the bottleneck is volume rather than budget.", "magTitle": "What to do instead", "magIntro": "Everything below is free and built for exactly this stage.", "mags": [["The Pre-$50K Creator Playbook", "How to run this yourself with no budget and no team"], ["50 Creator Outreach Templates", "The messages that get replies, by platform"], ["The Creator Agreement Template", "So your first deal is documented properly"]]}};</script>
+    <div class="ap-card">
+      <h3 id="magTitle">Your free playbook</h3>
+      <p style="font-size:15px" id="magIntro"></p>
+      <ul class="mags" id="mags"></ul>
+      <div class="nav" style="margin-top:22px">
+        <button class="btn-primary" id="getMag">Send me the playbook</button>
+      </div>
+    </div>
+
+    <div class="ap-card" id="bookCard">
+      <h3>Want us to run it?</h3>
+      <p style="font-size:15px">Watch the 12-minute breakdown of how the Creator Performance Network works, then book a call if the math holds up for your brand.</p>
+      <div class="nav">
+        <button class="btn-primary" id="book">Watch the training</button>
+        <button class="btn-ghost" id="restart">Retake the quiz</button>
+      </div>
+    </div>
+
+    <p class="foot-note" id="foot"></p>
+  </section>
+
+  <footer>Published by Nehal &middot; September 1, 2026 &middot; Ad Pros &mdash; Internal Use</footer>
+</div>
+
 <script>
-(function(){
-  var i=0, ans={}, sel=null;
-  function $(id){ return document.getElementById(id); }
-  function show(id){
-    ['q-intro','q-quiz','q-result'].forEach(function(s){ $(s).classList.toggle('on', s===id); });
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-  function render(){
-    var q=QDATA[i];
-    $('q-text').innerHTML=q.q;
-    $('q-err').hidden=true;
-    $('q-opts').innerHTML='';
-    sel = (ans[q.k]!==undefined) ? ans[q.k] : null;
-    q.a.forEach(function(o,n){
-      var b=document.createElement('button');
-      b.type='button';
-      b.className='q-opt'+(sel===o[1]?' sel':'');
-      var tag=document.createElement('b'); tag.textContent=String.fromCharCode(65+n);
-      var sp=document.createElement('span'); sp.innerHTML=o[0];
-      b.appendChild(tag); b.appendChild(sp);
-      b.onclick=function(){
-        sel=o[1]; ans[q.k]=o[1]; $('q-err').hidden=true;
-        Array.prototype.forEach.call($('q-opts').children,function(c){c.classList.remove('sel');});
-        b.classList.add('sel');
-      };
-      $('q-opts').appendChild(b);
-    });
-    $('q-back').style.display = i===0 ? 'none' : '';
-    $('q-next').textContent = i===QDATA.length-1 ? 'See my result' : 'Continue';
-    $('qbar').style.width = (i/QDATA.length*100)+'%';
-  }
-  function route(){
-    var rev=+ans.rev, spend=+ans.spend, budget=+ans.budget;
-    if(rev<50000 || budget===0 || ans.when==='explore') return ['nofit',1];
-    if(ans.want==='brand') return ['influencer',2];
-    if(spend>=10000 && (ans.want==='cac' || ['volume','fatigue','cost'].indexOf(ans.bottleneck)>-1)) return ['cpn',3];
-    if(spend<10000 && (ans.want==='organic' || ans.want==='commission')) return ['affiliate',4];
-    return [spend>=10000?'cpn':'affiliate',5];
-  }
-  function money(n){
-    if(n>=1000000) return '$'+(Math.round(n/100000)/10)+'M';
-    if(n>=1000) return '$'+Math.round(n/1000)+'K';
-    return '$'+Math.round(n);
-  }
-  function num(n){ return Math.round(n).toLocaleString('en-US'); }
-  function calc(){
-    var t=+$('q-target').value, s=+$('q-spend').value;
-    if(!(t>0)){ $('q-calcerr').hidden=false; $('q-out').innerHTML=''; return; }
-    $('q-calcerr').hidden=true;
-    var winners=t/5000, creators=winners/0.20, outreach=creators/0.20/0.95;
-    var newSpend=t/1.5, fee=Math.max(5000,t*0.05);
-    $('q-out').innerHTML=
-      '<div class="q-line"><span>Winning videos you need each month</span><strong>'+num(winners)+'</strong></div>'+
-      '<div class="q-line"><span>Creators in production to get them</span><strong>'+num(creators)+'</strong></div>'+
-      '<div class="q-line"><span>Outreaches per month to sustain that</span><strong>'+num(outreach)+'</strong></div>'+
-      '<div class="q-line"><span>Ad spend required at 1.5x ROAS</span><strong>'+money(newSpend)+'</strong></div>'+
-      '<div class="q-line"><span>Which takes you from '+money(s)+' to</span><strong>'+money(s+newSpend)+'/mo</strong></div>'+
-      '<div style="margin-top:16px"><span class="ap-p-sm">Managed cost &mdash; greater of $5K or 5% of attributed revenue</span>'+
-      '<span class="q-hero">'+money(fee)+'/mo</span></div>';
-  }
-  function finish(){
-    var r0=route(), key=r0[0], r=QRES[key];
-    $('qbar').style.width='100%';
-    $('q-vcard').className='ap-card q-verdict '+r.cls;
-    $('q-kicker').textContent=r.kicker;
-    $('q-title').innerHTML=r.title;
-    $('q-body').innerHTML=r.body;
-    $('q-magtitle').textContent=r.magTitle;
-    $('q-magintro').textContent=r.magIntro;
-    $('q-mags').innerHTML='';
-    r.mags.forEach(function(m){
-      var li=document.createElement('li');
-      var b=document.createElement('b'); b.textContent=m[0];
-      var e=document.createElement('em'); e.textContent=m[1];
-      li.appendChild(b); li.appendChild(e); $('q-mags').appendChild(li);
-    });
-    $('q-spend').value=ans.spend; $('q-target').value=ans.goal;
-    $('q-calc').style.display = key==='influencer' ? 'none' : '';
-    $('q-book').style.display = key==='nofit' ? 'none' : '';
-    var gap=(+ans.goal)/1.5 > (+ans.budget)*12;
-    $('q-foot').textContent = key==='nofit'
-      ? 'No call, no pitch. When your ad spend crosses $10K a month, come back and retake this.'
-      : (gap ? 'Heads up: your target and your budget are describing two different businesses. That gap is the first thing we would work through on the call.'
-             : 'Every number above is an assumption until it meets your account data.');
-    if(key!=='influencer') calc();
-    show('q-result');
-  }
-  $('q-start').onclick=function(){ i=0; show('q-quiz'); render(); };
-  $('q-back').onclick=function(){ if(i>0){ i--; render(); } };
-  $('q-next').onclick=function(){
-    if(sel===null){ $('q-err').hidden=false; return; }
-    if(i<QDATA.length-1){ i++; render(); } else { finish(); }
-  };
-  $('q-restart').onclick=function(){ ans={}; i=0; sel=null; $('qbar').style.width='0'; show('q-intro'); };
-  $('q-spend').oninput=calc; $('q-target').oninput=calc;
-  $('q-getmag').onclick=function(){ this.textContent='Check your inbox'; this.disabled=true; };
-  $('q-watch').onclick=function(){ this.textContent='Opening the training\u2026'; };
-})();
-</script>
+var Q = [
+  { k:'cat', q:"What do you sell?",
+    a:[["Health & wellness"],["Beauty & skincare"],["Supplements"],["Apparel & accessories"],["Food & beverage"],["Home & furniture"],["Something else"]] },
+  { k:'bottleneck', q:"What's your biggest creative bottleneck right now?",
+    a:[["We can't produce enough new ads to test","volume"],["Ads work, then fatigue within weeks","fatigue"],["Creative is too slow and too expensive","cost"],["We don't really run ads","noads"]] },
+  { k:'want', q:"What do you want most from creators?",
+    a:[["Lower cost per acquisition on paid","cac"],["Organic reach without ad spend","organic"],["Brand credibility and name recognition","brand"],["Sales from creators posting on commission","commission"]] },
+  { k:'history', q:"Have you worked with creators before?",
+    a:[["Never","never"],["Some one-off gifting","gifting"],["We've paid a few directly","paid"],["We run a program today","program"]] },
+  { k:'owner', q:"Who would own this internally?",
+    a:[["Me","me"],["Someone on my team","team"],["Nobody yet","nobody"],["We'd want it fully managed","managed"]] },
+  { k:'rev', q:"What's your monthly revenue?",
+    a:[["Under $50K","0"],["$50K \u2013 $250K","150000"],["$250K \u2013 $1M","600000"],["$1M \u2013 $5M","3000000"],["$5M+","7000000"]] },
+  { k:'spend', q:"How much are you spending on Meta ads per month?",
+    a:[["Nothing yet","0"],["Under $10K","5000"],["$10K \u2013 $50K","30000"],["$50K \u2013 $250K","150000"],["$250K+","350000"]] },
+  { k:'goal', q:"How much additional monthly revenue do you want this program to generate?",
+    a:[["$30K","30000"],["$100K","100000"],["$500K","500000"],["$1M","1000000"],["$2M+","2000000"]] },
+  { k:'budget', q:"What monthly budget could you commit to it?",
+    a:[["$0 right now","0"],["$5K","5000"],["$10K","10000"],["$20K","20000"],["$50K","50000"],["$100K+","100000"]] },
+  { k:'when', q:"When do you want your first creator ad live?",
+    a:[["This month","now"],["Within 90 days","90"],["Just exploring","explore"]] }
+];
 
-  </div>
-  <footer class="ap-footer">
-    <div class="ap-footer-left">
-      <svg style="opacity:0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36">
-  <rect width="81" height="81" fill="#040735"/>
-  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
-  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
-  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
-  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
-  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
-  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
-  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
-</svg>
-      <p>Ad Pros &mdash; Internal Use</p>
-    </div>
-    <p class="ap-footer-meta">Published by Nehal &middot; September 1, 2026</p>
-  </footer>
+var i = 0, ans = {}, sel = null;
+var $ = function(id){ return document.getElementById(id); };
+
+function show(id){
+  ['intro','quiz','result'].forEach(function(s){ $(s).classList.toggle('on', s === id); });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function render(){
+  var q = Q[i];
+  $('qtext').textContent = q.q;
+  $('err').hidden = true;
+  $('opts').innerHTML = '';
+  sel = ans[q.k] !== undefined ? ans[q.k] : null;
+  q.a.forEach(function(o, n){
+    var val = o[1] !== undefined ? o[1] : o[0];
+    var b = document.createElement('button');
+    b.className = 'opt' + (sel === val ? ' sel' : '');
+    b.type = 'button';
+    var mark = document.createElement('b'); mark.textContent = String.fromCharCode(65 + n);
+    var lab = document.createElement('span'); lab.textContent = o[0];
+    b.appendChild(mark); b.appendChild(lab);
+    b.onclick = function(){
+      sel = val; ans[q.k] = val; $('err').hidden = true;
+      [].forEach.call($('opts').children, function(c){ c.classList.remove('sel'); });
+      b.classList.add('sel');
+    };
+    $('opts').appendChild(b);
+  });
+  $('back').style.display = i === 0 ? 'none' : '';
+  $('next').textContent = i === Q.length - 1 ? 'See my result' : 'Continue';
+  $('bar').style.width = (i / Q.length * 100) + '%';
+}
+
+$('start').onclick = function(){ i = 0; show('quiz'); render(); };
+$('back').onclick = function(){ if (i > 0) { i--; render(); } };
+$('next').onclick = function(){
+  if (sel === null) { $('err').hidden = false; return; }
+  if (i < Q.length - 1) { i++; render(); }
+  else { $('bar').style.width = '100%'; finish(); }
+};
+$('restart').onclick = function(){ ans = {}; i = 0; show('intro'); $('bar').style.width = '0'; };
+
+function route(){
+  var rev = +ans.rev, spend = +ans.spend, budget = +ans.budget;
+  if (rev < 50000 || budget === 0 || ans.when === 'explore') return 'nofit';
+  if (ans.want === 'brand') return 'influencer';
+  if (spend >= 10000 && (ans.want === 'cac' || ['volume','fatigue','cost'].indexOf(ans.bottleneck) > -1)) return 'cpn';
+  if (spend < 10000 && (ans.want === 'organic' || ans.want === 'commission')) return 'affiliate';
+  return spend >= 10000 ? 'cpn' : 'affiliate';
+}
+
+var R = {
+  cpn: {
+    cls:'', kicker:'Your result',
+    title:'Content creators \u2014 creators who make ads, not posts',
+    body:"You're already buying media, and your constraint is creative supply, not audience. The right move is a roster of creators producing ad-native video you own and run as paid, where winners get scaled with budget instead of hoping a post takes off. Follower count is irrelevant here. Output volume and win rate are everything.",
+    magTitle:'Your free playbook',
+    magIntro:'The four things you need before a single creator ad goes live.',
+    mags:[
+      ['The Creator Ad Math Guide','How videos become winners become spend, with the calculator built in'],
+      ['50 Creator Outreach Templates','The messages that get replies, by platform'],
+      ['The Creator Agreement Template','Usage rights, whitelisting, exclusivity, payment terms'],
+      ['Creative Brief + Feedback Loop','How one winner becomes ten variants']
+    ]
+  },
+  affiliate: {
+    cls:'alt', kicker:'Your result',
+    title:'Affiliate creators \u2014 pay for performance, not for posts',
+    body:"You're not spending enough on paid yet for a creative-supply program to pay for itself. Affiliate is the right entry point: creators post organically, you pay commission on tracked sales, and your downside is capped at zero. It builds the content library and the relationships you'll need later. When you do have ad budget, you'll already know which creators convert.",
+    magTitle:'Your free playbook',
+    magIntro:'How to stand up an affiliate program creators actually want to join.',
+    mags:[
+      ['Commission Structures That Convert Creators','What rates work by category, and when to add a flat fee'],
+      ['Affiliate Tracking Setup Guide','Links, codes, and attribution without a six-figure platform'],
+      ['50 Creator Outreach Templates','The messages that get replies, by platform']
+    ]
+  },
+  influencer: {
+    cls:'alt', kicker:'Your result',
+    title:'Influencer / ambassador program \u2014 buying credibility',
+    body:"You said the thing you want most is recognition and trust, not a lower CPA. That's a different program with different economics: fewer creators, larger fees, longer terms, and success measured in brand lift and search volume rather than tracked revenue. It works, but go in knowing it's a brand investment on a longer payback, not a performance channel.",
+    magTitle:'Your free playbook',
+    magIntro:'How to spend on influence without wasting the budget.',
+    mags:[
+      ['The Vetting Checklist','How to spot bought followers and dead engagement in 90 seconds'],
+      ['The Gifting-to-Paid Ladder','How to test a creator cheaply before signing a term'],
+      ['Ambassador Agreement Essentials','Exclusivity, deliverables, renewal triggers']
+    ]
+  },
+  nofit: {
+    cls:'no', kicker:'Straight answer',
+    title:'Not yet \u2014 and paying someone to run it would be the wrong spend',
+    body:"Based on what you told us, a managed creator program wouldn't pay for itself right now. That's not a no to creators. It's a no to outsourcing them. At your stage the version that works is you or one person doing it manually: ten outreaches a day, gifted product, and whatever content comes back. Come back when you're consistently spending on paid and the bottleneck is volume rather than budget.",
+    magTitle:'What to do instead',
+    magIntro:'Everything below is free and built for exactly this stage.',
+    mags:[
+      ['The Pre-$50K Creator Playbook','How to run this yourself with no budget and no team'],
+      ['50 Creator Outreach Templates','The messages that get replies, by platform'],
+      ['The Creator Agreement Template','So your first deal is documented properly']
+    ]
+  }
+};
+
+var money = function(n){
+  if (n >= 1000000) return '$' + (Math.round(n / 100000) / 10) + 'M';
+  if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+  return '$' + Math.round(n);
+};
+var num = function(n){ return Math.round(n).toLocaleString('en-US'); };
+
+function calc(){
+  var t = +$('target').value, s = +$('spend').value;
+  if (!(t > 0)) { $('calcErr').hidden = false; $('out').textContent = ''; return; }
+  $('calcErr').hidden = true;
+  var winners = t / 5000;
+  var creators = winners / 0.20;
+  var outreach = creators / 0.20 / 0.95;
+  var newSpend = t / 1.5;
+  var fee = Math.max(5000, t * 0.05);
+  var rows = [
+    ['Winning videos you need each month', num(winners)],
+    ['Creators in production to get them', num(creators)],
+    ['Outreaches per month to sustain that', num(outreach)],
+    ['Ad spend required at 1.5x ROAS', money(newSpend)],
+    ['Which takes you from ' + money(s) + ' to', money(s + newSpend) + '/mo']
+  ];
+  var o = $('out');
+  o.textContent = '';
+  rows.forEach(function(r){
+    var d = document.createElement('div'); d.className = 'line';
+    var a = document.createElement('span'); a.textContent = r[0];
+    var b = document.createElement('strong'); b.textContent = r[1];
+    d.appendChild(a); d.appendChild(b); o.appendChild(d);
+  });
+  var wrap = document.createElement('div');
+  wrap.style.marginTop = '20px';
+  var lab = document.createElement('span');
+  lab.style.cssText = 'color:var(--grey-200);font-size:14.5px';
+  lab.textContent = 'Managed cost \u2014 greater of $5K or 5% of attributed revenue';
+  var big = document.createElement('span');
+  big.className = 'ap-stat';
+  big.textContent = money(fee) + '/mo';
+  wrap.appendChild(lab); wrap.appendChild(big); o.appendChild(wrap);
+}
+
+function finish(){
+  var key = route(), r = R[key];
+  $('verdict').className = 'ap-card verdict ' + r.cls;
+  $('rkicker').textContent = r.kicker;
+  $('rtitle').textContent = r.title;
+  $('rbody').textContent = r.body;
+  $('magTitle').textContent = r.magTitle;
+  $('magIntro').textContent = r.magIntro;
+  $('mags').textContent = '';
+  r.mags.forEach(function(m){
+    var li = document.createElement('li');
+    var b = document.createElement('b'); b.textContent = m[0];
+    var e = document.createElement('em'); e.textContent = m[1];
+    li.appendChild(b); li.appendChild(e); $('mags').appendChild(li);
+  });
+
+  $('spend').value = ans.spend;
+  $('target').value = ans.goal;
+
+  var gap = (+ans.goal) / 1.5 > (+ans.budget) * 12;
+  $('calcCard').style.display = key === 'influencer' ? 'none' : '';
+  $('bookCard').style.display = key === 'nofit' ? 'none' : '';
+  $('foot').textContent = key === 'nofit'
+    ? 'No call, no pitch. When your ad spend crosses $10K a month, come back and retake this.'
+    : (gap ? 'Heads up: your target and your budget are describing two different businesses. That gap is the first thing to work through on the call.'
+           : 'Every number above is an assumption until it meets your account data.');
+
+  if (key !== 'influencer') calc();
+  show('result');
+}
+
+$('spend').oninput = calc;
+$('target').oninput = calc;
+$('getMag').onclick = function(){ this.textContent = 'Check your inbox'; this.disabled = true; };
+$('book').onclick = function(){ this.textContent = 'Opening the training\u2026'; };
+</script>
 </body>
 </html>
