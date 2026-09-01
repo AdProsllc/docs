@@ -136,9 +136,7 @@
   <section class="screen" id="quiz">
     <h2 id="qtext"></h2>
     <div class="opts" id="opts"></div>
-    <div class="err" id="err" hidden>Pick an answer to continue.</div>
     <div class="nav">
-      <button class="btn-primary" id="next">Continue</button>
       <button class="btn-ghost" id="back">Back</button>
     </div>
   </section>
@@ -216,7 +214,7 @@ var Q = [
     a:[["This month","now"],["Within 90 days","90"],["Just exploring","explore"]] }
 ];
 
-var i = 0, ans = {}, sel = null;
+var i = 0, ans = {}, sel = null, locked = false;
 var $ = function(id){ return document.getElementById(id); };
 
 function show(id){
@@ -226,7 +224,6 @@ function show(id){
 function render(){
   var q = Q[i];
   $('qtext').textContent = q.q;
-  $('err').hidden = true;
   $('opts').innerHTML = '';
   sel = ans[q.k] !== undefined ? ans[q.k] : null;
   q.a.forEach(function(o, n){
@@ -238,24 +235,26 @@ function render(){
     var lab = document.createElement('span'); lab.textContent = o[0];
     b.appendChild(mark); b.appendChild(lab);
     b.onclick = function(){
-      sel = val; ans[q.k] = val; $('err').hidden = true;
+      if (locked) return;
+      locked = true;
+      sel = val; ans[q.k] = val;
       [].forEach.call($('opts').children, function(c){ c.classList.remove('sel'); });
       b.classList.add('sel');
+      setTimeout(advance, 170);
     };
     $('opts').appendChild(b);
   });
   $('back').style.display = i === 0 ? 'none' : '';
-  $('next').textContent = i === Q.length - 1 ? 'See my result' : 'Continue';
   $('bar').style.width = (i / Q.length * 100) + '%';
+  locked = false;
 }
 
-$('start').onclick = function(){ i = 0; show('quiz'); render(); };
-$('back').onclick = function(){ if (i > 0) { i--; render(); } };
-$('next').onclick = function(){
-  if (sel === null) { $('err').hidden = false; return; }
+function advance(){
   if (i < Q.length - 1) { i++; render(); }
   else { $('bar').style.width = '100%'; finish(); }
-};
+}
+$('start').onclick = function(){ i = 0; show('quiz'); render(); };
+$('back').onclick = function(){ if (i > 0) { i--; render(); } };
 $('restart').onclick = function(){ ans = {}; i = 0; show('intro'); $('bar').style.width = '0'; };
 
 function route(){
