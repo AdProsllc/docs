@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Block search engines per-bot. NEVER use a blanket robots tag — that
+       blocks ClaudeBot/Claude-User/Claude-SearchBot, which we WANT so the
+       team can paste docs.adpros.com URLs into Claude chat. -->
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal">
+  <title>Direct Response Story Arcs — Ad Pros</title>
+  <!-- Favicon: SVG (modern), Apple touch icon (iOS), and theme color (mobile
+       browser chrome). favicon.svg lives at the docs repo root; Step 7
+       guarantees it's present before push. Never remove these tags — the
+       AdPros mark in the tab is non-negotiable brand. -->
+  <!-- Same favicon files served at the root of docs.adpros.com — these are
+       the actual PNGs used by www.adpros.com, so the docs tab and the main
+       site tab show the exact same mark. Do not swap to /favicon.svg; the
+       SVG version of our logo has tighter letter-bounds padding than the
+       main-site PNG and renders visually larger in the browser tab. -->
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      /* Color tokens */
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      /* Spacing scale (4px base) */
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    /* Power Grotesk preferred (if installed locally), Inter is the loaded fallback */
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    /* === TYPE SCALE === */
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    /* === HEADER === */
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    /* === LAYOUT === */
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; }
+    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
+
+    /* === CARDS === */
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
+
+    /* === STAT === */
+    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
+    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
+    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    /* === VALUE / NUMBERED ROW === */
+    .ap-value { display: grid; grid-template-columns: 72px 1fr; gap: 20px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+    .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .ap-value-body { padding: 20px 24px; }
+    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .ap-value-body p  { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+
+    /* === BUTTONS === */
+    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
+    .btn-primary:hover { background: var(--yellow-dim); }
+    .btn-secondary { background: var(--navy); color: var(--yellow); border: 1.5px solid var(--yellow); padding: 10.5px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; transition: background .15s, color .15s; }
+    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid var(--card-border-strong); padding: 10.5px 22px; border-radius: 8px; font-weight: 500; font-size: 14px; font-family: inherit; cursor: pointer; transition: border-color .15s; }
+    .btn-ghost:hover { border-color: var(--grey-300); }
+
+    /* === FORM FIELDS === */
+    .ap-input-label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .ap-input { width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 14px; font-family: inherit; outline: none; transition: border-color .15s; }
+    .ap-input:focus { border-color: var(--blue); }
+    .ap-input.error { border-color: var(--error); }
+    .ap-input.success { border-color: var(--success); }
+
+    /* === TOASTS === */
+    .toast { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 3px solid; }
+    .toast-success { background: rgba(15,151,61,0.1);  border-color: var(--success); color: #b6f2ce; }
+    .toast-error   { background: rgba(212,38,32,0.1);  border-color: var(--error);   color: #ffbdbb; }
+    .toast-warn    { background: rgba(249,217,0,0.08); border-color: var(--yellow);  color: #ffe57d; }
+    .toast-info    { background: rgba(26,111,212,0.1); border-color: var(--blue);    color: #b1d5ff; }
+
+    /* === CALLOUT === */
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+
+    /* === LINKS === */
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    /* === FOOTER === */
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    /* === CLIENT SIDEBAR (collapsible left rail — only rendered on client pages) === */
+    .ap-sidebar {
+      position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
+      background: var(--navy-deep); border-right: 1px solid var(--card-border);
+      z-index: 100; display: flex; flex-direction: column;
+      transform: translateX(0); transition: transform .25s ease;
+      overflow-y: auto;
+    }
+    .ap-sidebar.collapsed { transform: translateX(-100%); }
+    .ap-sidebar-header {
+      padding: 24px 20px 16px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ap-sidebar-brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .ap-sidebar-brand-text { min-width: 0; }
+    .ap-sidebar-brand-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; line-height: 1.2; }
+    .ap-sidebar-brand-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .ap-sidebar-section {
+      padding: 18px 20px 8px;
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .ap-sidebar-list { padding: 0 12px 20px; display: grid; gap: 4px; }
+    .ap-sidebar-item {
+      display: block; padding: 12px 14px; border-radius: 8px;
+      color: var(--grey-100); text-decoration: none;
+      transition: background .12s;
+      border-left: 2px solid transparent;
+    }
+    .ap-sidebar-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .ap-sidebar-item.current { background: rgba(249,217,0,0.08); border-left-color: var(--yellow); padding-left: 12px; }
+    .ap-sidebar-item-title { font-size: 14px; font-weight: 500; line-height: 1.3; color: #fff; }
+    .ap-sidebar-item.current .ap-sidebar-item-title { color: var(--yellow); }
+    .ap-sidebar-item-date { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+
+    /* Chevron toggle — visible in BOTH states. Sits at the sidebar's right
+       edge when open, slides to viewport left edge when closed. Chevron flips
+       180° based on body state class. */
+    .ap-sidebar-toggle {
+      /* top: 170px sits well below the 108px-tall page header so the toggle
+         has clear vertical separation from the AdPros logo when the sidebar
+         is closed. Slim 22px width keeps it unobtrusive. */
+      position: fixed; top: 170px; left: 280px; z-index: 101;
+      width: 22px; height: 56px; padding: 0;
+      background: var(--navy-card); color: var(--grey-200);
+      border: 1.5px solid rgba(249,217,0,0.4);
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: left .25s ease, background .15s, color .15s, border-color .15s, box-shadow .15s;
+    }
+    .ap-sidebar-toggle:hover { background: var(--yellow); color: var(--navy); border-color: var(--yellow); box-shadow: 4px 0 0 0 rgba(249,217,0,0.15); }
+    .ap-sidebar-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle { left: 0; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle svg { transform: rotate(180deg); }
+
+    /* When sidebar is open on desktop, push the rest of the page right. */
+    body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
+
+    /* Mobile: sidebar overlays instead of pushing content; backdrop dims behind it. */
+    @media (max-width: 900px) {
+      body.ap-has-sidebar { padding-left: 0; }
+      .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); }
+      body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); }
+    }
+
+    /* === FLOATING TOC (auto-builds on viewport ≥1280px when 4+ .ap-section[id] elements exist) === */
+    .ap-toc {
+      position: fixed; top: 130px; right: 32px; z-index: 50;
+      width: 200px; max-height: calc(100vh - 180px); overflow-y: auto;
+      padding: 4px 0 4px 18px;
+      border-left: 1px solid var(--card-border);
+      display: none;
+    }
+    .ap-toc.visible { display: block; }
+    .ap-toc-label {
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
+    .ap-toc-item {
+      display: block; padding: 7px 0 7px 16px;
+      font-size: 12.5px; line-height: 1.35;
+      color: var(--grey-300); text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -20px;
+      transition: color .15s, border-color .15s;
+    }
+    .ap-toc-item:hover { color: #fff; }
+    .ap-toc-item.active {
+      color: var(--yellow);
+      border-left-color: var(--yellow);
+      font-weight: 500;
+    }
+    /* When TOC is rendered, body gets right-padding to make room for it (only at ≥1280px). */
+    @media (min-width: 1280px) {
+      body.ap-has-toc { padding-right: 232px; transition: padding-right .25s ease; }
+    }
+    @media (max-width: 1279px) {
+      .ap-toc { display: none !important; }
+    }
+
+    @media (max-width: 640px) {
+      /* Bump side padding from 20px to 28px so content has breathing room
+         on phones — text isn't flush against the viewport edge. */
+      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
+      .ap-footer { margin-left: 28px; margin-right: 28px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+    }
+    /* === Story-arc board (page-specific) === */
+    .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px;font-size:13px;color:var(--grey-300)}
+    .legend span{display:inline-flex;align-items:center;gap:8px}
+    .sw{width:22px;height:14px;border:1px solid var(--card-border-strong);background:var(--navy-card);display:inline-block;border-radius:3px}
+    .sw.e{background:rgba(249,217,0,0.10);border-left:3px solid var(--yellow)}
+    .sw.o{border-style:dashed;background:transparent}
+    .tabs{display:flex;margin:28px 0 0;border-bottom:1px solid var(--card-border)}
+    .tab{font:inherit;font-size:14px;color:var(--grey-300);background:transparent;border:0;border-bottom:2px solid transparent;padding:10px 16px;margin-bottom:-1px;cursor:pointer;min-height:40px}
+    .tab[aria-selected="true"]{color:var(--yellow);border-bottom-color:var(--yellow);font-weight:600}
+    .tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+    [hidden]{display:none !important}
+    .ap-section .sub{font-size:14px;color:var(--grey-300);margin:6px 0 20px;max-width:80ch}
+    .hint{display:none}
+    .board{display:flex;gap:14px;overflow-x:auto;padding-bottom:22px;align-items:flex-start;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--card-border-strong) transparent}
+    .arc{flex:0 0 250px;display:flex;flex-direction:column;gap:4px;scroll-snap-align:start}
+    .arc header{padding:0 0 10px;border-bottom:2px solid var(--yellow);margin-bottom:6px;min-height:124px;display:flex;flex-direction:column}
+    .arc h3{font-size:16px;font-weight:600;line-height:1.25;color:#fff;margin:0 0 2px}
+    .arc .lin{font-size:12px;color:var(--grey-300);margin:0 0 6px}
+    .arc .fit{font-size:13px;color:var(--grey-200);margin:0}
+    .arc .count{font-size:12px;color:var(--grey-300);margin-top:auto;padding-top:6px}
+    .sc{background:var(--navy-card);border:1px solid var(--card-border);border-left:3px solid var(--card-border-strong);padding:9px 11px 10px;font-size:13px;border-radius:6px}
+    .sc b{display:block;font-weight:600;font-size:13.5px;margin-bottom:2px;color:#fff}
+    .sc span{color:var(--grey-200);line-height:1.4;display:block}
+    .sc.e{background:rgba(249,217,0,0.08);border-left-color:var(--yellow)}
+    .sc.opt{border-style:dashed;background:transparent}
+    .sc.opt b::after{content:" (optional)";font-weight:400;color:var(--grey-300)}
+    .listview .ap-section{padding-bottom:8px}
+    .listview .arcs{display:flex;flex-direction:column;gap:28px;max-width:760px}
+    .listview .arc{flex:none;width:100%}
+    .listview .arc header{min-height:0;display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:end}
+    .listview .arc h3{grid-column:1;font-size:18px}
+    .listview .arc .lin,.listview .arc .fit{grid-column:1}
+    .listview .arc .count{grid-column:2;grid-row:1/4;margin:0;align-self:start;white-space:nowrap}
+    .listview .sc{display:grid;grid-template-columns:210px 1fr;gap:0 14px;align-items:baseline}
+    .listview .sc b{margin:0}
+    .notes-table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
+    .notes-table th,.notes-table td{text-align:left;padding:10px 14px 10px 0;border-bottom:1px solid var(--card-border);vertical-align:top;color:var(--grey-200)}
+    .notes-table th{font-weight:600;color:#fff}
+    #how-to-use p{max-width:75ch;color:var(--grey-200);margin-bottom:12px}
+    @media (max-width:640px){
+      .arc{flex-basis:78vw;max-width:320px}
+      .arc header{min-height:0}
+      .sc{padding:11px 12px;font-size:14px}.sc b{font-size:14.5px}
+      .board{gap:10px;margin-right:-28px;padding-right:28px;scroll-snap-type:x mandatory}
+      .hint{display:block;font-size:12px;color:var(--grey-300);margin:-8px 0 12px}
+      .listview .sc{grid-template-columns:1fr}
+      .listview .arc header{grid-template-columns:1fr}
+      .listview .arc .count{grid-column:1;grid-row:auto;margin-top:4px}
+      .notes-table,.notes-table tr,.notes-table th,.notes-table td{display:block;width:100%}
+      .notes-table tr{padding:10px 0;border-bottom:1px solid var(--card-border)}
+      .notes-table th,.notes-table td{border:0;padding:2px 0}
+      .notes-table th{color:var(--grey-300);font-size:13px}
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="ap-toc" id="ap-toc" aria-label="On this page">
+  <div class="ap-toc-label">On this page</div>
+  <ol class="ap-toc-list" id="ap-toc-list"></ol>
+</nav>
+<script>
+(function(){
+  var toc = document.getElementById('ap-toc');
+  var list = document.getElementById('ap-toc-list');
+  if(!toc || !list) return;
+
+  // Auto-discover sections — any .ap-section with an id attribute.
+  // Override the auto-detected label by setting data-toc-title on the section.
+  var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
+
+  // Hide TOC entirely if there aren't enough sections to justify navigation.
+  if(sections.length < 4) return;
+
+  sections.forEach(function(sec){
+    var label = sec.getAttribute('data-toc-title')
+      || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.className = 'ap-toc-item';
+    a.href = '#' + sec.id;
+    a.textContent = label;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
+  toc.classList.add('visible');
+  document.body.classList.add('ap-has-toc');
+
+  // Smooth-scroll on click, with an 80px header offset.
+  list.addEventListener('click', function(ev){
+    var a = ev.target.closest('.ap-toc-item');
+    if(!a) return;
+    ev.preventDefault();
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + id);
+  });
+
+  // Scrollspy — highlight the section whose top is closest to the activation band.
+  var items = Array.from(list.querySelectorAll('.ap-toc-item'));
+  function setActive(id){
+    items.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+  var observer = new IntersectionObserver(function(entries){
+    var visible = entries.filter(function(e){ return e.isIntersecting; })
+                         .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
+    if(visible.length > 0) setActive(visible[0].target.id);
+  }, { rootMargin: '-100px 0px -70% 0px' });
+  sections.forEach(function(s){ observer.observe(s); });
+
+  // Set initial active state on load (highest visible section, or first one).
+  var initialActive = sections.find(function(s){
+    var r = s.getBoundingClientRect();
+    return r.top < window.innerHeight * 0.3 && r.bottom > 0;
+  });
+  if(initialActive) setActive(initialActive.id);
+})();
+</script>
+  <header class="ap-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Direct Response Story Arcs</h1>
+      <p>20 arcs, 3 to 11 scenes each, for the story arc → story block → scene system</p>
+    </div>
+  </header>
+  <div class="ap-content">
+    
+<div class="ap-section" id="overview" style="padding-top:0;border-top:0">
+  <p class="ap-p-lg" style="max-width:68ch">Each column is one arc, read top to bottom. Scene counts differ on purpose: a 3-beat formula and a 10-beat VSL are different tools, not the same tool at two lengths. Time and percentage allocations are left out; they belong in the teardown of a specific ad, not in the arc library.</p>
+  <p class="ap-p" style="max-width:68ch;margin-top:12px">Scene = the unit that becomes a row in the Story block → Story theme → Transcript → Visual theme grid.</p>
+  <div class="legend">
+    <span><i class="sw"></i> Scene</span>
+    <span><i class="sw e"></i> Where the product first appears</span>
+    <span><i class="sw o"></i> Optional scene</span>
+  </div>
+  <div class="tabs" role="tablist" aria-label="View">
+    <button class="tab" role="tab" id="tab-board" aria-selected="true" aria-controls="view-board">Side by side</button>
+    <button class="tab" role="tab" id="tab-list" aria-selected="false" aria-controls="view-list">List</button>
+  </div>
+</div>
+<div id="view-board" role="tabpanel" aria-labelledby="tab-board">
+<section class="ap-section" id="compact-formulas">
+  <h2 class="ap-h3">Compact formulas</h2>
+  <p class="sub">Three to six beats. The scaffolds most short and mid-length DR ads are actually built on. Product arrives early because there is no belief to shift first.</p>
+  <span class="hint">Swipe sideways to see more arcs</span>
+  <div class="board">
+
+    <div class="arc">
+      <header><h3>Problem → Agitate → Solve</h3><p class="lin">PAS (Dan Kennedy lineage)</p><p class="fit">Problem-aware, cold traffic, any duration</p><p class="count">3 scenes</p></header>
+      <div class="sc"><b>Problem</b><span>Name the specific pain in the viewer's words</span></div>
+      <div class="sc"><b>Agitate</b><span>Consequences, cost of inaction, emotional weight</span></div>
+      <div class="sc e"><b>Solve</b><span>Product as relief, one claim, CTA</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Before → After → Bridge</h3><p class="lin">BAB</p><p class="fit">Visual-proof categories: skin, body, home, pets</p><p class="count">3 scenes</p></header>
+      <div class="sc"><b>Before</b><span>Current state, shown not told</span></div>
+      <div class="sc"><b>After</b><span>Desired state, shown not told</span></div>
+      <div class="sc e"><b>Bridge</b><span>Product is what got them across</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Attention → Interest → Desire → Action</h3><p class="lin">AIDA (Elmo Lewis, 1898)</p><p class="fit">Unaware audiences, new products, education needed</p><p class="count">4 scenes</p></header>
+      <div class="sc"><b>Attention</b><span>Pattern break, unrelated to the problem if needed</span></div>
+      <div class="sc"><b>Interest</b><span>Why this matters to them specifically</span></div>
+      <div class="sc e"><b>Desire</b><span>Product + the life it produces</span></div>
+      <div class="sc"><b>Action</b><span>Single next step</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Promise → Picture → Proof → Push</h3><p class="lin">4Ps</p><p class="fit">Warm audiences, retargeting, offer-led ads</p><p class="count">4 scenes</p></header>
+      <div class="sc e"><b>Promise</b><span>Lead with the outcome the product delivers</span></div>
+      <div class="sc"><b>Picture</b><span>Sensory before/after of daily life</span></div>
+      <div class="sc"><b>Proof</b><span>Testimonial, number, demo moment</span></div>
+      <div class="sc"><b>Push</b><span>Urgency, guarantee, CTA</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Star → Story → Solution</h3><p class="lin">Star-Chain-Hook variant</p><p class="fit">Testimonial and founder-story openers</p><p class="count">4 scenes</p></header>
+      <div class="sc"><b>Star</b><span>Introduce a character the viewer recognises as themselves</span></div>
+      <div class="sc"><b>Struggle</b><span>The star's problem, tension held</span></div>
+      <div class="sc e"><b>Turning point</b><span>Product enters as the moment things changed</span></div>
+      <div class="sc"><b>Resolution + CTA</b><span>Where the star is now</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Qualify → Understand → Educate → Stimulate → Transition</h3><p class="lin">QUEST</p><p class="fit">Cold traffic that needs teaching before selling</p><p class="count">5 scenes</p></header>
+      <div class="sc"><b>Qualify</b><span>"If you have X, this is for you." Filter out everyone else</span></div>
+      <div class="sc"><b>Understand</b><span>Prove you know their situation from the inside</span></div>
+      <div class="sc"><b>Educate</b><span>Teach the thing they didn't know about the problem</span></div>
+      <div class="sc e"><b>Stimulate</b><span>Product as the application of what they just learned</span></div>
+      <div class="sc"><b>Transition</b><span>Move from viewer to buyer, CTA</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Problem → Amplify → Story → Transformation → Offer → Response</h3><p class="lin">PASTOR (Ray Edwards)</p><p class="fit">Emotional purchases, mid-length, story-led</p><p class="count">6 scenes</p></header>
+      <div class="sc"><b>Problem</b><span>Person, problem, pain</span></div>
+      <div class="sc"><b>Amplify</b><span>Consequences of leaving it unsolved</span></div>
+      <div class="sc"><b>Story</b><span>Someone who had it and found the way out</span></div>
+      <div class="sc e"><b>Transformation</b><span>Product + system, spent mostly on the after-state</span></div>
+      <div class="sc"><b>Offer</b><span>What they get, price framing</span></div>
+      <div class="sc"><b>Response</b><span>CTA</span></div>
+    </div>
+
+  </div>
+</section><section class="ap-section" id="mechanism-led">
+  <h2 class="ap-h3">Mechanism-led long form</h2>
+  <p class="sub">Seven to eleven beats. These sell a new understanding of the problem before they sell anything else. The product is withheld until the viewer has assembled the solution criteria themselves. This is the family Nuora and the WINPRO script belong to.</p>
+  <span class="hint">Swipe sideways to see more arcs</span>
+  <div class="board">
+
+    <div class="arc">
+      <header><h3>Unique Mechanism</h3><p class="lin">Schwartz / Bencivenga lineage; the modern health VSL spine</p><p class="fit">Solution-aware buyers burned by competitors</p><p class="count">9 scenes</p></header>
+      <div class="sc"><b>Symptom callout</b><span>Stack 3–4 symptoms for instant self-recognition</span></div>
+      <div class="sc"><b>Reframe</b><span>"It's not what you've been told it is"</span></div>
+      <div class="sc"><b>Problem mechanism</b><span>Name the villain in one word, define it</span></div>
+      <div class="sc"><b>Why it's invisible</b><span>Stat + "most people don't know this exists"</span></div>
+      <div class="sc"><b>Why past solutions failed</b><span>Villain explains each prior failure</span></div>
+      <div class="sc"><b>Solution mechanism</b><span>What would actually have to happen to beat the villain</span></div>
+      <div class="sc"><b>Solution criteria</b><span>The checklist a real fix must clear</span></div>
+      <div class="sc e"><b>Product clears the bar</b><span>Introduced as the thing that meets the criteria</span></div>
+      <div class="sc"><b>Result + CTA</b><span>Specific result, objection kill, action</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Discovery Story</h3><p class="lin">Personal hero's journey; Nuora "This helped a LOT"</p><p class="fit">Intimate or embarrassing problems, high emotion</p><p class="count">11 scenes</p></header>
+      <div class="sc"><b>Callout + stakes tease</b><span>"This saved my marriage"</span></div>
+      <div class="sc"><b>Before proof</b><span>Visual of the problem state, early</span></div>
+      <div class="sc"><b>Stakes escalation</b><span>Medical, then relational, then identity</span></div>
+      <div class="sc"><b>Rock bottom</b><span>Emotional low point, no product, no mechanism</span></div>
+      <div class="sc"><b>After proof (the turn)</b><span>Visual snap upward, promise of explanation</span></div>
+      <div class="sc"><b>Authority subversion</b><span>"What the doctors did made it worse"</span></div>
+      <div class="sc"><b>Mechanism reveal</b><span>Villain named, defined, stat-backed</span></div>
+      <div class="sc"><b>Failed solutions</b><span>2–3 prior attempts killed by the mechanism</span></div>
+      <div class="sc"><b>Solution build</b><span>Ingredient chain; each one solves the gap the last one left</span></div>
+      <div class="sc e"><b>Product via friction</b><span>"Where do I get all this?" → found it in one bottle</span></div>
+      <div class="sc"><b>Result + bookend + CTA</b><span>Close the loop opened in scene 1</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Failed-Solution Reframe</h3><p class="lin">Advertorial gauntlet</p><p class="fit">Crowded categories where the buyer has already spent money</p><p class="count">7 scenes</p></header>
+      <div class="sc"><b>Callout</b><span>"If you've tried X, Y and Z and nothing stuck"</span></div>
+      <div class="sc"><b>Permission</b><span>"You didn't fail. The category did."</span></div>
+      <div class="sc"><b>Kill #1</b><span>First competitor category + why it fails</span></div>
+      <div class="sc"><b>Kill #2</b><span>Second category, same root cause</span></div>
+      <div class="sc"><b>Kill #3</b><span>Third category; pattern is now obvious</span></div>
+      <div class="sc e"><b>The exception</b><span>Product as the one approach the root cause doesn't defeat</span></div>
+      <div class="sc"><b>Proof + CTA</b><span>Result specificity, guarantee, action</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Authority Confession</h3><p class="lin">Insider / whistleblower; WINPRO script</p><p class="fit">Categories with distrust of experts or industry</p><p class="count">8 scenes</p></header>
+      <div class="sc"><b>Credential + pattern</b><span>"I work intake. I see the same story every week."</span></div>
+      <div class="sc"><b>The story I keep seeing</b><span>Composite customer, recognisable to the viewer</span></div>
+      <div class="sc"><b>Pain in their words</b><span>Micro-moments of daily life, not symptoms</span></div>
+      <div class="sc"><b>What the industry sells</b><span>The standard advice, stated fairly</span></div>
+      <div class="sc"><b>Why it's wrong</b><span>The mechanism the industry ignores</span></div>
+      <div class="sc e"><b>What I actually tell people</b><span>Product as the insider's pick, understated</span></div>
+      <div class="sc"><b>Nerve</b><span>Why I'm saying this on camera</span></div>
+      <div class="sc"><b>Commercial close</b><span>Price, guarantee, CTA</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Us vs. Them</h3><p class="lin">Category indictment</p><p class="fit">Commodity products with one dominant ingredient story</p><p class="count">6 scenes</p></header>
+      <div class="sc"><b>Accusation</b><span>"They're lying to you"</span></div>
+      <div class="sc"><b>Flip the label</b><span>Same ingredient, same promise, every bag</span></div>
+      <div class="sc"><b>How the category trained you</b><span>Patience sold as treatment</span></div>
+      <div class="sc"><b>The real difference</b><span>Mechanism the category ignores</span></div>
+      <div class="sc e"><b>Product as the alternative</b><span>Different ingredient, not a louder promise</span></div>
+      <div class="sc"><b>Price + guarantee + CTA</b><span>Risk reversal against the incumbent</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Full VSL</h3><p class="lin">Seven-stage VSL: hook, agitation, credibility, mechanism, proof stack, offer stack, close</p><p class="fit">High-ticket, supplements, info products, 5–20 min</p><p class="count">10 scenes</p></header>
+      <div class="sc"><b>Hook</b><span>Big promise or big fear inside 15 seconds</span></div>
+      <div class="sc"><b>Lead</b><span>Who this is for, what they'll learn, why stay</span></div>
+      <div class="sc"><b>Problem agitation</b><span>Cost of the status quo, future-paced</span></div>
+      <div class="sc"><b>Credibility bridge</b><span>Why the narrator can speak to this</span></div>
+      <div class="sc"><b>Mechanism</b><span>Problem cause + solution cause</span></div>
+      <div class="sc e"><b>Product</b><span>Introduced as the embodiment of the mechanism</span></div>
+      <div class="sc"><b>Proof stack</b><span>Testimonials, studies, demos, in sequence</span></div>
+      <div class="sc"><b>Offer stack</b><span>Everything included, value anchoring, price</span></div>
+      <div class="sc"><b>Guarantee + objections</b><span>Risk reversal, FAQ-style pre-empts</span></div>
+      <div class="sc"><b>Close</b><span>Urgency, restated future, CTA repeated</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Investigation</h3><p class="lin">Research rabbit hole / "so I started digging"</p><p class="fit">Skeptical, higher-income, ingredient-driven buyers</p><p class="count">8 scenes</p></header>
+      <div class="sc"><b>Trigger</b><span>The question or event that started the search</span></div>
+      <div class="sc"><b>First finding</b><span>Study, screenshot, stat on screen</span></div>
+      <div class="sc"><b>Contradiction</b><span>Finding that breaks the conventional story</span></div>
+      <div class="sc"><b>Pattern</b><span>Three sources point the same way</span></div>
+      <div class="sc"><b>Mechanism surfaces</b><span>The explanation that fits all the evidence</span></div>
+      <div class="sc"><b>Criteria</b><span>What a fix would need, derived from the research</span></div>
+      <div class="sc e"><b>Product as conclusion</b><span>Found the one that matches</span></div>
+      <div class="sc"><b>Result + CTA</b><span>Personal outcome, action</span></div>
+    </div>
+
+  </div>
+</section><section class="ap-section" id="ugc-native">
+  <h2 class="ap-h3">UGC-native structures</h2>
+  <p class="sub">Four to nine beats. Built for feed behaviour rather than sales-letter logic: fast self-recognition, native formats (storytime, GRWM, review), product often present early because the format itself carries trust.</p>
+  <span class="hint">Swipe sideways to see more arcs</span>
+  <div class="board">
+
+    <div class="arc">
+      <header><h3>Symptom Stack / Warning Signs</h3><p class="lin">Listicle-style callout</p><p class="fit">Unaware to problem-aware, TOF</p><p class="count">5 scenes</p></header>
+      <div class="sc"><b>"Signs you might have X"</b><span>Frame as a checklist</span></div>
+      <div class="sc"><b>Signs 1–4</b><span>Each one common alone; stacked they're a pattern</span></div>
+      <div class="sc"><b>Naming</b><span>Give the pattern a name they haven't heard</span></div>
+      <div class="sc e"><b>What to do</b><span>Product as the recommended action</span></div>
+      <div class="sc"><b>CTA</b><span>Usually soft: "link if you want to check"</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Storytime</h3><p class="lin">TikTok-native long UGC</p><p class="fit">Relatable, slightly embarrassing problems; 2–5 min</p><p class="count">9 scenes</p></header>
+      <div class="sc"><b>"Okay so storytime"</b><span>Format signal; promise of a reveal</span></div>
+      <div class="sc"><b>Setup</b><span>Where I was, what life looked like</span></div>
+      <div class="sc"><b>Inciting moment</b><span>The specific event that made it undeniable</span></div>
+      <div class="sc"><b>Things I tried</b><span>Casual list, each with a one-line verdict</span></div>
+      <div class="sc"><b>Low point</b><span>Vulnerability beat; the "and I'm just being honest" line</span></div>
+      <div class="sc"><b>The thing someone said</b><span>Friend, comment, doctor: the reframe arrives socially</span></div>
+      <div class="sc e"><b>Tried it</b><span>Product enters casually, skeptical framing</span></div>
+      <div class="sc"><b>What happened</b><span>Timeline of results, specific</span></div>
+      <div class="sc"><b>Where I'm at now + CTA</b><span>Soft close</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Honest Review</h3><p class="lin">UGC testimonial flow</p><p class="fit">MOF/BOF, warm audiences, social proof gap</p><p class="count">6 scenes</p></header>
+      <div class="sc e"><b>Product on screen + verdict tease</b><span>"I've been using this for 30 days, here's the truth"</span></div>
+      <div class="sc"><b>Why I bought it</b><span>The problem, briefly</span></div>
+      <div class="sc"><b>Skepticism</b><span>What I expected not to work</span></div>
+      <div class="sc"><b>What I noticed and when</b><span>Week-by-week or use-by-use</span></div>
+      <div class="sc"><b>What I'd change</b><span>One real negative; buys credibility for the rest</span></div>
+      <div class="sc"><b>Would I rebuy + CTA</b><span>Recommendation with a caveat</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Day in the Life</h3><p class="lin">Routine / GRWM</p><p class="fit">Consumables, habit products, lifestyle brands</p><p class="count">4 scenes</p></header>
+      <div class="sc"><b>Routine open</b><span>Morning, gym, night; the ritual the product lives in</span></div>
+      <div class="sc"><b>Friction moment</b><span>The small daily problem</span></div>
+      <div class="sc e"><b>Product slots in</b><span>Usage shown as part of the routine</span></div>
+      <div class="sc"><b>Payoff + soft CTA</b><span>How the day went differently</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Demo / Feature Showcase</h3><p class="lin">Product demo</p><p class="fit">Retargeting, visual products, "how does it work"</p><p class="count">5 scenes</p></header>
+      <div class="sc e"><b>Product in hand + claim</b><span>One promise, product visible immediately</span></div>
+      <div class="sc"><b>Feature 1 in action</b><span>Show, don't describe</span></div>
+      <div class="sc"><b>Feature 2 in action</b><span>Second proof point</span></div>
+      <div class="sc"><b>Objection kill</b><span>Pre-empt the doubt the demo raised</span></div>
+      <div class="sc"><b>Offer + CTA</b><span>Price, bundle, urgency</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Comparison</h3><p class="lin">"I tried all three" / vs. format</p><p class="fit">Shoppers already comparing, BOF</p><p class="count">6 scenes</p></header>
+      <div class="sc"><b>Setup</b><span>"Tested X, Y and Z for a month"</span></div>
+      <div class="sc"><b>Criteria</b><span>What I judged them on</span></div>
+      <div class="sc"><b>Option A verdict</b><span>Fair, one strength one weakness</span></div>
+      <div class="sc"><b>Option B verdict</b><span>Same treatment</span></div>
+      <div class="sc e"><b>Winner + why</b><span>Product wins on the criterion that matters most</span></div>
+      <div class="sc"><b>CTA</b><span>Where to get the winner</span></div>
+    </div>
+
+    <div class="arc">
+      <header><h3>Objection Cascade</h3><p class="lin">FAQ-driven BOF</p><p class="fit">High-consideration, high-ticket, already solution-aware</p><p class="count">5 + n scenes</p></header>
+      <div class="sc e"><b>Offer stated</b><span>Product and promise up front</span></div>
+      <div class="sc"><b>"But does it work?"</b><span>Proof</span></div>
+      <div class="sc"><b>"Why haven't I heard of it?"</b><span>Origin / distribution answer</span></div>
+      <div class="sc"><b>"What about [alternative]?"</b><span>Comparison</span></div>
+      <div class="sc opt"><b>Further objections</b><span>Price, time, side effects, "will it work for me"; add one per 20–30s</span></div>
+      <div class="sc"><b>Risk reversal + CTA</b><span>Guarantee, urgency</span></div>
+    </div>
+
+  </div>
+</section>
+</div>
+<div id="view-list" class="listview" role="tabpanel" aria-labelledby="tab-list" hidden></div>
+<section class="ap-section" id="how-to-use">
+  <h2 class="ap-h3">How to use this with the Story arc → Story block system</h2>
+  <p>Pick a spine, then borrow blocks. The mechanism-led arcs are containers: Nuora runs Discovery Story as the spine and drops Unique Mechanism scenes 3–5 and Failed-Solution Reframe scenes 3–5 inside it. The WINPRO script runs Authority Confession with Us vs. Them scenes 2–4 in the middle. Almost every long-form winner composes this way.</p>
+  <table class="notes-table">
+    <tr><th>Decision</th><th>What it changes</th></tr>
+    <tr><td>Awareness stage</td><td>Unaware → AIDA, Symptom Stack, Storytime. Problem-aware → PAS, Discovery, Unique Mechanism. Solution-aware → Failed-Solution, Us vs. Them, Comparison. Product-aware → Review, Demo, Objection Cascade, 4Ps.</td></tr>
+    <tr><td>Duration</td><td>Under 60s: 3–5 scene arcs only. 1–3 min: 5–8 scenes. 3–5 min: 8–11 scenes, mechanism-led family. 5 min+: Full VSL or Objection Cascade with n expanded.</td></tr>
+    <tr><td>Product entry</td><td>Compact and UGC arcs put the product in scenes 1–3. Mechanism-led arcs hold it to the last quarter. Moving the entry earlier in a mechanism arc is the most common way these ads get broken in editing.</td></tr>
+    <tr><td>Narrator</td><td>Discovery Story and Storytime need a sufferer. Authority Confession, Investigation and Unique Mechanism work with an expert or a sufferer-turned-researcher. Us vs. Them and Comparison work with either.</td></tr>
+  </table>
+</section>
+
+  </div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg style="opacity:0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal &middot; September 3, 2026</p>
+  </footer>
+<script>
+(function(){
+  var board=document.getElementById('view-board'), list=document.getElementById('view-list');
+  board.querySelectorAll('section').forEach(function(sec){
+    var out=document.createElement('section'); out.className='ap-section';
+    out.appendChild(sec.querySelector('h2').cloneNode(true));
+    out.appendChild(sec.querySelector('.sub').cloneNode(true));
+    var wrap=document.createElement('div'); wrap.className='arcs';
+    sec.querySelectorAll('.arc').forEach(function(a){wrap.appendChild(a.cloneNode(true));});
+    out.appendChild(wrap); list.appendChild(out);
+  });
+  var tabs=[document.getElementById('tab-board'),document.getElementById('tab-list')], panels=[board,list];
+  function show(i){
+    tabs.forEach(function(t,j){t.setAttribute('aria-selected',j===i?'true':'false');});
+    panels.forEach(function(p,j){p.hidden=j!==i;});
+    try{sessionStorage.setItem('arcview',i);}catch(e){}
+  }
+  tabs.forEach(function(t,i){t.addEventListener('click',function(){show(i);});});
+  var saved=null; try{saved=sessionStorage.getItem('arcview');}catch(e){}
+  if(saved!==null) show(+saved); else if(window.matchMedia('(max-width:640px)').matches) show(1);
+})();
+</script>
+
+</body>
+</html>
