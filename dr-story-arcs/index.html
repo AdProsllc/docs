@@ -310,6 +310,35 @@
       .notes-table th,.notes-table td{border:0;padding:2px 0}
       .notes-table th{color:var(--grey-300);font-size:13px}
     }
+    /* === Hooks tab === */
+    .fam-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    @media (max-width:1100px){.fam-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:640px){.fam-grid{grid-template-columns:1fr}}
+    .fam{background:var(--navy-card);border:1px solid var(--card-border);border-top:3px solid var(--yellow);border-radius:8px;padding:14px 14px 16px}
+    .fam-name{font-weight:700;color:#fff;font-size:15px;line-height:1.25}
+    .fam-job{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--yellow);margin:6px 0 10px}
+    .fam-p{font-size:13px;color:var(--grey-100);line-height:1.45;margin-bottom:8px}
+    .fam-where{font-size:12px;color:var(--grey-300);line-height:1.4}
+    .hook-table{border-collapse:collapse;width:100%;font-size:13.5px}
+    .hook-table thead th{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--grey-300);font-weight:600;padding:8px 14px 10px 0;border-bottom:1px solid var(--card-border-strong);text-align:left}
+    .hook-table tbody th{font-weight:600;color:#fff;text-align:left;vertical-align:top;padding:11px 14px 11px 0;border-bottom:1px solid var(--card-border);width:19%}
+    .hook-table tbody td{color:var(--grey-200);vertical-align:top;padding:11px 14px 11px 0;border-bottom:1px solid var(--card-border);line-height:1.45}
+    .hook-table tr.grp td{padding:26px 0 8px;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--yellow);border-bottom:1px solid var(--card-border-strong);font-weight:600}
+    #hook-rules p{max-width:75ch;color:var(--grey-200);margin-bottom:12px}
+    @media (max-width:640px){
+      .hook-table thead{display:none}
+      .hook-table,.hook-table tbody,.hook-table tr,.hook-table th,.hook-table td{display:block;width:100%}
+      .hook-table tbody th{border:0;padding:14px 0 4px;width:auto;font-size:15px}
+      .hook-table tbody td{border:0;padding:3px 0}
+      .hook-table tbody td::before{display:block;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--grey-300);margin-top:6px}
+      .hook-table tbody td:nth-of-type(1)::before{content:"Native opener"}
+      .hook-table tbody td:nth-of-type(2)::before{content:"Test variants"}
+      .hook-table tbody td:nth-of-type(3)::before{content:"Re-hook points"}
+      .hook-table tr{border-bottom:1px solid var(--card-border);padding-bottom:12px}
+      .hook-table tr.grp{border-bottom:0;padding-bottom:0}
+      .hook-table tr.grp td{padding:24px 0 4px}
+      .hook-table tr.grp td::before{content:none}
+    }
 
   </style>
 </head>
@@ -326,7 +355,7 @@
 
   // Auto-discover sections — any .ap-section with an id attribute.
   // Override the auto-detected label by setting data-toc-title on the section.
-  var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
+  var sections = Array.from(document.querySelectorAll('.ap-section[id]')).filter(function(s){return !s.closest('[role=tabpanel][hidden]');});
 
   // Hide TOC entirely if there aren't enough sections to justify navigation.
   if(sections.length < 4) return;
@@ -394,7 +423,7 @@
     <div class="ap-header-divider"></div>
     <div class="ap-header-text">
       <h1>Direct Response Story Arcs</h1>
-      <p>20 arcs, 3 to 11 scenes each, for the story arc → story block → scene system</p>
+      <p>20 arcs, 3 to 11 scenes each, plus the hook map for each arc</p>
     </div>
   </header>
   <div class="ap-content">
@@ -410,6 +439,7 @@
   <div class="tabs" role="tablist" aria-label="View">
     <button class="tab" role="tab" id="tab-board" aria-selected="true" aria-controls="view-board">Side by side</button>
     <button class="tab" role="tab" id="tab-list" aria-selected="false" aria-controls="view-list">List</button>
+    <button class="tab" role="tab" id="tab-hooks" aria-selected="false" aria-controls="view-hooks">Hooks</button>
   </div>
 </div>
 <div id="view-board" role="tabpanel" aria-labelledby="tab-board">
@@ -650,6 +680,63 @@
 </section>
 </div>
 <div id="view-list" class="listview" role="tabpanel" aria-labelledby="tab-list" hidden></div>
+<div id="view-hooks" role="tabpanel" aria-labelledby="tab-hooks" hidden>
+<section class="ap-section hooks-sec" id="hook-families" data-hooks>
+  <h2 class="ap-h3">Five hook families</h2>
+  <p class="sub">A hook is an attention mechanism, not an opening line. Each family has one job inside an arc, so it shows up where that job is needed, not only at the top.</p>
+  <div class="fam-grid">
+    <div class="fam"><div class="fam-name">Making it about them</div><div class="fam-job">Job: qualification</div><div class="fam-p">Self-relevance · Goal relevance · Generation effect</div><div class="fam-where">Scene 1 callout, any "if you…" re-qualify</div></div>
+    <div class="fam"><div class="fam-name">Raising the stakes</div><div class="fam-job">Job: escalation</div><div class="fam-p">Negativity bias · Loss aversion · Emotional arousal</div><div class="fam-where">Stakes and agitation scenes, the low point</div></div>
+    <div class="fam"><div class="fam-name">Withholding information</div><div class="fam-job">Job: retention</div><div class="fam-p">Curiosity gap · Information gap · Open loop</div><div class="fam-where">Every transition into a reveal (mechanism, product)</div></div>
+    <div class="fam"><div class="fam-name">Breaking the prediction</div><div class="fam-job">Job: the turn</div><div class="fam-p">Pattern interrupt · Prediction error · Novelty · Von Restorff effect</div><div class="fam-where">Reframe, villain reveal, "it's not what you think"</div></div>
+    <div class="fam"><div class="fam-name">Making it believable</div><div class="fam-job">Job: proof</div><div class="fam-p">Specificity · Social proof · Authority · Contrast · Cognitive fluency</div><div class="fam-where">Solution build, proof stack, close</div></div>
+  </div>
+</section>
+
+<section class="ap-section hooks-sec" id="hook-map" data-hooks>
+  <h2 class="ap-h3">Hook map by arc</h2>
+  <p class="sub">Native opener is the hook the arc wants by default. Test variants are three alternate scene-1 hooks from different families, so a hook test changes the mechanism and nothing else. Re-hook points are the scenes where retention cliffs and which family re-grabs there.</p>
+  <table class="hook-table">
+    <thead><tr><th>Arc</th><th>Native opener</th><th>Test variants</th><th>Re-hook points</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="4">Compact formulas</td></tr>
+      <tr><th>Problem → Agitate → Solve</th><td>Self-relevance + negativity bias</td><td>Loss aversion · Prediction error · Specificity</td><td>Agitate → Solve: open loop on the fix</td></tr>
+      <tr><th>Before → After → Bridge</th><td>Contrast</td><td>Pattern interrupt (show the After first) · Self-relevance · Specificity</td><td>Withhold the Bridge until After has landed</td></tr>
+      <tr><th>AIDA</th><td>Pattern interrupt or novelty</td><td>Curiosity gap · Emotional arousal · Von Restorff</td><td>Interest → Desire: goal relevance</td></tr>
+      <tr><th>Promise → Picture → Proof → Push</th><td>Specificity (a numbered promise)</td><td>Goal relevance · Social proof · Contrast</td><td>Proof: social proof or authority</td></tr>
+      <tr><th>Star → Story → Solution</th><td>Self-relevance + emotional arousal</td><td>Open loop · Information gap · Specificity</td><td>Struggle → Turning point: open loop</td></tr>
+      <tr><th>QUEST</th><td>Self-relevance (the qualify line)</td><td>Information gap · Prediction error · Authority</td><td>Educate: information gap · Stimulate: goal relevance</td></tr>
+      <tr><th>PASTOR</th><td>Negativity bias</td><td>Emotional arousal · Curiosity gap · Social proof</td><td>Story: open loop · Transformation: specificity</td></tr>
+
+      <tr class="grp"><td colspan="4">Mechanism-led long form</td></tr>
+      <tr><th>Unique Mechanism</th><td>Prediction error ("it's not X")</td><td>Information gap · Self-relevance (symptom stack) · Authority</td><td>Reframe: prediction error · Why it's invisible: information gap · Criteria: generation effect</td></tr>
+      <tr><th>Discovery Story</th><td>Emotional arousal + open loop</td><td>Self-relevance · Curiosity gap · Contrast (before/after)</td><td>Rock bottom: loss aversion · Turn: prediction error · Product via friction: open loop closes</td></tr>
+      <tr><th>Failed-Solution Reframe</th><td>Self-relevance ("if you've tried…")</td><td>Negativity bias · Prediction error · Social proof</td><td>Each Kill: prediction error · The exception: Von Restorff</td></tr>
+      <tr><th>Authority Confession</th><td>Authority + information gap</td><td>Negativity bias · Curiosity gap · Self-relevance</td><td>Why it's wrong: prediction error · Nerve: emotional arousal</td></tr>
+      <tr><th>Us vs. Them</th><td>Negativity bias + prediction error</td><td>Contrast · Information gap · Loss aversion</td><td>Flip the label: visual pattern interrupt · Real difference: specificity</td></tr>
+      <tr><th>Full VSL</th><td>Emotional arousal or curiosity gap (the big promise)</td><td>Self-relevance · Loss aversion · Authority</td><td>Lead: open loop · Mechanism: prediction error · Proof stack: social proof · Offer: specificity</td></tr>
+      <tr><th>Investigation</th><td>Curiosity gap</td><td>Information gap · Prediction error · Novelty</td><td>Contradiction: prediction error · Pattern: stacked evidence · Conclusion: cognitive fluency</td></tr>
+
+      <tr class="grp"><td colspan="4">UGC-native structures</td></tr>
+      <tr><th>Symptom Stack</th><td>Self-relevance</td><td>Negativity bias · Generation effect ("guess which") · Information gap</td><td>Naming: information gap</td></tr>
+      <tr><th>Storytime</th><td>Open loop (the format signal)</td><td>Emotional arousal · Curiosity gap · Self-relevance</td><td>Low point: emotional arousal · The thing someone said: prediction error</td></tr>
+      <tr><th>Honest Review</th><td>Specificity ("30 days, here's the truth")</td><td>Contrast · Prediction error (expected it to fail) · Social proof</td><td>What I'd change: contrast buys credibility</td></tr>
+      <tr><th>Day in the Life</th><td>Self-relevance</td><td>Novelty · Goal relevance · Pattern interrupt</td><td>Friction moment: negativity bias</td></tr>
+      <tr><th>Demo / Feature Showcase</th><td>Novelty or pattern interrupt</td><td>Von Restorff · Contrast · Specificity</td><td>Objection kill: prediction error</td></tr>
+      <tr><th>Comparison</th><td>Contrast + generation effect ("guess which wins")</td><td>Specificity · Social proof · Prediction error</td><td>Each verdict: withhold the winner</td></tr>
+      <tr><th>Objection Cascade</th><td>Specificity</td><td>Social proof · Authority · Loss aversion</td><td>Each objection opens and closes an information gap</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="ap-section hooks-sec" id="hook-rules" data-hooks>
+  <h2 class="ap-h3">Working rules</h2>
+  <p>Stack two families in the opener, never four. Self-relevance plus one other (stakes, open loop, or prediction error) is the most common winning pair. Three or more reads as a listicle of tricks.</p>
+  <p>Hook tests should change the family, not the wording. Two curiosity-gap hooks with different phrasing test copy. A curiosity-gap hook against a loss-aversion hook tests what this audience responds to, which is the information that transfers to the next ad.</p>
+  <p>Re-hooks are where long form is won. The Nuora teardown showed the failed-solutions block landing on the midpoint drop-off cliff. Whatever arc you pick, mark the two scenes just before the mechanism and just before the product, and make sure a withholding or prediction-break hook is doing work there.</p>
+</section>
+
+</div>
 <section class="ap-section" id="how-to-use">
   <h2 class="ap-h3">How to use this with the Story arc → Story block system</h2>
   <p>Pick a spine, then borrow blocks. The mechanism-led arcs are containers: Nuora runs Discovery Story as the spine and drops Unique Mechanism scenes 3–5 and Failed-Solution Reframe scenes 3–5 inside it. The WINPRO script runs Authority Confession with Us vs. Them scenes 2–4 in the middle. Almost every long-form winner composes this way.</p>
@@ -677,7 +764,7 @@
 </svg>
       <p>Ad Pros &mdash; Internal Use</p>
     </div>
-    <p class="ap-footer-meta">Published by Nehal &middot; September 3, 2026</p>
+    <p class="ap-footer-meta">Published by Nehal &middot; September 4, 2026</p>
   </footer>
 <script>
 (function(){
@@ -690,7 +777,8 @@
     sec.querySelectorAll('.arc').forEach(function(a){wrap.appendChild(a.cloneNode(true));});
     out.appendChild(wrap); list.appendChild(out);
   });
-  var tabs=[document.getElementById('tab-board'),document.getElementById('tab-list')], panels=[board,list];
+  var hooks=document.getElementById('view-hooks');
+  var tabs=[document.getElementById('tab-board'),document.getElementById('tab-list'),document.getElementById('tab-hooks')], panels=[board,list,hooks];
   function show(i){
     tabs.forEach(function(t,j){t.setAttribute('aria-selected',j===i?'true':'false');});
     panels.forEach(function(p,j){p.hidden=j!==i;});
