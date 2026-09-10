@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Valorrea · Bible Study Guide — Voice of Customer</title>
+<meta name="googlebot" content="noindex, nofollow" />
+<meta name="bingbot" content="noindex, nofollow" />
+<meta name="slurp" content="noindex, nofollow" />
+<meta name="duckduckbot" content="noindex, nofollow" />
+<meta name="baiduspider" content="noindex, nofollow" />
+<meta name="yandex" content="noindex, nofollow" />
+<meta name="author" content="Omar" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="mask-icon" href="/favicon.svg" color="#ffd609" />
+<meta name="theme-color" content="#070c1e" />
+<style>
+  :root {
+    --page-bg: #070c1e;
+    --card: rgba(13, 20, 41, 0.94);
+    --card-border: rgba(255, 255, 255, 0.09);
+    --primary: #ffd609;
+    --primary-ink: #06112b;
+    --accent: #7ea6ff;
+    --ink: #f2f5ff;
+    --ink-soft: #c6d0e8;
+    --text-dim: #5c6a88;
+    --success: #46d08a;
+    --danger: #f87171;
+    --font: "Inter", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --pad: clamp(16px, 3vw, 32px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--page-bg); color: var(--ink); font-family: var(--font); }
+  body {
+    background:
+      radial-gradient(900px 520px at 85% -10%, rgba(43, 67, 108, 0.45), transparent 55%),
+      radial-gradient(700px 420px at 0% 100%, rgba(26, 40, 74, 0.4), transparent 50%),
+      var(--page-bg);
+  }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: var(--pad) var(--pad) 80px; }
+  .top {
+    display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .brand-lock { display: flex; gap: 12px; align-items: center; min-width: 0; }
+  .mark {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--primary); color: var(--primary-ink);
+    font-weight: 800; font-size: 18px; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .brand-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
+  .brand-sub { font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; }
+  .pill {
+    display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--card-border); background: rgba(126, 166, 255, 0.1);
+    color: var(--ink-soft); font-size: 11px; font-weight: 650; letter-spacing: 0.06em;
+  }
+  .header-pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
+  .hero { margin: 8px 0 28px; }
+  .hero h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.12; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
+  .hero h1 .hl { color: var(--primary); }
+  .hero p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; max-width: 62ch; }
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--card-border); padding-bottom: 12px;
+  }
+  .tab {
+    border: none; background: transparent; color: var(--text-dim); font-family: inherit;
+    font-size: 13px; font-weight: 650; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: rgba(255, 214, 9, 0.14); color: var(--primary); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .kicker {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--text-dim);
+    text-transform: uppercase; margin: 0 0 8px;
+  }
+  .panel h2 { margin: 0 0 14px; font-size: clamp(22px, 3vw, 30px); line-height: 1.2; font-weight: 780; }
+  .panel h2 .hl { color: var(--primary); }
+  .card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+  .muted { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .metric {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  .metric b { display: block; font-size: clamp(28px, 4vw, 36px); margin-top: 6px; font-weight: 800; letter-spacing: -0.02em; }
+  .metric span { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-right: 6px; }
+  .badge.ok { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.fail { background: rgba(248,113,113,0.14); color: var(--danger); }
+  .badge.neutral { background: rgba(126,166,255,0.14); color: var(--accent); }
+  .badge.primary { background: rgba(255,214,9,0.16); color: var(--primary); }
+  .badge.depth-full { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.depth-scan { background: rgba(126,166,255,0.12); color: var(--accent); }
+  ul.clean { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+  ul.clean li { margin: 6px 0; }
+  ol.clean { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+  ol.clean li { margin: 8px 0; }
+  .empty { color: var(--text-dim); font-size: 14px; padding: 12px 0; }
+  a { color: var(--accent); }
+  /* Stacked row cards — mobile-first (tables break on phone / Quick Look). */
+  .entry-list { display: flex; flex-direction: column; gap: 12px; }
+  .entry-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .entry-top {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 8px 12px; margin-bottom: 10px;
+  }
+  .entry-title {
+    margin: 0; font-size: 16px; font-weight: 720; line-height: 1.3; letter-spacing: -0.01em;
+    min-width: 0; flex: 1 1 12rem;
+  }
+  .entry-quote {
+    margin: 0 0 12px; font-size: 14px; line-height: 1.5; font-style: italic; color: var(--ink-soft);
+  }
+  .entry-fields { display: flex; flex-direction: column; gap: 10px; }
+  .entry-field { min-width: 0; }
+  .entry-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px;
+  }
+  .entry-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); word-break: break-word; }
+  .entry-meta {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  .entry-meta b { color: var(--ink-soft); font-weight: 650; }
+  /* Avatars — mockup card structure, stacked on mobile */
+  .avatar-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .avatar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .avatar-card { margin-bottom: 0; }
+  .avatar-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .avatar-badge {
+    font-size: 10px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 8px;
+  }
+  .avatar-badge.core {
+    color: var(--primary); background: rgba(255, 214, 9, 0.12);
+    border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-badge.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+  }
+  .avatar-card h3 {
+    margin: 0 0 10px; font-size: clamp(22px, 3vw, 28px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .avatar-card > .muted { margin: 0 0 16px; }
+  .avatar-quotes { margin: 0 0 16px; }
+  .avatar-quote {
+    margin: 0 0 12px; padding: 0 0 0 12px;
+    border-left: 2px solid rgba(255, 214, 9, 0.45);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .avatar-quote .src {
+    display: block; margin-top: 4px; font-style: normal; font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.02em;
+  }
+  .flip-row {
+    margin: 0 0 12px; padding: 12px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--card-border);
+  }
+  .flip-row .flip-label {
+    display: block; font-size: 11px; font-weight: 750; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 6px;
+  }
+  .flip-row p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .angle-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 11px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  /* Creative Angles — mockup matrix row (stacks on mobile) */
+  .honesty-callout {
+    margin: 0 0 18px; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.08);
+  }
+  .honesty-callout .kicker { color: var(--danger); margin-bottom: 8px; }
+  .honesty-callout p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-matrix { display: flex; flex-direction: column; gap: 14px; }
+  .angle-matrix-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px;
+  }
+  .angle-matrix-grid {
+    display: grid; gap: 18px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .angle-matrix-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; }
+  }
+  .angle-matrix-card h3 {
+    margin: 0 0 10px; font-size: clamp(20px, 2.6vw, 26px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .angle-status {
+    display: inline-block; font-size: 10px; font-weight: 750; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .angle-status.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+  }
+  .angle-status.imported {
+    color: var(--danger); background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.4);
+  }
+  .angle-status.live {
+    color: var(--success); background: rgba(70, 208, 138, 0.12); border: 1px solid rgba(70, 208, 138, 0.35);
+  }
+  .angle-status.gap {
+    color: var(--primary); background: rgba(255, 214, 9, 0.1); border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .avatar-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .angle-col-kicker {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); margin: 0 0 10px;
+  }
+  .proof-quote {
+    margin: 0; padding: 0 0 0 12px; border-left: 2px solid var(--primary);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .proof-quote.imported {
+    border-left-color: var(--danger); font-style: normal; font-size: 13px;
+  }
+  .proof-quote .src {
+    display: block; margin-top: 8px; font-style: normal; font-size: 12px;
+    font-weight: 700; color: var(--primary);
+  }
+  .concept-stack { display: flex; flex-direction: column; gap: 8px; }
+  .concept-pill {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px;
+    padding: 8px 12px; border-radius: 12px;
+    border: 1px solid rgba(255, 214, 9, 0.22); background: rgba(255, 214, 9, 0.06);
+    font-size: 12px; line-height: 1.35; color: var(--ink-soft);
+  }
+  .concept-pill .cid {
+    font-family: var(--mono); font-weight: 800; color: var(--primary); letter-spacing: 0.04em;
+  }
+  /* Swipe File — Voice→Ads style cards */
+  .swipe-grid {
+    display: grid; gap: 14px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .swipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .swipe-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 18px 16px; display: flex; flex-direction: column; min-width: 0;
+  }
+  .swipe-voice-meta {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .swipe-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0;
+  }
+  .swipe-dot.tof { background: var(--primary); }
+  .swipe-dot.mof { background: var(--accent); }
+  .swipe-dot.bof { background: var(--success); }
+  .swipe-voice {
+    margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .swipe-src {
+    display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .swipe-src:hover { text-decoration: underline; }
+  .swipe-arrow {
+    align-self: center; margin: 14px 0; width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--primary-ink); background: var(--primary);
+    font-size: 14px; font-weight: 800; line-height: 1;
+  }
+  .swipe-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .swipe-cid {
+    font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+    padding: 5px 10px; border-radius: 999px; background: var(--primary); color: var(--primary-ink);
+  }
+  .swipe-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  .swipe-ad {
+    margin: 0; font-size: clamp(17px, 2.4vw, 22px); font-weight: 780; line-height: 1.3;
+    letter-spacing: -0.02em; color: var(--ink);
+  }
+  /* Pain quote cards (mockup Voices-style) */
+  .quote-grid {
+    display: grid; gap: 12px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .quote-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 14px;
+    padding: 16px 18px; min-width: 0;
+  }
+  .quote-top {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    gap: 8px 12px; margin-bottom: 12px;
+  }
+  .quote-ups {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink-soft);
+  }
+  .quote-ups b { color: var(--ink); font-weight: 800; }
+  .quote-sub {
+    font-family: var(--mono); font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .quote-sub:hover { text-decoration: underline; }
+  .quote-theme {
+    margin: 0 0 8px; font-family: var(--mono); font-size: 11px; font-weight: 750;
+    letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent);
+  }
+  .quote-body {
+    margin: 0 0 12px; font-size: 15px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .quote-field { margin: 0 0 10px; }
+  .quote-field-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px; font-weight: 700;
+  }
+  .quote-field-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); }
+  .quote-reveals {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-dim); font-weight: 700;
+  }
+  .quote-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--primary);
+  }
+  .quote-dot.c0 { background: var(--primary); }
+  .quote-dot.c1 { background: var(--accent); }
+  .quote-dot.c2 { background: var(--success); }
+  .quote-dot.c3 { background: #c084fc; }
+  .hero-insight {
+    font-size: clamp(22px, 3.2vw, 32px); font-weight: 780; line-height: 1.32; margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .hero-insight .hl { color: var(--primary); }
+  .signal-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+  .signal-card {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 18px;
+    background: rgba(255,255,255,0.02);
+  }
+  .signal-card .num {
+    font-family: var(--mono); font-size: 11px; color: var(--primary); font-weight: 700;
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .signal-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-weight: 600; }
+  .community-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .community-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .spine-footer {
+    margin-top: 28px; padding: 18px 20px; border-radius: 14px;
+    border: 1px dashed rgba(255, 214, 9, 0.35); background: rgba(255, 214, 9, 0.06);
+    text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--primary); text-transform: uppercase;
+  }
+  /* No-JS / mobile file preview: full stacked report. JS hides this and shows tabs. */
+  #static-deck .static-toc {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  #static-deck .static-toc a {
+    font-size: 12px; font-weight: 650; color: var(--ink-soft); text-decoration: none;
+    padding: 6px 10px; border-radius: 8px; border: 1px solid var(--card-border);
+  }
+  #static-deck .static-section { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--card-border); }
+  #static-deck .static-section:last-child { border-bottom: none; }
+</style>
+
+<style>
+  .freq-list{display:flex;flex-direction:column;gap:10px;}
+  .freq-row{display:grid;grid-template-columns:220px 1fr auto auto;gap:12px;align-items:center;}
+  @media(max-width:620px){.freq-row{grid-template-columns:140px 1fr auto auto;}}
+  .freq-name{font-size:13px;font-weight:700;color:var(--ink);}
+  .freq-name .cat{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);font-weight:650;margin-top:2px;}
+  .freq-track{height:12px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden;}
+  .freq-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--primary),#ffe867);}
+  .freq-num{font-family:var(--mono);font-weight:800;font-size:14px;color:var(--ink);}
+  .freq-sub{font-family:var(--mono);font-size:11px;color:var(--text-dim);}
+  .ladder-grid{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.ladder-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  .ladder-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .ladder-card h4{margin:0 0 6px;font-size:15px;font-weight:750;line-height:1.25;}
+  .ladder-card .lc-note{margin:0;font-size:13px;line-height:1.45;color:var(--ink-soft);}
+  .ladder-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center;}
+  .lc-tag{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--ink-soft);background:rgba(255,255,255,.03);}
+  .lc-tag.pos{color:var(--success);background:rgba(70,208,138,.12);border-color:rgba(70,208,138,.3);}
+  .lc-tag.neg{color:var(--danger);background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.35);}
+  .lc-tag.neu{color:var(--accent);background:rgba(126,166,255,.1);border-color:rgba(126,166,255,.3);}
+  .av-demo{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--text-dim);margin:2px 0 12px;}
+  .src-wrap{overflow-x:auto;border:1px solid var(--card-border);border-radius:16px;background:var(--card);}
+  .src-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .src-table th,.src-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--card-border);vertical-align:top;}
+  .src-table th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);font-weight:700;}
+  .src-table td{color:var(--ink-soft);} .src-table a{color:var(--primary);text-decoration:none;font-weight:650;}
+  .mini-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .mini-tag{font-size:10px;font-weight:650;letter-spacing:.03em;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--text-dim);background:rgba(255,255,255,.02);}
+  .wedge-map{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.wedge-map{grid-template-columns:1fr 1fr;}}
+  .wedge-card{border:1px solid var(--card-border);background:var(--card);border-radius:12px;padding:12px 14px;}
+  .wedge-card .q{font-size:13px;font-style:italic;color:var(--ink-soft);margin:0 0 6px;}
+  .wedge-card .w{font-size:12px;color:var(--primary);font-weight:650;margin:0;}
+</style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand-lock"><div class="mark">V</div>
+        <div><div class="brand-name">Valorrea</div><div class="brand-sub">Ad Pros · Brand Intelligence</div></div></div>
+      <div class="header-pills"><div class="pill">BIBLE STUDY GUIDE · VOICE-OF-CUSTOMER</div></div>
+    </header>
+    <section class="hero">
+      <h1>The receipts behind <span class="hl">every</span> “I want to finally understand the Bible” ad.</h1>
+      <p>34 sources across Reddit’s Christian communities and retailer reviews — mined for how new, returning and lifelong-but-stuck believers describe the struggle, and the sincere words that sell the guide.</p>
+    </section>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Report sections"><button type="button" class="tab" role="tab" data-tab="overview" aria-selected="true">01 Overview</button><button type="button" class="tab" role="tab" data-tab="pain" aria-selected="false">02 Pain &amp; Symptoms</button><button type="button" class="tab" role="tab" data-tab="avatars" aria-selected="false">03 Avatars</button><button type="button" class="tab" role="tab" data-tab="emotional" aria-selected="false">04 Emotional Drivers</button><button type="button" class="tab" role="tab" data-tab="solution_ladder" aria-selected="false">05 Solution Ladder</button><button type="button" class="tab" role="tab" data-tab="objections" aria-selected="false">06 Objections &amp; Friction</button><button type="button" class="tab" role="tab" data-tab="swipe_file" aria-selected="false">07 Emotional Swipe File</button><button type="button" class="tab" role="tab" data-tab="creative_angles" aria-selected="false">08 Creative Angles</button><button type="button" class="tab" role="tab" data-tab="sources" aria-selected="false">09 Sources</button></nav>
+    <div id="deck"><section class="panel active" data-panel="overview">
+  <p class="kicker">01 · Overview</p>
+  <h2>What believers actually say</h2>
+  <div class="card"><p class="hero-insight">The pain comes back almost <span class="hl">verbatim to the product’s own promise</span>. Three shapes dominate: <b>overwhelm / confusion</b> (‘every time I try to start I feel overwhelmed,’ ‘I have zero idea what’s going on,’ and the universal quit-point at Leviticus / Numbers); <b>the emotional driver</b> (guilt, feeling ‘lukewarm,’ reading that backfires into condemnation, and the yearning to feel close to God); and <b>the habit loop</b> (the Bible-in-a-year restart cycle: ‘start every January, fall behind, restart’).</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Positioning statement</p><p class="hero-insight" style="font-size:clamp(18px,2.4vw,22px)">For the believer who feels overwhelmed every time they open the Bible — new, returning, or lifelong-but-stuck — Valorrea makes all 66 books <span class="hl">finally make sense</span>, so Scripture stops feeling like homework and starts feeling like home.</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">The offer</p><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>Bible Study Guide: All 66 Books</b> — <b>$34.90</b> (reg $69.80). An illustrated A5 (6×9”) physical guide: who wrote each book and why, key themes &amp; symbols simplified, and reflection questions for personal application. 30-day money-back guarantee. On-page positioning is ‘finally understand what you’re reading,’ beginner-friendly (no overwhelm), and ‘feel closer to God,’ with social proof (43,000+ believers; survey stats 96% finally understood / 94% felt more connected / 91% reflected).</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Strategic flag — a crowded clone market</p><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)">Valorrea is <b>not differentiated on the offer</b>. Near-identical dropship guides (Elvasma, a ‘66-Page’ guide) run the same template — ‘all 66 books made simple, who wrote it / why, reflection prompts’ — even the same survey-stat style (‘96% finally understood’). Differentiation has to come from <span class="hl">emotional angle, specific verbatim voice, and trust cues</span> (the swipe / angle tabs), not the feature list — because three other stores say the same words.</p></div>
+  <p class="kicker" style="margin-top:22px">Headline signals → Valorrea wedges</p>
+  <div class="wedge-map"><div class="wedge-card"><p class="q">““Every time I try to start, I end up feeling overwhelmed””</p><p class="w">→ Beginner-friendly · no overwhelm</p></div><div class="wedge-card"><p class="q">““I have zero idea what’s going on””</p><p class="w">→ Who wrote it / why / what it means — for every book</p></div><div class="wedge-card"><p class="q">The universal quit-point at Leviticus / Numbers</p><p class="w">→ A structured path past the wall people always hit</p></div><div class="wedge-card"><p class="q">““I found myself getting further and further from God””</p><p class="w">→ Guided reading that comforts instead of condemns</p></div><div class="wedge-card"><p class="q">““Start every January, fall behind, restart””</p><p class="w">→ Break the Bible-in-a-year restart cycle</p></div><div class="wedge-card"><p class="q">Three clone stores use the same survey stats</p><p class="w">→ Win on emotional voice + trust cues, not the feature list</p></div></div>
+  <p class="kicker" style="margin-top:22px">Coverage</p>
+  <div class="grid"><div class="metric"><span>Distinct sources</span><b>34</b></div><div class="metric"><span>Pain</span><b>35</b></div><div class="metric"><span>Emotional</span><b>22</b></div><div class="metric"><span>Ladder</span><b>14</b></div><div class="metric"><span>Objections</span><b>17</b></div><div class="metric"><span>Swipe</span><b>24</b></div><div class="metric"><span>Angles</span><b>14</b></div></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Communities mined</p><div class="community-pills"><span class="community-pill">r/Christianity</span><span class="community-pill">r/TrueChristian</span><span class="community-pill">r/Bible</span><span class="community-pill">r/BibleProject</span><span class="community-pill">r/AskAChristian</span><span class="community-pill">r/Catholicism</span><span class="community-pill">Amazon / retailer reviews</span></div></div>
+  <div class="card"><p class="kicker">Method, caveats &amp; sensitivity</p><ul class="clean"><li>Ranking = <b>frequency across distinct sources</b>, never upvotes/stars. Reddit upvotes and Amazon/retailer stars are kept separate as secondary corroboration only — a theme’s weight is how many distinct sources voice it, not how loud one thread is.</li><li>Every row is tagged by <b>Use-case</b> (New / Returning / Lifelong-stuck / Gift-buyer / In-crisis / Parent / Everyday) for creative targeting. The corpus skews Returning + New, with a strong Lifelong-stuck third.</li><li><b>Sensitivity:</b> faith is personal. Genuine crisis content and divisive doctrinal debates (hell, sexuality, etc.) were deliberately NOT mined for ad copy; the 2 ‘In-crisis’ lines are kept out of the swipe / angle tabs out of respect. Verbatims are short and exact; nothing fabricated.</li><li>Product is Protestant-canon (66 books), broadly non-denominational; translation / denomination confusion is logged as its own objection cluster.</li></ul></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Action plan</p><ol class="clean"><li>Lead cold traffic with the overwhelm hook — “Every time you start, you end up overwhelmed” → beginner-friendly, no overwhelm.</li><li>Name the wall: the Leviticus / Numbers quit-point everyone hits, and the structured path past it.</li><li>Emotional BOF: “reading pushed me further from God” → a guide that comforts instead of condemns; feel close to God again.</li><li>Break the restart loop: “start every January, fall behind, restart” → a path you can actually finish.</li><li>Trust over template: because the offer is cloned, differentiate on sincere voice, real testimonials, and credibility cues.</li><li>Segment creative by Use-case: Returning (guilt→reconnection), New (paralysis→first step), Lifelong-stuck (embarrassment→it finally clicks).</li></ol></div>
+  <div class="spine-footer">Pain → Emotion → Objection → Wedge → Ad</div>
+</section><section class="panel" data-panel="pain">
+  <p class="kicker">02 · Pain &amp; Symptom Language</p>
+  <h2>Pain &amp; symptoms <span class="hl">(35)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Theme · the believer’s exact words · what it signals · source. Each line is tagged by <b>Use-case</b> segment.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The raw language of the struggle — overwhelm, the Leviticus / Numbers wall, guilt, the January restart. Ranked by how many distinct sources voice each theme, not by loudness.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲70</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Try to start, end up overwhelmed</p><p class="quote-body">Every time I try to start, I end up feeling overwhelmed and unsure of where to begin</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The exact start-and-stall the product targets</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲30</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Read John, zero idea what&#x27;s going on</p><p class="quote-body">I finished chapter 1 of John tonight and oh my I have zero idea what&#x27;s going on</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">New reader hits the comprehension wall</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲30</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Brain through a blender with no context</p><p class="quote-body">my brain feels like it&#x27;s been through a blender trying to understand John with zero background or context</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Missing context = can&#x27;t understand</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲28</span><a class="quote-sub" href="https://www.reddit.com/r/BibleProject/comments/1hd4acy/i_want_to_read_the_bible_but_dont_know_where_to/" target="_blank" rel="noopener">r/BibleProject</a></div>
+      <p class="quote-theme">The thought of starting is overwhelming</p><p class="quote-body">just the thought of starting feels so overwhelming to me</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Overwhelm blocks people before page 1</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲28</span><a class="quote-sub" href="https://www.reddit.com/r/BibleProject/comments/1hd4acy/i_want_to_read_the_bible_but_dont_know_where_to/" target="_blank" rel="noopener">r/BibleProject</a></div>
+      <p class="quote-theme">Know the basics, knowledge ends there</p><p class="quote-body">my whole life believe there is a God … But my knowledge of it all ends there and I want to change that</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Lifelong believer who never went deeper</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲70</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Never read it consistently front to back</p><p class="quote-body">I&#x27;ve never really read the Bible consistently from beginning to end</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The unfinished-Bible guilt</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲70</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Want to understand what I&#x27;m reading</p><p class="quote-body">advice on how to stay consistent, understand what I&#x27;m reading, and build a daily habit</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Names all three needs at once</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Grew up Christian, still unsure where to start</p><p class="quote-body">i grew up as a christian and know a lot about the bible already but … im not sure where to start</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Even the churched feel lost starting</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Episcopalian/comments/1r6owjh/reading_the_bible_the_first_time_dont_know_where/" target="_blank" rel="noopener">r/Episcopalian</a></div>
+      <p class="quote-theme">First time, don&#x27;t know where to begin</p><p class="quote-body">I want to read the Bible for the first time but I don&#x27;t know where to begin. It feels overwhelming</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">First-timer paralysis</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲15</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Bogged down in Leviticus/Numbers, then stop</p><p class="quote-body">It is easy to get bogged down in Leviticus and Numbers and then stop</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">THE wall the product is built to prevent</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲3</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Hit Numbers and felt overwhelmed</p><p class="quote-body">by the time I hit numbers I felt overwhelmed. There were just too much repetition and honestly uninteresting details</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Repetition/boredom kills momentum</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲3</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Genesis straight-through is a struggle</p><p class="quote-body">I tried to start with genesis at first but it was a struggle</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Front-to-back fails beginners</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Same struggle — this is universal</p><p class="quote-body">I&#x27;m not the OP but share his/her same struggle</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The pain is widely shared (relatability)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲71</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Feel like God is tearing a strip off me</p><p class="quote-body">I go prayerfully into the Bible but always feel like God is tearing a strip off of me</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Unguided reading -&gt; self-condemnation</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲71</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Went for water, got vinegar — crushed</p><p class="quote-body">It&#x27;s like going to God for a drink of water and being fed vinegar. I&#x27;m crushed</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Vivid: seeking comfort, feeling crushed</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲3</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Scripture keeps saying I&#x27;m not good enough</p><p class="quote-body">I keep getting knocked down by scripture focusing on me not being good enough</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The not-good-enough spiral</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Reading it like a cookbook</p><p class="quote-body">I might be reading the Bible like a cookbook</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Self-aware: no method, no context</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲39</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Distant from God, and I hate reading</p><p class="quote-body">I feel so distant from God … I&#x27;ve always struggled to read the bible and I still do, I generally hate reading</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Distance tied directly to reading struggle</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Read the Bible like a history textbook</p><p class="quote-body">i will read my Bible but … i just feel like i am reading a history textbook</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">No application = no connection</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Learn what happened, not how it applies to me</p><p class="quote-body">learning about what happened in the Bible rather than taking individual lessons and applying them to my life</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The application gap the guide&#x27;s questions fill</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">How do I even change the way I read the Bible?</p><p class="quote-body">how do i change the way i read the Bible? … i&#x27;m genuinely desperate for answers</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Explicit desire for a better method</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲197</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Start every January, fall behind, restart</p><p class="quote-body">I start every January, fall behind by the end of the year, and then restart again</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">THE Bible-in-a-year failure loop (197 up)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲197</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Slack for weeks, forget, start over</p><p class="quote-body">Sometimes I slack for weeks, and when I come back I&#x27;ve forgotten what I was reading, so I restart</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The forget-and-restart trap</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲197</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Progress so slow it discourages me</p><p class="quote-body">The progress feels painfully slow, which just discourages me even more</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Discouragement compounds the stall</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Kings/Chronicles kill it, back to Genesis</p><p class="quote-body">Kings or chronicles is where I lose my focus. And then I start from Genesis again</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The wall + restart loop, named</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Get to the dry OT parts and give up</p><p class="quote-body">they eventually get to some of the drier parts of the OT and then give up, especially Leviticus and Numbers</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The universal quit-point</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Reading it as a chore, not desire</p><p class="quote-body">Sounds like you&#x27;re reading it as a chore rather than reading what you want</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Chore-framing kills the habit</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲11</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Phone wrecked my attention for long text</p><p class="quote-body">The smartphone is killing our ability to read books … If I see a post that&#x27;s more than a few paragraphs, I scroll right on past</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Screen fatigue → the bite-sized physical wedge</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲15</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Keep promising I&#x27;ll read tomorrow</p><p class="quote-body">I keep making promises that I will read tomorrow … but I cant concentrate</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The procrastination/tomorrow loop</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲31</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Read it cover to cover twice, retained nothing</p><p class="quote-body">Read the Bible cover to cover twice by 25. Couldn&#x27;t tell you what any of it meant</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Finishing != understanding</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Lost the desire; heart not in it, can&#x27;t focus</p><p class="quote-body">I don&#x27;t have the desire to read the Bible anymore … my heart is not in it and I just can&#x27;t focus</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Motivation collapse</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><span class="quote-sub" style="color:var(--text-dim)">Walmart review (Beginner&#x27;s Bible Study Guide)</span></div>
+      <p class="quote-theme">Cliff-note style, easy to carry anywhere</p><p class="quote-body">Easy to understand, cliff note type read … I sometimes take it with me to read while in waiting rooms</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Simple + portable is the felt benefit</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Bought a kids&#x27; guide; he won&#x27;t do a page</p><p class="quote-body">I bought a kids Bible study guide for my 8 year old son but he very rarely wants to do it. Not even a page!</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Engagement gap → illustrated/colorful wedge</span></div><div class="mini-tags"><span class="mini-tag">Parent</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/agnostic/comments/1swjuwr/agnostic_looking_to_do_a_bible_study_with_my/" target="_blank" rel="noopener">r/agnostic</a></div>
+      <p class="quote-theme">Wants gentle, uplifting study for grandma</p><p class="quote-body">my grandma with Dementia … having such a hard time … I would like to study something actually gentle and uplifting … as opposed to the sin and hellfire parts</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Comfort/caregiving use case</span></div><div class="mini-tags"><span class="mini-tag">In-crisis</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲25</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">The app pulls you away / distracts</p><p class="quote-body">using the app is just a distraction that takes you away from the teaching</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Screen = distraction; paper = focus</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article></div>
+</section><section class="panel" data-panel="avatars">
+  <p class="kicker">03 · Avatars</p>
+  <h2>The Avatars</h2>
+  <p class="muted" style="margin-bottom:18px">Three segments straight from the data’s <b>Use-case</b> tags — Returning (largest), New, and the Lifelong-but-stuck churchgoer — each with the real, highest-signal quotes tagged to them.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>No preset avatars were provided, so these are built from the corpus’s own Use-case tags (not invented demographics). Quotes are the highest-signal lines actually tagged to each segment. Handle each with sincerity — this is a faith audience, not a pain to exploit.</p></div>
+  <div class="avatar-grid"><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">PRIMARY</span><span class="avatar-badge matrix">Largest segment · lapsed / returning</span></div>
+        <h3>The Returning Believer</h3>
+        <p class="av-demo">Drifting back to faith after time away · r/Christianity, r/Bible</p>
+        <p class="muted">Drifted from faith and is finding their way back. They want to reconnect with God but feel guilty and ‘lukewarm,’ and every attempt to restart the Bible stalls out in the same place.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“I start every January, fall behind by the end of the year, and then restart again”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></span></div><div class="avatar-quote">“Sometimes I slack for weeks, and when I come back I&#x27;ve forgotten what I was reading, so I restart”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></span></div><div class="avatar-quote">“The progress feels painfully slow, which just discourages me even more”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></span></div></div>
+        <div class="flip-row"><span class="flip-label">Emotional core</span><p>Guilt + a real yearning to reconnect</p></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>That they’ll drift away again because Scripture still doesn’t make sense.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“I’ve tried before and quit — why would another guide be any different?”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>A beginner-friendly, structured path that breaks the January-restart cycle and helps them feel close to God again.</p></div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">SECONDARY</span><span class="avatar-badge matrix">Second-largest · brand new to faith</span></div>
+        <h3>The New Believer</h3>
+        <p class="av-demo">New to the Bible · ‘where do I even start’</p>
+        <p class="muted">New to the Bible and genuinely lost. They open it, read a chapter, and think ‘I have zero idea what’s going on’ — and unguided reading sometimes leaves them feeling worse, not closer.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“People around me told me it was toxic, controlling, outdated … For years, I believed them without ever opening it myself”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></span></div><div class="avatar-quote">“I decided to actually read it. And honestly? I can&#x27;t put it down now … Instead, I&#x27;ve found peace”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></span></div><div class="avatar-quote">“helping me let go of anger … and stop carrying guilt from my past”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></span></div></div>
+        <div class="flip-row"><span class="flip-label">Emotional core</span><p>Overwhelm, held together by hope</p></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>That they’re ‘not smart enough’ or ‘not spiritual enough’ to understand it.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“Do I start at Genesis or the Gospels? Which translation? It’s paralyzing.”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>Clear who-wrote-it / why / what-it-means for every book, so step one isn’t a guess.</p></div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">TERTIARY</span><span class="avatar-badge matrix">Strong third · never quite understood it</span></div>
+        <h3>The Lifelong-but-Stuck Churchgoer</h3>
+        <p class="av-demo">Grew up in church · quietly never understood Scripture</p>
+        <p class="muted">In church their whole life and can quote verses, but quietly admits they never really understood Scripture — and feel they should have it figured out by now.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“I prefer my Bible journaling to stay in my Bible … add notes daily to each”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></span></div><div class="avatar-quote">“I joined a women&#x27;s Bible study group and realized I didn&#x27;t understand the world behind what we were reading”<span class="src"><a class="src-link" href="https://elvasma.com/products/elvasma%E2%84%A2-bible-study-guide" target="_blank" rel="noopener">Competitor review (Elvasma)</a></span></div><div class="avatar-quote">“I feel so distant from God … I&#x27;ve always struggled to read the bible and I still do, I generally hate reading”<span class="src"><a class="src-link" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></span></div></div>
+        <div class="flip-row"><span class="flip-label">Emotional core</span><p>Quiet embarrassment, then relief when it clicks</p></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>Being ‘found out’ — that after all these years they still don’t get it.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“I should already know this; a beginner guide feels beneath me.”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>The context (who / why / themes) church never taught, so it finally clicks — without judgment.</p></div>
+      </article></div>
+</section><section class="panel" data-panel="emotional">
+  <p class="kicker">04 · Emotional Drivers</p>
+  <h2>Emotional drivers <span class="hl">(22)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The feeling · the believer’s words · how to use it · source.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The emotional core beneath the purchase — guilt and ‘lukewarm’ shame, reading that backfired into condemnation, and the deep yearning to feel close to God. The most important tab for this brand, since the offer can’t differentiate but the feeling can.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲38</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Reading pushed me further from God</p><p class="quote-body">I found myself getting further and further away from God and that I&#x27;m nowhere near the kind of person I am supposed to be</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Unguided reading can backfire emotionally</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲70</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Wants a deeper relationship with God through Scripture</p><p class="quote-body">someone who wants to develop a deeper relationship with God through His Word</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The aspiration the guide sells to</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Wants to strengthen relationship with God by reading</p><p class="quote-body">i want to strengthen my relationship with God by reading the bible</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Reading = the path to closeness</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">It&#x27;s a masterpiece once you understand it</p><p class="quote-body">The Bible is a masterpiece once you understand it … I&#x27;m understanding more with each read</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The payoff on the other side of understanding</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Started wonderful, now He seems always mad</p><p class="quote-body">It didn&#x27;t start out this way for me. It was all so wonderful. Now it seems like he&#x27;s always mad</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Honeymoon -&gt; dryness arc</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Over the moon at first, now clinging on</p><p class="quote-body">I started out over the moon happy when I first believed. Now I&#x27;m just trying not to loose a good thing</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Fear of losing the faith they found</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲39</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">I just want to be close to Him — what do I do?</p><p class="quote-body">I just want to be with God … have a very strong relationship between me and him. What do I do?</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The yearning the product speaks to</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Shame and condemnation aren&#x27;t from God</p><p class="quote-body">shame and condemnation is from the enemy</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Reframe: the guilt isn&#x27;t the point</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">I&#x27;m the &#x27;lukewarm Christian&#x27; — disconnected</p><p class="quote-body">i feel like i am the person spoken about when the Bible refers to lukewarm Christians … it just feels like i&#x27;m disconnected</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Names the dry-faith identity</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Prayer feels like talking to the wind</p><p class="quote-body">i feel like i am speaking words to the wind … it feels like i&#x27;m talking to myself</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Prayer without connection</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲31</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Looking at water vs being thirsty</p><p class="quote-body">Something changed when I started sitting with one verse … Like the difference between looking at water and actually being thirsty</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Racing vs absorbing — the shift the guide enables</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲119</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">NYR guilt: bought it years ago, never did it</p><p class="quote-body">I purchased &#x27;The Bible in 52 weeks&#x27; two years ago and I want to make good on that New Year&#x27;s resolution of 2023</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The unused-purchase guilt</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲838</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Believed the worst, never opened it</p><p class="quote-body">People around me told me it was toxic, controlling, outdated … For years, I believed them without ever opening it myself</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The preconception the guide overcomes</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲838</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Now I can&#x27;t put it down; found peace</p><p class="quote-body">I decided to actually read it. And honestly? I can&#x27;t put it down now … Instead, I&#x27;ve found peace</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The after-state transformation</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲838</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">It let go of my anger and past guilt</p><p class="quote-body">helping me let go of anger … and stop carrying guilt from my past</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Emotional healing payoff</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲838</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">For the first time I feel understood and free</p><p class="quote-body">For the first time in a long time, I feel understood, calm, and free</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The promised-land emotional payoff</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://elvasma.com/products/elvasma%E2%84%A2-bible-study-guide" target="_blank" rel="noopener">Competitor review (Elvasma)</a></div>
+      <p class="quote-theme">Didn&#x27;t understand the world behind the reading</p><p class="quote-body">I joined a women&#x27;s Bible study group and realized I didn&#x27;t understand the world behind what we were reading</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Group members feel exposed / behind</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://elvasma.com/products/elvasma%E2%84%A2-bible-study-guide" target="_blank" rel="noopener">Competitor review (Elvasma)</a></div>
+      <p class="quote-theme">Breaks it down like my textbook never did</p><p class="quote-body">It breaks down each book with the context and reflection in a way my textbook never did, and it all finally makes sense</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">&#x27;Finally makes sense&#x27; = the payoff line</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://elvasma.com/products/66-page-bible-study-guide" target="_blank" rel="noopener">Competitor review (66-Page)</a></div>
+      <p class="quote-theme">Wanted to understand it, not just read it</p><p class="quote-body">I got baptized a few months ago and wanted to actually understand the Bible, not just read it … the context for each book before I read it makes everything click</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">New-believer before/after (&#x27;makes everything click&#x27;)</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲123</span><a class="quote-sub" href="https://www.reddit.com/r/Parenting/comments/rlm7n8/gift_from_grandma_bible/" target="_blank" rel="noopener">r/Parenting</a></div>
+      <p class="quote-theme">Grandparents want to pass faith to grandkids</p><p class="quote-body">I have a special present for you, your first bible!</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The core gift-giver: elder passing on faith</span></div><div class="mini-tags"><span class="mini-tag">Gift-buyer</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲30</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Physical copy feels more personal</p><p class="quote-body">there is something that is more personal that registers with me with physical copy</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Tactile = deeper connection (vs app)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲57</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Writes notes in her Bible daily</p><p class="quote-body">I prefer my Bible journaling to stay in my Bible … add notes daily to each</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Write-in devotion = the guide&#x27;s format</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article></div>
+</section><section class="panel" data-panel="solution_ladder">
+  <p class="kicker">05 · Solution Ladder</p>
+  <h2>What they try before Valorrea <span class="hl">(14)</span></h2>
+  <p class="muted" style="margin-bottom:18px">The alternatives believers reach for — reading-order advice, study Bibles, apps, commentaries, plans — and how they feel about each.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Everything people try to solve the ‘I don’t understand it’ problem on their own, with sentiment. The recurring gap: free advice (‘start with the Gospels’) and study Bibles help, but nothing removes the guesswork the way a structured, book-by-book guide does.</p></div>
+  <div class="ladder-grid"><div class="ladder-card"><h4>Start with Luke/John/Matthew first, then go back to Genesis</h4>
+        <p class="lc-note">The guesswork the guide removes by structuring each book</p>
+        <div class="ladder-meta"><span class="lc-tag">Free advice (reading order)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div></div><div class="ladder-card"><h4>watch the Bible Project summary before and after reading the book</h4>
+        <p class="lc-note">Free, popular; but it&#x27;s video, not a book you write/reflect in</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (video context)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div></div><div class="ladder-card"><h4>Download the You version bible app it&#x27;s awesome; Blue Letter Bible for translations/commentary</h4>
+        <p class="lc-note">Dominant free path; screen-based, easy to skim, no tactile keepsake</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (app)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div></div><div class="ladder-card"><h4>Start with John and watch The Chosen alongside it</h4>
+        <p class="lc-note">Sparks interest/context; not a study method</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (TV series)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div></div><div class="ladder-card"><h4>reader&#x27;s edition (NIV Lectio, ESV, CSB); or listen to Daily Audio Bible</h4>
+        <p class="lc-note">Physical/audio alternatives; still no per-book explanation of who/why/themes</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (format)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div></div><div class="ladder-card"><h4>Read from the gospel of John, it talks about how much God loves us; focus on Grace</h4>
+        <p class="lc-note">Works if you know WHICH book + why — the structuring a guide provides</p>
+        <div class="ladder-meta"><span class="lc-tag">Free advice (reframe by book choice)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div></div><div class="ladder-card"><h4>Read one Proverb every morning … the one that coincides with the day of the month</h4>
+        <p class="lc-note">Simple cadence people reach for; guide can supply the plan + context</p>
+        <div class="ladder-meta"><span class="lc-tag">Habit hack (consistency)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div></div><div class="ladder-card"><h4>just read 1 book of the Bible at a time … read little bits at a time</h4>
+        <p class="lc-note">The winning method; the guide packages it with context</p>
+        <div class="ladder-meta"><span class="lc-tag">Free advice = the guide&#x27;s exact approach</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div></div><div class="ladder-card"><h4>I note observations … interpretations (context) … and application/reflection (what does this mean for me and my walk)</h4>
+        <p class="lc-note">Literally the guide&#x27;s reflection-question format</p>
+        <div class="ladder-meta"><span class="lc-tag">The study method</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div></div><div class="ladder-card"><h4>the &#x27;Bible in a Year&#x27; series by Fr. Mike Schmitz … do one every day and it&#x27;s explained to you</h4>
+        <p class="lc-note">Huge, free, Catholic-framed, audio — not a physical write-in guide</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (podcast/video plan)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div></div><div class="ladder-card"><h4>Can I suggest a study bible? Adding some context to what you&#x27;re reading can help (New Oxford Annotated; Zondervan Student)</h4>
+        <p class="lc-note">Context alternative; dense, reference-formatted, not beginner-simple</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (study Bible)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div></div><div class="ladder-card"><h4>The Word of Promise Audio Bible … with voice actors and music I found it very engaging</h4>
+        <p class="lc-note">&#x27;Life-changing&#x27; for consistency; passive, no reflection/keepsake</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (audio)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div></div><div class="ladder-card"><h4>Having the context for each book before I read it makes everything click</h4>
+        <p class="lc-note">Front-loaded who/why/themes = the &#x27;click&#x27; beginners chase</p>
+        <div class="ladder-meta"><span class="lc-tag">The guide&#x27;s core mechanic</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://elvasma.com/products/66-page-bible-study-guide" target="_blank" rel="noopener">Competitor review (66-Page)</a></div></div><div class="ladder-card"><h4>physical copy vs a Bible app (YouVersion) for daily engagement</h4>
+        <p class="lc-note">Physical = personal, focused, write-in, giftable — the guide&#x27;s lane vs apps</p>
+        <div class="ladder-meta"><span class="lc-tag">Format choice</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div></div></div>
+</section><section class="panel" data-panel="objections">
+  <p class="kicker">06 · Objections &amp; Friction</p>
+  <h2>Objections &amp; friction <span class="hl">(17)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The objection · the signal in their words · what it means for Valorrea · source.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Every hesitation — ‘Genesis or the Gospels?’ decision paralysis, which translation, ‘is it doctrinally sound?’, ‘I should already know this.’ Translation / denomination confusion is its own cluster worth addressing head-on.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲70</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Start at Genesis or the Gospels?</p><p class="quote-body">Should I start with Genesis and read straight through, or … the Gospels, especially John, but I&#x27;m not sure why</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Decision paralysis at step one</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲9</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Took an Israel passage personally</p><p class="quote-body">Not every passage in the Bible is for you to take personally … about God&#x27;s relationship with Israel … they were not under GRACE but we are</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Missing context = misreading = despair</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Condemned vs conviction — needs help telling apart</p><p class="quote-body">The word you are looking for is not condemned. It is conviction</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Beginners can&#x27;t self-interpret tone</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲13</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">My prayers feel weak and ineffective</p><p class="quote-body">my prayers seem, to me, weak and ineffective</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Prayer-inadequacy (product: &#x27;pray boldly&#x27;)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲13</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Years in, still hard to remember to pray</p><p class="quote-body">I&#x27;ve been a Christian for nearly two years now and I still find it hard to remember to pray</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Consistency + confidence gap in prayer</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Lots to tell God, but freeze when it counts</p><p class="quote-body">I have a lot to tell God, but it&#x27;s hard when it actually comes down to it … I know it sounds stupid</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Prayer awkwardness / embarrassment</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲17</span><a class="quote-sub" href="https://www.reddit.com/r/Catholicism/comments/1eixn6o/i_wanna_pray_for_over_30_mins_but_i_dont_know/" target="_blank" rel="noopener">r/Catholicism</a></div>
+      <p class="quote-theme">Same prayer words lose their meaning</p><p class="quote-body">I feel like repeating the same words and feel like they lose their meaning</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Rote prayer feels empty</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲119</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">Finishing in a year feels superficial</p><p class="quote-body">reading the Bible just to finish it in a year might be superficial and also a bit too ambitious</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Depth-vs-speed doubt about plans</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></div>
+      <p class="quote-theme">We have our whole lives — why cram a year</p><p class="quote-body">we have our entire lives to read the Bible so why try to cram it into a single year</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Reframes the whole BIAY premise</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/AskAChristian/comments/1wbz4aw/new_to_christianity_but_struggling_with_the/" target="_blank" rel="noopener">r/AskAChristian</a></div>
+      <p class="quote-theme">I want to trust it but doubt holds me back</p><p class="quote-body">I genuinely want to trust it, but the doubt is holding me back</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Reliability doubt blocks new believers</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/AskAChristian/comments/1wbz4aw/new_to_christianity_but_struggling_with_the/" target="_blank" rel="noopener">r/AskAChristian</a></div>
+      <p class="quote-theme">Videos and podcasts — nothing sticks, no &#x27;aha&#x27;</p><p class="quote-body">I&#x27;ve been watching videos and listening to podcasts … but nothing is sticking … I haven&#x27;t had that &#x27;spark&#x27; or &#x27;aha&#x27; moment where everything finally clicks</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Competitors fail to make it click</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">So many translations and denominations</p><p class="quote-body">so many different translations over the centuries, so many denominations … I feel like I need to study my entire life</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Overwhelm at translation/denomination choice</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14</span><a class="quote-sub" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></div>
+      <p class="quote-theme">Which translation do I even start with?</p><p class="quote-body">I&#x27;m thinking of getting the ESV and CSB … what your main Bible is and why</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Translation paralysis before page one</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲9</span><a class="quote-sub" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></div>
+      <p class="quote-theme">Was confirming my bias, not testing it</p><p class="quote-body">I used to just read it … but found I was confirming more than testing … cherry picked … got led into error</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Fear you&#x27;ll read it wrong without guidance</span></div><div class="mini-tags"><span class="mini-tag">Lifelong-stuck</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲17</span><a class="quote-sub" href="https://www.reddit.com/r/OpenChristian/comments/1nvbqut/bible_study_guide/" target="_blank" rel="noopener">r/OpenChristian</a></div>
+      <p class="quote-theme">Just opening and reading is overwhelming w/o context</p><p class="quote-body">starting by just opening up and reading may be overwhelming if I don&#x27;t have context for what I&#x27;m reading</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Even motivated readers want a lesson plan</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲123</span><a class="quote-sub" href="https://www.reddit.com/r/Parenting/comments/rlm7n8/gift_from_grandma_bible/" target="_blank" rel="noopener">r/Parenting</a></div>
+      <p class="quote-theme">An unwanted Bible gift backfires</p><p class="quote-body">it&#x27;s not something we&#x27;re going to use … can I donate it?</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Gift only lands with a WILLING recipient</span></div><div class="mini-tags"><span class="mini-tag">Gift-buyer</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲3</span><a class="quote-sub" href="https://www.reddit.com/r/teenagers/comments/13lhwkv/my_grandma_gave_me_a_bible_as_a_gift_for_my_high/" target="_blank" rel="noopener">r/teenagers</a></div>
+      <p class="quote-theme">Third Bible as a gift — eye roll</p><p class="quote-body">This the 3rd time she&#x27;s given me a Bible as a gift</p><div class="quote-field"><span class="quote-field-label">Implication for Valorrea</span><span class="quote-field-value">Generic Bible gifting feels cliché/pushy</span></div><div class="mini-tags"><span class="mini-tag">Gift-buyer</span></div></article></div>
+</section><section class="panel" data-panel="swipe_file">
+  <p class="kicker">07 · Emotional Swipe File</p>
+  <h2>Emotional Swipe File <span class="hl">(24)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Ready-to-lift verbatims by funnel stage, tagged by Use-case. Crisis-tagged lines are intentionally excluded from ad copy.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The sincere, exact words believers use — usable as hooks and copy, grouped TOF → MOF → BOF. This is where a cloned offer gets differentiated: nobody else has these specific voices.</p></div>
+  <div class="ladder-group"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">TOF <span class="hl">(11)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · New</div>
+            <p class="swipe-ad">You read a chapter and think: I have zero idea what&#x27;s going on</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I have zero idea what&#x27;s going on”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">Ever feel like God is tearing a strip off you when you read?</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“always feel like God is tearing a strip off of me”</p><a class="swipe-src" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">You came for a drink of water and it felt like vinegar</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“going to God for a drink of water and being fed vinegar”</p><a class="swipe-src" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">It started out wonderful. Now it feels like He&#x27;s always mad.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“It was all so wonderful. Now it seems like he&#x27;s always mad”</p><a class="swipe-src" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Lifelong-stuck</div>
+            <p class="swipe-ad">You pray, but it feels like talking to the wind</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“i feel like i am speaking words to the wind”</p><a class="swipe-src" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · New</div>
+            <p class="swipe-ad">Two years in, and you still don&#x27;t know what to say to God</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it&#x27;s hard when it actually comes down to it”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">Every January you start. By spring you&#x27;ve stopped. This year, actually finish.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I start every January, fall behind … and then restart again”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">You slacked, forgot where you were, and started over. Again.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“when I come back I&#x27;ve forgotten what I was reading, so I restart”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">Reading it shouldn&#x27;t feel like a chore you keep failing</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“reading it as a chore rather than reading what you want”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · New</div>
+            <p class="swipe-ad">Not written for scholars. Written for you.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“It is not written for scholars - it is written for anyone … no matter their age or education level”</p><span class="swipe-src" style="color:var(--text-dim)">How To Study The Bible for Beginners (listing)</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Gift-buyer</div>
+            <p class="swipe-ad">The gift that helps someone actually understand it — not just another Bible on the shelf</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it&#x27;s not something we&#x27;re going to use”</p><a class="swipe-src" href="https://www.reddit.com/r/Parenting/comments/rlm7n8/gift_from_grandma_bible/" target="_blank" rel="noopener">r/Parenting</a></article></div></div><div class="ladder-group"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">MOF <span class="hl">(9)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · New</div>
+            <p class="swipe-ad">The Bible without context feels like a blender. Context changes everything.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“my brain feels like it&#x27;s been through a blender … with zero background or context”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Returning</div>
+            <p class="swipe-ad">You&#x27;re not condemned — you may just be missing the context it was written in</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Not every passage in the Bible is for you to take personally”</p><a class="swipe-src" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Lifelong-stuck</div>
+            <p class="swipe-ad">Feeling far from God often starts with not understanding what you read</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I feel so distant from God … I&#x27;ve always struggled to read the bible”</p><a class="swipe-src" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Lifelong-stuck</div>
+            <p class="swipe-ad">You read it like a history textbook — and feel nothing</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“i just feel like i am reading a history textbook”</p><a class="swipe-src" href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · New</div>
+            <p class="swipe-ad">Everyone quits at Leviticus. What if you didn&#x27;t have to?</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“get to some of the drier parts of the OT and then give up, especially Leviticus and Numbers”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · New</div>
+            <p class="swipe-ad">You&#x27;ve watched the videos and the podcasts. Why doesn&#x27;t it stick?</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“nothing is sticking … I haven&#x27;t had that &#x27;aha&#x27; moment where everything finally clicks”</p><a class="swipe-src" href="https://www.reddit.com/r/AskAChristian/comments/1wbz4aw/new_to_christianity_but_struggling_with_the/" target="_blank" rel="noopener">r/AskAChristian</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · New</div>
+            <p class="swipe-ad">Understand each book before you read it — so it finally clicks</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“the context for each book before I read it makes everything click”</p><a class="swipe-src" href="https://elvasma.com/products/66-page-bible-study-guide" target="_blank" rel="noopener">Competitor review (66-Page)</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">An app is one more screen to get lost in. This is a place to focus.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“using the app is just a distraction that takes you away”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Lifelong-stuck</div>
+            <p class="swipe-ad">A place to write, reflect, and make God&#x27;s Word your own</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I prefer my Bible journaling to stay in my Bible … add notes daily”</p><a class="swipe-src" href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></article></div></div><div class="ladder-group"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">BOF <span class="hl">(4)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Returning</div>
+            <p class="swipe-ad">The Bible is a masterpiece — once you finally understand it</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“The Bible is a masterpiece once you understand it”</p><a class="swipe-src" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · New</div>
+            <p class="swipe-ad">I finally opened it myself — and couldn&#x27;t put it down</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I decided to actually read it … I can&#x27;t put it down now”</p><a class="swipe-src" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · New</div>
+            <p class="swipe-ad">For the first time in a long time, I feel understood, calm, and free</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I feel understood, calm, and free”</p><a class="swipe-src" href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · New</div>
+            <p class="swipe-ad">It breaks down each book the way my textbook never did — and it finally makes sense</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“in a way my textbook never did, and it all finally makes sense”</p><a class="swipe-src" href="https://elvasma.com/products/elvasma%E2%84%A2-bible-study-guide" target="_blank" rel="noopener">Competitor review (Elvasma)</a></article></div></div>
+</section><section class="panel" data-panel="creative_angles">
+  <p class="kicker">08 · Creative Angles</p>
+  <h2>Angles, mapped to wedges <span class="hl">(14)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Each angle ties a real verbatim to a Valorrea wedge and a funnel stage.</p>
+  <div class="honesty-callout"><p class="kicker">How to read this</p><p>Angles are synthesis — the driving verbatim is real, the headline is a starting line. Keep the tone sincere; this audience can tell when faith is being used as a lever.</p></div>
+  <div class="angle-matrix"><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 01</span><h3>Every time you start, you end up overwhelmed. Here&#x27;s the fix.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Beginner-friendly · no overwhelm</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“Every time I try to start, I end up feeling overwhelmed”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Bible</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 02</span><h3>You read a chapter and think: &#x27;I have zero idea what&#x27;s going on.&#x27;</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Context: who wrote it, why, for whom</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“I have zero idea what&#x27;s going on”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Christianity</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 03</span><h3>Everyone quits at Leviticus. What if you didn&#x27;t have to?</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">One book at a time, with context</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“get to the drier parts of the OT and then give up, especially Leviticus”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Christianity</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 04</span><h3>You&#x27;ve read it cover to cover — and couldn&#x27;t tell anyone what it meant.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Understanding, not just finishing</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“Read the Bible cover to cover twice by 25. Couldn&#x27;t tell you what any of it meant”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/TrueChristian</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 05</span><h3>Ever feel like God is tearing a strip off you when you read?</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Context prevents misreading</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“always feel like God is tearing a strip off of me”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Bible</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 06</span><h3>You&#x27;re not condemned — you may just be missing the context it was written in.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">The core reframe / SSOT of meaning</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“Not every passage in the Bible is for you to take personally”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Bible</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 07</span><h3>Feeling far from God can start with not understanding what you read.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Closeness through understanding</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“I feel so distant from God … I&#x27;ve always struggled to read the bible”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/TrueChristian</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 08</span><h3>You pray, but it feels like talking to the wind.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Pray boldly when you don&#x27;t know what to say</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“i feel like i am speaking words to the wind”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/TrueChristian</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 09</span><h3>Every January you start. By spring you&#x27;ve stopped. This year, finish.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">A plan that finally sticks</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“I start every January, fall behind … and then restart again”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Christianity</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 10</span><h3>You&#x27;ve watched the videos and the podcasts. Why doesn&#x27;t it stick?</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">The book that makes it click</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“nothing is sticking … I haven&#x27;t had that &#x27;aha&#x27; moment”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/AskAChristian</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 11</span><h3>Not another app to scroll. A book to hold, write in, and make yours.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Physical / write-in / focus (vs app)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“using the app is just a distraction that takes you away”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Christianity</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 12</span><h3>The gift for someone who wants to understand it — not another Bible on the shelf.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">BOF</span><span class="avatar-tag">Gifting to a willing seeker</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“it&#x27;s not something we&#x27;re going to use”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Parenting</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 13</span><h3>&#x27;For the first time in a long time, I feel understood, calm, and free.&#x27;</h3>
+          <div class="avatar-tags"><span class="avatar-tag">BOF</span><span class="avatar-tag">Transformation / payoff</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“I feel understood, calm, and free”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Bible</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 14</span><h3>Not written for scholars. Written for you.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Accessibility / no intimidation</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“It is not written for scholars - it is written for anyone”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>Beginner guide listing</span></div></div></div>
+      </div></div></div>
+</section><section class="panel" data-panel="sources">
+  <p class="kicker">09 · Sources</p>
+  <h2>Sources <span class="hl">(34)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Reddit Christian communities (raw emotional pain) plus Amazon / retailer reviews (before/after language and objections).</p>
+  <div class="src-wrap"><table class="src-table"><thead><tr><th>Source</th><th>Title / Product</th><th>Signal</th><th>Volume</th><th>Date</th><th>Depth</th><th>Phase</th></tr></thead><tbody><tr><td><a href="https://www.reddit.com/r/Bible/comments/1u2uti6/how_do_i_start_reading_the_bible_as_a_beginner/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>How do I start reading the Bible as a beginner?</td><td>70 up</td><td>87c</td>
+      <td>2026-06-11</td><td><span class="badge depth-full">Full pull</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Bible/comments/1jbmei7/what_is_the_best_way_to_read_the_bible_and/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>What is the best way to read the bible and understand the reading?</td><td>14 up</td><td>27c</td>
+      <td>2025-03-15</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Bible/comments/qvjba8/just_started_reading_feeling_overwhelmed/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>Just started reading.. feeling.. overwhelmed?</td><td>38 up</td><td>44c</td>
+      <td>2021-11-16</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Bible/comments/1n0xgft/i_want_to_start_studying_the_bible_does_anyone/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>I want to start studying the bible. Any tips/tricks?</td><td>35 up</td><td>40c</td>
+      <td>2025-08-26</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/BibleProject/comments/1hd4acy/i_want_to_read_the_bible_but_dont_know_where_to/" target="_blank" rel="noopener">r/BibleProject</a></td>
+      <td>I want to read the Bible but don&#x27;t know where to start!</td><td>28 up</td><td>36c</td>
+      <td>2024-12-13</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Christianity/comments/1i3zlho/where_should_a_first_time_reader_start_in_the/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>Where should a first time reader start in the Bible?</td><td>30 up</td><td>41c</td>
+      <td>2025-01-18</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Episcopalian/comments/1r6owjh/reading_the_bible_the_first_time_dont_know_where/" target="_blank" rel="noopener">r/Episcopalian</a></td>
+      <td>Reading the Bible the First Time — Don&#x27;t Know Where to Begin</td><td>2 up</td><td>35c</td>
+      <td>2026-02-16</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Bible/comments/pf70ht/i_always_feel_condemed_when_i_read_the_bible_what/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>I always feel condemned when I read the Bible. What am I doing wrong?</td><td>71 up</td><td>103c</td>
+      <td>2021-08-31</td><td><span class="badge depth-full">Full pull</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/Catholicism/comments/1eixn6o/i_wanna_pray_for_over_30_mins_but_i_dont_know/" target="_blank" rel="noopener">r/Catholicism</a></td>
+      <td>I wanna pray for over 30 mins but I don&#x27;t know what to say to God</td><td>17 up</td><td>39c</td>
+      <td>2024-08-03</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/Christianity/comments/1sk7kx/i_dont_know_what_to_say_when_i_pray/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>I don&#x27;t know what to say when I pray</td><td>2 up</td><td>11c</td>
+      <td>2013-12-10</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/Christians/comments/6x7idp/i_feel_like_i_dont_know_how_to_pray/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>I feel like I don&#x27;t know how to pray</td><td>13 up</td><td>20c</td>
+      <td>2017-08-31</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/TrueChristian/comments/16ztln2/why_do_i_feel_so_distant_from_god/" target="_blank" rel="noopener">r/TrueChristian</a></td>
+      <td>Why do I feel so distant from God?</td><td>39 up</td><td>19c</td>
+      <td>2023-10-04</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/TrueChristian/comments/1vg9nat/i_feel_like_i_am_totally_emotionless_when_it/" target="_blank" rel="noopener">r/TrueChristian</a></td>
+      <td>I feel like I am totally emotionless when it comes to worship/God</td><td>6 up</td><td>17c</td>
+      <td>2026-08-05</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/Bible/comments/16pkegc/i_am_thinking_to_stop_reading_the_bible/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>I am thinking to stop reading the bible temporarily</td><td>15 up</td><td>40c</td>
+      <td>2023-09-22</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/Bible/comments/1mcl0v0/i_started_reading_the_bible_and_its_not_what_i/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>I started reading the Bible, and it&#x27;s not what I expected at all…</td><td>838 up</td><td>199c</td>
+      <td>2025-07-29</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/Christianity/comments/1qav2jz/why_is_it_so_hard_for_me_to_finish_the_bible_in_a/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>Why is it so hard for me to finish the Bible in a year? 😭</td><td>197 up</td><td>92c</td>
+      <td>2026-01-12</td><td><span class="badge depth-full">Full pull</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/Christianity/comments/1hwp3kh/do_you_think_reading_the_bible_in_one_year_is_too/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>Do you think reading the Bible in one year is too ambitious?</td><td>119 up</td><td>144c</td>
+      <td>2025-01-08</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/TrueChristian/comments/1r9uz6v/when_did_you_stop_reading_the_bible_like_a/" target="_blank" rel="noopener">r/TrueChristian</a></td>
+      <td>When did you stop reading the Bible like a textbook and start actually hearing something?</td><td>31 up</td><td>30c</td>
+      <td>2026-02-20</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/TrueChristian/comments/1kkz6yw/i_have_a_huge_problem_i_dont_have_the_desire_to/" target="_blank" rel="noopener">r/TrueChristian</a></td>
+      <td>I don&#x27;t have the desire to read the Bible anymore… can&#x27;t focus</td><td>2 up</td><td>16c</td>
+      <td>2025-05-12</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://elvasma.com/products/66-page-bible-study-guide" target="_blank" rel="noopener">Competitor review (66-Page)</a></td>
+      <td>66-Page Bible Study Guide — testimonial (baptized, &#x27;makes everything click&#x27;)</td><td>testimonial</td><td>site</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://elvasma.com/products/elvasma%E2%84%A2-bible-study-guide" target="_blank" rel="noopener">Competitor review (Elvasma)</a></td>
+      <td>Elvasma Bible Study Guide — testimonials (women&#x27;s group, college class)</td><td>testimonial</td><td>site</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.walmart.com/ip/5442416689" target="_blank" rel="noopener">Walmart review</a></td>
+      <td>The Beginner&#x27;s Bible Study Guide (Spiral-Bound) — 4.4/147 reviews</td><td>4.4★</td><td>147r</td>
+      <td>2025</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/AskAChristian/comments/1wbz4aw/new_to_christianity_but_struggling_with_the/" target="_blank" rel="noopener">r/AskAChristian</a></td>
+      <td>New to Christianity but struggling with the reliability of the Bible</td><td>6 up</td><td>71c</td>
+      <td>2026-09-09</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/Bible/comments/1pytjim/bible_translations_popularity_what_do_you_use_and/" target="_blank" rel="noopener">r/Bible</a></td>
+      <td>Bible translations&#x27; popularity — What do you use and why?</td><td>14 up</td><td>67c</td>
+      <td>2025-12-29</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/OpenChristian/comments/1nvbqut/bible_study_guide/" target="_blank" rel="noopener">r/OpenChristian</a></td>
+      <td>Bible &#x27;Study Guide&#x27; (teacher wants a lesson plan)</td><td>17 up</td><td>10c</td>
+      <td>2025-10-01</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/TrueChristian/comments/1via4jo/how_do_we_know_the_bible_was_written_perfectly/" target="_blank" rel="noopener">r/TrueChristian</a></td>
+      <td>How do we know the bible was written perfectly?</td><td>4 up</td><td>69c</td>
+      <td>2026-08-07</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/TrueChristian/comments/1ksgize/how_to_study_the_bible_this_changed_everything/" target="_blank" rel="noopener">r/TrueChristian</a></td>
+      <td>How To Study The Bible (This Changed Everything)</td><td>9 up</td><td>11c</td>
+      <td>2025-05-22</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/Christianity/comments/nj7ab2/how_to_make_my_8_yo_agree_to_bible_study/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>How to make my 8 yo agree to Bible study?</td><td>1 up</td><td>42c</td>
+      <td>2021-05-23</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/Christianity/comments/1jilho0/i_prefer_my_bible_journaling_to_stay_in_my_bible/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>I prefer my Bible journaling to stay in my Bible … add notes daily</td><td>57 up</td><td>19c</td>
+      <td>2025-03-24</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/Christianity/comments/6sefct/is_it_important_to_use_a_physical_bible_than_to/" target="_blank" rel="noopener">r/Christianity</a></td>
+      <td>Is it important to use a physical Bible than the app?</td><td>25 up</td><td>35c</td>
+      <td>2017-08-08</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/Parenting/comments/rlm7n8/gift_from_grandma_bible/" target="_blank" rel="noopener">r/Parenting</a></td>
+      <td>Gift from grandma - bible (unwanted gift)</td><td>123 up</td><td>141c</td>
+      <td>2021-12-21</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/TrueChristian/comments/9me0ou/which_do_you_prefer_hard_copy_bible_or_digital/" target="_blank" rel="noopener">r/TrueChristian</a></td>
+      <td>Which do you prefer: Hard copy Bible or digital?</td><td>30 up</td><td>72c</td>
+      <td>2018-10-08</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/agnostic/comments/1swjuwr/agnostic_looking_to_do_a_bible_study_with_my/" target="_blank" rel="noopener">r/agnostic</a></td>
+      <td>Agnostic doing a Bible Study with grandma (dementia) — gentle/uplifting</td><td>7 up</td><td>7c</td>
+      <td>2026-04-26</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/teenagers/comments/13lhwkv/my_grandma_gave_me_a_bible_as_a_gift_for_my_high/" target="_blank" rel="noopener">r/teenagers</a></td>
+      <td>My grandma gave me a Bible as a gift for graduation (3rd time)</td><td>3 up</td><td>12c</td>
+      <td>2023-05-19</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr></tbody></table></div>
+</section></div>
+  </div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs .tab'),panels=document.querySelectorAll('#deck .panel');
+  function show(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-tab')===id?'true':'false');});
+    panels.forEach(function(p){p.classList.toggle('active',p.getAttribute('data-panel')===id);});window.scrollTo({top:0,behavior:'smooth'});}
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-tab'));});});
+})();
+</script>
+<footer style="max-width:1140px;margin:48px auto 0;padding:22px var(--pad) 40px;border-top:1px solid rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--font);font-size:12px;color:#5c6a88;">
+  <span style="letter-spacing:.02em;">Ad Pros &middot; Brand Intelligence</span>
+  <span>Published by Omar &middot; September 10, 2026</span>
+</footer>
+</body>
+</html>
