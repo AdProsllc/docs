@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meta One Breakdown · Ad Pros</title>
+<meta name="description" content="Meta One is live — 50+ features across eight plans, $2.99 to $499/mo. What's actually in it, what it costs, and which tier is the only one that changes how your organic performs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05080F; --paper:#ffffff; --ink:#0e1a2b; --ink-soft:#4d5a70;
+  --line:#e4e8ef; --gold:#ffd60a; --gold-deep:#e0b800;
+  --blue:#0a4ea8; --blue-soft:#eaf1fb;
+  --sans:'Sora',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#fff;font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------- HERO ---------- */
+.hero{padding:72px 0 96px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(ellipse at center,rgba(255,214,10,.08),transparent 65%);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.kicker{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(255,214,10,.35);background:rgba(255,214,10,.06);border-radius:999px;padding:7px 16px;margin-bottom:28px}
+h1{font-size:clamp(34px,5.4vw,56px);line-height:1.08;letter-spacing:-1.5px;font-weight:700;margin:0 auto 22px;max-width:19ch}
+h1 em{font-style:normal;color:var(--gold)}
+.dek{max-width:60ch;margin:0 auto;color:#aab4c4;font-size:clamp(15px,1.7vw,18px)}
+.byline{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:34px;flex-wrap:wrap}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--gold);color:#05080F;display:grid;place-items:center;font-weight:700;font-size:13px}
+.byline .nm{font-weight:600;font-size:14px}
+.byline .rl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7c8798;border-left:1px solid #26303f;padding-left:12px}
+.rule{width:56px;height:3px;background:var(--gold);margin:44px auto 0;border-radius:2px}
+
+/* ---------- PAPER ---------- */
+.paper{background:var(--paper);color:var(--ink);border-radius:20px;padding:56px 0 64px;margin-bottom:64px}
+.paper .wrap{max-width:1060px}
+.cols{display:grid;grid-template-columns:1fr 268px;gap:56px;align-items:start}
+.lede{font-size:17.5px;line-height:1.7}
+.lede strong{font-weight:700}
+
+/* TOC */
+.toc{position:sticky;top:24px;background:#f7f9fc;border:1px solid var(--line);border-radius:14px;padding:20px}
+.toc-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.toc ol{list-style:none;margin:0;padding:0;font-size:13.5px}
+.toc li{margin:0 0 9px}
+.toc a{color:var(--ink-soft);text-decoration:none;display:block}
+.toc a:hover{color:var(--blue)}
+.toc .sec{font-family:var(--mono);color:#9aa5b5;margin-right:6px}
+
+/* section headers */
+.section{margin-top:56px}
+.section-marker{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.section-marker .line{flex:1;height:1px;background:var(--line)}
+h2{font-size:clamp(24px,3vw,31px);line-height:1.2;letter-spacing:-.7px;margin:0 0 6px;font-weight:700}
+.standfirst{color:var(--ink-soft);font-size:16.5px;margin:0 0 18px}
+.body p{font-size:16px;line-height:1.72;margin:0 0 14px}
+.body strong{font-weight:700}
+
+/* tier chips */
+.tiers{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:6px;background:#f1f4f9;color:var(--ink-soft);border:1px solid var(--line)}
+.chip.on{background:var(--blue-soft);color:var(--blue);border-color:#c9dcf5;font-weight:700}
+.chip.gold{background:#fff8d6;color:#7a5c00;border-color:#f0e08a;font-weight:700}
+.src{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--ink-soft);background:#f1f4f9;border:1px solid var(--line);border-radius:6px;padding:5px 11px;margin-top:4px}
+.src.absent{background:#fff2f2;border-color:#f3d2d2;color:#9c3838}
+
+/* tables */
+.tablewrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);margin:22px 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:620px}
+thead th{background:#132339;color:#fff;text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:14px 16px;font-weight:500}
+tbody td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody tr.group td{background:#eef2f8;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);padding:9px 16px;font-weight:700}
+.price{font-family:var(--mono);font-weight:700;white-space:nowrap}
+.no{color:#b04040;font-weight:600}
+.yes{color:#2b7a4b;font-weight:600}
+.partly{color:#9a6b00;font-weight:600}
+.dash{color:#b6bfcc}
+
+/* callouts */
+.callout{border-left:4px solid var(--gold);background:#fffbe8;border-radius:0 10px 10px 0;padding:20px 24px;margin:26px 0}
+.callout.warn{border-left-color:#d4574a;background:#fdf3f1}
+.callout.blue{border-left-color:var(--blue);background:var(--blue-soft)}
+.callout .ttl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.callout p{margin:0;font-size:15.5px;line-height:1.65}
+.callout p+p{margin-top:10px}
+
+/* lists */
+ul.pts{list-style:none;padding:0;margin:14px 0}
+ul.pts li{position:relative;padding-left:26px;margin-bottom:12px;font-size:15.5px;line-height:1.65}
+ul.pts li::before{content:"";position:absolute;left:4px;top:10px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+ol.steps{list-style:none;padding:0;margin:16px 0;counter-reset:s}
+ol.steps li{position:relative;padding-left:44px;margin-bottom:20px;counter-increment:s}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;font-family:var(--mono)}
+ol.steps .when{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:3px}
+ol.steps p{margin:0;font-size:15.5px}
+
+.takeaway{background:#132339;color:#fff;border-radius:14px;padding:28px 30px;font-size:17px;line-height:1.65;margin-top:8px}
+.takeaway b{color:var(--gold)}
+
+/* CTA */
+.cta{background:#0b1626;border:1px solid #1d2b3f;border-radius:20px;padding:56px 32px;text-align:center;margin-bottom:56px}
+.cta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.cta h3{font-size:clamp(22px,3vw,29px);margin:0 0 14px;letter-spacing:-.5px}
+.cta p{color:#9aa5b5;max-width:52ch;margin:0 auto 26px}
+.btn{display:inline-block;background:var(--gold);color:#05080F;font-weight:700;text-decoration:none;padding:15px 30px;border-radius:10px;font-size:15px}
+.btn:hover{background:var(--gold-deep)}
+
+footer{text-align:center;color:#5d6878;font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding-bottom:56px;line-height:1.9}
+footer a{color:#8894a6;text-decoration:none}
+
+@media(max-width:860px){
+  .cols{grid-template-columns:1fr;gap:28px}
+  .toc{position:static;order:-1}
+  .paper{padding:36px 0 44px;border-radius:14px}
+  .wrap{padding:0 18px}
+  .hero{padding:48px 0 64px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Platform Watch · @nehalkazim</div>
+    <h1>Meta Just Put A Price Tag On The Reach You Used To Get <em>Free</em></h1>
+    <p class="dek">Meta One is live: 50+ features across eight plans, from $2.99 to $499 a month. Here's what's actually in it, what it costs, and why only one tier changes how your organic performs.</p>
+    <div class="byline">
+      <div class="avatar">NK</div>
+      <div class="nm">Nehal Kazim</div>
+      <div class="rl">Founder, Ad Pros</div>
+    </div>
+    <div class="rule"></div>
+  </div>
+</header>
+
+<main class="wrap">
+<article class="paper">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <p class="lede">Meta has launched <strong>Meta One</strong>, a subscription that spans Facebook, Instagram, WhatsApp and Meta AI. It is not one product — it is eight plans, and the gap between them is the whole story. The cheap ones sell expression: fonts, themes, reactions. The expensive ones sell things advertisers already fight over — <strong>feed placement, clickable links, follower growth, exportable data and a human being to call</strong>. Below is every plan, every price, and an honest read on which of it matters for your ad account.</p>
+        <p class="lede" style="margin-top:14px">Meta says the core experience across its apps and Meta AI stays free. It also says there are already <strong>15 million subscriptions and trials</strong>, which tells you this is not a test balloon.</p>
+      </div>
+      <nav class="toc">
+        <div class="toc-label">In this guide</div>
+        <ol>
+          <li><a href="#pricing"><span class="sec">§1</span>What it actually costs</a></li>
+          <li><a href="#visibility"><span class="sec">§2</span>Enhanced Visibility</a></li>
+          <li><a href="#traffic"><span class="sec">§3</span>Driving Traffic</a></li>
+          <li><a href="#growth"><span class="sec">§4</span>Audience Growth</a></li>
+          <li><a href="#data"><span class="sec">§5</span>Data &amp; Reporting</a></li>
+          <li><a href="#support"><span class="sec">§6</span>Operational Support</a></li>
+          <li><a href="#glance"><span class="sec">§</span>At a glance</a></li>
+          <li><a href="#shift"><span class="sec">§</span>Why this matters</a></li>
+          <li><a href="#limits"><span class="sec">§</span>What it doesn't fix</a></li>
+          <li><a href="#next"><span class="sec">§</span>What's coming</a></li>
+          <li><a href="#start"><span class="sec">§</span>Where to start</a></li>
+          <li><a href="#takeaway"><span class="sec">§</span>The takeaway</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- 1. PRICING -->
+    <section class="section" id="pricing">
+      <div class="section-marker"><span>§ Section 1</span><span class="line"></span></div>
+      <h2>What it actually costs</h2>
+      <p class="standfirst">Eight plans in three bands — not the four most coverage reported.</p>
+      <div class="body">
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Plan</th><th>Price</th><th>Who it's for</th><th>What you're buying</th></tr></thead>
+            <tbody>
+              <tr class="group"><td colspan="4">Single app</td></tr>
+              <tr><td>WhatsApp Plus</td><td class="price">$2.99/mo</td><td>Individual</td><td>Chat themes, custom ringtones and icons, effect stickers, more pinned chats</td></tr>
+              <tr><td>Instagram Plus</td><td class="price">$3.99/mo</td><td>Individual</td><td>Profile customization, super reactions, Story insights, custom DM and Story fonts, DM previews</td></tr>
+              <tr><td>Facebook Plus</td><td class="price">$3.99/mo</td><td>Individual</td><td>Custom app icons, super hearts, Messenger customization, more Reels insights</td></tr>
+              <tr class="group"><td colspan="4">Consumer bundles</td></tr>
+              <tr><td>Core</td><td class="price">$7.99/mo</td><td>Individual + AI</td><td>All three Plus plans, plus more Restyle on Stories, voice effects, more Meta AI image and video generation</td></tr>
+              <tr><td>Premium</td><td class="price">$19.99/mo</td><td>Individual + AI</td><td>Everything in Core with the most Meta AI creation capacity</td></tr>
+              <tr class="group"><td colspan="4">Creator &amp; business</td></tr>
+              <tr><td>Essential</td><td class="price">from $14.99/mo</td><td>Business</td><td>Verified badge, impersonation protection, enhanced link sheet, consumer bundle rolled in</td></tr>
+              <tr><td><strong>Advanced</strong></td><td class="price">from $49.99/mo</td><td>Business</td><td><strong>The real inflection point</strong> — feed placement, search ranking, follow invites, links in posts, exportable analytics</td></tr>
+              <tr><td>Expert</td><td class="price">from $149/mo</td><td>Business</td><td>Higher ceilings on everything in Advanced, plus protected business accounts and custom chat themes</td></tr>
+              <tr><td>Max</td><td class="price">from $499/mo</td><td>Business</td><td>Top of every ladder, unlimited human support cases, a Meta adviser call every 6 months</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout blue">
+          <div class="ttl">Read the pricing carefully</div>
+          <p>Every business tier is priced <strong>"starting at."</strong> Meta states that plans, benefits, pricing and availability <strong>vary by region, by app and by account</strong> — and the business tiers are priced per platform, per month. You will not know a client's real number until you open the subscription flow on their own account. Budget from the floor, quote from the flow.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. VISIBILITY -->
+    <section class="section" id="visibility">
+      <div class="section-marker"><span>§ Section 2</span><span class="line"></span></div>
+      <h2>Enhanced Visibility</h2>
+      <p class="standfirst">A dedicated spot in the feed — and in search.</p>
+      <div class="tiers"><span class="chip">Essential</span><span class="chip on">Advanced +</span><span class="chip on">Expert</span><span class="chip on">Max</span></div>
+      <div class="body">
+        <p>Subscribers get <strong>featured placement in a dedicated carousel</strong> inside people's feeds, shown to users Meta judges likely to be interested, plus <strong>optimized search placement</strong> — ranking higher in on-platform search on both Instagram and Facebook. Two surfaces that used to depend entirely on organic engagement or ad spend to earn.</p>
+        <p>This is the only new category in the whole product. Everything else in Meta One is either Meta Verified repackaged or a volume ladder. This is Meta selling distribution directly, and it unlocks at Advanced — <strong>$49.99/mo</strong>, not the $14.99 entry price.</p>
+        <span class="src absent">Visible in product · not mentioned in Meta's launch post</span>
+      </div>
+    </section>
+
+    <!-- 3. TRAFFIC -->
+    <section class="section" id="traffic">
+      <div class="section-marker"><span>§ Section 3</span><span class="line"></span></div>
+      <h2>Driving Traffic</h2>
+      <p class="standfirst">Clickable links in the post — but they're metered.</p>
+      <div class="tiers"><span class="chip on">Essential +</span><span class="chip on">Advanced</span><span class="chip on">Expert</span><span class="chip on">Max</span></div>
+      <div class="body">
+        <p>Posts and Reels can carry a <strong>clickable link inside the content itself</strong>, removing the bio-link and swipe-up detour that has cost advertisers conversions for years. Essential adds an <strong>enhanced link sheet with images</strong> on profile and a custom searchable web URL for WhatsApp Business.</p>
+        <p>The catch: links are not unlimited, they are credits on a ladder that climbs with the tier.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Allowance</th><th>Essential</th><th>Advanced</th><th>Expert</th><th>Max</th></tr></thead>
+            <tbody>
+              <tr><td>Links in organic posts (incl. comments)</td><td class="dash">—</td><td>IG 4 / FB 8</td><td>IG 8 / FB 20</td><td>IG 12 / FB unlimited</td></tr>
+              <tr><td>Links in Reels</td><td class="dash">—</td><td>IG 4 / FB 8</td><td>IG 8 / FB 20</td><td>IG 12 / FB unlimited</td></tr>
+              <tr><td>Enhanced profile (locations + linked profiles)</td><td>3</td><td>5</td><td>8</td><td>8</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn">
+          <div class="ttl">⚠ The credit trap</div>
+          <p>Link credits <strong>cannot be applied retroactively</strong> to a post that's already published, and they are <strong>not recoverable</strong> if a post underperforms and gets archived. Spend a credit on a dud and it's gone. That turns link placement into a planning decision your content team has to make before publishing, not a lever you pull when something starts working.</p>
+        </div>
+        <span class="src">Meta launch post + product UI</span>
+      </div>
+    </section>
+
+    <!-- 4. GROWTH -->
+    <section class="section" id="growth">
+      <div class="section-marker"><span>§ Section 4</span><span class="line"></span></div>
+      <h2>Audience Growth</h2>
+      <p class="standfirst">Meta actively pushes people to follow you.</p>
+      <div class="tiers"><span class="chip">Essential</span><span class="chip on">Advanced +</span><span class="chip on">Expert</span><span class="chip on">Max</span></div>
+      <div class="body">
+        <p>A <strong>bold follow button on Reels</strong>, plus an <strong>automatic follow invitation</strong> sent to anyone who engages with a subscriber's content — turning passive engagement into audience growth without extra spend. Essential also brings the <strong>verified badge</strong> across Instagram, Facebook and WhatsApp (subject to verification) and <strong>proactive impersonation monitoring</strong>, with verified WhatsApp channels laddering 1 → 3 → 5 → 10 across the tiers.</p>
+        <p>Read this as a paid follower campaign with no CPM attached. Whether it beats a paid follower campaign on cost depends entirely on your existing engagement volume — the invite only fires at people who already interacted.</p>
+        <span class="src">Meta launch post + product UI</span>
+      </div>
+    </section>
+
+    <!-- 5. DATA -->
+    <section class="section" id="data">
+      <div class="section-marker"><span>§ Section 5</span><span class="line"></span></div>
+      <h2>Data &amp; Reporting</h2>
+      <p class="standfirst">The quiet one that actually changes your workflow.</p>
+      <div class="tiers"><span class="chip">Essential</span><span class="chip on">Advanced +</span><span class="chip on">Expert</span><span class="chip on">Max</span></div>
+      <div class="body">
+        <ul class="pts">
+          <li><strong>Exportable analytics</strong> — the difference between insight you can only read inside the app and data you can pull into a reporting stack. If you report to clients or a board, this one line is worth more than the visibility features.</li>
+          <li><strong>Competitive insights (Instagram)</strong> — benchmark your profile against similar public accounts.</li>
+          <li><strong>Custom audience insights (Facebook)</strong> — surfaces your most active followers and your newest fans.</li>
+          <li><strong>Optimized scheduling (Facebook)</strong> and <strong>scheduling Stories up to 30 days out</strong> — auto-posting timed to peak audience activity.</li>
+          <li><strong>Original content credit requests</strong> — ladder of 2 → 4 → 6 per month from Advanced up.</li>
+        </ul>
+        <span class="src">Meta launch post + product UI</span>
+      </div>
+    </section>
+
+    <!-- 6. SUPPORT -->
+    <section class="section" id="support">
+      <div class="section-marker"><span>§ Section 6</span><span class="line"></span></div>
+      <h2>Operational Support</h2>
+      <p class="standfirst">A human, when your account gets flagged.</p>
+      <div class="tiers"><span class="chip">Essential</span><span class="chip on">Advanced +</span><span class="chip on">Expert</span><span class="chip on">Max</span></div>
+      <div class="body">
+        <p>Shared account access for team members plus <strong>direct human support</strong> — a real lifeline for the account flags and bans that are notoriously hard to resolve through Meta's standard channels. Support is rationed by case count, not by hours.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Allowance</th><th>Essential</th><th>Advanced</th><th>Expert</th><th>Max</th></tr></thead>
+            <tbody>
+              <tr><td>Human support cases</td><td class="dash">—</td><td>1 / mo</td><td>5 / mo</td><td>Unlimited</td></tr>
+              <tr><td>Shared Instagram access seats</td><td class="dash">—</td><td>4</td><td>8</td><td>30</td></tr>
+              <tr><td>Protected business accounts</td><td class="dash">—</td><td class="dash">—</td><td>10</td><td>50</td></tr>
+              <tr><td>WhatsApp linked devices</td><td class="dash">—</td><td>6</td><td>8</td><td>10</td></tr>
+              <tr><td>WhatsApp business broadcast credits</td><td class="dash">—</td><td>500</td><td>1,250</td><td>5,000</td></tr>
+              <tr><td>Meta adviser strategy call</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td>Every 6 months</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <span class="src">Product UI · case and seat counts not in Meta's launch post</span>
+      </div>
+    </section>
+
+    <div class="callout">
+      <div class="ttl">Worth noting</div>
+      <p>Some of this — search placement, a working support line — feels like it should already be standard. It isn't, and Meta isn't the first: X Premium and LinkedIn Premium ran the same playbook. Pay to remove friction the platform itself created.</p>
+      <p>The sharper tell is <em>what Meta leaves out of its own announcement</em>. The featured-feed carousel, search ranking, competitive insights, support case counts and seat counts appear nowhere in the launch post. Meta leads on expression and AI. The distribution-and-data features — the ones that actually move a client's numbers — you only find inside the product. That asymmetry is itself the story.</p>
+    </div>
+
+    <!-- AT A GLANCE -->
+    <section class="section" id="glance">
+      <div class="section-marker"><span>§ At a glance</span><span class="line"></span></div>
+      <h2>At a glance</h2>
+      <p class="standfirst">What each lever replaces, what it costs to unlock, and whether Meta admits it exists.</p>
+      <div class="body">
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Lever</th><th>What it replaces</th><th>Unlocks at</th><th>Monthly floor</th><th>In Meta's post?</th></tr></thead>
+            <tbody>
+              <tr><td>Featured in feed + search ranking</td><td>Organic reach tactics, boosted posts for discovery</td><td>Advanced</td><td class="price">$49.99</td><td class="no">No</td></tr>
+              <tr><td>Links in posts and Reels</td><td>Bio-link tools, swipe-up funnels</td><td>Advanced</td><td class="price">$49.99</td><td class="yes">Yes</td></tr>
+              <tr><td>Follow invites + bold follow button</td><td>Paid follower campaigns</td><td>Advanced</td><td class="price">$49.99</td><td class="partly">Partly</td></tr>
+              <tr><td>Exportable analytics</td><td>Manual screenshot reporting</td><td>Advanced</td><td class="price">$49.99</td><td class="yes">Yes</td></tr>
+              <tr><td>Competitive + audience insights</td><td>Third-party social listening tools</td><td>Advanced</td><td class="price">$49.99</td><td class="no">No</td></tr>
+              <tr><td>Human support cases</td><td>Agency escalation contacts</td><td>Advanced</td><td class="price">$49.99</td><td class="no">No</td></tr>
+              <tr><td>Verified badge + impersonation protection</td><td>Meta Verified (standalone)</td><td>Essential</td><td class="price">$14.99</td><td class="yes">Yes</td></tr>
+              <tr><td>Meta Business Agent + Meta AI capacity</td><td>Chatbot tooling, separate AI subscriptions</td><td>Essential</td><td class="price">$14.99</td><td class="yes">Yes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout blue">
+          <div class="ttl">The inflection point</div>
+          <p>Six of the eight levers unlock at the same place: <strong>Advanced</strong>. Below it you are buying a badge and a link sheet. Above it you are buying <em>more of the same</em> — higher ceilings, not new capability. If Meta One is worth anything to your brand, it is worth exactly $49.99 per platform per month, and the Expert and Max decisions are volume questions, not strategy questions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY THIS MATTERS -->
+    <section class="section" id="shift">
+      <div class="section-marker"><span>§ The shift</span><span class="line"></span></div>
+      <h2>Why this matters more than a normal update</h2>
+      <div class="body">
+        <p>If your brand depends on Meta for customer acquisition, treat this like any other paid-channel decision. At <strong>$49.99 per platform per month</strong>, Advanced across Instagram and Facebook runs roughly <strong>$100/mo</strong> — about $1,200 a year. That is a rounding error next to a serious media budget and a real line item next to a small one.</p>
+        <p>So the question is not whether $100 is affordable. It is whether a feed carousel slot, a higher search rank, four link credits and one support case a month move your numbers more than $100 of additional ad spend would. For most accounts spending under $5k/mo, the honest answer is that the support case and the exportable analytics justify it and the visibility features are a bonus. Above $50k/mo, the visibility levers are the only part that scales.</p>
+        <p>Paying for advantages that used to be free isn't new — it's the same playbook platforms have run for years. The only question that matters is whether the specific levers on offer are worth it for <em>your</em> account.</p>
+      </div>
+    </section>
+
+    <!-- LIMITS -->
+    <section class="section" id="limits">
+      <div class="section-marker"><span>§ The limits</span><span class="line"></span></div>
+      <h2>What it doesn't fix</h2>
+      <div class="body">
+        <ul class="pts">
+          <li>A subscription doesn't fix a weak offer or poor product-market fit — more visibility just shows more people something that isn't converting.</li>
+          <li>It doesn't replace paid media strategy. Feed and search placement complement your funnel; they don't run it.</li>
+          <li>The support line resolves account issues — it isn't a creative or media-buying resource, and at Advanced it's one case a month.</li>
+          <li>Link credits are a planning constraint, not a growth lever. Four Instagram links a month means four deliberate decisions, not four experiments.</li>
+          <li>Pricing is per platform. A brand running Instagram, Facebook and WhatsApp is making three subscription decisions, not one.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section class="section" id="next">
+      <div class="section-marker"><span>§ What's coming</span><span class="line"></span></div>
+      <h2>What Meta says is next</h2>
+      <div class="body">
+        <ul class="pts">
+          <li><strong>Expansion beyond the four apps</strong> — Meta One extending to Edits and AI glasses over time.</li>
+          <li><strong>Edits Plus</strong> — cloud storage for syncing projects across devices, plus an Edits assistant that analyses your Instagram insights and brainstorms ideas.</li>
+          <li><strong>More agent skills</strong> for small businesses and creators, covering end-to-end marketing, business operations, content creation and optimization.</li>
+          <li><strong>WhatsApp Plus tests</strong> — chat and media backup storage, and Focus Schedules for muting or hiding chats on a schedule.</li>
+        </ul>
+        <p style="font-size:15.5px;color:var(--ink-soft)">The agent roadmap is the one to watch. If Meta Business Agent gets good enough to handle end-to-end marketing operations, the subscription stops being a visibility play and starts competing with tooling you already pay for.</p>
+      </div>
+    </section>
+
+    <!-- WHERE TO START -->
+    <section class="section" id="start">
+      <div class="section-marker"><span>§ Where to start</span><span class="line"></span></div>
+      <h2>Where to start</h2>
+      <div class="body">
+        <ol class="steps">
+          <li><span class="when">This week</span><p>Open the subscription flow on each client account and screenshot the real price and feature set. "Starting at" plus regional variation means the published numbers are a floor, not a quote.</p></li>
+          <li><span class="when">This week</span><p>Price out what a follow, a click and a resolved account flag are actually worth to the brand. Compare that against $49.99 per platform — the only tier worth modelling.</p></li>
+          <li><span class="when">Within 2 weeks</span><p>If you subscribe, turn on exportable analytics first and baseline your organic reach before the carousel and search placement kick in. You cannot measure the lift without a clean before.</p></li>
+          <li><span class="when">Within 2 weeks</span><p>Set a link-credit policy with the content team. Decide which posts get a credit before the month starts — credits don't carry back and don't come back.</p></li>
+          <li><span class="when">Within 30 days</span><p>Decide whether it earns its keep against the media budget. Cancel if the organic lift is inside the noise band of normal week-to-week variance.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- TAKEAWAY -->
+    <section class="section" id="takeaway">
+      <div class="section-marker"><span>§ Takeaway</span><span class="line"></span></div>
+      <h2>The one-line takeaway</h2>
+      <div class="takeaway">
+        Meta didn't just ship 50 features — it moved visibility, growth nudges, exportable data and real support behind a paywall, and priced the part that matters at <b>$49.99 per platform</b>. Whether <b>Meta One</b> is worth it depends on what those specific levers are worth to your account, not on FOMO — and not on the $14.99 headline.
+      </div>
+    </section>
+
+  </div>
+</article>
+
+<section class="cta">
+  <div class="k">Not sure if it's worth it?</div>
+  <h3>Want help deciding if Meta One pays for itself?</h3>
+  <p>Book a free strategy call with our team. We'll audit your Meta account and tell you straight whether the subscription is worth it for your brand.</p>
+  <a class="btn" href="#">Book your free call</a>
+</section>
+
+<footer>
+  Sources: Meta's official announcement, <a href="https://about.fb.com/news/2026/09/introducing-meta-one-subscription-service-more-features-ai/">about.fb.com</a>, plus tier details visible in the product.<br>
+  Prices are Meta's published floors and vary by region, app and account.<br>
+  © 2026 Ad Pros · Platform Watch · adpros.com
+</footer>
+</main>
+
+</body>
+</html>
