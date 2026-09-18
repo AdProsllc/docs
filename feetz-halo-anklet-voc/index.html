@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Feetz & Co. · Halo Anklet — Voice of Customer</title>
+<meta name="googlebot" content="noindex, nofollow" />
+<meta name="bingbot" content="noindex, nofollow" />
+<meta name="slurp" content="noindex, nofollow" />
+<meta name="duckduckbot" content="noindex, nofollow" />
+<meta name="baiduspider" content="noindex, nofollow" />
+<meta name="yandex" content="noindex, nofollow" />
+<meta name="author" content="Omar" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="mask-icon" href="/favicon.svg" color="#ffd609" />
+<meta name="theme-color" content="#070c1e" />
+<style>
+  :root {
+    --page-bg: #070c1e;
+    --card: rgba(13, 20, 41, 0.94);
+    --card-border: rgba(255, 255, 255, 0.09);
+    --primary: #ffd609;
+    --primary-ink: #06112b;
+    --accent: #7ea6ff;
+    --ink: #f2f5ff;
+    --ink-soft: #c6d0e8;
+    --text-dim: #5c6a88;
+    --success: #46d08a;
+    --danger: #f87171;
+    --font: "Inter", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --pad: clamp(16px, 3vw, 32px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--page-bg); color: var(--ink); font-family: var(--font); }
+  body {
+    background:
+      radial-gradient(900px 520px at 85% -10%, rgba(43, 67, 108, 0.45), transparent 55%),
+      radial-gradient(700px 420px at 0% 100%, rgba(26, 40, 74, 0.4), transparent 50%),
+      var(--page-bg);
+  }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: var(--pad) var(--pad) 80px; }
+  .top {
+    display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .brand-lock { display: flex; gap: 12px; align-items: center; min-width: 0; }
+  .mark {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--primary); color: var(--primary-ink);
+    font-weight: 800; font-size: 18px; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .brand-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
+  .brand-sub { font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; }
+  .pill {
+    display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--card-border); background: rgba(126, 166, 255, 0.1);
+    color: var(--ink-soft); font-size: 11px; font-weight: 650; letter-spacing: 0.06em;
+  }
+  .header-pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
+  .hero { margin: 8px 0 28px; }
+  .hero h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.12; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
+  .hero h1 .hl { color: var(--primary); }
+  .hero p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; max-width: 62ch; }
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--card-border); padding-bottom: 12px;
+  }
+  .tab {
+    border: none; background: transparent; color: var(--text-dim); font-family: inherit;
+    font-size: 13px; font-weight: 650; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: rgba(255, 214, 9, 0.14); color: var(--primary); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .kicker {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--text-dim);
+    text-transform: uppercase; margin: 0 0 8px;
+  }
+  .panel h2 { margin: 0 0 14px; font-size: clamp(22px, 3vw, 30px); line-height: 1.2; font-weight: 780; }
+  .panel h2 .hl { color: var(--primary); }
+  .card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+  .muted { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .metric {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  .metric b { display: block; font-size: clamp(28px, 4vw, 36px); margin-top: 6px; font-weight: 800; letter-spacing: -0.02em; }
+  .metric span { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-right: 6px; }
+  .badge.ok { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.fail { background: rgba(248,113,113,0.14); color: var(--danger); }
+  .badge.neutral { background: rgba(126,166,255,0.14); color: var(--accent); }
+  .badge.primary { background: rgba(255,214,9,0.16); color: var(--primary); }
+  .badge.depth-full { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.depth-scan { background: rgba(126,166,255,0.12); color: var(--accent); }
+  ul.clean { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+  ul.clean li { margin: 6px 0; }
+  ol.clean { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+  ol.clean li { margin: 8px 0; }
+  .empty { color: var(--text-dim); font-size: 14px; padding: 12px 0; }
+  a { color: var(--accent); }
+  /* Stacked row cards — mobile-first (tables break on phone / Quick Look). */
+  .entry-list { display: flex; flex-direction: column; gap: 12px; }
+  .entry-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .entry-top {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 8px 12px; margin-bottom: 10px;
+  }
+  .entry-title {
+    margin: 0; font-size: 16px; font-weight: 720; line-height: 1.3; letter-spacing: -0.01em;
+    min-width: 0; flex: 1 1 12rem;
+  }
+  .entry-quote {
+    margin: 0 0 12px; font-size: 14px; line-height: 1.5; font-style: italic; color: var(--ink-soft);
+  }
+  .entry-fields { display: flex; flex-direction: column; gap: 10px; }
+  .entry-field { min-width: 0; }
+  .entry-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px;
+  }
+  .entry-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); word-break: break-word; }
+  .entry-meta {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  .entry-meta b { color: var(--ink-soft); font-weight: 650; }
+  /* Avatars — mockup card structure, stacked on mobile */
+  .avatar-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .avatar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .avatar-card { margin-bottom: 0; }
+  .avatar-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .avatar-badge {
+    font-size: 10px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 8px;
+  }
+  .avatar-badge.core {
+    color: var(--primary); background: rgba(255, 214, 9, 0.12);
+    border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-badge.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+  }
+  .avatar-card h3 {
+    margin: 0 0 10px; font-size: clamp(22px, 3vw, 28px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .avatar-card > .muted { margin: 0 0 16px; }
+  .avatar-quotes { margin: 0 0 16px; }
+  .avatar-quote {
+    margin: 0 0 12px; padding: 0 0 0 12px;
+    border-left: 2px solid rgba(255, 214, 9, 0.45);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .avatar-quote .src {
+    display: block; margin-top: 4px; font-style: normal; font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.02em;
+  }
+  .flip-row {
+    margin: 0 0 12px; padding: 12px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--card-border);
+  }
+  .flip-row .flip-label {
+    display: block; font-size: 11px; font-weight: 750; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 6px;
+  }
+  .flip-row p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .angle-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 11px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  /* Creative Angles — mockup matrix row (stacks on mobile) */
+  .honesty-callout {
+    margin: 0 0 18px; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.08);
+  }
+  .honesty-callout .kicker { color: var(--danger); margin-bottom: 8px; }
+  .honesty-callout p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-matrix { display: flex; flex-direction: column; gap: 14px; }
+  .angle-matrix-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px;
+  }
+  .angle-matrix-grid {
+    display: grid; gap: 18px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .angle-matrix-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; }
+  }
+  .angle-matrix-card h3 {
+    margin: 0 0 10px; font-size: clamp(20px, 2.6vw, 26px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .angle-status {
+    display: inline-block; font-size: 10px; font-weight: 750; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .angle-status.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+  }
+  .angle-status.imported {
+    color: var(--danger); background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.4);
+  }
+  .angle-status.live {
+    color: var(--success); background: rgba(70, 208, 138, 0.12); border: 1px solid rgba(70, 208, 138, 0.35);
+  }
+  .angle-status.gap {
+    color: var(--primary); background: rgba(255, 214, 9, 0.1); border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .avatar-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .angle-col-kicker {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); margin: 0 0 10px;
+  }
+  .proof-quote {
+    margin: 0; padding: 0 0 0 12px; border-left: 2px solid var(--primary);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .proof-quote.imported {
+    border-left-color: var(--danger); font-style: normal; font-size: 13px;
+  }
+  .proof-quote .src {
+    display: block; margin-top: 8px; font-style: normal; font-size: 12px;
+    font-weight: 700; color: var(--primary);
+  }
+  .concept-stack { display: flex; flex-direction: column; gap: 8px; }
+  .concept-pill {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px;
+    padding: 8px 12px; border-radius: 12px;
+    border: 1px solid rgba(255, 214, 9, 0.22); background: rgba(255, 214, 9, 0.06);
+    font-size: 12px; line-height: 1.35; color: var(--ink-soft);
+  }
+  .concept-pill .cid {
+    font-family: var(--mono); font-weight: 800; color: var(--primary); letter-spacing: 0.04em;
+  }
+  /* Swipe File — Voice→Ads style cards */
+  .swipe-grid {
+    display: grid; gap: 14px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .swipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .swipe-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 18px 16px; display: flex; flex-direction: column; min-width: 0;
+  }
+  .swipe-voice-meta {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .swipe-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0;
+  }
+  .swipe-dot.tof { background: var(--primary); }
+  .swipe-dot.mof { background: var(--accent); }
+  .swipe-dot.bof { background: var(--success); }
+  .swipe-voice {
+    margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .swipe-src {
+    display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .swipe-src:hover { text-decoration: underline; }
+  .swipe-arrow {
+    align-self: center; margin: 14px 0; width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--primary-ink); background: var(--primary);
+    font-size: 14px; font-weight: 800; line-height: 1;
+  }
+  .swipe-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .swipe-cid {
+    font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+    padding: 5px 10px; border-radius: 999px; background: var(--primary); color: var(--primary-ink);
+  }
+  .swipe-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  .swipe-ad {
+    margin: 0; font-size: clamp(17px, 2.4vw, 22px); font-weight: 780; line-height: 1.3;
+    letter-spacing: -0.02em; color: var(--ink);
+  }
+  /* Pain quote cards (mockup Voices-style) */
+  .quote-grid {
+    display: grid; gap: 12px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .quote-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 14px;
+    padding: 16px 18px; min-width: 0;
+  }
+  .quote-top {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    gap: 8px 12px; margin-bottom: 12px;
+  }
+  .quote-ups {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink-soft);
+  }
+  .quote-ups b { color: var(--ink); font-weight: 800; }
+  .quote-sub {
+    font-family: var(--mono); font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .quote-sub:hover { text-decoration: underline; }
+  .quote-theme {
+    margin: 0 0 8px; font-family: var(--mono); font-size: 11px; font-weight: 750;
+    letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent);
+  }
+  .quote-body {
+    margin: 0 0 12px; font-size: 15px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .quote-field { margin: 0 0 10px; }
+  .quote-field-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px; font-weight: 700;
+  }
+  .quote-field-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); }
+  .quote-reveals {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-dim); font-weight: 700;
+  }
+  .quote-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--primary);
+  }
+  .quote-dot.c0 { background: var(--primary); }
+  .quote-dot.c1 { background: var(--accent); }
+  .quote-dot.c2 { background: var(--success); }
+  .quote-dot.c3 { background: #c084fc; }
+  .hero-insight {
+    font-size: clamp(22px, 3.2vw, 32px); font-weight: 780; line-height: 1.32; margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .hero-insight .hl { color: var(--primary); }
+  .signal-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+  .signal-card {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 18px;
+    background: rgba(255,255,255,0.02);
+  }
+  .signal-card .num {
+    font-family: var(--mono); font-size: 11px; color: var(--primary); font-weight: 700;
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .signal-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-weight: 600; }
+  .community-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .community-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .spine-footer {
+    margin-top: 28px; padding: 18px 20px; border-radius: 14px;
+    border: 1px dashed rgba(255, 214, 9, 0.35); background: rgba(255, 214, 9, 0.06);
+    text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--primary); text-transform: uppercase;
+  }
+  /* No-JS / mobile file preview: full stacked report. JS hides this and shows tabs. */
+  #static-deck .static-toc {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  #static-deck .static-toc a {
+    font-size: 12px; font-weight: 650; color: var(--ink-soft); text-decoration: none;
+    padding: 6px 10px; border-radius: 8px; border: 1px solid var(--card-border);
+  }
+  #static-deck .static-section { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--card-border); }
+  #static-deck .static-section:last-child { border-bottom: none; }
+</style>
+
+<style>
+  .ladder-grid{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.ladder-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  .ladder-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .ladder-card h4{margin:0 0 6px;font-size:15px;font-weight:750;line-height:1.25;}
+  .ladder-card .lc-note{margin:0;font-size:13px;line-height:1.45;color:var(--ink-soft);}
+  .ladder-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center;}
+  .lc-tag{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--ink-soft);background:rgba(255,255,255,.03);}
+  .lc-tag.pos{color:var(--success);background:rgba(70,208,138,.12);border-color:rgba(70,208,138,.3);}
+  .lc-tag.neg{color:var(--danger);background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.35);}
+  .lc-tag.neu{color:var(--accent);background:rgba(126,166,255,.1);border-color:rgba(126,166,255,.3);}
+  .av-demo{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--text-dim);margin:2px 0 12px;}
+  .av-nuance{margin-top:12px;font-size:12px;line-height:1.5;color:var(--primary);background:rgba(255,214,9,.08);border:1px solid rgba(255,214,9,.25);border-radius:10px;padding:9px 12px;}
+  .av-nuance b{color:var(--primary);}
+  .claims-grid{display:grid;gap:14px;grid-template-columns:1fr;}
+  @media(min-width:720px){.claims-grid{grid-template-columns:1fr 1fr;}}
+  .claims-col{border-radius:14px;padding:14px 16px;border:1px solid var(--card-border);background:var(--card);}
+  .claims-col.safe{border-color:rgba(70,208,138,.3);} .claims-col.hold{border-color:rgba(248,113,113,.35);}
+  .claims-col .k{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:800;display:block;margin-bottom:8px;}
+  .claims-col.safe .k{color:var(--success);} .claims-col.hold .k{color:var(--danger);}
+  .claims-col ul{margin:0;padding-left:16px;} .claims-col li{font-size:12.5px;color:var(--ink-soft);margin:5px 0;line-height:1.4;}
+  .comp-grid{display:grid;gap:12px;grid-template-columns:1fr;}
+  @media(min-width:720px){.comp-grid{grid-template-columns:1fr 1fr;}}
+  .comp-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .comp-card h4{margin:0 0 4px;font-size:15px;font-weight:750;}
+  .comp-tier{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);margin:0 0 8px;}
+  .comp-card .snip{margin:0;font-size:13px;font-style:italic;color:var(--ink-soft);line-height:1.45;}
+  .src-wrap{overflow-x:auto;border:1px solid var(--card-border);border-radius:16px;background:var(--card);}
+  .src-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .src-table th,.src-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--card-border);vertical-align:top;}
+  .src-table th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);font-weight:700;}
+  .src-table td{color:var(--ink-soft);} .src-table a{color:var(--primary);text-decoration:none;font-weight:650;}
+  .mini-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .mini-tag{font-size:10px;font-weight:650;letter-spacing:.03em;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--text-dim);background:rgba(255,255,255,.02);}
+  .wedge-map{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.wedge-map{grid-template-columns:1fr 1fr;}}
+  .wedge-card{border:1px solid var(--card-border);background:var(--card);border-radius:12px;padding:12px 14px;}
+  .wedge-card .q{font-size:13px;font-style:italic;color:var(--ink-soft);margin:0 0 6px;}
+  .wedge-card .w{font-size:12px;color:var(--primary);font-weight:650;margin:0;}
+</style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand-lock"><div class="mark">F</div>
+        <div><div class="brand-name">Feetz &amp; Co.</div><div class="brand-sub">Ad Pros · Brand Intelligence</div></div></div>
+      <div class="header-pills"><div class="pill">HALO ANKLET · VOICE-OF-CUSTOMER</div></div>
+    </header>
+    <section class="hero">
+      <h1>The receipts behind <span class="hl">every</span> Halo Anklet ad.</h1>
+      <p>54 sources across Reddit’s jewelry &amp; women-over-40 communities and retailer reviews — mined for how she talks about clasps, durability, permission and the never-take-it-off feeling, and the words that sell a seamless bangle.</p>
+    </section>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Report sections"><button type="button" class="tab" role="tab" data-tab="overview" aria-selected="true">01 Overview</button><button type="button" class="tab" role="tab" data-tab="pain" aria-selected="false">02 Pain &amp; Symptoms</button><button type="button" class="tab" role="tab" data-tab="avatars" aria-selected="false">03 Avatars</button><button type="button" class="tab" role="tab" data-tab="emotional" aria-selected="false">04 Emotional Drivers</button><button type="button" class="tab" role="tab" data-tab="solution_ladder" aria-selected="false">05 Solution Ladder</button><button type="button" class="tab" role="tab" data-tab="objections" aria-selected="false">06 Objections &amp; Friction</button><button type="button" class="tab" role="tab" data-tab="competitors" aria-selected="false">07 Competitor Landscape</button><button type="button" class="tab" role="tab" data-tab="swipe_file" aria-selected="false">08 Emotional Swipe File</button><button type="button" class="tab" role="tab" data-tab="creative_angles" aria-selected="false">09 Creative Angles</button><button type="button" class="tab" role="tab" data-tab="sources" aria-selected="false">10 Sources</button></nav>
+    <div id="deck"><section class="panel active" data-panel="overview">
+  <p class="kicker">01 · Overview</p>
+  <h2>What the voice of customer says</h2>
+  <div class="card"><p class="hero-insight">The product’s own wedge is <span class="hl">validated by real pain</span>. Clasps fail constantly (“coming undone multiple times a day,” “almost lost it, now it sits on a shelf”) and chain anklets “catch in my socks and shoes” — a seamless bangle removes all of it. The Halo’s true category is <span class="hl">‘permanent-jewelry feeling without the permanent-jewelry problems’</span>: welded jewelry is loved for never-off but hated as a gimmick that breaks in ~12 months and can’t be removed.</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Positioning statement</p><p class="hero-insight" style="font-size:clamp(18px,2.4vw,22px)">For the woman who’s done fighting clasps and done asking permission, the Halo is the <span class="hl">seamless bangle you slide on once and wear like it was always yours</span> — put-together without the fuss, feminine without the lecture, and backed by the kind of guarantee a low-trust category has taught her to demand.</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">The offer</p><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>Halo Anklet — $62</b> (gold or silver; Regular ~23.6 cm / Large ~25.4 cm / 10” + size guide). A single <b>seamless, no-clasp bangle</b> in gold-plated stainless steel: holds its shape, hypoallergenic, water-resistant (swim / shower / sweat / sea), made to stay on. <b>30-day money-back, no reason needed</b> — trying it on for fit doesn’t void the return, no restocking fees. 12-month cover on manufacturing defects. Free shipping on 2+ items. Code FEETZ = 10% off. The PDP already carries a ready-made heritage story (“the oldest jewelry in the world · 5,000 years”) the ad account has never used.</p></div>
+  <p class="kicker" style="margin-top:22px">Two strategic flags</p>
+  <div class="card"><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>SAY ‘PVD’ — IF TRUE.</b> Durability is the make-or-break objection (“plating wears off to a dull grey,” “$62 for costume jewelry”). The direct rival <b>MLMT wins the argument with an explicit ‘PVD plating, never tarnishes’</b> claim; Feetz’s page only says ‘gold plating,’ which every skeptic probes. <b>PVD process / thickness is UNCONFIRMED</b> — the single highest-value open item. Do not write ‘PVD’ or ‘never tarnishes’ until the client confirms.</p></div>
+  <div class="card" style="margin-top:12px"><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>AVOID THE DROPSHIP TELLS.</b> Buyers actively hunt red flags — tarnish-in-a-week, a residential / Miami return address, deleted reviews, warranty runarounds (even Mejuri is bleeding trust over these). Feetz currently shows dropship signals (Nevara Group LLC, Miami warehouse, generic policies). In a low-trust category the edge is <span class="hl">visible honesty</span>: real reviews, an actually-honored 30-day guarantee, responsive CS.</p></div>
+  <p class="kicker" style="margin-top:22px">Claims: safe to write vs. hold until confirmed</p>
+  <div class="claims-grid">
+    <div class="claims-col safe"><span class="k">✓ Safe to write (onboarding-sanctioned)</span><ul><li>Seamless, no-clasp construction · holds its shape · made to stay on</li><li>Real gold plating over stainless steel · hand-polished</li><li>Water-resistant (swim / shower / sweat / sea)</li><li>Won’t tarnish · won’t turn skin green</li><li>Hypoallergenic / skin-safe · made for daily wear</li><li>Two sizes (Regular ~23.6 cm / Large ~25.4 cm) + size guide</li><li>30-day money-back, no reason · trying-on doesn’t void it · no restocking fees</li><li>12-month defect cover · free shipping on 2+ · gold & silver · $62</li></ul></div>
+    <div class="claims-col hold"><span class="k">✕ Do not write until confirmed</span><ul><li><b>PVD plating</b> (process &amp; thickness) — the highest-value open item; MLMT wins durability on an explicit PVD claim</li><li>Discoloration-complaint / return rate</li><li>Whether ‘Large’ is marketed as an <b>extended-fit</b> size (it’s roomier, not plus-size)</li></ul></div>
+  </div>
+  <p class="kicker" style="margin-top:22px">Headline signals → Feetz wedges</p>
+  <div class="wedge-map"><div class="wedge-card"><p class="q">“coming undone multiple times a day … now it sits on a shelf”</p><p class="w">→ Seamless bangle — no clasp to fail</p></div><div class="wedge-card"><p class="q">chain anklets “catch in my socks and shoes”</p><p class="w">→ One smooth, unbroken band — nothing to snag</p></div><div class="wedge-card"><p class="q">welded jewelry: “a gimmick, breaks in ~12mo, can’t remove it”</p><p class="w">→ Permanent-jewelry feeling, without the permanent problems</p></div><div class="wedge-card"><p class="q">“plating wears off to a dull grey / $62 for costume jewelry”</p><p class="w">→ Win durability visibly: steel base won’t green skin; name plating quality (PVD only if confirmed)</p></div><div class="wedge-card"><p class="q">“a friend thought I was too old” / the “trashy” read (▲339)</p><p class="w">→ Permission as fact + the 5,000-year heritage story — disarm, don’t console</p></div><div class="wedge-card"><p class="q">buyers hunt dropship red flags</p><p class="w">→ Real reviews + an honored guarantee + responsive CS</p></div></div>
+  <p class="kicker" style="margin-top:22px">Coverage</p>
+  <div class="grid"><div class="metric"><span>Distinct sources</span><b>54</b></div><div class="metric"><span>Pain</span><b>20</b></div><div class="metric"><span>Emotional</span><b>34</b></div><div class="metric"><span>Ladder</span><b>19</b></div><div class="metric"><span>Objections</span><b>39</b></div><div class="metric"><span>Competitors</span><b>11</b></div><div class="metric"><span>Swipe</span><b>41</b></div><div class="metric"><span>Angles</span><b>20</b></div></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Communities mined</p><div class="community-pills"><span class="community-pill">r/jewelry</span><span class="community-pill">r/bitcheswithtaste</span><span class="community-pill">r/Splendida</span><span class="community-pill">r/AskWomenOver40</span><span class="community-pill">r/WomenOver40</span><span class="community-pill">r/AmItheAsshole</span><span class="community-pill">r/mejuri</span><span class="community-pill">Amazon / retailer reviews</span></div></div>
+  <div class="card"><p class="kicker">Method, caveats &amp; sensitivity</p><ul class="clean"><li>Ranking = <b>frequency across distinct sources</b>, never upvotes/stars. Reddit upvotes and retailer stars sit in their own columns as secondary corroboration only.</li><li>Every row carries a <b>Use-case</b> tag (Everyday / Self / Gift / Vacation / Sensitive / Returning / New) for creative targeting. The corpus skews Everyday, then Self.</li><li><b>Durability honesty:</b> the Halo is gold-PLATED steel. The credible defenses are the steel base (won’t green skin, hypoallergenic) and plating <i>longevity</i>. A PVD claim is the strongest asset — but it’s unconfirmed, so it stays in the do-not-write column.</li><li><b>Sensitivity:</b> the left/right-ankle ‘anklet meaning’ folklore is logged as a self-consciousness barrier and myth, <b>not reproduced as copy</b>; body-image / identity posts were left out as off-target. The brand’s answer to perception objections is heritage / femininity / grace, which the data validates organically.</li><li><b>Coverage gaps to close:</b> seasonal gifting (Christmas / Valentine’s / anniversary) is absent — the Gifting Partner’s whole calendar; gifting sources skew to conflict subs (fear &gt; intent); and P1 clasp/tangle pain is partly borrowed from bracelet/necklace threads (treat anklet-native pain separately).</li></ul></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Action plan</p><ol class="clean"><li>Lead with the seamless wedge — no clasp to come undone, nothing to snag — against the shelf-of-broken-clasps pain.</li><li>Position as “permanent-jewelry feeling, without the permanent problems” — straight at welded/forever jewelry.</li><li>Win durability visibly: steel won’t green skin + name the plating quality (only once PVD is confirmed), paired with real reviews and an honored 30-day guarantee.</li><li>Permission as fact, not pep talk: “we’re not doing the too old thing anymore” + the 5,000-year heritage story already on the PDP.</li><li>Gifting close: two sizes + size guide + no-hassle returns to kill “what if it doesn’t fit,” then “she’d never buy it for herself.”</li><li>Commission a seasonal pull before Q4 (the corpus has zero holiday gifting); keep Summer warm at low spend and scale in April.</li></ol></div>
+  <div class="spine-footer">Pain → Emotion → Objection → Wedge → Ad</div>
+</section><section class="panel" data-panel="pain">
+  <p class="kicker">02 · Pain &amp; Symptom Language</p>
+  <h2>Pain &amp; symptoms <span class="hl">(20)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Theme · her exact words · what it signals · source. Each line carries a <b>Use-case</b> tag.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The raw language of the struggle — clasps that come undone daily, chains that snag, skin that greens, plating that dulls. Note: some clasp/tangle pain is borrowed from bracelet/necklace threads (same mechanism); treat anklet-native pain separately when briefing.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲45</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Clasp comes undone multiple times a day</p><p class="quote-body">bracelet clasp coming undone multiple times a day</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Clasps fail constantly — the core defect</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Close it till it clicks — still unclasps itself</p><p class="quote-body">i make sure to close the clasp until i hear a click … but it always unclasps itself</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Even &#x27;secure&#x27; clasps let go</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Almost lost it, so now it sits on a shelf</p><p class="quote-body">since i almost lost it once i haven&#x27;t put it back on and it&#x27;s just sitting on a shelf</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">A piece you love, unworn from fear</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Move a certain way and it falls right off</p><p class="quote-body">if i move my wrist in a certain way … it just falls right off … i&#x27;m scared of loosing it cause i love it too much</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Fear of loss taxes every wear</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲18</span><a class="quote-sub" href="https://www.reddit.com/r/PandoraCollectors/comments/1n7wr2e/has_anybodys_bracelet_genuinely_broken_off/" target="_blank" rel="noopener">r/PandoraCollectors</a></div>
+      <p class="quote-theme">Clasp opened in bed and it fell off</p><p class="quote-body">I go on my phone and notice my bracelet clasp opened and fell</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Fails even at rest</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲63</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">They keep clunking and getting all twisted</p><p class="quote-body">they keep clunking and gettin all twisted</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Chains tangle, especially stacked</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲140</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">All her necklaces tangle, endless untangling</p><p class="quote-body">all her necklaces get tangled, and then she asks me to untangle them. This drives me insane</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Tangling is a daily nuisance</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲13</span><a class="quote-sub" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div>
+      <p class="quote-theme">Anklets catch in socks/shoes — maddening</p><p class="quote-body">how is your experience with daily driving an anklet?? they catch in my socks/shoes and it drives me crazy</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">THE anklet-specific pain a rigid bangle solves</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div>
+      <p class="quote-theme">Chain anklet snagged at the clasp join</p><p class="quote-body">the link at the clasp had a rough spot at the join where the circle closed</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The clasp is the snag/failure point</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/NoStupidQuestions/comments/8tiib1/why_does_some_jewelry_turn_your_skin_green_and_is/" target="_blank" rel="noopener">r/NoStupidQuestions</a></div>
+      <p class="quote-theme">Mom warned: never wear what turns you green</p><p class="quote-body">My mother use to tell me that I shouldnt wear any jewelry that turns my skin green</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Deep-seated distrust of cheap metal</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/NoStupidQuestions/comments/8tiib1/why_does_some_jewelry_turn_your_skin_green_and_is/" target="_blank" rel="noopener">r/NoStupidQuestions</a></div>
+      <p class="quote-theme">A ring turned my finger green, now I&#x27;m wary</p><p class="quote-body">I just noticed that it is turning my finger green and now I really want to know what it&#x27;s all about</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Green skin = instant regret</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/BeforeyouPurchase/comments/1w432je/anyone_else_had_gold_plated_jewelry_tarnish/" target="_blank" rel="noopener">r/BeforeyouPurchase</a></div>
+      <p class="quote-theme">By July, greenish tinge and base metal showing</p><p class="quote-body">by July, two had started getting greenish tinge around the edges, and one was already showing base metal</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Plating fails in months, not years</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Showered in it, turned dull, copper underneath</p><p class="quote-body">proceeded to take a few showers with it … she is now very sad that it has turned dull – I guess that&#x27;s copper underneath</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Water + plating = ruined (vs &#x27;shower in it&#x27; claim)</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲107</span><a class="quote-sub" href="https://www.reddit.com/r/femalefashionadvice/comments/2wi3uv/i_keep_forgetting_i_own_jewelry_how_can_i/" target="_blank" rel="noopener">r/femalefashionadvice</a></div>
+      <p class="quote-theme">I keep forgetting to wear my jewelry</p><p class="quote-body">I love all my jewelery but even if I lay it out … I never remember to wear it. It&#x27;s this Extra Thing I have to do before leaving</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Jewelry that needs &#x27;putting on&#x27; gets skipped</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲107</span><a class="quote-sub" href="https://www.reddit.com/r/femalefashionadvice/comments/2wi3uv/i_keep_forgetting_i_own_jewelry_how_can_i/" target="_blank" rel="noopener">r/femalefashionadvice</a></div>
+      <p class="quote-theme">One more thing to do when I&#x27;m rushing out</p><p class="quote-body">It&#x27;s this Extra Thing I have to do before leaving that I never seem to have time to do</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Friction kills the habit</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲72</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Local jeweler won&#x27;t size it down</p><p class="quote-body">I usually like them on the snug side and my local jeweler wont size it down</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">No easy fix once it&#x27;s the wrong size</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/GiftIdeas/" target="_blank" rel="noopener">r/GiftIdeas</a></div>
+      <p class="quote-theme">Want a beach gift that survives sand &amp; sea</p><p class="quote-body">any gift ideas that can be used during the cruise are a major plus</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Beach gifts must handle water — most jewelry doesn&#x27;t</span></div><div class="mini-tags"><span class="mini-tag">Vacation</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/pandorajewelery/comments/1h5fqo3/ordered_wrong_size_for_my_wifes_gift_on_a_final/" target="_blank" rel="noopener">r/pandorajewelery</a></div>
+      <p class="quote-theme">Ordered the wrong size for her gift</p><p class="quote-body">I may have chose the wrong size … I&#x27;m pretty much sure it wont fit her wrist</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Sizing is his #1 way to get it wrong</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14374</span><a class="quote-sub" href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a></div>
+      <p class="quote-theme">Practical gift flopped; she wanted jewelry</p><p class="quote-body">she wanted just something romantic, a little necklace … she ended up buying the necklace herself</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The &#x27;sentimental &gt; practical&#x27; lesson</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲491</span><a class="quote-sub" href="https://www.reddit.com/r/Gifts/comments/1s5e49t/gift_for_someone_heading_to_beach/" target="_blank" rel="noopener">r/Gifts</a></div>
+      <p class="quote-theme">She&#x27;s hard to buy for — will she even use it?</p><p class="quote-body">she likes expensive items … I wouldn&#x27;t mind spending on something quality that she would actually use</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Fear of buying a dud she ignores</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article></div>
+</section><section class="panel" data-panel="avatars">
+  <p class="kicker">03 · Avatars</p>
+  <h2>The Avatars</h2>
+  <p class="muted" style="margin-bottom:18px">Three client-defined avatars, ordered by strategic weight — Self-Gifter (primary), Gifting Partner (the Q4 engine), and the seasonal Summer Buyer base. Quotes are the real, sourced lines behind each.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>These avatars are the client’s, used as given. Read the <b>Nuance</b> line on each — it flags where the corpus misleads (the Gifting Partner’s data skews to gifts that failed; the Summer Buyer looks big but is seasonal) and where reassurance backfires (don’t console the Self-Gifter).</p></div>
+  <div class="avatar-grid"><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">PRIMARY</span><span class="avatar-badge matrix">Self-treat · no occasion · women ~40–65</span></div>
+        <h3>The Self-Gifter</h3>
+        <p class="av-demo">Women ~40–65 · own money · buying for herself, no occasion</p>
+        <p class="muted">Burned before by cheap jewelry and done asking permission. Her pain arrives in two layers: functional (it tarnished, greened her skin, the clasp defeated her) and social (a friend told her she was too old for this). Her real driver is feeling put-together and feminine again in a body she’s still living in — without a hassle and without a lecture.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“the moment I throw on earrings or a simple chain, I feel like I have my life together”<span class="src"><a class="src-link" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a> · ▲287</span></div><div class="avatar-quote">“I love jewelry, but I am lazy … I prefer pieces I can wear daily … I’m just not willing to change these!”<span class="src"><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a> · ▲146</span></div><div class="avatar-quote">“a friend of mine thought I was too old to be wearing things like this”<span class="src"><a class="src-link" href="https://www.reddit.com/r/AskWomenOver40/comments/1g56w6k/im_42_am_i_too_old_for_clothes_like_this/" target="_blank" rel="noopener">r/AskWomenOver40</a> · ▲97</span></div><div class="avatar-quote">“I’ll look pathetic and desperate while embarrassing my daughter … trying to recapture her youth”<span class="src"><a class="src-link" href="https://www.reddit.com/r/WomenOver40/comments/1sxj34o/too_old_for_a_piercing/" target="_blank" rel="noopener">r/WomenOver40</a> · ▲11</span></div><div class="avatar-quote">“why do we need an excuse to buy nice jewelry for ourselves”<span class="src"><a class="src-link" href="https://www.reddit.com/r/jewelrylove/comments/qelhp3/do_you_like_to_wear_an_anklet/" target="_blank" rel="noopener">r/jewelrylove</a> · ▲12</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>Spending real money on something that greens her skin, tarnishes in a week, or makes her look like she’s chasing her twenties.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“Isn’t this a bit young for me? And anyway, everything in this price range turns out to be junk.”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>The seamless bangle: nothing to clasp, nothing to fuss with, made to stay on. Plus a durability claim that’s material-backed (steel base, hypoallergenic) and 30 days to change her mind. Then the permission line, delivered as fact rather than pep talk.</p></div>
+        <div class="av-nuance"><b>Nuance:</b> Don’t over-reassure her — the corpus punishes anything that sounds like consoling an old woman. “We’re not doing the too old thing anymore” (▲34) outperforms sympathy. And the “trashy” perception is real and regional (▲339, ▲55): disarm it, don’t ignore it.</div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">SECONDARY</span><span class="avatar-badge matrix">The Q4 engine · men ~30–60</span></div>
+        <h3>The Gifting Partner</h3>
+        <p class="av-demo">Men ~30–60 · buying for a wife or girlfriend · the Q4 engine</p>
+        <p class="muted">It isn’t about jewelry, it’s about not screwing up. He is buying reassurance that he chose right. The corpus is loud here because men post about gifts after they go wrong — and the failure stories are brutal.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“Since money is tight this gift broke my back but still I wanted her to feel appreciated”<span class="src"><a class="src-link" href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a> · ▲18183</span></div><div class="avatar-quote">“she wanted just something romantic, a little necklace … she ended up buying the necklace herself”<span class="src"><a class="src-link" href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a> · ▲14374</span></div><div class="avatar-quote">“I saved up for months to get my gf this beautiful piece she’d been eyeing … completely crushed”<span class="src"><a class="src-link" href="https://www.reddit.com/r/AmIOverreacting/comments/1leusxn/aio_for_being_hurt_that_my_girlfriend_returned_a/" target="_blank" rel="noopener">r/AmIOverreacting</a> · ▲1674</span></div><div class="avatar-quote">“they both told me it wasn’t what she wanted”<span class="src"><a class="src-link" href="https://www.reddit.com/r/WhatShouldIDo/comments/1lm4h8g/bought_a_ring_for_my_girlfriend_sisters_say_its/" target="_blank" rel="noopener">r/WhatShouldIDo</a> · ▲30310</span></div><div class="avatar-quote">“it’s on a final sale, that apparently I won’t be able to send back”<span class="src"><a class="src-link" href="https://www.reddit.com/r/pandorajewelery/comments/1h5fqo3/ordered_wrong_size_for_my_wifes_gift_on_a_final/" target="_blank" rel="noopener">r/pandorajewelery</a> · ▲2</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>She opens it, her face doesn’t change, and he finds out later she returned it. Underneath that: the wrong size on a final-sale item with no way out.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“What if it doesn’t fit, or she just doesn’t like it, and I’m stuck with it.”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>Two sizes plus a size guide, 30 days with no reason needed, trying it on for fit doesn’t void the return, no restocking fees. Then the emotional close: she’d never buy this for herself, which is exactly why it works as a gift.</p></div>
+        <div class="av-nuance"><b>Nuance:</b> The corpus skews to gifts that failed, so it captures his fear better than his intent. Seasonal language (Christmas, Valentine’s, anniversary) is missing entirely — worth a targeted pull, since the calendar is the whole reason this avatar exists.</div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">SUPPORTING</span><span class="avatar-badge matrix">Seasonal base · largest raw share, smallest weight</span></div>
+        <h3>The Summer Buyer</h3>
+        <p class="av-demo">Women ~20–35 · vacation, beach, impulse</p>
+        <p class="muted">The high-volume base behind most of the category’s existing content. She buys for a trip, wears it with a tan, and wants it to survive sand and sea. Real, but seasonal — and the reason the Meta account’s CPA went from $20 to $50 when summer ended.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“any gift ideas that can be used during the cruise are a major plus”<span class="src"><a class="src-link" href="https://www.reddit.com/r/GiftIdeas/" target="_blank" rel="noopener">r/GiftIdeas</a> · ▲6</span></div><div class="avatar-quote">“Lightweight, waterproof, and no tarnish—even after pool season”<span class="src"><span class="src-link" style="color:var(--text-dim)">competitor review (MLMT)</span></span></div><div class="avatar-quote">“Stainless steel does NOT turn your skin green. That’s why it’s used for surgical tools”<span class="src"><a class="src-link" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a> · ▲7</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>It turns her skin green or goes dull halfway through the trip.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“There’s a $18 waterproof stainless one on Etsy that does the same thing.”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>Water-resistant across swim, shower, sweat and sea, with the material reason attached rather than asserted.</p></div>
+        <div class="av-nuance"><b>Nuance:</b> Keep warm at low spend, scale in April. Don’t let this avatar define the account — if a concept needs a beach, a tan, or sand to work, it isn’t evergreen.</div>
+      </article></div>
+</section><section class="panel" data-panel="emotional">
+  <p class="kicker">04 · Emotional Drivers</p>
+  <h2>Emotional drivers <span class="hl">(34)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The feeling · her words · how to use it · source.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The emotional core beneath the buy — feeling put-together and feminine effortlessly, the low-guilt self-treat, and the social permission to wear it at her age. This is where a cloned, commodity product actually gets differentiated.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Love it too much to risk losing it</p><p class="quote-body">i&#x27;m scared of loosing it cause i love it too much</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Attachment + loss-anxiety = the emotional hook for &#x27;stays on&#x27;</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲146</span><a class="quote-sub" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div>
+      <p class="quote-theme">Loves jewelry but is &#x27;lazy&#x27; — wants set-and-forget</p><p class="quote-body">I love jewelry, but I am lazy … I prefer pieces I can wear daily … I&#x27;m just not willing to change these!</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The low-maintenance, always-on buyer</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲36</span><a class="quote-sub" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div>
+      <p class="quote-theme">Never-off piece as a life-milestone marker</p><p class="quote-body">Cartier love bracelet. I got one when my daughter was born. Haven&#x27;t taken it off in 9 years!</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Always-on = sentimental identity</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Relief: steel is surgical-grade, won&#x27;t green you</p><p class="quote-body">Stainless steel does NOT turn your skin green. That&#x27;s why it&#x27;s used for surgical tools, because it doesn&#x27;t typically corrode</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The reassurance that defuses the green fear</span></div><div class="mini-tags"><span class="mini-tag">Sensitive</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">2 months in, no tarnish — love it more than silver</p><p class="quote-body">had it on 2 months so far and no tarnish, green or dullness yet, I love it more than silver</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Happy steel-wearer proof</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Can&#x27;t justify £1k real gold for occasional wear</p><p class="quote-body">A similar one in actual gold is almost £1k and I absolutely cannot justify that for a necklace I&#x27;ll wear now &amp; again</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The exact value gap Halo fills</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲3</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Happy to pay for plated IF it won&#x27;t green me</p><p class="quote-body">I can justify £100 if it won&#x27;t turn my skin green</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Willing to buy plated — performance is the gate</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><span class="quote-sub" style="color:var(--text-dim)">Competitor review (MLMT)</span></div>
+      <p class="quote-theme">4 months on, still shiny — never comes off</p><p class="quote-body">This anklet hasn&#x27;t left my ankle in 4 months. Still shiny</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The durability payoff buyers want to hear</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><span class="quote-sub" style="color:var(--text-dim)">Competitor review (MLMT)</span></div>
+      <p class="quote-theme">No tarnish even after pool season</p><p class="quote-body">Lightweight, waterproof, and no tarnish—even after pool season</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Water/pool survival = the proof point</span></div><div class="mini-tags"><span class="mini-tag">Vacation</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><span class="quote-sub" style="color:var(--text-dim)">Competitor review (MLMT)</span></div>
+      <p class="quote-theme">Was hesitant, blown away by durability</p><p class="quote-body">I was hesitant to order at first, but I&#x27;m blown away by the design and durability</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Skeptic-converted arc (dropship-priced buyer)</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲107</span><a class="quote-sub" href="https://www.reddit.com/r/femalefashionadvice/comments/2wi3uv/i_keep_forgetting_i_own_jewelry_how_can_i/" target="_blank" rel="noopener">r/femalefashionadvice</a></div>
+      <p class="quote-theme">Wants jewelry to feel like part of her, effortlessly</p><p class="quote-body">How can I incorporate it in my life more? … Rings are the easiest to slip on</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Craves the set-and-forget adornment</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲65</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">Summer, casual, feminine — the anklet moment</p><p class="quote-body">I like them in summer with more casual clothes, shorts, flip flops … I never wear heels anymore</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The warm-weather femininity the Halo lives in</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲15</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">A gold one looks lovely with flat sandals</p><p class="quote-body">I have a gold one that looks lovely when I wear flat sandals</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Gold anklet + sandals = the aspirational image</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲11</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Saw an anklet ad, now she wants one</p><p class="quote-body">she was looking for a bracelet online and saw an anklet ad … Recently she told me she wants one</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Ad-driven desire (the exact funnel)</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲287</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">One piece and I feel like I have my life together</p><p class="quote-body">the moment I throw on earrings or a simple chain, I feel like I have my life together</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">THE put-together payoff (287up)</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲287</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Polished instantly, even in sweats</p><p class="quote-body">Even if I am in sweats … I feel like I have my life together</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Effortless polish, any outfit</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲12</span><a class="quote-sub" href="https://www.reddit.com/r/jewelrylove/comments/qelhp3/do_you_like_to_wear_an_anklet/" target="_blank" rel="noopener">r/jewelrylove</a></div>
+      <p class="quote-theme">Why do we need an excuse to buy it for ourselves?</p><p class="quote-body">why do we need an excuse to buy nice jewelry for ourselves … just because you want it</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Self-permission driver</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲138</span><a class="quote-sub" href="https://www.reddit.com/r/SingleAndHappy/comments/1gvpjem/treat_yourself_buy_yourself_jewellery_even/" target="_blank" rel="noopener">r/SingleAndHappy</a></div>
+      <p class="quote-theme">Treat yourself — and actually wear it</p><p class="quote-body">Treat yourself. Buy yourself jewellery … And remember to wear it, too</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Self-gift + wear-it-daily</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲13</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">The goldilocks fit: slips on, won&#x27;t slip off</p><p class="quote-body">it slips over my hand without much effort and won&#x27;t slip off when it&#x27;s on</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The exact fit the Halo must nail</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲69</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">It&#x27;s my culture — never thought it trashy</p><p class="quote-body">it&#x27;s a part of south asian cultures … I grew up wearing anklets and never thought it would be considered trashy</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Heritage pride reframe (ties to brand&#x27;s 5,000-yr story)</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲27548</span><a class="quote-sub" href="https://www.reddit.com/r/NotHowGirlsWork/comments/hoyg75/ladies_be_warned_about_the_power_of_ankle/" target="_blank" rel="noopener">r/NotHowGirlsWork</a></div>
+      <p class="quote-theme">The &#x27;anklet signal&#x27; idea is widely mocked as a myth</p><p class="quote-body">Ladies, be warned about the power of ankle bracelets</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">27.5k-up ridicule = most people DON&#x27;T take the &#x27;meaning&#x27; seriously</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲21</span><a class="quote-sub" href="https://www.reddit.com/r/mejuri/comments/1vj1i99/mejuri_quality/" target="_blank" rel="noopener">r/mejuri</a></div>
+      <p class="quote-theme">Felt the brand &#x27;sold out&#x27; and quality dropped</p><p class="quote-body">the brand worsened so much I googled whether you&#x27;d been acquired by a VC</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The sellout heartbreak (loyalty is fragile)</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲21</span><a class="quote-sub" href="https://www.reddit.com/r/mejuri/comments/1vj1i99/mejuri_quality/" target="_blank" rel="noopener">r/mejuri</a></div>
+      <p class="quote-theme">Proof it CAN last: 3 years, showers &amp; sea</p><p class="quote-body">I have used my boyfriend chain everyday, taking showers and dipping in the sea, and it&#x27;s still amazing after three years</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Durability IS possible — the bar to hit</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/AskIndianWomen/comments/1v51hak/can_someone_guide_for_gifting_anklets_to_my/" target="_blank" rel="noopener">r/AskIndianWomen</a></div>
+      <p class="quote-theme">First-time gifting jewelry, wants it right</p><p class="quote-body">meeting my girlfriend after almost 2 months and I want to gift her anklets … It&#x27;s my first time gifting jewellery</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Romantic/reunion gift, giver anxiety</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲379</span><a class="quote-sub" href="https://www.reddit.com/r/relationship_advice/comments/srhas1/how_to_present_an_extravagant_piece_of_jewellery/" target="_blank" rel="noopener">r/relationship_advice</a></div>
+      <p class="quote-theme">Wants the gift to feel meaningful, not tarnished</p><p class="quote-body">The last thing I want is for the gift itself to be tarnished with the memory of a lousy hand-over</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Gifting jewelry = an emotional moment</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1674</span><a class="quote-sub" href="https://www.reddit.com/r/AmIOverreacting/comments/1leusxn/aio_for_being_hurt_that_my_girlfriend_returned_a/" target="_blank" rel="noopener">r/AmIOverreacting</a></div>
+      <p class="quote-theme">Saved for months; wants to delight her</p><p class="quote-body">I saved up for months to get my gf this beautiful piece she&#x27;d been eyeing … completely crushed</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The stakes: his effort = his love</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲18183</span><a class="quote-sub" href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a></div>
+      <p class="quote-theme">Money&#x27;s tight but he wants her to feel appreciated</p><p class="quote-body">Since money is tight this gift broke my back but still I wanted her to feel appreciated</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Thoughtfulness under a budget</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/relationships/comments/7mdrs6/is_it_weird_for_me_24m_to_buy_a_necklace_for_my/" target="_blank" rel="noopener">r/relationships</a></div>
+      <p class="quote-theme">Wants something special that lasts</p><p class="quote-body">I don&#x27;t mind spending a little more to get something that I know will last</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Gift-as-keepsake aspiration</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14374</span><a class="quote-sub" href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a></div>
+      <p class="quote-theme">Jewelry is the romantic gift, not the practical one</p><p class="quote-body">she felt anniversary&#x27;s should be more about romantic/sentimental gifts versus practical</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Anklet = the romantic register he&#x27;s aiming for</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲34</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">Permission: we&#x27;re done with &#x27;too old for ___&#x27;</p><p class="quote-body">we&#x27;re not doing the &#x27;too old/fat/thin/short/tall/ugly for ___&#x27; thing anymore … wear it with confidence!</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">THE reframe that converts her (34 up, 2025)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">You don&#x27;t owe anyone an explanation</p><p class="quote-body">you don&#x27;t owe them an explanation for your choice in personal decoration</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Permission = self-authorized adornment</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">Grannies and teens wear them alike</p><p class="quote-body">I see grannies with anklets as regularly as I do teens</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Normalizes anklets across every age</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">At 50 she wears them all the time</p><p class="quote-body">My wife wears anklets all the time and she is 50 go for it</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Proof it&#x27;s worn well past 40</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">44, worn daily, never a negative reaction</p><p class="quote-body">My wife (44 American) wears one. She&#x27;s never had anyone react negatively to it</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Real-world reassurance for the 40+ buyer</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article></div>
+</section><section class="panel" data-panel="solution_ladder">
+  <p class="kicker">05 · Solution Ladder</p>
+  <h2>What she tries instead <span class="hl">(19)</span></h2>
+  <p class="muted" style="margin-bottom:18px">The alternatives she reaches for — clasp anklets, welded/permanent jewelry, cheap stainless, real gold — and how she feels about each.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Everything people try to get the ‘never take it off’ feeling. The recurring gap the Halo fills: welded jewelry gives permanence but can’t be removed and breaks; clasps give removability but fail — a seamless bangle is the only option that does both.</p></div>
+  <div class="ladder-grid"><div class="ladder-card"><h4>should I get a safety chain … clip or twist</h4>
+        <p class="lc-note">People bolt on safety chains because clasps can&#x27;t be trusted — a bangle needs none</p>
+        <div class="ladder-meta"><span class="lc-tag">Workaround (clasp)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/PandoraCollectors/comments/1n7wr2e/has_anybodys_bracelet_genuinely_broken_off/" target="_blank" rel="noopener">r/PandoraCollectors</a></div></div><div class="ladder-card"><h4>use small plastic jewelry bags … straws … individual pouches</h4>
+        <p class="lc-note">Whole rituals exist just to fight tangling</p>
+        <div class="ladder-meta"><span class="lc-tag">Workaround (storage)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div></div><div class="ladder-card"><h4>The only stuff you can get away with wearing 100% of the time without damaging it is steel</h4>
+        <p class="lc-note">Ex-jeweler: fine metals/stones damage with 24/7 wear; STEEL is the always-on material</p>
+        <div class="ladder-meta"><span class="lc-tag">Material (the Halo&#x27;s exact pitch)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="ladder-card"><h4>I wear a lot of stainless steel and titanium … Neither metal tarnishes and it&#x27;s waterproof!</h4>
+        <p class="lc-note">The savvy &#x27;broke BWT&#x27; pick — but warns plating rubs off</p>
+        <div class="ladder-meta"><span class="lc-tag">Material (budget always-on)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="ladder-card"><h4>permanent bracelets you can have made that are welded around your wrist so you don&#x27;t have to take them off</h4>
+        <p class="lc-note">Delivers &#x27;never off&#x27; but expensive, appointment, breaks ~12mo, can&#x27;t remove — Halo&#x27;s opening</p>
+        <div class="ladder-meta"><span class="lc-tag">Alternative (permanent)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="ladder-card"><h4>Steel doesn&#x27;t normally do that, it&#x27;s a problem with very cheap jewellery that&#x27;s made from mystery alloys … it&#x27;s probably going to hold up fine</h4>
+        <p class="lc-note">Frame Halo as steel, NOT brass/copper costume metal</p>
+        <div class="ladder-meta"><span class="lc-tag">Defense (material)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div></div><div class="ladder-card"><h4>It can take years to wear off no just months … plating done thinner is obviously going to wear off quicker</h4>
+        <p class="lc-note">Lifespan hinges on plating thickness — a quality/PVD claim matters</p>
+        <div class="ladder-meta"><span class="lc-tag">Defense (plating quality)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div></div><div class="ladder-card"><h4>Paint over it with clear nail polish … a barrier between your skin and the metal to stop the green tint</h4>
+        <p class="lc-note">People pre-empt green skin — Halo should make it unnecessary</p>
+        <div class="ladder-meta"><span class="lc-tag">Workaround (DIY)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/lifehacks/comments/3f65lq/jewelry_turning_your_skin_green_or_causing_an/" target="_blank" rel="noopener">r/lifehacks</a></div></div><div class="ladder-card"><h4>high-performance PVD coating on surgical-grade stainless steel that locks in color and shine</h4>
+        <p class="lc-note">The claim Feetz must make explicitly to beat the &#x27;plating wears off&#x27; objection</p>
+        <div class="ladder-meta"><span class="lc-tag">Defense (the durable-plating spec)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://mylovemytreasure.com/collections/minimalistic-waterproof-anklets" target="_blank" rel="noopener">Competitor listing (MLMT)</a></div></div><div class="ladder-card"><h4>Rings are the easiest to slip on … I still forget to put [others] on</h4>
+        <p class="lc-note">A slide-on bangle you never remove = worn every day by default</p>
+        <div class="ladder-meta"><span class="lc-tag">Format (effortless)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/femalefashionadvice/comments/2wi3uv/i_keep_forgetting_i_own_jewelry_how_can_i/" target="_blank" rel="noopener">r/femalefashionadvice</a></div></div><div class="ladder-card"><h4>what&#x27;s your bare minimum jewelry piece that makes you feel polished instantly</h4>
+        <p class="lc-note">The Halo as the one effortless piece that does this</p>
+        <div class="ladder-meta"><span class="lc-tag">Format (everyday hero piece)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div></div><div class="ladder-card"><h4>gently oval to follow the natural line of the ankle … one smooth, unbroken band</h4>
+        <p class="lc-note">Oval vs round = less spinning/riding-up; brand&#x27;s own claim to lean on</p>
+        <div class="ladder-meta"><span class="lc-tag">Design (fit)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://feetzdesigns.com/products/halo-anklet-gold" target="_blank" rel="noopener">Feetz PDP</a></div></div><div class="ladder-card"><h4>Regular ~23.6cm / Large ~25.4cm inner circumference</h4>
+        <p class="lc-note">No adjustability -&gt; the size guide + easy 30-day exchange must carry it</p>
+        <div class="ladder-meta"><span class="lc-tag">Sizing (offer)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://feetzdesigns.com/products/halo-anklet-gold" target="_blank" rel="noopener">Feetz PDP</a></div></div><div class="ladder-card"><h4>one you slide on once and wear like it was always yours</h4>
+        <p class="lc-note">Answers the &#x27;stuck/can&#x27;t remove&#x27; fear that dogs permanent jewelry</p>
+        <div class="ladder-meta"><span class="lc-tag">Design (removable)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://feetzdesigns.com/products/halo-anklet-gold" target="_blank" rel="noopener">Feetz PDP</a></div></div><div class="ladder-card"><h4>Dainty anklets on their own are never trashy … it&#x27;s literally just dainty jewellry</h4>
+        <p class="lc-note">Delicate + refined = the anti-trashy positioning Feetz should own</p>
+        <div class="ladder-meta"><span class="lc-tag">Defense (permission)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div></div><div class="ladder-card"><h4>it&#x27;s literally just dainty jewellry … part of my culture … 5,000 years</h4>
+        <p class="lc-note">Sidestep the myth entirely; own femininity/grace/heritage (brand&#x27;s 5,000-yr story)</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (heritage)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">Brand/thread</span></div></div><div class="ladder-card"><h4>a ~$100 birthday present … heading to the beach next week … She is flying so the gift can&#x27;t be big</h4>
+        <p class="lc-note">Small + water-resistant + $62 + giftable = ideal pre-vacation present</p>
+        <div class="ladder-meta"><span class="lc-tag">Use-case (beach gift)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Gifts/comments/1s5e49t/gift_for_someone_heading_to_beach/" target="_blank" rel="noopener">r/Gifts</a></div></div><div class="ladder-card"><h4>mini swag bags with: tumblers, scrunchies, bracelets … we are travelling light so the swag will have to be small</h4>
+        <p class="lc-note">Anklets as small, pretty, packable tokens for trips/parties</p>
+        <div class="ladder-meta"><span class="lc-tag">Use-case (group favors)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="ladder-card"><h4>There is no age restriction on jewelry, luv … if you wanna wear it, rock that anklet</h4>
+        <p class="lc-note">Lead the Returning creative on permission + timeless elegance, not youth</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (permission)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div></div></div>
+</section><section class="panel" data-panel="objections">
+  <p class="kicker">06 · Objections &amp; Friction</p>
+  <h2>Objections &amp; friction <span class="hl">(39)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The objection · the signal in her words · what it means for Feetz · source.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Every hesitation — “plating wears off,” “$62 for costume jewelry,” “too young for me,” “is it trashy,” and the dropship red-flag hunt. Durability is the make-or-break: it needs a material-backed answer, not a slogan.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14</span><a class="quote-sub" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div>
+      <p class="quote-theme">Gold plating rubs off and scratches over time</p><p class="quote-body">make sure it&#x27;s not gold plated or it will rub off and scratch over time</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">THE Halo durability objection (it IS gold-plated steel)</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div>
+      <p class="quote-theme">Permanent bracelets break in about a year</p><p class="quote-body">they say they should last for at least 12 months before breaking</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Even &#x27;permanent&#x27; isn&#x27;t permanent</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲10</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Plating wears to a dull grey</p><p class="quote-body">when the plating wears off you&#x27;ll be left with a dull Grey color</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The after-state buyers dread</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲8</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Plating always wears off — weeks to months</p><p class="quote-body">plated jewelry will always wear off sooner or later — as quickly as 2 weeks to as long as 3 months</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Sets a scary timeline expectation</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲3</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">High price for &#x27;basically costume jewelry&#x27;</p><p class="quote-body">The price is very high for what is basically costume jewelry</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The $62-for-plated-steel value objection</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Worth $25 — this price is a scam</p><p class="quote-body">A chain like that is worth $25 max … 100 for that is a straight up scam</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The overpriced-dropship suspicion</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Don&#x27;t trust the &#x27;no-tarnish guarantee&#x27;</p><p class="quote-body">The website says no tarnish guarantee but I&#x27;m unsure if you believe that</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Distrust of the brand&#x27;s own durability claim</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://mylovemytreasure.com/collections/minimalistic-waterproof-anklets" target="_blank" rel="noopener">Competitor listing (MLMT)</a></div>
+      <p class="quote-theme">Is it real PVD or &#x27;basic plating&#x27; that fails?</p><p class="quote-body">PVD gold plating - never tarnishes or fades … vs basic plating that tarnishes within months</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The crux spec question (Feetz says only &#x27;gold plating&#x27;)</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://www.walmart.com/ip/585831844" target="_blank" rel="noopener">Walmart listing (KoolJewelry)</a></div>
+      <p class="quote-theme">Real gold markets against plating on permanence</p><p class="quote-body">Real Gold, Not plated nor filled … Never Changes Color or Fades … Will not Turn Your Skin Green</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The real-gold alternative reframes plated as inferior</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲138</span><a class="quote-sub" href="https://www.reddit.com/r/labdiamond/comments/1pa174s/is_it_weird_to_buy_yourself_expensive_jewelry/" target="_blank" rel="noopener">r/labdiamond</a></div>
+      <p class="quote-theme">Guilt over buying jewelry &#x27;just because it&#x27;s pretty&#x27;</p><p class="quote-body">having some really guilty feelings about considering getting something for myself just because I like it and it&#x27;s pretty</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">$62 = the low-guilt self-treat answer</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲8</span><a class="quote-sub" href="https://www.reddit.com/r/women/" target="_blank" rel="noopener">r/women</a></div>
+      <p class="quote-theme">Spent a lot and felt terrible after</p><p class="quote-body">the minute we go to the car I felt terrible spending that much</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Buyer&#x27;s remorse at luxury prices (Halo avoids it)</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲13</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Can&#x27;t tell if my slip-on bangle fits right</p><p class="quote-body">I bought my first slip over bangle … I can&#x27;t tell if this is too large or if this is normal</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Sizing uncertainty on a non-adjustable piece</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲275</span><a class="quote-sub" href="https://www.reddit.com/r/Watches/comments/1p27y6k/question_how_do_you_get_a_bracelet_to_fit/" target="_blank" rel="noopener">r/Watches</a></div>
+      <p class="quote-theme">Between sizes: too loose spins, too tight marks</p><p class="quote-body">too loose (I can spin it around my wrist) … too tight (leaves imprints on my arm)</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">No micro-adjust = between-sizes trap</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">First bangle — no idea how it should fit</p><p class="quote-body">I just purchased my first bracelet and not sure if this is how they&#x27;re supposed to fit</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">First-timer fit doubt (barrier to buying)</span></div><div class="mini-tags"><span class="mini-tag">New</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲10</span><a class="quote-sub" href="https://www.reddit.com/r/JadeiteJade/comments/1tpqe76/have_you_guys_ever_had_to_break_a_bangle_to_get/" target="_blank" rel="noopener">r/JadeiteJade</a></div>
+      <p class="quote-theme">Perfect fit, but it won&#x27;t come off — stuck</p><p class="quote-body">it&#x27;s actually the perfect fit. But it just does not come off my hand … it hurts sooo much to try and take my current one off</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The rigid-bangle &#x27;can&#x27;t remove it&#x27; fear</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲13</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">Drawn to it, but it feels &#x27;inappropriate&#x27;</p><p class="quote-body">I&#x27;m drawn to it but for some reason something looks &#x27;inappropriate&#x27; about it even when it&#x27;s subtle</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The core ambivalence to disarm</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲339</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">Looks great on some, trashy on others</p><p class="quote-body">certain peoples legs/feet/foot looks better in them and others trashy</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The &#x27;will it look right on ME&#x27; fear</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲55</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">Trashy stereotype in my area</p><p class="quote-body">I perceive them as trashy because they only get worn by trashy people where I live</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Class/stereotype baggage</span></div><div class="mini-tags"><span class="mini-tag">Self</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲21</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">Aren&#x27;t they for teens? I&#x27;m 31</p><p class="quote-body">in the U.K. they&#x27;re usually for younger women/teens. And I&#x27;m 31</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The &#x27;am I too old&#x27; objection</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲18</span><a class="quote-sub" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div>
+      <p class="quote-theme">Feels dated and matronly now</p><p class="quote-body">the look is dated and matronly to me now</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The &#x27;is it out of style&#x27; objection</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomen/comments/vaocjm/what_do_anklets_mean_left_ankle_vs_right_ankle/" target="_blank" rel="noopener">r/AskWomen</a></div>
+      <p class="quote-theme">People attach &#x27;meanings&#x27; to which ankle you wear it on</p><p class="quote-body">What do anklets mean? Left ankle vs right ankle?</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Signal-myth hesitation (&#x27;will it imply something?&#x27;)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/NoStupidQuestions/comments/8tiib1/why_does_some_jewelry_turn_your_skin_green_and_is/" target="_blank" rel="noopener">r/NoStupidQuestions</a></div>
+      <p class="quote-theme">Worry an anklet &#x27;signals&#x27; something unintended</p><p class="quote-body">Anklet on the Left Foot: Indicator of an Open Marriage?</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The connotation fear (esp. older/conservative buyers)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲32</span><a class="quote-sub" href="https://www.reddit.com/r/mejuri/comments/1vj1i99/mejuri_quality/" target="_blank" rel="noopener">r/mejuri</a></div>
+      <p class="quote-theme">Premium brand tarnished in under a month</p><p class="quote-body">purchased this earrings not even a month ago and they&#x27;ve already have tarnished … Is the quality this bad for the price?</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Even $$ DTC tarnishes -&gt; whole category distrust</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲196</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Won&#x27;t buy their gold again — tarnished within a year</p><p class="quote-body">I wouldn&#x27;t buy their gold again expecting them to be untarnished within a year</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Durability betrayal ends loyalty</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲182</span><a class="quote-sub" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div>
+      <p class="quote-theme">Clasp failed, brand blamed the customer</p><p class="quote-body">the clasp failed completely and the necklace fell off my wife&#x27;s neck … they cited &#x27;excessive warranty claims&#x27; … blaming the customer</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Warranty runaround = the trust killer</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲957</span><a class="quote-sub" href="https://www.reddit.com/r/EngagementRings/comments/1vt41pf/my_ring_sucks_do_your_research/" target="_blank" rel="noopener">r/EngagementRings</a></div>
+      <p class="quote-theme">Tarnished in a week; return address was a townhouse</p><p class="quote-body">the band began showing signs of tarnishing in less than a week … the return address appeared to be a residential townhome … it seemed shady</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">THE dropship red flags buyers hunt for (Feetz risk)</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲957</span><a class="quote-sub" href="https://www.reddit.com/r/EngagementRings/comments/1vt41pf/my_ring_sucks_do_your_research/" target="_blank" rel="noopener">r/EngagementRings</a></div>
+      <p class="quote-theme">They deleted my honest negative review</p><p class="quote-body">they removed my fiancé&#x27;s review from their site … just honest</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Fake-review suspicion erodes all trust</span></div><div class="mini-tags"><span class="mini-tag">Everyday</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/AskIndianWomen/comments/1v51hak/can_someone_guide_for_gifting_anklets_to_my/" target="_blank" rel="noopener">r/AskIndianWomen</a></div>
+      <p class="quote-theme">Is gifting a single anklet normal? one or two?</p><p class="quote-body">is gifting a single anklet even a normal thing? Do girls usually wear just one</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Gift-giver uncertainty (answer: single Halo is perfect)</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/pandorajewelery/comments/1h5fqo3/ordered_wrong_size_for_my_wifes_gift_on_a_final/" target="_blank" rel="noopener">r/pandorajewelery</a></div>
+      <p class="quote-theme">Wrong size and it&#x27;s final sale — can&#x27;t return</p><p class="quote-body">it&#x27;s on a final sale, that apparently I won&#x27;t be able to send back and I can&#x27;t cancel the order</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Sizing + no-return = his nightmare (Feetz answer: 2 sizes + 30-day return)</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="https://www.reddit.com/r/whatdoIdo/comments/1q4dgm7/would_you_be_upset_if_your_significant_other/" target="_blank" rel="noopener">r/whatdoIdo</a></div>
+      <p class="quote-theme">Is giving &#x27;not real&#x27; jewelry an insult?</p><p class="quote-body">bought me a necklace that isn&#x27;t real … Others … have said I&#x27;m too humble for accepting that</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The &#x27;will it look cheap?&#x27; fear (plated vs solid gold)</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1674</span><a class="quote-sub" href="https://www.reddit.com/r/AmIOverreacting/comments/1leusxn/aio_for_being_hurt_that_my_girlfriend_returned_a/" target="_blank" rel="noopener">r/AmIOverreacting</a></div>
+      <p class="quote-theme">What if she opens it and is unimpressed?</p><p class="quote-body">she asked how much it cost … she literally said &#x27;ugh that&#x27;s it?&#x27; and returned it the next day</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The rejection nightmare that haunts him</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲30310</span><a class="quote-sub" href="https://www.reddit.com/r/WhatShouldIDo/comments/1lm4h8g/bought_a_ring_for_my_girlfriend_sisters_say_its/" target="_blank" rel="noopener">r/WhatShouldIDo</a></div>
+      <p class="quote-theme">What if it&#x27;s &#x27;not what she wanted&#x27;?</p><p class="quote-body">they both told me it wasn&#x27;t what she wanted</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Fear he&#x27;ll misjudge her taste</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/relationships/comments/7mdrs6/is_it_weird_for_me_24m_to_buy_a_necklace_for_my/" target="_blank" rel="noopener">r/relationships</a></div>
+      <p class="quote-theme">A good return policy is what makes him comfortable</p><p class="quote-body">my main concern … I have a friend who works for Tiffany and she constantly brings up their return policies</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Return policy = the permission to buy</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/relationships/comments/7mdrs6/is_it_weird_for_me_24m_to_buy_a_necklace_for_my/" target="_blank" rel="noopener">r/relationships</a></div>
+      <p class="quote-theme">Will she actually wear it day to day?</p><p class="quote-body">I&#x27;ve noticed lately that she&#x27;s started wearing more and more jewelry … something that I know will last</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">He needs proof it&#x27;ll get worn</span></div><div class="mini-tags"><span class="mini-tag">Gift</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">&#x27;How old is too old for an anklet?&#x27;</p><p class="quote-body">41f from NZ asking … I love jewellery and have good legs</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The lapsed-wearer&#x27;s literal conversion question (2025)</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">Crepey skin / swollen ankles make me hesitate</p><p class="quote-body">When your skin gets crepey and your ankles swell, that is a sign that an anklet is probably not a good idea</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The aging-body self-consciousness barrier</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></div>
+      <p class="quote-theme">Fear it reads as &#x27;trying too hard&#x27;</p><p class="quote-body">you can maybe get away with at 41 … anything that seems childish stops being endearing and starts just looking pathetic</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">The &#x27;will I look desperate&#x27; fear</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲11</span><a class="quote-sub" href="https://www.reddit.com/r/WomenOver40/comments/1sxj34o/too_old_for_a_piercing/" target="_blank" rel="noopener">r/WomenOver40</a></div>
+      <p class="quote-theme">Afraid of looking like I&#x27;m recapturing my youth</p><p class="quote-body">I&#x27;ll look pathetic and desperate while embarrassing my daughter … trying to recapture her youth</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Core barrier: judged for reclaiming a young look</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲97</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver40/comments/1g56w6k/im_42_am_i_too_old_for_clothes_like_this/" target="_blank" rel="noopener">r/AskWomenOver40</a></div>
+      <p class="quote-theme">A friend told me I&#x27;m too old for this</p><p class="quote-body">a friend of mine thought I was too old to be wearing things like this</p><div class="quote-field"><span class="quote-field-label">Implication for Feetz</span><span class="quote-field-value">Social judgment from peers is the real gate</span></div><div class="mini-tags"><span class="mini-tag">Returning</span></div></article></div>
+</section><section class="panel" data-panel="competitors">
+  <p class="kicker">07 · Competitor Landscape</p>
+  <h2>Who she’s comparing to <span class="hl">(11)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The named alternatives in the corpus, by tier and sentiment. (Too few mentions to rank by frequency — this is the qualitative landscape instead.)</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The two that matter most: <b>MLMT</b>, the direct waterproof rival that wins the durability argument on an explicit PVD claim, and <b>welded / permanent jewelry</b>, the ‘forever’ trend the Halo out-positions by giving the never-off feeling without the can’t-remove / breaks-in-a-year downside.</p></div>
+  <div class="comp-grid"><div class="comp-card"><h4>Mejuri</h4>
+        <p class="comp-tier">Competitor · Premium DTC · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“&#x27;two sets of Mejuri huggies I keep on at all times&#x27; — the default everyday DTC gold brand”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="comp-card"><h4>Cartier Love / Juste un Clou</h4>
+        <p class="comp-tier">Aspirational · Luxury · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“The &#x27;never take off&#x27; icons (9 yrs, since a birth) — the emotional ideal Halo echoes at $62”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="comp-card"><h4>Caitlynminimalist (Etsy)</h4>
+        <p class="comp-tier">Competitor · Etsy affordable · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Decade of decent quality for price BUT &#x27;accused of drop shipping&#x27; &amp; designs copied — the dropship-jewelry landscape Halo sits in”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="comp-card"><h4>Permanent / welded jewelry (Catbird/Amare)</h4>
+        <p class="comp-tier">Alternative · Permanent · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“The &#x27;forever bracelet&#x27; trend Halo competes with without welding”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></div></div><div class="comp-card"><h4>MLMT / My Love My Treasure</h4>
+        <p class="comp-tier">Competitor · DTC Waterproof · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“Direct rival: PVD-plated, waterproof, non-tarnish, 24/7 anklets; &#x27;221,029+ women&#x27; — same pitch as Feetz, sharper spec claim”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://mylovemytreasure.com/collections/minimalistic-waterproof-anklets" target="_blank" rel="noopener">Competitor listing (MLMT)</a></div></div><div class="comp-card"><h4>KoolJewelry (real gold)</h4>
+        <p class="comp-tier">Competitor · Real Gold · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“&#x27;Not plated nor filled… never fades, won&#x27;t green skin, shower/swim/gym&#x27; — the real-gold anklet that out-durabilities plated”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.walmart.com/ip/585831844" target="_blank" rel="noopener">Walmart listing (KoolJewelry)</a></div></div><div class="comp-card"><h4>Generic stainless anklets (Etsy/eBay)</h4>
+        <p class="comp-tier">Competitor · Cheap tier · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“~$18 &#x27;non-tarnish waterproof stainless&#x27; anklets — the low-price floor Feetz&#x27;s $62 is judged against”</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">eBay/Etsy listing</span></div></div><div class="comp-card"><h4>Anklet (category)</h4>
+        <p class="comp-tier">Category · Anklet · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“Worn in summer w/ casual clothes &amp; flat sandals; the &#x27;quiet feminine&#x27; moment Feetz sells”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></div></div><div class="comp-card"><h4>Mejuri</h4>
+        <p class="comp-tier">Competitor · Premium DTC · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“The aspirational incumbent — but flooded with tarnish, warranty-denial &amp; &#x27;VC-ruined-it&#x27; complaints; Feetz&#x27;s opening is trust”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/mejuri/comments/1vj1i99/mejuri_quality/" target="_blank" rel="noopener">r/mejuri</a></div></div><div class="comp-card"><h4>FeliceGals / dropship brands</h4>
+        <p class="comp-tier">Cautionary Mirror · Dropship · <span class="lc-tag neg" style="display:inline-block">Negative</span></p>
+        <p class="snip">“Tarnish-in-a-week, residential return address, deleted reviews — the exact signals that make buyers distrust brands like Feetz”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/EngagementRings/comments/1vt41pf/my_ring_sucks_do_your_research/" target="_blank" rel="noopener">r/EngagementRings</a></div></div><div class="comp-card"><h4>Ana Luisa / Pura Vida / Astrid &amp; Miyu</h4>
+        <p class="comp-tier">Competitor · Mid DTC · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“The mid-tier DTC gold set buyers cross-shop; all fight the same tarnish/value perception”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></div></div></div>
+</section><section class="panel" data-panel="swipe_file">
+  <p class="kicker">08 · Emotional Swipe File</p>
+  <h2>Emotional Swipe File <span class="hl">(41)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Ready-to-lift verbatims by funnel stage, tagged by Use-case — the exact words for hooks and copy.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Her real language, grouped TOF → MOF → BOF. In a category where the offer is easy to clone, these specific voices — the permission lines, the never-off feeling, the durability proof — are the differentiator.</p></div>
+  <div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">TOF <span class="hl">(15)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">A clasp that comes undone multiple times a day. Or no clasp at all.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“bracelet clasp coming undone multiple times a day”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">The piece you love too much to wear — because you&#x27;re scared of losing it</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“i&#x27;m scared of loosing it cause i love it too much”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">For the woman who&#x27;s just not willing to fuss with her jewelry</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I love jewelry, but I am lazy … I&#x27;m just not willing to change these”</p><a class="swipe-src" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Self</div>
+            <p class="swipe-ad">Real gold is $1,000. This gives you the look for a fraction — and won&#x27;t green your skin.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“in actual gold is almost £1k and I absolutely cannot justify that”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">The jewelry you keep forgetting to wear vs the one you never take off</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I never remember to wear it. It&#x27;s this Extra Thing I have to do before leaving”</p><a class="swipe-src" href="https://www.reddit.com/r/femalefashionadvice/comments/2wi3uv/i_keep_forgetting_i_own_jewelry_how_can_i/" target="_blank" rel="noopener">r/femalefashionadvice</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">Warm weather, flat sandals, a glint of gold at the ankle</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I have a gold one that looks lovely when I wear flat sandals”</p><a class="swipe-src" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">Even in sweats, one piece and you feel like you&#x27;ve got it together</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“the moment I throw on … a simple chain, I feel like I have my life together”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">Foot jewelry: 5,000 years of women, across every culture that loved them</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I grew up wearing anklets and never thought it would be considered trashy”</p><a class="swipe-src" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">An anklet doesn&#x27;t &#x27;mean&#x27; anything. It just looks beautiful — and it has for 5,000 years.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it&#x27;s literally just dainty jewellry”</p><a class="swipe-src" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Everyday</div>
+            <p class="swipe-ad">Tarnished in a week. Return address a townhouse. Reviews deleted. That&#x27;s the game. We don&#x27;t play it.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“the return address appeared to be a residential townhome … it seemed shady”</p><a class="swipe-src" href="https://www.reddit.com/r/EngagementRings/comments/1vt41pf/my_ring_sucks_do_your_research/" target="_blank" rel="noopener">r/EngagementRings</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Vacation</div>
+            <p class="swipe-ad">For the girls&#x27; trip, the honeymoon, the birthday by the sea</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“we are travelling light so the swag will have to be small”</p><a class="swipe-src" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Gift</div>
+            <p class="swipe-ad">She&#x27;s been wearing more jewelry lately. Give her the piece she never takes off.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“she&#x27;s started wearing more and more jewelry”</p><a class="swipe-src" href="https://www.reddit.com/r/relationships/comments/7mdrs6/is_it_weird_for_me_24m_to_buy_a_necklace_for_my/" target="_blank" rel="noopener">r/relationships</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Gift</div>
+            <p class="swipe-ad">Saved up and want to get it right? This is the one she&#x27;d never expect and never take off.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I saved up for months … this beautiful piece she&#x27;d been eyeing”</p><a class="swipe-src" href="https://www.reddit.com/r/AmIOverreacting/comments/1leusxn/aio_for_being_hurt_that_my_girlfriend_returned_a/" target="_blank" rel="noopener">r/AmIOverreacting</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">We&#x27;re not doing the &#x27;too old for it&#x27; thing anymore. If it makes you happy, wear it.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“we&#x27;re not doing the &#x27;too old … for ___&#x27; thing anymore … wear it with confidence”</p><a class="swipe-src" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Returning</div>
+            <p class="swipe-ad">You wore one at twenty. There&#x27;s no age limit on feeling like yourself.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“How old is too old for an anklet?”</p><a class="swipe-src" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></article></div></div><div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">MOF <span class="hl">(17)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">No clasp to click, snap open, or fail in your sleep</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it always unclasps itself”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">Nothing to tangle. Nothing to untwist. Just slide it on.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“they keep clunking and gettin all twisted”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">The only jewelry you can wear 100% of the time without ruining it? Steel.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“The only stuff you can get away with wearing 100% of the time without damaging it is steel”</p><a class="swipe-src" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">An anklet that doesn&#x27;t catch in your socks or snag on your shoes</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“they catch in my socks/shoes and it drives me crazy”</p><a class="swipe-src" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Sensitive</div>
+            <p class="swipe-ad">Surgical-grade steel — the reason it won&#x27;t turn your skin green</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Stainless steel does NOT turn your skin green … it&#x27;s used for surgical tools”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">No dull grey. No green wrist. No &#x27;costume jewelry&#x27; letdown.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“when the plating wears off you&#x27;ll be left with a dull Grey color”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Vacation</div>
+            <p class="swipe-ad">Shower in it. Swim in it. Sleep in it. It stays gold.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“no tarnish—even after pool season”</p><span class="swipe-src" style="color:var(--text-dim)">Competitor review (MLMT)</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">Slide it on once. Never think about it again. Feminine by default.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Rings are the easiest to slip on”</p><a class="swipe-src" href="https://www.reddit.com/r/femalefashionadvice/comments/2wi3uv/i_keep_forgetting_i_own_jewelry_how_can_i/" target="_blank" rel="noopener">r/femalefashionadvice</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">Slips on easily. Won&#x27;t slip off. That&#x27;s the fit you want.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it slips over my hand without much effort and won&#x27;t slip off when it&#x27;s on”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">Gently oval to follow your ankle — so it won&#x27;t spin or ride up</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“gently oval to follow the natural line of the ankle”</p><a class="swipe-src" href="https://feetzdesigns.com/products/halo-anklet-gold" target="_blank" rel="noopener">Feetz PDP</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Self</div>
+            <p class="swipe-ad">A dainty anklet is just dainty jewelry — nothing more, nothing less</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Dainty anklets on their own are never trashy”</p><a class="swipe-src" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Returning</div>
+            <p class="swipe-ad">Too old for an anklet? Grace has never had an age.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“in the U.K. they&#x27;re usually for younger women/teens. And I&#x27;m 31”</p><a class="swipe-src" href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Everyday</div>
+            <p class="swipe-ad">Even the &#x27;nice&#x27; $200 brands tarnish in a month. Surgical-grade steel doesn&#x27;t.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“not even a month ago and they&#x27;ve already have tarnished”</p><a class="swipe-src" href="https://www.reddit.com/r/mejuri/comments/1vj1i99/mejuri_quality/" target="_blank" rel="noopener">r/mejuri</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Vacation</div>
+            <p class="swipe-ad">The water-resistant anklet you can gift her right before the beach trip</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“heading to the beach next week … the gift can&#x27;t be big”</p><a class="swipe-src" href="https://www.reddit.com/r/Gifts/comments/1s5e49t/gift_for_someone_heading_to_beach/" target="_blank" rel="noopener">r/Gifts</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Gift</div>
+            <p class="swipe-ad">Two sizes, a clear size guide, and 30 days to return — so you can&#x27;t get it wrong.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I won&#x27;t be able to send back and I can&#x27;t cancel the order”</p><a class="swipe-src" href="https://www.reddit.com/r/pandorajewelery/comments/1h5fqo3/ordered_wrong_size_for_my_wifes_gift_on_a_final/" target="_blank" rel="noopener">r/pandorajewelery</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Gift</div>
+            <p class="swipe-ad">The romantic gift she actually wants — not another practical gadget.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“she wanted just something romantic, a little necklace”</p><a class="swipe-src" href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Returning</div>
+            <p class="swipe-ad">No age limit. No explanation owed. Just the anklet you&#x27;ve been missing.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“you don&#x27;t owe them an explanation for your choice in personal decoration”</p><a class="swipe-src" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></article></div></div><div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">BOF <span class="hl">(9)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Everyday</div>
+            <p class="swipe-ad">The &#x27;never take it off&#x27; feeling — without a welding appointment</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“welded around your wrist so you don&#x27;t have to take them off”</p><a class="swipe-src" href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Everyday</div>
+            <p class="swipe-ad">Four months on my ankle. Through showers, pools, workouts. Still gold.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“This anklet hasn&#x27;t left my ankle in 4 months. Still shiny”</p><span class="swipe-src" style="color:var(--text-dim)">Competitor review (MLMT)</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Self</div>
+            <p class="swipe-ad">No occasion. No permission needed. Just $62 of feeling put-together.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“why do we need an excuse to buy nice jewelry for ourselves”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelrylove/comments/qelhp3/do_you_like_to_wear_an_anklet/" target="_blank" rel="noopener">r/jewelrylove</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Everyday</div>
+            <p class="swipe-ad">On when you want it, off when you want it — no welding, no getting stuck</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it just does not come off my hand”</p><a class="swipe-src" href="https://www.reddit.com/r/JadeiteJade/comments/1tpqe76/have_you_guys_ever_had_to_break_a_bangle_to_get/" target="_blank" rel="noopener">r/JadeiteJade</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Gift</div>
+            <p class="swipe-ad">A guarantee we actually honor — in a category full of warranty runarounds.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“blaming the customer for their own quality control failures”</p><a class="swipe-src" href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Gift</div>
+            <p class="swipe-ad">Small enough to pack. Pretty enough to mean something. Gift-boxed and ready.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“It&#x27;s my first time gifting jewellery”</p><a class="swipe-src" href="https://www.reddit.com/r/AskIndianWomen/comments/1v51hak/can_someone_guide_for_gifting_anklets_to_my/" target="_blank" rel="noopener">r/AskIndianWomen</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Gift</div>
+            <p class="swipe-ad">She&#x27;d never splurge on it for herself. That&#x27;s exactly why it&#x27;s the gift.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“she ended up buying the necklace herself”</p><a class="swipe-src" href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Gift</div>
+            <p class="swipe-ad">Gift-boxed, water-resistant, hers the moment she opens it — and returnable if the size isn&#x27;t right.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“constantly brings up their return policies”</p><a class="swipe-src" href="https://www.reddit.com/r/relationships/comments/7mdrs6/is_it_weird_for_me_24m_to_buy_a_necklace_for_my/" target="_blank" rel="noopener">r/relationships</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Returning</div>
+            <p class="swipe-ad">44, 50, grandmothers and teens alike — anklets don&#x27;t check IDs.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I see grannies with anklets as regularly as I do teens”</p><a class="swipe-src" href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></article></div></div>
+</section><section class="panel" data-panel="creative_angles">
+  <p class="kicker">09 · Creative Angles</p>
+  <h2>Angles, mapped to wedges <span class="hl">(20)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Each angle ties a real verbatim to a Feetz wedge and a funnel stage.</p>
+  <div class="honesty-callout"><p class="kicker">How to read this</p><p>Angles are synthesis — the driving verbatim is real, the headline is a starting line. Keep durability claims material-backed, and hold anything that depends on PVD until it’s confirmed.</p></div>
+  <div class="angle-matrix"><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 01</span><h3>No clasp to fail. No links to tangle. Nothing to fuss with.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Seamless bangle (vs clasp anklets)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“bracelet clasp coming undone multiple times a day”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/jewelry</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 02</span><h3>The permanent-jewelry feeling — without the welding appointment.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Always-on, but removable (vs welded)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“welded around your wrist so you don&#x27;t have to take them off”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/bitcheswithtaste</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 03</span><h3>The only jewelry you can wear 100% of the time without ruining it? Steel.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Surgical-grade steel = 24/7 material</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“The only stuff you can get away with wearing 100% of the time … is steel”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/bitcheswithtaste</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 04</span><h3>Surgical-grade steel — the reason it won&#x27;t turn your skin green.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Hypoallergenic, won&#x27;t-green (vs mystery alloys)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“Stainless steel does NOT turn your skin green … used for surgical tools”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/jewelry</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 05</span><h3>Real gold is $1,000. This gives you the look — and won&#x27;t green your wrist.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Value vs real gold</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“in actual gold is almost £1k and I absolutely cannot justify that”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/jewelry</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 06</span><h3>Even the &#x27;nice&#x27; $200 brands tarnish in a month. Ours doesn&#x27;t.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Durability edge (vs Mejuri et al.)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“not even a month ago and they&#x27;ve already have tarnished”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/mejuri</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 07</span><h3>Tarnished in a week. Return address a townhouse. Reviews deleted. We don&#x27;t play that game.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Trust / anti-dropship honesty</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“the return address appeared to be a residential townhome … it seemed shady”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/EngagementRings</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 08</span><h3>A guarantee we actually honor — in a category full of warranty runarounds.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">BOF</span><span class="avatar-tag">Trust / guarantee</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“blaming the customer for their own quality control failures”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/jewelry</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 09</span><h3>Even in sweats, one piece and you feel like you&#x27;ve got it together.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Effortless &#x27;put-together&#x27; payoff</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“the moment I throw on … a simple chain, I feel like I have my life together”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/jewelry</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 10</span><h3>Slide it on once. Never think about it again. Feminine by default.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Effortless always-on</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“Rings are the easiest to slip on”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/femalefashionadvice</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 11</span><h3>No occasion. No permission needed. Just $62 of feeling put-together.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">BOF</span><span class="avatar-tag">Low-guilt self-treat</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“why do we need an excuse to buy nice jewelry for ourselves”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/jewelrylove</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 12</span><h3>An anklet doesn&#x27;t &#x27;mean&#x27; anything. It just looks beautiful — 5,000 years and counting.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Heritage reframe (anti-trashy/signal)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“it&#x27;s literally just dainty jewellry”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Splendida</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 13</span><h3>Too old for an anklet? Grace has never had an age.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Age reframe</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“in the U.K. they&#x27;re usually for younger women/teens. And I&#x27;m 31”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Splendida</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 14</span><h3>The water-resistant anklet you can gift her right before the beach trip.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Beach/vacation gift</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“heading to the beach next week … the gift can&#x27;t be big”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Gifts</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 15</span><h3>Gently oval to follow your ankle — so it won&#x27;t spin or ride up.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Fit / comfort</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“gently oval to follow the natural line of the ankle”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>Feetz PDP</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 16</span><h3>She&#x27;d never splurge on it for herself. This Christmas, you can.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">BOF</span><span class="avatar-tag">Gifting — Q4 (self-treat gap)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“she ended up buying the necklace herself”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/AmItheAsshole</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 17</span><h3>Two sizes, a size guide, and 30-day returns — the gift you literally can&#x27;t get wrong.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Gifting — Q4 (de-risk his fear)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“I won&#x27;t be able to send back and I can&#x27;t cancel the order”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/pandorajewelery</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 18</span><h3>The romantic gift she actually wants — not another practical gadget.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Gifting (romantic &gt; practical)</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“she wanted just something romantic, a little necklace”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/AmItheAsshole</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 19</span><h3>We&#x27;re not doing the &#x27;too old for it&#x27; thing anymore. Wear the anklet.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Lapsed wearer — permission</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“we&#x27;re not doing the &#x27;too old … for ___&#x27; thing anymore … wear it with confidence”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/ask</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 20</span><h3>You wore one at twenty. There&#x27;s no age limit on feeling like yourself.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Lapsed wearer — reclaim</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“How old is too old for an anklet?”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/ask</span></div></div></div>
+      </div></div></div>
+</section><section class="panel" data-panel="sources">
+  <p class="kicker">10 · Sources</p>
+  <h2>Sources <span class="hl">(54)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Reddit-primary (jewelry, women-over-40, and gift-conflict communities) plus Amazon / retailer and competitor DTC listings for durability and before/after language.</p>
+  <div class="src-wrap"><table class="src-table"><thead><tr><th>Source</th><th>Title / Product</th><th>Signal</th><th>Volume</th><th>Date</th><th>Depth</th><th>Phase</th></tr></thead><tbody><tr><td><a href="https://www.reddit.com/r/PandoraCollectors/comments/1n7wr2e/has_anybodys_bracelet_genuinely_broken_off/" target="_blank" rel="noopener">r/PandoraCollectors</a></td>
+      <td>Bracelet clasp opened and fell off in bed</td><td>18 up</td><td>25c</td>
+      <td>2025-09-04</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/PandoraCollectors/comments/1pamtfc/bracelet_keeps_falling_off_my_hand/" target="_blank" rel="noopener">r/PandoraCollectors</a></td>
+      <td>Bracelet keeps falling off even w/ stopper + safety chain</td><td>3 up</td><td>10c</td>
+      <td>2025-11-30</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/bitcheswithtaste/comments/1vcmik6/bwt_what_would_be_in_your_never_take_off_jewelry/" target="_blank" rel="noopener">r/bitcheswithtaste</a></td>
+      <td>BWT, what would be in your never take off jewelry collection?</td><td>146 up</td><td>134c</td>
+      <td>2026-08-01</td><td><span class="badge depth-full">Full pull</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1ub9krq/has_anyone_elses_bracelet_clasp_coming_undone/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Has anyone else&#x27;s bracelet clasp coming undone multiple times a day?</td><td>45 up</td><td>16c</td>
+      <td>2026-06-20</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1efmm4w/bracelet_clasp_keeps_snapping_open_what_do_i_do/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Bracelet clasp keeps snapping open, what do i do?</td><td>5 up</td><td>10c</td>
+      <td>2024-07-30</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1i8j0nn/bracelet_keeps_falling_off/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Bracelet Keeps Falling off (scared of losing it)</td><td>1 up</td><td>6c</td>
+      <td>2025-01-24</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1qy2yif/tangled_necklaces_pls_help/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Tangled necklaces, pls help</td><td>63 up</td><td>21c</td>
+      <td>2026-02-07</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1m5ruq5/best_way_to_prevent_tangles_my_wife_refuses_to/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Best way to prevent tangles? (140up)</td><td>140 up</td><td>109c</td>
+      <td>2025-07-21</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1ez0c77/opinions_on_permanent_jewelry/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Opinions on Permanent jewelry??</td><td>14 up</td><td>100c</td>
+      <td>2024-08-23</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/unpopularopinion/comments/1mwsanw/permanent_jewelry_is_a_stupid_trend/" target="_blank" rel="noopener">r/unpopularopinion</a></td>
+      <td>&#x27;Permanent&#x27; jewelry is a stupid trend</td><td>819 up</td><td>226c</td>
+      <td>2025-08-22</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://mylovemytreasure.com/collections/minimalistic-waterproof-anklets" target="_blank" rel="noopener">Competitor listing (MLMT)</a></td>
+      <td>My Love My Treasure — PVD waterproof anklets (direct competitor + testimonials)</td><td>4.x★</td><td>221k+ claim</td>
+      <td>2026-09-01</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.walmart.com/ip/585831844" target="_blank" rel="noopener">Walmart listing (KoolJewelry)</a></td>
+      <td>KoolJewelry 14k/10k real-gold anklets (non-tarnish, won&#x27;t green skin)</td><td>listing</td><td>Walmart</td>
+      <td>2026-09-01</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/BeforeyouPurchase/comments/1w432je/anyone_else_had_gold_plated_jewelry_tarnish/" target="_blank" rel="noopener">r/BeforeyouPurchase</a></td>
+      <td>Gold plated jewelry tarnish faster than expected? (base metal by July)</td><td>2 up</td><td>5c</td>
+      <td>2026-09-01</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/NoStupidQuestions/comments/8tiib1/why_does_some_jewelry_turn_your_skin_green_and_is/" target="_blank" rel="noopener">r/NoStupidQuestions</a></td>
+      <td>Why does jewelry turn your skin green and is it bad?</td><td>5 up</td><td>14c</td>
+      <td>2018-06-24</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1eoq729/will_18k_plated_gold_stainless_steel_leave_my/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Will 18k plated gold (stainless steel) leave my skin green?</td><td>6 up</td><td>24c</td>
+      <td>2024-08-10</td><td><span class="badge depth-full">Full pull</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1ht9vqg/costume_jewelry_gold_plated_which_discolored/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Gold plated discolored after shower (copper underneath, turned dull)</td><td>1 up</td><td>4c</td>
+      <td>2025-01-04</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/lifehacks/comments/3f65lq/jewelry_turning_your_skin_green_or_causing_an/" target="_blank" rel="noopener">r/lifehacks</a></td>
+      <td>Jewelry turning skin green? Clear nail polish barrier</td><td>118 up</td><td>28c</td>
+      <td>2015-07-30</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/SingleAndHappy/comments/1gvpjem/treat_yourself_buy_yourself_jewellery_even/" target="_blank" rel="noopener">r/SingleAndHappy</a></td>
+      <td>Treat yourself. Buy yourself jewellery (and wear it)</td><td>138 up</td><td>7c</td>
+      <td>2024-11-20</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/Splendida/comments/ycqnyr/thoughts_on_dainty_anklets/" target="_blank" rel="noopener">r/Splendida</a></td>
+      <td>Thoughts on dainty anklets? (positive summer/feminine bits)</td><td>208 up</td><td>87c</td>
+      <td>2022-10-25</td><td><span class="badge depth-full">Full pull</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/femalefashionadvice/comments/2wi3uv/i_keep_forgetting_i_own_jewelry_how_can_i/" target="_blank" rel="noopener">r/femalefashionadvice</a></td>
+      <td>I keep forgetting I own jewelry. How can I implement it more?</td><td>107 up</td><td>33c</td>
+      <td>2015-02-20</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1m0h0q9/wife_wants_to_wear_an_anklet/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Wife wants to wear an anklet (saw an ad)</td><td>11 up</td><td>10c</td>
+      <td>2025-07-15</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1kf7l2n/is_it_just_me_or_does_wearing_jewelry_instantly/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Does wearing jewelry instantly make you feel 10x more put together?</td><td>287 up</td><td>47c</td>
+      <td>2025-05-05</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/jewelrylove/comments/qelhp3/do_you_like_to_wear_an_anklet/" target="_blank" rel="noopener">r/jewelrylove</a></td>
+      <td>Do you like to wear an anklet?</td><td>35 up</td><td>8c</td>
+      <td>2021-10-24</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/jewelrylove/comments/1w45jdq/do_you_actually_buy_jewellery_for_yourselves_or/" target="_blank" rel="noopener">r/jewelrylove</a></td>
+      <td>Do you actually buy jewellery for yourselves, or wait for an occasion?</td><td>12 up</td><td>37c</td>
+      <td>2026-09-01</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/labdiamond/comments/1pa174s/is_it_weird_to_buy_yourself_expensive_jewelry/" target="_blank" rel="noopener">r/labdiamond</a></td>
+      <td>Is it weird to buy yourself expensive jewelry? (self-purchase guilt)</td><td>138 up</td><td>131c</td>
+      <td>2025-11-29</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://feetzdesigns.com/products/halo-anklet-gold" target="_blank" rel="noopener">Feetz PDP</a></td>
+      <td>Halo Anklet product page (design/sizing claims)</td><td>brand</td><td>PDP</td>
+      <td>2026-09-04</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/JadeiteJade/comments/1tpqe76/have_you_guys_ever_had_to_break_a_bangle_to_get/" target="_blank" rel="noopener">r/JadeiteJade</a></td>
+      <td>Have you ever had to break a bangle to get it off your wrist?</td><td>10 up</td><td>14c</td>
+      <td>2026-05-28</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/Watches/comments/1p27y6k/question_how_do_you_get_a_bracelet_to_fit/" target="_blank" rel="noopener">r/Watches</a></td>
+      <td>How do you get a bracelet to fit in-between sizes?</td><td>275 up</td><td>157c</td>
+      <td>2025-11-20</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1hocp4t/can_someone_tell_me_if_this_bangle_is_fitting/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Can someone tell me if this bangle is fitting correctly? (slip-over sizing)</td><td>13 up</td><td>9c</td>
+      <td>2024-12-28</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/si3m3u/is_my_bracelet_too_loose_i_usually_like_them_on/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Is my bracelet too loose? Jeweler won&#x27;t size it down</td><td>72 up</td><td>32c</td>
+      <td>2022-02-01</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/18dno2d/is_my_bracelet_too_tight/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Is my bracelet too tight? (first bracelet, unsure of fit)</td><td>5 up</td><td>7c</td>
+      <td>2023-12-08</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/AskWomen/comments/vaocjm/what_do_anklets_mean_left_ankle_vs_right_ankle/" target="_blank" rel="noopener">r/AskWomen</a></td>
+      <td>What do anklets mean? Left ankle vs right ankle?</td><td>—</td><td>12c</td>
+      <td>2022-06-12</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/NoStupidQuestions/comments/hpysc4/anklet_on_the_left_foot_indicator_of_an_open/" target="_blank" rel="noopener">r/NoStupidQuestions</a></td>
+      <td>Anklet on the Left Foot: connotation myth</td><td>1 up</td><td>1c</td>
+      <td>2020-07-12</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/NotHowGirlsWork/comments/hoyg75/ladies_be_warned_about_the_power_of_ankle/" target="_blank" rel="noopener">r/NotHowGirlsWork</a></td>
+      <td>Ladies, be warned about the power of ankle bracelets (myth mocked)</td><td>27.5k up</td><td>661c</td>
+      <td>2020-07-10</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/AskIndianWomen/comments/1v51hak/can_someone_guide_for_gifting_anklets_to_my/" target="_blank" rel="noopener">r/AskIndianWomen</a></td>
+      <td>Guide for gifting Anklets to my girlfriend</td><td>1 up</td><td>12c</td>
+      <td>2026-07-24</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/EngagementRings/comments/1vt41pf/my_ring_sucks_do_your_research/" target="_blank" rel="noopener">r/EngagementRings</a></td>
+      <td>My ring sucks, do your research (dropship red flags)</td><td>957 up</td><td>90c</td>
+      <td>2026-08-20</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/Gifts/comments/1s5e49t/gift_for_someone_heading_to_beach/" target="_blank" rel="noopener">r/Gifts</a></td>
+      <td>Gift for Someone Heading to Beach (~$100, flyable)</td><td>8 up</td><td>38c</td>
+      <td>2026-03-27</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/bitcheswithtaste/comments/1mtigts/bwt_i_have_10_girlfriends_coming_on_a_destination/" target="_blank" rel="noopener">r/bitcheswithtaste</a></td>
+      <td>10 girlfriends on a destination beach trip (swag/favors)</td><td>39 up</td><td>52c</td>
+      <td>2025-08-18</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1p444bp/mejuri_warning/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Mejuri Warning — wouldn&#x27;t buy their gold again</td><td>196 up</td><td>68c</td>
+      <td>2025-11-22</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/jewelry/comments/1uxaqmk/warning_mejuri_quality_control_is_a_joke_and/" target="_blank" rel="noopener">r/jewelry</a></td>
+      <td>Warning: Mejuri QC &amp; CS blamed the customer (clasp failures)</td><td>182 up</td><td>31c</td>
+      <td>2026-07-15</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/mejuri/comments/1vj1i99/mejuri_quality/" target="_blank" rel="noopener">r/mejuri</a></td>
+      <td>Mejuri quality — tarnished in under a month</td><td>32 up</td><td>19c</td>
+      <td>2026-08-08</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/mejuri/comments/1wgwta2/disappointed_ex_customer/" target="_blank" rel="noopener">r/mejuri</a></td>
+      <td>Disappointed (ex) customer — &#x27;sold out to VC&#x27;</td><td>21 up</td><td>8c</td>
+      <td>2026-09-15</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/relationship_advice/comments/srhas1/how_to_present_an_extravagant_piece_of_jewellery/" target="_blank" rel="noopener">r/relationship_advice</a></td>
+      <td>How to present an extravagant piece of jewellery</td><td>379 up</td><td>66c</td>
+      <td>2022-02-13</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.reddit.com/r/AmIOverreacting/comments/1leusxn/aio_for_being_hurt_that_my_girlfriend_returned_a/" target="_blank" rel="noopener">r/AmIOverreacting</a></td>
+      <td>AIO hurt that my girlfriend returned a $1200 ring</td><td>1674 up</td><td>680c</td>
+      <td>2025-06-18</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/AmItheAsshole/comments/ui4oed/aita_for_buying_my_gf_a_blender_instead_of_the/" target="_blank" rel="noopener">r/AmItheAsshole</a></td>
+      <td>AITA for buying my gf a blender instead of the necklace she wanted</td><td>14374 up</td><td>4439c</td>
+      <td>2022-05-04</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/AmItheAsshole/comments/q56zbw/aita_for_making_my_wife_return_the_900_necklace/" target="_blank" rel="noopener">r/AmItheAsshole</a></td>
+      <td>AITA for making my wife return the $900 necklace (money tight, feel appreciated)</td><td>18183 up</td><td>2489c</td>
+      <td>2021-10-10</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/Gifts/comments/1gafn8v/girlfriend_with_expensive_taste/" target="_blank" rel="noopener">r/Gifts</a></td>
+      <td>Girlfriend with expensive taste (something she&#x27;d actually use)</td><td>491 up</td><td>781c</td>
+      <td>2024-10-23</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/WhatShouldIDo/comments/1lm4h8g/bought_a_ring_for_my_girlfriend_sisters_say_its/" target="_blank" rel="noopener">r/WhatShouldIDo</a></td>
+      <td>Bought a ring, sisters say it&#x27;s not what she wanted</td><td>30310 up</td><td>12213c</td>
+      <td>2025-06-27</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/pandorajewelery/comments/1h5fqo3/ordered_wrong_size_for_my_wifes_gift_on_a_final/" target="_blank" rel="noopener">r/pandorajewelery</a></td>
+      <td>Ordered wrong size for my wife&#x27;s gift on final sale</td><td>2 up</td><td>5c</td>
+      <td>2024-12-03</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/relationships/comments/7mdrs6/is_it_weird_for_me_24m_to_buy_a_necklace_for_my/" target="_blank" rel="noopener">r/relationships</a></td>
+      <td>Buy a necklace for her birthday? (return policy, will she wear it)</td><td>1 up</td><td>7c</td>
+      <td>2017-12-27</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/whatdoIdo/comments/1q4dgm7/would_you_be_upset_if_your_significant_other/" target="_blank" rel="noopener">r/whatdoIdo</a></td>
+      <td>Would you be upset if your SO bought jewelry that isn&#x27;t real?</td><td>—</td><td>32c</td>
+      <td>2026-01-05</td><td><span class="badge depth-scan">Scanned</span></td><td>P7</td></tr><tr><td><a href="https://www.reddit.com/r/AskWomenOver40/comments/1g56w6k/im_42_am_i_too_old_for_clothes_like_this/" target="_blank" rel="noopener">r/AskWomenOver40</a></td>
+      <td>I&#x27;m 42, am I too old for clothes like this? (friend said too old)</td><td>97 up</td><td>165c</td>
+      <td>2024-10-16</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/WomenOver40/comments/1sxj34o/too_old_for_a_piercing/" target="_blank" rel="noopener">r/WomenOver40</a></td>
+      <td>Too old for a piercing? (&#x27;pathetic and desperate / recapture youth&#x27;)</td><td>11 up</td><td>36c</td>
+      <td>2026-04-27</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/ask/comments/1j0t7v4/how_old_is_too_old_for_an_anklet/" target="_blank" rel="noopener">r/ask</a></td>
+      <td>How old is too old for an anklet? (41f, 2025)</td><td>2 up</td><td>54c</td>
+      <td>2025-03-01</td><td><span class="badge depth-full">Full pull</span></td><td>P8</td></tr></tbody></table></div>
+</section></div>
+  </div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs .tab'),panels=document.querySelectorAll('#deck .panel');
+  function show(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-tab')===id?'true':'false');});
+    panels.forEach(function(p){p.classList.toggle('active',p.getAttribute('data-panel')===id);});window.scrollTo({top:0,behavior:'smooth'});}
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-tab'));});});
+})();
+</script>
+<footer style="max-width:1140px;margin:48px auto 0;padding:22px var(--pad) 40px;border-top:1px solid rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--font);font-size:12px;color:#5c6a88;">
+  <span style="letter-spacing:.02em;">Ad Pros &middot; Brand Intelligence</span>
+  <span>Published by Omar &middot; September 18, 2026</span>
+</footer>
+</body>
+</html>
