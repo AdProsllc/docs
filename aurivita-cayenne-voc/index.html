@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Aurivita · Cayenne Pepper — Voice of Customer</title>
+<meta name="googlebot" content="noindex, nofollow" />
+<meta name="bingbot" content="noindex, nofollow" />
+<meta name="slurp" content="noindex, nofollow" />
+<meta name="duckduckbot" content="noindex, nofollow" />
+<meta name="baiduspider" content="noindex, nofollow" />
+<meta name="yandex" content="noindex, nofollow" />
+<meta name="author" content="Omar" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="mask-icon" href="/favicon.svg" color="#ffd609" />
+<meta name="theme-color" content="#070c1e" />
+<style>
+  :root {
+    --page-bg: #070c1e;
+    --card: rgba(13, 20, 41, 0.94);
+    --card-border: rgba(255, 255, 255, 0.09);
+    --primary: #ffd609;
+    --primary-ink: #06112b;
+    --accent: #7ea6ff;
+    --ink: #f2f5ff;
+    --ink-soft: #c6d0e8;
+    --text-dim: #5c6a88;
+    --success: #46d08a;
+    --danger: #f87171;
+    --font: "Inter", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --pad: clamp(16px, 3vw, 32px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--page-bg); color: var(--ink); font-family: var(--font); }
+  body {
+    background:
+      radial-gradient(900px 520px at 85% -10%, rgba(43, 67, 108, 0.45), transparent 55%),
+      radial-gradient(700px 420px at 0% 100%, rgba(26, 40, 74, 0.4), transparent 50%),
+      var(--page-bg);
+  }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: var(--pad) var(--pad) 80px; }
+  .top {
+    display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .brand-lock { display: flex; gap: 12px; align-items: center; min-width: 0; }
+  .mark {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--primary); color: var(--primary-ink);
+    font-weight: 800; font-size: 18px; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .brand-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
+  .brand-sub { font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; }
+  .pill {
+    display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--card-border); background: rgba(126, 166, 255, 0.1);
+    color: var(--ink-soft); font-size: 11px; font-weight: 650; letter-spacing: 0.06em;
+  }
+  .header-pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
+  .hero { margin: 8px 0 28px; }
+  .hero h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.12; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
+  .hero h1 .hl { color: var(--primary); }
+  .hero p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; max-width: 62ch; }
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--card-border); padding-bottom: 12px;
+  }
+  .tab {
+    border: none; background: transparent; color: var(--text-dim); font-family: inherit;
+    font-size: 13px; font-weight: 650; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: rgba(255, 214, 9, 0.14); color: var(--primary); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .kicker {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--text-dim);
+    text-transform: uppercase; margin: 0 0 8px;
+  }
+  .panel h2 { margin: 0 0 14px; font-size: clamp(22px, 3vw, 30px); line-height: 1.2; font-weight: 780; }
+  .panel h2 .hl { color: var(--primary); }
+  .card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+  .muted { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .metric {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  .metric b { display: block; font-size: clamp(28px, 4vw, 36px); margin-top: 6px; font-weight: 800; letter-spacing: -0.02em; }
+  .metric span { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-right: 6px; }
+  .badge.ok { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.fail { background: rgba(248,113,113,0.14); color: var(--danger); }
+  .badge.neutral { background: rgba(126,166,255,0.14); color: var(--accent); }
+  .badge.primary { background: rgba(255,214,9,0.16); color: var(--primary); }
+  .badge.depth-full { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.depth-scan { background: rgba(126,166,255,0.12); color: var(--accent); }
+  ul.clean { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+  ul.clean li { margin: 6px 0; }
+  ol.clean { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+  ol.clean li { margin: 8px 0; }
+  .empty { color: var(--text-dim); font-size: 14px; padding: 12px 0; }
+  a { color: var(--accent); }
+  /* Stacked row cards — mobile-first (tables break on phone / Quick Look). */
+  .entry-list { display: flex; flex-direction: column; gap: 12px; }
+  .entry-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .entry-top {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 8px 12px; margin-bottom: 10px;
+  }
+  .entry-title {
+    margin: 0; font-size: 16px; font-weight: 720; line-height: 1.3; letter-spacing: -0.01em;
+    min-width: 0; flex: 1 1 12rem;
+  }
+  .entry-quote {
+    margin: 0 0 12px; font-size: 14px; line-height: 1.5; font-style: italic; color: var(--ink-soft);
+  }
+  .entry-fields { display: flex; flex-direction: column; gap: 10px; }
+  .entry-field { min-width: 0; }
+  .entry-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px;
+  }
+  .entry-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); word-break: break-word; }
+  .entry-meta {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  .entry-meta b { color: var(--ink-soft); font-weight: 650; }
+  /* Avatars — mockup card structure, stacked on mobile */
+  .avatar-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .avatar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .avatar-card { margin-bottom: 0; }
+  .avatar-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .avatar-badge {
+    font-size: 10px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 8px;
+  }
+  .avatar-badge.core {
+    color: var(--primary); background: rgba(255, 214, 9, 0.12);
+    border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-badge.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+  }
+  .avatar-card h3 {
+    margin: 0 0 10px; font-size: clamp(22px, 3vw, 28px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .avatar-card > .muted { margin: 0 0 16px; }
+  .avatar-quotes { margin: 0 0 16px; }
+  .avatar-quote {
+    margin: 0 0 12px; padding: 0 0 0 12px;
+    border-left: 2px solid rgba(255, 214, 9, 0.45);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .avatar-quote .src {
+    display: block; margin-top: 4px; font-style: normal; font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.02em;
+  }
+  .flip-row {
+    margin: 0 0 12px; padding: 12px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--card-border);
+  }
+  .flip-row .flip-label {
+    display: block; font-size: 11px; font-weight: 750; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 6px;
+  }
+  .flip-row p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .angle-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 11px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  /* Creative Angles — mockup matrix row (stacks on mobile) */
+  .honesty-callout {
+    margin: 0 0 18px; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.08);
+  }
+  .honesty-callout .kicker { color: var(--danger); margin-bottom: 8px; }
+  .honesty-callout p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-matrix { display: flex; flex-direction: column; gap: 14px; }
+  .angle-matrix-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px;
+  }
+  .angle-matrix-grid {
+    display: grid; gap: 18px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .angle-matrix-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; }
+  }
+  .angle-matrix-card h3 {
+    margin: 0 0 10px; font-size: clamp(20px, 2.6vw, 26px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .angle-status {
+    display: inline-block; font-size: 10px; font-weight: 750; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .angle-status.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+  }
+  .angle-status.imported {
+    color: var(--danger); background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.4);
+  }
+  .angle-status.live {
+    color: var(--success); background: rgba(70, 208, 138, 0.12); border: 1px solid rgba(70, 208, 138, 0.35);
+  }
+  .angle-status.gap {
+    color: var(--primary); background: rgba(255, 214, 9, 0.1); border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .avatar-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .angle-col-kicker {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); margin: 0 0 10px;
+  }
+  .proof-quote {
+    margin: 0; padding: 0 0 0 12px; border-left: 2px solid var(--primary);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .proof-quote.imported {
+    border-left-color: var(--danger); font-style: normal; font-size: 13px;
+  }
+  .proof-quote .src {
+    display: block; margin-top: 8px; font-style: normal; font-size: 12px;
+    font-weight: 700; color: var(--primary);
+  }
+  .concept-stack { display: flex; flex-direction: column; gap: 8px; }
+  .concept-pill {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px;
+    padding: 8px 12px; border-radius: 12px;
+    border: 1px solid rgba(255, 214, 9, 0.22); background: rgba(255, 214, 9, 0.06);
+    font-size: 12px; line-height: 1.35; color: var(--ink-soft);
+  }
+  .concept-pill .cid {
+    font-family: var(--mono); font-weight: 800; color: var(--primary); letter-spacing: 0.04em;
+  }
+  /* Swipe File — Voice→Ads style cards */
+  .swipe-grid {
+    display: grid; gap: 14px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .swipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .swipe-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 18px 16px; display: flex; flex-direction: column; min-width: 0;
+  }
+  .swipe-voice-meta {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .swipe-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0;
+  }
+  .swipe-dot.tof { background: var(--primary); }
+  .swipe-dot.mof { background: var(--accent); }
+  .swipe-dot.bof { background: var(--success); }
+  .swipe-voice {
+    margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .swipe-src {
+    display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .swipe-src:hover { text-decoration: underline; }
+  .swipe-arrow {
+    align-self: center; margin: 14px 0; width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--primary-ink); background: var(--primary);
+    font-size: 14px; font-weight: 800; line-height: 1;
+  }
+  .swipe-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .swipe-cid {
+    font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+    padding: 5px 10px; border-radius: 999px; background: var(--primary); color: var(--primary-ink);
+  }
+  .swipe-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  .swipe-ad {
+    margin: 0; font-size: clamp(17px, 2.4vw, 22px); font-weight: 780; line-height: 1.3;
+    letter-spacing: -0.02em; color: var(--ink);
+  }
+  /* Pain quote cards (mockup Voices-style) */
+  .quote-grid {
+    display: grid; gap: 12px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .quote-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 14px;
+    padding: 16px 18px; min-width: 0;
+  }
+  .quote-top {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    gap: 8px 12px; margin-bottom: 12px;
+  }
+  .quote-ups {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink-soft);
+  }
+  .quote-ups b { color: var(--ink); font-weight: 800; }
+  .quote-sub {
+    font-family: var(--mono); font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .quote-sub:hover { text-decoration: underline; }
+  .quote-theme {
+    margin: 0 0 8px; font-family: var(--mono); font-size: 11px; font-weight: 750;
+    letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent);
+  }
+  .quote-body {
+    margin: 0 0 12px; font-size: 15px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .quote-field { margin: 0 0 10px; }
+  .quote-field-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px; font-weight: 700;
+  }
+  .quote-field-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); }
+  .quote-reveals {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-dim); font-weight: 700;
+  }
+  .quote-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--primary);
+  }
+  .quote-dot.c0 { background: var(--primary); }
+  .quote-dot.c1 { background: var(--accent); }
+  .quote-dot.c2 { background: var(--success); }
+  .quote-dot.c3 { background: #c084fc; }
+  .hero-insight {
+    font-size: clamp(22px, 3.2vw, 32px); font-weight: 780; line-height: 1.32; margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .hero-insight .hl { color: var(--primary); }
+  .signal-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+  .signal-card {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 18px;
+    background: rgba(255,255,255,0.02);
+  }
+  .signal-card .num {
+    font-family: var(--mono); font-size: 11px; color: var(--primary); font-weight: 700;
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .signal-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-weight: 600; }
+  .community-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .community-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .spine-footer {
+    margin-top: 28px; padding: 18px 20px; border-radius: 14px;
+    border: 1px dashed rgba(255, 214, 9, 0.35); background: rgba(255, 214, 9, 0.06);
+    text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--primary); text-transform: uppercase;
+  }
+  /* No-JS / mobile file preview: full stacked report. JS hides this and shows tabs. */
+  #static-deck .static-toc {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  #static-deck .static-toc a {
+    font-size: 12px; font-weight: 650; color: var(--ink-soft); text-decoration: none;
+    padding: 6px 10px; border-radius: 8px; border: 1px solid var(--card-border);
+  }
+  #static-deck .static-section { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--card-border); }
+  #static-deck .static-section:last-child { border-bottom: none; }
+</style>
+
+<style>
+  .ladder-grid{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.ladder-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  .ladder-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .ladder-card h4{margin:0 0 6px;font-size:15px;font-weight:750;line-height:1.25;}
+  .ladder-card .lc-note{margin:0;font-size:13px;line-height:1.45;color:var(--ink-soft);}
+  .ladder-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center;}
+  .lc-tag{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--ink-soft);background:rgba(255,255,255,.03);}
+  .lc-tag.pos{color:var(--success);background:rgba(70,208,138,.12);border-color:rgba(70,208,138,.3);}
+  .lc-tag.neg{color:var(--danger);background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.35);}
+  .lc-tag.neu{color:var(--accent);background:rgba(126,166,255,.1);border-color:rgba(126,166,255,.3);}
+  .av-demo{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--text-dim);margin:2px 0 12px;}
+  .av-compliance{margin:2px 0 12px;font-size:12px;line-height:1.5;color:var(--ink-soft);background:rgba(126,166,255,.08);border:1px solid rgba(126,166,255,.28);border-radius:10px;padding:9px 12px;}
+  .av-compliance b{color:var(--accent);}
+  .av-nuance{margin-top:12px;font-size:12px;line-height:1.5;color:var(--primary);background:rgba(255,214,9,.08);border:1px solid rgba(255,214,9,.25);border-radius:10px;padding:9px 12px;}
+  .mini-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .mini-tag{font-size:10px;font-weight:650;letter-spacing:.03em;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--text-dim);background:rgba(255,255,255,.02);}
+  .mini-tag.unv{color:var(--danger);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08);}
+  .comp-grid{display:grid;gap:12px;grid-template-columns:1fr;}
+  @media(min-width:720px){.comp-grid{grid-template-columns:1fr 1fr;}}
+  .comp-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .comp-card h4{margin:0 0 4px;font-size:15px;font-weight:750;}
+  .comp-tier{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);margin:0 0 8px;}
+  .comp-card .snip{margin:0;font-size:13px;font-style:italic;color:var(--ink-soft);line-height:1.45;}
+  .rep-banner{border:1px solid rgba(248,113,113,.4);background:rgba(248,113,113,.07);border-radius:14px;padding:16px 18px;margin-bottom:18px;}
+  .rep-banner .k{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--danger);font-weight:800;}
+  .rep-banner p{margin:8px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink-soft);}
+  .rep-card{border:1px solid var(--card-border);background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:12px;}
+  .rep-card h4{margin:0 0 6px;font-size:14px;font-weight:750;color:var(--primary);}
+  .rep-card p{margin:0 0 8px;font-size:13px;line-height:1.55;color:var(--ink-soft);}
+  .rep-card p:last-child{margin-bottom:0;}
+  .compliance-card{border:2px solid rgba(126,166,255,.35)!important;}
+  .src-wrap{overflow-x:auto;border:1px solid var(--card-border);border-radius:16px;background:var(--card);}
+  .src-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .src-table th,.src-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--card-border);vertical-align:top;}
+  .src-table th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);font-weight:700;}
+  .src-table td{color:var(--ink-soft);} .src-table a{color:var(--primary);text-decoration:none;font-weight:650;}
+  .wedge-map{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.wedge-map{grid-template-columns:1fr 1fr;}}
+  .wedge-card{border:1px solid var(--card-border);background:var(--card);border-radius:12px;padding:12px 14px;}
+  .wedge-card .q{font-size:13px;font-style:italic;color:var(--ink-soft);margin:0 0 6px;}
+  .wedge-card .w{font-size:12px;color:var(--primary);font-weight:650;margin:0;}
+  .comp-chip{font-family:var(--mono);font-size:9px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--accent);background:rgba(126,166,255,.12);border:1px solid rgba(126,166,255,.3);padding:3px 8px;border-radius:999px;}
+</style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand-lock"><div class="mark">A</div>
+        <div><div class="brand-name">Aurivita</div><div class="brand-sub">Ad Pros · Brand Intelligence</div></div></div>
+      <div class="header-pills"><div class="pill">CAYENNE · CIRCULATION · VOICE-OF-CUSTOMER</div></div>
+    </header>
+    <section class="hero">
+      <h1>The receipts behind <span class="hl">every</span> circulation ad.</h1>
+      <p>48 sources across Reddit’s supplement, circulation and partner communities plus retailer reviews — mined for how the 50+ man and his partner talk about vitality, cold hands and “why cayenne,” under strict structure/function compliance.</p>
+    </section>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Report sections"><button type="button" class="tab" role="tab" data-tab="overview" aria-selected="true">01 Overview</button><button type="button" class="tab" role="tab" data-tab="pain" aria-selected="false">02 Pain &amp; Symptoms</button><button type="button" class="tab" role="tab" data-tab="avatars" aria-selected="false">03 Avatars</button><button type="button" class="tab" role="tab" data-tab="emotional" aria-selected="false">04 Emotional Drivers</button><button type="button" class="tab" role="tab" data-tab="solution_ladder" aria-selected="false">05 Solution Ladder</button><button type="button" class="tab" role="tab" data-tab="objections" aria-selected="false">06 Objections &amp; Friction</button><button type="button" class="tab" role="tab" data-tab="competitors" aria-selected="false">07 Competitor Landscape</button><button type="button" class="tab" role="tab" data-tab="swipe_file" aria-selected="false">08 Emotional Swipe File</button><button type="button" class="tab" role="tab" data-tab="creative_angles" aria-selected="false">09 Creative Angles</button><button type="button" class="tab" role="tab" data-tab="reputational" aria-selected="false">10 Reputational Callout</button><button type="button" class="tab" role="tab" data-tab="sources" aria-selected="false">11 Sources</button></nav>
+    <div id="deck"><section class="panel active" data-panel="overview">
+  <p class="kicker">01 · Overview</p>
+  <h2>What the ICP actually says</h2>
+  <div class="card compliance-card"><p class="kicker" style="color:var(--accent)">⚠ Compliance — read first (governs the whole deck)</p><ul class="clean"><li><b>ED is audience-understanding only.</b> Never named on the page; Aurivita is NOT positioned as an ED treatment; circulation copy stays structure/function. Angles tagged “[no ED claim]” / “[circulation claim only]” must keep that boundary.</li><li><b>No disease treatment / prevention claims.</b> Structure/function only, with the † disclaimer.</li><li><b>Never imply stopping or replacing prescribed medication, or skipping a doctor.</b> ED is an early cardiovascular marker — honest is responsible.</li><li><b>[UNVERIFIED] testimonials:</b> every verbatim from the Aurivita PDP is flagged red — there’s an open question about whether those reviews are genuine. Do NOT build a payoff claim on them; independent Swanson / iHerb / Kyolic reviews stand as real validation.</li></ul></div>
+  <div class="card" style="margin-top:14px"><p class="hero-insight"><span class="hl">Heart health is the permission structure; the felt decline is the driver</span> — and they connect honestly, because men and their partners already frame the fix as circulation (“cardio was to blame,” “get your heart checked”). The single most actionable question in the whole corpus isn’t “does it work” — it’s <span class="hl">“why cayenne instead of the beetroot or citrulline I already trust.”</span></p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Positioning statement</p><p class="hero-insight" style="font-size:clamp(18px,2.4vw,22px)">For the 50+ man who can feel his vitality slipping and reframes it — rightly — as circulation, Aurivita is a daily heart-health softgel that works with <span class="hl">his own nitric-oxide pathway</span>: the warmth he feels is the blood-flow signal. <span class="muted" style="font-size:13px">[circulation claim only]</span></p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">The offer</p><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>Aurivita Cayenne Pepper</b> — offered as Buy 1 (Save 20%), <b>Buy 2 Get 1 Free</b> and Buy 3 Get 2 Free, plus <b>Subscribe &amp; Save 25%</b>. <b>120-day money-back guarantee</b>; 3rd-party lab tested; FDA-registered facility. Formula: <b>3 mg capsaicin</b> (from cayenne) plus turmeric, hawthorn, beetroot, cinnamon, berberine, ginseng, black pepper and Vitamins D3 / K2 / E (the “12-in-1” the skeptics flag). On-page framing is strictly <b>structure/function</b> — “everyday support for healthy circulation, blood pressure and heart health†,” “helps your body make its own nitric oxide†” — and the PDP already tells the TRPV1 → nitric-oxide mechanism story. Operated by Azeal Supplements LLC (WY / GA addresses). <span class="muted" style="font-size:13px">(US$ pricing per the US PDP — exact figures pending confirmation.)</span></p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">White space — own the mechanism</p><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>The mechanism is unclaimed territory.</b> The corpus contains <b>zero</b> discussion of TRPV1, capsaicin chemistry, or “the burn you taste and the vasodilation are the same signal.” That absence is a <i>finding</i>: the audience does not connect cayenne to nitric oxide the way it connects citrulline / beetroot. So (a) “why cayenne” must be <b>educated</b>, not assumed, and (b) the mechanism story is ownable territory no competitor voice occupies. The PDP already starts this — the ads haven’t.</p></div>
+  <div class="rep-banner" style="margin-top:14px"><span class="k">⚠ Reputational liability — see the Reputational Callout tab</span><p>A brand-name search surfaces scam/legit write-ups and 1-star reports (counterfeit / “no heat,” China–India vs US origin, subscription overcharges). This is <b>not VoC research</b> — it’s a client-discussion item, framed as allegations. It directly undermines the transparency positioning, so verify supply chain, origin and subscription/refund UX <b>before scaling paid.</b></p></div>
+  <p class="kicker" style="margin-top:22px">Headline signals → Aurivita wedges</p>
+  <div class="wedge-map"><div class="wedge-card"><p class="q">“I am always cold … very little blood flow in my hands/feet” (▲68)</p><p class="w">→ Cold hands/feet — the ownable felt symptom</p></div><div class="wedge-card"><p class="q">“cardio was to blame” / “get your heart checked”</p><p class="w">→ Heart health is the honest permission structure</p></div><div class="wedge-card"><p class="q">“why cayenne instead of the beetroot/citrulline I already use?” (▲209)</p><p class="w">→ The #1 actionable objection → the comparison table</p></div><div class="wedge-card"><p class="q">“tried 20 different ones … most did nothing”</p><p class="w">→ Switching reasons: own-pathway vs a 2–6h nitrate spike</p></div><div class="wedge-card"><p class="q">partner: “I wondered if it was something I was doing”</p><p class="w">→ The Partner (45–70) — brings a heart-framed fix home without confrontation</p></div><div class="wedge-card"><p class="q">garlic: odor is the #1 hesitation</p><p class="w">→ Second SKU: ‘aged &amp; odorless’ unlocks the cholesterol lane</p></div></div>
+  <p class="kicker" style="margin-top:22px">Coverage</p>
+  <div class="grid"><div class="metric"><span>Distinct sources</span><b>48</b></div><div class="metric"><span>Pain</span><b>27</b></div><div class="metric"><span>Emotional</span><b>26</b></div><div class="metric"><span>Ladder</span><b>22</b></div><div class="metric"><span>Objections</span><b>37</b></div><div class="metric"><span>Competitors</span><b>18</b></div><div class="metric"><span>Swipe (verified)</span><b>24</b></div><div class="metric"><span>Angles</span><b>12</b></div></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Communities &amp; sources mined</p><div class="community-pills"><span class="community-pill">r/Supplements</span><span class="community-pill">r/erectiledysfunction</span><span class="community-pill">r/AskWomenOver30</span><span class="community-pill">r/Biohackers</span><span class="community-pill">r/cholesterol</span><span class="community-pill">Trustpilot</span><span class="community-pill">Swanson / iHerb / Kyolic</span></div></div>
+  <div class="card"><p class="kicker">Method &amp; caveats</p><ul class="clean"><li>Ranking = <b>frequency across distinct sources</b>, never upvotes/stars (those are secondary corroboration in their own columns).</li><li>Every row carries a <b>Use-case</b> tag; ED / emotional rows also carry an <b>Age</b> field so the 45–70+ avatar is separated from 30s–40s voices (the shame register transfers across ages; the life stage doesn’t).</li><li><b>Reputational:</b> a brand-name search surfaces scam/legit write-ups and 1-star reports (counterfeit / “no heat,” China–India vs US origin, subscription overcharges). This is NOT VoC — see the Reputational Callout tab; framed as allegations, verify before acting.</li><li><b>Garlic SKU (P9):</b> a softer-compliance cholesterol lane where ‘aged &amp; odorless’ beats the odor barrier; the household-buyer pattern repeats.</li></ul></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Action plan (compliance-bounded)</p><ol class="clean"><li>Lead with the heart-health permission structure and the felt symptoms (cold hands/feet, heavy legs, afternoon crash) — circulation, never ED. [circulation claim only]</li><li>Own the mechanism the audience doesn’t know: the warmth you feel is the same TRPV1 signal that supports nitric oxide — educate ‘why cayenne.’</li><li>Build the Switcher’s comparison table: continuous own-pathway vs a 2–6h nitrate spike; softgel vs beetroot taste / cost / beeturia. [circulation claim only]</li><li>Speak to the Partner as the household buyer: a heart-framed supplement she brings home as care, no confrontation.</li><li>Transparency as the trust play (disclosed 3 mg, 3rd-party testing) — but <b>verify the reputational items first</b>; don’t build ‘trust’ creative on exposed claims.</li><li>Never imply skipping a doctor or stopping meds; keep ED as audience-insight; no disease claims, ever.</li></ol></div>
+  <div class="spine-footer">Permission → Driver → Objection → Wedge → Ad</div>
+</section><section class="panel" data-panel="pain">
+  <p class="kicker">02 · Pain &amp; Symptom Language</p>
+  <h2>Pain &amp; symptoms <span class="hl">(27)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Theme · his (or her) exact words · what it signals · source. Tagged by Use-case and, where relevant, Age.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The felt language of circulation decline — cold hands and feet, heavy legs, the afternoon crash, and the fear that it’s the heart. ED-adjacent lines are here for understanding only; keep the creative on circulation.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div>
+      <p class="quote-theme">Third year of bad numbers; told to &#x27;just watch it&#x27;</p><p class="quote-body">This is the third year in a row that it&#x27;s been high. Doctors are keen to just keep an eye on it … Where do I go from here?</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Proactive worry meets clinical &#x27;wait and see&#x27;</span></div><div class="mini-tags"><span class="mini-tag">Proactive</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div>
+      <p class="quote-theme">Trying to beat a family history of early heart issues</p><p class="quote-body">managed to live substantially longer than their parents … a parent had early heart issues … especially without statins</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Family-history dread = the core motivation</span></div><div class="mini-tags"><span class="mini-tag">Proactive</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div>
+      <p class="quote-theme">Did the lifestyle changes, still demoralized</p><p class="quote-body">I&#x27;m trying to make lifestyle changes … these results are particularly depressing</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Effort without payoff -&gt; wants another lever</span></div><div class="mini-tags"><span class="mini-tag">Proactive</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲19</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">The DIY nitric-oxide stack is 20+ pills</p><p class="quote-body">taking 20+ pills all at once even for me is a tad bonkers … I would have to switch to a powder</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Complexity is the incumbents&#x27; weakness</span></div><div class="mini-tags"><span class="mini-tag">Stacker</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲19</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Beet powder tastes horrifying</p><p class="quote-body">it taste horrifyingly bad which is why I dropped it … I was taking 4 big spoonfuls daily</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Taste/dose friction Aurivita&#x27;s softgel avoids</span></div><div class="mini-tags"><span class="mini-tag">Stacker</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">At 30, the word he uses on himself is &#x27;pathetic&#x27;</p><p class="quote-body">30 years old with ED :( I feel pathetic</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Self-worth collapse</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 30</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Most embarrassing thing in his life</p><p class="quote-body">I have never been more embarrassed in my life</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Shame dominates</span></div><div class="mini-tags"><span class="mini-tag">ED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲24</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">It quietly isolated him for years</p><p class="quote-body">too embarrassed to put myself out there … I&#x27;ve let ED define and isolate me</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Shame -&gt; withdrawal</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 33</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲24</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Doctor to doctor, told &#x27;nothing&#x27;s wrong&#x27;</p><p class="quote-body">I kept going from doctor to doctor … most just ordered tests and found nothing</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Medical dismissal -&gt; self-fix</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 33</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲36</span><a class="quote-sub" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div>
+      <p class="quote-theme">Nothing changed, but suddenly he couldn&#x27;t</p><p class="quote-body">nothing in my life changed but I couldn&#x27;t … and it was devastating</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Sudden-onset bewilderment</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 42</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div>
+      <p class="quote-theme">It hit like a light switch</p><p class="quote-body">this not being able to perform … literally hit like a light switch … just like nope</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">&#x27;Light switch&#x27; language</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 42</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div>
+      <p class="quote-theme">The signal doesn&#x27;t reach the body</p><p class="quote-body">I got horny in my head, but the message didn&#x27;t reach the little dude</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Mind-body disconnect = circulation-shaped</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 42</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">50, fit and active — and it still happened</p><p class="quote-body">Age 50 … daily cardio … pretty active … I don&#x27;t smoke, eat well … I&#x27;ve recently started to experience some ED</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">At the avatar&#x27;s age it arrives despite doing everything &#x27;right&#x27;</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 50</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">It&#x27;s been ~15 years; he manages, doesn&#x27;t explain</p><p class="quote-body">He&#x27;s had ED for at least 15 years … he&#x27;s trying different medications, but he doesn&#x27;t go into details</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Long-standing, quietly managed by older men</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 60</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">She wonders if it&#x27;s her fault</p><p class="quote-body">I wondered if it was something I was doing, or if he didn&#x27;t find me attractive enough anymore</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The self-blame the partner silently carries</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">His silence, not the ED, made her blame herself</p><p class="quote-body">the insecurity … the closing up and not talking for hours … that was what made me feel like it was my problem and my fault</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">His shame transfers to her</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲8</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">He refused to see a doctor — draining her</p><p class="quote-body">He refused to see a doctor about it. It was incredibly draining for me … it would often hurt my self esteem</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The won&#x27;t-see-a-doctor stalemate</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1810</span><a class="quote-sub" href="https://www.reddit.com/r/OffMyChestIndia/comments/1jc6acq/i_thought_my_husband_had_ed_but_the_truth_hurts/" target="_blank" rel="noopener">r/OffMyChestIndia</a></div>
+      <p class="quote-theme">She believes his cover story for years</p><p class="quote-body">He struggled to get it up and blamed everything on his business struggles. I believed him for a long time</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The cover story a partner accepts (2025)</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲47</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">For years he wouldn&#x27;t get help; she feared being his caregiver</p><p class="quote-body">I&#x27;d tried for years to get him to go to a men&#x27;s clinic … he showed no interest … all I would be was his caregiver</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The older wife&#x27;s won&#x27;t-get-help + caregiver dread</span></div><div class="mini-tags"><span class="mini-tag">Partner</span><span class="mini-tag">Age 70+</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Older wife stops trying, to spare his embarrassment</p><p class="quote-body">I didn&#x27;t want it to be a source of frustration or embarrassment for him, so I haven&#x27;t tried again</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Her delicacy hardens into distance</span></div><div class="mini-tags"><span class="mini-tag">Partner</span><span class="mini-tag">Age 60</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲68</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Always cold, no blood flow to hands/feet</p><p class="quote-body">I am always cold and I have very little blood flow in my hands/feet</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">THE felt circulation symptom (ownable, non-medical)</span></div><div class="mini-tags"><span class="mini-tag">ColdHands</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲10</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Poor circulation: cold, sallow, sunken</p><p class="quote-body">My blood circulation is very poor that I feel cold all the time, my face looks sallow and my eyes look sunken</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Circulation shows on the whole body</span></div><div class="mini-tags"><span class="mini-tag">ColdHands</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲40</span><a class="quote-sub" href="https://www.reddit.com/r/Biohackers/comments/1qqpvqa/blood_flow_supplements_that_support_vein_health/" target="_blank" rel="noopener">r/Biohackers</a></div>
+      <p class="quote-theme">Heavy legs after sitting all day</p><p class="quote-body">that heavy leg feeling after sitting most of the day</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Desk-worker circulation (broadens the audience)</span></div><div class="mini-tags"><span class="mini-tag">ColdHands</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲19</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">The multi-pill stack is hard to sustain</p><p class="quote-body">taking 20+ pills all at once even for me is a tad bonkers</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Adherence failure of the DIY route</span></div><div class="mini-tags"><span class="mini-tag">Stacker</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲209</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Category fatigue: &#x27;expensive hope&#x27;</p><p class="quote-body">tried probably 20 different ones … most did nothing noticeable … everything else felt like expensive hope</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The exhausted-buyer state Aurivita enters</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div>
+      <p class="quote-theme">Off statins, cholesterol still too high</p><p class="quote-body">After not getting on with statins, my husband has been taking plant sterols … They&#x27;ve helped a bit, but not enough</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">The statin-intolerant cholesterol sufferer (same lane as cayenne P1)</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲24</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Feels more tired on it — is that it working?</p><p class="quote-body">after I take it I definitely feel more tired. Does that mean it&#x27;s working?</p><div class="quote-field"><span class="quote-field-label">Signal</span><span class="quote-field-value">Naive efficacy read; wants reassurance</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article></div>
+</section><section class="panel" data-panel="avatars">
+  <p class="kicker">03 · Avatars</p>
+  <h2>The Avatars</h2>
+  <p class="muted" style="margin-bottom:18px">The <b>50+ man is the account primary</b> (best where the circulation / vitality permission runs); the <b>Switcher is elevated to the Taboola / native channel primary</b> because its pure “why cayenne” comparison is the most compliance-safe; the Partner is secondary. No presets were provided — these are synthesized from the Use-case / Age tags.</p>
+  <div class="honesty-callout"><p class="kicker">Read the compliance line on each</p><p>Every avatar carries a compliance boundary. The 50+ man’s conversion driver is understood but never claimed — his creative stays on circulation and vitality. Nothing explicit; ED and partner material sit in the shame-relieving register.</p></div>
+  <div class="avatar-grid"><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">PRIMARY · ACCOUNT</span><span class="avatar-badge matrix">Heart-health permission · age-led 50+</span></div>
+        <h3>The 50+ Man (Circulation &amp; Vitality)</h3>
+        <p class="av-demo">Men ~50–70 · frames the fix as circulation, not the thing underneath</p>
+        <div class="av-compliance"><b>Compliance:</b> ED is the unstated conversion driver — but an <b>audience-understanding insight ONLY</b>. It is never named on the page, never a claim, never a target. He and his peers already reframe it as circulation (“cardio was to blame,” “get your heart checked”), which is the honest, compliant permission structure. <b>All copy stays structure/function.</b></div>
+        <p class="muted">Active, does the right things, and blindsided when his body starts to slow — cold hands, heavy legs, an afternoon crash, a vitality he can feel declining. His peers tell him it’s circulation and to get his heart checked, and that framing is the door he’ll actually walk through.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“Age 50 … daily cardio … pretty active … I don’t smoke, eat well”<span class="src"><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a> · ▲7</span></div><div class="avatar-quote">“I am always cold and I have very little blood flow in my hands/feet”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a> · ▲68</span></div><div class="avatar-quote">“that heavy leg feeling after sitting most of the day”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Biohackers/comments/1qqpvqa/blood_flow_supplements_that_support_vein_health/" target="_blank" rel="noopener">r/Biohackers</a> · ▲40</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>That the decline he can feel is his heart — and that it only gets worse from here.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“Why cayenne? I’ve never heard of it for this — I trust beetroot / citrulline.”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>A daily, heart-framed circulation softgel that works with his own nitric-oxide pathway — with the mechanism educated (the warmth he feels is the blood-flow signal), not assumed. [circulation claim only]</p></div>
+        <div class="av-nuance"><b>Nuance:</b> Lead on the circulation / vitality register and the 50+ rows; explicit-age evidence is thin, so treat age-specific detail as directional. Keep ED out of the creative entirely.</div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">PRIMARY · TABOOLA</span><span class="avatar-badge matrix">Channel primary (compliance-safe) · the comparison-table avatar</span></div>
+        <h3>The Switcher (Why Cayenne?)</h3>
+        <p class="av-demo">Already on L-citrulline / beetroot / SuperBeets · asks “why cayenne?”</p>
+        <div class="av-compliance"><b>Compliance:</b> <b>Elevated to Taboola / native channel primary for compliance.</b> Its pure ‘why cayenne vs beetroot / citrulline’ comparison is entirely structure/function with no ED-adjacent framing, so it clears Taboola’s stricter native-ad review where the 50+ vitality angle carries more risk. Structure/function only.</div>
+        <p class="muted">Already deep in supplements and loyal to beetroot or citrulline. He isn’t asking “does it work” — he’s asking “why cayenne instead of what I already trust.” Answer with the switching reasons: citrulline tolerance, beetroot’s taste / cost / beeturia / inconsistency, and pill-count.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“tried probably 20 different ones … most did nothing noticeable … everything else”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a> · ▲209</span></div><div class="avatar-quote">“switched to beetroot powder and it’s more subtle but at least consistent”<span class="src"><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a> · ▲8</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>Wasting money on yet another supplement that does nothing he can feel.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“Why cayenne instead of the L-citrulline / beetroot I already use?”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>The mechanism plus the switching reasons — a continuous own-pathway signal vs a 2–6h nitrate spike; a softgel vs beetroot taste / cost / beeturia; a small dose that absorbs. [circulation claim only]</p></div>
+        <div class="av-nuance"><b>Nuance:</b> ‘Why cayenne’ must be EDUCATED — the audience doesn’t already connect cayenne to nitric oxide the way it connects citrulline / beetroot. This becomes the comparison table.</div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">SECONDARY</span><span class="avatar-badge matrix">Brings it home without a confrontation</span></div>
+        <h3>The Partner (Woman 45–70)</h3>
+        <p class="av-demo">Women ~45–70 · often assumes it’s about her · the household buyer</p>
+        <div class="av-compliance"><b>Compliance:</b> Captured in the <b>shame-relieving register</b>; nothing explicit. Caregiver-grief and despair verbatims are for understanding, not swipe. Frame is care and circulation — never diagnosis.</div>
+        <p class="muted">She notices the distance before he says a word, and often assumes it’s about her. A heart-framed supplement is the thing she can bring home without a confrontation — care, not accusation. Underneath is the quiet fear of becoming his caregiver.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“I wondered if it was something I was doing, or if he didn’t find me attractive”<span class="src"><a class="src-link" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a> · ▲4</span></div><div class="avatar-quote">“the insecurity … the closing up and not talking for hours … that was what made me”<span class="src"><a class="src-link" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a> · ▲5</span></div><div class="avatar-quote">“He refused to see a doctor about it. It was incredibly draining for me”<span class="src"><a class="src-link" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a> · ▲8</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>That it’s her fault — or that it’s the first step toward becoming his caregiver.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“He won’t take anything or see a doctor — how do I even raise it?”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>A heart-health supplement she can put on the counter as everyday care — no confrontation, no diagnosis, just circulation support they can share. [circulation claim only]</p></div>
+        <div class="av-nuance"><b>Nuance:</b> She often assumes it’s about her — the relief that it’s circulation, not rejection, is the emotional turn. Never imply he should skip a doctor.</div>
+      </article></div>
+</section><section class="panel" data-panel="emotional">
+  <p class="kicker">04 · Emotional Drivers</p>
+  <h2>Emotional drivers <span class="hl">(26)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The feeling · the words · how to use it · source. Age-tagged so the 50+ life stage is separated from 30s–40s voices.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The emotional core — vitality decline and resignation for the man, self-blame and caregiver-fear for the partner, relief when the frame becomes ‘circulation, not rejection.’ The shame register is handled relievingly; despair verbatims are for understanding, not swipe.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲95</span><a class="quote-sub" href="https://www.reddit.com/r/over60/comments/1vnomjv/fear_of_statin/" target="_blank" rel="noopener">r/over60</a></div>
+      <p class="quote-theme">Scared of the statin as much as the disease</p><p class="quote-body">I&#x27;m extremely hesitant based on all the statin negativity I see … did you have any fear of the side effects, especially dementia</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Statin dread is a real, searchable fear</span></div><div class="mini-tags"><span class="mini-tag">PharmaSkeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1028</span><a class="quote-sub" href="https://www.reddit.com/r/immortalists/comments/1n05i8r/dont_die_from_cardiovascular_disease_here_is_the/" target="_blank" rel="noopener">r/immortalists</a></div>
+      <p class="quote-theme">Wants to change his destiny, not wait for a scare</p><p class="quote-body">Don&#x27;t wait for a scare. Act now, because your heart is counting on you</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The proactive-agency emotion the brand rents</span></div><div class="mini-tags"><span class="mini-tag">Proactive</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲24</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Relief that it&#x27;s physical, not &#x27;in his head&#x27;</p><p class="quote-body">So it wasn&#x27;t &#x27;just in my head&#x27; — it&#x27;s a real, chronic condition</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">THE reframe that relieves shame</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 33</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">He&#x27;d rather feel alone than feel a failure</p><p class="quote-body">Feeling alone was better than feeling a failure so isolating myself was a good option</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Failure-avoidance drives silence</span></div><div class="mini-tags"><span class="mini-tag">ED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Relief: it doesn&#x27;t make him unlovable</p><p class="quote-body">the inability to have an erection does not mean you are unable to love someone</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Shame-relieving truth</span></div><div class="mini-tags"><span class="mini-tag">ED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">It doesn&#x27;t have to define him</p><p class="quote-body">look past your ED to yourself … it doesn&#x27;t define you anymore</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Identity-separating reframe</span></div><div class="mini-tags"><span class="mini-tag">ED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div>
+      <p class="quote-theme">It&#x27;s about feeling like a man again</p><p class="quote-body">this is working to help me feel like a man again mentally … it&#x27;s pretty demoralizing</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Identity stake beneath the symptom</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 42</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲36</span><a class="quote-sub" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div>
+      <p class="quote-theme">Posting to say it&#x27;s OK to get help</p><p class="quote-body">to try and let other guys know it&#x27;s ok to look into [help] for this</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Permission-giving breaks silence</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 42</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲11</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">65: first good erection in over 10 years</p><p class="quote-body">first time with a good erection in over 10 years … on a natural ED recovery path</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Older-man hope + a &#x27;natural recovery&#x27; identity</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 65</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲47</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">He&#x27;d resigned himself, was &#x27;waiting to die&#x27;</p><p class="quote-body">He&#x27;d resigned himself to life being that way &amp; was waiting to die</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The older-man resignation the category must overcome</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 70+</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲47</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">The payoff is whole-life vitality, not just sex</p><p class="quote-body">The sex is the least of it. He&#x27;s his old self again — energetic, happy, &amp; motivated</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">At 65-70+ the win is energy/mood/vitality, not performance</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 70+</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲122</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">Logically not her fault, but it gets in her head</p><p class="quote-body">Even if the woman logically knows she has nothing to do with the issue, it can get into your head; that it&#x27;s your fault somehow</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">THE &#x27;she thought it was about her&#x27; core</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲66</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">If he hides it, she assumes she&#x27;s not attractive</p><p class="quote-body">if you try and hide it … every girl … is going to think its because of her. She will start wondering if she&#x27;s not attractive enough</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Hiding it is what wounds her</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲10</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">The real problem was his attitude, not the ED</p><p class="quote-body">the problem was not his lack of erection. The problem was his attitude about the lack of erection</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">His shame is the relationship damage</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1810</span><a class="quote-sub" href="https://www.reddit.com/r/OffMyChestIndia/comments/1jc6acq/i_thought_my_husband_had_ed_but_the_truth_hurts/" target="_blank" rel="noopener">r/OffMyChestIndia</a></div>
+      <p class="quote-theme">&#x27;It&#x27;s because I&#x27;m not attractive&#x27; shattered her</p><p class="quote-body">he told me, &#x27;I don&#x27;t find you attractive. That&#x27;s why I can&#x27;t get it up.&#x27; That completely shattered me. I lost all my self-confidence</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The &#x27;it&#x27;s about you&#x27; wound, in her words (2025)</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1810</span><a class="quote-sub" href="https://www.reddit.com/r/OffMyChestIndia/comments/1jc6acq/i_thought_my_husband_had_ed_but_the_truth_hurts/" target="_blank" rel="noopener">r/OffMyChestIndia</a></div>
+      <p class="quote-theme">3 AM, can&#x27;t sleep, can&#x27;t process it</p><p class="quote-body">at 3:21 AM, I can&#x27;t sleep … I just don&#x27;t know how to process this</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The 2am rumination the buyer does alone (2025)</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲47</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">The win she noticed was vitality, not sex</p><p class="quote-body">The sex is the least of it. He&#x27;s his old self again … energetic, happy &amp; motivated</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">What the older partner actually wants back: her husband</span></div><div class="mini-tags"><span class="mini-tag">Partner</span><span class="mini-tag">Age 70+</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲171</span><a class="quote-sub" href="https://www.reddit.com/r/CaregiverSupport/comments/1wezwi8/caregivers_for_spouses_who_can_no_longer_have_sex/" target="_blank" rel="noopener">r/CaregiverSupport</a></div>
+      <p class="quote-theme">Long marriage, intimacy gone, deeply lonely</p><p class="quote-body">We haven&#x27;t had sex in 10 years … the lack of intimacy has left me feeling so helplessly alone</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The caregiver-spouse loneliness (handle with care; not a sales target)</span></div><div class="mini-tags"><span class="mini-tag">Caregiver</span><span class="mini-tag">Age 60+</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0 · ★5</span><a class="quote-sub" href="https://aurivita.co/products/aurivita-capsaicin-power-2" target="_blank" rel="noopener">Aurivita review [UNVERIFIED]</a></div>
+      <p class="quote-theme">The felt payoff: warm hands, steadier energy</p><p class="quote-body">my hands and feet weren&#x27;t cold all the time anymore … don&#x27;t hit that afternoon slump like I used to</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The checkable, believable proof Aurivita leads on</span></div><div class="mini-tags"><span class="mini-tag">ColdHands</span><span class="mini-tag unv">⚠ UNVERIFIED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://www.iherb.com/r/swanson-cayenne-450-mg-300-capsules/118358" target="_blank" rel="noopener">iHerb/Swanson review</a></div>
+      <p class="quote-theme">Cayenne DOES give a believable warming effect</p><p class="quote-body">take one daily for digestion and circulation. You can feel a slight warming effect, but no heartburn as long as you take it with food</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The felt proof the category delivers (with no-burn reassurance)</span></div><div class="mini-tags"><span class="mini-tag">ColdHands</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://aurivita.co/products/aurivita-capsaicin-power-2" target="_blank" rel="noopener">Aurivita review [UNVERIFIED]</a></div>
+      <p class="quote-theme">Stacks cleanly with his heart-supplement routine</p><p class="quote-body">I take natto and a few other heart supplements. These … work perfectly alongside them … 6 weeks with zero issues</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The stacker&#x27;s low-friction adoption</span></div><div class="mini-tags"><span class="mini-tag">Stacker</span><span class="mini-tag unv">⚠ UNVERIFIED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://aurivita.co/products/aurivita-capsaicin-power-2" target="_blank" rel="noopener">Aurivita review [UNVERIFIED]</a></div>
+      <p class="quote-theme">Sensitive stomach, feared heartburn, got none</p><p class="quote-body">I have a sensitive stomach and was terrified these would give me heartburn. Two months in and absolutely nothing</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The reassurance that removes the #1 hesitation</span></div><div class="mini-tags"><span class="mini-tag">Proactive</span><span class="mini-tag unv">⚠ UNVERIFIED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲8</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Ran both: citrulline stronger, beetroot &#x27;subtle but consistent&#x27;</p><p class="quote-body">switched to beetroot powder and it&#x27;s more subtle but at least consistent</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">How dual-users actually weigh the two</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://www.walmart.com/reviews/product/24813287" target="_blank" rel="noopener">Walmart review (Kyolic)</a></div>
+      <p class="quote-theme">30 years on it, and no one ever smells it</p><p class="quote-body">I have used Kyolic Garlic for about 30 years and love it … never had a friend or foe suggest &#x27;you smell like garlic&#x27;</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The decades-loyal, odor-solved user (the &#x27;grandmother swore by it&#x27; register)</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://www.walmart.com/reviews/product/24813287" target="_blank" rel="noopener">Walmart review (Kyolic)</a></div>
+      <p class="quote-theme">Still healthy at 78 after years on garlic</p><p class="quote-body">taking this for at least five or six years … good cholesterol levels and good energy at the age of 78</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">Older loyal-user proof (heritage trust)</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★5</span><a class="quote-sub" href="https://www.walmart.com/reviews/product/24813287" target="_blank" rel="noopener">Walmart review (Kyolic)</a></div>
+      <p class="quote-theme">Doctor warned of cholesterol meds; garlic held them off</p><p class="quote-body">after my doctor warned to put me on cholesterol medication … after two months … within the normal range</p><div class="quote-field"><span class="quote-field-label">Use in creative</span><span class="quote-field-value">The &#x27;avoided the prescription&#x27; emotional win</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article></div>
+</section><section class="panel" data-panel="solution_ladder">
+  <p class="kicker">05 · Solution Ladder</p>
+  <h2>What he tries instead <span class="hl">(22)</span></h2>
+  <p class="muted" style="margin-bottom:18px">The circulation stack he climbs — L-citrulline, beetroot / SuperBeets, nitrate foods, prescription routes, heart stacks — and how he feels about each.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The alternatives Aurivita has to switch him from. The recurring gap: dietary-nitrate options give a short spike and come with taste / cost / beeturia; the ‘own-pathway, continuous’ story is the wedge.</p></div>
+  <div class="ladder-grid"><div class="ladder-card"><h4>building your daily plate around real, whole food … walking briskly 30 minutes most days</h4>
+        <p class="lc-note">The non-drug route buyers try first; a daily softgel rides the same &#x27;proactive habit&#x27; motivation</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (lifestyle)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/immortalists/comments/1n05i8r/dont_die_from_cardiovascular_disease_here_is_the/" target="_blank" rel="noopener">r/immortalists</a></div></div><div class="ladder-card"><h4>Magnesium, potassium, CoQ10 … may help, especially if deficient or dealing with statin side effects</h4>
+        <p class="lc-note">Where circulation/heart supplements live in the stack</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (supplement)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/immortalists/comments/1n05i8r/dont_die_from_cardiovascular_disease_here_is_the/" target="_blank" rel="noopener">r/immortalists</a></div></div><div class="ladder-card"><h4>heading toward starting statin therapy … extremely hesitant</h4>
+        <p class="lc-note">The route the proactive-skeptic is trying to delay or avoid — DO NOT position supplement as a replacement</p>
+        <div class="ladder-meta"><span class="lc-tag">Category (Rx)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/over60/comments/1vnomjv/fear_of_statin/" target="_blank" rel="noopener">r/over60</a></div></div><div class="ladder-card"><h4>both … increase nitric oxide … blood vessels to expand (via citrulline+beetroot powders)</h4>
+        <p class="lc-note">Same NO goal; Aurivita&#x27;s wedge is one small daily softgel, no taste, no measuring</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (NO stack)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div></div><div class="ladder-card"><h4>pelvic floor PT, urologist, testosterone/TRT, tadalafil/Viagra, gym, sleep, D3+K2, supplements</h4>
+        <p class="lc-note">Feeds Phase 2/6/8 competitor map; circulation/supplement sits at the private, low-stakes end</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (ED ladder)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div></div><div class="ladder-card"><h4>supplements … eat clean … gym … before seeing anyone</h4>
+        <p class="lc-note">A daily circulation softgel = shame-free first step before a doctor</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (self-directed)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div></div><div class="ladder-card"><h4>went to the popular website for online ed meds … 5mg and within 3 days</h4>
+        <p class="lc-note">Hims/Ro + daily tadalafil is the default; the bar to beat</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (Rx, private)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div></div><div class="ladder-card"><h4>Losing some weight will almost certainly help … up your cardio</h4>
+        <p class="lc-note">The community&#x27;s own circulation fix — the honest bridge</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (lifestyle/circulation)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div></div><div class="ladder-card"><h4>started taking a multivitamin, beetroot and L-Arginine/L-Citrulline to try and improve circulation</h4>
+        <p class="lc-note">The avatar frames it as CIRCULATION and self-treats first — the exact on-ramp</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (older self-directed circulation)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div></div><div class="ladder-card"><h4>Red yeast rice, citrulline 3g, NAD+/resveratrol, zinc, multivitamin and super beets … plus diet</h4>
+        <p class="lc-note">Older men build a heart/circulation stack; a cayenne softgel slots in</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (older stacker)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div></div><div class="ladder-card"><h4>him being honest, and eventually getting medication for the issue, it is now basically a non-issue</h4>
+        <p class="lc-note">The resolution arc she&#x27;s chasing — openness + a fix</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (resolution)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div></div><div class="ladder-card"><h4>My main concern … was trying to get him to stop stressing and blaming himself</h4>
+        <p class="lc-note">Her job is de-shaming; give her a de-shamed on-ramp</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (de-shaming)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div></div><div class="ladder-card"><h4>[synthesis] something she can bring into the house &#x27;for your heart / circulation&#x27; without either of them having to name it</h4>
+        <p class="lc-note">This is WHY the heart-health permission structure exists: she can buy it without a confrontation</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (partner)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">synthesis</span></div></div><div class="ladder-card"><h4>you feel a slight warmth going down … warmer hands and feet</h4>
+        <p class="lc-note">The self-verifiable result that makes the circulation claim credible</p>
+        <div class="ladder-meta"><span class="lc-tag">Proof (felt)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://aurivita.co/products/aurivita-capsaicin-power-2" target="_blank" rel="noopener">Aurivita review [UNVERIFIED]</a></div></div><div class="ladder-card"><h4>3mg capsaicin per serving … 3rd-party lab tested … 120-day guarantee</h4>
+        <p class="lc-note">Beat the &#x27;dropship&#x27; read with disclosed dose, testing, guarantee, and clear operator details — not louder claims</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (trust)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">Aurivita PDP</span></div></div><div class="ladder-card"><h4>Easy to remember since it&#x27;s just with meals</h4>
+        <p class="lc-note">The softgel-with-food ritual is the adherence wedge vs powders/multi-pill stacks</p>
+        <div class="ladder-meta"><span class="lc-tag">Format (habit)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://aurivita.co/products/aurivita-capsaicin-power-2" target="_blank" rel="noopener">Aurivita review [UNVERIFIED]</a></div></div><div class="ladder-card"><h4>One softgel with food … vs weighing 6-8g powder or chugging gross earthy juice</h4>
+        <p class="lc-note">The convenience/adherence wedge over both citrulline powder and beet juice</p>
+        <div class="ladder-meta"><span class="lc-tag">Differentiation (form)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">synthesis</span></div></div><div class="ladder-card"><h4>supports continuous production through TRPV1 … vs temporary 2-6 hour spike from dietary nitrates</h4>
+        <p class="lc-note">The anti-tolerance angle — but must be EDUCATED; audience doesn&#x27;t connect cayenne to NO yet</p>
+        <div class="ladder-meta"><span class="lc-tag">Differentiation (mechanism)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">Aurivita PDP</span></div></div><div class="ladder-card"><h4>[cayenne softgel avoids the nitrate GI/beeturia and the taste problem]</h4>
+        <p class="lc-note">Clean-side story vs beetroot&#x27;s GI/taste complaints</p>
+        <div class="ladder-meta"><span class="lc-tag">Differentiation (tolerability)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">synthesis</span></div></div><div class="ladder-card"><h4>odorless (no garlic burps) … for those who can&#x27;t bear to eat raw garlic everyday</h4>
+        <p class="lc-note">&#x27;Aged + odorless&#x27; is the whole unlock; raw-garlic aversion is the barrier it removes</p>
+        <div class="ladder-meta"><span class="lc-tag">Form (odorless aged)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.iherb.com/r/kyolic-aged-garlic-extract-cholesterol-health-formula-104-300-capsules/51891" target="_blank" rel="noopener">iHerb review (Kyolic)</a></div></div><div class="ladder-card"><h4>take with plant sterols … Formula 109 = aged garlic + nattokinase + suntheanine</h4>
+        <p class="lc-note">Garlic slots alongside sterols/omega-3/nattokinase; a stacked formula is the norm</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (stacking)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.reddit.com/r/Cholesterol/" target="_blank" rel="noopener">r/Cholesterol/iHerb</a></div></div><div class="ladder-card"><h4>Only 1 per day, practical when you travel … easy to swallow</h4>
+        <p class="lc-note">A once-daily odorless softgel beats the 2-4 cap incumbents on adherence</p>
+        <div class="ladder-meta"><span class="lc-tag">Format (adherence)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="https://www.walmart.com/reviews/product/24813287" target="_blank" rel="noopener">Walmart review (Kyolic)</a></div></div></div>
+</section><section class="panel" data-panel="objections">
+  <p class="kicker">06 · Objections &amp; Friction</p>
+  <h2>Objections &amp; friction <span class="hl">(37)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The objection · the signal in their words · what it means for Aurivita · source.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Every hesitation — “why cayenne, not beetroot,” “is 3 mg enough,” “does it burn / upset my stomach,” pharma-skepticism, and trust doubts. ‘Why cayenne’ is the make-or-break and becomes the comparison table.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div>
+      <p class="quote-theme">Statins feel over-pushed on everyone</p><p class="quote-body">statins are pushed left, right and center … if doctors can have their way the entire population will be on statins from age 20</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Distrust of blanket prescribing</span></div><div class="mini-tags"><span class="mini-tag">PharmaSkeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲46</span><a class="quote-sub" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div>
+      <p class="quote-theme">Do statins even do more than move a number?</p><p class="quote-body">Legitimately curious if statins do anything more than lower LDL to stay in the blood panel guidelines</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Efficacy doubt fuels the search for alternatives</span></div><div class="mini-tags"><span class="mini-tag">PharmaSkeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲95</span><a class="quote-sub" href="https://www.reddit.com/r/over60/comments/1vnomjv/fear_of_statin/" target="_blank" rel="noopener">r/over60</a></div>
+      <p class="quote-theme">Is natural prevention hype or help?</p><p class="quote-body">how much is alternative medicine hype vs how helpful the statin has been</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The honest ambivalence buyers actually hold</span></div><div class="mini-tags"><span class="mini-tag">PharmaSkeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1028</span><a class="quote-sub" href="https://www.reddit.com/r/immortalists/comments/1n05i8r/dont_die_from_cardiovascular_disease_here_is_the/" target="_blank" rel="noopener">r/immortalists</a></div>
+      <p class="quote-theme">Honest counter-voice: random pills don&#x27;t replace basics</p><p class="quote-body">Supplements usually don&#x27;t replace diet or medicine … don&#x27;t waste money on random pills. Focus on proven ones</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The skeptic truth to respect, not overrun (compliance)</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲40</span><a class="quote-sub" href="https://www.reddit.com/r/Biohackers/comments/1qqpvqa/blood_flow_supplements_that_support_vein_health/" target="_blank" rel="noopener">r/Biohackers</a></div>
+      <p class="quote-theme">Is blood-flow support real or just marketing?</p><p class="quote-body">Trying to figure out if this approach makes a real difference or if it&#x27;s mostly marketing</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The category&#x27;s baseline skepticism</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1216</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Cayenne isn&#x27;t the go-to NO ingredient</p><p class="quote-body">[community defaults to L-citrulline + beetroot for nitric oxide, not capsaicin]</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Aurivita must justify cayenne vs citrulline/beets</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Is it physical or mental — and does it matter?</p><p class="quote-body">When you say ED what do you mean? … you have lots of options but need more details</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">He needs a physical explanation to act without shame</span></div><div class="mini-tags"><span class="mini-tag">ED</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲10</span><a class="quote-sub" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div>
+      <p class="quote-theme">ED can be the first sign of a heart problem</p><p class="quote-body">High blood pressure can lead to ED … boner pills can put you at risk for a cardiovascular issue</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Address circulation, and SEE A DOCTOR (never &#x27;skip the doctor&#x27;)</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 42</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">50: tried beetroot &amp; citrulline, none of it worked</p><p class="quote-body">taking … beetroot and L-Arginine/L-Citrulline … None of which seems to be doing anything</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The nitrates FAILED for the avatar (ties P8) — opens the door to a different mechanism</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 50</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲7</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Wants a non-medical option before pills</p><p class="quote-body">if there were something more I could do without medical intervention I&#x27;m all ears</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The avatar prefers a daily habit over a prescription</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 50</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲47</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">Fears it&#x27;s just &#x27;part of getting older&#x27;</p><p class="quote-body">Getting old doesn&#x27;t mean having to just give up, anymore</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The resignation belief to counter (respectfully)</span></div><div class="mini-tags"><span class="mini-tag">ED</span><span class="mini-tag">Age 70+</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲122</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">He won&#x27;t explore any option</p><p class="quote-body">he didn&#x27;t want to explore options … talking to a doctor, taking a pill, diet and exercise … anything</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Her barrier: he won&#x27;t engage with a fix</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲122</span><a class="quote-sub" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></div>
+      <p class="quote-theme">He shuts the conversation down</p><p class="quote-body">he didn&#x27;t like to talk about it. He would shut down conversations about it</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Direct talk backfires -&gt; she needs an indirect on-ramp</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1810</span><a class="quote-sub" href="https://www.reddit.com/r/OffMyChestIndia/comments/1jc6acq/i_thought_my_husband_had_ed_but_the_truth_hurts/" target="_blank" rel="noopener">r/OffMyChestIndia</a></div>
+      <p class="quote-theme">She pushes doctor/therapy; he won&#x27;t engage</p><p class="quote-body">I suggested he see a doctor, which he did, but nothing really changed … I&#x27;ve suggested therapy multiple times, but he refuses</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The won&#x27;t-get-help stalemate (newer, 2025)</span></div><div class="mini-tags"><span class="mini-tag">Partner</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲14</span><a class="quote-sub" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div>
+      <p class="quote-theme">He&#x27;s &#x27;trying meds&#x27; but won&#x27;t share details</p><p class="quote-body">he&#x27;s trying different medications, but he doesn&#x27;t go into details with me</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Older men manage it privately; she&#x27;s shut out</span></div><div class="mini-tags"><span class="mini-tag">Partner</span><span class="mini-tag">Age 60</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://malwaretips.com/blogs/aurivita-cayenne-pepper-softgels-exposed-scam-or-legit-investigation/" target="_blank" rel="noopener">MalwareTips (analysis)</a></div>
+      <p class="quote-theme">Looks like a generic funnel product</p><p class="quote-body">a generic supplement sold through an aggressive marketing funnel … nearly identical products … around $2-6 per unit … private-label reselling with branding</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The dropship/value perception to counter</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://malwaretips.com/blogs/aurivita-cayenne-pepper-softgels-exposed-scam-or-legit-investigation/" target="_blank" rel="noopener">MalwareTips (analysis)</a></div>
+      <p class="quote-theme">&#x27;12-in-1 formula&#x27; = marketing, not science</p><p class="quote-body">&#x27;12-in-1 formula&#x27; sounds impressive … a mix of common ingredients, no unique formulation, no research specific to this product</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The fake-advanced-formula objection</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://malwaretips.com/blogs/aurivita-cayenne-pepper-softgels-exposed-scam-or-legit-investigation/" target="_blank" rel="noopener">MalwareTips (analysis)</a></div>
+      <p class="quote-theme">Strong health claims, no proof shown</p><p class="quote-body">positioned like a cardiovascular solution … No clinical studies shown, no medical references, no real validation</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Unproven-claims skepticism</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://wellwhisk.com/best-cayenne-pepper-supplement/" target="_blank" rel="noopener">WellWhisk (analysis)</a></div>
+      <p class="quote-theme">Is 3mg capsaicin actually enough?</p><p class="quote-body">Lower-end supplements might only list a broad SHU range without confirming the actual capsaicin content … look for a standardized extract</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The dose-adequacy question</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://www.boltpharmacy.co.uk/guide/best-cayenne-pepper-pills-for-weight-loss" target="_blank" rel="noopener">BoltPharmacy (analysis)</a></div>
+      <p class="quote-theme">Trust checklist: blends, GMP, lot numbers</p><p class="quote-body">Avoid products with proprietary blends that obscure doses … choose brands with clear operator details, GMP, batch or lot numbers</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">How buyers vet a supplement&#x27;s legitimacy</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://malwaretips.com/blogs/aurivita-cayenne-pepper-softgels-exposed-scam-or-legit-investigation/" target="_blank" rel="noopener">MalwareTips (analysis)</a></div>
+      <p class="quote-theme">Subscription = continuity-trap worry</p><p class="quote-body">The page pushes subscribers/discounts for recurring orders … a continuity model</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The sub-and-cancel anxiety</span></div><div class="mini-tags"><span class="mini-tag">Skeptic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲8</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Citrulline built a tolerance and stopped working</p><p class="quote-body">first few months were crazy good then it just stopped working … never got that initial magic back</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The #1 reason people leave citrulline</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲45</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">It faded to nothing even at 6-8g</p><p class="quote-body">Today, I can take 6-8 g and barely notice anything … the effects became almost nonexistent</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Diminishing response drives the search for an alternative</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">It&#x27;s 6-8 capsules or weighing out powder</p><p class="quote-body">6-8 capsules of citrulline … 500mg capsules / I was weighing it out myself, around 6-8 grams</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Dose size + pill count = daily friction</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Numbness after stopping citrulline</p><p class="quote-body">since I stopped … numbness in my arms, lower legs and especially my hands</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Rebound fear (dependency worry)</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★2</span><span class="quote-sub" style="color:var(--text-dim)">GarageGym/199flags review</span></div>
+      <p class="quote-theme">Beetroot tastes horrible, hard to choke down</p><p class="quote-body">Horrible tasting. Could barely get it down … super earthy … gross powder … clumping powder turns hard as a rock</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Taste is beetroot&#x27;s biggest adherence killer</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">DietVsDisease review</span></div>
+      <p class="quote-theme">Beetroot is overpriced for what it does</p><p class="quote-body">overpriced compared to other beet supplements … Got ripped off by $49 … not worth $$$$</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Cost objection on the nitrate route</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">199flags/DietVsDisease review</span></div>
+      <p class="quote-theme">Beetroot results are a coin-flip</p><p class="quote-body">about a 30-40% chance of not achieving the desired results … noticed absolutely no boost or change in my blood pressure</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Inconsistency undermines trust in nitrates</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲21</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Nitrate content varies by soil/extract</p><p class="quote-body">concentration of nitrates … can vary a LOT between extracts … the amount of nitrates in the soil where the beets were grown</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Unstandardized potency = unreliable</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Beet powder is weak — you have to drink juice</p><p class="quote-body">The powder has next to no nitrates, you need to drink it</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Powder form disappoints; juice is a chore</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲21</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Nitrates are slow and build tolerance too</p><p class="quote-body">1.5 to 3 hrs for nitrates vs as little as half an hour for citrulline … Tolerance to nitrates also happens</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Beetroot isn&#x27;t the escape from tolerance either</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/" target="_blank" rel="noopener">r/Supplements/199flags</a></div>
+      <p class="quote-theme">Beetroot GI: nausea, black stool, beeturia</p><p class="quote-body">took a 10g dose … sick to my stomach … lightheaded … black stool / Pinkish Urine and Feces (beeturia), diarrhea</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The unpleasant, alarming side effects</span></div><div class="mini-tags"><span class="mini-tag">Switcher</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Will I stink / garlic breath?</p><p class="quote-body">Will I stink if I take this garlic supplement?</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Odor is the #1 hesitation for garlic</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="https://www.iherb.com/r/kyolic-aged-garlic-extract-cholesterol-health-formula-104-300-capsules/51891" target="_blank" rel="noopener">iHerb review (Kyolic)</a></div>
+      <p class="quote-theme">Too many pills, and expensive</p><p class="quote-body">works well but too many pills … taking 4 capsules a day is very difficult and expensive</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Pill-count/cost burden (Aurivita softgel wedge)</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Allicin confusion — is my dose even active?</p><p class="quote-body">the allicin content that matters … my supplement isn&#x27;t showing allicin. It&#x27;s 2000mg of fresh bulb. It seems low</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Potency/labeling confusion buyers can&#x27;t resolve</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div>
+      <p class="quote-theme">Aged vs black vs regular — which is better?</p><p class="quote-body">does anyone know if black garlic is better than regular garlic supplements?</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">Form confusion at the shelf</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">★2</span><a class="quote-sub" href="https://www.iherb.com/r/kyolic-aged-garlic-extract-cholesterol-health-formula-104-300-capsules/51891" target="_blank" rel="noopener">iHerb review (Kyolic)</a></div>
+      <p class="quote-theme">Sometimes it just doesn&#x27;t move the numbers</p><p class="quote-body">I bought this to lower my blood pressure but I had to take some real medicine since it didn&#x27;t have effect</p><div class="quote-field"><span class="quote-field-label">Implication for Aurivita</span><span class="quote-field-value">The honest no-effect counter-voice</span></div><div class="mini-tags"><span class="mini-tag">Garlic</span></div></article></div>
+</section><section class="panel" data-panel="competitors">
+  <p class="kicker">07 · Competitor Landscape</p>
+  <h2>Why cayenne, not that <span class="hl">(18)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The alternatives in the corpus, by tier and sentiment. (Mentions are too thin to rank by frequency — this is the qualitative landscape that feeds the comparison table.)</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The incumbents to switch from: <b>beetroot / SuperBeets</b> and <b>L-citrulline</b> are the trusted defaults, hurt by taste / cost / beeturia / tolerance and a short 2–6h spike. Cayenne’s ‘own-pathway, continuous, small dose’ story is the switching argument — but it has to be educated.</p></div>
+  <div class="comp-grid"><div class="comp-card"><h4>L-citrulline / citrulline malate</h4>
+        <p class="comp-tier">Competitor · NO amino · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“The community&#x27;s #1 nitric-oxide pick; &#x27;3g gives insane blood flow&#x27;; the ingredient Aurivita is judged against”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div></div><div class="comp-card"><h4>Beetroot / SuperBeets (HumanN)</h4>
+        <p class="comp-tier">Competitor · Nitrate · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Nitrates widen vessels; effective but &#x27;tastes horrifyingly bad&#x27;, needs big doses”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div></div><div class="comp-card"><h4>Pycnogenol (pine bark)</h4>
+        <p class="comp-tier">Competitor · Endothelial · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“&#x27;the real heavy hitter&#x27;; stimulates endothelial NO; pricey, fakes common”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div></div><div class="comp-card"><h4>L-arginine</h4>
+        <p class="comp-tier">Competitor · NO amino · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“&#x27;less effective than citrulline but stacks well&#x27;”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></div></div><div class="comp-card"><h4>Heart stack (Omega-3/CoQ10/Mg/D3)</h4>
+        <p class="comp-tier">Competitor · Heart stack · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“The mainstream heart-supplement stack Aurivita sits beside (and reviews say it &#x27;stacks well&#x27; with)”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/immortalists/comments/1n05i8r/dont_die_from_cardiovascular_disease_here_is_the/" target="_blank" rel="noopener">r/immortalists</a></div></div><div class="comp-card"><h4>Beetroot / SuperBeets (HumanN)</h4>
+        <p class="comp-tier">Competitor · Nitrate · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Branded circulation/vein products; &#x27;legs feel lighter&#x27;; &#x27;not a magic fix&#x27;”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/Biohackers/comments/1qqpvqa/blood_flow_supplements_that_support_vein_health/" target="_blank" rel="noopener">r/Biohackers</a></div></div><div class="comp-card"><h4>Cayenne / capsaicin (Aurivita)</h4>
+        <p class="comp-tier">Category · Aurivita · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Differentiated (TRPV1 pathway) but must beat &#x27;why not just citrulline/beets?&#x27;”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div></div><div class="comp-card"><h4>Online ED meds (Hims/Ro, tadalafil/Viagra)</h4>
+        <p class="comp-tier">Competitor · Rx telehealth · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“&#x27;popular website for online ed meds&#x27;, daily 5mg tadalafil — the private, fast default”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div></div><div class="comp-card"><h4>TRT / testosterone</h4>
+        <p class="comp-tier">Alt · Hormonal · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“&#x27;get your testosterone checked … reversed with TRT&#x27;”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></div></div><div class="comp-card"><h4>NutraPure V-Flow (direct clone)</h4>
+        <p class="comp-tier">Competitor · Direct clone · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Openly runs the heart+ED+partner play: &#x27;warmer hands, bedroom confidence back on deck… women love it too&#x27;; 3,884 reviews — the clone doing overtly what Aurivita implies”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://shopnutrapure.com/products/cayennepepperliquiddrops" target="_blank" rel="noopener">NutraPure listing</a></div></div><div class="comp-card"><h4>Cayenne caps (Swanson/NOW/Carlyle/Nutricost)</h4>
+        <p class="comp-tier">Competitor · Budget cayenne · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“Real cayenne-for-circulation review base (warming, no burn with food); the honest cheap alternative ($ vs Aurivita&#x27;s $80)”</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">iHerb/Walmart review</span></div></div><div class="comp-card"><h4>Cayenne blend softgels (Clean Nutra/VivoNu)</h4>
+        <p class="comp-tier">Competitor · Blend clone · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Same cayenne+beetroot+hawthorn+D3/K2 blend template as Aurivita — a crowded formula”</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">FindThisBest (analysis)</span></div></div><div class="comp-card"><h4>L-citrulline / citrulline malate</h4>
+        <p class="comp-tier">Competitor · NO amino · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Fast &amp; effective for many, but tolerance, 3-8g doses, 6-8 caps/day, rebound complaints — the incumbent to beat on consistency &amp; convenience”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div></div><div class="comp-card"><h4>Beetroot / SuperBeets (HumanN)</h4>
+        <p class="comp-tier">Competitor · Nitrate · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Nitrates for circulation/BP, but taste (&#x27;horrible/earthy&#x27;), cost (&#x27;$49, overpriced&#x27;), beeturia, and 30-40% no-result rate”</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">GarageGym/DietVsDisease review</span></div></div><div class="comp-card"><h4>Beetroot juice (Lakewood)</h4>
+        <p class="comp-tier">Competitor · Nitrate (juice) · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Stronger nitrates than powder but you have to drink it daily — a chore”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></div></div><div class="comp-card"><h4>Kyolic Aged Garlic Extract</h4>
+        <p class="comp-tier">Competitor · Garlic (leader) · <span class="lc-tag pos" style="display:inline-block">Positive</span></p>
+        <p class="snip">“The trusted odorless benchmark; multiple cardio formulas (100/104/109), decades of loyal users; beat it on convenience/price/transparency, not credibility”</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">iHerb/Walmart review</span></div></div><div class="comp-card"><h4>Cayenne caps (Swanson/NOW/Carlyle/Nutricost)</h4>
+        <p class="comp-tier">Competitor · Budget cayenne · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“Cheaper garlic caps; odor control varies; the low-price floor”</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">iHerb/Walmart review</span></div></div><div class="comp-card"><h4>Plant sterols / nattokinase / red yeast rice</h4>
+        <p class="comp-tier">Alt · Cholesterol lane · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">“What cholesterol-focused buyers stack or switch among alongside garlic”</p>
+        <div class="ladder-meta"><a class="src-link" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></div></div></div>
+</section><section class="panel" data-panel="swipe_file">
+  <p class="kicker">08 · Emotional Swipe File</p>
+  <h2>Emotional Swipe File <span class="hl">(24)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Ready-to-lift verbatims by funnel stage, tagged by Use-case / Age. <b>[UNVERIFIED] PDP testimonials are excluded</b> — copy is built only on real, independent voices.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The compliant, real language for hooks and copy — circulation, felt symptoms, switching reasons, and the partner’s relief. Keep every line structure/function; ED stays out of the copy.</p></div>
+  <div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">TOF <span class="hl">(10)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Proactive</div>
+            <p class="swipe-ad">You did the lifestyle changes. The number&#x27;s still there. You want to do more.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I&#x27;m trying to make lifestyle changes … these results are particularly depressing”</p><a class="swipe-src" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Proactive</div>
+            <p class="swipe-ad">&#x27;Keep an eye on it&#x27; never felt like enough for the people who watch their heart closely.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Doctors are keen to just keep an eye on it”</p><a class="swipe-src" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · ED · Age 33</div>
+            <p class="swipe-ad">It was never a character flaw. Circulation is physical — and you can support it. [circulation claim only]</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it wasn&#x27;t &#x27;just in my head&#x27; — it&#x27;s a real, chronic condition”</p><a class="swipe-src" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · ED · Age 33</div>
+            <p class="swipe-ad">The quiet reason a lot of men start paying attention to their circulation. [no ED claim on page]</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I&#x27;ve let ED define and isolate me for too long”</p><a class="swipe-src" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · ED · Age 42</div>
+            <p class="swipe-ad">A lot of men hear &#x27;get your heart checked&#x27; for a reason. Start with your circulation.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“High blood pressure can lead to ED”</p><a class="swipe-src" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · ED · Age 50</div>
+            <p class="swipe-ad">Active, eating clean, doing everything right — and at 50 it still changed. Circulation shifts with age.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Age 50 … daily cardio … eat well … I&#x27;ve recently started to experience some ED”</p><a class="swipe-src" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Partner</div>
+            <p class="swipe-ad">You started to quietly wonder if it was you. It wasn&#x27;t.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it can get into your head; that it&#x27;s your fault somehow”</p><a class="swipe-src" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · ColdHands</div>
+            <p class="swipe-ad">Cold hands and feet all year? That&#x27;s your circulation talking.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“I am always cold … very little blood flow in my hands/feet”</p><a class="swipe-src" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Switcher</div>
+            <p class="swipe-ad">You&#x27;ve tried the beets and the amino powders. Tired of &#x27;expensive hope&#x27;?</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“everything else felt like expensive hope”</p><a class="swipe-src" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Garlic</div>
+            <p class="swipe-ad">The heart supplement your grandmother swore by — without the garlic breath.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“never had a friend or foe suggest &#x27;you smell like garlic&#x27;”</p><a class="swipe-src" href="https://www.walmart.com/reviews/product/24813287" target="_blank" rel="noopener">Walmart review (Kyolic)</a></article></div></div><div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">MOF <span class="hl">(12)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Proactive</div>
+            <p class="swipe-ad">A daily habit for people who&#x27;d rather support their circulation than wait for a scare.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Don&#x27;t wait for a scare. Act now”</p><a class="swipe-src" href="https://www.reddit.com/r/immortalists/comments/1n05i8r/dont_die_from_cardiovascular_disease_here_is_the/" target="_blank" rel="noopener">r/immortalists</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Stacker</div>
+            <p class="swipe-ad">The nitric oxide people chase with 20 pills and chalky beet powder — in one daily softgel.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“taking 20+ pills … switch to a powder”</p><a class="swipe-src" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Stacker</div>
+            <p class="swipe-ad">Beet powder that tastes horrifying, or one small capsule. Same goal: open vessels.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“it taste horrifyingly bad”</p><a class="swipe-src" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · ED · Age 42</div>
+            <p class="swipe-ad">His own read on it: &#x27;my cardio was to blame.&#x27; Circulation is where a lot of men start.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“huge feeling my cardio and weight gain was to blame”</p><a class="swipe-src" href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · ED · Age 50</div>
+            <p class="swipe-ad">You&#x27;ve already tried the beets and the amino acids. There&#x27;s another way circulation gets supported.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“beetroot and L-Arginine/L-Citrulline … None of which seems to be doing anything”</p><a class="swipe-src" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Partner</div>
+            <p class="swipe-ad">He won&#x27;t book the appointment. But he&#x27;ll take something for his heart. [no ED claim on page]</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“He refused to see a doctor about it”</p><a class="swipe-src" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Partner</div>
+            <p class="swipe-ad">The silence hurt more than anything. Give him an easy, no-conversation first step.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“he would shut down conversations about it”</p><a class="swipe-src" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Skeptic</div>
+            <p class="swipe-ad">No proprietary blend hiding the dose — here&#x27;s exactly the 3mg, 3rd-party tested. [trust counter]</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“choose brands … clear operator details … batch or lot numbers”</p><a class="swipe-src" href="https://www.boltpharmacy.co.uk/guide/best-cayenne-pepper-pills-for-weight-loss" target="_blank" rel="noopener">BoltPharmacy (analysis)</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Switcher</div>
+            <p class="swipe-ad">Citrulline that quits on you. Beet powder you can barely choke down. Or one small softgel.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“first few months … then it just stopped working”</p><a class="swipe-src" href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Switcher</div>
+            <p class="swipe-ad">No $49 tub. No earthy chug. No beeturia. One capsule with breakfast.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Horrible tasting. Could barely get it down”</p><span class="swipe-src" style="color:var(--text-dim)">GarageGym review</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Garlic</div>
+            <p class="swipe-ad">Aged, odorless, one a day. No burps, no four-pill ritual.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“too many pills … 4 capsules a day is very difficult”</p><a class="swipe-src" href="https://www.iherb.com/r/kyolic-aged-garlic-extract-cholesterol-health-formula-104-300-capsules/51891" target="_blank" rel="noopener">iHerb review (Kyolic)</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Garlic</div>
+            <p class="swipe-ad">He couldn&#x27;t get on with statins. This is the one she brought home for his heart. [structure/function]</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“After not getting on with statins … plant sterols”</p><a class="swipe-src" href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></article></div></div><div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">BOF <span class="hl">(2)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · ED · Age 70+</div>
+            <p class="swipe-ad">Getting older doesn&#x27;t mean giving up. A daily habit for the circulation that changes with age.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“Getting old doesn&#x27;t mean having to just give up, anymore”</p><a class="swipe-src" href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Partner</div>
+            <p class="swipe-ad">Something for both of you — brought home for his heart, no confrontation required.</p><div class="swipe-arrow">↓</div>
+            <p class="swipe-voice">“trying to get him to stop stressing and blaming himself”</p><a class="swipe-src" href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></article></div></div>
+</section><section class="panel" data-panel="creative_angles">
+  <p class="kicker">09 · Creative Angles</p>
+  <h2>Angles, mapped to wedges <span class="hl">(12)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Each angle ties a real verbatim to a wedge and a funnel stage. The blue chips carry the compliance boundary each angle must keep.</p>
+  <div class="honesty-callout"><p class="kicker">How to read this</p><p>Angles are synthesis; the driving verbatim is real. Honor the compliance chip on every one — “[no ED claim]” / “[circulation claim only]” are not optional. Keep claims structure/function and never build on unverified testimonials.</p></div>
+  <div class="angle-matrix"><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 01</span><h3>You did the lifestyle changes. The number&#x27;s still there. A daily habit for your circulation.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Proactive · permission</span><span class="comp-chip">structure/function only</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“these results are particularly depressing”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Cholesterol</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 02</span><h3>A lot of men hear &#x27;get your heart checked&#x27; for a reason. Start with your circulation.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">ED bridge</span><span class="comp-chip">no ED claim on page</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“High blood pressure can lead to ED”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/AskMenOver40</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 03</span><h3>It was never a character flaw. Circulation is physical — and you can support it.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">ED shame-relief</span><span class="comp-chip">circulation claim only</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“it wasn&#x27;t &#x27;just in my head&#x27; — it&#x27;s a real, chronic condition”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/erectiledysfunction</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 04</span><h3>Active, eating clean, doing everything right — and at 50 it still changed. Circulation shifts with age.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">ED · 50+ avatar</span><span class="comp-chip">circulation only</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“Age 50 … I&#x27;ve recently started to experience some ED”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/erectiledysfunction</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 05</span><h3>You quietly started to wonder if it was you. It wasn&#x27;t.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Partner · relieve her self-blame</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“it can get into your head; that it&#x27;s your fault somehow”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/AskWomenOver30</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 06</span><h3>He won&#x27;t book the appointment. But he&#x27;ll take something for his heart.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Partner · no-confrontation on-ramp</span><span class="comp-chip">no ED claim</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“He refused to see a doctor about it”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/AskWomenOver30</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 07</span><h3>Tried the beets and the amino powders — and they quit on you, or made you gag? There&#x27;s another way.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Switcher · competitor-justification</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“everything else felt like expensive hope”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Supplements</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 08</span><h3>Citrulline builds a tolerance. Beet powder builds a grudge. One softgel, once a day, no chug.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Switcher · why-cayenne</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“first few months … then it just stopped working”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Supplements</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 09</span><h3>Cold hands and feet all year? That&#x27;s your circulation talking.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Cold hands · felt symptom</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“I am always cold … very little blood flow in my hands/feet”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>r/Supplements</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 10</span><h3>The heart supplement your grandmother swore by — without the garlic breath.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">TOF</span><span class="avatar-tag">Garlic SKU · heritage</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“never had a friend or foe suggest &#x27;you smell like garlic&#x27;”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>Walmart review (Kyolic)</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 11</span><h3>Aged, odorless, one a day — for the cholesterol number you&#x27;re watching. [structure/function]</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Garlic SKU · cholesterol lane</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“too many pills … 4 capsules a day is very difficult”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>iHerb review (Kyolic)</span></div></div></div>
+      </div></div><div class="angle-matrix-card"><div class="angle-matrix-grid">
+        <div><span class="angle-status gap">Angle 12</span><h3>No proprietary blend hiding the dose. 3mg, 3rd-party tested, 120 days to decide.</h3>
+          <div class="avatar-tags"><span class="avatar-tag">MOF</span><span class="avatar-tag">Trust · transparency counter</span></div></div>
+        <div><p class="angle-col-kicker">Driving evidence (verbatim)</p><p class="proof-quote">“choose brands … clear operator details … batch or lot numbers”</p></div>
+        <div><p class="angle-col-kicker">Source</p><div class="concept-stack"><div class="concept-pill"><span>BoltPharmacy</span></div></div></div>
+      </div></div></div>
+</section><section class="panel" data-panel="reputational">
+  <p class="kicker">10 · Reputational Callout</p>
+  <h2>Brand-trust liability <span class="muted" style="font-size:14px;font-weight:600">· raise with client separately</span></h2>
+  <div class="rep-banner"><span class="k">⚠ Not VoC research — client discussion item</span>
+    <p>All items below are <b>allegations / third-party reports</b>, framed as such — <b>verify before acting</b>. This surfaces on brand-name search, retargeting and any advertorial funnel, and it directly undermines the transparency positioning the VoC recommends. Source-quality matters: MalwareTips itself carries a low third-party trust score and runs affiliate content, so don’t over-weight it; the <b>independent Trustpilot customer reports (counterfeit / no-heat, origin, billing) are the stronger evidence.</b></p></div>
+  <div class="rep-card"><h4>Summary</h4><p>A brand-name search for &#x27;Aurivita&#x27; surfaces multiple critical &#x27;scam or legit&#x27; investigations and 1-star customer reviews. This is a live trust liability for brand-name search, retargeting, and any advertorial funnel — and it directly undermines the transparency positioning the VoC recommends. All items below are ALLEGATIONS / third-party reports, framed as such; verify before acting.</p></div><div class="rep-card"><h4>MalwareTips — &#x27;Aurivita Cayenne Softgels: Scam or Legit? Investigation&#x27; alleges</h4><p>• a generic supplement sold through an aggressive marketing funnel (common ingredient + long trendy-ingredient list + medical-style claims + high markup + bundles/subscriptions);  • &#x27;nearly identical products on wholesale platforms at ~$2-6/unit — private-label reselling with branding&#x27;; • the &#x27;12-in-1 formula&#x27; is &#x27;a marketing upgrade, not a scientific one&#x27;, with no product-specific research;  • strong cardiovascular claims without clinical proof.  URL: malwaretips.com/blogs/aurivita-cayenne-pepper-softgels-exposed-scam-or-legit-investigation/</p></div><div class="rep-card"><h4>MalwareTips — second article (&#x27;Scam Ads &amp; Red Flags&#x27;, Mar 2026)</h4><p>Frames the ads as a templated &#x27;supplement funnel&#x27;: news-style advertorial pages, long sales videos, implied celebrity/&#x27;doctor&#x27; endorsements, fake-urgency (&#x27;limited stock&#x27;, &#x27;recent purchases&#x27; popups). Notably also promoted as DIABETES / BLOOD-SUGAR support in some ad variants — a claim set well beyond the on-site circulation copy.</p></div><div class="rep-card"><h4>Trustpilot — independent customer reports (the more material signal)</h4><p>• COUNTERFEIT / POTENCY: repeated reports that the softgels have &#x27;no heat at all&#x27;, &#x27;no cayenne taste&#x27;, &#x27;just coloured soybean oil&#x27; when chewed — i.e. buyers doubting the capsaicin is present;  • ORIGIN vs CLAIM: &#x27;tracking showed shipped from Wuhan, China&#x27; / &#x27;came from India&#x27; despite the &#x27;US product&#x27; claim, with the company reportedly insisting it&#x27;s US;  • BILLING: &#x27;cancelled the subscription, still charged £129&#x27;, refunds refused with no tracking number, customers filing card chargebacks.</p></div><div class="rep-card"><h4>Fact-check middle ground (Factually.co)</h4><p>A legitimate capsaicin-containing supplement that some users report benefiting from, BUT the advertising mirrors known &#x27;scam-ad&#x27; patterns and the broad medical claims (circulation, heart, blood-sugar, erectile-function) are not clinically validated in the materials reviewed.</p></div><div class="rep-card"><h4>Source-quality caveat (important for weighting)</h4><p>MalwareTips itself carries a LOW third-party trust score (ScamAdviser) and runs affiliate &#x27;recommended tool&#x27; content — do not over-weight it. The INDEPENDENT Trustpilot customer reports (counterfeit/no-heat, origin, billing) are the stronger evidence. Separately, ScamAdviser also flags aurivita.co as low-trust (very young domain).</p></div><div class="rep-card"><h4>Why it matters / client discussion points</h4><p>1) Brand-name search and retargeting audiences WILL see these results.  2) The counterfeit/&#x27;no-heat&#x27; and China-vs-US allegations directly attack the exact transparency angle the VoC says to win on (disclosed 3mg, 3rd-party testing).  3) This ties to the UNVERIFIED flag on the on-site testimonials: 4.6/996 glowing PDP reviews vs 1-star independent reviews is precisely the credibility gap.  4) Recommend the client verify supply chain / COAs, confirm true country of origin, and fix subscription/refund UX BEFORE scaling paid — otherwise creative built on &#x27;trust/transparency&#x27; is exposed.</p></div>
+</section><section class="panel" data-panel="sources">
+  <p class="kicker">11 · Sources</p>
+  <h2>Sources <span class="hl">(48)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Reddit-primary across phase-specific communities, plus competitor / retailer listings (SuperBeets, NOW / Swanson, Kyolic) and skeptic write-ups for the comparison and trust phases.</p>
+  <div class="src-wrap"><table class="src-table"><thead><tr><th>Source</th><th>Title / Product</th><th>Signal</th><th>Volume</th><th>Date</th><th>Depth</th><th>Phase</th></tr></thead><tbody><tr><td><a href="https://www.reddit.com/r/AskDocs/comments/1meyajw/my_husband_changed_completely_on_a_statin/" target="_blank" rel="noopener">r/AskDocs</a></td>
+      <td>My husband changed completely on a statin (side-effect fear; wife noticing)</td><td>837 up</td><td>321c</td>
+      <td>2025-08-01</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Cholesterol/comments/1m2z1yv/should_i_35m_family_history_of_heart_disease_be/" target="_blank" rel="noopener">r/Cholesterol</a></td>
+      <td>Should I (35m), family history of heart disease, be worried?</td><td>0 up</td><td>23c</td>
+      <td>2025-07-18</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Cholesterol/comments/1hknsnk/beating_family_history/" target="_blank" rel="noopener">r/Cholesterol</a></td>
+      <td>Beating family history (managed it without statins?)</td><td>2 up</td><td>8c</td>
+      <td>2024-12-23</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Cholesterol/comments/1oyriow/do_statins_actually_reverse_heart_disease_and/" target="_blank" rel="noopener">r/Cholesterol</a></td>
+      <td>Do statins actually reverse heart disease and prevent heart attacks?</td><td>46 up</td><td>149c</td>
+      <td>2025-11-16</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/immortalists/comments/1n05i8r/dont_die_from_cardiovascular_disease_here_is_the/" target="_blank" rel="noopener">r/immortalists</a></td>
+      <td>Don&#x27;t die from cardiovascular disease (evidence-based prevention; skeptic counter-voice)</td><td>1028 up</td><td>121c</td>
+      <td>2025-08-25</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/over60/comments/1vnomjv/fear_of_statin/" target="_blank" rel="noopener">r/over60</a></td>
+      <td>Fear of statin? (alternative medicine hype vs help)</td><td>95 up</td><td>354c</td>
+      <td>2026-08-13</td><td><span class="badge depth-scan">Scanned</span></td><td>P1</td></tr><tr><td><a href="https://www.reddit.com/r/Biohackers/comments/1qqpvqa/blood_flow_supplements_that_support_vein_health/" target="_blank" rel="noopener">r/Biohackers</a></td>
+      <td>Blood flow supplements: vein health vs just nitric oxide?</td><td>40 up</td><td>30c</td>
+      <td>2026-01-30</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/InsideTheMensRoom/comments/1mpvs5b/top_10_essential_supplements_for_blood_flow_libido/" target="_blank" rel="noopener">r/InsideTheMensRoom</a></td>
+      <td>Top 10 Supplements for Blood Flow + Libido (competitor menu)</td><td>13 up</td><td>2c</td>
+      <td>2025-08-14</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/1lx9nos/these_supplements_have_given_me_insane_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>These supplements have given me insane blood flow EVERYWHERE</td><td>1216 up</td><td>283c</td>
+      <td>2025-07-11</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/13hp7gv/my_supplement_regimen_that_i_take_that_cured_my/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>My supplement regimen that cured my ED (nitric-oxide DIY stack)</td><td>19 up</td><td>19c</td>
+      <td>2023-05-14</td><td><span class="badge depth-scan">Scanned</span></td><td>P2</td></tr><tr><td><a href="https://www.reddit.com/r/AskMenOver40/comments/1gnrj7h/im_almost_42_and_suddenly_ended_up_with_ed/" target="_blank" rel="noopener">r/AskMenOver40</a></td>
+      <td>I&#x27;m almost 42 and suddenly ended up with ED</td><td>36 up</td><td>35c</td>
+      <td>2024-11-10</td><td><span class="badge depth-full">Full pull</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/AskMenOver40/comments/1sagzue/recently_turned_40_and_i_have_abruptly_stopped/" target="_blank" rel="noopener">r/AskMenOver40</a></td>
+      <td>Recently turned 40 and abruptly stopped getting morning wood</td><td>19 up</td><td>45c</td>
+      <td>2026-04-02</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/AskMenOver40/comments/1m77t5a/wtf_is_happening_after_i_turned_40_brain_body/" target="_blank" rel="noopener">r/AskMenOver40</a></td>
+      <td>WTF is happening after I turned 40? Brain, body, everything is off</td><td>112 up</td><td>121c</td>
+      <td>2025-07-23</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/1olzavx/im_33_and_have_lived_with_ed_since_i_was_16_its/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>I&#x27;m 33 and have lived with ED since I was 16 — it&#x27;s made me feel completely alone</td><td>24 up</td><td>27c</td>
+      <td>2025-11-01</td><td><span class="badge depth-full">Full pull</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/194mj04/30_years_old_with_ed_i_feel_pathetic/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>30 years old with ED, I feel pathetic</td><td>7 up</td><td>11c</td>
+      <td>2024-01-12</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/1iuh19q/i_have_never_been_more_embarrassed_in_my_life/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>I have never been more embarrassed in my life</td><td>7 up</td><td>18c</td>
+      <td>2025-02-21</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/1kslv03/age_50_and_ed_is_a_new_experience_for_me/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>Age 50 and ED is a new experience for me (tried beetroot/citrulline, wants non-med)</td><td>7 up</td><td>41c</td>
+      <td>2025-05-22</td><td><span class="badge depth-full">Full pull</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/1hxg299/65_yr_old_man_with_ed_updating_recently_improved/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>65 yr old man with ED updating: recently improved (stack + Cialis + diet)</td><td>11 up</td><td>4c</td>
+      <td>2025-01-09</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/1jatafy/over_70_success_story/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>Over 70, success story (&#x27;waiting to die&#x27; -&gt; whole-life vitality)</td><td>47 up</td><td>9c</td>
+      <td>2025-03-14</td><td><span class="badge depth-scan">Scanned</span></td><td>P3</td></tr><tr><td><a href="https://www.reddit.com/r/AskWomenOver30/comments/99vdfv/women_have_you_dated_any_men_with_erection/" target="_blank" rel="noopener">r/AskWomenOver30</a></td>
+      <td>Women, dated men with erection problems — how you react (2018, register context)</td><td>67 up</td><td>39c</td>
+      <td>2018-08-24</td><td><span class="badge depth-full">Full pull</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/AskWomenOver30/comments/1ixlcl0/found_out_my_partner_is_taking_ed_medicine_even/" target="_blank" rel="noopener">r/AskWomenOver30</a></td>
+      <td>Found out my partner is taking ED medicine (2025; discovery)</td><td>54 up</td><td>62c</td>
+      <td>2025-02-25</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/BestofRedditorUpdates/comments/1lvcngq/wrongly_accused_husband_of_infidelity_turns_out/" target="_blank" rel="noopener">r/BestofRedditorUpdates</a></td>
+      <td>Wrongly accused husband of infidelity — he was hiding ED (2024)</td><td>4128 up</td><td>545c</td>
+      <td>2025-07-07</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/CaregiverSupport/comments/1wezwi8/caregivers_for_spouses_who_can_no_longer_have_sex/" target="_blank" rel="noopener">r/CaregiverSupport</a></td>
+      <td>Caregivers for spouses who can no longer have sex (intimacy loss)</td><td>171 up</td><td>130c</td>
+      <td>2026-09-13</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/DeadBedrooms/comments/1wcu2sb/five_years_together_seven_months_marriedbut_years/" target="_blank" rel="noopener">r/DeadBedrooms</a></td>
+      <td>Five years married, sexual-rejection trauma, &#x27;he&#x27;s my best friend&#x27; (2026)</td><td>20 up</td><td>20c</td>
+      <td>2026-09-10</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/OffMyChestIndia/comments/1jc6acq/i_thought_my_husband_had_ed_but_the_truth_hurts/" target="_blank" rel="noopener">r/OffMyChestIndia</a></td>
+      <td>I thought my husband had ED (2025; cover story, self-blame, 3am)</td><td>1810 up</td><td>397c</td>
+      <td>2025-03-15</td><td><span class="badge depth-full">Full pull</span></td><td>P4</td></tr><tr><td><a href="https://www.reddit.com/r/erectiledysfunction/comments/1w2jjmy/dating_a_60_yo_man_with_ed_sex_is_onesided_and_im/" target="_blank" rel="noopener">r/erectiledysfunction</a></td>
+      <td>Dating a 60 y/o man with ED; one-sided, discouraged (60F, delicacy)</td><td>14 up</td><td>37c</td>
+      <td>2026-08-30</td><td><span class="badge depth-scan">Scanned</span></td><td>P4</td></tr><tr><td><a href="https://aurivita.co/products/aurivita-capsaicin-power-2" target="_blank" rel="noopener">Aurivita review [UNVERIFIED]</a></td>
+      <td>Aurivita PDP customer reviews (warmer hands/feet, steadier energy)</td><td>4.6★</td><td>996r</td>
+      <td>2026-09-12</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/up3upg/best_supplements_for_blood_flow/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>Best supplements for blood flow (always cold, hands/feet, Raynaud&#x27;s)</td><td>68 up</td><td>130c</td>
+      <td>2022-05-13</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/1ihmx63/what_supplements_can_help_with_poor_blood/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>What supplements can help with poor blood circulation? (cold, sallow)</td><td>10 up</td><td>57c</td>
+      <td>2025-02-04</td><td><span class="badge depth-scan">Scanned</span></td><td>P5</td></tr><tr><td><a href="https://www.boltpharmacy.co.uk/guide/best-cayenne-pepper-pills-for-weight-loss" target="_blank" rel="noopener">BoltPharmacy (analysis)</a></td>
+      <td>Cayenne pepper pills guide (proprietary-blend / GMP / lot-number trust checklist)</td><td>analysis</td><td>—</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://malwaretips.com/blogs/aurivita-cayenne-pepper-softgels-exposed-scam-or-legit-investigation/" target="_blank" rel="noopener">MalwareTips (analysis)</a></td>
+      <td>&#x27;Aurivita Cayenne Softgels: Scam or Legit?&#x27; investigation (dropship/funnel critique)</td><td>analysis</td><td>—</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://shopnutrapure.com/products/cayennepepperliquiddrops" target="_blank" rel="noopener">NutraPure listing</a></td>
+      <td>V-Flow Cayenne Liquid Drops (direct clone: heart+ED+partner positioning, 3884 reviews)</td><td>4.7★</td><td>3884r</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.walmart.com/reviews/product/341094853" target="_blank" rel="noopener">Walmart review</a></td>
+      <td>Carlyle Cayenne reviews (&#x27;improved my circulation, repeat buyer&#x27;)</td><td>4.x★</td><td>30r</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://wellwhisk.com/best-cayenne-pepper-supplement/" target="_blank" rel="noopener">WellWhisk (analysis)</a></td>
+      <td>5 Best Cayenne Pepper Supplements (SHU/standardized-capsaicin dosing guide)</td><td>analysis</td><td>—</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.iherb.com/r/swanson-cayenne-450-mg-300-capsules/118358" target="_blank" rel="noopener">iHerb/Swanson review</a></td>
+      <td>Swanson Cayenne 450mg reviews (circulation, warming, no burn with food)</td><td>4.x★</td><td>many</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P6</td></tr><tr><td><a href="https://www.dietvsdisease.org/superbeets-review/" target="_blank" rel="noopener">DietVsDisease/199flags review</a></td>
+      <td>SuperBeets review aggregations (cost, no-result, beeturia/GI side effects)</td><td>3.x★</td><td>670+</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.garagegymreviews.com/superbeets-review" target="_blank" rel="noopener">GarageGym/BarBend review</a></td>
+      <td>SuperBeets expert reviews (taste 2/5 &#x27;gross&#x27;, pricey, no 3rd-party testing)</td><td>2-4★</td><td>—</td>
+      <td>2026</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/Biohackers/comments/1vj8avh/beetroot_powder_vs_lcitrulline_citrulline_malate/" target="_blank" rel="noopener">r/Biohackers</a></td>
+      <td>Beetroot powder vs L-Citrulline/Citrulline Malate (cross-post)</td><td>17 up</td><td>12c</td>
+      <td>2026-08-08</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/1vj89g3/beetroot_powder_vs_lcitrulline_citrulline_malate/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>Beetroot powder vs L-Citrulline/Citrulline Malate (tolerance, ran-both)</td><td>45 up</td><td>22c</td>
+      <td>2026-08-08</td><td><span class="badge depth-full">Full pull</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/1elkaiv/side_effects_after_stopping_lcitrulline/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>Side effects after stopping L-citrulline (numbness/rebound)</td><td>2 up</td><td>5c</td>
+      <td>2024-08-06</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/1wg5zd4/spent_two_years_testing_supplements_heres_what/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>Spent two years testing supplements — most were &#x27;expensive hope&#x27;</td><td>209 up</td><td>171c</td>
+      <td>2026-09-14</td><td><span class="badge depth-scan">Scanned</span></td><td>P8</td></tr><tr><td><a href="https://www.walmart.com/reviews/product/24813287" target="_blank" rel="noopener">Walmart review (Kyolic)</a></td>
+      <td>Kyolic reviews (30-yr users, age-78 loyal user, odor-free)</td><td>4.x★</td><td>58+</td>
+      <td>2026-09-10</td><td><span class="badge depth-scan">Scanned</span></td><td>P9</td></tr><tr><td><a href="https://www.iherb.com/r/kyolic-aged-garlic-extract-cholesterol-health-formula-104-300-capsules/51891" target="_blank" rel="noopener">iHerb review (Kyolic)</a></td>
+      <td>Kyolic Aged Garlic Extract reviews (odorless, BP/cholesterol, pill count)</td><td>4.x★</td><td>many</td>
+      <td>2026-09-10</td><td><span class="badge depth-scan">Scanned</span></td><td>P9</td></tr><tr><td><a href="https://www.reddit.com/r/Cholesterol/comments/1u8cq18/aged_garlic_worth_taking/" target="_blank" rel="noopener">r/Cholesterol</a></td>
+      <td>Aged garlic worth taking? (statin-intolerant husband, stacking)</td><td>1 up</td><td>34c</td>
+      <td>2026-06-17</td><td><span class="badge depth-scan">Scanned</span></td><td>P9</td></tr><tr><td><a href="https://www.reddit.com/r/Cholesterol/comments/127rja3/best_way_to_lower_my_high/" target="_blank" rel="noopener">r/Cholesterol</a></td>
+      <td>Garlic supplements for cholesterol? (enteric/black vs regular)</td><td>5 up</td><td>7c</td>
+      <td>2023-03-31</td><td><span class="badge depth-scan">Scanned</span></td><td>P9</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/1wert2a/aged_garlic_supplement/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>Aged Garlic supplement (arterial sclerosis, &#x27;am I feeling it work?&#x27;)</td><td>24 up</td><td>14c</td>
+      <td>2026-09-12</td><td><span class="badge depth-scan">Scanned</span></td><td>P9</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/pi07n4/garlic_supplement_for_heartlipids/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>Garlic supplement for heart/lipids (allicin confusion, dosing up)</td><td>2 up</td><td>12c</td>
+      <td>2021-09-04</td><td><span class="badge depth-scan">Scanned</span></td><td>P9</td></tr><tr><td><a href="https://www.reddit.com/r/Supplements/comments/1ldulfn/will_i_stink_if_i_take_this_garlic_supplement/" target="_blank" rel="noopener">r/Supplements</a></td>
+      <td>Will I stink if I take this garlic supplement? (odor)</td><td>5 up</td><td>32c</td>
+      <td>2025-06-17</td><td><span class="badge depth-scan">Scanned</span></td><td>P9</td></tr></tbody></table></div>
+</section></div>
+  </div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs .tab'),panels=document.querySelectorAll('#deck .panel');
+  function show(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-tab')===id?'true':'false');});
+    panels.forEach(function(p){p.classList.toggle('active',p.getAttribute('data-panel')===id);});window.scrollTo({top:0,behavior:'smooth'});}
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-tab'));});});
+})();
+</script>
+<footer style="max-width:1140px;margin:48px auto 0;padding:22px var(--pad) 40px;border-top:1px solid rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--font);font-size:12px;color:#5c6a88;">
+  <span style="letter-spacing:.02em;">Ad Pros &middot; Brand Intelligence &middot; Internal</span>
+  <span>Published by Omar &middot; September 18, 2026</span>
+</footer>
+</body>
+</html>
