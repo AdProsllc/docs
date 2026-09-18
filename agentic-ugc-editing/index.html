@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Block search engines per-bot. NEVER use a blanket robots tag — that
+       blocks ClaudeBot/Claude-User/Claude-SearchBot, which we WANT so the
+       team can paste docs.adpros.com URLs into Claude chat. -->
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="slurp" content="noindex, nofollow">
+  <meta name="duckduckbot" content="noindex, nofollow">
+  <meta name="baiduspider" content="noindex, nofollow">
+  <meta name="yandex" content="noindex, nofollow">
+  <meta name="author" content="Nehal">
+  <title>Agentic UGC Editing — Ad Pros</title>
+  <!-- Favicon: SVG (modern), Apple touch icon (iOS), and theme color (mobile
+       browser chrome). favicon.svg lives at the docs repo root; Step 7
+       guarantees it's present before push. Never remove these tags — the
+       AdPros mark in the tab is non-negotiable brand. -->
+  <!-- Same favicon files served at the root of docs.adpros.com — these are
+       the actual PNGs used by www.adpros.com, so the docs tab and the main
+       site tab show the exact same mark. Do not swap to /favicon.svg; the
+       SVG version of our logo has tighter letter-bounds padding than the
+       main-site PNG and renders visually larger in the browser tab. -->
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="mask-icon" href="/favicon.svg" color="#040735">
+  <meta name="theme-color" content="#040735">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      /* Color tokens */
+      --navy: #040735; --navy-deep: #02041f; --navy-card: #070b3d; --navy-card-hover: #0a1050;
+      --yellow: #F9D900; --yellow-dim: #DFC200;
+      --blue: #1A6FD4; --blue-light: #3BA9F9;
+      --white: #FFFFFF;
+      --grey-400: #54556A; --grey-300: #8A8B93; --grey-200: #B0B1B6; --grey-100: #E6E6E7;
+      --card-border: #0e1358; --card-border-strong: #1a2375;
+      --success: #0F973D; --error: #D42620;
+      --radius: 10px;
+      /* Spacing scale (4px base) */
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+    }
+    html { scroll-behavior: smooth; }
+    /* Power Grotesk preferred (if installed locally), Inter is the loaded fallback */
+    body {
+      background: var(--navy); color: var(--grey-200);
+      font-family: "Power Grotesk", "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px; line-height: 1.6; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+
+    /* === TYPE SCALE === */
+    .ap-display    { font-size: clamp(40px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; }
+    .ap-display em { font-style: normal; color: var(--yellow); }
+    .ap-h1         { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: #fff; }
+    .ap-h2         { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: #fff; }
+    .ap-h3         { font-size: 24px; font-weight: 600; line-height: 1.2; color: #fff; }
+    .ap-h4         { font-size: 20px; font-weight: 600; line-height: 1.3; color: #fff; }
+    .ap-h5         { font-size: 16px; font-weight: 600; line-height: 1.4; color: #fff; }
+    .ap-h6         { font-size: 14px; font-weight: 500; line-height: 1.4; color: #fff; }
+    .ap-p-lg       { font-size: 18px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p          { font-size: 16px; line-height: 1.6; color: var(--grey-200); }
+    .ap-p-sm       { font-size: 14px; line-height: 1.5; color: var(--grey-200); }
+    .ap-caption    { font-size: 12px; line-height: 1.5; color: var(--grey-300); }
+    .ap-kicker     { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: var(--space-6); }
+    .ap-kicker::before { content: ""; width: 18px; height: 2px; background: var(--yellow); }
+
+    /* === HEADER === */
+    .ap-header { background: var(--navy); border-bottom: 4px solid var(--yellow); padding: 28px 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .ap-header-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+    .ap-header-text h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .ap-header-text p  { font-size: 13px; color: var(--grey-300); margin-top: 3px; }
+
+    /* === LAYOUT === */
+    .ap-content { padding: 40px 48px; max-width: 1200px; margin: 0 auto; }
+    .ap-section { padding: var(--space-16) 0; border-top: 1px solid var(--card-border); }
+    .ap-section:first-of-type { border-top: none; }
+    .ap-section-label { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--grey-300); margin-bottom: var(--space-3); letter-spacing: 0.5px; }
+    .ap-section-label .num { color: var(--yellow); font-weight: 600; }
+    .ap-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    .ap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    .ap-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: repeat(2, 1fr); } .ap-grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .ap-grid-3, .ap-grid-4 { grid-template-columns: 1fr; } }
+
+    /* === CARDS === */
+    .ap-card { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: var(--space-6); }
+    .ap-card-hover:hover { background: var(--navy-card-hover); border-color: var(--yellow); }
+
+    /* === STAT === */
+    .ap-stat { background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 20px; text-align: center; }
+    .ap-stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); letter-spacing: -1.5px; line-height: 1; }
+    .ap-stat-label { font-size: 12px; color: var(--grey-300); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    /* === VALUE / NUMBERED ROW === */
+    .ap-value { display: grid; grid-template-columns: 72px 1fr; gap: 20px; background: var(--navy-card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+    .ap-value-num { background: var(--yellow); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 24px; }
+    .ap-value-body { padding: 20px 24px; }
+    .ap-value-body h4 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .ap-value-body p  { font-size: 14px; color: var(--grey-200); line-height: 1.55; }
+
+    /* === BUTTONS === */
+    .btn-primary { background: var(--yellow); color: var(--navy); border: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background .15s; }
+    .btn-primary:hover { background: var(--yellow-dim); }
+    .btn-secondary { background: var(--navy); color: var(--yellow); border: 1.5px solid var(--yellow); padding: 10.5px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; transition: background .15s, color .15s; }
+    .btn-secondary:hover { background: var(--yellow); color: var(--navy); }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid var(--card-border-strong); padding: 10.5px 22px; border-radius: 8px; font-weight: 500; font-size: 14px; font-family: inherit; cursor: pointer; transition: border-color .15s; }
+    .btn-ghost:hover { border-color: var(--grey-300); }
+
+    /* === FORM FIELDS === */
+    .ap-input-label { display: block; font-size: 12px; color: var(--grey-300); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .ap-input { width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid var(--card-border-strong); border-radius: 8px; color: #fff; font-size: 14px; font-family: inherit; outline: none; transition: border-color .15s; }
+    .ap-input:focus { border-color: var(--blue); }
+    .ap-input.error { border-color: var(--error); }
+    .ap-input.success { border-color: var(--success); }
+
+    /* === TOASTS === */
+    .toast { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 3px solid; }
+    .toast-success { background: rgba(15,151,61,0.1);  border-color: var(--success); color: #b6f2ce; }
+    .toast-error   { background: rgba(212,38,32,0.1);  border-color: var(--error);   color: #ffbdbb; }
+    .toast-warn    { background: rgba(249,217,0,0.08); border-color: var(--yellow);  color: #ffe57d; }
+    .toast-info    { background: rgba(26,111,212,0.1); border-color: var(--blue);    color: #b1d5ff; }
+
+    /* === CALLOUT === */
+    .ap-callout { background: rgba(26,111,212,0.1); border: 1px solid rgba(26,111,212,0.4); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 8px; font-size: 14px; color: var(--grey-100); }
+    .ap-callout strong { color: #fff; display: block; margin-bottom: 4px; }
+
+    /* === LINKS === */
+    a { color: var(--blue-light); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--yellow); }
+
+    /* === FOOTER === */
+    .ap-footer { margin: 64px 48px 32px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ap-footer-left { display: flex; align-items: center; gap: 14px; }
+    .ap-footer p { font-size: 12px; color: var(--grey-300); }
+    .ap-footer-meta { font-size: 11px; color: var(--grey-400); }
+
+    /* === CLIENT SIDEBAR (collapsible left rail — only rendered on client pages) === */
+    .ap-sidebar {
+      position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
+      background: var(--navy-deep); border-right: 1px solid var(--card-border);
+      z-index: 100; display: flex; flex-direction: column;
+      transform: translateX(0); transition: transform .25s ease;
+      overflow-y: auto;
+    }
+    .ap-sidebar.collapsed { transform: translateX(-100%); }
+    .ap-sidebar-header {
+      padding: 24px 20px 16px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ap-sidebar-brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .ap-sidebar-brand-text { min-width: 0; }
+    .ap-sidebar-brand-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.2px; line-height: 1.2; }
+    .ap-sidebar-brand-sub { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+    .ap-sidebar-section {
+      padding: 18px 20px 8px;
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .ap-sidebar-list { padding: 0 12px 20px; display: grid; gap: 4px; }
+    .ap-sidebar-item {
+      display: block; padding: 12px 14px; border-radius: 8px;
+      color: var(--grey-100); text-decoration: none;
+      transition: background .12s;
+      border-left: 2px solid transparent;
+    }
+    .ap-sidebar-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .ap-sidebar-item.current { background: rgba(249,217,0,0.08); border-left-color: var(--yellow); padding-left: 12px; }
+    .ap-sidebar-item-title { font-size: 14px; font-weight: 500; line-height: 1.3; color: #fff; }
+    .ap-sidebar-item.current .ap-sidebar-item-title { color: var(--yellow); }
+    .ap-sidebar-item-date { font-size: 11px; color: var(--grey-300); margin-top: 3px; }
+
+    /* Chevron toggle — visible in BOTH states. Sits at the sidebar's right
+       edge when open, slides to viewport left edge when closed. Chevron flips
+       180° based on body state class. */
+    .ap-sidebar-toggle {
+      /* top: 170px sits well below the 108px-tall page header so the toggle
+         has clear vertical separation from the AdPros logo when the sidebar
+         is closed. Slim 22px width keeps it unobtrusive. */
+      position: fixed; top: 170px; left: 280px; z-index: 101;
+      width: 22px; height: 56px; padding: 0;
+      background: var(--navy-card); color: var(--grey-200);
+      border: 1.5px solid rgba(249,217,0,0.4);
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: left .25s ease, background .15s, color .15s, border-color .15s, box-shadow .15s;
+    }
+    .ap-sidebar-toggle:hover { background: var(--yellow); color: var(--navy); border-color: var(--yellow); box-shadow: 4px 0 0 0 rgba(249,217,0,0.15); }
+    .ap-sidebar-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle { left: 0; }
+    body:not(.ap-has-sidebar) .ap-sidebar-toggle svg { transform: rotate(180deg); }
+
+    /* When sidebar is open on desktop, push the rest of the page right. */
+    body.ap-has-sidebar { padding-left: 280px; transition: padding-left .25s ease; }
+
+    /* Mobile: sidebar overlays instead of pushing content; backdrop dims behind it. */
+    @media (max-width: 900px) {
+      body.ap-has-sidebar { padding-left: 0; }
+      .ap-sidebar { box-shadow: 12px 0 32px rgba(0,0,0,0.5); width: min(320px, 88vw); }
+      body.ap-has-sidebar .ap-sidebar-toggle { left: min(320px, 88vw); }
+    }
+
+    /* === FLOATING TOC (auto-builds on viewport ≥1280px when 4+ .ap-section[id] elements exist) === */
+    .ap-toc {
+      position: fixed; top: 130px; right: 32px; z-index: 50;
+      width: 200px; max-height: calc(100vh - 180px); overflow-y: auto;
+      padding: 4px 0 4px 18px;
+      border-left: 1px solid var(--card-border);
+      display: none;
+    }
+    .ap-toc.visible { display: block; }
+    .ap-toc-label {
+      font-size: 11px; font-weight: 600; color: var(--grey-300);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+    .ap-toc-list { list-style: none; padding: 0; margin: 0; }
+    .ap-toc-item {
+      display: block; padding: 7px 0 7px 16px;
+      font-size: 12.5px; line-height: 1.35;
+      color: var(--grey-300); text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -20px;
+      transition: color .15s, border-color .15s;
+    }
+    .ap-toc-item:hover { color: #fff; }
+    .ap-toc-item.active {
+      color: var(--yellow);
+      border-left-color: var(--yellow);
+      font-weight: 500;
+    }
+    /* When TOC is rendered, body gets right-padding to make room for it (only at ≥1280px). */
+    @media (min-width: 1280px) {
+      body.ap-has-toc { padding-right: 232px; transition: padding-right .25s ease; }
+    }
+    @media (max-width: 1279px) {
+      .ap-toc { display: none !important; }
+    }
+
+    @media (max-width: 640px) {
+      /* Bump side padding from 20px to 28px so content has breathing room
+         on phones — text isn't flush against the viewport edge. */
+      .ap-header, .ap-content { padding-left: 28px; padding-right: 28px; }
+      .ap-footer { margin-left: 28px; margin-right: 28px; }
+      .ap-h1 { font-size: 32px; } .ap-h2 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="ap-toc" id="ap-toc" aria-label="On this page">
+  <div class="ap-toc-label">On this page</div>
+  <ol class="ap-toc-list" id="ap-toc-list"></ol>
+</nav>
+<script>
+(function(){
+  var toc = document.getElementById('ap-toc');
+  var list = document.getElementById('ap-toc-list');
+  if(!toc || !list) return;
+
+  // Auto-discover sections — any .ap-section with an id attribute.
+  // Override the auto-detected label by setting data-toc-title on the section.
+  var sections = Array.from(document.querySelectorAll('.ap-section[id]'));
+
+  // Hide TOC entirely if there aren't enough sections to justify navigation.
+  if(sections.length < 4) return;
+
+  sections.forEach(function(sec){
+    var label = sec.getAttribute('data-toc-title')
+      || (sec.querySelector('h2, h3') ? sec.querySelector('h2, h3').textContent.trim() : sec.id);
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.className = 'ap-toc-item';
+    a.href = '#' + sec.id;
+    a.textContent = label;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
+  toc.classList.add('visible');
+  document.body.classList.add('ap-has-toc');
+
+  // Smooth-scroll on click, with an 80px header offset.
+  list.addEventListener('click', function(ev){
+    var a = ev.target.closest('.ap-toc-item');
+    if(!a) return;
+    ev.preventDefault();
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + id);
+  });
+
+  // Scrollspy — highlight the section whose top is closest to the activation band.
+  var items = Array.from(list.querySelectorAll('.ap-toc-item'));
+  function setActive(id){
+    items.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+  var observer = new IntersectionObserver(function(entries){
+    var visible = entries.filter(function(e){ return e.isIntersecting; })
+                         .sort(function(a, b){ return a.boundingClientRect.top - b.boundingClientRect.top; });
+    if(visible.length > 0) setActive(visible[0].target.id);
+  }, { rootMargin: '-100px 0px -70% 0px' });
+  sections.forEach(function(s){ observer.observe(s); });
+
+  // Set initial active state on load (highest visible section, or first one).
+  var initialActive = sections.find(function(s){
+    var r = s.getBoundingClientRect();
+    return r.top < window.innerHeight * 0.3 && r.bottom > 0;
+  });
+  if(initialActive) setActive(initialActive.id);
+})();
+</script>
+  <header class="ap-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="48" height="48">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+
+    <div class="ap-header-divider"></div>
+    <div class="ap-header-text">
+      <h1>Agentic UGC Editing</h1>
+      <p>Tools, cost breakdown, build path and FAQ &middot; Internal briefing</p>
+    </div>
+  </header>
+  <div class="ap-content">
+    
+<section class="ap-section" id="why" data-toc-title="Why this matters">
+  <div class="ap-kicker">The short version</div>
+  <h2 class="ap-h2">Editing is the bottleneck now, not footage</h2>
+  <p class="ap-p-lg" style="margin-top:16px;max-width:820px;">AI generation made raw creator footage cheap. The edit didn't get cheaper. Every UGC ad still passes through a human timeline, and that is where our creative volume caps out. This page lays out what agentic editing is, who sells it, what it costs at our scale, and what we should do about it.</p>
+  <div class="ap-grid-4" style="margin-top:32px;">
+    <div class="ap-stat"><div class="ap-stat-num">$21</div><div class="ap-stat-label">Editor cost per ad today</div></div>
+    <div class="ap-stat"><div class="ap-stat-num">$5</div><div class="ap-stat-label">All-in per ad with an agent</div></div>
+    <div class="ap-stat"><div class="ap-stat-num">$1.6k</div><div class="ap-stat-label">Monthly saving at 100 ads</div></div>
+    <div class="ap-stat"><div class="ap-stat-num">~6 mo</div><div class="ap-stat-label">Payback on a $10k build</div></div>
+  </div>
+  <div class="ap-callout" style="margin-top:24px;"><strong>Definition</strong>Agentic editing means an AI reads raw footage, decides what to keep, assembles a timeline, and hands back a rough cut. It is not text-to-video generation and it is not auto-captioning. The agent makes editorial decisions.</div>
+</section>
+
+<section class="ap-section" id="tools" data-toc-title="Tools landscape">
+  <div class="ap-section-label"><span class="num">01</span> Market</div>
+  <h2 class="ap-h2">The tools, and which ones actually fit us</h2>
+  <p class="ap-p" style="margin:16px 0 24px;max-width:820px;">The category splits into five segments. Only two solve our problem; the rest are adjacent and easy to confuse with it.</p>
+  <div class="ap-value"><div class="ap-value-num">A</div><div class="ap-value-body"><h4>Agentic workflow canvases &mdash; Mosaic</h4><p>Build a reusable edit graph once, run it on autopilot, A/B multiple variants from the same raw footage. REST API and webhooks. The only tool that natively does one shoot to many variants. YC W25, $3.8M raised. Entry plan reported around $50/mo with a 120-minute upload cap; confirm pricing directly, it is not publicly listed.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">B</div><div class="ap-value-body"><h4>Pro rough-cut agents &mdash; Eddie AI</h4><p>Raw footage in, structured rough cut out, round-tripped to Premiere, Resolve, Final Cut and Avid. 50,000+ users. Now ships a headless SDK, a CLI and roughly 100 MCP tools callable from Claude. Pay-as-you-go credits that never expire: $10 per 1,000 up to $350 per 50,000. Import runs about 500 credits per hour of source. 1,000 free credits on signup.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">C</div><div class="ap-value-body"><h4>Agent + NLE scripting &mdash; DaVinci Resolve 21.1</h4><p>Resolve now has native AI editing with Claude and ChatGPT plus a full Python API. Free, or $295 one-time for Studio. Footage stays on our machines. This is the build path described below.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">D</div><div class="ap-value-body"><h4>Chat-directed editors &mdash; Valmera, Cardboard, Descript Underlord, Loopdesk</h4><p>Describe the edit in plain English on uploaded footage. Good UX, but one deliverable per request and no variant matrix. Subscriptions from $15 to $120/mo with weekly and monthly usage caps that agency volume will hit.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">E</div><div class="ap-value-body"><h4>Not the same job &mdash; OpusClip, Reap, Klap, Creatify, Arcads</h4><p>Clipping tools pick moments out of finished video; they do not assemble from raw. Generation tools make synthetic footage; they do not edit ours. Both are useful, neither is agentic editing.</p></div></div>
+  <div class="ap-grid-3" style="margin-top:24px;">
+    <div class="ap-card"><h5 class="ap-h5">MCP is the standard</h5><p class="ap-p-sm" style="margin-top:8px;">Eddie, Descript, Valmera and Reap all publish MCP access. Anything we build should assume MCP as the interface, which also makes switching vendors cheap.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Metered beats capped</h5><p class="ap-p-sm" style="margin-top:8px;">Eddie and TwelveLabs meter usage. Mosaic, Cardboard and Valmera cap it. Our volume is lumpy; a shoot-heavy month blows through caps.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Nobody scores against ROAS</h5><p class="ap-p-sm" style="margin-top:8px;">Every tool stops at producing the cut. Joining variants to Northbeam and Triple Whale data is unclaimed ground and the only part that compounds.</p></div>
+  </div>
+</section>
+
+<section class="ap-section" id="cost" data-toc-title="Cost breakdown">
+  <div class="ap-section-label"><span class="num">02</span> Economics</div>
+  <h2 class="ap-h2">What one ad costs, and what a hundred cost</h2>
+  <p class="ap-p" style="margin:16px 0 24px;max-width:820px;">Assumptions: a 1-minute finished ad from 2 minutes of raw footage, 10 variants per master, editor cost $14/hr, 1.5 hours per ad today, 20 minutes of human review after the agent.</p>
+  <div class="ap-card" style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <thead><tr style="border-bottom:1px solid var(--card-border-strong);text-align:left;">
+        <th style="padding:10px 12px;color:var(--grey-300);font-weight:600;">Line</th><th style="padding:10px 12px;color:var(--grey-300);font-weight:600;">1 video</th><th style="padding:10px 12px;color:var(--grey-300);font-weight:600;">100 videos</th><th style="padding:10px 12px;color:var(--grey-300);font-weight:600;">Note</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Transcribe + tag</td><td style="padding:10px 12px;">$0.02</td><td style="padding:10px 12px;">$2</td><td style="padding:10px 12px;color:var(--grey-300);">Whisper + Gemini Flash</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Decide (EDL)</td><td style="padding:10px 12px;">$0.10</td><td style="padding:10px 12px;">$10</td><td style="padding:10px 12px;color:var(--grey-300);">One Claude call, ~20k tokens</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Resolve on GPU VM</td><td style="padding:10px 12px;">$0.25</td><td style="padding:10px 12px;">$6</td><td style="padding:10px 12px;color:var(--grey-300);">Spin-up dominates at N=1; batch daily</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Verify (vision)</td><td style="padding:10px 12px;">$0.05</td><td style="padding:10px 12px;">$5</td><td style="padding:10px 12px;color:var(--grey-300);">Frame strip review</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Variant fan-out, 10 ads</td><td style="padding:10px 12px;">$0.20</td><td style="padding:10px 12px;">$20</td><td style="padding:10px 12px;color:var(--grey-300);">Remotion / FFmpeg on CPU</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Storage + transfer</td><td style="padding:10px 12px;">$0.05</td><td style="padding:10px 12px;">$5</td><td style="padding:10px 12px;color:var(--grey-300);">2 min of 4K is 1&ndash;2 GB</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border-strong);background:rgba(249,217,0,0.05);"><td style="padding:10px 12px;color:var(--yellow);font-weight:700;">Build path compute</td><td style="padding:10px 12px;color:var(--yellow);font-weight:700;">~$0.65</td><td style="padding:10px 12px;color:var(--yellow);font-weight:700;">~$50</td><td style="padding:10px 12px;color:var(--grey-300);">Roughly $0.50 per video at scale</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Eddie path (buy)</td><td style="padding:10px 12px;">$2&ndash;3</td><td style="padding:10px 12px;">$200&ndash;300</td><td style="padding:10px 12px;color:var(--grey-300);">~17 import credits + an edit run</td></tr>
+        <tr style="border-bottom:1px solid var(--card-border);"><td style="padding:10px 12px;color:#fff;">Human review after agent (20 min)</td><td style="padding:10px 12px;">$4.67</td><td style="padding:10px 12px;">$467</td><td style="padding:10px 12px;color:var(--grey-300);">Now the largest line by far</td></tr>
+        <tr><td style="padding:10px 12px;color:#fff;">Human editor today (1.5 hr)</td><td style="padding:10px 12px;">$21</td><td style="padding:10px 12px;">$2,100</td><td style="padding:10px 12px;color:var(--grey-300);">Status quo</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ap-grid-3" style="margin-top:24px;">
+    <div class="ap-stat"><div class="ap-stat-num">$5.30</div><div class="ap-stat-label">Build path, all-in per ad</div></div>
+    <div class="ap-stat"><div class="ap-stat-num">$7.20</div><div class="ap-stat-label">Eddie path, all-in per ad</div></div>
+    <div class="ap-stat"><div class="ap-stat-num">$21</div><div class="ap-stat-label">Status quo per ad</div></div>
+  </div>
+  <div class="ap-grid-2" style="margin-top:24px;">
+    <div class="ap-card"><h5 class="ap-h5">What the numbers say</h5><ul class="ap-p-sm" style="margin:10px 0 0 18px;line-height:1.7;"><li>Compute is basically free. Review is 90% of the all-in cost on either path.</li><li>The build-vs-buy gap is about $2 per ad, or $200 a month. Not enough to justify owning a pipeline on cost alone.</li><li>Every minute shaved off review is worth more than the entire build-vs-buy difference.</li><li>Variants scale only the fan-out line. 30 variants instead of 10 adds about $0.40 per master.</li></ul></div>
+    <div class="ap-card"><h5 class="ap-h5">Flagged assumptions</h5><ul class="ap-p-sm" style="margin:10px 0 0 18px;line-height:1.7;"><li>Eddie edit-credit cost per ad is our estimate. Eddie publishes import cost only; edit runs are priced by work done. Replace with pilot data.</li><li>Mosaic pricing comes from a competitor review site, not Mosaic.</li><li>If today's manual edit is actually 20 minutes rather than 1.5 hours, the status quo is $4.67 per ad and the case collapses to break-even. Confirm the real number first.</li></ul></div>
+  </div>
+</section>
+
+<section class="ap-section" id="build" data-toc-title="Build path">
+  <div class="ap-section-label"><span class="num">03</span> Architecture</div>
+  <h2 class="ap-h2">The build path: agent + Resolve</h2>
+  <p class="ap-p" style="margin:16px 0 24px;max-width:820px;">If we own the pipeline, this is the shape. The agent never clicks buttons; it calls Resolve's API with an edit decision list. Deterministic, inspectable, and the expensive GPU step runs once per shoot.</p>
+  <div class="ap-value"><div class="ap-value-num">1</div><div class="ap-value-body"><h4>Footage bucket</h4><p>Creators upload once to an S3 or R2 bucket per client. Nothing ever moves through a chat window.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">2</div><div class="ap-value-body"><h4>Understand</h4><p>Whisper transcribes, Gemini or TwelveLabs tags moments: hook, demo, objection, proof, CTA. Output is a timestamped table.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">3</div><div class="ap-value-body"><h4>Decide</h4><p>Claude reads the brief and our creative rubric, picks clips, writes an EDL as JSON: source, in, out, track, order. This is where our IP lives.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">4</div><div class="ap-value-body"><h4>Resolve on a GPU VM</h4><p>Resolve's Python API builds the timeline from the EDL, drops the client brand kit, renders a master cut. Spin the VM up per batch, kill it after. About $1/hr.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">5</div><div class="ap-value-body"><h4>Verify</h4><p>The agent exports a frame strip, reviews it, and fixes obvious misses before a human sees anything.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">6</div><div class="ap-value-body"><h4>Hand-off and fan-out</h4><p>Master cut and project file go to review (Frame.io, Drive or Slack). Approve sends it to Remotion for 10&ndash;30 variants on cheap CPU. Fix opens a 90%-done timeline for an editor, and the diff is logged as rubric training data.</p></div></div>
+  <div class="ap-value"><div class="ap-value-num">7</div><div class="ap-value-body"><h4>Scored library</h4><p>Every clip and variant lands in Supabase with its performance joined from Northbeam and Triple Whale. The Decide step gets smarter every month. No vendor sells this.</p></div></div>
+  <div class="ap-grid-2" style="margin-top:24px;">
+    <div class="ap-card"><h5 class="ap-h5">Why Resolve, not Premiere</h5><p class="ap-p-sm" style="margin-top:8px;">Adobe's per-named-user licensing restricts installs on shared or virtual servers without an enterprise agreement. Ten Premiere instances on rented VMs is a legal conversation. Resolve is free, Studio is $295 perpetual, and its Python API is more complete.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Why not a computer-use agent</h5><p class="ap-p-sm" style="margin-top:8px;">Tools like Grok Bot run on a cloud microVM with no GPU and no local footage. Driving an NLE through screenshots is the slowest, most fragile interface to video. Every NLE we care about has an API; use it.</p></div>
+  </div>
+</section>
+
+<section class="ap-section" id="recommendation" data-toc-title="Recommendation">
+  <div class="ap-section-label"><span class="num">04</span> Decision</div>
+  <h2 class="ap-h2">What we should do</h2>
+  <div class="ap-grid-3" style="margin-top:24px;">
+    <div class="ap-card ap-card-hover"><div class="ap-kicker">Now</div><h5 class="ap-h5">Run a two-week pilot</h5><p class="ap-p-sm" style="margin-top:8px;">Same creator shoot through Eddie and Mosaic. Score both on the eval checklist below. Under $200 all in. Log every edit our team makes after the agent's cut.</p></div>
+    <div class="ap-card ap-card-hover"><div class="ap-kicker">Regardless</div><h5 class="ap-h5">Start the clip library</h5><p class="ap-p-sm" style="margin-top:8px;">Transcription plus tagging into Supabase is cheap, useful whichever tool wins, and the asset compounds from day one.</p></div>
+    <div class="ap-card ap-card-hover"><div class="ap-kicker">After the pilot</div><h5 class="ap-h5">Decide build vs buy from data</h5><p class="ap-p-sm" style="margin-top:8px;">The edit log tells us which part of the edit agents actually fail at. Build the rubric there. Rent the editing until the gap is proven.</p></div>
+  </div>
+  <div class="ap-card" style="margin-top:24px;">
+    <h5 class="ap-h5">Pilot eval checklist</h5>
+    <p class="ap-p-sm" style="margin:8px 0 12px;">Score 1&ndash;5 or pass/fail per tool. Same footage, same brief, same week.</p>
+    <div class="ap-grid-2">
+      <ul class="ap-p-sm" style="margin-left:18px;line-height:1.8;"><li>Hook selection: strongest opening 2 seconds?</li><li>Meaning preserved: no altered claims, no invented speech</li><li>Cut quality: clipped words, awkward gaps</li><li>Captions: names, numbers, timing on the rendered file</li><li>Framing: face and demo visible in 9:16</li></ul>
+      <ul class="ap-p-sm" style="margin-left:18px;line-height:1.8;"><li>Revision control: change one thing, preserve the rest</li><li>Brand kit fidelity without manual reapplication</li><li>Variants: 10 from one source without 10 manual runs</li><li>Time to accepted final, and active review minutes</li><li>Cost per accepted ad, the only cost number that matters</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="ap-section" id="faq" data-toc-title="FAQ">
+  <div class="ap-section-label"><span class="num">05</span> Questions</div>
+  <h2 class="ap-h2">FAQ</h2>
+  <div style="margin-top:24px;display:grid;gap:12px;">
+    <div class="ap-card"><h5 class="ap-h5">Is this replacing our editors?</h5><p class="ap-p-sm" style="margin-top:8px;">No. It replaces starting from raw footage. Editors move to reviewing and adjusting a 90%-done timeline, which is where 1.5 hours per ad becomes 10&ndash;20 minutes. Their judgement becomes the rubric the agent learns from.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Why not just use Creatify or Arcads and skip editing entirely?</h5><p class="ap-p-sm" style="margin-top:8px;">Those generate synthetic footage; they do not edit real creator footage. One practitioner test put AI UGC at 2.3&ndash;2.7% CTR versus 3.0&ndash;3.5% for human UGC. Synthetic wins on volume and loses on top-end performance. Different tool, different job.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Why buy first if building is cheaper per ad?</h5><p class="ap-p-sm" style="margin-top:8px;">Because the gap is $2 per ad and we do not yet know where the agent breaks. Running 20 real jobs through a bought tool tells us which part is worth owning. You cannot spec a rubric for a failure mode you have not watched happen.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">What is an EDL and why does it matter?</h5><p class="ap-p-sm" style="margin-top:8px;">An edit decision list: a machine-readable record of which clip, which frames, which track, in which order. It is the contract between the agent's decision and the render. You can diff two EDLs; you cannot diff two click-streams.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Could Grok Bot or another computer-use agent just drive Premiere?</h5><p class="ap-p-sm" style="margin-top:8px;">Technically yes, practically no. It runs in a cloud microVM with no GPU and none of our footage, and it can only run one computer-use task per screen. YouTube traffic on this topic is entirely agent-plus-MCP into Resolve or Premiere, not screenshot-driving; several videos on that passed 150k&ndash;300k views in the last two weeks.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Where does client footage live and who can see it?</h5><p class="ap-p-sm" style="margin-top:8px;">In our own bucket, one per client. Eddie and Mosaic require upload to their cloud; the Resolve build path keeps footage on infrastructure we control. That is a factor for clients with strict usage terms on creator content.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">What is the single biggest risk?</h5><p class="ap-p-sm" style="margin-top:8px;">That we over-invest in the editing layer. Adobe, Blackmagic and Avid own the timeline and are adding agents; assume the base layer commoditises within 18&ndash;24 months. Build the scoring rubric and the performance-joined library. Rent the editing.</p></div>
+    <div class="ap-card"><h5 class="ap-h5">Where is the detailed research?</h5><p class="ap-p-sm" style="margin-top:8px;">A workbook with a 13-vendor comparison, pricing detail, a live cost model and a blank eval scorecard sits with Nehal. Sources and confidence ratings are on its last tab. Ask before circulating any price externally.</p></div>
+  </div>
+</section>
+
+  </div>
+  <footer class="ap-footer">
+    <div class="ap-footer-left">
+      <svg style="opacity:0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 81" width="36" height="36">
+  <rect width="81" height="81" fill="#040735"/>
+  <path d="M45.3217 0.578544C45.8303 0.941515 45.7679 1.46601 45.7679 1.97962C45.7679 10.6346 45.6677 19.2915 45.8152 27.9446C45.8719 31.333 45.6979 34.7467 46.2991 38.1224C46.4882 39.2113 46.0023 39.6995 44.8509 39.7285C43.8149 39.7539 42.7713 39.7394 41.7409 39.7285C40.2473 39.7285 40.1017 39.625 39.6613 38.2984C39.614 38.1604 39.5743 38.0226 39.5365 37.9028C39.2133 37.8483 39.0998 38.0661 38.958 38.2077C37.4701 39.6795 35.623 40.2385 33.5301 40.302C31.3352 40.3673 29.299 40.0406 27.5067 38.7013C25.3911 37.1206 24.2529 34.9936 23.7255 32.5435C22.6289 27.4619 22.5421 22.3803 24.3324 17.413C25.6313 13.8051 28.1608 11.3769 32.2237 10.7308C33.6249 10.5352 35.0477 10.5273 36.4511 10.7072C37.3416 10.8034 37.3642 10.4804 37.3604 9.85241C37.3434 7.22816 37.3605 4.6057 37.3509 1.98142C37.3509 1.417 37.4021 0.892518 37.9786 0.571289L45.3217 0.578544ZM37.3416 24.9466C37.3416 23.0464 37.3264 21.1462 37.3416 19.2462C37.3416 18.6635 37.1109 18.3387 36.5267 18.2244C34.2296 17.7579 32.772 18.6526 32.1669 20.8558C31.8285 22.0899 31.8437 23.3549 31.7095 24.609C31.4674 26.8521 31.6603 29.0572 32.4657 31.177C33.0216 32.6451 33.825 33.0209 35.3999 32.7322C36.5493 32.5199 37.3339 31.5018 37.3377 30.1914C37.3453 28.4383 37.3416 26.6942 37.3416 24.9466Z" fill="#FFFFFF"/>
+  <path d="M0.078125 43.3968C0.380045 43.0356 0.780132 42.9633 1.23394 42.9688C2.31197 42.985 3.38815 42.9688 4.46617 42.9688C6.27029 42.9688 6.27029 42.9687 6.73149 44.7097C7.22976 44.3305 7.68913 43.9602 8.16881 43.6171C9.19249 42.8848 10.4192 42.4711 11.6882 42.4305C13.672 42.3439 15.6354 42.4052 17.3747 43.5141C19.3307 44.7621 20.4772 46.5934 20.9718 48.7624C22.1961 54.1407 22.2683 59.499 20.3327 64.7671C18.8231 68.8866 15.2056 71.2525 10.7472 71.0322C10.1063 70.9996 9.45057 71.1044 8.82457 70.8877C8.26881 70.6962 8.08361 70.9202 8.08361 71.4963C8.10953 73.956 8.09665 76.4177 8.08361 78.8776C8.08361 80.3676 7.86877 80.5717 6.31288 80.5732C4.64584 80.5732 2.97878 80.5732 1.32656 80.5732C0.848663 80.5732 0.40042 80.5464 0.078125 80.1456V43.3968ZM8.08553 57.4168C8.08553 59.1884 8.11513 60.9601 8.07073 62.73C8.05401 63.4271 8.41705 63.716 9.00793 63.8496C10.7583 64.2452 12.0383 63.624 12.6717 61.948C13.6849 59.2733 13.6108 56.4794 13.4127 53.6964C13.3386 52.6597 13.2071 51.6086 12.6959 50.6551C12.3402 49.994 11.8419 49.5968 11.0287 49.5715C9.30801 49.5136 8.10777 50.5883 8.08921 52.2804C8.07073 53.9727 8.08553 55.6974 8.08553 57.4077V57.4168Z" fill="#FFFFFF"/>
+  <path d="M11.8264 11.05C13.0216 11.0839 14.213 11.0053 15.4099 11.2661C18.7503 11.997 20.4203 14.1768 21.0847 17.2198C21.6229 19.6748 21.4318 22.1531 21.339 24.6456C21.1831 28.8947 20.6709 33.1615 21.6395 37.3981C22.0961 39.3903 21.9365 39.5136 19.7355 39.5136C18.6555 39.5136 17.5756 39.5136 16.4973 39.5136C15.3505 39.5029 14.9664 39.2117 14.6676 38.1557C14.3948 37.2033 14.3781 37.1855 13.6581 37.8269C10.2603 40.8483 3.20662 40.5625 1.08367 35.6827C-0.33225 32.4326 -0.358232 29.0716 1.68493 25.9751C3.03961 23.9185 5.27019 23.068 7.59541 22.4854C9.14577 22.1087 10.7397 21.9238 12.3387 21.9351C12.9734 21.9351 13.2295 21.7386 13.2053 21.1114C13.2095 20.549 13.1403 19.9883 12.9993 19.4425C12.747 18.61 12.2014 18.1596 11.2679 18.1168C9.1065 17.9924 6.94505 18.3596 4.95844 19.1888C3.86169 19.6516 3.54808 19.5158 3.17137 18.4562C2.73341 17.2251 2.30104 15.9905 1.88536 14.7504C1.51421 13.6212 1.63297 13.3048 2.77424 12.7956C5.59818 11.5104 8.70625 10.9109 11.8264 11.05ZM13.196 29.822C13.1755 29.4572 13.1755 29.0916 13.196 28.7267C13.3055 27.9227 12.9325 27.669 12.1419 27.7458C11.279 27.8316 10.4514 27.978 9.69426 28.4122C8.6513 29.0073 8.33585 30.5153 9.00025 31.8161C9.42145 32.6416 10.52 32.9096 11.6446 32.4807C13.0346 31.9555 13.3946 30.928 13.196 29.8256V29.822Z" fill="#FFFFFF"/>
+  <path d="M38.2096 57.0658C38.1125 53.6027 38.4562 50.437 40.0775 47.5596C41.9322 44.2651 44.833 42.5281 48.7405 42.4158C51.1948 42.3451 53.5633 42.5427 55.7132 43.8663C58.5448 45.6087 59.8467 48.2939 60.4631 51.3182C61.2868 55.3687 61.2383 59.4247 60.1399 63.4515C58.9128 67.9499 55.0351 71.2081 49.9827 71.161C47.6404 71.1374 45.3896 70.9289 43.3891 69.6778C40.7854 68.046 39.4555 65.5856 38.7794 62.7391C38.3161 60.8044 38.0733 58.8281 38.2096 57.0658ZM52.5491 56.6759C52.635 54.8882 52.5491 52.9427 51.8019 51.0789C51.3873 50.0363 50.7447 49.5939 49.624 49.5903C48.2549 49.5903 47.2724 50.5966 46.8932 52.2936C46.4058 54.4694 46.4674 56.6632 46.5607 58.8517C46.6009 60.0555 46.8477 61.2443 47.2911 62.3691C47.8103 63.6383 48.3595 64.001 49.7586 63.9611C50.8437 63.9303 51.5404 63.3736 51.9812 62.1135C52.5827 60.4055 52.5958 58.6287 52.5491 56.6759Z" fill="#FFFFFF"/>
+  <path d="M44.1825 80.5741H13.1808C10.8132 80.5741 10.007 79.6545 9.88834 77.265C9.73586 74.1921 10.881 73.2445 13.8326 73.254C34.2485 73.3144 54.6646 73.2842 75.0824 73.2861C77.5782 73.2861 78.4443 74.1638 78.4466 76.6841C78.4466 77.0617 78.4466 77.4392 78.4466 77.816C78.4092 79.5357 77.3484 80.5629 75.5628 80.5645C67.7962 80.5719 60.0302 80.5719 52.2649 80.5645L44.1825 80.5741Z" fill="#F9D900"/>
+  <path d="M69.8735 71.1388C67.6153 71.2728 65.2931 70.7492 63.0669 69.8217C61.4711 69.1569 61.313 68.6424 61.8569 67.338C62.333 66.1985 62.7019 65.0174 63.1196 63.8543C63.5637 62.6206 64.0399 62.4303 65.2987 63.0463C66.8287 63.7909 68.4094 64.2674 70.1539 64.1659C70.8577 64.1242 71.4711 63.9847 71.7478 63.2963C72.0244 62.6079 71.7478 62.0699 71.2698 61.5735C70.2592 60.5028 68.9062 59.9213 67.6359 59.2184C65.4512 58.0227 63.4451 56.6115 62.5719 54.2474C61.3507 50.9393 61.569 47.7255 63.9118 44.885C65.199 43.3287 67.0752 42.6187 69.085 42.4791C71.9923 42.2762 74.8904 42.4193 77.6398 43.528C78.0427 43.6911 78.4342 43.8759 78.8287 44.0534C79.4466 44.3287 79.6178 44.8269 79.4481 45.4049C79.0326 46.8198 78.6015 48.231 78.1307 49.6259C77.8091 50.5625 77.2954 50.7436 76.3093 50.3615C74.7625 49.7636 73.1987 49.298 71.4937 49.4139C70.9291 49.452 70.4003 49.5281 70.1915 50.0879C70.0817 50.3579 70.0652 50.6547 70.1445 50.9343C70.2239 51.2141 70.3947 51.4616 70.6318 51.6404C71.5107 52.3651 72.5137 52.9086 73.5449 53.4285C75.4945 54.4231 77.3085 55.6024 78.5524 57.3941C81.2807 61.3235 80.3103 67.5536 75.948 69.9486C74.4707 70.7602 72.8185 71.1388 69.8735 71.1388Z" fill="#FFFFFF"/>
+  <path d="M30.4853 45.1058C32.4808 42.8966 34.9419 42.511 37.7345 43.3018C38.4084 43.4937 38.7833 43.8757 38.7094 44.5266C38.503 46.3198 38.3061 48.1237 37.9957 49.9061C37.8272 50.8799 37.4693 51.0017 36.4678 50.8027C36.0097 50.7113 35.5421 50.6575 35.0764 50.6019C32.8935 50.3437 31.6516 51.8697 31.6913 53.6825C31.8011 58.7465 31.7311 63.8122 31.7273 68.878C31.7273 70.2982 31.3865 70.6263 29.9155 70.6317C28.3101 70.6317 26.6971 70.6443 25.103 70.6317C23.8345 70.6209 23.4805 70.2731 23.4805 69.086C23.4805 60.9569 23.4805 52.823 23.4805 44.6845C23.4805 43.5062 23.6698 43.3413 24.908 43.336C26.1461 43.3305 27.3691 43.379 28.5884 43.3198C29.5955 43.2714 30.2487 43.5206 30.2922 44.5858C30.3326 44.7663 30.3975 44.9411 30.4853 45.1058Z" fill="#FFFFFF"/>
+</svg>
+
+      <p>Ad Pros &mdash; Internal Use</p>
+    </div>
+    <p class="ap-footer-meta">Published by Nehal &middot; September 18, 2026</p>
+  </footer>
+</body>
+</html>
