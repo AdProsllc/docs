@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>kiiwii · Ingredient Scanner — Voice of Customer</title>
+<meta name="googlebot" content="noindex, nofollow" />
+<meta name="bingbot" content="noindex, nofollow" />
+<meta name="slurp" content="noindex, nofollow" />
+<meta name="duckduckbot" content="noindex, nofollow" />
+<meta name="baiduspider" content="noindex, nofollow" />
+<meta name="yandex" content="noindex, nofollow" />
+<meta name="author" content="Omar" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="mask-icon" href="/favicon.svg" color="#ffd609" />
+<meta name="theme-color" content="#070c1e" />
+<style>
+  :root {
+    --page-bg: #070c1e;
+    --card: rgba(13, 20, 41, 0.94);
+    --card-border: rgba(255, 255, 255, 0.09);
+    --primary: #ffd609;
+    --primary-ink: #06112b;
+    --accent: #7ea6ff;
+    --ink: #f2f5ff;
+    --ink-soft: #c6d0e8;
+    --text-dim: #5c6a88;
+    --success: #46d08a;
+    --danger: #f87171;
+    --font: "Inter", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --pad: clamp(16px, 3vw, 32px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--page-bg); color: var(--ink); font-family: var(--font); }
+  body {
+    background:
+      radial-gradient(900px 520px at 85% -10%, rgba(43, 67, 108, 0.45), transparent 55%),
+      radial-gradient(700px 420px at 0% 100%, rgba(26, 40, 74, 0.4), transparent 50%),
+      var(--page-bg);
+  }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: var(--pad) var(--pad) 80px; }
+  .top {
+    display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .brand-lock { display: flex; gap: 12px; align-items: center; min-width: 0; }
+  .mark {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--primary); color: var(--primary-ink);
+    font-weight: 800; font-size: 18px; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .brand-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
+  .brand-sub { font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; }
+  .pill {
+    display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--card-border); background: rgba(126, 166, 255, 0.1);
+    color: var(--ink-soft); font-size: 11px; font-weight: 650; letter-spacing: 0.06em;
+  }
+  .header-pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
+  .hero { margin: 8px 0 28px; }
+  .hero h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.12; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
+  .hero h1 .hl { color: var(--primary); }
+  .hero p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; max-width: 62ch; }
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--card-border); padding-bottom: 12px;
+  }
+  .tab {
+    border: none; background: transparent; color: var(--text-dim); font-family: inherit;
+    font-size: 13px; font-weight: 650; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: rgba(255, 214, 9, 0.14); color: var(--primary); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .kicker {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--text-dim);
+    text-transform: uppercase; margin: 0 0 8px;
+  }
+  .panel h2 { margin: 0 0 14px; font-size: clamp(22px, 3vw, 30px); line-height: 1.2; font-weight: 780; }
+  .panel h2 .hl { color: var(--primary); }
+  .card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+  .muted { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .metric {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  .metric b { display: block; font-size: clamp(28px, 4vw, 36px); margin-top: 6px; font-weight: 800; letter-spacing: -0.02em; }
+  .metric span { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-right: 6px; }
+  .badge.ok { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.fail { background: rgba(248,113,113,0.14); color: var(--danger); }
+  .badge.neutral { background: rgba(126,166,255,0.14); color: var(--accent); }
+  .badge.primary { background: rgba(255,214,9,0.16); color: var(--primary); }
+  .badge.depth-full { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.depth-scan { background: rgba(126,166,255,0.12); color: var(--accent); }
+  ul.clean { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+  ul.clean li { margin: 6px 0; }
+  ol.clean { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+  ol.clean li { margin: 8px 0; }
+  .empty { color: var(--text-dim); font-size: 14px; padding: 12px 0; }
+  a { color: var(--accent); }
+  /* Stacked row cards — mobile-first (tables break on phone / Quick Look). */
+  .entry-list { display: flex; flex-direction: column; gap: 12px; }
+  .entry-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .entry-top {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 8px 12px; margin-bottom: 10px;
+  }
+  .entry-title {
+    margin: 0; font-size: 16px; font-weight: 720; line-height: 1.3; letter-spacing: -0.01em;
+    min-width: 0; flex: 1 1 12rem;
+  }
+  .entry-quote {
+    margin: 0 0 12px; font-size: 14px; line-height: 1.5; font-style: italic; color: var(--ink-soft);
+  }
+  .entry-fields { display: flex; flex-direction: column; gap: 10px; }
+  .entry-field { min-width: 0; }
+  .entry-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px;
+  }
+  .entry-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); word-break: break-word; }
+  .entry-meta {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  .entry-meta b { color: var(--ink-soft); font-weight: 650; }
+  /* Avatars — mockup card structure, stacked on mobile */
+  .avatar-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .avatar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .avatar-card { margin-bottom: 0; }
+  .avatar-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .avatar-badge {
+    font-size: 10px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 8px;
+  }
+  .avatar-badge.core {
+    color: var(--primary); background: rgba(255, 214, 9, 0.12);
+    border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-badge.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+  }
+  .avatar-card h3 {
+    margin: 0 0 10px; font-size: clamp(22px, 3vw, 28px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .avatar-card > .muted { margin: 0 0 16px; }
+  .avatar-quotes { margin: 0 0 16px; }
+  .avatar-quote {
+    margin: 0 0 12px; padding: 0 0 0 12px;
+    border-left: 2px solid rgba(255, 214, 9, 0.45);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .avatar-quote .src {
+    display: block; margin-top: 4px; font-style: normal; font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.02em;
+  }
+  .flip-row {
+    margin: 0 0 12px; padding: 12px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--card-border);
+  }
+  .flip-row .flip-label {
+    display: block; font-size: 11px; font-weight: 750; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 6px;
+  }
+  .flip-row p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .angle-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 11px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  /* Creative Angles — mockup matrix row (stacks on mobile) */
+  .honesty-callout {
+    margin: 0 0 18px; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.08);
+  }
+  .honesty-callout .kicker { color: var(--danger); margin-bottom: 8px; }
+  .honesty-callout p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-matrix { display: flex; flex-direction: column; gap: 14px; }
+  .angle-matrix-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px;
+  }
+  .angle-matrix-grid {
+    display: grid; gap: 18px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .angle-matrix-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; }
+  }
+  .angle-matrix-card h3 {
+    margin: 0 0 10px; font-size: clamp(20px, 2.6vw, 26px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .angle-status {
+    display: inline-block; font-size: 10px; font-weight: 750; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .angle-status.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+  }
+  .angle-status.imported {
+    color: var(--danger); background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.4);
+  }
+  .angle-status.live {
+    color: var(--success); background: rgba(70, 208, 138, 0.12); border: 1px solid rgba(70, 208, 138, 0.35);
+  }
+  .angle-status.gap {
+    color: var(--primary); background: rgba(255, 214, 9, 0.1); border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .avatar-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .angle-col-kicker {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); margin: 0 0 10px;
+  }
+  .proof-quote {
+    margin: 0; padding: 0 0 0 12px; border-left: 2px solid var(--primary);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .proof-quote.imported {
+    border-left-color: var(--danger); font-style: normal; font-size: 13px;
+  }
+  .proof-quote .src {
+    display: block; margin-top: 8px; font-style: normal; font-size: 12px;
+    font-weight: 700; color: var(--primary);
+  }
+  .concept-stack { display: flex; flex-direction: column; gap: 8px; }
+  .concept-pill {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px;
+    padding: 8px 12px; border-radius: 12px;
+    border: 1px solid rgba(255, 214, 9, 0.22); background: rgba(255, 214, 9, 0.06);
+    font-size: 12px; line-height: 1.35; color: var(--ink-soft);
+  }
+  .concept-pill .cid {
+    font-family: var(--mono); font-weight: 800; color: var(--primary); letter-spacing: 0.04em;
+  }
+  /* Swipe File — Voice→Ads style cards */
+  .swipe-grid {
+    display: grid; gap: 14px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .swipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .swipe-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 18px 16px; display: flex; flex-direction: column; min-width: 0;
+  }
+  .swipe-voice-meta {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .swipe-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0;
+  }
+  .swipe-dot.tof { background: var(--primary); }
+  .swipe-dot.mof { background: var(--accent); }
+  .swipe-dot.bof { background: var(--success); }
+  .swipe-voice {
+    margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .swipe-src {
+    display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .swipe-src:hover { text-decoration: underline; }
+  .swipe-arrow {
+    align-self: center; margin: 14px 0; width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--primary-ink); background: var(--primary);
+    font-size: 14px; font-weight: 800; line-height: 1;
+  }
+  .swipe-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .swipe-cid {
+    font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+    padding: 5px 10px; border-radius: 999px; background: var(--primary); color: var(--primary-ink);
+  }
+  .swipe-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  .swipe-ad {
+    margin: 0; font-size: clamp(17px, 2.4vw, 22px); font-weight: 780; line-height: 1.3;
+    letter-spacing: -0.02em; color: var(--ink);
+  }
+  /* Pain quote cards (mockup Voices-style) */
+  .quote-grid {
+    display: grid; gap: 12px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .quote-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 14px;
+    padding: 16px 18px; min-width: 0;
+  }
+  .quote-top {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    gap: 8px 12px; margin-bottom: 12px;
+  }
+  .quote-ups {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink-soft);
+  }
+  .quote-ups b { color: var(--ink); font-weight: 800; }
+  .quote-sub {
+    font-family: var(--mono); font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .quote-sub:hover { text-decoration: underline; }
+  .quote-theme {
+    margin: 0 0 8px; font-family: var(--mono); font-size: 11px; font-weight: 750;
+    letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent);
+  }
+  .quote-body {
+    margin: 0 0 12px; font-size: 15px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .quote-field { margin: 0 0 10px; }
+  .quote-field-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px; font-weight: 700;
+  }
+  .quote-field-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); }
+  .quote-reveals {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-dim); font-weight: 700;
+  }
+  .quote-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--primary);
+  }
+  .quote-dot.c0 { background: var(--primary); }
+  .quote-dot.c1 { background: var(--accent); }
+  .quote-dot.c2 { background: var(--success); }
+  .quote-dot.c3 { background: #c084fc; }
+  .hero-insight {
+    font-size: clamp(22px, 3.2vw, 32px); font-weight: 780; line-height: 1.32; margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .hero-insight .hl { color: var(--primary); }
+  .signal-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+  .signal-card {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 18px;
+    background: rgba(255,255,255,0.02);
+  }
+  .signal-card .num {
+    font-family: var(--mono); font-size: 11px; color: var(--primary); font-weight: 700;
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .signal-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-weight: 600; }
+  .community-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .community-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .spine-footer {
+    margin-top: 28px; padding: 18px 20px; border-radius: 14px;
+    border: 1px dashed rgba(255, 214, 9, 0.35); background: rgba(255, 214, 9, 0.06);
+    text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--primary); text-transform: uppercase;
+  }
+  /* No-JS / mobile file preview: full stacked report. JS hides this and shows tabs. */
+  #static-deck .static-toc {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  #static-deck .static-toc a {
+    font-size: 12px; font-weight: 650; color: var(--ink-soft); text-decoration: none;
+    padding: 6px 10px; border-radius: 8px; border: 1px solid var(--card-border);
+  }
+  #static-deck .static-section { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--card-border); }
+  #static-deck .static-section:last-child { border-bottom: none; }
+</style>
+
+<style>
+  .ladder-grid{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.ladder-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  .ladder-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .ladder-card h4{margin:0 0 6px;font-size:15px;font-weight:750;line-height:1.25;}
+  .ladder-card .lc-note{margin:0;font-size:13px;line-height:1.45;color:var(--ink-soft);}
+  .ladder-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center;}
+  .lc-tag{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--ink-soft);background:rgba(255,255,255,.03);}
+  .lc-tag.pos{color:var(--success);background:rgba(70,208,138,.12);border-color:rgba(70,208,138,.3);}
+  .lc-tag.neg{color:var(--danger);background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.35);}
+  .lc-tag.neu{color:var(--accent);background:rgba(126,166,255,.1);border-color:rgba(126,166,255,.3);}
+  .av-territory{font-size:13px;font-weight:700;color:var(--primary);margin:2px 0 8px;}
+  .av-grade{font-family:var(--mono);font-size:10px;letter-spacing:.02em;color:var(--text-dim);margin:0 0 12px;}
+  .av-watch{margin-top:12px;font-size:12px;line-height:1.5;border-radius:10px;padding:9px 12px;}
+  .av-watch.warn{color:var(--primary);background:rgba(255,214,9,.08);border:1px solid rgba(255,214,9,.28);}
+  .av-watch.danger{color:var(--ink-soft);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.32);}
+  .av-watch.danger b{color:var(--danger);} .av-watch.warn b{color:var(--primary);}
+  .compliance-card{border:2px solid rgba(248,113,113,.35)!important;}
+  .mini-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .mini-tag{font-size:10px;font-weight:650;letter-spacing:.03em;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--text-dim);background:rgba(255,255,255,.02);}
+  .mini-tag.wedge{color:var(--primary-ink);background:var(--primary);border-color:var(--primary);font-weight:800;}
+  .mini-tag.ev-pos{color:var(--success);border-color:rgba(70,208,138,.35);}
+  .mini-tag.ev-warn{color:var(--primary);border-color:rgba(255,214,9,.35);}
+  .wedge-card-hl{border-color:rgba(255,214,9,.45)!important;box-shadow:inset 3px 0 0 var(--primary);}
+  .comp-grid{display:grid;gap:12px;grid-template-columns:1fr;}
+  @media(min-width:720px){.comp-grid{grid-template-columns:1fr 1fr;}}
+  .comp-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .comp-card h4{margin:0 0 4px;font-size:15px;font-weight:750;}
+  .comp-tier{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);margin:0 0 8px;}
+  .comp-card .snip{margin:0;font-size:13px;line-height:1.45;color:var(--ink-soft);}
+  .swipe-flag{font-family:var(--mono);font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;}
+  .flag-SAFE{color:var(--success);background:rgba(70,208,138,.14);border:1px solid rgba(70,208,138,.35);}
+  .flag-BOLD{color:var(--primary);background:rgba(255,214,9,.12);border:1px solid rgba(255,214,9,.32);}
+  .flag-REVIEW{color:var(--danger);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);}
+  .src-wrap{overflow-x:auto;border:1px solid var(--card-border);border-radius:16px;background:var(--card);}
+  .src-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .src-table th,.src-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--card-border);vertical-align:top;}
+  .src-table th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);font-weight:700;}
+  .src-table td{color:var(--ink-soft);} .src-table a{color:var(--primary);text-decoration:none;font-weight:650;}
+  .src-strong{color:var(--success);font-weight:700;} .src-mod{color:var(--accent);} .src-thin{color:var(--primary);}
+  .wedge-map{display:grid;gap:10px;grid-template-columns:1fr;}
+  @media(min-width:720px){.wedge-map{grid-template-columns:1fr 1fr;}}
+  .wedge-card2{border:1px solid var(--card-border);background:var(--card);border-radius:12px;padding:12px 14px;}
+  .wedge-card2 p{margin:0;font-size:13px;line-height:1.5;color:var(--ink-soft);}
+</style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand-lock"><div class="mark">k</div>
+        <div><div class="brand-name">kiiwii</div><div class="brand-sub">Ad Pros · Brand Intelligence</div></div></div>
+      <div class="header-pills"><div class="pill">INGREDIENT SCANNER APP · VOICE-OF-CUSTOMER</div></div>
+    </header>
+    <section class="hero">
+      <h1>The receipts behind <span class="hl">every</span> “the label lied to you” ad.</h1>
+      <p>~195 verbatim-backed rows from Reddit, competitor App-Store / Trustpilot reviews and social — mined for how the food-system skeptic, the allergy mom, the red-dye mom and the pregnant auditor talk about ingredients, and the compliance lines that keep it out of trouble.</p>
+    </section>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Report sections"><button type="button" class="tab" role="tab" data-tab="overview" aria-selected="true">01 Overview</button><button type="button" class="tab" role="tab" data-tab="pain" aria-selected="false">02 Pain Points</button><button type="button" class="tab" role="tab" data-tab="avatars" aria-selected="false">03 Avatars</button><button type="button" class="tab" role="tab" data-tab="emotional" aria-selected="false">04 Emotional Drivers</button><button type="button" class="tab" role="tab" data-tab="solution_ladder" aria-selected="false">05 Solution Ladder</button><button type="button" class="tab" role="tab" data-tab="objections" aria-selected="false">06 Objections &amp; Friction</button><button type="button" class="tab" role="tab" data-tab="competitors" aria-selected="false">07 Competitor Landscape</button><button type="button" class="tab" role="tab" data-tab="swipe_file" aria-selected="false">08 Emotional Swipe File</button><button type="button" class="tab" role="tab" data-tab="scan_list" aria-selected="false">09 Scan List</button></nav>
+    <div id="deck"><section class="panel active" data-panel="overview">
+  <p class="kicker">01 · Overview</p>
+  <h2>What the target user actually says</h2>
+  <div class="card" style="margin-top:14px"><p class="hero-insight">The strongest, broadest, most trigger-rich avatar is the <span class="hl">Food-System Skeptic</span>: ‘the label lied to you, and you can prove it in three seconds.’ But the winning wedge isn’t the score (every clone scores now); it’s what comes <span class="hl">after</span>: the plain-English ‘why,’ the per-ingredient breakdown, and the swap. And the #1 brand risk is that same audience’s backlash. ‘These apps just sell fear’ recurs, so precision beats hysteria, and the extreme register belongs in paid only.</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">The product &amp; the wedge</p><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>kiiwii DOES score, 0–100, like Yuka.</b> The wedge is everything <span class="hl">AFTER the number</span>: (1) a plain-English ‘kiiwii says’ <i>why</i>, (2) an ingredient-by-ingredient <b>Good / Concerning / Bad</b> breakdown instead of one blended score, and (3) a healthier <b>swap</b>. The three objection rows — <i>generic score</i>, <i>good/bad binary</i>, <i>one red ingredient tanks the score</i> — are the <b>highest-value rows in the file (flagged WEDGE)</b>, because the breakdown + ‘kiiwii says’ answers all three. The defensible moat against the AI-photo-scan clone swarm is this ‘why + per-ingredient verdict + swap,’ not the scan itself.</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Positioning statement</p><p class="hero-insight" style="font-size:clamp(18px,2.4vw,22px)">For the shopper who’s realized the front of the package lies, kiiwii doesn’t just score a product 0–100 — it tells you <span class="hl">why, ingredient by ingredient</span>, and hands you a better swap. The number ends the doubt; the ‘why’ earns the trust.</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">The offer</p><p style="margin:0;font-size:14px;line-height:1.6;color:var(--ink-soft)"><b>kiiwii is free to download</b> with a generous free tier (the core scan). <b>kiiwii+</b> unlocks unlimited photo scans, unlimited ‘Ask kiiwii,’ full database access and complete ingredient breakdowns. Per the US App Store, <b>kiiwii+ Annual is $39.99</b> (other IAP tiers run $6.99–$59.99 for weekly / monthly / lifetime variants). The store page doesn’t state a trial length — <b>confirm the 7-day trial in-app</b>. (Heads-up: the guess was ~$45/yr; the listed annual is $39.99.) Paywall strategy from the VoC: keep the core scan generous (JOMO) and gate the <i>aggregate</i> — history / audit / online-image scan / alternatives — since Yuka’s too-generous free tier retains but barely monetizes.</p></div>
+  <p class="kicker" style="margin-top:22px">Strategic findings</p>
+  <div class="wedge-map"><div class="wedge-card2"><p><b>Organic vs paid split:</b> run EXTREME angles in paid, keep owned credible — the honest owned video underperformed the aggressive hook 250 vs 1,492 views.</p></div><div class="wedge-card2"><p><b>Paywall / JOMO:</b> keep the core scan generous, gate the aggregate (history / audit / online-image scan / alternatives). Yuka’s too-generous free tier retains but barely monetizes.</p></div><div class="wedge-card2"><p><b>Clone-swamp moat:</b> AI photo-scan clones are commoditizing the scan; the defensible moat is the plain-English ‘why’ + per-ingredient verdict + swap.</p></div><div class="wedge-card2"><p><b>Own reviews = owned signal:</b> kiiwii’s App Store reviews (51 / 5.0) are all 5-star with a creator-earn program → logged Evidence: Thin (non-independent). One review does describe the wedge unprompted (‘scan → score → WHY → better alternatives … saves me Googling every ingredient’).</p></div></div>
+  <div class="card compliance-card" style="margin-top:18px"><p class="kicker" style="color:var(--danger)">⚠ Compliance guardrails — apply to every hook</p><ul class="clean"><li><b>NO anaphylaxis / allergy-safety claims.</b> kiiwii reads labels; it cannot guarantee safety for a diagnosed allergy. Allergy-Mom angles enable label-CHECKING and catching reformulations, never ‘safe to eat.’</li><li><b>Red-dye behaviour causation is contested.</b> Angles may dramatize a parent’s CHOICE to avoid dyes and the ‘banned elsewhere’ outrage as customer language — they must not assert dye causes the behaviour.</li><li><b>Orthorexia / anxiety line.</b> The scan-everything habit can tip into disordered anxiety (esp. Pregnant/TTC). kiiwii is the CALM answer that reduces the spiral; angles must not amplify food fear or shame.</li><li><b>Educated-skeptic backlash is the #1 brand risk.</b> ‘A scary-sounding name isn’t dangerous; these apps sell fear’ recurs. Contested claims (seed oils, ‘toxins’, ‘banned in Europe’) are FUEL for emotion / betrayal / score-gotcha angles — not health facts to assert.</li><li><b>Extreme in PAID only.</b> Owned / organic stays credible (the honest ‘Tobacco Playbook’ video did ~250 views; the ‘zero sugar isn’t healthy’ hook did ~1,492). Save the extreme register for paid.</li></ul></div>
+  <p class="kicker" style="margin-top:22px">Coverage</p>
+  <div class="grid"><div class="metric"><span>Verbatim rows</span><b>~195</b></div><div class="metric"><span>Pain</span><b>28</b></div><div class="metric"><span>Emotional</span><b>45</b></div><div class="metric"><span>Ladder</span><b>32</b></div><div class="metric"><span>Objections</span><b>34</b></div><div class="metric"><span>Competitor apps</span><b>9</b></div><div class="metric"><span>Swipe hooks</span><b>58</b></div><div class="metric"><span>Scan targets</span><b>32</b></div></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Communities &amp; sources mined</p><div class="community-pills"><span class="community-pill">r/Growthmindset</span><span class="community-pill">r/FoodAllergies</span><span class="community-pill">r/conspiracy</span><span class="community-pill">r/pregnant</span><span class="community-pill">r/ParentingADHD</span><span class="community-pill">r/EatCheapAndHealthy</span><span class="community-pill">App Store / Trustpilot reviews</span><span class="community-pill">kiiwii owned (Thin)</span></div></div>
+  <div class="spine-footer">Pain → Emotion → Objection → Wedge → Hook</div>
+</section><section class="panel" data-panel="pain">
+  <p class="kicker">02 · Pain Points</p>
+  <h2>Pain points <span class="hl">(28)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The pain · the unedited verbatim · why it matters · source. Amber rail = a <b>WEDGE</b> row the after-the-number breakdown answers.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The felt problem — ‘the label lied,’ can’t-pronounce-it distrust, dye-in-everything, reformulation anxiety. Each row is tagged Avatar / Resonance / Evidence; ranking is by distinct-source spread and reach, not one loud thread.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲58</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Vent</a></div>
+      <p class="quote-theme">A new thing is &#x27;poisoning&#x27; you every single day</p><p class="quote-body">Everyday I find out products and food have cancer causing ingredients … it feels never ending</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The doom-treadmill of food fear — the core fuel</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/GroceryStores</a></div>
+      <p class="quote-theme">Blanket dread: &#x27;all the food is poison?&#x27;</p><p class="quote-body">All the food is poison?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The literal register the category runs on</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲113</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/PetPeeves</a></div>
+      <p class="quote-theme">Can&#x27;t tell real risk from noise anymore</p><p class="quote-body">basically everything that isn&#x27;t home-grown and made from scratch is basically poison … you will surely die young</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Overwhelm collapses into &#x27;everything is bad&#x27; paralysis</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲46</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/BreakingPoints</a></div>
+      <p class="quote-theme">Believing &#x27;if it&#x27;s in the store, it&#x27;s fine&#x27;</p><p class="quote-body">most Americans … completely unaware … they just think &#x27;if it&#x27;s available or it&#x27;s in the store, it&#x27;s probably fine&#x27;</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The false-safety assumption Kiiwii exists to break</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲407</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/CasualConversation</a></div>
+      <p class="quote-theme">The &#x27;healthy&#x27; label is a workaround/lie</p><p class="quote-body">stuff labeled &#x27;healthy&#x27; has all kinds of workarounds that make it unhealthy … The packaging lies while technically telling the truth</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">&#x27;Healthy&#x27; as a marketing trick = a core grievance</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲407</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/CasualConversation</a></div>
+      <p class="quote-theme">Can&#x27;t tell which additives actually matter</p><p class="quote-body">I&#x27;m talking about the ones that do harm … fillers, dyes, pesticides, and additives</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Wants the harmful ones flagged, not a chemistry lecture</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲45</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/nutrition</a></div>
+      <p class="quote-theme">Reading every label is exhausting</p><p class="quote-body">What&#x27;s the best ingredients to avoid when reading labels</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The manual-vetting burden Kiiwii removes</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲149</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></div>
+      <p class="quote-theme">A &#x27;safe&#x27; brand quietly changed its label</p><p class="quote-body">I assumed the ingredient list wouldn&#x27;t change … They now make the cookies in a facility that also uses egg … now I have cookies I can&#x27;t consume</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">THE recurring betrayal a scan can catch — labels change silently</span></div><div class="mini-tags"><span class="mini-tag">Allergy Mom</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></div>
+      <p class="quote-theme">New diagnosis, totally overwhelmed vetting brands</p><p class="quote-body">my eight month old … diagnosed with six different food allergies … Do you look for anything in particular when picking a company?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The new-allergy-parent overwhelm = high-intent moment</span></div><div class="mini-tags"><span class="mini-tag">Allergy Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></div>
+      <p class="quote-theme">Feels like everything is off-limits</p><p class="quote-body">hard not to feel like most foods are off limits … allergens might be lurking in trace amounts in everything</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The pervasive dread the mom carries</span></div><div class="mini-tags"><span class="mini-tag">Allergy Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲9</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ParentingADHD</a></div>
+      <p class="quote-theme">Red dye is &#x27;in EVERYTHING&#x27; — impossible to avoid</p><p class="quote-body">It&#x27;s litterally in everything … when looking up what it&#x27;s in, it&#x27;s litterally in everything. Am I wrong?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">THE scanner use case: the mom can&#x27;t manually track it</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/firsttimemom</a></div>
+      <p class="quote-theme">The tiniest amount and he&#x27;s a different kid</p><p class="quote-body">gave our 9m old the TINIEST piece of cake and he&#x27;s acting soo unlike himself … refusing naps, screaming, hitting</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Hypervigilance from a single exposure = high intent</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲9</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ParentingADHD</a></div>
+      <p class="quote-theme">Doesn&#x27;t want meds — wants a diet lever first</p><p class="quote-body">I&#x27;m against meds until old enough … I may benefit from stopping ingesting red dye</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Diet-first parents seeking a tool of control</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/IBSHelp</a></div>
+      <p class="quote-theme">Literally told to &#x27;play detective&#x27; with food</p><p class="quote-body">I&#x27;ve been told &#x27;I have to play detective and find out the foods that cause the issues&#x27; … tracking everything I eat</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">THE detective register — the exact job Kiiwii speeds up</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/HumanMicrobiome</a></div>
+      <p class="quote-theme">The trigger list keeps growing, out of control</p><p class="quote-body">My triggers are out of control and growing</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The expanding-suspect-list dread</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲6</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></div>
+      <p class="quote-theme">Existential dread that everything makes them sick</p><p class="quote-body">near existential dread … realizing most things will make me feel gross and sick</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The emotional floor of the long hunt</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/legaladvice</a></div>
+      <p class="quote-theme">The &#x27;strawberry&#x27; bar is flavored cranberries</p><p class="quote-body">a kellogg&#x27;s special &#x27;strawberry&#x27; protein bar … the fourth ingredient in bold states &#x27;strawberry flavored cranberries&#x27;</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Front-label lie vs back-label truth (a scan catches it)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲658</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></div>
+      <p class="quote-theme">The &#x27;healthy&#x27; impostor categories</p><p class="quote-body">Whole grain cereals, protein bars, flavored yogurts … marketed as nutritious but often contain the same industrial additives</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The category shoot-list of health-halo fakes</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲67</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/askteddit</a></div>
+      <p class="quote-theme">Which &#x27;healthy&#x27; foods are actually not</p><p class="quote-body">Which foods are actually unhealthy but are commonly assumed to be healthy?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">343-comment list = a scan-list content mine</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Substack teardown</span></div>
+      <p class="quote-theme">Frozen in the aisle between two products</p><p class="quote-body">standing in Target trying to decide between two moisturizers</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The in-aisle standoff a scan instantly settles</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲658</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></div>
+      <p class="quote-theme">Flipped it over, couldn&#x27;t pronounce a thing</p><p class="quote-body">I stopped buying anything with ingredients I couldn&#x27;t pronounce</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The &#x27;flip-the-package&#x27; instinct that becomes a scan</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1744</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/TrueReddit</a></div>
+      <p class="quote-theme">Protein powder heavy-metal panic</p><p class="quote-body">more than two-thirds contain more lead in a single serving than our experts say is safe to have in a day</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Huge distrust (1,744 up) BUT lead isn&#x27;t on the label — Kiiwii can&#x27;t detect it</span></div><div class="mini-tags"><span class="mini-tag">Gym &amp; Supplement</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲180</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">30-40% of supplements underdosed/contaminated</p><p class="quote-body">don&#x27;t trust branding, verify certifications + testing data … 30-40% had meaningful label inaccuracies</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Verify-don&#x27;t-trust register, but the fix they want is 3rd-party CERTS not ingredient scores</span></div><div class="mini-tags"><span class="mini-tag">Gym &amp; Supplement</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲12</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></div>
+      <p class="quote-theme">Swap overwhelm across personal care</p><p class="quote-body">started on skincare and hygiene … but food, makeup, and some body care items I&#x27;m stumped on</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The swap-hunt a scanner-with-alternatives directly serves</span></div><div class="mini-tags"><span class="mini-tag">Crunchy / Non-Tox</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲10</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></div>
+      <p class="quote-theme">Wants clean options in physical stores</p><p class="quote-body">Would be great if it&#x27;s a line at ulta or Sephora, or any physical store</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">In-aisle scanning is the exact behavior</span></div><div class="mini-tags"><span class="mini-tag">Crunchy / Non-Tox</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲69</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/blueprint_</a></div>
+      <p class="quote-theme">CANDIDATE-NEW: Diabetic/glucose-aware</p><p class="quote-body">the same breakfast can hit your body differently … food choices carry extra weight</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Real volume, but CGM-centric — Kiiwii only partially serves (sugar/carb visibility). Adjacent, not core</span></div><div class="mini-tags"><span class="mini-tag">Diabetic/Glucose-aware</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲39</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></div>
+      <p class="quote-theme">Now googling every product before use</p><p class="quote-body">I started googling every OTC medication before I took it … Basically I google everything that isn&#x27;t obvious</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The manual-check habit a scan replaces (pregnancy = the trigger)</span></div><div class="mini-tags"><span class="mini-tag">Pregnant/TTC Auditor</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲28</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></div>
+      <p class="quote-theme">Clean AND works is the hard part</p><p class="quote-body">Has anyone found a non toxic deodorant that truly works? No stink?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The efficacy-vs-clean tension a score+swap can navigate</span></div><div class="mini-tags"><span class="mini-tag">Crunchy / Non-Tox</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article></div>
+</section><section class="panel" data-panel="avatars">
+  <p class="kicker">03 · Avatars</p>
+  <h2>The Avatars</h2>
+  <p class="muted" style="margin-bottom:18px">The four the client is running — Food-System Skeptic (primary), Allergy Mom, Red-Dye Mom, and the highest-intent Pregnant / TTC Auditor. Every card carries a <b>Watch</b> compliance line. (The Avatar Evidence tab shows the full graded roster; Yuka Refugee also grades STRONG.)</p>
+  <div class="honesty-callout"><p class="kicker">Read the Watch line on each</p><p>These avatars are the client’s, used as given, and each sits on a compliance boundary: never allergy-safety, never dye-causation, never amplify pregnancy anxiety, and precision-over-hysteria for the skeptic. Grades come from the Avatar Evidence rubric; quotes are the highest-reach real rows tagged to each.</p></div>
+  <div class="avatar-grid"><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">PRIMARY</span></div>
+        <h3>Food-System Skeptic</h3>
+        <p class="av-territory">Territory: The label lied to you — and you can prove it in three seconds.</p>
+        <p class="av-grade">STRONG · 57 verbatims · 19 threads · 24 high-resonance · 11 triggers</p>
+        <p class="muted">The only avatar that’s STRONG on every lever: volume, spread, reach, and triggers — and client-observed too. Carries the most concepts and the most budget.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“Whole grain cereals, protein bars, flavored yogurts … marketed as nutritious but [aren’t]”<span class="src">r/Growthmindset · ▲658</span></div><div class="avatar-quote">“I stopped buying anything with ingredients I couldn’t pronounce”<span class="src">r/Growthmindset · ▲658</span></div><div class="avatar-quote">“You’re not weak. The food is designed to override your biology”<span class="src">r/Growthmindset · ▲658</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>Being fooled — buying the ‘healthy’ / ‘natural’ lie on the front of the pack.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“A scary-sounding name isn’t automatically dangerous — these apps just sell fear.”</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>The three-second gotcha, backed by the per-ingredient ‘why’ so it reads as proof, not panic.</p></div>
+        <div class="av-watch warn"><b>Watch:</b> <b>Highest backlash exposure.</b> This is where the ‘you’re just selling fear’ risk lives — <b>precision beats hysteria</b>, and the extreme register belongs in paid only.</div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">SECONDARY</span></div>
+        <h3>Allergy Mom</h3>
+        <p class="av-territory">Territory: Your safe brand changed — and nobody told you.</p>
+        <p class="av-grade">MODERATE · 11 verbatims · life-safety · relentless behavior</p>
+        <p class="muted">Thinnest of the four on volume, but the highest-stakes and most relentless behavior — she reads labels religiously, forever. The label-change catch is a use case nobody else in the category owns.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“I assumed the ingredient list wouldn’t change … they now make the cookies in a facility [that changed]”<span class="src">r/FoodAllergies · ▲149</span></div><div class="avatar-quote">“I am extremely used to reading food labels religiously”<span class="src">r/FoodAllergies · ▲149</span></div><div class="avatar-quote">“all I can trust is their word … so I can’t even trust their word, it seems”<span class="src">r/Allergies · ▲5</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>A silent reformulation slips something into the brand she trusted, with no announcement.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“Can an app really keep my kid safe?” — and the honest answer is that it flags label CHANGES, it never certifies safety.</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>Catch reformulations: get alerted when a trusted product’s label changes. Label-checking, never ‘safe to eat.’</p></div>
+        <div class="av-watch danger"><b>Watch:</b> <b>The hardest compliance line in the file. NEVER allergy safety, NEVER anaphylaxis.</b> Awareness and catching reformulations only — the app reads labels, it cannot guarantee safety for a diagnosed allergy.</div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">SECONDARY</span></div>
+        <h3>Red-Dye Mom</h3>
+        <p class="av-territory">Territory: Find every dye in one scan — and the outrage that it’s legal here.</p>
+        <p class="av-grade">MODERATE · 16 verbatims · 6 subreddits · ‘banned here’ outrage</p>
+        <p class="muted">The client’s second observed avatar, and it holds up as distinct from Allergy Mom. Her problem is genuinely a scanner problem: dye is in everything and she can’t track it by hand.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“if red dye 40 is bad, why won’t America ban it”<span class="src">r/conspiracy · ▲309</span></div><div class="avatar-quote">“It’s litterally in everything … when looking up what it’s in, it’s litterally in [everything]”<span class="src">r/ParentingADHD · ▲9</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>Dyes hidden in ‘everything,’ impossible to track by hand.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>“Is it even that bad?” — we don’t argue the science; we enable her CHOICE and dramatize the ‘banned elsewhere’ anger.</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>One scan finds every dye; dramatize the ‘banned elsewhere, legal here’ outrage.</p></div>
+        <div class="av-watch danger"><b>Watch:</b> <b>NEVER assert dye causes behavior</b> (causation is contested). Enable the parent’s <b>choice</b> to avoid dyes and dramatize the ‘banned elsewhere’ outrage as customer language — not as a health fact.</div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">HIGHEST INTENT</span></div>
+        <h3>Pregnant / TTC Auditor</h3>
+        <p class="av-territory">Territory: The positive test — and suddenly every label in the house is a question.</p>
+        <p class="av-grade">MODERATE* · 10 trigger verbatims (most in the file) · very high reach · food + personal care</p>
+        <p class="muted">Graded MODERATE, but run it secondary: it has 10 trigger-moment verbatims (more than any other avatar, including the primary), and a trigger moment is what makes someone install today rather than agree and scroll on. It also spans food and personal care at once — the one thing food-only competitors can’t serve.</p>
+        <p class="kicker" style="margin-bottom:10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“Retin-A. Alcohol. Weed … I also cut out chemical sunscreens so I changed my foundation”<span class="src">r/pregnant · ▲437</span></div><div class="avatar-quote">“What products and food did you cut out once you found out you were pregnant?”<span class="src">r/pregnant · ▲91</span></div><div class="avatar-quote">“I started googling every OTC medication before I took it”<span class="src">r/pregnant · ▲39</span></div></div>
+        <div class="flip-row"><span class="flip-label">Biggest fear</span><p>That something she ate or used could harm the pregnancy.</p></div>
+        <div class="flip-row"><span class="flip-label">Key objection</span><p>(Anxiety, not skepticism.) The risk isn’t that she won’t buy — it’s that the category can make her spiral.</p></div>
+        <div class="flip-row"><span class="flip-label">What flips them (wedge)</span><p>The install-today trigger: audit food AND personal care in one place, the moment the test is positive.</p></div>
+        <div class="av-watch danger"><b>Watch:</b> <b>The anxiety line is tightest here.</b> Kiiwii <b>ENDS</b> the spiral, it never starts it — see the ‘terrified of everything… perinatal anxiety’ verbatim. Angles must reduce food fear, never amplify it.</div>
+      </article></div>
+</section><section class="panel" data-panel="emotional">
+  <p class="kicker">04 · Emotional Drivers</p>
+  <h2>Emotional drivers <span class="hl">(45)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The emotion · the verbatim · why it matters · source.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The emotional fuel — betrayal by the label, relief at finally knowing, the trigger-moment urgency (a positive test, a reformulation). Contested claims here are captured as customer LANGUAGE for emotion, not asserted as fact — see the compliance card.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲58</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Vent</a></div>
+      <p class="quote-theme">Exhausted, doom-pilled, &#x27;we&#x27;re cooked&#x27;</p><p class="quote-body">it feels never ending and like we are living in a simulation</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The fatigue Kiiwii can convert into agency (one answer, 3 seconds)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲113</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/PetPeeves</a></div>
+      <p class="quote-theme">Wants to feel in control of one thing</p><p class="quote-body">I feel like we&#x27;re doing well-enough … we eat what we like</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Control is the payoff beneath the fear</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲20</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ultraprocessedfood</a></div>
+      <p class="quote-theme">Yuka gives real confidence at the shelf</p><p class="quote-body">it instantly gives me a score out of 100 … shows alternative products with better scores … makes me feel a bit more confident</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The core hook Kiiwii must match: instant confidence + alternatives</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/WomensHealth</a></div>
+      <p class="quote-theme">But it can also terrify you about trusted brands</p><p class="quote-body">it says scary things like &#x27;endocrine disruptions&#x27; &#x27;toxic to your reproductive system&#x27; … it just scares me. Especially … CeraVe is bad</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Yuka&#x27;s fear can tip into panic -&gt; the anti-fearmongering opening</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/FemFragLab</a></div>
+      <p class="quote-theme">The gut-punch low score on a favorite</p><p class="quote-body">I was surprised by the 0/100 for Angel Dust</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The shock-gotcha moment = a scan-trigger + a hook</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Substack teardown</span></div>
+      <p class="quote-theme">Pays to SUPPORT an independent, no-brand-money app</p><p class="quote-body">only make money from users, never from brands … fully transparent about their funding (we love receipts!)</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The ethical pay-driver: fund the truth-teller</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Substack teardown</span></div>
+      <p class="quote-theme">JOMO: dread of what&#x27;s hiding in the cabinet</p><p class="quote-body">make me realize how many red-scored products are lurking in my bathroom cabinet. Give me JOMO!</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The emotional trigger to gate behind the paywall</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲407</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/CasualConversation</a></div>
+      <p class="quote-theme">Betrayal: &#x27;they aren&#x27;t even hiding it anymore&#x27;</p><p class="quote-body">America has always been slowly poisoning us but now they aren&#x27;t even hiding it</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The rawest betrayal register (dramatize the EMOTION, not the claim)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲658</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></div>
+      <p class="quote-theme">Absolution: &#x27;you&#x27;re not weak, it&#x27;s engineered&#x27;</p><p class="quote-body">You&#x27;re not weak. The food is designed to override your biology</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Reframes guilt as being-manipulated — powerful hook</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲658</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></div>
+      <p class="quote-theme">The &#x27;can&#x27;t unsee it&#x27; conversion</p><p class="quote-body">I stopped buying anything with ingredients I couldn&#x27;t pronounce. It was harder than quitting anything</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The awakening moment the app rides</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲525</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Celiac</a></div>
+      <p class="quote-theme">Vindication of the label-reader identity</p><p class="quote-body">reading the ingredients list … the &#x27;stop eating seed oils&#x27; mfer approaches</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Label-reading is a visible in-store identity (own it, wink at it)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲149</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></div>
+      <p class="quote-theme">Reads labels &#x27;religiously&#x27;, every single time</p><p class="quote-body">I am extremely used to reading food labels religiously</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The relentless vigilance Kiiwii can lighten</span></div><div class="mini-tags"><span class="mini-tag">Allergy Mom</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Allergies</a></div>
+      <p class="quote-theme">Can&#x27;t trust a brand&#x27;s or restaurant&#x27;s word</p><p class="quote-body">all I can trust is their word … So I can&#x27;t even trust their word, it seems</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Trust-nothing register (verify, don&#x27;t take their word)</span></div><div class="mini-tags"><span class="mini-tag">Allergy Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ADHDparenting</a></div>
+      <p class="quote-theme">Conviction from watching behavior flip</p><p class="quote-body">It wasn&#x27;t the sugar, it&#x27;s definitely that red dye #40 … this could be affecting your kid&#x27;s mood and behavior</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The observed-change belief that drives avoidance</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲309</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/conspiracy</a></div>
+      <p class="quote-theme">Betrayal/conspiracy: why is it still legal here?</p><p class="quote-body">if red dye 40 is bad, why won&#x27;t America ban it</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The &#x27;banned elsewhere, legal here&#x27; outrage (309up thread)</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/firsttimemom</a></div>
+      <p class="quote-theme">Overstimulated, exhausted, at wits&#x27; end</p><p class="quote-body">he hasn&#x27;t napped today … i&#x27;m so overstimulated</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The frazzled-parent state the app promises to calm</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲103</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ibs</a></div>
+      <p class="quote-theme">Wants control, not to be a helpless victim</p><p class="quote-body">I feel much more in control, rather than being a victim of something I can&#x27;t do anything about</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Agency is the payoff — the app hands them a lever</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/IBSHelp</a></div>
+      <p class="quote-theme">Years of exhausting trial-and-error</p><p class="quote-body">this is exhausting … reactions … 6 to 10 hrs after I ate</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The fatigue Kiiwii shortcuts by finding the ingredient fast</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">cbinsights/Yuka</a></div>
+      <p class="quote-theme">The &#x27;healthy&#x27; chip scored worse than Doritos</p><p class="quote-body">Proper Chips … have a lower rating than Doritos and Walkers</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The killer on-camera gotcha: health-halo brand loses to the junk</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">consumed/ramkrishnan (Yuka)</a></div>
+      <p class="quote-theme">Trusted &#x27;good&#x27; yogurt brands tank</p><p class="quote-body">Siggi&#x27;s Vanilla Smoothie … &#x27;bad&#x27; score (24/100) … Chobani&#x27;s Peach Cobbler scored much lower (45)</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Beloved health brands humbled on camera</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">cbinsights/Yuka</a></div>
+      <p class="quote-theme">Same brand, opposite scores — nobody warns you</p><p class="quote-body">Alpro unsweetened oat milk 78/100 … its unsweetened soy milk variant … &#x27;poor&#x27; on 49/100</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The variant-shock reveal (same shelf, same brand)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲396</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/safe_food</a></div>
+      <p class="quote-theme">A &#x27;safe&#x27; staple gets silently reformulated</p><p class="quote-body">His one safe food was activia vanilla yogurt … It&#x27;s printed on the side … There is no hiding it now</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Reformulation betrayal (ties allergy/label-change)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲91</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></div>
+      <p class="quote-theme">Positive test -&gt; audit everything overnight</p><p class="quote-body">What products and food did you cut out once you found out you were pregnant?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">THE life-change trigger (462c) — food + personal care at once</span></div><div class="mini-tags"><span class="mini-tag">Pregnant/TTC Auditor</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></div>
+      <p class="quote-theme">Suddenly needs a way to CHECK ingredients</p><p class="quote-body">How do you check product ingredients? I am very worried that substances in food or household chemicals can be harmful</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The explicit tool-shaped need at the trigger moment</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲658</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></div>
+      <p class="quote-theme">One book/doc and you can&#x27;t unsee labels</p><p class="quote-body">Once you start reading labels with that framework in your head, you realize how much … is industrial product disguised as food</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The awakening trigger (UPF/MAHA content)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲2</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/WomensHealth</a></div>
+      <p class="quote-theme">Scanning can tip into food anxiety</p><p class="quote-body">freaking myself out that I&#x27;m using stuff that can cause … it just scares me</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">ORTHOREXIA RISK: the app must reduce anxiety, not manufacture it (ethics + retention)</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲9</span><span class="quote-sub" style="color:var(--text-dim)">r/nutrition</span></div>
+      <p class="quote-theme">Vindication: &#x27;I had a sneaking suspicion&#x27;</p><p class="quote-body">it told me they had toxins, i did have a sneaking suspicion</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The &#x27;I KNEW it&#x27; payoff — confirmation of a gut feeling</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲103</span><span class="quote-sub" style="color:var(--text-dim)">r/ibs</span></div>
+      <p class="quote-theme">Control: a lever instead of helplessness</p><p class="quote-body">I feel much more in control, rather than being a victim</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Agency is the deepest payoff</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲20</span><span class="quote-sub" style="color:var(--text-dim)">r/ultraprocessedfood</span></div>
+      <p class="quote-theme">Confidence at the shelf</p><p class="quote-body">it does make me feel a bit more confident in what I&#x27;m buying now</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The everyday win that builds the habit</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲0</span><span class="quote-sub" style="color:var(--text-dim)">r/firsttimemom</span></div>
+      <p class="quote-theme">Protective power for the family</p><p class="quote-body">we&#x27;ve been really mindful about our son</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The parent&#x27;s payoff: finally able to vet what they approve</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></div>
+      <p class="quote-theme">Top organic hit is a generic HABITS listicle</p><p class="quote-body">&#x27;10/10 Habits That Actually Support Your Health&#x27; — 4,992 views (their #1)</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">CONGRUENCY FLAG: broad-health content travels widest but may not convert to installs vs scan-demos</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></div>
+      <p class="quote-theme">Parent/baby content over-indexes</p><p class="quote-body">&#x27;What Parents Should Know About Baby Food&#x27; — 1,628 views</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Validates the mom/parent avatar as a traction lane</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></div>
+      <p class="quote-theme">Hard-betrayal framing under-performed ORGANICALLY</p><p class="quote-body">&#x27;The Tobacco Playbook Came to Processed Food&#x27; — 250 views</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Counter-signal: run extreme in PAID; organic favors curiosity/utility over conspiracy</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">barefootbasil/Yuka</a></div>
+      <p class="quote-theme">&#x27;Worth it&#x27; aha: the cosmetics/sunscreen gotcha</p><p class="quote-body">used CeraVe day cream thinking it was perfect … only to find out it scored zero … many sunscreens have hazardous ingredients</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The revelation moment that converts + retains (personal-care)</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">Trustpilot/Yuka</a></div>
+      <p class="quote-theme">Retention = behavior change</p><p class="quote-body">Information is worth everything … I changed a lot of my grocery routine since I downloaded the app</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">When it changes the routine, it sticks — the real retention metric</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">Trustpilot/Yuka</a></div>
+      <p class="quote-theme">&#x27;So much for free&#x27; billing shock</p><p class="quote-body">Downloaded the free Yuka app and suddenly I had a £40.56 charge … Don&#x27;t trust this app</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Surprise-charge = instant 1-star churn; onboarding/billing must be transparent</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲180</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Supplements</a></div>
+      <p class="quote-theme">Payoff: &#x27;I know what I&#x27;m actually taking now&#x27;</p><p class="quote-body">i switched and honestly can&#x27;t tell you if i feel different but i know what i&#x27;m actually taking now</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Control/knowing is the payoff — Kiiwii CAN serve the label-readable part (blends, sweeteners, dyes)</span></div><div class="mini-tags"><span class="mini-tag">Gym &amp; Supplement</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲19</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></div>
+      <p class="quote-theme">Low-tox belief: unseen cellular harm</p><p class="quote-body">the point is to help prevent microplastics and cancer/disease … changes on a cellular level that we can&#x27;t see</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The conviction that drives relentless swapping (register; claims contested)</span></div><div class="mini-tags"><span class="mini-tag">Crunchy / Non-Tox</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲120</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/WholeFoodsPlantBased</a></div>
+      <p class="quote-theme">CANDIDATE-NEW: sugar-spike auditing</p><p class="quote-body">made my sugar spike above 250 … get a continuous glucose monitor … see how your body reacts to different foods</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Overlaps Kiiwii&#x27;s &#x27;zero sugar isn&#x27;t healthy&#x27; content; primary tool is a CGM not a scanner</span></div><div class="mini-tags"><span class="mini-tag">Diabetic/Glucose-aware</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲437</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></div>
+      <p class="quote-theme">Overnight audit spans food + skincare</p><p class="quote-body">Retin-A. Alcohol. Weed … I also cut out chemical sunscreens so I changed my foundation</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The all-at-once life-change audit (food AND personal care)</span></div><div class="mini-tags"><span class="mini-tag">Pregnant/TTC Auditor</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲11</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></div>
+      <p class="quote-theme">Toxin-avoidance kicks in hard</p><p class="quote-body">I was really cautious about food containing glyphosate. So stuck to organics … that shit is poison</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The distrust register activates at pregnancy (claim contested; register real)</span></div><div class="mini-tags"><span class="mini-tag">Pregnant/TTC Auditor</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></div>
+      <p class="quote-theme">Owned: health-halo shock at home</p><p class="quote-body">eye opening about the items i had in my fridge that i thought was healthy</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Corroborates the &#x27;healthy impostor&#x27; pain (owned, positive-skew)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></div>
+      <p class="quote-theme">Owned: packaging-truster converts to daily use</p><p class="quote-body">sucker for packaging … NOT ANYMORE … use it every single day</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Halo-&gt;conversion + daily-habit retention (owned)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></div>
+      <p class="quote-theme">Owned: family &#x27;harmful products&#x27; shock</p><p class="quote-body">shocked to learn how many products our family was using that were harmful</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Family shock-trigger. COMPLIANCE: &#x27;harmful&#x27; is the reviewer&#x27;s word — keep as verbatim, never restate as a Kiiwii claim in copy.</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span>—</div>
+      <p class="quote-body"></p></article></div>
+</section><section class="panel" data-panel="solution_ladder">
+  <p class="kicker">05 · Solution Ladder</p>
+  <h2>What they do instead <span class="hl">(32)</span></h2>
+  <p class="muted" style="margin-bottom:18px">The behaviors and tools people already use to police ingredients — reading labels by hand, Yuka, Bobby Approved, ‘only buy 5-ingredient’, avoiding brands — and how they feel about each.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The status quo kiiwii displaces. The recurring gap: manual label-reading doesn’t scale and other scanners give a number with no ‘why’ — which is exactly the after-the-number wedge (amber rows).</p></div>
+  <div class="ladder-grid"><div class="ladder-card"><h4>its not even that hard to look up what those chemicals are nowadays</h4>
+        <p class="lc-note">The tedious status quo Kiiwii replaces: googling each additive one by one</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (manual)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/PetPeeves</a></div></div><div class="ladder-card"><h4>If it has a really bad score then it shows me a list of alternative products with better scores</h4>
+        <p class="lc-note">The &#x27;scan -&gt; swap&#x27; loop that retains users; Kiiwii needs its own better-alternative engine</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (competitor app)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/ultraprocessedfood</a></div></div><div class="ladder-card"><h4>take a photo of the product and it analyzes … a personal compatibility score based on your profile (allergies, blood sugar, sensitive skin)</h4>
+        <p class="lc-note">Competitor intel: rivals push personalization; Kiiwii&#x27;s wedge is instead the breakdown + plain-English &#x27;why&#x27; + the swap (do not claim personalization)</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (next-gen)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/Biohackers</a></div></div><div class="ladder-card"><h4>Instead of blocking food scans … show a virtual shelf of products I probably use, scores blurred unless I subscribe</h4>
+        <p class="lc-note">Trial-to-paid rec: keep scanning generous; charge for the audit/history/alternatives layer</p>
+        <div class="ladder-meta"><span class="lc-tag">Paywall design</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">Substack teardown</span></div></div><div class="ladder-card"><h4>optional yearly membership $10-20 … sliding scale … no commitment, cancel anytime</h4>
+        <p class="lc-note">Yuka&#x27;s low-friction pay path; Kiiwii+ must justify a heavier sub with obvious ongoing value</p>
+        <div class="ladder-meta"><span class="lc-tag">Pricing model</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">howmuchblog / joinchargeback</a></div></div><div class="ladder-card"><h4>extras like offline scanning, product search without scanning, food preference alerts, full scanning history</h4>
+        <p class="lc-note">The convenience set that converts power users — map Kiiwii+ against it</p>
+        <div class="ladder-meta"><span class="lc-tag">Paid-tier value</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">alternativeto / howmuchblog</span></div></div><div class="ladder-card"><h4>If it contains things you wouldn&#x27;t find in a grocery store, it&#x27;s ultra-processed</h4>
+        <p class="lc-note">The crude manual heuristic Kiiwii replaces with an actual score</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (rule of thumb)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></div></div><div class="ladder-card"><h4>Titanium dioxide (E171); Brominated vegetable oil; Potassium bromate; Azodicarbonamide; Propylparaben</h4>
+        <p class="lc-note">People manually hunt EU-banned additives — Kiiwii can surface these instantly (flag: claims contested)</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (research)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/BreakingPoints</a></div></div><div class="ladder-card"><h4>I use Cronometer to track what I&#x27;m actually eating now … just ingredients</h4>
+        <p class="lc-note">Trackers log intake but don&#x27;t vet ingredient safety — a different job than Kiiwii</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (tracker)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></div></div><div class="ladder-card"><h4>introduce each new box slowly … the website says clean machines but no guarantee</h4>
+        <p class="lc-note">The tiring re-check ritual a scan streamlines (awareness, not a safety promise)</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (manual vigilance)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></div></div><div class="ladder-card"><h4>they use some app … to see if there&#x27;s dyes in the food</h4>
+        <p class="lc-note">Dye-moms ALREADY scan — Kiiwii can own the dye-hunt use case cleanly</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (scan app)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/ScienceBasedParenting</a></div></div><div class="ladder-card"><h4>On the nights she didn&#x27;t have one … her behavior was fine</h4>
+        <p class="lc-note">Manual DIY tracking a scanner shortcuts to the ingredient itself</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (elimination)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/ADHDparenting</a></div></div><div class="ladder-card"><h4>eliminating one food or drink from your regular diet for at least a few months … tracking everything</h4>
+        <p class="lc-note">The slow manual method a scanner accelerates (find the suspect additive instantly)</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (elimination)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/FODMAPS</a></div></div><div class="ladder-card"><h4>Highly-processed foods … Artificial sweeteners … it&#x27;s much easier to see which food is bad</h4>
+        <p class="lc-note">Detectives hunt specific additives (sweeteners, sulfites, carrageenan) across products</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (label hunt)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/FODMAPS</a></div></div><div class="ladder-card"><h4>when consumers visit supermarkets with Yuka in hand … standing in Target trying to decide between two</h4>
+        <p class="lc-note">The shoot location: supermarket/Target/CVS aisle, phone out, deciding between two SKUs</p>
+        <div class="ladder-meta"><span class="lc-tag">Behavior (in-store)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">cbinsights / Substack</a></div></div><div class="ladder-card"><h4>the MAHA movement has also fueled this interest … &#x27;God-intended foods&#x27;</h4>
+        <p class="lc-note">The cultural tailwind Kiiwii launches into — powerful but polarizing; wield carefully</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (cultural wave)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">Fox News</a></div></div><div class="ladder-card"><h4>most women change so many products … makeup, shampoos, laundry detergents … what should I be worried about?</h4>
+        <p class="lc-note">The TTC/pregnancy swap wave = high-intent onboarding; the emergent SECONDARY avatar</p>
+        <div class="ladder-meta"><span class="lc-tag">Behavior (life-stage swap)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/tryingtoconceive</a></div></div><div class="ladder-card"><h4>Yuka doesn&#x27;t just leave you hanging. It breaks down exactly why</h4>
+        <p class="lc-note">Win by explaining the WHY in plain English + nuance, not a scarier number — differentiates from &#x27;fearmongering&#x27; rep</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (trust)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">lemon8/staycool</span></div></div><div class="ladder-card"><h4>complex science, made simple. No jargon, just clear and honest information</h4>
+        <p class="lc-note">The relief of one clear answer amid the doom-scroll — Kiiwii&#x27;s own promise, validated by the fatigue in P1</p>
+        <div class="ladder-meta"><span class="lc-tag">Payoff (clarity)</span><span class="lc-tag pos">Positive</span><span class="src-link" style="color:var(--text-dim)">kiiwii PDP</span></div></div><div class="ladder-card"><h4>Cereal / Deodorant / Ice Cream / Cleaning Sprays &#x27;Ranked: Worst to Better&#x27; (1,000-1,318 views each)</h4>
+        <p class="lc-note">The shootable scan-list format from P8 — already pulling steady mid-range views; scale it</p>
+        <div class="ladder-meta"><span class="lc-tag">Format (validated)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></div></div><div class="ladder-card"><h4>Ketchup (1,308), Chick-fil-A Sauce, Dish Soap, Peanut Butter, Fairlife — product reveals</h4>
+        <p class="lc-note">Named-product curiosity reveals travel; brand-name recognition = the hook</p>
+        <div class="ladder-meta"><span class="lc-tag">Format (validated)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></div></div><div class="ladder-card"><h4>&#x27;Kiiwii Scans More Than Food&#x27; + deodorant/dish soap/cleaning content</h4>
+        <p class="lc-note">Personal-care/household differentiator vs food-only competitors — lean in</p>
+        <div class="ladder-meta"><span class="lc-tag">Format (validated)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></div></div><div class="ladder-card"><h4>No marketing spin. No brand influence. No confusing jargon. Stop guessing. Start knowing. No conflicts of interest</h4>
+        <p class="lc-note">The transparency/independence play (same lane as Yuka) — congruent with the distrust engine</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (owned)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">kiiwii App Store</a></div></div><div class="ladder-card"><h4>for the simple product scanning function, a free version is amazing … I&#x27;ve never felt the need to upgrade</h4>
+        <p class="lc-note">Yuka&#x27;s free scan = retention but weak monetization; Kiiwii+ must add obvious ongoing value beyond the scan</p>
+        <div class="ladder-meta"><span class="lc-tag">Paywall model</span><span class="lc-tag neu">Mixed</span><span class="src-link" style="color:var(--text-dim)">barefootbasil+skinnedcartree</span></div></div><div class="ladder-card"><h4>premium is very helpful when shopping online, so you can search for products, not only scan</h4>
+        <p class="lc-note">Gate search / online-image scan / history — the aggregate — not the first scan</p>
+        <div class="ladder-meta"><span class="lc-tag">Paid-tier value</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">barefootbasil/Yuka</a></div></div><div class="ladder-card"><h4>No advertisements … Independent ratings … Not influenced by brands</h4>
+        <p class="lc-note">Kiiwii&#x27;s &#x27;no brand influence&#x27; must be loud + provable to justify the sub</p>
+        <div class="ladder-meta"><span class="lc-tag">Positioning (trust)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">skinnedcartree/Yuka</a></div></div><div class="ladder-card"><h4>checking NSF&#x27;s certified products database, USP&#x27;s verified mark list, or … ConsumerLab</h4>
+        <p class="lc-note">The real tool for this avatar is NSF/USP/Informed Sport/ConsumerLab/Labdoor — not an ingredient scanner</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (certs/lab)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/Supplements</a></div></div><div class="ladder-card"><h4>What are some swaps you&#x27;ve made to be low tox/non tox?</h4>
+        <p class="lc-note">They already crowd-source swaps + use EWG/Think Dirty — Kiiwii&#x27;s scan+alternative is the upgrade</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (manual/apps)</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></div></div><div class="ladder-card"><h4>google everything that isn&#x27;t obvious … more picky as to where I&#x27;ll get them from</h4>
+        <p class="lc-note">The tedious one-by-one check a scanner collapses to 3 seconds</p>
+        <div class="ladder-meta"><span class="lc-tag">Alt (manual)</span><span class="lc-tag neu">Mixed</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></div></div><div class="ladder-card wedge-card-hl"><h4>scan, see the score, understand why it got that score, plus better alternatives</h4>
+        <p class="lc-note">OWNED (5-star) validation of score + WHY + per-ingredient + swap; user says it saves &#x27;Googling every ingredient myself&#x27;</p>
+        <div class="ladder-meta"><span class="lc-tag">Wedge validation</span><span class="lc-tag pos">Positive</span><span class="mini-tag wedge">WEDGE</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></div></div><div class="ladder-card"><h4>grocery item rankings, automatic recommendations, and the option to order products online</h4>
+        <p class="lc-note">Confirms the aggregate layer to gate (rankings/recs/order-online) vs the free core scan</p>
+        <div class="ladder-meta"><span class="lc-tag">Feature/paywall</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></div></div><div class="ladder-card"><h4>really good swaps for products with better ingredients</h4>
+        <p class="lc-note">Swap = a repeated &#x27;why I keep it&#x27; in owned reviews</p>
+        <div class="ladder-meta"><span class="lc-tag">Swap validation</span><span class="lc-tag pos">Positive</span><a class="src-link" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></div></div></div>
+</section><section class="panel" data-panel="objections">
+  <p class="kicker">06 · Objections &amp; Friction</p>
+  <h2>Objections &amp; friction <span class="hl">(34)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The objection · the verbatim · what it means · source. The <b>5 amber WEDGE rows</b> are the highest-value in the file — the after-the-number breakdown answers them.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Every reason someone hesitates or churns — ‘generic score,’ ‘good/bad binary,’ ‘one red ingredient tanks the score,’ ‘these apps sell fear,’ inaccuracy-costs-money, surprise billing, orthorexia. The three score objections are the wedge: kiiwii answers them with the ‘why’ + per-ingredient verdict.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲197</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/PetPeeves</a></div>
+      <p class="quote-theme">&#x27;Scary-sounding name&#x27; = fearmongering grift</p><p class="quote-body">Just because you dont know a word doesnt mean its dangerous … Most people making content like this are trying to sell something</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">THE backlash Kiiwii must not trigger — the &#x27;you&#x27;re just selling fear&#x27; read</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲197</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/PetPeeves</a></div>
+      <p class="quote-theme">Chemophobia mockery: &#x27;everything&#x27;s chemicals&#x27;</p><p class="quote-body">Its called chemicals, and they are in everything</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The educated-skeptic dismissal of scan-apps</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲113</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/PetPeeves</a></div>
+      <p class="quote-theme">Over-the-top fear is itself a red flag</p><p class="quote-body">if you use them even as directed you will surely die young … die riddled with cancer at the age of 45</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Purist fear reads as unhinged -&gt; credibility risk</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Biohackers</a></div>
+      <p class="quote-theme">Barcode-only: won&#x27;t scan / not in database</p><p class="quote-body">Sometimes the barcode doesn&#x27;t scan, sometimes the product isn&#x27;t in the database</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Yuka&#x27;s #1 functional gap — Kiiwii photo-scans 4.7M products</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card wedge-card-hl"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Biohackers</a></div>
+      <p class="quote-theme">Scores feel generic — &#x27;is it bad for ME?&#x27;</p><p class="quote-body">the score feels a bit generic … a chocolate bar might get 55/100, but that doesn&#x27;t really tell me if it&#x27;s actually bad for me</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">WEDGE: the generic-score gripe is answered by Kiiwii&#x27;s per-ingredient Good/Concerning/Bad breakdown + &#x27;Kiiwii says&#x27; plain-English why (NOT by personalization — Kiiwii does not personalize)</span></div><div class="mini-tags"><span class="mini-tag wedge">WEDGE</span><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card wedge-card-hl"><div class="quote-top"><span class="quote-ups">▲162</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/dietetics</a></div>
+      <p class="quote-theme">&#x27;Good/bad&#x27; binary is too crude (pros distrust it)</p><p class="quote-body">I&#x27;m on the fence about it since it labels foods &#x27;good&#x27; or &#x27;bad&#x27;</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The dietitian critique — nuance is a credibility wedge</span></div><div class="mini-tags"><span class="mini-tag wedge">WEDGE</span><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲9</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/nutrition</a></div>
+      <p class="quote-theme">Is it accurate or just bogus?</p><p class="quote-body">it told me they had toxins … Then my friend told me it was all bogus … is she right?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The trust wobble every scan-app faces</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲20</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ultraprocessedfood</a></div>
+      <p class="quote-theme">Wary of trusting one app for all shopping</p><p class="quote-body">it could be unwise to put all my trust into one app guiding my shopping choices</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Over-reliance worry -&gt; position as a tool, not gospel</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲45</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/MorpheApp</a></div>
+      <p class="quote-theme">Freemium where &#x27;the free part is useless&#x27;</p><p class="quote-body">they&#x27;re freemium, but the &#x27;free&#x27; part is useless</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The churn trigger if Kiiwii gates the core scan too hard</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲50</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/HingeStories</a></div>
+      <p class="quote-theme">Subscription fatigue / enshittification</p><p class="quote-body">I knew the best app would begin enshittification … cough up $20/week for the puny privilege</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The resentment a badly-placed paywall detonates</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲4</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/revancedapp</a></div>
+      <p class="quote-theme">Gating the core action = people patch/bounce</p><p class="quote-body">patched the Yuka … impossible to download the data with the &#x27;Offline mode&#x27; from Premium</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">When the paywall blocks value, power users route around it</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">You Scan / Food Scan (App Store)</span></div>
+      <p class="quote-theme">5-scans-then-pay blocks the habit before it forms</p><p class="quote-body">free to use for scanning up to 5 products per month … then a yearly subscription</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The Kiiwii-type gate: too tight and the habit never sets (trial-to-paid leak)</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲407</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/CasualConversation</a></div>
+      <p class="quote-theme">Pre-empts the &#x27;everything&#x27;s chemicals&#x27; dismissal</p><p class="quote-body">YES … I know everything has chemicals … I&#x27;m talking about the ones that do harm</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Even the skeptic hates the strawman — Kiiwii must be precise, not hysterical</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲15</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></div>
+      <p class="quote-theme">A scan can&#x27;t guarantee cross-contamination safety</p><p class="quote-body">&#x27;Made in a shared facility&#x27; … is a tiny single molecule enough to be seriously worried about?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">COMPLIANCE: Kiiwii flags listed ingredients, NOT &#x27;may contain&#x27;/trace safety — never claim reaction-proof</span></div><div class="mini-tags"><span class="mini-tag">Allergy Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲22</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/peanutallergy</a></div>
+      <p class="quote-theme">Allergy anxiety can spiral (handle with care)</p><p class="quote-body">checking ingredients multiple times and still convincing myself I&#x27;m having a reaction</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Do NOT inflame; support calm verification, don&#x27;t amplify panic</span></div><div class="mini-tags"><span class="mini-tag">Allergy Mom</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲87</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ScienceBasedParenting</a></div>
+      <p class="quote-theme">Science-based backlash: &#x27;off their rails&#x27;</p><p class="quote-body">some of these moms are completely off their rails … is it truly that beneficial to plan your shopping trip around scanning items on an app</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The over-the-top risk + the &#x27;is scanning worth it?&#x27; doubt</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲12</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ScienceBasedParenting</a></div>
+      <p class="quote-theme">Genuinely unsure what&#x27;s actually bad about it</p><p class="quote-body">Is it ok for children to have red dye 40? What is so bad about it? Can someone explain</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The confused-parent middle — wants a clear, calm answer</span></div><div class="mini-tags"><span class="mini-tag">Red-Dye Mom</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲1</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/IBSHelp</a></div>
+      <p class="quote-theme">Delayed reactions make the culprit hard to pin</p><p class="quote-body">it usually starts 6 to 10 hrs after I ate</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Kiiwii finds the INGREDIENT, doesn&#x27;t prove causation (Method flag)</span></div><div class="mini-tags"><span class="mini-tag">Symptom Detective</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card wedge-card-hl"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">staycool / longerlifespan (Yuka)</span></div>
+      <p class="quote-theme">One red ingredient tanks the whole score</p><p class="quote-body">It zeroes in on the naughtiest ingredient … lands under 25/100 … dings saturated fat without distinguishing good/bad fats</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Over-penalization critique = Kiiwii&#x27;s nuance wedge + honest-counter (Method)</span></div><div class="mini-tags"><span class="mini-tag wedge">WEDGE</span><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲15</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/skeptic</a></div>
+      <p class="quote-theme">Skeptic: &#x27;e-numbers aren&#x27;t a poison code&#x27;</p><p class="quote-body">e-numbers are just ways to refer to chemicals, not some secret code scientists use to hide poisons … how non-scientific / wooey is it?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The pseudoscience critique = the honest counter-voice to design against</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲44</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ultraprocessedfood</a></div>
+      <p class="quote-theme">It UNDER-flags — rates obvious UPF &#x27;excellent&#x27;</p><p class="quote-body">even when there are certain ingredients I believe are UPF, the app still categorises the item as excellent</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Under-flagging erodes trust for the hardcore avoiders</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲15</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/StopEatingSeedOils</a></div>
+      <p class="quote-theme">Misses seed oils entirely</p><p class="quote-body">soybean oil … the Yuka app gives it a 63/100 which is a good score … apps that review the seed oils?</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The seed-oil-crowd gap = a wedge IF Kiiwii flags them (confirm capability)</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲9</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ultraprocessedfood</a></div>
+      <p class="quote-theme">Methodology fights: fats, sugar, organic</p><p class="quote-body">Yuka labels saturated fat as bad … elevates &#x27;heart healthy&#x27; seed oils … lumps sugar into one category</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The tribes want opposite scoring — you can&#x27;t please all; pick a lane transparently</span></div><div class="mini-tags"><span class="mini-tag">Food-System Skeptic</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">App Store field scan</a></div>
+      <p class="quote-theme">Red ocean of identical AI-scan clones</p><p class="quote-body">Product Scanner, IngAI, Ingredie Scan, ScanAI, ScanGredients, Ingredient Checker: AI Scanner (all &#x27;snap a photo -&gt; 0-100 score&#x27;)</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">STRATEGIC: photo-scan+score is commoditized; Kiiwii must win on brand/content/catalog/UX, not features</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card wedge-card-hl"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">Trustpilot/Yuka</a></div>
+      <p class="quote-theme">Cancel: inaccuracy literally costs money</p><p class="quote-body">I&#x27;ve lost count how many times I&#x27;ve wasted money on products that scored excellent … then it&#x27;s scored low … same product scores poor, good and excellent</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Accuracy failures = direct financial regret = churn (WEDGE: per-ingredient breakdown builds trust)</span></div><div class="mini-tags"><span class="mini-tag wedge">WEDGE</span><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">Trustpilot/Yuka</a></div>
+      <p class="quote-theme">Cancel: &#x27;their business is fear mongering&#x27;</p><p class="quote-body">their business is fear mongering. The more afraid you are the more money they make</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The cynical-churn read Kiiwii must not earn (calm plain-English &#x27;why&#x27;)</span></div><div class="mini-tags"><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">justuseapp/Yuka</a></div>
+      <p class="quote-theme">Paying user resents doing unpaid QA</p><p class="quote-body">I have a paid subscription but … missing ingredients, duplicated products with different ratings … I pay a subscription. I don&#x27;t work for free</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Paid users expect the DB to be right — data quality is a retention line</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">skinnedcartree/Yuka</a></div>
+      <p class="quote-theme">Con: it can fuel food anxiety/orthorexia</p><p class="quote-body">Can encourage obsessive behaviour … Can increase food anxiety, particularly for those prone to orthorexic tendencies</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Orthorexia is a documented churn+ethics risk (reduce, don&#x27;t amplify)</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card wedge-card-hl"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">consumed/Liz Dunn</a></div>
+      <p class="quote-theme">Distrust: a number = false precision</p><p class="quote-body">a false sense of quantitative precision … when these judgments are in fact highly subjective</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">The score-alone distrust the &#x27;Kiiwii says&#x27; explanation answers (WEDGE)</span></div><div class="mini-tags"><span class="mini-tag wedge">WEDGE</span><span class="mini-tag">Yuka Refugee</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲24</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/Fitness_India</a></div>
+      <p class="quote-theme">CAPABILITY GAP: their #1 fear is off-label</p><p class="quote-body">whether there could be contamination with heavy metals … lead, arsenic, cadmium, or mercury</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Heavy metals/BPA/dosing are NOT on the ingredient label — Kiiwii scans labels, so it can&#x27;t serve the core fear</span></div><div class="mini-tags"><span class="mini-tag">Gym &amp; Supplement</span><span class="mini-tag">Med resonance</span><span class="mini-tag ev-neu">Evidence: Moderate</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲269</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/ZeroWaste</a></div>
+      <p class="quote-theme">Anti-cleanwashing backlash (even here)</p><p class="quote-body">I really would prefer to avoid brands that rely on &#x27;clean ingredients&#x27;, appeal to nature, &#x27;regular products are full of toxins&#x27; marketing. It REALLY bothers me</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Highest-scoring row in the space (269 up) — &#x27;toxin&#x27; framing alienates even crunchy people</span></div><div class="mini-tags"><span class="mini-tag">Crunchy / Non-Tox</span><span class="mini-tag">High resonance</span><span class="mini-tag ev-pos">Evidence: Strong</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲5</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></div>
+      <p class="quote-theme">COMPLIANCE: pregnancy audit can spiral</p><p class="quote-body">I was MISERABLE … stopped wearing makeup, felt guilty eating … terrified of everything for 3+ months … perinatal anxiety</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">This avatar needs a CALMING tool — Kiiwii must reduce, not amplify, the fear (orthorexia/anxiety line)</span></div><div class="mini-tags"><span class="mini-tag">Pregnant/TTC Auditor</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span class="quote-ups">▲11</span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></div>
+      <p class="quote-theme">Trusted &#x27;clean&#x27; retailers now feel &#x27;sus&#x27;</p><p class="quote-body">There was this good brand at Whole Foods … Now all the Whole Foods deodorants are sus</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">Even clean-retailer trust erodes -&gt; verify each product</span></div><div class="mini-tags"><span class="mini-tag">Crunchy / Non-Tox</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article><article class="quote-card"><div class="quote-top"><span></span><a class="quote-sub" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></div>
+      <p class="quote-theme">DATA QUALITY: owned reviews are not independent</p><p class="quote-body">gives creators opportunities to actually participate and earn</p><div class="quote-field"><span class="quote-field-label">Why it matters</span><span class="quote-field-value">51 ratings / 5.0, all positive + a creator-earn program =&gt; treat Kiiwii&#x27;s own reviews as THIN, non-independent evidence</span></div><div class="mini-tags"><span class="mini-tag" style="opacity:.6">Unassigned</span><span class="mini-tag">Low resonance</span><span class="mini-tag ev-warn">Evidence: Thin</span></div></article></div>
+</section><section class="panel" data-panel="competitors">
+  <p class="kicker">07 · Competitor Landscape</p>
+  <h2>The apps she already tries <span class="hl">(9)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The scanner field, by descriptor and sentiment. (Frequency counts are uncached in the sheet — this is the qualitative landscape.)</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p><b>Yuka</b> is the leader to convert power-users from (‘Yuka Refugee’ graded STRONG); <b>Bobby Approved / EWG / Think Dirty</b> hold slices; the <b>AI photo-scan clones (gud for us, Lovi, and the swarm)</b> commoditize the scan. kiiwii’s edge over all of them is the after-the-number ‘why’ + swap, not the scan.</p></div>
+  <div class="comp-grid"><div class="comp-card"><h4>Yuka</h4>
+        <p class="comp-tier">Competitor · Category leader · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">The 800lb gorilla: instant barcode score + alternatives, huge habit; but barcode-only, database gaps, generic scores, &#x27;good/bad&#x27; binary, fearmongering rep, cosmetics-heavy</p>
+        <div class="ladder-meta"><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/dietetics</a></div></div><div class="comp-card"><h4>Open Food Facts</h4>
+        <p class="comp-tier">Competitor · Open/free DB · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">Free, open database, but coverage gaps and less polish</p>
+        <div class="ladder-meta"><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/Biohackers</a></div></div><div class="comp-card"><h4>&#x27;gud for us&#x27;</h4>
+        <p class="comp-tier">Competitor · AI photo-scan · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">Direct Kiiwii-like challenger: AI photo scan + personalized compatibility score; 5 free scans trial</p>
+        <div class="ladder-meta"><a class="src-link" href="thread ↗" target="_blank" rel="noopener">r/Biohackers</a></div></div><div class="comp-card"><h4>Think Dirty</h4>
+        <p class="comp-tier">Competitor · Cosmetics scanner · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">Personal-care-focused ingredient scanner; older, cosmetics-first</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">us.amperna (analysis)</span></div></div><div class="comp-card"><h4>EWG Healthy Living / Skin Deep</h4>
+        <p class="comp-tier">Competitor · Cosmetics/food (nonprofit) · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">Authority brand in &#x27;clean&#x27;; database-driven, criticized for conservatism/bias</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">us.amperna (analysis)</span></div></div><div class="comp-card"><h4>Bobby Approved</h4>
+        <p class="comp-tier">Competitor · Food scanner · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">Influencer-led (Bobby Parrish) &#x27;banned ingredients&#x27; food scanner; strong following</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">You Scan (App Store)</span></div></div><div class="comp-card"><h4>You Scan / Food Scan (photo-scan clones)</h4>
+        <p class="comp-tier">Competitor · AI photo-scan · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">Direct Kiiwii-model clones: &#x27;snap a pic of the ingredients&#x27;, 5 free scans/month then yearly sub — the exact space Kiiwii is in</p>
+        <div class="ladder-meta"><a class="src-link" href="thread ↗" target="_blank" rel="noopener">App Store</a></div></div><div class="comp-card"><h4>INCI Beauty / Fig / IngrediCheck / 1Source</h4>
+        <p class="comp-tier">Competitor · Niche scanners · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">The long tail (INCI cosmetics; Fig for diets/allergies; IngrediCheck)</p>
+        <div class="ladder-meta"><span class="src-link" style="color:var(--text-dim)">alternativeto (analysis)</span></div></div><div class="comp-card"><h4>Lovi</h4>
+        <p class="comp-tier">Competitor · Screenshot/online scan · <span class="lc-tag neu" style="display:inline-block">Mixed</span></p>
+        <p class="snip">Scans product screenshots / online-store images (no barcode) — the online-shopper gap Yuka misses; a Kiiwii+ opportunity</p>
+        <div class="ladder-meta"><a class="src-link" href="thread ↗" target="_blank" rel="noopener">Trustpilot/Yuka</a></div></div></div>
+</section><section class="panel" data-panel="swipe_file">
+  <p class="kicker">08 · Emotional Swipe File</p>
+  <h2>Emotional Swipe File <span class="hl">(58)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Hooks by funnel stage, each carrying a compliance flag: <span class="swipe-flag flag-SAFE">SAFE</span> <span class="swipe-flag flag-BOLD">BOLD</span> (paid only) <span class="swipe-flag flag-REVIEW">REVIEW</span> (legal check first).</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Ready-to-shoot hooks rooted in real verbatims. Respect the flag: SAFE runs anywhere; BOLD is the extreme register for PAID only; REVIEW needs a compliance pass before it runs (allergy-safety, dye-causation, or medical-adjacent lines).</p></div>
+  <div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">TOF <span class="hl">(34)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">You find out something new is &#x27;poisoning&#x27; you every day. One scan tells you which ones actually matter.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Everyday I find out products and food have cancer causing ingredients”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Vent</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">Everything&#x27;s &#x27;poison&#x27; now. Fine. Which things actually are? Point your camera and find out.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“All the food is poison?”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/GroceryStores</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Yuka Refugee <span class="swipe-flag flag-BOLD">BOLD</span></div>
+            <p class="swipe-ad">The app that terrified you about your face cream never explained WHY. Get the plain-English version.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“it just scares me. Especially … CeraVe is bad”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/WomensHealth</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">&#x27;If it&#x27;s on the shelf, it&#x27;s fine.&#x27; Who told you that? Scan it and meet the liar.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“if it&#x27;s available or it&#x27;s in the store, it&#x27;s probably fine”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/BreakingPoints</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">Banned in Europe. Bagged on your shelf in America. Your phone knows which ones.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“substances in their food viewed as dangerous in Europe”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/BreakingPoints</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">&#x27;Healthy&#x27; is a word they print. 0-to-100 is a number they can&#x27;t fake.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“The packaging lies while technically telling the truth”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/CasualConversation</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Allergy Mom <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Your safe brand changed its label last month. Would you have caught it? A scan would.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“They now make the cookies in a facility that also uses egg”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Allergy Mom <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Six new allergies, one overwhelmed parent, a thousand labels. Start with the camera.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“diagnosed with six different food allergies”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Red-Dye Mom <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">Red 40 is hiding in snacks you&#x27;d never suspect. Scan it. Spot it. Decide.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“when looking up what it&#x27;s in, it&#x27;s litterally in everything”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/ParentingADHD</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Red-Dye Mom <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">Banned for kids over there. Still in the cereal here. Find every dye in one scan.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“if red dye 40 is bad, why won&#x27;t America ban it”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/conspiracy</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Symptom Detective <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Playing detective with your gut? Scan the suspect — and find it hiding in everything you own.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“I have to play detective and find out the foods that cause the issues”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/IBSHelp</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Your &#x27;healthy&#x27; chips just scored lower than Doritos. Want to see the number?</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Proper Chips … lower rating than Doritos”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">cbinsights/Yuka</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Siggi&#x27;s. Chobani. The &#x27;good&#x27; brands. We scanned them at the shelf. Brace yourself.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Siggi&#x27;s Vanilla Smoothie … (24/100)”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">consumed (Yuka)</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Same brand. Oat milk: 78. Soy milk: 49. The shelf won&#x27;t tell you. Your phone will.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“oat milk 78 … soy milk … 49/100”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">cbinsights/Yuka</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Pregnant/TTC Auditor <span class="swipe-flag flag-BOLD">BOLD</span></div>
+            <p class="swipe-ad">The test turned positive. The grocery store turned terrifying. One scan, and breathe.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“found out you were pregnant”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">You&#x27;re holding two boxes, blocking the aisle, guessing. One scan ends the standoff.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“standing in Target trying to decide between two”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">Substack teardown</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-BOLD">BOLD</span></div>
+            <p class="swipe-ad">You watched one documentary. Now you can&#x27;t look at a label the same way. Good. Point the camera.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“you realize how much … is industrial product disguised as food”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">You always felt something was off about it. Here are the receipts.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“i did have a sneaking suspicion”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/nutrition</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">They spent millions making that label look healthy. You spent 3 seconds proving it isn&#x27;t.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“The packaging lies while technically telling the truth”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/CasualConversation</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-BOLD">BOLD</span></div>
+            <p class="swipe-ad">Big Food is betting you won&#x27;t scan it. Prove them wrong.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“they aren&#x27;t even hiding it”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/CasualConversation</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Stop trusting the box. Start trusting the camera.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“if it&#x27;s available or it&#x27;s in the store, it&#x27;s probably fine”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/BreakingPoints</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">You&#x27;ve eaten it a thousand times. You&#x27;ve never once read it. That ends today.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“I stopped buying anything with ingredients I couldn&#x27;t pronounce”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/Growthmindsetbookclub</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Red-Dye Mom <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Your kids eat what you approve. Now you can actually approve it.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“we&#x27;ve been really mindful about our son”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/firsttimemom</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Red-Dye Mom <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">&#x27;Poison&#x27; is a strong word. Which is exactly why you should check before you swallow it.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“All the food is poison?”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/GroceryStores</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">They feed you things banned in other countries and print &#x27;natural&#x27; on the front. Scan it. [LEGAL]</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“substances in their food viewed as dangerous in Europe”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">r/BreakingPoints</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">&#x27;Zero sugar&#x27; doesn&#x27;t automatically mean healthy. Here&#x27;s what to check first. [OWNED-VALIDATED 1,492 views]</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Zero sugar doesn&#x27;t automatically mean healthy”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">The front of the package is marketing. The ingredient list is where the real story starts. [OWNED-VALIDATED 1,377]</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“The front of a package is marketing”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">Your &#x27;healthy&#x27; breakfast might be working against you. [OWNED-VALIDATED 1,458]</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“A breakfast can look healthy and still leave you hungry”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">kiiwii YouTube</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Crunchy / Non-Tox <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Stumped on which makeup and body care are actually clean? Scan the shelf — good, concerning, bad, then the swap.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“stumped on makeup, and some body care items”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Gym &amp; Supplement <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Your pre-workout lists 11 things you can&#x27;t pronounce. Scan it — plain English, one ingredient at a time.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“don&#x27;t trust branding, verify”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Supplements</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Pregnant/TTC Auditor <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">You&#x27;re already googling every label at 5am. One scan does it in 3 seconds.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“I google everything that isn&#x27;t obvious”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Where has this been? (Real 5-star review title, verbatim.)</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Where has this been?”</p>
+            <a class="swipe-src" href="review ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">I was a sucker for packaging. Not anymore.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“sucker for packaging … NOT ANYMORE”</p>
+            <a class="swipe-src" href="review ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot tof"></span>TOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">FORMAT: creator gets interrupted mid-scan by another shopper asking what they&#x27;re doing. Social proof built into the ad.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“prompting other shoppers to ask about it”</p>
+            <a class="swipe-src" href="review ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></article></div></div><div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">MOF <span class="hl">(18)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Stop googling ingredients one by one at the shelf. Scan it. Get a straight answer.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“its not even that hard to look up what those chemicals are”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/PetPeeves</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Yuka Refugee <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Your scanner can&#x27;t read half the shelf. Point a camera instead — 4.7 million products, one photo.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Sometimes the barcode doesn&#x27;t scan … product isn&#x27;t in the database”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Biohackers</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Yuka Refugee <span class="swipe-flag flag-SAFE">SAFE</span><span class="mini-tag wedge" style="margin-left:6px">WEDGE</span></div>
+            <p class="swipe-ad">&#x27;55 out of 100&#x27; — but WHY? Kiiwii breaks down every ingredient Good/Concerning/Bad and says it in plain English.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“that doesn&#x27;t really tell me if it&#x27;s actually bad for me”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Biohackers</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF <span class="swipe-flag flag-BOLD">BOLD</span></div>
+            <p class="swipe-ad">Scanning&#x27;s free. Finding out how bad your favorites really are — that&#x27;s the part worth keeping.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“make me realize how many red-scored products are lurking”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">Substack teardown</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Food-System Skeptic <span class="swipe-flag flag-BOLD">BOLD</span></div>
+            <p class="swipe-ad">You&#x27;re not weak. It&#x27;s engineered to beat you. Now you can see exactly how, in 3 seconds.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“You&#x27;re not weak. The food is designed to override your biology”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Allergy Mom <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Stop squinting at 8-point ingredient type in the aisle. Scan it, see the allergen flagged.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“reading food labels religiously”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/FoodAllergies</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Red-Dye Mom <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">You shouldn&#x27;t need a chemistry degree to buy your kid a snack. Point the camera.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“it&#x27;s litterally in everything and my toddler is starting to have some behavioral issues”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/ParentingADHD</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Symptom Detective <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">You know one ingredient is doing this. Find every product it&#x27;s lurking in, in seconds.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“My triggers are out of control and growing”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/HumanMicrobiome</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">&#x27;Strawberry&#x27; bar. Scan it. Fourth ingredient: strawberry-flavored cranberries. Cool cool cool.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“strawberry flavored cranberries”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/legaladvice</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">Not &#x27;everything&#x27;s poison.&#x27; Just what&#x27;s actually in it, in plain English — and you decide.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“e-numbers … not some secret code scientists use to hide poisons”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/skeptic</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">One scary ingredient shouldn&#x27;t blacklist a whole food. Get the nuance, not just a red number.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“it labels foods as &#x27;good&#x27; or &#x27;bad&#x27;”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/dietetics</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Food-System Skeptic <span class="swipe-flag flag-REVIEW">REVIEW</span></div>
+            <p class="swipe-ad">It flags the seed oils other scanners wave right through.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“the Yuka app gives it a 63/100 … doesn&#x27;t flag seed oils”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/StopEatingSeedOils</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Yuka Refugee <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">No brand money. No ads. Just what&#x27;s in it and why. That&#x27;s what you&#x27;re actually paying for.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Independent ratings … Not influenced by brands”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">skinnedcartree/Yuka</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Crunchy / Non-Tox <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Your &#x27;clean&#x27; store just went sus. Stop trusting the aisle sign and scan the actual ingredient list.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“Now all the Whole Foods deodorants are sus”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Gym &amp; Supplement <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">&#x27;Proprietary blend&#x27; is where labels hide. Scan it and see what&#x27;s actually on the panel — not what the tub promises.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“proprietary blend structure meant even if tested you&#x27;d have no idea what you were getting”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Supplements</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Pregnant/TTC Auditor <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Retinol, sunscreen, salicylic acid — overnight every label matters. One scan sorts the cabinet.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“I also cut out chemical sunscreens so I changed my foundation”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/pregnant</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Users say it saves them Googling every ingredient in the aisle. One scan, plain-English why, a better swap.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“saves me from standing in the aisle Googling every ingredient myself”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot mof"></span>MOF · Pregnant/TTC Auditor <span class="swipe-flag flag-SAFE">SAFE</span><span class="mini-tag wedge" style="margin-left:6px">WEDGE</span></div>
+            <p class="swipe-ad">It&#x27;s the swaps. Scan the thing you were about to buy, walk out with the better one.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“really good swaps for products with better ingredients”</p>
+            <a class="swipe-src" href="review ↗" target="_blank" rel="noopener">App Store / Kiiwii</a></article></div></div><div class="ladder-group" style="margin-bottom:22px"><p class="ladder-stage" style="color:var(--primary);font-weight:800;margin:0 0 10px">BOF <span class="hl">(6)</span></p><div class="swipe-grid"><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF <span class="swipe-flag flag-BOLD">BOLD</span></div>
+            <p class="swipe-ad">Your bathroom cabinet, audited. Tap to reveal every red flag you&#x27;ve been living with.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“a virtual shelf of products I probably use, scores blurred unless I subscribe”</p>
+            <span class="swipe-src" style="color:var(--text-dim)">Substack teardown</span></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Food-System Skeptic <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Stop sounding out ingredients you can&#x27;t pronounce. Let the camera read them for you.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“I stopped buying anything with ingredients I couldn&#x27;t pronounce”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/Growthmindsetbookclub</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Symptom Detective <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Retire the paper food journal. Flag your trigger once, then scan your way around it.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“tracking everything I eat”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/IBSHelp</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Yuka Refugee <span class="swipe-flag flag-SAFE">SAFE</span><span class="mini-tag wedge" style="margin-left:6px">WEDGE</span></div>
+            <p class="swipe-ad">The number tells you &#x27;bad.&#x27; Kiiwii tells you which ingredient, why, and what to buy instead.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“a false sense of quantitative precision”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">consumed/Liz Dunn</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Yuka Refugee <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">You thought your face cream was clean. Scan it once — that&#x27;s the moment people don&#x27;t cancel.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“CeraVe … scored zero … many sunscreens have hazardous ingredients”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">barefootbasil/Yuka</a></article><article class="swipe-card"><div class="swipe-voice-meta"><span class="swipe-dot bof"></span>BOF · Crunchy / Non-Tox <span class="swipe-flag flag-SAFE">SAFE</span></div>
+            <p class="swipe-ad">Non-toxic AND it actually works. Scan both, keep the one that passes on ingredients and on performance.</p>
+            <div class="swipe-arrow">↓</div><p class="swipe-voice">“non toxic deodorant that truly works? No stink?”</p>
+            <a class="swipe-src" href="thread ↗" target="_blank" rel="noopener">r/nontoxic</a></article></div></div>
+</section><section class="panel" data-panel="scan_list">
+  <p class="kicker">09 · Scan List (Shoot Targets)</p>
+  <h2>US shoot list <span class="hl">(32)</span></h2>
+  <p class="muted" style="margin-bottom:16px">US-only SKUs actually stocked at Target / Walmart / CVS, across the rage-and-traction categories. Every ‘gotcha’ is stated as a HYPOTHESIS with its basis — never an asserted score.</p>
+  <div class="honesty-callout"><p class="kicker">How to use this</p><p>Fill kiiwii rating / ‘kiiwii says’ / Verified by SCANNING each product in kiiwii before briefing — they’re intentionally blank here. Never assert a competitor’s number; state the gotcha as a hypothesis and confirm it in-app.</p></div>
+  <div class="src-wrap"><table class="src-table"><thead><tr><th>#</th><th>Product</th><th>Category</th><th>Retailer</th><th>Gotcha hypothesis (basis)</th><th>Avatar</th></tr></thead><tbody><tr><td>1</td><td><b>Honey Nut Cheerios</b><br><span style="color:var(--text-dim);font-size:11px">General Mills</span></td>
+      <td>Cereal</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Heart healthy&#x27; halo may mask added sugar (honey + sugar)<br><span style="color:var(--text-dim);font-size:11px">UPF health-halo + Kiiwii cereal-aisle content</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>2</td><td><b>Special K Red Berries</b><br><span style="color:var(--text-dim);font-size:11px">Kellogg&#x27;s</span></td>
+      <td>Cereal</td><td>Target/Walmart</td>
+      <td>&#x27;Berries&#x27; may be mostly sweetened dried apple/cranberry + red dye<br><span style="color:var(--text-dim);font-size:11px">r/legaladvice Special K &#x27;strawberry cranberries&#x27; pattern</span></td>
+      <td>Red-Dye Mom</td></tr><tr><td>3</td><td><b>Chobani Flip (Vanilla/Cookie)</b><br><span style="color:var(--text-dim);font-size:11px">Chobani</span></td>
+      <td>Flavored yogurt</td><td>Target/Walmart</td>
+      <td>Flip mix-ins may push sugar despite &#x27;Greek yogurt&#x27; health image<br><span style="color:var(--text-dim);font-size:11px">Flavored-yogurt health-halo (Chobani Peach pattern)</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>4</td><td><b>Activia Vanilla</b><br><span style="color:var(--text-dim);font-size:11px">Danone</span></td>
+      <td>Yogurt</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Gut health&#x27; halo + reformulation; added sugar in vanilla<br><span style="color:var(--text-dim);font-size:11px">r/safe_food Activia reformulation betrayal</span></td>
+      <td>Allergy Mom</td></tr><tr><td>5</td><td><b>Yoplait Original Strawberry</b><br><span style="color:var(--text-dim);font-size:11px">General Mills</span></td>
+      <td>Flavored yogurt</td><td>Target/Walmart</td>
+      <td>Kid-marketed; added sugar + Red 40 hypothesis<br><span style="color:var(--text-dim);font-size:11px">Red-dye-mom avoidance register</span></td>
+      <td>Red-Dye Mom</td></tr><tr><td>6</td><td><b>Siggi&#x27;s Vanilla Skyr</b><br><span style="color:var(--text-dim);font-size:11px">Siggi&#x27;s</span></td>
+      <td>Yogurt</td><td>Target</td>
+      <td>&#x27;Low-sugar/clean&#x27; brand — does vanilla actually hold up?<br><span style="color:var(--text-dim);font-size:11px">consumed teardown flagged Siggi&#x27;s Vanilla low</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>7</td><td><b>Clif Bar Chocolate Chip</b><br><span style="color:var(--text-dim);font-size:11px">Clif/Mondelez</span></td>
+      <td>Protein/meal bar</td><td>Target/Walmart/CVS</td>
+      <td>Athletic halo may mask high added sugar/syrups<br><span style="color:var(--text-dim);font-size:11px">Protein-bar health-halo</span></td>
+      <td>Gym &amp; Supplement</td></tr><tr><td>8</td><td><b>Nature Valley Crunchy Granola</b><br><span style="color:var(--text-dim);font-size:11px">General Mills</span></td>
+      <td>Granola bar</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Granola = healthy&#x27; halo; added sugars/oils<br><span style="color:var(--text-dim);font-size:11px">UPF &#x27;healthy impostor&#x27; categories</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>9</td><td><b>Heinz Tomato Ketchup</b><br><span style="color:var(--text-dim);font-size:11px">Kraft Heinz</span></td>
+      <td>Condiment</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Just tomatoes?&#x27; — HFCS + more than the bottle implies<br><span style="color:var(--text-dim);font-size:11px">Kiiwii owned ketchup reveal (1,308 v)</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>10</td><td><b>Sweet Baby Ray&#x27;s BBQ</b><br><span style="color:var(--text-dim);font-size:11px">Sweet Baby Ray&#x27;s</span></td>
+      <td>Condiment</td><td>Target/Walmart</td>
+      <td>Front looks simple; HFCS-forward label<br><span style="color:var(--text-dim);font-size:11px">Kiiwii owned BBQ-sauce content</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>11</td><td><b>Chick-fil-A Sauce (bottled)</b><br><span style="color:var(--text-dim);font-size:11px">Chick-fil-A</span></td>
+      <td>Condiment</td><td>Target/Walmart</td>
+      <td>Iconic taste, unexamined label — brand-recognition hook<br><span style="color:var(--text-dim);font-size:11px">Kiiwii owned Chick-fil-A content</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>12</td><td><b>Silk Original Almondmilk</b><br><span style="color:var(--text-dim);font-size:11px">Danone</span></td>
+      <td>Plant milk</td><td>Target/Walmart/CVS</td>
+      <td>Gums/additives + added sugar vs &#x27;clean&#x27; image; variant gaps<br><span style="color:var(--text-dim);font-size:11px">Plant-milk variant-shock (oat vs soy)</span></td>
+      <td>Crunchy / Non-Tox</td></tr><tr><td>13</td><td><b>Oatly Original Oatmilk</b><br><span style="color:var(--text-dim);font-size:11px">Oatly</span></td>
+      <td>Plant milk</td><td>Target/Walmart</td>
+      <td>Oil + processing; &#x27;original&#x27; vs &#x27;unsweetened&#x27; variance<br><span style="color:var(--text-dim);font-size:11px">r/Biohackers oat-vs-soy variant shock</span></td>
+      <td>Yuka Refugee</td></tr><tr><td>14</td><td><b>Fairlife 2% Ultrafiltered</b><br><span style="color:var(--text-dim);font-size:11px">Fairlife/Coca-Cola</span></td>
+      <td>Milk</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Healthier/high-protein&#x27; marketing vs ultra-processing<br><span style="color:var(--text-dim);font-size:11px">Kiiwii owned Fairlife reveal</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>15</td><td><b>Capri Sun Original</b><br><span style="color:var(--text-dim);font-size:11px">Kraft Heinz</span></td>
+      <td>Kids&#x27; drink</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Fruit&#x27; pouch — added sugar; &#x27;no artificial&#x27; claims to check<br><span style="color:var(--text-dim);font-size:11px">Red-dye/parent snack audit</span></td>
+      <td>Red-Dye Mom</td></tr><tr><td>16</td><td><b>Lunchables Turkey &amp; Cheddar</b><br><span style="color:var(--text-dim);font-size:11px">Kraft Heinz</span></td>
+      <td>Kids&#x27; snack</td><td>Target/Walmart</td>
+      <td>Sodium/additives in a kid staple; recent lead-in-lunchables press<br><span style="color:var(--text-dim);font-size:11px">Parent audit + CR lunchables coverage</span></td>
+      <td>Allergy Mom</td></tr><tr><td>17</td><td><b>Gerber Puffs</b><br><span style="color:var(--text-dim);font-size:11px">Nestlé</span></td>
+      <td>Baby food</td><td>Target/Walmart/CVS</td>
+      <td>Baby-snack sugar/additives; transparency + testing<br><span style="color:var(--text-dim);font-size:11px">Kiiwii owned baby-food content (1,628 v)</span></td>
+      <td>Pregnant/TTC Auditor</td></tr><tr><td>18</td><td><b>Plum Organics Pouch</b><br><span style="color:var(--text-dim);font-size:11px">Plum</span></td>
+      <td>Baby food</td><td>Target/Walmart</td>
+      <td>&#x27;Organic&#x27; halo; fruit-concentrate/sugar order on label<br><span style="color:var(--text-dim);font-size:11px">Parent audit + baby-food heavy-metal press</span></td>
+      <td>Pregnant/TTC Auditor</td></tr><tr><td>19</td><td><b>Native Deodorant</b><br><span style="color:var(--text-dim);font-size:11px">Native/P&amp;G</span></td>
+      <td>Deodorant</td><td>Target/CVS</td>
+      <td>&#x27;Clean/aluminum-free&#x27; claim vs actual INCI list<br><span style="color:var(--text-dim);font-size:11px">r/nontoxic clean-deodorant swap hunt</span></td>
+      <td>Crunchy / Non-Tox</td></tr><tr><td>20</td><td><b>Old Spice High Endurance</b><br><span style="color:var(--text-dim);font-size:11px">P&amp;G</span></td>
+      <td>Deodorant</td><td>Target/Walmart/CVS</td>
+      <td>Fragrance/aluminum concerns for switchers<br><span style="color:var(--text-dim);font-size:11px">r/nontoxic endocrine-disruptor register</span></td>
+      <td>Crunchy / Non-Tox</td></tr><tr><td>21</td><td><b>Neutrogena Ultra Sheer SPF 70</b><br><span style="color:var(--text-dim);font-size:11px">Kenvue</span></td>
+      <td>Sunscreen</td><td>Target/Walmart/CVS</td>
+      <td>Chemical filters (avobenzone/oxybenzone) &#x27;clean&#x27; concern<br><span style="color:var(--text-dim);font-size:11px">Pregnancy/crunchy sunscreen swaps</span></td>
+      <td>Pregnant/TTC Auditor</td></tr><tr><td>22</td><td><b>Colgate Total Toothpaste</b><br><span style="color:var(--text-dim);font-size:11px">Colgate</span></td>
+      <td>Toothpaste</td><td>Target/Walmart/CVS</td>
+      <td>SLS/additives vs &#x27;clean&#x27; toothpaste switchers<br><span style="color:var(--text-dim);font-size:11px">r/nontoxic swap hunt</span></td>
+      <td>Crunchy / Non-Tox</td></tr><tr><td>23</td><td><b>Dawn Ultra Dish Soap</b><br><span style="color:var(--text-dim);font-size:11px">P&amp;G</span></td>
+      <td>Dish soap</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;What&#x27;s in the thing cleaning your dishes&#x27;<br><span style="color:var(--text-dim);font-size:11px">Kiiwii owned dish-soap content</span></td>
+      <td>Crunchy / Non-Tox</td></tr><tr><td>24</td><td><b>Gatorade Zero</b><br><span style="color:var(--text-dim);font-size:11px">PepsiCo</span></td>
+      <td>&#x27;Zero sugar&#x27; drink</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Zero sugar&#x27; halo — sweeteners/dyes to surface<br><span style="color:var(--text-dim);font-size:11px">Kiiwii owned &#x27;zero sugar&#x27; hook (1,492 v)</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>25</td><td><b>Celsius Sparkling (Fitness)</b><br><span style="color:var(--text-dim);font-size:11px">Celsius</span></td>
+      <td>&#x27;Zero sugar&#x27; energy</td><td>Target/Walmart/CVS</td>
+      <td>&#x27;Fitness&#x27; energy halo; sucralose/additives<br><span style="color:var(--text-dim);font-size:11px">Gym + zero-sugar overlap</span></td>
+      <td>Gym &amp; Supplement</td></tr><tr><td>26</td><td><b>Great Value Fruit Snacks</b><br><span style="color:var(--text-dim);font-size:11px">Walmart (store brand)</span></td>
+      <td>Kids&#x27; snack</td><td>Walmart</td>
+      <td>Store-brand fruit snacks: dyes + sugar under low price<br><span style="color:var(--text-dim);font-size:11px">Store-brand requirement + red-dye register</span></td>
+      <td>Red-Dye Mom</td></tr><tr><td>27</td><td><b>Good &amp; Gather Organic Fruit Snacks</b><br><span style="color:var(--text-dim);font-size:11px">Target (store brand)</span></td>
+      <td>Kids&#x27; snack</td><td>Target</td>
+      <td>&#x27;Organic&#x27; fruit snacks still sugar-forward<br><span style="color:var(--text-dim);font-size:11px">Store-brand + &#x27;organic halo&#x27;</span></td>
+      <td>Red-Dye Mom</td></tr><tr><td>28</td><td><b>Equate Kids Multivitamin Gummies</b><br><span style="color:var(--text-dim);font-size:11px">Walmart (store brand)</span></td>
+      <td>Supplement</td><td>Walmart/CVS</td>
+      <td>Gummy-vitamin sugar/dyes; proprietary-blend opacity<br><span style="color:var(--text-dim);font-size:11px">Supplement-checker + store brand</span></td>
+      <td>Gym &amp; Supplement</td></tr><tr><td>29</td><td><b>CVS Health Adult Multivitamin</b><br><span style="color:var(--text-dim);font-size:11px">CVS (store brand)</span></td>
+      <td>Supplement</td><td>CVS</td>
+      <td>&#x27;Health&#x27; store-brand vitamin fillers/dyes<br><span style="color:var(--text-dim);font-size:11px">Store-brand + supplement distrust</span></td>
+      <td>Gym &amp; Supplement</td></tr><tr><td>30</td><td><b>Takis Fuego</b><br><span style="color:var(--text-dim);font-size:11px">Barcel</span></td>
+      <td>Teen/kids&#x27; snack</td><td>Target/Walmart/CVS</td>
+      <td>Artificial dyes (Red 40/Yellow 6) + facility/allergen note<br><span style="color:var(--text-dim);font-size:11px">Red-dye + allergy facility-change (Takis cited)</span></td>
+      <td>Red-Dye Mom</td></tr><tr><td>31</td><td><b>Doritos Nacho Cheese</b><br><span style="color:var(--text-dim);font-size:11px">PepsiCo</span></td>
+      <td>Chips (baseline)</td><td>Target/Walmart/CVS</td>
+      <td>The &#x27;junk&#x27; baseline to compare &#x27;better-for-you&#x27; chips against<br><span style="color:var(--text-dim);font-size:11px">Proper-Chips-vs-Doritos logic (US benchmark)</span></td>
+      <td>Food-System Skeptic</td></tr><tr><td>32</td><td><b>Poppi Prebiotic Soda</b><br><span style="color:var(--text-dim);font-size:11px">Poppi/PepsiCo</span></td>
+      <td>&#x27;Better-for-you&#x27; soda</td><td>Target/Walmart</td>
+      <td>&#x27;Gut health&#x27; soda halo — sugar/claims vs reality<br><span style="color:var(--text-dim);font-size:11px">Health-halo + recent &#x27;gut health&#x27; lawsuit press</span></td>
+      <td>Food-System Skeptic</td></tr></tbody></table></div>
+</section></div>
+  </div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs .tab'),panels=document.querySelectorAll('#deck .panel');
+  function show(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-tab')===id?'true':'false');});
+    panels.forEach(function(p){p.classList.toggle('active',p.getAttribute('data-panel')===id);});window.scrollTo({top:0,behavior:'smooth'});}
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-tab'));});});
+})();
+</script>
+<footer style="max-width:1140px;margin:48px auto 0;padding:22px var(--pad) 40px;border-top:1px solid rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--font);font-size:12px;color:#5c6a88;">
+  <span style="letter-spacing:.02em;">Ad Pros &middot; Brand Intelligence</span>
+  <span>Published by Omar &middot; September 22, 2026</span>
+</footer>
+</body>
+</html>
