@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Leadpages · Agency Plans — Voice of Customer</title>
+<meta name="googlebot" content="noindex, nofollow" />
+<meta name="bingbot" content="noindex, nofollow" />
+<meta name="slurp" content="noindex, nofollow" />
+<meta name="duckduckbot" content="noindex, nofollow" />
+<meta name="baiduspider" content="noindex, nofollow" />
+<meta name="yandex" content="noindex, nofollow" />
+<meta name="author" content="Omar" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="mask-icon" href="/favicon.svg" color="#ffd609" />
+<meta name="theme-color" content="#070c1e" />
+<style>
+  :root {
+    --page-bg: #070c1e;
+    --card: rgba(13, 20, 41, 0.94);
+    --card-border: rgba(255, 255, 255, 0.09);
+    --primary: #ffd609;
+    --primary-ink: #06112b;
+    --accent: #7ea6ff;
+    --ink: #f2f5ff;
+    --ink-soft: #c6d0e8;
+    --text-dim: #5c6a88;
+    --success: #46d08a;
+    --danger: #f87171;
+    --font: "Inter", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --pad: clamp(16px, 3vw, 32px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--page-bg); color: var(--ink); font-family: var(--font); }
+  body {
+    background:
+      radial-gradient(900px 520px at 85% -10%, rgba(43, 67, 108, 0.45), transparent 55%),
+      radial-gradient(700px 420px at 0% 100%, rgba(26, 40, 74, 0.4), transparent 50%),
+      var(--page-bg);
+  }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: var(--pad) var(--pad) 80px; }
+  .top {
+    display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .brand-lock { display: flex; gap: 12px; align-items: center; min-width: 0; }
+  .mark {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--primary); color: var(--primary-ink);
+    font-weight: 800; font-size: 18px; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .brand-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
+  .brand-sub { font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; }
+  .pill {
+    display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--card-border); background: rgba(126, 166, 255, 0.1);
+    color: var(--ink-soft); font-size: 11px; font-weight: 650; letter-spacing: 0.06em;
+  }
+  .header-pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
+  .hero { margin: 8px 0 28px; }
+  .hero h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.12; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
+  .hero h1 .hl { color: var(--primary); }
+  .hero p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; max-width: 62ch; }
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--card-border); padding-bottom: 12px;
+  }
+  .tab {
+    border: none; background: transparent; color: var(--text-dim); font-family: inherit;
+    font-size: 13px; font-weight: 650; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: rgba(255, 214, 9, 0.14); color: var(--primary); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .kicker {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--text-dim);
+    text-transform: uppercase; margin: 0 0 8px;
+  }
+  .panel h2 { margin: 0 0 14px; font-size: clamp(22px, 3vw, 30px); line-height: 1.2; font-weight: 780; }
+  .panel h2 .hl { color: var(--primary); }
+  .card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+  .muted { color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .metric {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  .metric b { display: block; font-size: clamp(28px, 4vw, 36px); margin-top: 6px; font-weight: 800; letter-spacing: -0.02em; }
+  .metric span { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-right: 6px; }
+  .badge.ok { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.fail { background: rgba(248,113,113,0.14); color: var(--danger); }
+  .badge.neutral { background: rgba(126,166,255,0.14); color: var(--accent); }
+  .badge.primary { background: rgba(255,214,9,0.16); color: var(--primary); }
+  .badge.depth-full { background: rgba(70,208,138,0.14); color: var(--success); }
+  .badge.depth-scan { background: rgba(126,166,255,0.12); color: var(--accent); }
+  ul.clean { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+  ul.clean li { margin: 6px 0; }
+  ol.clean { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+  ol.clean li { margin: 8px 0; }
+  .empty { color: var(--text-dim); font-size: 14px; padding: 12px 0; }
+  a { color: var(--accent); }
+  /* Stacked row cards — mobile-first (tables break on phone / Quick Look). */
+  .entry-list { display: flex; flex-direction: column; gap: 12px; }
+  .entry-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .entry-top {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 8px 12px; margin-bottom: 10px;
+  }
+  .entry-title {
+    margin: 0; font-size: 16px; font-weight: 720; line-height: 1.3; letter-spacing: -0.01em;
+    min-width: 0; flex: 1 1 12rem;
+  }
+  .entry-quote {
+    margin: 0 0 12px; font-size: 14px; line-height: 1.5; font-style: italic; color: var(--ink-soft);
+  }
+  .entry-fields { display: flex; flex-direction: column; gap: 10px; }
+  .entry-field { min-width: 0; }
+  .entry-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px;
+  }
+  .entry-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); word-break: break-word; }
+  .entry-meta {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  .entry-meta b { color: var(--ink-soft); font-weight: 650; }
+  /* Avatars — mockup card structure, stacked on mobile */
+  .avatar-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .avatar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .avatar-card { margin-bottom: 0; }
+  .avatar-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .avatar-badge {
+    font-size: 10px; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 8px;
+  }
+  .avatar-badge.core {
+    color: var(--primary); background: rgba(255, 214, 9, 0.12);
+    border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-badge.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+  }
+  .avatar-card h3 {
+    margin: 0 0 10px; font-size: clamp(22px, 3vw, 28px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .avatar-card > .muted { margin: 0 0 16px; }
+  .avatar-quotes { margin: 0 0 16px; }
+  .avatar-quote {
+    margin: 0 0 12px; padding: 0 0 0 12px;
+    border-left: 2px solid rgba(255, 214, 9, 0.45);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .avatar-quote .src {
+    display: block; margin-top: 4px; font-style: normal; font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.02em;
+  }
+  .flip-row {
+    margin: 0 0 12px; padding: 12px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--card-border);
+  }
+  .flip-row .flip-label {
+    display: block; font-size: 11px; font-weight: 750; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 6px;
+  }
+  .flip-row p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .angle-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 11px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  /* Creative Angles — mockup matrix row (stacks on mobile) */
+  .honesty-callout {
+    margin: 0 0 18px; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid rgba(248, 113, 113, 0.45); background: rgba(248, 113, 113, 0.08);
+  }
+  .honesty-callout .kicker { color: var(--danger); margin-bottom: 8px; }
+  .honesty-callout p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .angle-matrix { display: flex; flex-direction: column; gap: 14px; }
+  .angle-matrix-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px;
+  }
+  .angle-matrix-grid {
+    display: grid; gap: 18px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .angle-matrix-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; }
+  }
+  .angle-matrix-card h3 {
+    margin: 0 0 10px; font-size: clamp(20px, 2.6vw, 26px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .angle-status {
+    display: inline-block; font-size: 10px; font-weight: 750; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .angle-status.matrix {
+    color: var(--ink-soft); background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+  }
+  .angle-status.imported {
+    color: var(--danger); background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.4);
+  }
+  .angle-status.live {
+    color: var(--success); background: rgba(70, 208, 138, 0.12); border: 1px solid rgba(70, 208, 138, 0.35);
+  }
+  .angle-status.gap {
+    color: var(--primary); background: rgba(255, 214, 9, 0.1); border: 1px solid rgba(255, 214, 9, 0.35);
+  }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .avatar-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .angle-col-kicker {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); margin: 0 0 10px;
+  }
+  .proof-quote {
+    margin: 0; padding: 0 0 0 12px; border-left: 2px solid var(--primary);
+    font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-style: italic;
+  }
+  .proof-quote.imported {
+    border-left-color: var(--danger); font-style: normal; font-size: 13px;
+  }
+  .proof-quote .src {
+    display: block; margin-top: 8px; font-style: normal; font-size: 12px;
+    font-weight: 700; color: var(--primary);
+  }
+  .concept-stack { display: flex; flex-direction: column; gap: 8px; }
+  .concept-pill {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px;
+    padding: 8px 12px; border-radius: 12px;
+    border: 1px solid rgba(255, 214, 9, 0.22); background: rgba(255, 214, 9, 0.06);
+    font-size: 12px; line-height: 1.35; color: var(--ink-soft);
+  }
+  .concept-pill .cid {
+    font-family: var(--mono); font-weight: 800; color: var(--primary); letter-spacing: 0.04em;
+  }
+  /* Swipe File — Voice→Ads style cards */
+  .swipe-grid {
+    display: grid; gap: 14px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .swipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .swipe-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 16px;
+    padding: 18px 18px 16px; display: flex; flex-direction: column; min-width: 0;
+  }
+  .swipe-voice-meta {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .swipe-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0;
+  }
+  .swipe-dot.tof { background: var(--primary); }
+  .swipe-dot.mof { background: var(--accent); }
+  .swipe-dot.bof { background: var(--success); }
+  .swipe-voice {
+    margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .swipe-src {
+    display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .swipe-src:hover { text-decoration: underline; }
+  .swipe-arrow {
+    align-self: center; margin: 14px 0; width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--primary-ink); background: var(--primary);
+    font-size: 14px; font-weight: 800; line-height: 1;
+  }
+  .swipe-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .swipe-cid {
+    font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+    padding: 5px 10px; border-radius: 999px; background: var(--primary); color: var(--primary-ink);
+  }
+  .swipe-tag {
+    font-size: 11px; font-weight: 650; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid rgba(126, 166, 255, 0.35); color: var(--accent);
+    background: rgba(126, 166, 255, 0.1);
+  }
+  .swipe-ad {
+    margin: 0; font-size: clamp(17px, 2.4vw, 22px); font-weight: 780; line-height: 1.3;
+    letter-spacing: -0.02em; color: var(--ink);
+  }
+  /* Pain quote cards (mockup Voices-style) */
+  .quote-grid {
+    display: grid; gap: 12px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .quote-card {
+    border: 1px solid var(--card-border); background: var(--card); border-radius: 14px;
+    padding: 16px 18px; min-width: 0;
+  }
+  .quote-top {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    gap: 8px 12px; margin-bottom: 12px;
+  }
+  .quote-ups {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink-soft);
+  }
+  .quote-ups b { color: var(--ink); font-weight: 800; }
+  .quote-sub {
+    font-family: var(--mono); font-size: 12px; font-weight: 750; color: var(--primary);
+    text-decoration: none;
+  }
+  .quote-sub:hover { text-decoration: underline; }
+  .quote-theme {
+    margin: 0 0 8px; font-family: var(--mono); font-size: 11px; font-weight: 750;
+    letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent);
+  }
+  .quote-body {
+    margin: 0 0 12px; font-size: 15px; line-height: 1.5; color: var(--ink); font-weight: 500;
+  }
+  .quote-field { margin: 0 0 10px; }
+  .quote-field-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px; font-weight: 700;
+  }
+  .quote-field-value { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); }
+  .quote-reveals {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-dim); font-weight: 700;
+  }
+  .quote-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--primary);
+  }
+  .quote-dot.c0 { background: var(--primary); }
+  .quote-dot.c1 { background: var(--accent); }
+  .quote-dot.c2 { background: var(--success); }
+  .quote-dot.c3 { background: #c084fc; }
+  .hero-insight {
+    font-size: clamp(22px, 3.2vw, 32px); font-weight: 780; line-height: 1.32; margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .hero-insight .hl { color: var(--primary); }
+  .signal-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+  .signal-card {
+    border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 18px;
+    background: rgba(255,255,255,0.02);
+  }
+  .signal-card .num {
+    font-family: var(--mono); font-size: 11px; color: var(--primary); font-weight: 700;
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .signal-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); font-weight: 600; }
+  .community-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .community-pill {
+    font-size: 12px; font-weight: 650; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--card-border); color: var(--ink-soft); background: rgba(255,255,255,0.03);
+  }
+  .spine-footer {
+    margin-top: 28px; padding: 18px 20px; border-radius: 14px;
+    border: 1px dashed rgba(255, 214, 9, 0.35); background: rgba(255, 214, 9, 0.06);
+    text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--primary); text-transform: uppercase;
+  }
+  /* No-JS / mobile file preview: full stacked report. JS hides this and shows tabs. */
+  #static-deck .static-toc {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  #static-deck .static-toc a {
+    font-size: 12px; font-weight: 650; color: var(--ink-soft); text-decoration: none;
+    padding: 6px 10px; border-radius: 8px; border: 1px solid var(--card-border);
+  }
+  #static-deck .static-section { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--card-border); }
+  #static-deck .static-section:last-child { border-bottom: none; }
+</style>
+
+<style>
+  .uflag{font-family:var(--mono);font-size:9px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-left:6px;}
+  .uflag.ok{color:var(--success);background:rgba(70,208,138,.14);border:1px solid rgba(70,208,138,.35);}
+  .uflag.caution{color:var(--primary);background:rgba(255,214,9,.12);border:1px solid rgba(255,214,9,.32);}
+  .uflag.no{color:var(--danger);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);}
+  .mini-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .mini-tag{font-size:10px;font-weight:650;letter-spacing:.03em;padding:4px 9px;border-radius:999px;border:1px solid var(--card-border);color:var(--text-dim);background:rgba(255,255,255,.02);}
+  .rank-card{display:grid;grid-template-columns:54px 1fr;gap:14px;border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+  .rank-num{font-family:var(--mono);font-weight:800;font-size:26px;color:var(--primary);line-height:1;}
+  .rank-card h4{margin:0 0 4px;font-size:15px;font-weight:750;}
+  .rank-card .cnt{font-family:var(--mono);font-size:11px;color:var(--text-dim);}
+  .rank-card .ex{margin:8px 0 0;font-size:13px;font-style:italic;color:var(--ink-soft);line-height:1.45;border-left:2px solid var(--card-border);padding-left:10px;}
+  .rank-card .note{margin:8px 0 0;font-size:12px;color:var(--primary);}
+  .two-offers{display:grid;gap:14px;grid-template-columns:1fr;} @media(min-width:780px){.two-offers{grid-template-columns:1fr 1fr;}}
+  .offer-col{border:1px solid var(--card-border);background:var(--card);border-radius:16px;padding:18px;}
+  .offer-col.ultra{border-color:rgba(255,214,9,.35);}
+  .offer-col h3{margin:0 0 2px;font-size:20px;font-weight:800;} .offer-col .pr{font-family:var(--mono);color:var(--primary);font-weight:800;font-size:15px;margin:0 0 12px;}
+  .offer-row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--card-border);font-size:13px;}
+  .offer-row:last-child{border-bottom:none;} .offer-row .k{color:var(--text-dim);} .offer-row .v{color:var(--ink);font-weight:650;text-align:right;}
+  .claims-grid{display:grid;gap:14px;grid-template-columns:1fr;} @media(min-width:780px){.claims-grid{grid-template-columns:1fr 1fr 1fr;}}
+  .claims-col{border-radius:14px;padding:14px 16px;border:1px solid var(--card-border);background:var(--card);}
+  .claims-col.lead{border-color:rgba(70,208,138,.3);} .claims-col.support{border-color:rgba(126,166,255,.3);} .claims-col.no{border-color:rgba(248,113,113,.35);}
+  .claims-col .k{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;font-weight:800;display:block;margin-bottom:8px;}
+  .claims-col.lead .k{color:var(--success);} .claims-col.support .k{color:var(--accent);} .claims-col.no .k{color:var(--danger);}
+  .claims-col ul{margin:0;padding-left:16px;} .claims-col li{font-size:12.5px;color:var(--ink-soft);margin:5px 0;line-height:1.4;}
+  .comp-grid{display:grid;gap:12px;grid-template-columns:1fr;} @media(min-width:720px){.comp-grid{grid-template-columns:1fr 1fr;}}
+  .comp-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:14px 16px;}
+  .comp-card h4{margin:0 0 2px;font-size:15px;font-weight:750;} .comp-card .tier{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);margin:0 0 8px;}
+  .comp-card .like{font-size:12.5px;color:var(--success);margin:0 0 4px;} .comp-card .hate{font-size:12.5px;color:var(--danger);margin:0;}
+  .angle-card{border:1px solid var(--card-border);background:var(--card);border-radius:14px;padding:16px;margin-bottom:12px;}
+  .angle-card.parked{opacity:.72;border-style:dashed;}
+  .angle-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;}
+  .angle-head .n{font-family:var(--mono);font-weight:800;color:var(--text-dim);}
+  .st{font-family:var(--mono);font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;}
+  .st.ok{color:var(--success);background:rgba(70,208,138,.14);border:1px solid rgba(70,208,138,.35);}
+  .st.caution{color:var(--primary);background:rgba(255,214,9,.12);border:1px solid rgba(255,214,9,.32);}
+  .st.no{color:var(--danger);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);}
+  .st.neu{color:var(--accent);background:rgba(126,166,255,.12);border:1px solid rgba(126,166,255,.3);}
+  .angle-card h4{margin:0 0 6px;font-size:15px;font-weight:750;line-height:1.3;}
+  .angle-card .hook{margin:0 0 8px;font-size:13px;color:var(--ink-soft);font-style:italic;}
+  .angle-card .meta{font-size:12px;color:var(--text-dim);margin:0;line-height:1.5;}
+  .angle-card .comp{font-size:12px;color:var(--primary);margin:8px 0 0;}
+  .risk-card{border:1px solid rgba(248,113,113,.28);background:rgba(248,113,113,.05);border-radius:12px;padding:14px 16px;margin-bottom:12px;}
+  .risk-card .q{margin:0 0 8px;font-size:13px;font-style:italic;color:var(--ink-soft);line-height:1.45;}
+  .risk-card .rt{font-family:var(--mono);font-size:10px;letter-spacing:.03em;text-transform:uppercase;color:var(--danger);font-weight:700;}
+  .risk-card .pre{margin:6px 0 0;font-size:12.5px;color:var(--ink-soft);} .risk-card .pre b{color:var(--primary);}
+  .src-wrap{overflow-x:auto;border:1px solid var(--card-border);border-radius:16px;background:var(--card);}
+  .src-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .src-table th,.src-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--card-border);vertical-align:top;}
+  .src-table th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);font-weight:700;}
+  .src-table td{color:var(--ink-soft);} .src-table a{color:var(--primary);text-decoration:none;font-weight:650;}
+  .wedge-map{display:grid;gap:10px;grid-template-columns:1fr;} @media(min-width:720px){.wedge-map{grid-template-columns:1fr 1fr;}}
+  .wedge-card{border:1px solid var(--card-border);background:var(--card);border-radius:12px;padding:12px 14px;}
+  .wedge-card .q{font-size:13px;font-style:italic;color:var(--ink-soft);margin:0 0 6px;} .wedge-card .w{font-size:12px;color:var(--primary);font-weight:650;margin:0;}
+  .av-field{margin:8px 0;} .av-field .k{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:3px;}
+  .av-field p{margin:0;font-size:13px;line-height:1.5;color:var(--ink-soft);}
+</style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand-lock"><div class="mark">L</div>
+        <div><div class="brand-name">Leadpages</div><div class="brand-sub">Ad Pros · Brand Intelligence</div></div></div>
+      <div class="header-pills"><div class="pill">AGENCY PLANS · VOICE-OF-CUSTOMER</div></div>
+    </header>
+    <section class="hero">
+      <h1>The receipts behind <span class="hl">every</span> ad.</h1>
+      <p>88 agency-buyer verbatims from G2 / Capterra / Trustpilot reviews (plus a capped Reddit supplement), mined for how owner-operators, scaling agencies and media buyers talk about the per-client bill, the caps, the dev bottleneck and switching, and the exact words that sell the Agency Pro / Ultra plans.</p>
+    </section>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Report sections"><button type="button" class="tab" role="tab" data-tab="overview" aria-selected="true">01 Overview</button><button type="button" class="tab" role="tab" data-tab="pain" aria-selected="false">02 Pain Language</button><button type="button" class="tab" role="tab" data-tab="avatars" aria-selected="false">03 Avatars</button><button type="button" class="tab" role="tab" data-tab="emotional" aria-selected="false">04 Emotional Drivers</button><button type="button" class="tab" role="tab" data-tab="objections" aria-selected="false">05 Objections &amp; Switching</button><button type="button" class="tab" role="tab" data-tab="alternatives" aria-selected="false">06 Alternatives &amp; Enemies</button><button type="button" class="tab" role="tab" data-tab="triggers" aria-selected="false">07 Switching Triggers</button><button type="button" class="tab" role="tab" data-tab="swipe_file" aria-selected="false">08 Swipe File</button><button type="button" class="tab" role="tab" data-tab="creative_angles" aria-selected="false">09 Creative Angles</button><button type="button" class="tab" role="tab" data-tab="sources" aria-selected="false">10 Sources</button></nav>
+    <div id="deck"><section class="panel active" data-panel="overview">
+  <p class="kicker">01 · Overview</p>
+  <h2>What agency buyers actually say</h2>
+  <div class="card"><p class="hero-insight">Agencies don’t churn because the builder is bad. They churn because <span class="hl">the bill scales with the client list and the caps punish the wins</span>. ‘$105 to $298,’ ‘a client campaign that spikes costs more than the subscription.’ Underneath it all is the real bottleneck: waiting on a developer, the WordPress-Elementor stack. The agency plans answer the money story with a flat per-client cost and <b>no traffic caps</b>.</p></div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Positioning statement</p><p class="hero-insight" style="font-size:clamp(18px,2.4vw,22px)">For the agency whose tool bill grows with every client and whose caps punish every winning campaign, Leadpages’ agency plans put <span class="hl">every client in its own workspace and domain</span>, with no traffic caps and a predictable ≈ $20 (or $8) a client, so the win stops triggering the bill.</p></div>
+  <p class="kicker" style="margin-top:22px">The two offers</p>
+  <div class="two-offers">
+    <div class="offer-col"><h3>Agency Pro</h3><p class="pr">$199 / month · up to 10 clients</p><div class="offer-row"><span class="k">Client workspaces + domains</span><span class="v">10</span></div><div class="offer-row"><span class="k">Team seats</span><span class="v">10</span></div><div class="offer-row"><span class="k">AI credits / mo</span><span class="v">120,000 (~42 edited pages)</span></div><div class="offer-row"><span class="k">Visitor identification</span><span class="v">2,000 / mo</span></div><div class="offer-row"><span class="k">Lead enrichment</span><span class="v">1,000 / mo</span></div><div class="offer-row"><span class="k">Pages · A/B · heatmaps · brand kits</span><span class="v">Unlimited</span></div><div class="offer-row"><span class="k">Traffic caps</span><span class="v">None</span></div><div class="offer-row"><span class="k">API · MCP · webhooks</span><span class="v">Included</span></div><div class="offer-row"><span class="k">Per-client cost</span><span class="v">≈ $20 (at 10 clients)</span></div><div class="offer-row"><span class="k">Extra clients</span><span class="v">$40 each (11–14)</span></div></div>
+    <div class="offer-col ultra"><h3>Agency Ultra</h3><p class="pr">$399 / month · up to 50 clients</p><div class="offer-row"><span class="k">Client workspaces + domains</span><span class="v">50</span></div><div class="offer-row"><span class="k">Team seats</span><span class="v">Unlimited</span></div><div class="offer-row"><span class="k">AI credits / mo</span><span class="v">320,000 (~112 edited pages)</span></div><div class="offer-row"><span class="k">Visitor identification</span><span class="v">5,000 / mo</span></div><div class="offer-row"><span class="k">Lead enrichment</span><span class="v">2,500 / mo</span></div><div class="offer-row"><span class="k">Pages · A/B · heatmaps · brand kits</span><span class="v">Unlimited</span></div><div class="offer-row"><span class="k">Traffic caps</span><span class="v">None</span></div><div class="offer-row"><span class="k">API · MCP · webhooks</span><span class="v">Included</span></div><div class="offer-row"><span class="k">Per-client cost</span><span class="v">≈ $8 (at 50 clients)</span></div><div class="offer-row"><span class="k">Support</span><span class="v">Dedicated account manager</span></div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Price ladder &amp; AI-credit economics</p><p style="margin:0 0 8px;font-size:13px;color:var(--ink-soft)">≤10 clients → Pro $199 · 11–14 → +$40/client · 15–50 → Ultra $399 · past 50 → +$20/client.</p><p style="margin:0;font-size:13px;line-height:1.6;color:var(--ink-soft)">A landing page is ≈ 1,100 credits (~$1.10); a <b>finished, edited page ≈ 2,850 credits (~$2.85)</b>; an AI edit ≈ 250. Reference rate $1 per 1,000 credits. So the included credits buy ≈ 42 edited pages on Pro (120K) and ≈ 112 on Ultra (320K). <b>Never say ‘unlimited credits’ — state the monthly figure.</b></p></div>
+  <p class="kicker" style="margin-top:22px">Claims: lead with · support with · do NOT claim yet</p>
+  <div class="claims-grid">
+    <div class="claims-col lead"><span class="k">✓ Lead with</span><ul><li>Visitor identification + lead enrichment on every client page</li><li>10 or 50 client workspaces, each with its own domain + brand kit</li><li>AI page builder with 120,000 / 320,000 credits a month included</li></ul></div>
+    <div class="claims-col support"><span class="k">+ Support with</span><ul><li>Unlimited pages, A/B tests and heatmaps</li><li>≈ $20 a client on Agency Pro, ≈ $8 on Agency Ultra</li><li>No traffic caps; API, MCP and webhooks included</li></ul></div>
+    <div class="claims-col no"><span class="k">✕ Do NOT claim yet</span><ul><li>White label or a client-approval portal</li><li>Reseller or client billing</li><li>Automated client reports</li><li>“Unlimited AI credits” — state the 120K / 320K monthly figure only</li><li>That Leadpages replaces outbound stacks (Apollo / Clay / Smartlead)</li><li>Any competitor performance stat (Unbounce 27%, Landingi 8→11%)</li></ul></div>
+  </div>
+  <div class="card" style="margin-top:14px"><p class="kicker">Two notes before you brief</p><p style="margin:0;font-size:13px;line-height:1.6;color:var(--ink-soft)"><b>Visitor ID is a latent need</b> in this data (about 2 organic complaints), so lead-enrichment angles create awareness rather than answer a loud pain. And <b>Landingi’s white-label sub-accounts are the likely top objection</b>, since white label cannot be claimed.</p></div>
+  <p class="kicker" style="margin-top:22px">Top signals → wedges</p>
+  <div class="wedge-map"><div class="wedge-card"><p class="q">Landingi “the agency tier is too pricy”; Unbounce bills per domain and jumps “$105 to $298”; “add more dollar” for large views</p><p class="w">→ Predictable per-client cost (≈$20 / $8); workspaces included, not metered</p></div><div class="wedge-card"><p class="q">“a client campaign that spikes costs more than the subscription”</p><p class="w">→ NO traffic caps; the win no longer triggers the bill</p></div><div class="wedge-card"><p class="q">“Right now Elementor is a major bottleneck for us”</p><p class="w">→ AI page builder: non-technical staff ship without waiting on a developer</p></div><div class="wedge-card"><p class="q">“easy to manage sub-accounts … client management a breeze”</p><p class="w">→ Each client its own workspace + domain + brand kit + seats</p></div><div class="wedge-card"><p class="q">“it really wows clients … they make me look good”</p><p class="w">→ Fast, on-brand client pages that make the agency look capable</p></div><div class="wedge-card"><p class="q">“captured a lot of unqualified leads … no tool to filter”  (latent)</p><p class="w">→ Visitor ID + lead enrichment: an awareness play, not a loud pain</p></div></div>
+  <p class="kicker" style="margin-top:22px">Coverage</p>
+  <div class="grid"><div class="metric"><span>Buyer verbatims</span><b>88</b></div><div class="metric"><span>Primary (G2+Capterra)</span><b>55 · 62%</b></div><div class="metric"><span>Reddit (capped)</span><b>11</b></div><div class="metric"><span>Pain themes</span><b>9</b></div><div class="metric"><span>Objections</span><b>31</b></div><div class="metric"><span>Switching triggers</span><b>14</b></div><div class="metric"><span>Swipe (tagged)</span><b>78</b></div><div class="metric"><span>Angles</span><b>21</b></div></div>
+  <div class="card"><p class="kicker">Method &amp; honesty on depth</p><ul class="clean"><li>Instapage has a strong price signal but FEW direct agency verbatims — mostly expert-blog paraphrase.</li><li>The Freelance media-buyer avatar is under-represented (3 clearly-tagged rows) — treat as directional.</li><li>‘Who visited / lead quality’ (visitor ID) is a LATENT need — only ~2 organic complaints — so visitor-ID angles create awareness, they don’t answer a loud pain.</li><li>The ‘built it in ChatGPT / Claude, now can’t host / test / track’ enemy did NOT surface loudly — treat as hypothesis, test only.</li><li>Watch Landingi: agencies praise its price and white-label sub-accounts. White label can’t be claimed, so expect it as the top objection.</li></ul>
+    <p style="margin:12px 0 0;font-size:12.5px;color:var(--text-dim)">Ranking = frequency across DISTINCT reviews first, then star rating / helpfulness. Reddit supports findings but does not set the ranking. Usage flags (OK to use / caution / do not use) appear on the Objections, Triggers and Swipe tabs.</p></div>
+  <div class="spine-footer">Pain → Emotion → Objection → Mechanism → Hook</div>
+</section><section class="panel" data-panel="pain">
+  <p class="kicker">02 · Pain Language (ranked)</p>
+  <h2>Pain, ranked by distinct reviews <span class="hl">(9)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Each pain theme in buyer language, with the count of distinct reviews and an unedited exemplar. Ranked by distinct-review frequency; Reddit supports, it doesn’t set rank.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The agency money story in order of how often it recurs: the per-client bill, the dev bottleneck, caps/overages, the client-management juggle. Note #4 conflates pain + praise, and #8 (lead quality / visitor ID) is a latent need — flagged inline.</p></div>
+  <div class="rank-card"><div class="rank-num">1</div><div>
+        <h4>Price grows with every client / margin squeeze</h4>
+        <span class="cnt">16 distinct buyer quotes</span>
+        <p class="ex">“the agency tier is too pricy”</p>
+        <p class="note">⚑ Exemplar swapped to a landing-page quote. The &#x27;$600+/mo&#x27; line is an OUTBOUND/data-stack cost (Apollo, Clay, Smartlead), flagged in the swipe file, not a Leadpages buyer pain.</p></div></div><div class="rank-card"><div class="rank-num">2</div><div>
+        <h4>Dev / WordPress-Elementor bottleneck, slow turnaround</h4>
+        <span class="cnt">13 distinct buyer quotes</span>
+        <p class="ex">“Right now Elementor is a major bottleneck for us”</p>
+        </div></div><div class="rank-card"><div class="rank-num">3</div><div>
+        <h4>Traffic caps, overages &amp; surprise price jumps</h4>
+        <span class="cnt">12 distinct buyer quotes</span>
+        <p class="ex">“their pricing increased from $105.00 to $298.00”</p>
+        </div></div><div class="rank-card"><div class="rank-num">4</div><div>
+        <h4>Managing many clients: logins, domains, access, consistency</h4>
+        <span class="cnt">27 distinct buyer quotes</span>
+        <p class="ex">“easy to manage sub-accounts and give access to clients”</p>
+        <p class="note">⚑ NOTE: count conflates pain + praise — many reviewers mention &#x27;clients&#x27; when praising sub-account features; genuine PAIN is juggling separate logins/domains/brand across clients.</p></div></div><div class="rank-card"><div class="rank-num">5</div><div>
+        <h4>Migration/platform-change broke my (client) pages</h4>
+        <span class="cnt">7 distinct buyer quotes</span>
+        <p class="ex">“all my pages have been set up on their new system. Nothing works”</p>
+        </div></div><div class="rank-card"><div class="rank-num">6</div><div>
+        <h4>Proving results / impressing &amp; keeping clients</h4>
+        <span class="cnt">6 distinct buyer quotes</span>
+        <p class="ex">“it really wows clients when I do that and a happy client is a happy me”</p>
+        </div></div><div class="rank-card"><div class="rank-num">7</div><div>
+        <h4>All-in-one lock-in, bloat &amp; export pain</h4>
+        <span class="cnt">5 distinct buyer quotes</span>
+        <p class="ex">“OK software, awful support and you&#x27;re locked in for life!”</p>
+        </div></div><div class="rank-card"><div class="rank-num">8</div><div>
+        <h4>Lead quality / who actually visited</h4>
+        <span class="cnt">5 distinct buyer quotes</span>
+        <p class="ex">“we ended up capturing a lot of unqualified leads ... no tool to filter out junk leads”</p>
+        <p class="note">⚑ LATENT need — low organic complaint volume; maps to visitor ID + enrichment.</p></div></div><div class="rank-card"><div class="rank-num">9</div><div>
+        <h4>Template fatigue / pages look generated</h4>
+        <span class="cnt">4 distinct buyer quotes</span>
+        <p class="ex">“every unbounce landing page ever created looks like an unbounce landing page”</p>
+        </div></div>
+</section><section class="panel" data-panel="avatars">
+  <p class="kicker">03 · Avatars</p>
+  <h2>The three agency buyers</h2>
+  <p class="muted" style="margin-bottom:18px">Evidence-based from the reviews (avatar 4 ‘not our buyer’ kept out of findings). Scaling Agency carries the most evidence and the Ultra plan; Owner-operator maps to Pro; the Freelance Media Buyer is real but thinly evidenced (3 rows).</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Beliefs / fears / desires / objections / language straight from the tagged reviews. The Freelance Media Buyer is under-represented, so treat its detail as directional and confirm before over-investing creative there.</p></div>
+  <div class="avatar-grid"><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">PRIMARY</span><span class="avatar-badge matrix">Largest evidence · 28 quotes · 15–50+ clients</span></div>
+        <h3>Scaling agency (team with roles, ~15-50+ clients; cares about seats, process, consistency, retention)</h3>
+        <p class="muted">Believes the tool stack is a &#x27;the bill eating their margin&#x27; and that juggling 4-5 UIs costs more in staff time than in licences. Standardises tooling; passes costs to clients.</p>
+        <p class="kicker" style="margin:12px 0 10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“Ridiculously high learning curve especially for clients who are non-developers... this high learning curve could be a major challenge with the fear of &#x27;breaking&#x27; stuffs.”<span class="src">AWS Marketplace reviews</span></div><div class="avatar-quote">“Even though I don&#x27;t have to write code, it&#x27;s still pretty complex to use. It&#x27;s not an easy drag and drop, but the CMS can help for client handoff.”<span class="src">AWS Marketplace reviews</span></div><div class="avatar-quote">“the ability to integrate with each clients crm instance individually with their partner program which is priceless”<span class="src">Capterra</span></div></div>
+        <div class="av-field"><span class="k">Fears</span><p>Fears the bill scaling faster than the client list (per-domain, per-seat, overage), onboarding drag (&#x27;training people across 5 tools&#x27;), and inconsistent brand across clients.</p></div><div class="av-field"><span class="k">Desires (→ the wedge)</span><p>Wants every client in its own workspace + domain + brand kit, new staff &#x27;producing almost immediately&#x27;, and client management that is &#x27;a breeze&#x27;.</p></div><div class="av-field"><span class="k">Objections</span><p>Objections: per-seat pricing, domain caps, &#x27;most expensive non-agency option is not suitable for agencies&#x27;, lock-in / no export.</p></div><div class="av-field"><span class="k">Their language</span><p>Language: &#x27;30+ clients&#x27;, &#x27;sub-accounts&#x27;, &#x27;client management a breeze&#x27;, &#x27;cost per client&#x27;, &#x27;pass the cost onto clients&#x27;, &#x27;makes me look good&#x27;.</p></div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">SECONDARY</span><span class="avatar-badge matrix">18 quotes · 1–10 clients, owner still builds</span></div>
+        <h3>Owner-operator (freelancer / small agency, ~1-10 clients, owner still builds)</h3>
+        <p class="muted">Believes a landing page shouldn&#x27;t require a developer or a designer; &#x27;it saves lots of money hiring designers.&#x27; Judges a tool by how fast they personally go from brief to live page.</p>
+        <p class="kicker" style="margin:12px 0 10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“I used to recommend Unbounce to clients constantly.”<span class="src">Trustpilot</span></div><div class="avatar-quote">“Every unbounce landing page ever created looks like an unbounce landing page.”<span class="src">Trustpilot</span></div><div class="avatar-quote">“Setting up your own domain so that the landing page is part of your own domain can be a little tricky”<span class="src">Capterra</span></div></div>
+        <div class="av-field"><span class="k">Fears</span><p>Fears per-client costs eating a thin margin, getting &#x27;locked in for life&#x27;, and a platform change breaking a client&#x27;s live page overnight.</p></div><div class="av-field"><span class="k">Desires (→ the wedge)</span><p>Wants to &#x27;create the landing page for my clients&#x27; in minutes, on the client&#x27;s own domain, without babysitting WordPress.</p></div><div class="av-field"><span class="k">Objections</span><p>Objections: &#x27;the agency tier is too pricy&#x27;; &#x27;you do not have an option for freelancers who manage clients&#x27;; distrusts all-in-one bloat.</p></div><div class="av-field"><span class="k">Their language</span><p>Language: &#x27;for me and my clients&#x27;, &#x27;half the price&#x27;, &#x27;quick page in my back pocket&#x27;, &#x27;without waiting on a developer&#x27;.</p></div>
+      </article><article class="card avatar-card">
+        <div class="avatar-badges"><span class="avatar-badge core">TERTIARY</span><span class="avatar-badge matrix">Thin evidence · 3 quotes · runs paid traffic</span></div>
+        <h3>Freelance media buyer (runs Google/Meta ads for clients; the landing page is the bottleneck)</h3>
+        <p class="muted">Believes speed + testing win campaigns: &#x27;speed and testing are critical&#x27; when running paid traffic. The page is the thing between the ad and the conversion.</p>
+        <p class="kicker" style="margin:12px 0 10px">In their own words</p>
+        <div class="avatar-quotes"><div class="avatar-quote">“The price is very expensive, you do not have an option for freelancers who manage your projects and clients.”<span class="src">Capterra</span></div><div class="avatar-quote">“I love using Swipe Pages for over three years now, especially for creating landing pages aimed at Google Ads.”<span class="src">G2</span></div></div>
+        <div class="av-field"><span class="k">Fears</span><p>Fears slow turnaround and caps throttling a scaling campaign (&#x27;costing based on traffic, so need to be sure about quality&#x27;), and pages that load slow or look generic.</p></div><div class="av-field"><span class="k">Desires (→ the wedge)</span><p>Wants to &#x27;design, launch and optimize landing pages quickly&#x27; for Google Ads, with fast mobile pages and quick A/B tests.</p></div><div class="av-field"><span class="k">Objections</span><p>Objections: conversion/visitor caps on exactly the campaigns that are working; weak integrations to their CRM/ad stack.</p></div><div class="av-field"><span class="k">Their language</span><p>Language: &#x27;landing pages aimed at Google Ads&#x27;, &#x27;blazing fast&#x27;, &#x27;A/B test quickly&#x27;, &#x27;bad websites who want to run ads&#x27;.</p></div>
+      </article></div>
+</section><section class="panel" data-panel="emotional">
+  <p class="kicker">04 · Emotional Drivers</p>
+  <h2>Emotional drivers <span class="hl">(7)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The feeling under the switch — margin anxiety, resentment at being punished for success, fear of lock-in, betrayal, pride in looking good to the client.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>The emotional fuel behind a B2B switch. ‘Punished for success’ (caps/overage) and ‘the bill eating their margin’ are the hottest; ‘pride in looking good to the client’ is the positive one to pair with the client-workspace wedge.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">1 Cost / 2 Caps</span></div>
+    <p class="quote-theme">Margin anxiety / feeling nickel-and-dimed</p><p class="quote-body">Every tool bill and overage feels like it&#x27;s &#x27;eating your profit before you even pay your team&#x27;.</p>
+    <div class="quote-field"><span class="quote-field-label">Language</span><span class="quote-field-value">&#x27;burn cash&#x27;, &#x27;the bill eating their margin&#x27;, &#x27;makes no sense&#x27;</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">2 Caps/overage</span></div>
+    <p class="quote-theme">Resentment at being punished for success</p><p class="quote-body">The pricing model charges MORE exactly when a client campaign scales.</p>
+    <div class="quote-field"><span class="quote-field-label">Language</span><span class="quote-field-value">&#x27;a client campaign that spikes costs more than the subscription&#x27;</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">10 Lock-in</span></div>
+    <p class="quote-theme">Fear of being trapped / held hostage</p><p class="quote-body">Lock-in, proprietary formats and exit fees make switching feel dangerous.</p>
+    <div class="quote-field"><span class="quote-field-label">Language</span><span class="quote-field-value">&#x27;locked in for life&#x27;, &#x27;pay an extra couple months just to leave&#x27;</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">9 Switching</span></div>
+    <p class="quote-theme">Betrayal when a trusted tool changes</p><p class="quote-body">Long-time fans turn after a forced migration or price hike breaks their workflow.</p>
+    <div class="quote-field"><span class="quote-field-label">Language</span><span class="quote-field-value">&#x27;I used to recommend it to clients constantly&#x27;, &#x27;deeply disappointing&#x27;</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">5 Proving results</span></div>
+    <p class="quote-theme">Pride in looking good to the client</p><p class="quote-body">A fast, slick page the client loves makes the agency look capable.</p>
+    <div class="quote-field"><span class="quote-field-label">Language</span><span class="quote-field-value">&#x27;it wows clients&#x27;, &#x27;they make me look good&#x27;</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">7 Speed</span></div>
+    <p class="quote-theme">Relief at removing the dev bottleneck</p><p class="quote-body">Shipping without waiting on a developer is framed as liberation.</p>
+    <div class="quote-field"><span class="quote-field-label">Language</span><span class="quote-field-value">&#x27;that alone killed a huge bottleneck&#x27;</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">7/8</span></div>
+    <p class="quote-theme">Embarrassment at template-stamped pages</p><p class="quote-body">Generic-looking output undercuts the agency&#x27;s craft.</p>
+    <div class="quote-field"><span class="quote-field-label">Language</span><span class="quote-field-value">&#x27;every page looks like an unbounce page&#x27;</span></div></article></div>
+</section><section class="panel" data-panel="objections">
+  <p class="kicker">05 · Objections &amp; Switching</p>
+  <h2>Objections &amp; switching <span class="hl">(31)</span></h2>
+  <p class="muted" style="margin-bottom:16px">All-in-one / lock-in objections and switching language, each carrying a <b>usage flag</b>: <span class="uflag ok">OK to use</span> <span class="uflag caution">Caution</span> <span class="uflag no">Do not use</span>.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Why agencies hesitate or leave. Respect the flag: most are OK to use; the outbound-stack and Leadpages-own-weakness lines are flagged so you don’t accidentally promise something the plan can’t do.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">I&#x27;ve been with Unbounce for years, but recently, their pricing increased from $105.00 to $298.00.</p><div class="mini-tags"><span class="mini-tag">Unbounce</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">Unbounce now locks you into one-year contracts, clearly to stop users from switching to competitors.</p><div class="mini-tags"><span class="mini-tag">Unbounce</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">The whole experience that once made Unbounce special, speed and creative control, is now buried under unnecessary constraints.</p><div class="mini-tags"><span class="mini-tag">Unbounce</span><span class="mini-tag">9 Switching / migration</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">I used to recommend Unbounce to clients constantly.</p><div class="mini-tags"><span class="mini-tag">Unbounce</span><span class="mini-tag">9 Switching / migration</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">recent changes to their pricing strategy have been deeply disappointing</p><div class="mini-tags"><span class="mini-tag">Unbounce</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">The Agency tier is too pricy. The most expensive non-agency option is not suitable for agencies.</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">The price is very expensive, you do not have an option for freelancers who manage your projects and clients.</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">We&#x27;ve never released landing pages that fast.</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">if you want use it for large views you have to add more dollar</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">I switch from competitors product and cannot be happier more. Everything just works. My production flow is about 35% faster.</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">As good as Unbounce and LeadPages at half the price</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">I was using Convertri, but it was getting expensive. It&#x27;s a great company and page builder, but Landingi is more suited to my current goals and expenses.</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Anything more like funnels or sales pages have not been doable with Landingi, but it&#x27;s been good to have Landingi in our back pockets for when we need a quick page displayed.</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Better than Unbounce and half the price</p><div class="mini-tags"><span class="mini-tag">Landingi</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Swipe Pages enabled us to offer an alternative to clients who didn&#x27;t need a WordPress site.</p><div class="mini-tags"><span class="mini-tag">Swipe Pages</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">praise</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Aggregator</span></div>
+      <p class="quote-body">No A/B testing, popups, or CMS: not suitable for scaled campaigns. Single-page only: no multi-page campaigns or funnel sequences.</p><div class="mini-tags"><span class="mini-tag">Carrd</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection(context)</span><span class="uflag caution" title="Expert paraphrase, not a buyer quote. Context only, don&#x27;t quote in ads.">Context only</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Way better than comptetitors at half the price</p><div class="mini-tags"><span class="mini-tag">Convertri</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">If you stop paying you will not have access to all the funnels that you have created.</p><div class="mini-tags"><span class="mini-tag">ClickFunnels</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Clickfunnels is one of the more expensive funnel builders on the market, and the cost can add up quickly if you need to use a lot of third-party [integrations]</p><div class="mini-tags"><span class="mini-tag">ClickFunnels</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Aggregator/expert</span></div>
+      <p class="quote-body">Page and funnel builders create uniquely brutal lock-in. Your pages live in the platform&#x27;s proprietary format, and there&#x27;s no file of usable code you can carry out... you can end up paying an extra couple months of subscription just to leave.</p><div class="mini-tags"><span class="mini-tag">ClickFunnels</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection(context)</span><span class="uflag caution" title="Expert paraphrase, not a buyer quote. Context only, don&#x27;t quote in ads.">Context only</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">COST: We drive too much traffic and sales to use the all-in-one concept for us. We use Kartra for websites, landing pages and memberships.</p><div class="mini-tags"><span class="mini-tag">Kartra</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">For those who have never used an all-in-one platform, this was very difficult to learn, and many features are not that intuitive, including the design.</p><div class="mini-tags"><span class="mini-tag">Kartra</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">OK software, awful support and you&#x27;re locked in for life!</p><div class="mini-tags"><span class="mini-tag">Kartra</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">kartra fits my needs and it&#x27;s way cheaper than clickfunnels.</p><div class="mini-tags"><span class="mini-tag">Kartra</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">May be too much for beginners. If someone only needs basic email marketing or simple landing pages, Kartra can feel like a lot.</p><div class="mini-tags"><span class="mini-tag">Kartra</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Aggregator</span></div>
+      <p class="quote-body">No A/B testing on Thrive Architect (only on Thrive Optimize), which costs a lot more</p><div class="mini-tags"><span class="mini-tag">Thrive Themes</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection(context)</span><span class="uflag caution" title="Expert paraphrase, not a buyer quote. Context only, don&#x27;t quote in ads.">Context only</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Aggregator</span></div>
+      <p class="quote-body">Builderall is not ideal for marketing agencies... no white-label or agency reseller capability, a steep learning curve due to the sheer volume of tools, occasional platform stability issues... slower page load speeds</p><div class="mini-tags"><span class="mini-tag">Builderall</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">objection(context)</span><span class="uflag caution" title="Expert paraphrase, not a buyer quote. Context only, don&#x27;t quote in ads.">Context only</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/wordpressjobs</span></div>
+      <p class="quote-body">migrate an established travel website away from Elementor and onto a fully bespoke, performance-focused WordPress build... removing the dependency on Elementor... if the project is successful... approximately 15-20 additional websites</p><div class="mini-tags"><span class="mini-tag">WordPress/Elementor</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">switching</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/ClaudeCode</span></div>
+      <p class="quote-body">I used to work with Framer and Webflow but I have completely stopped. I used to get clients for website design / development, I don&#x27;t anymore. Why would anyone pay for a design?</p><div class="mini-tags"><span class="mini-tag">AI builders (Claude/ChatGPT/etc.)</span><span class="mini-tag">8 AI page builder trust/credits</span><span class="mini-tag">switching</span><span class="uflag caution" title="Hypothesis only: a designer losing work, not an agency buyer pain.">Caution: hypothesis</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">the $600+/mo infrastructure spend is real, but the bigger cost is invisible - it&#x27;s the hours spent maintaining the connectors, troubleshooting sync issues, and training people across 4-5 different UIs... you&#x27;re spending more time managing the stack than managing the client work.</p><div class="mini-tags"><span class="mini-tag">tool stack</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">pain</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">the &#x27;modern stack&#x27; is basically just a tax on your margins at this point. We got fed up with the credit costs, too, so we&#x27;ve been building our own custom tools using AI to handle the enrichment and data scraping internally.</p><div class="mini-tags"><span class="mini-tag">tool stack</span><span class="mini-tag">8 AI page builder trust/credits</span><span class="mini-tag">switching</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article></div>
+</section><section class="panel" data-panel="alternatives">
+  <p class="kicker">06 · Alternatives &amp; Enemies</p>
+  <h2>The field they compare to <span class="hl">(14)</span></h2>
+  <p class="muted" style="margin-bottom:16px">What agencies like vs. hate about each alternative, by tier. The ‘hidden enemy’ isn’t only Unbounce / Instapage — it’s the WordPress-Elementor + dev-bottleneck stack.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Where to attack. <b>Watch Landingi</b> — praised for price + white-label sub-accounts; since white label can’t be claimed, expect it as the top objection. Unbounce/Instapage lose on per-domain price + caps; the WP/Elementor stack loses on the dev bottleneck.</p></div>
+  <div class="comp-grid"><div class="comp-card"><h4>Unbounce</h4>
+        <p class="tier">TIER 1 · topics 2,1,9,7</p>
+        <p class="like">▲ Like: PPC agencies love Smart Traffic + per-page A/B for big-budget clients; &#x27;the primary tool our agency uses&#x27;.</p>
+        <p class="hate">▼ Hate / fear: Expensive and bills per DOMAIN; overages on top; big price hikes ($105→$298) + 1-yr lock-in; &#x27;every page looks like an unbounce page&#x27;.</p></div><div class="comp-card"><h4>Instapage</h4>
+        <p class="tier">TIER 1 · topics 1,2</p>
+        <p class="like">▲ Like: Enterprise paid-media teams; Instablocks reuse; AdMap ad-to-page.</p>
+        <p class="hate">▼ Hate / fear: $99-$199+ entry prices out small agencies; A/B behind higher tier; reports of 100%+ price jumps. (Direct agency verbatims thin.)</p></div><div class="comp-card"><h4>Landingi</h4>
+        <p class="tier">TIER 1 · topics 1,3,2,7</p>
+        <p class="like">▲ Like: Best-liked value play: white-label sub-accounts, fast builds, &#x27;half the price&#x27; of Unbounce/Instapage/Leadpages; strong support.</p>
+        <p class="hate">▼ Hate / fear: Agency tier &#x27;too pricy&#x27;; sub-domains only on some plans; traffic limits + recent pricing-model change; module/global-block gaps.</p></div><div class="comp-card"><h4>Swipe Pages</h4>
+        <p class="tier">TIER 1 · topics 3,2,2</p>
+        <p class="like">▲ Like: Fast AMP pages, Agency plan (unlimited sub-accounts/domains), &#x27;client management a breeze&#x27;, &#x27;wows clients&#x27;.</p>
+        <p class="hate">▼ Hate / fear: Visitor caps w/ $5/5k overage; smaller template library; limited integrations; some &#x27;cease to trust&#x27; churn.</p></div><div class="comp-card"><h4>Carrd</h4>
+        <p class="tier">TIER 1 · topics 10,7</p>
+        <p class="like">▲ Like: Dirt-cheap one-pagers for simple client pages.</p>
+        <p class="hate">▼ Hate / fear: No A/B, pop-ups or CMS; single-page only — &#x27;not suitable for scaled campaigns&#x27;.</p></div><div class="comp-card"><h4>ClickFunnels</h4>
+        <p class="tier">TIER 2 · topics 10,1,3</p>
+        <p class="like">▲ Like: Easy funnels for client work &#x27;on a daily basis&#x27;; big template library.</p>
+        <p class="hate">▼ Hate / fear: No agency accounts; expensive at scale; lose funnels if you stop paying; 2.0 migration pain; slow support.</p></div><div class="comp-card"><h4>Kartra</h4>
+        <p class="tier">TIER 2 · topics 10,1</p>
+        <p class="like">▲ Like: All-in-one (pages+email+membership+checkout); &#x27;recommend to all my clients&#x27;.</p>
+        <p class="hate">▼ Hate / fear: &#x27;Locked in for life&#x27;; all-in-one doesn&#x27;t scale for high traffic; steep learning curve; buggy; costs climb with list.</p></div><div class="comp-card"><h4>Convertri</h4>
+        <p class="tier">TIER 2 · topics 6,2</p>
+        <p class="like">▲ Like: Blazing-fast pages, Agency license for &#x27;my clients&#x27;; page importer.</p>
+        <p class="hate">▼ Hate / fear: Data-capture gaps (no dropdown/checkbox capture); billing-trap cancellations; thin templates.</p></div><div class="comp-card"><h4>Simvoly / OptimizePress / Thrive / Builderall / Systeme.io</h4>
+        <p class="tier">TIER 2 · topics 10,7</p>
+        <p class="like">▲ Like: Cheap all-in-one or WP-plugin options; good support (Simvoly &#x27;makes me look good&#x27;).</p>
+        <p class="hate">▼ Hate / fear: WP-plugin reliability (OptimizePress); A/B behind paywall (Thrive); &#x27;not ideal for agencies&#x27;, no white-label, bloat (Builderall).</p></div><div class="comp-card"><h4>Leadpages (own)</h4>
+        <p class="tier">ALSO · topics 9,8,2,7</p>
+        <p class="like">▲ Like: Ease of use + templates historically praised; handles traffic; &#x27;stay clients&#x27;.</p>
+        <p class="hate">▼ Hate / fear: NEW-EXPERIENCE migration breaking forms/pages/leads, deleted client sites, &#x27;AI agent ruined my popup&#x27;, billing-trap renewals, dated templates, domain caps. (These are Leadpages&#x27; OWN weak spots — do NOT build angles on them.)</p></div><div class="comp-card"><h4>WordPress + Elementor/Divi stack</h4>
+        <p class="tier">ENEMY · topics 7,3,1</p>
+        <p class="like">▲ Like: Owned, flexible, client can self-host; familiar.</p>
+        <p class="hate">▼ Hate / fear: &#x27;Elementor is a major bottleneck&#x27;; publish bugs wipe work; PHP/security upkeep; per-site hosting cost; client-ownership handoff mess.</p></div><div class="comp-card"><h4>Webflow / Framer</h4>
+        <p class="tier">ENEMY · topics 7</p>
+        <p class="like">▲ Like: Powerful, custom, agency-grade sites; lets marketing update &#x27;independently from engineers&#x27;.</p>
+        <p class="hate">▼ Hate / fear: Steep learning curve; clients fear &#x27;breaking stuff&#x27;; often needs a hired dev ($1,000 / 2-week builds); not conversion-first.</p></div><div class="comp-card"><h4>DIY AI builders (Claude/ChatGPT/Lovable/v0/Framer AI)</h4>
+        <p class="tier">ENEMY · topics 8</p>
+        <p class="like">▲ Like: Free/cheap, instant first draft; disrupting paid design work (&#x27;why would anyone pay for a design?&#x27;).</p>
+        <p class="hate">▼ Hate / fear: Thinly evidenced in agency subs: hosting/testing/tracking gap after generation is a HYPOTHESIS, not a documented pain yet.</p></div><div class="comp-card"><h4>Tool stack (page builder + Hotjar + VWO + Clearbit/Apollo/Clay + Zapier)</h4>
+        <p class="tier">ENEMY · topics 1,10</p>
+        <p class="like">▲ Like: Each best-in-class at one job.</p>
+        <p class="hate">▼ Hate / fear: Juggling 4-5 UIs and training staff across them costs more in staff time than in licences. (The &#x27;$600+/mo per client&#x27; figure is the OUTBOUND / data stack: Apollo, Clay, Smartlead, Zapier. Leadpages replaces the landing-page layer only, not these tools, so never claim it does.)</p></div></div>
+</section><section class="panel" data-panel="triggers">
+  <p class="kicker">07 · Switching Triggers</p>
+  <h2>What makes them leave <span class="hl">(14)</span></h2>
+  <p class="muted" style="margin-bottom:16px">The exact moment or reason an agency leaves a tool — and what they switch to. The trigger is the install-today moment for retargeting.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Switching moments: a price jump, a forced migration that broke pages, a cap that throttled a winning campaign. These are the ‘last straw’ hooks — paired with the no-caps / predictable-cost wedge.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot — Unbounce</span></div>
+      <p class="quote-body">I&#x27;ve been with Unbounce for years, but recently, their pricing increased from $105.00 to $298.00.</p><div class="mini-tags"><span class="mini-tag">left: Unbounce</span><span class="mini-tag">size unknown</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot — Unbounce</span></div>
+      <p class="quote-body">The whole experience that once made Unbounce special, speed and creative control, is now buried under unnecessary constraints.</p><div class="mini-tags"><span class="mini-tag">left: Unbounce</span><span class="mini-tag">size unknown</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot — Unbounce</span></div>
+      <p class="quote-body">I used to recommend Unbounce to clients constantly.</p><div class="mini-tags"><span class="mini-tag">left: Unbounce</span><span class="mini-tag">1 Owner-operator</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Unbounce (&#x27;Unbounce was good&#x27;)</span></div>
+      <p class="quote-body">recent changes to their pricing strategy have been deeply disappointing</p><div class="mini-tags"><span class="mini-tag">left: Unbounce</span><span class="mini-tag">size unknown</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Landingi p3 (switched from Unbounce)</span></div>
+      <p class="quote-body">We&#x27;ve never released landing pages that fast.</p><div class="mini-tags"><span class="mini-tag">left: Landingi</span><span class="mini-tag">size unknown</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Landingi (Klemen V.; switched from Swipe Pages: &#x27;I cease to trust Swipe Pages&#x27;)</span></div>
+      <p class="quote-body">I switch from competitors product and cannot be happier more. Everything just works. My production flow is about 35% faster.</p><div class="mini-tags"><span class="mini-tag">left: Landingi</span><span class="mini-tag">1 Owner-operator</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Landingi (Chad B., Founder/CEO; switched from Instapage/ClickFunnels/Leadpages, reason: Cost)</span></div>
+      <p class="quote-body">As good as Unbounce and LeadPages at half the price</p><div class="mini-tags"><span class="mini-tag">left: Landingi</span><span class="mini-tag">1 Owner-operator</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Landingi (João A., Digital Strategist; switched from Convertri)</span></div>
+      <p class="quote-body">I was using Convertri, but it was getting expensive. It&#x27;s a great company and page builder, but Landingi is more suited to my current goals and expenses.</p><div class="mini-tags"><span class="mini-tag">left: Landingi</span><span class="mini-tag">1 Owner-operator</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Landingi (Rastko N., Lead CRO Designer; switched from Unbounce)</span></div>
+      <p class="quote-body">Better than Unbounce and half the price</p><div class="mini-tags"><span class="mini-tag">left: Landingi</span><span class="mini-tag">size unknown</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Convertri (switched from Leadpages)</span></div>
+      <p class="quote-body">Way better than comptetitors at half the price</p><div class="mini-tags"><span class="mini-tag">left: Convertri</span><span class="mini-tag">size unknown</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra — Kartra (switched from ClickFunnels)</span></div>
+      <p class="quote-body">kartra fits my needs and it&#x27;s way cheaper than clickfunnels.</p><div class="mini-tags"><span class="mini-tag">left: Kartra</span><span class="mini-tag">size unknown</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">r/wordpressjobs — [Hiring] migrate off Elementor</span></div>
+      <p class="quote-body">migrate an established travel website away from Elementor and onto a fully bespoke, performance-focused WordPress build... removing the dependency on Elementor... if the project is successful... approximately 15-20 additional websites</p><div class="mini-tags"><span class="mini-tag">left: WordPress/Elementor</span><span class="mini-tag">2 Scaling agency</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">r/ClaudeCode — &#x27;AI took my job&#x27;</span></div>
+      <p class="quote-body">I used to work with Framer and Webflow but I have completely stopped. I used to get clients for website design / development, I don&#x27;t anymore. Why would anyone pay for a design?</p><div class="mini-tags"><span class="mini-tag">left: AI builders (Claude/ChatGPT/etc.)</span><span class="mini-tag">1 Owner-operator</span><span class="uflag caution" title="Hypothesis only: a designer losing work, not an agency buyer pain.">Caution: hypothesis</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">r/agency — $600/mo thread (tushardey_)</span></div>
+      <p class="quote-body">the &#x27;modern stack&#x27; is basically just a tax on your margins at this point. We got fed up with the credit costs, too, so we&#x27;ve been building our own custom tools using AI to handle the enrichment and data scraping internally.</p><div class="mini-tags"><span class="mini-tag">left: tool stack</span><span class="mini-tag">2 Scaling agency</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article></div>
+</section><section class="panel" data-panel="swipe_file">
+  <p class="kicker">08 · Swipe File</p>
+  <h2>Swipe File <span class="hl">(78)</span> <span class="muted" style="font-size:14px;font-weight:600">· best first</span></h2>
+  <p class="muted" style="margin-bottom:16px">78 tagged buyer verbatims, each with a usage flag. Leadpages’ own reviews were removed; this file is competitor and market language only.</p>
+  <div class="honesty-callout"><p class="kicker">What this tab is</p><p>Ready-to-lift language sorted best-first, tagged by avatar / topic / awareness. Respect the usage flag — the 6 outbound-stack lines carry the feeling but must not imply Leadpages replaces Apollo/Clay, and 2 competitor stats are DO NOT USE.</p></div>
+  <div class="quote-grid"><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">I used to recommend Unbounce to clients constantly.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">9 Switching / migration</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">Every unbounce landing page ever created looks like an unbounce landing page.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Setting up your own domain so that the landing page is part of your own domain can be a little tricky</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">I switch from competitors product and cannot be happier more. Everything just works. My production flow is about 35% faster.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">As good as Unbounce and LeadPages at half the price</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">I was using Convertri, but it was getting expensive. It&#x27;s a great company and page builder, but Landingi is more suited to my current goals and expenses.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">It saves lots of money hiring designers.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">My entire marketing team including the non-technical people can build, launch, and optimise pages without waiting on a developer. That alone killed a huge bottleneck in how we run campaigns.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">problem-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/ProWordPress</span></div>
+      <p class="quote-body">Right now Elementor is a major bottleneck for us, and we&#x27;re trying to think longer-term rather than just swapping one page builder for another... [a system that] lets non-developers work safely</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">problem-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/Hosting</span></div>
+      <p class="quote-body">Most of the websites I build are WordPress, usually with Elementor + Astra... especially for landing pages used in paid campaigns, so speed and uptime matter a lot... Easy handoff if a client leaves: I want it to be relatively easy to transfer the site/hosting to them so they can fully own it without a big mess</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">problem-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/wordpressjobs</span></div>
+      <p class="quote-body">migrate an established travel website away from Elementor and onto a fully bespoke, performance-focused WordPress build... removing the dependency on Elementor... if the project is successful... approximately 15-20 additional websites</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">problem-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/ClaudeCode</span></div>
+      <p class="quote-body">I used to work with Framer and Webflow but I have completely stopped. I used to get clients for website design / development, I don&#x27;t anymore. Why would anyone pay for a design?</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">8 AI page builder trust/credits</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Hypothesis only: a designer losing work, not an agency buyer pain.">Caution: hypothesis</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">honestly feel like the &#x27;modern stack&#x27; is just a way to burn cash. just audited our cost per client pod: apollo/zi ($$$) clay (credits go brrr) smartlead/sender zapier to glue it all — we are dropping like $600+ just on infrastructure before we even launch the campaign. for 90% of b2b campaigns do we actually need this complexity?... trying to simplify the stack to save margins but dont know what to cut.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">We are really tight about tooling at our agency. We also pass the cost of this tooling onto our clients.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">solution-aware</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">the $600+/mo infrastructure spend is real, but the bigger cost is invisible - it&#x27;s the hours spent maintaining the connectors, troubleshooting sync issues, and training people across 4-5 different UIs... you&#x27;re spending more time managing the stack than managing the client work.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">Spending $600/mo per client just on software is insane unless they are paying you a fortune. Those costs are literally eating your profit before you even pay your team for the actual work... You have to bake those tool costs directly into each project&#x27;s math.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">the &#x27;modern stack&#x27; is basically just a tax on your margins at this point. We got fed up with the credit costs, too, so we&#x27;ve been building our own custom tools using AI to handle the enrichment and data scraping internally.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">8 AI page builder trust/credits</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/agency</span></div>
+      <p class="quote-body">We currently spend around $1.8k per client and charge $5k, but every tool we use is mandatory because we&#x27;re implementing a full outbound engine, not a stripped-down version.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">solution-aware</span><span class="uflag caution" title="Outbound/data stack (Apollo, Clay, Smartlead). Use the feeling (&#x27;tax on margins&#x27;), not the claim. Leadpages does not replace these tools.">Caution: outbound stack</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">AWS Marketplace reviews</span></div>
+      <p class="quote-body">Ridiculously high learning curve especially for clients who are non-developers... this high learning curve could be a major challenge with the fear of &#x27;breaking&#x27; stuffs.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">AWS Marketplace reviews</span></div>
+      <p class="quote-body">Even though I don&#x27;t have to write code, it&#x27;s still pretty complex to use. It&#x27;s not an easy drag and drop, but the CMS can help for client handoff.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">I have used different landing page styles for my clients with pretty good success</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">the ability to integrate with each clients crm instance individually with their partner program which is priceless</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Unbounce is a great software I use for all my landing pages and my clients landing pages.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">I like the fact that I can create a landing quickly and, above all, easily set performance measurements, which is very important to me as a marketing agency because I can efficiently account for the results.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">5 Proving results to clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">The Agency tier is too pricy. The most expensive non-agency option is not suitable for agencies.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">The price is very expensive, you do not have an option for freelancers who manage your projects and clients.</p><div class="mini-tags"><span class="mini-tag">3 Freelance media buyer</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">G2</span></div>
+      <p class="quote-body">I&#x27;ve been using Landingi for several months as part of my work managing lead generation campaigns for multiple clients... design, launch, and optimize landing pages quickly, which is essential when running paid traffic campaigns where speed and testing are critical.</p><div class="mini-tags"><span class="mini-tag">3 Freelance media buyer</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">G2</span></div>
+      <p class="quote-body">I can build a pricing section, save it, and use it across 50 different landing pages.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">the platform is ideally set-up for a white-label user. It is easy to manage sub-accounts and give access to clients... most important for us, new employees start producing almost immediately. Not a huge learning curve.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">i love the when how easy i create the landing page for my clients</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">if you want use it for large views you have to add more dollar</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">I&#x27;m using Landingi for 3 or 4 years now daily for me and my clients. I love it for simplicity and great support.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Anything more like funnels or sales pages have not been doable with Landingi, but it&#x27;s been good to have Landingi in our back pockets for when we need a quick page displayed.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">We love Swipe Pages in our digital marketing agency. It allows us to deploy landing pages for client campaigns quickly and effectively.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Great tool for our agency to build high-performing landing pages for 30+ clients.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Swipe Pages enabled us to offer an alternative to clients who didn&#x27;t need a WordPress site.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">G2</span></div>
+      <p class="quote-body">As an agency, I find it particularly valuable that I can create multiple projects, each with its own set of pages, making client management a breeze.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">G2</span></div>
+      <p class="quote-body">Effortless to Use and Impresses Clients Instantly... It really wows clients when I do that and a happy client is a happy me.</p><div class="mini-tags"><span class="mini-tag">1 Owner-operator</span><span class="mini-tag">5 Proving results to clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">G2</span></div>
+      <p class="quote-body">I love using Swipe Pages for over three years now, especially for creating landing pages aimed at Google Ads.</p><div class="mini-tags"><span class="mini-tag">3 Freelance media buyer</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">We used Clickfunnels on a daily basis to set up sales funnels and other sorts of funnel site systems for our clients and it was always so easy.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">COST: We drive too much traffic and sales to use the all-in-one concept for us. We use Kartra for websites, landing pages and memberships.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">I recommend Kartra to all my clients.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">The support team is awesome, they make me look good. My clients love the user experience. When my clients are happy, I make money and that makes me happy.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">5 Proving results to clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">I&#x27;ve been with Unbounce for years, but recently, their pricing increased from $105.00 to $298.00.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">The whole experience that once made Unbounce special, speed and creative control, is now buried under unnecessary constraints.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">9 Switching / migration</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">recent changes to their pricing strategy have been deeply disappointing</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Conversion tracking is not sophisticated enough for our business - Conversion emails will not integrate with our CRM - Cannot password protect exclusive landing pages - Unable to add a landing page without having a subdomain attached</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">5 Proving results to clients</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Aggregator/testimonial</span></div>
+      <p class="quote-body">Smart Traffic alone has improved our conversion rates by 27% across all campaigns. Expensive but absolutely worth it for paid traffic.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">8 AI page builder trust/credits</span><span class="mini-tag">product-aware</span><span class="uflag no" title="DO NOT USE: a competitor&#x27;s own performance stat, not buyer pain.">Do not use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">At times it can be difficult to secure the time of the product team -- and this service lets you take control of adding new pages without having to rely on the core team.</p><div class="mini-tags"><span class="mini-tag">4 NOT our buyer</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Not our buyer. Background only.">Not our buyer</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">when creating a webpage you have to use their domain name otherwise you pay extra in order to use your own.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">The templates are quite limited. Some images get compressed a lot... the images can look a little blurry and we require great visuals.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">the customized plans overpriced and the overall cost higher than other landing page providers</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">G2</span></div>
+      <p class="quote-body">And, second thing, traffic limits and pricing. They recently changed pricing models.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">The only complaint I have is they only except sub-domains.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">We&#x27;ve never released landing pages that fast.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Aggregator/testimonial</span></div>
+      <p class="quote-body">The AI suggestions actually helped improve our forms. Conversion rate went from 8% to 11%</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">8 AI page builder trust/credits</span><span class="mini-tag">product-aware</span><span class="uflag no" title="DO NOT USE: a competitor&#x27;s own performance stat, not buyer pain.">Do not use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Better than Unbounce and half the price</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">We ended up capturing a lot of unqualified leads - leads that were Clearly bots, fake, etc., and there is no tool in the platform to clean up/filter out suspected junk leads.</p><div class="mini-tags"><span class="mini-tag">4 NOT our buyer</span><span class="mini-tag">6 Lead quality / who visited</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Not our buyer. Background only.">Not our buyer</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">No module building - I have a lot of similar LP&#x27;s and making some changes to shared elements is a pain.</p><div class="mini-tags"><span class="mini-tag">4 NOT our buyer</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">solution-aware</span><span class="uflag caution" title="Not our buyer. Background only.">Not our buyer</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">It is easy for non-technical person to be almost independent from developers - in the last 2 years I needed help of a web developer maybe 4-5 times</p><div class="mini-tags"><span class="mini-tag">4 NOT our buyer</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Not our buyer. Background only.">Not our buyer</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Way better than comptetitors at half the price</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">All in all, I am sorry I paid $2000 for the year as I would have cancelled my account months ago.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">kartra fits my needs and it&#x27;s way cheaper than clickfunnels.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">1 Cost per client &amp; margins</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Software Advice</span></div>
+      <p class="quote-body">I purchased the Convertri Agency license, and I&#x27;ve been using it for multiple websites of my own and for my clients.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Bad cancelation policy... The idea is so that you can forget and fail to cancel in time... I was 1 day late and when i asked them to refund, they denied.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">you have the ability to build nice looking funnels but collecting data is huge issue currently. Cant do integrations to collect data with drop down or checkbox answers on funnels. Only free form which is sub par</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">6 Lead quality / who visited</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">OptimizePress 3 once again proves to still be the worst Wordpress plugin. The new OptimizePress 2 is crap where it does not work.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">AWS Marketplace reviews</span></div>
+      <p class="quote-body">We&#x27;re using Webflow to build marketing sites for our clients, and it powers the core of all our agency operations.</p><div class="mini-tags"><span class="mini-tag">2 Scaling agency</span><span class="mini-tag">3 Managing many clients</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Reddit r/elementor</span></div>
+      <p class="quote-body">after clicking publish, the page was completely gone, and the website is blank... it seems like clicking publish deleted all my recent edits... All my work from the past few days has been wasted; it&#x27;s infuriating!</p><div class="mini-tags"><span class="mini-tag">4 NOT our buyer</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Not our buyer. Background only.">Not our buyer</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Software Advice</span></div>
+      <p class="quote-body">They took my money even when I cancelled it. They don&#x27;t care about their customers. HORRRRIBLE.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">2 Caps / overage / price jumps</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">AWS Marketplace reviews</span></div>
+      <p class="quote-body">I appreciate Webflow&#x27;s ability to let our marketing team update and publish pages independently from engineers, which significantly speeds up our process and helps unblock campaigns.</p><div class="mini-tags"><span class="mini-tag">4 NOT our buyer</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">problem-aware</span><span class="uflag caution" title="Not our buyer. Background only.">Not our buyer</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">AWS Marketplace reviews</span></div>
+      <p class="quote-body">A huge learning curve for designers, but outcome&#x27;s worth it. I had to visit developer forums just to ask questions</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">7 Speed / turnaround / dev dependency</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Trustpilot</span></div>
+      <p class="quote-body">Unbounce now locks you into one-year contracts, clearly to stop users from switching to competitors.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">If you stop paying you will not have access to all the funnels that you have created.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">Clickfunnels is one of the more expensive funnel builders on the market, and the cost can add up quickly if you need to use a lot of third-party [integrations]</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">For those who have never used an all-in-one platform, this was very difficult to learn, and many features are not that intuitive, including the design.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">OK software, awful support and you&#x27;re locked in for life!</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">product-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article><article class="quote-card"><div class="quote-top"><span></span><span class="quote-sub" style="color:var(--text-dim)">Capterra</span></div>
+      <p class="quote-body">May be too much for beginners. If someone only needs basic email marketing or simple landing pages, Kartra can feel like a lot.</p><div class="mini-tags"><span class="mini-tag">size unknown</span><span class="mini-tag">10 All-in-one objections / lock-in</span><span class="mini-tag">solution-aware</span><span class="uflag ok" title="OK to use">OK to use</span></div></article></div>
+</section><section class="panel" data-panel="creative_angles">
+  <p class="kicker">09 · Creative Angles</p>
+  <h2>Angles, mapped to real mechanisms <span class="hl">(21)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Each angle ties a VoC insight to a buyer-words hook and a real Leadpages mechanism, with a <b>status</b> (<span class="st ok">USE</span> <span class="st caution">TEST</span> <span class="st no">PARKED</span>) and a compliance flag. 4 are parked (lock-in / template / needs approval).</p>
+  <div class="honesty-callout"><p class="kicker">How to read this</p><p>Run USE angles in round 1; TEST are awareness / hypothesis probes; PARKED invite comparison with Leadpages’ own weak reviews or need sign-off. Honor every compliance flag — never ‘unlimited credits,’ never white-label, never ‘replaces your outbound stack.’</p></div>
+  <div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 1</span><span class="st ok">USE: rewritten</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">Static / problem-agitate carousel</span></div>
+        <h4>Agencies resent a stack of per-client tools eating margin before the work starts. Direct LP-stack cost quotes are thin; the sentiment comes from r/agency threads about outbound stacks.</h4>
+        <p class="hook">Hook: “Page builder. Heatmaps. A/B testing. Lead enrichment. One bill per client.”</p>
+        <p class="meta"><b>Mechanism:</b> B workspaces + A enrichment (support: testing, heatmaps) &nbsp;·&nbsp; Rewritten to the landing page stack. Never imply it replaces Apollo/Clay/outbound tools.</p>
+        <p class="comp">⚑ Compliance: Safe. Do not imply it replaces Apollo, Clay or outbound tools. No client billing or reseller claims.</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 2</span><span class="st ok">USE: round 1</span><span class="mini-tag">1 Owner / 2 Scaling</span><span class="mini-tag">Static comparison</span></div>
+        <h4>Per-domain &amp; per-seat pricing punishes you for adding clients.</h4>
+        <p class="hook">Hook: “Add a client. Not a surcharge.”</p>
+        <p class="meta"><b>Mechanism:</b> B client workspaces + domains &nbsp;·&nbsp; Lead hook candidate for cost-per-client concepts.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 3</span><span class="st ok">USE: round 1</span><span class="mini-tag">3 Media buyer</span><span class="mini-tag">UGC / talking-head</span></div>
+        <h4>Visitor/conversion caps bill you exactly when a client campaign works.</h4>
+        <p class="hook">Hook: “Your client&#x27;s campaign took off. So did your bill.”</p>
+        <p class="meta"><b>Mechanism:</b> C no traffic caps &nbsp;·&nbsp; Strongest &quot;no traffic caps&quot; hook. Pairs with Unbounce/Instapage comparison.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 4</span><span class="st ok">USE: round 1</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">Text-on-screen hook</span></div>
+        <h4>Surprise price hikes &amp; annual renewals on tools you half-use.</h4>
+        <p class="hook">Hook: “$105 a month. Then $298. Same tool.”</p>
+        <p class="meta"><b>Mechanism:</b> B flat ~$20/client (Pro) / ~$8 (Ultra) &nbsp;·&nbsp; Unbounce conquest. Competitor naming is approved; confirm the $105 to $298 jump is still current before launch. VERIFY before launch: confirm the Unbounce &#x27;$105 to $298&#x27; price jump is still current.</p>
+        <p class="comp">⚑ Compliance: Safe — frame as market pain; do NOT claim Leadpages billing is friction-free (it has its own billing complaints).</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 5</span><span class="st ok">USE: round 1</span><span class="mini-tag">1 Owner / 3 Media buyer</span><span class="mini-tag">Founder voice / demo</span></div>
+        <h4>The dev / Elementor bottleneck kills campaign velocity.</h4>
+        <p class="hook">Hook: “Stop waiting on your dev to ship a landing page.”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder &nbsp;·&nbsp; Dev bottleneck. Good for demo and founder-voice formats.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 6</span><span class="st ok">USE: round 1</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">Demo / screen-record</span></div>
+        <h4>Non-technical staff should ship client pages without a dev.</h4>
+        <p class="hook">Hook: “Your whole team ships pages. No dev ticket. No training month.”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder + B seats &nbsp;·&nbsp; Scaling-agency version of the dev bottleneck; pairs with seats.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 7</span><span class="st ok">USE: round 1</span><span class="mini-tag">1 Owner / 2 Scaling</span><span class="mini-tag">Problem-agitate</span></div>
+        <h4>Agencies maintain a WordPress+Elementor stack that breaks and needs babysitting.</h4>
+        <p class="hook">Hook: “One Elementor update away from a blank client site.”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder + hosting &nbsp;·&nbsp; WordPress/Elementor enemy. Problem-agitate static or UGC.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 8</span><span class="st ok">USE: round 1</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">Grid / UI demo</span></div>
+        <h4>Every client needs its own space, domain and brand — not shared logins.</h4>
+        <p class="hook">Hook: “Ten clients. Ten workspaces. Ten domains. One login.”</p>
+        <p class="meta"><b>Mechanism:</b> B client workspaces + domains + brand kits &nbsp;·&nbsp; Core workspaces hook. Grid/UI static.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 9</span><span class="st ok">USE: support</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">UI demo</span></div>
+        <h4>Brand consistency across many clients is manual and slips.</h4>
+        <p class="hook">Hook: “Every client&#x27;s brand, locked in. Not rebuilt every page.”</p>
+        <p class="meta"><b>Mechanism:</b> B brand kits &nbsp;·&nbsp; Supporting point inside workspace concepts. Brand kits only, never white label.</p>
+        <p class="comp">⚑ Compliance: Safe — &#x27;brand kits&#x27; only; not white-label.</p>
+      </div><div class="angle-card parked">
+        <div class="angle-head"><span class="n">Angle 10</span><span class="st no">PARKED</span><span class="mini-tag">1 Owner / 2 Scaling</span><span class="mini-tag">Text hook / meme</span></div>
+        <h4>All-in-one tools trap your pages in a format you can&#x27;t export.</h4>
+        <p class="hook">Hook: “Your funnels shouldn&#x27;t be a hostage.”</p>
+        <p class="meta"><b>Mechanism:</b> C API/MCP/webhooks (portability) &nbsp;·&nbsp; Lock-in angle invites comparison with Leadpages&#x27; own reviews (missing cancel button, charges after cancelling). Revisit only if billing complaints are resolved.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card parked">
+        <div class="angle-head"><span class="n">Angle 11</span><span class="st no">PARKED</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">Punchy text</span></div>
+        <h4>Lock-in: you pay extra months just to leave.</h4>
+        <p class="hook">Hook: “Locked in for life? That&#x27;s a them problem.”</p>
+        <p class="meta"><b>Mechanism:</b> API/MCP/webhooks &nbsp;·&nbsp; Same risk as #10. API/MCP is not proof of portability; there is no page export claim to make.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card parked">
+        <div class="angle-head"><span class="n">Angle 12</span><span class="st no">PARKED</span><span class="mini-tag">1 Owner / 3 Media buyer</span><span class="mini-tag">Side-by-side visual</span></div>
+        <h4>Template-stamped pages make the agency look generic.</h4>
+        <p class="hook">Hook: “Does your landing page look… generated?”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder + B brand kits &nbsp;·&nbsp; Recent Leadpages reviews call its own templates dated and its AI agent unreliable. Too easy to turn back on us.</p>
+        <p class="comp">⚑ Compliance: CAUTION — don&#x27;t over-promise AI uniqueness; Leadpages&#x27; own AI drew &#x27;ruined my popup&#x27; complaints. Keep to on-brand/not-cookie-cutter.</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 13</span><span class="st ok">USE: round 1</span><span class="mini-tag">3 Media buyer / 1 Owner</span><span class="mini-tag">Screen-record demo</span></div>
+        <h4>Speed: brief to live client page in minutes, not a 2-week dev cycle.</h4>
+        <p class="hook">Hook: “From brief to live page before the kickoff call ends.”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder &nbsp;·&nbsp; Speed hook. Screen-record demo.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 14</span><span class="st ok">USE: caution</span><span class="mini-tag">1 Owner / 2 Scaling</span><span class="mini-tag">UGC reaction</span></div>
+        <h4>Impress the client in the room — a slick page they love.</h4>
+        <p class="hook">Hook: “Make the client say &quot;wow&quot; on the first share.”</p>
+        <p class="meta"><b>Mechanism:</b> C fast pages + heatmaps/A-B (support) &nbsp;·&nbsp; Show heatmaps or test results manually. No automated client reports.</p>
+        <p class="comp">⚑ Compliance: CAUTION — no AUTOMATED client reports; show heatmaps/A-B results manually.</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 15</span><span class="st caution">TEST: awareness</span><span class="mini-tag">2 Scaling / 3 Media buyer</span><span class="mini-tag">Explainer</span></div>
+        <h4>B2B clients ask &#x27;who are these leads / who visited?&#x27;</h4>
+        <p class="hook">Hook: “Your client asks who visited. Now you can actually answer.”</p>
+        <p class="meta"><b>Mechanism:</b> A visitor ID + enrichment &nbsp;·&nbsp; Visitor ID is a latent need (about 2 organic complaints). Leadpages wants to lead with it, so test it head to head against cost-per-client and caps hooks.</p>
+        <p class="comp">⚑ Compliance: CAUTION — LATENT need (thin VoC); this creates awareness. Enrichment is capped (1,000/2,500), not unlimited.</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 16</span><span class="st caution">TEST: awareness</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">Problem-agitate</span></div>
+        <h4>Lead quality: forms fill with bots and junk.</h4>
+        <p class="hook">Hook: “Half your client&#x27;s leads are bots. Know which half.”</p>
+        <p class="meta"><b>Mechanism:</b> A visitor ID + enrichment &nbsp;·&nbsp; Frame as visibility into leads, not a guaranteed bot filter. Caps: 1,000 / 2,500 enrichments a month.</p>
+        <p class="comp">⚑ Compliance: Safe — frame as visibility, not a guaranteed filter.</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 17</span><span class="st neu">OPTIONAL</span><span class="mini-tag">1 Owner</span><span class="mini-tag">Text hook</span></div>
+        <h4>All-in-one bloat vs doing the one job well.</h4>
+        <p class="hook">Hook: “You don&#x27;t need 50 tools in one. You need the page to convert.”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder (focused) &nbsp;·&nbsp; Weak versus #2 to #8. Use only if more owner-operator angles are needed.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card parked">
+        <div class="angle-head"><span class="n">Angle 18</span><span class="st no">PARKED</span><span class="mini-tag">2 Scaling</span><span class="mini-tag">Testimonial-style (reenacted)</span></div>
+        <h4>Conquest: switchers leaving Unbounce/Instapage over price.</h4>
+        <p class="hook">Hook: “Switched from Unbounce to save money, and kept 90% of what I used.&#x27; (their words)”</p>
+        <p class="meta"><b>Mechanism:</b> B cost per client + C &nbsp;·&nbsp; Reviewer quote about a competitor; re-enacting it as a switcher story needs client approval.</p>
+        <p class="comp">⚑ Compliance: CAUTION — this is a REVIEWER quote about a competitor; reenact, don&#x27;t attribute as a Leadpages customer claim.</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 19</span><span class="st ok">USE: caution</span><span class="mini-tag">1 Owner / 2 Scaling</span><span class="mini-tag">Demo</span></div>
+        <h4>AI builder with credits that don&#x27;t vanish mid-month.</h4>
+        <p class="hook">Hook: “An AI builder with the credits to actually use it. 120K a month, no traffic caps.”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder + credits &nbsp;·&nbsp; State 120K / 320K monthly credits only. Never &quot;unlimited credits&quot;.</p>
+        <p class="comp">⚑ Compliance: CAUTION — NEVER say &#x27;unlimited credits&#x27;; state the 120K/320K monthly figure only.</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 20</span><span class="st ok">USE: round 1</span><span class="mini-tag">1 Owner</span><span class="mini-tag">Founder voice</span></div>
+        <h4>Freelancer/owner building pages at night, alone.</h4>
+        <p class="hook">Hook: “You&#x27;re the designer, the dev and the account manager. The page shouldn&#x27;t take all three.”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder &nbsp;·&nbsp; Owner-operator identity hook. Founder voice or UGC.</p>
+        <p class="comp">⚑ Compliance: Safe</p>
+      </div><div class="angle-card">
+        <div class="angle-head"><span class="n">Angle 21</span><span class="st caution">TEST: hypothesis</span><span class="mini-tag">1 Owner / 3 Media buyer</span><span class="mini-tag">Static / UGC talking head</span></div>
+        <h4>NOT from VoC. Account data: this hook got a 4.9% CTR at $15.29 CPM on Meta (transition brief) but was never paired with a trial-optimized setup.</h4>
+        <p class="hook">Hook: “You can build a landing page with Claude. But then what?”</p>
+        <p class="meta"><b>Mechanism:</b> C AI builder + A/B testing + hosting on client domains &nbsp;·&nbsp; Proven attention hook from their account. Judge on cost per trial, not CTR.</p>
+        <p class="comp">⚑ Compliance: Hypothesis: the &quot;built it in Claude, now can&#x27;t host/test/track&quot; pain did not surface in the scrape. Test only.</p>
+      </div>
+</section><section class="panel" data-panel="sources">
+  <p class="kicker">10 · Sources</p>
+  <h2>Sources <span class="hl">(73)</span></h2>
+  <p class="muted" style="margin-bottom:16px">Distinct review pages / threads cited — G2 / Capterra primary, then Trustpilot, AWS Marketplace, Software Advice and a capped Reddit supplement.</p>
+  <div class="src-wrap"><table class="src-table"><thead><tr><th>Platform</th><th>Source detail</th><th>Link</th></tr></thead><tbody><tr><td>AWS Marketplace reviews</td><td>AWS Marketplace — Webflow</td><td><a class="quote-sub" href="https://aws.amazon.com/marketplace/reviews/reviews-list/prodview-eeecmlfoh7lgs" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator</td><td>Black Swan Media — Builderall</td><td><a class="quote-sub" href="https://blackswanmedia.co/builderall-review/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator</td><td>moosend — LP builders</td><td><a class="quote-sub" href="https://moosend.com/blog/landing-page-builder/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator</td><td>uithings — LP builders</td><td><a class="quote-sub" href="https://uithings.com/landing-page-builders" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator</td><td>veloxthemes — Framer vs Webflow</td><td><a class="quote-sub" href="https://veloxthemes.com/blog/framer-vs-webflow" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator (cites Capterra)</td><td>topratedaisoftware — Instapage</td><td><a class="quote-sub" href="https://topratedaisoftware.com/article/instapage-review" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator (cites G2)</td><td>Webflow — white-label builders</td><td><a class="quote-sub" href="https://webflow.com/blog/white-label-landing-page-builders" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator (cites G2+r/PPC)</td><td>Webflow — white-label builders</td><td><a class="quote-sub" href="https://webflow.com/blog/white-label-landing-page-builders" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator/expert</td><td>allodra — CF vs Kartra</td><td><a class="quote-sub" href="https://www.allodra.ai/blog/clickfunnels-vs-kartra" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator/expert</td><td>systeme.io blog — Kartra vs CF</td><td><a class="quote-sub" href="https://systeme.io/blog/kartra-vs-clickfunnels" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator/testimonial</td><td>landy-ai roundup (attrib: Lead gen agency)</td><td><a class="quote-sub" href="https://www.landy-ai.com/blog/best-landing-page-software" target="_blank" rel="noopener">open</a></td></tr><tr><td>Aggregator/testimonial</td><td>landy-ai roundup (attrib: Marcus T., Agency Owner)</td><td><a class="quote-sub" href="https://www.landy-ai.com/blog/best-landing-page-software" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra IL — Swipe Pages</td><td><a class="quote-sub" href="https://www.capterra.co.il/software/207318/swipe-pages" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra UK — Kartra</td><td><a class="quote-sub" href="https://www.capterra.co.uk/reviews/184946/kartra" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — ClickFunnels</td><td><a class="quote-sub" href="https://www.capterra.com/p/156583/ClickFunnels/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — ClickFunnels p2</td><td><a class="quote-sub" href="https://www.capterra.com/p/156583/ClickFunnels/reviews/?page=2" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — ClickFunnels vs Kartra compare</td><td><a class="quote-sub" href="https://www.capterra.com/compare/156583-184946/ClickFunnels-vs-Kartra" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Convertri</td><td><a class="quote-sub" href="https://www.capterra.com/p/186735/Convertri/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Convertri (switched from Leadpages)</td><td><a class="quote-sub" href="https://www.capterra.com/p/186735/Convertri/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Instapage pricing</td><td><a class="quote-sub" href="https://www.capterra.com/p/141695/Instapage/pricing/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Kartra</td><td><a class="quote-sub" href="https://www.capterra.com/p/184946/Kartra/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Kartra (Andrés J G.)</td><td><a class="quote-sub" href="https://www.capterra.com/p/184946/Kartra/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Kartra (switched from ClickFunnels)</td><td><a class="quote-sub" href="https://www.capterra.com/p/184946/Kartra/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Kartra p6</td><td><a class="quote-sub" href="https://www.capterra.com/p/184946/Kartra/reviews/?page=6" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Chad B., Founder/CEO; switched from Instapage/ClickFunnels/Leadpages, reason: Cost)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Darren G., Mktg Consulting)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Gibraan A., CEO, Mktg&amp;Adv)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (João A., Digital Strategist; switched from Convertri)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Justin N., Owner)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Klemen V.; switched from Swipe Pages: &#x27;I cease to trust Swipe Pages&#x27;)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Mateusz P., DM Mgr)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Mateusz W., Growth Hacker)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Natalia P., UX Researcher)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Parker Casio P.)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Parker Casio P., Mktg Mgr)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Rastko N., Lead CRO Designer; switched from Unbounce)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi (Verified, Founder/COO)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi p2</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews/?page=2" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Landingi p3 (switched from Unbounce)</td><td><a class="quote-sub" href="https://www.capterra.com/p/146092/Landingi/reviews?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Leadpages p2</td><td><a class="quote-sub" href="https://www.capterra.com/p/203635/Leadpages/reviews/?page=2" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Leadpages p2 (&#x27;lead competition for some time&#x27;)</td><td><a class="quote-sub" href="https://www.capterra.com/p/203635/Leadpages/reviews/?page=2" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — OptimizePress</td><td><a class="quote-sub" href="https://www.capterra.com/p/149011/OptimizePress/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Simvoly</td><td><a class="quote-sub" href="https://www.capterra.com/p/149370/Simvoly/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Swipe Pages p3</td><td><a class="quote-sub" href="https://www.capterra.com/p/207318/Swipe-Pages/reviews/?page=3" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Unbounce</td><td><a class="quote-sub" href="https://www.capterra.com/p/145639/Unbounce/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Unbounce (&#x27;Unbounce was good&#x27;)</td><td><a class="quote-sub" href="https://www.capterra.com/p/145639/Unbounce/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Unbounce (Christen J.)</td><td><a class="quote-sub" href="https://www.capterra.com/p/145639/Unbounce/reviews/?page=10" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Unbounce (Martijn S., Owner)</td><td><a class="quote-sub" href="https://www.capterra.com/p/145639/Unbounce/reviews/?page=10" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Unbounce (Spencer H.)</td><td><a class="quote-sub" href="https://www.capterra.com/p/145639/Unbounce/reviews/?page=10" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Unbounce (Stuart M.)</td><td><a class="quote-sub" href="https://www.capterra.com/p/145639/Unbounce/reviews/?page=10" target="_blank" rel="noopener">open</a></td></tr><tr><td>Capterra</td><td>Capterra — Unbounce p10</td><td><a class="quote-sub" href="https://www.capterra.com/p/145639/Unbounce/reviews/?page=10" target="_blank" rel="noopener">open</a></td></tr><tr><td>Dribbble services</td><td>Dribbble — Framer/Webflow dev service (turnaround/cost signal)</td><td><a class="quote-sub" href="https://dribbble.com/services/141147-Landing-Page-Webflow-Framer-Dev" target="_blank" rel="noopener">open</a></td></tr><tr><td>G2</td><td>G2 — Landingi</td><td><a class="quote-sub" href="https://www.g2.com/products/landingi" target="_blank" rel="noopener">open</a></td></tr><tr><td>G2</td><td>G2 — Swipe Pages</td><td><a class="quote-sub" href="https://www.g2.com/products/swipe-pages/reviews" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/ClaudeCode</td><td>r/ClaudeCode — &#x27;AI took my job&#x27;</td><td><a class="quote-sub" href="https://www.reddit.com/r/ClaudeCode/comments/1x8zvy2/ai_took_my_job_and_its_okay/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/Hosting</td><td>r/Hosting — hosting setup for small agency WP sites</td><td><a class="quote-sub" href="https://www.reddit.com/r/Hosting/comments/1s8lvlm/what_hosting_setup_makes_the_most_sense_for_a/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/ProWordPress</td><td>r/ProWordPress — rebuilding SEO agency workflow</td><td><a class="quote-sub" href="https://www.reddit.com/r/ProWordPress/comments/1tftkh4/if_you_were_rebuilding_a_small_seofocused/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/agency</td><td>r/agency — $600/mo thread (IsopodEquivalent9221)</td><td><a class="quote-sub" href="https://www.reddit.com/r/agency/comments/1pln2gw/spending_600mo_per_client_just_on_tools_makes_no/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/agency</td><td>r/agency — $600/mo thread (LargeTell3917)</td><td><a class="quote-sub" href="https://www.reddit.com/r/agency/comments/1pln2gw/spending_600mo_per_client_just_on_tools_makes_no/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/agency</td><td>r/agency — $600/mo thread (VastSubstantial50)</td><td><a class="quote-sub" href="https://www.reddit.com/r/agency/comments/1pln2gw/spending_600mo_per_client_just_on_tools_makes_no/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/agency</td><td>r/agency — $600/mo thread (base28)</td><td><a class="quote-sub" href="https://www.reddit.com/r/agency/comments/1pln2gw/spending_600mo_per_client_just_on_tools_makes_no/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/agency</td><td>r/agency — $600/mo thread (tushardey_)</td><td><a class="quote-sub" href="https://www.reddit.com/r/agency/comments/1pln2gw/spending_600mo_per_client_just_on_tools_makes_no/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/agency</td><td>r/agency — &#x27;$600/mo per client just on tools&#x27;</td><td><a class="quote-sub" href="https://www.reddit.com/r/agency/comments/1pln2gw/spending_600mo_per_client_just_on_tools_makes_no/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/elementor</td><td>r/elementor — publishing issues</td><td><a class="quote-sub" href="https://www.reddit.com/r/elementor/comments/1x8fa6j/elementor_page_publishing_issues/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Reddit r/wordpressjobs</td><td>r/wordpressjobs — [Hiring] migrate off Elementor</td><td><a class="quote-sub" href="https://www.reddit.com/r/wordpressjobs/comments/1u7lmpx/hiring_looking_for_an_experience_wordpress/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Software Advice</td><td>SoftwareAdvice — Convertri</td><td><a class="quote-sub" href="https://www.softwareadvice.com/ecommerce/convertri-profile/reviews/" target="_blank" rel="noopener">open</a></td></tr><tr><td>Trustpilot</td><td>Trustpilot — Leadpages</td><td><a class="quote-sub" href="https://www.trustpilot.com/review/leadpages.com" target="_blank" rel="noopener">open</a></td></tr><tr><td>Trustpilot</td><td>Trustpilot — Leadpages (&#x27;Absolutely shocking&#x27;)</td><td><a class="quote-sub" href="https://www.trustpilot.com/review/leadpages.com" target="_blank" rel="noopener">open</a></td></tr><tr><td>Trustpilot</td><td>Trustpilot — Leadpages (&#x27;Ruined by the New Experience&#x27;)</td><td><a class="quote-sub" href="https://www.trustpilot.com/review/leadpages.com" target="_blank" rel="noopener">open</a></td></tr><tr><td>Trustpilot</td><td>Trustpilot — Leadpages (billing)</td><td><a class="quote-sub" href="https://www.trustpilot.com/review/leadpages.com" target="_blank" rel="noopener">open</a></td></tr><tr><td>Trustpilot</td><td>Trustpilot — Unbounce</td><td><a class="quote-sub" href="https://www.trustpilot.com/review/unbounce.com" target="_blank" rel="noopener">open</a></td></tr><tr><td>Trustpilot</td><td>Trustpilot — Unbounce (&#x27;Digging Its Own Grave&#x27;)</td><td><a class="quote-sub" href="https://www.trustpilot.com/review/unbounce.com" target="_blank" rel="noopener">open</a></td></tr></tbody></table></div>
+</section></div>
+  </div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs .tab'),panels=document.querySelectorAll('#deck .panel');
+  function show(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-tab')===id?'true':'false');});
+    panels.forEach(function(p){p.classList.toggle('active',p.getAttribute('data-panel')===id);});window.scrollTo({top:0,behavior:'smooth'});}
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-tab'));});});
+})();
+</script>
+<footer style="max-width:1140px;margin:48px auto 0;padding:22px var(--pad) 40px;border-top:1px solid rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--font);font-size:12px;color:#5c6a88;">
+  <span style="letter-spacing:.02em;">Ad Pros &middot; Brand Intelligence</span>
+  <span>Published by Omar &middot; October 22, 2026</span>
+</footer>
+</body>
+</html>
